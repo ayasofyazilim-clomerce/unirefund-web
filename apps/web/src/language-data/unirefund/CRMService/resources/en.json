@@ -78,6 +78,9 @@
   "Individuals.Description": "Add New Individual",
 
   "Parties.Organization": "Organization",
+  "Parties.ParentOrganization": "Parent Organization",
+  "Parties.Type": "Type",
+  "Parties.FormationType": "Formation Type",
 
   "Contracts": "Contracts",
   "Contracts.New": "New Contract",

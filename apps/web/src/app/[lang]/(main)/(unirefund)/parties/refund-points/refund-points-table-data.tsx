@@ -75,7 +75,7 @@ function refundPointsTable(
     fillerColumn: "name",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "organizationId", "parentId"],
+      columns: ["id", "organizationId", "parentId", "taxOfficeId"],
     },
     tableActions: refundPointsTableActions(
       languageData,
