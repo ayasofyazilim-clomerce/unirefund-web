@@ -1,31 +1,11 @@
 import type { NavbarItemsFromDB } from "@repo/ui/theme/types";
 import type { Session } from "next-auth";
 import type { AbpUiNavigationResource } from "src/language-data/core/AbpUiNavigation";
-import { management, settings } from "./groups";
+import coreNavItems from "./core-navbar-items.json";
+import projectNavItems from "./project-navbar-items.json";
 
 const dbData = {
-  APP: [
-    {
-      key: "/",
-      displayName: "Home",
-      description: "View and manage your Home settings.",
-      href: "home",
-      icon: "Home",
-      parentNavbarItemKey: null,
-      displayOrder: 1,
-    },
-    {
-      key: "home",
-      displayName: "Home",
-      description: "View and manage your Home settings.",
-      href: "/home",
-      icon: "Home",
-      parentNavbarItemKey: "/",
-      displayOrder: 1,
-    },
-    ...settings,
-    ...management,
-  ],
+  APP: process.env.APPLICATION_NAME === "CORE" ? coreNavItems : projectNavItems,
 };
 
 function buildItemHref(prefix: string, item: NavbarItemsFromDB) {
