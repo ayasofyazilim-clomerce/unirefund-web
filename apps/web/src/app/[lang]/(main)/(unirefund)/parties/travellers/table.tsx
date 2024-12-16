@@ -5,7 +5,7 @@ import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
 import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
 import useGrantedPolicies from "src/hooks/use-granted-policies";
-import type { CountryDto } from "../../../../../actions/unirefund/LocationService/types";
+import type { CountryDto } from "../../../../../../actions/unirefund/LocationService/types";
 import { tableData } from "./travellers-table-data";
 
 function TravellersTable({

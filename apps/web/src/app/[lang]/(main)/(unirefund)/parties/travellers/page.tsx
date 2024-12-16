@@ -4,8 +4,8 @@ import type { GetApiTravellerServiceTravellersData } from "@ayasofyazilim/saas/T
 import { notFound } from "next/navigation";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
-import { getCountriesApi } from "../../../../../actions/unirefund/LocationService/actions";
-import { getTravellersApi } from "../../../../../actions/unirefund/TravellerService/actions";
+import { getCountriesApi } from "../../../../../../actions/unirefund/LocationService/actions";
+import { getTravellersApi } from "../../../../../../actions/unirefund/TravellerService/actions";
 import TravellersTable from "./table";
 
 interface SearchParamType {

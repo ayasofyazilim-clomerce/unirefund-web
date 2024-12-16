@@ -12,9 +12,9 @@ import type {
 } from "@repo/ayasofyazilim-ui/molecules/tables/types";
 import TableComponent from "@repo/ui/TableComponent";
 import { getResourceData } from "src/language-data/unirefund/ExportValidationService";
-import { deleteTableRow } from "../../../../../actions/api-requests";
-import { tableFetchRequest } from "../../../../../actions/table-utils";
-import { getTagsApi } from "../../../../../actions/unirefund/TagService/actions";
+import { deleteTableRow } from "../../../../../../actions/api-requests";
+import { tableFetchRequest } from "../../../../../../actions/table-utils";
+import { getTagsApi } from "../../../../../../actions/unirefund/TagService/actions";
 import { Commonfilters } from "../filter";
 
 export default async function Page({ params }: { params: { lang: string } }) {
