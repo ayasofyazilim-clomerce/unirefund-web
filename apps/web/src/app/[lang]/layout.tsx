@@ -19,7 +19,7 @@ export default async function Layout({ children, params }: LayoutProps) {
   const { languageData } = await getResourceData(lang);
   const session = await auth();
   const baseURL = getBaseLink("/", true, lang);
-  const navbarFromDB = getNavbarFromDB(lang, languageData, session);
+  const navbarFromDB = await getNavbarFromDB(lang, languageData, session);
   const profileMenuProps = getProfileMenuFromDB(languageData);
   profileMenuProps.info.name =
     session?.user?.name ?? profileMenuProps.info.name;
