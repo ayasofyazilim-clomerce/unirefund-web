@@ -7,7 +7,6 @@ import projectNavItems from "./project-navbar-items.json";
 const dbData = {
   APP: process.env.APPLICATION_NAME === "CORE" ? coreNavItems : projectNavItems,
 };
-
 function buildItemHref(prefix: string, item: NavbarItemsFromDB) {
   return item.href ? `${prefix}/${item.href}` : null;
 }
