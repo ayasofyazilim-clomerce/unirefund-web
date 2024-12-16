@@ -6,8 +6,8 @@ import { signOutServer } from "auth-action";
 import unirefund from "public/unirefund.png";
 import { getResourceData } from "src/language-data/core/AbpUiNavigation";
 import { getBaseLink } from "src/utils";
-import { getNavbarFromDB } from "../../utils/navbar/navbar-data";
-import { getProfileMenuFromDB } from "../../utils/navbar/navbar-profile-data";
+import { getNavbarFromDB } from "../../../utils/navbar/navbar-data";
+import { getProfileMenuFromDB } from "../../../utils/navbar/navbar-profile-data";
 
 interface LayoutProps {
   params: { lang: string };
