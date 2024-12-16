@@ -1,9 +1,9 @@
 import type { GetApiTravellerServiceTravellersData } from "@ayasofyazilim/saas/TravellerService";
 import { $UniRefund_TravellerService_Travellers_TravellerListProfileDto } from "@ayasofyazilim/saas/TravellerService";
 import type { ColumnFilter } from "@repo/ayasofyazilim-ui/molecules/tables/types";
+import type { CountryDto } from "src/actions/unirefund/LocationService/types";
 import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
 import { getResourceDataClient } from "src/language-data/unirefund/TravellerService";
-import type { CountryDto } from "../../../../../actions/unirefund/LocationService/types";
 
 export type TravllersKeys =
   keyof typeof $UniRefund_TravellerService_Travellers_TravellerListProfileDto.properties;

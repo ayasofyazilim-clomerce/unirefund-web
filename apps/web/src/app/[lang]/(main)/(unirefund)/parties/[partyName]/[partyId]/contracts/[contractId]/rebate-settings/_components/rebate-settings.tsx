@@ -30,10 +30,10 @@ import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/ty
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import RebateForm from "src/app/[lang]/(unirefund)/settings/templates/rebate/rebate-form";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { postMerchantContractHeaderRebateSettingByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
+import RebateForm from "src/app/[lang]/(main)/(unirefund)/settings/templates/rebate/rebate-form";
 import {
   MerchantStoresWidget,
   RebateTableWidget,
