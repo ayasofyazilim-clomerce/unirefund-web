@@ -65,6 +65,9 @@ function merchantColumns(
       rows: $UniRefund_CRMService_Merchants_MerchantProfileDto.properties,
       languageData: {
         name: languageData.Name,
+        parentName: languageData["Parties.ParentOrganization"],
+        typeCode: languageData["Parties.Type"],
+        entityInformationTypeCode: languageData["Parties.FormationType"],
       },
       config: {
         locale,
@@ -112,7 +115,7 @@ function merchantTable(
       textFilters: ["name"],
       facetedFilters: {
         typeCode: {
-          title: "Type",
+          title: languageData["Parties.Type"],
           options: [
             {
               label: "Headquarter",

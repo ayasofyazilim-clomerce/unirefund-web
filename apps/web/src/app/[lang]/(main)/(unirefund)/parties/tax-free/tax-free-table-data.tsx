@@ -58,6 +58,7 @@ function taxFreeColumns(
       rows: $UniRefund_CRMService_TaxFrees_TaxFreeProfileDto.properties,
       languageData: {
         name: languageData.Name,
+        parentName: languageData["Parties.ParentOrganization"],
       },
       config: {
         locale,

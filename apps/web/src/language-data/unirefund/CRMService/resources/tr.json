@@ -78,6 +78,9 @@
   "Individuals.Description": "Yeni Birey Ekle",
 
   "Parties.Organization": "Organizasyon",
+  "Parties.ParentOrganization": "Bağlı Olduğu Organizasyon",
+  "Parties.Type": "Tip",
+  "Parties.FormationType": "Oluşum Tipi",
 
   "Contracts": "Sözleşmeler",
   "Contracts.New": "Yeni sözleşme",

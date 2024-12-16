@@ -75,6 +75,8 @@ function individualColumns(
       rows: $UniRefund_CRMService_Individuals_IndividualProfileDto.properties,
       languageData: {
         name: languageData.Name,
+        affiliationCode: languageData.Role,
+        affiliationParentTypeCode: languageData["Parties.FormationType"],
       },
       config: {
         locale,
