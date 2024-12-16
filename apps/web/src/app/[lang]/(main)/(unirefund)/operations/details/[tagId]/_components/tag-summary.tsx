@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { FileIcon } from "lucide-react";
+import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import { dateToString, getStatusColor } from "../utils";
 
 interface SummaryListType {
@@ -32,66 +33,68 @@ function SummaryList({ summaryList }: { summaryList: SummaryListType }) {
 
 function TagSummary({
   tagDetail,
+  languageData,
 }: {
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
+  languageData: TagServiceResource;
 }) {
   const exportValidation = tagDetail.exportValidation;
   const billing = tagDetail.billing;
   const refund = tagDetail.refund;
   const exportValidationList: SummaryListType = {
-    title: "Export validation",
+    title: languageData.ExportValidation,
     rows: [
       {
-        title: "Status",
+        title: languageData.Status,
         content: exportValidation?.status || "",
         contentClassName: getStatusColor(exportValidation?.status || ""),
       },
       {
-        title: "Date",
+        title: languageData.Date,
         content: dateToString(exportValidation?.date || "", "tr"),
       },
       {
-        title: "Stamp",
+        title: languageData.Stamp,
         content: exportValidation?.stampType || "",
       },
     ],
   };
   const billingList: SummaryListType = {
-    title: "Billing",
+    title: languageData.Billing,
     rows: [
       {
-        title: "Status",
+        title: languageData.Status,
         content: billing?.status?.toString() || "",
         contentClassName: getStatusColor(billing?.status?.toString() || ""),
       },
       {
-        title: "Date",
+        title: languageData.Date,
         content: dateToString(billing?.billingDate || "", "tr"),
       },
       {
-        title: "Billing No",
+        title: languageData.BillingNo,
         content: billing?.billingNumber || "",
       },
     ],
   };
   const refundList: SummaryListType = {
-    title: "Refund",
+    title: languageData.Refund,
     rows: [
       {
-        title: "Status",
+        title: languageData.Status,
         content: refund?.status?.toString() || "",
         contentClassName: getStatusColor(refund?.status?.toString() || ""),
       },
       {
-        title: "Date",
+        title: languageData.Date,
         content: dateToString(refund?.paidDate || "", "tr"),
       },
       {
-        title: "Refund Method",
+        title: languageData.RefundMethod,
         content: refund?.refundMethod || "",
       },
       {
-        title: "Location",
+        title: languageData.Location,
         content: refund?.refundLocation || "",
       },
     ],
@@ -102,16 +105,20 @@ function TagSummary({
         <CardHeader className="py-6">
           <CardTitle className="mb-4 flex items-center gap-2 text-2xl">
             <FileIcon />
-            Tag Summary
+            {languageData.TagSummary}
           </CardTitle>
 
           <div className="justif y-between flex flex-row gap-5">
             <div className="mt-2 flex w-1/3 flex-col">
-              <div className="text-sm text-gray-500 ">Tax Free Tag ID</div>
+              <div className="text-sm text-gray-500 ">
+                {languageData.TaxFreeTagID}
+              </div>
               <div className="font-semibold">{tagDetail.tagNumber}</div>
             </div>
             <div className="mt-2 flex w-1/3 flex-col">
-              <div className="text-sm text-gray-500 ">Status</div>
+              <div className="text-sm text-gray-500 ">
+                {languageData.Status}
+              </div>
               <div
                 className={`${getStatusColor(tagDetail.status || "")} font-semibold`}
               >
@@ -119,7 +126,9 @@ function TagSummary({
               </div>
             </div>
             <div className="mt-2 flex w-1/3 flex-col">
-              <div className="text-sm text-gray-500 ">Issue Date</div>
+              <div className="text-sm text-gray-500 ">
+                {languageData.IssueDate}
+              </div>
               <div className="font-semibold">
                 {dateToString(tagDetail.issueDate || "", "tr")}
               </div>

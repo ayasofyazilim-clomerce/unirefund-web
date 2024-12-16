@@ -3,12 +3,15 @@ import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas
 import InfoCard from "@repo/ayasofyazilim-ui/molecules/infocard";
 import { DollarSign } from "lucide-react";
 import { useParams } from "next/navigation";
+import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import { localizeCurrency } from "src/utils/utils-number";
 
 function Totals({
+  languageData,
   tagDetail,
 }: {
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
+  languageData: TagServiceResource;
 }) {
   const params = useParams<{ lang: "en" }>();
   const currencyFormatter = localizeCurrency(params.lang);
@@ -23,7 +26,7 @@ function Totals({
           )}
           icon={<DollarSign className="size-4" />}
           key={total.totalType}
-          title={total.totalType || ""}
+          title={languageData[total.totalType || "None"]}
         />
       ))}
     </div>
