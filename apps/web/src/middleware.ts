@@ -24,7 +24,7 @@ export const i18n = {
     "zh-hant",
   ],
 };
-const APPLICATION_NAME = process.env.APPLICATION_NAME || "ABP.io react";
+
 const publicURLs = ["404", "500", "api", "public"];
 const authPages = ["login", "register", "forgot-password", "reset-password"];
 function getLocaleFromBrowser(request: NextRequest) {
@@ -84,13 +84,9 @@ export const middleware = auth((request: NextAuthRequest) => {
       new URL(`/${locale}/login?redirect=${req.nextUrl.pathname}`, hostURL),
     );
   }
-  // function redirectToProfile(locale: string) {
-  //   return NextResponse.redirect(new URL(`/${locale}/public`, hostURL));
-  // }
+
   function redirectToRoot(locale: string) {
-    if (APPLICATION_NAME.toLocaleLowerCase() === "unirefund") {
-      return NextResponse.redirect(new URL(`/${locale}/home`, hostURL));
-    }
+    return NextResponse.redirect(new URL(`/${locale}/home`, hostURL));
   }
   function allowURL(locale: string, req: NextRequest) {
     const response = NextResponse.next();

@@ -1,7 +1,7 @@
 [
   {
     "key": "/",
-    "displayName": "Home2",
+    "displayName": "Home",
     "description": "View and manage your Home settings.",
     "href": "home",
     "icon": "Home",
@@ -10,7 +10,7 @@
   },
   {
     "key": "home",
-    "displayName": "Home2",
+    "displayName": "Home",
     "description": "View and manage your Home settings.",
     "href": "/home",
     "icon": "Home",
