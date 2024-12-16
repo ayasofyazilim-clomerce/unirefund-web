@@ -342,5 +342,15 @@
     "parentNavbarItemKey": "finance",
     "displayOrder": 1,
     "requiredPolicies": ["FinanceService.Billings"]
+  },
+  {
+    "key": "refund",
+    "displayName": "Refund",
+    "description": "Manage refund.",
+    "href": "refund",
+    "icon": "log",
+    "parentNavbarItemKey": "/",
+    "displayOrder": 1,
+    "requiredPolicies": ["RefundService.Refunds"]
   }
 ]
