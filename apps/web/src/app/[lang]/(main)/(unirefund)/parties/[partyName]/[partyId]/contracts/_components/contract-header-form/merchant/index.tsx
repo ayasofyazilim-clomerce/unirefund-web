@@ -86,6 +86,11 @@ export default function MerchantContractHeaderForm(
           inputType: "url",
         },
       },
+      validFrom: {
+        "ui:options": {
+          fromDate: new Date(),
+        },
+      },
       "ui:className": "md:grid md:gap-2 md:grid-cols-2",
       addressCommonDataId: {
         "ui:className": "row-start-2",

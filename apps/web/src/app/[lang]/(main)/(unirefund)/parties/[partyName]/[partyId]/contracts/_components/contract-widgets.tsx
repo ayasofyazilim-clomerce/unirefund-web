@@ -2,7 +2,6 @@ import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/t
 import { CustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
   UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto as RefundTableHeaderDto,
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto,
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto as RefundFeeHeaderDto,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
@@ -107,42 +106,6 @@ export function RefundFeeWidget({
         searchResultLabel={
           languageData[
             "Contracts.Form.refundFeeHeaders.refundFeeHeaderId.searchResultLabel"
-          ]
-        }
-        selectIdentifier="id"
-        selectLabel="name"
-      />
-    );
-  }
-  return Widget;
-}
-
-export function RebateTableWidget({
-  loading,
-  languageData,
-  rebateTableHeaders,
-}: {
-  loading: boolean;
-  languageData: ContractServiceResource;
-  rebateTableHeaders: RebateTableHeaderDto[] | undefined;
-}) {
-  function Widget(comboboxProps: WidgetProps) {
-    return (
-      <CustomCombobox<RebateTableHeaderDto>
-        {...comboboxProps}
-        disabled={loading}
-        emptyValue={
-          languageData["Rebate.Form.rebateTableHeadersFromTemplate.id"]
-        }
-        list={rebateTableHeaders}
-        searchPlaceholder={
-          languageData[
-            "Rebate.Form.rebateTableHeadersFromTemplate.id.searchPlaceholder"
-          ]
-        }
-        searchResultLabel={
-          languageData[
-            "Rebate.Form.rebateTableHeadersFromTemplate.id.searchResultLabel"
           ]
         }
         selectIdentifier="id"
