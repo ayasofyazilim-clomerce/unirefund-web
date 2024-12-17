@@ -32,6 +32,7 @@ import { dataConfig } from "../../data.tsx";
 import Claims from "./table-actions/claims.tsx";
 import PermissionsComponent from "./table-actions/permissions.tsx";
 import SessionsComponent from "./table-actions/sessions.tsx";
+import AssignableRoles from "./table-actions/assignable-roles.tsx";
 
 async function controlledFetch(
   url: string,
@@ -538,7 +539,30 @@ export default function Page({
       content: <></>,
     });
   }
-
+  const assingableRoles = async (
+    row: { id: string },
+    setIsOpen?: (e: boolean) => void,
+  ) => {
+    await Promise.resolve();
+    return (
+      <AssignableRoles
+        lang={params.lang}
+        rowId={row.id}
+        setIsOpen={setIsOpen}
+      />
+    );
+  };
+  if (params.data === "role") {
+    columnsData.data.actionList?.push({
+      type: "Dialog",
+      cta: languageData["Role.Assignable"],
+      loadingContent: <>Loading...</>,
+      description: languageData["Role.Assignable.Description"],
+      componentType: "CustomComponent",
+      customComponentRendering: (setIsOpen) => assingableRoles(setIsOpen),
+      content: <></>,
+    });
+  }
   return (
     <Dashboard
       action={action}

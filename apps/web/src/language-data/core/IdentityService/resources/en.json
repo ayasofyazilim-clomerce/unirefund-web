@@ -9,6 +9,11 @@
   "Role.MoveAllUsers.Update.Success": "All users moved successfully",
   "Role.Select": "Select role",
   "Role.Unassigned": "Unassign role",
+  "Role.Assignable": "Assignable roles",
+  "Role.Assignable.Description": "You can update the assignable roles from here.",
+  "Role.AssignableRoles.Get.Fail": "Failed to fetch assignable roles",
+  "Role.AssignableRoles.Put.Success": "Assignable roles updated successfully",
+  "Role.AssignableRoles.Put.Fail": "Failed to update assignable roles",
   "Form.isDefault": "Default",
   "Form.isPublic": "Public",
 
