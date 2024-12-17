@@ -8,5 +8,6 @@ module.exports = {
     camelcase: "off",
     "import/no-cycle": "off",
     "no-return-await": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
   },
 };
