@@ -81,10 +81,6 @@ export default async function Page({
       id: params.partyId,
     });
   }
-
-  if (!contracts || contracts.type !== "success") {
-    notFound();
-  }
   const taxOffices = await getTaxOfficesApi();
   const taxOfficeList =
     (taxOffices.type === "success" && taxOffices.data.items) || [];
@@ -196,16 +192,19 @@ export default async function Page({
             partyId={params.partyId}
             partyName={params.partyName}
           />
-          {(params.partyName === "merchants" ||
-            params.partyName === "refund-points") && (
+          {contracts &&
+          (params.partyName === "merchants" ||
+            params.partyName === "refund-points") ? (
             <Contracts
-              contractsData={contracts.data}
+              contractsData={
+                contracts.type === "success" ? contracts.data : { items: [] }
+              }
               lang={params.lang}
               languageData={{ ...languageData, ...contractsLanguageData }}
               partyId={params.partyId}
               partyName={params.partyName}
             />
-          )}
+          ) : null}
         </SectionLayout>
       </div>
       <div className="hidden" id="page-title">
