@@ -206,6 +206,35 @@
     "displayOrder": 1
   },
   {
+    "key": "settings/product",
+    "displayName": "Product",
+    "description": "Configure VAT settings and rules.",
+    "href": null,
+    "icon": "settings",
+    "parentNavbarItemKey": "settings",
+    "displayOrder": 1
+  },
+  {
+    "key": "settings/product/vats",
+    "displayName": "VAT",
+    "description": "Manage VAT settings and rates.",
+    "href": "settings/product/vats",
+    "icon": "vat",
+    "parentNavbarItemKey": "settings/product",
+    "displayOrder": 1,
+    "requiredPolicies": ["SettingService.Vats"]
+  },
+  {
+    "key": "settings/product/product-groups",
+    "displayName": "ProductGroup",
+    "description": "Manage product groups and categories.",
+    "href": "settings/product/product-groups",
+    "icon": "product",
+    "parentNavbarItemKey": "settings/product",
+    "displayOrder": 1,
+    "requiredPolicies": ["SettingService.ProductGroupVats"]
+  },
+  {
     "key": "settings/tenant",
     "displayName": "Tenant",
     "description": "Manage settings for tenants.",
@@ -214,6 +243,46 @@
     "parentNavbarItemKey": "settings",
     "displayOrder": 1,
     "requiredPolicies": ["UniRefund.Dashboard.Tenant"]
+  },
+
+  {
+    "key": "settings/templates",
+    "displayName": "Templates",
+    "description": "Manage templates.",
+    "href": null,
+    "icon": "layer",
+    "parentNavbarItemKey": "settings",
+    "displayOrder": 1
+  },
+  {
+    "key": "settings/templates/refund-fees",
+    "displayName": "RefundFees",
+    "description": "Manage refund fees",
+    "href": "settings/templates/refund-fees",
+    "icon": "settings",
+    "parentNavbarItemKey": "settings/templates",
+    "displayOrder": 1,
+    "requiredPolicies": ["ContractService.RefundFeeHeader"]
+  },
+  {
+    "key": "settings/templates/refund-tables",
+    "displayName": "RefundTables",
+    "description": "Manage refund tables",
+    "href": "settings/templates/refund-tables",
+    "icon": "settings",
+    "parentNavbarItemKey": "settings/templates",
+    "displayOrder": 1,
+    "requiredPolicies": ["ContractService.RefundTableHeader"]
+  },
+  {
+    "key": "settings/templates/rebate",
+    "displayName": "Rebate",
+    "description": "Manage rebate",
+    "href": "settings/templates/rebate",
+    "icon": "settings",
+    "parentNavbarItemKey": "settings/templates",
+    "displayOrder": 1,
+    "requiredPolicies": ["ContractService.RebateSetting"]
   },
   {
     "key": "parties",
