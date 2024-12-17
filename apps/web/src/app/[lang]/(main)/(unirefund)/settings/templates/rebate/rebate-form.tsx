@@ -4,15 +4,15 @@ import { cn } from "@/lib/utils";
 import type {
   UniRefund_ContractService_Rebates_ProcessingFeeDetails_ProcessingFeeDetailCreateDto as ProcessingFeeDetailCreateDto,
   UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as RebateTableDetailCreateDto,
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as RebateTableHeaderCreateDto,
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto,
+  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderForTemplateCreateDto as RebateTableHeaderCreateDto,
+  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderTemplateDto as RebateTableHeaderDto,
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as RebateTableHeaderUpdateDto,
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderNotTemplateCreateDto as RebateTableHeaderNotTemplateCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {
   $UniRefund_ContractService_Rebates_ProcessingFeeDetails_ProcessingFeeDetailCreateDto as $ProcessingFeeDetailCreateDto,
   $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as $RebateTableDetailCreateDto,
-  $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto,
+  $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderForTemplateCreateDto as $RebateTableHeaderCreateDto,
   $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto,
   $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderNotTemplateCreateDto as $RebateTableHeaderNotTemplateCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
@@ -110,7 +110,7 @@ export default function RebateForm(props: RebateFormProps) {
     name: "Rebate.Form",
     extend: {
       "ui:className": "md:grid md:grid-cols-2 md:gap-4",
-      name: { "ui:className": "md:col-span-2" },
+      name: { "ui:className": "md:col-span-full" },
       rebateTableDetails: {
         "ui:field": "RebateTable",
         "ui:className": props.formType === "add" && "md:col-span-full",
@@ -119,13 +119,6 @@ export default function RebateForm(props: RebateFormProps) {
         "ui:field": "ProcessingFeeDetails",
         "ui:className": props.formType === "add" && "md:col-span-full",
       },
-      isTemplate: {
-        "ui:widget": "switch",
-        "ui:className": "border rounded-md px-2",
-        "ui:options": {
-          disabled: true,
-        },
-      },
       calculateNetCommissionInsteadOfRefund: {
         "ui:widget": "switch",
         "ui:className": cn(
@@ -133,6 +126,9 @@ export default function RebateForm(props: RebateFormProps) {
           (props.formType === "create" || props.formType === "add") &&
             "md:col-span-full",
         ),
+      },
+      validFrom: {
+        "ui:className": "md:col-span-full",
       },
     },
   });

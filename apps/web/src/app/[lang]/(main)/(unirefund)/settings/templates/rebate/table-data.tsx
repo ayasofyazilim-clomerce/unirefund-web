@@ -1,5 +1,5 @@
-import type { UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as $RebateTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
+import type { UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderTemplateDto as RebateTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
+import { $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderTemplateDto as $RebateTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
 import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { CheckCircle, PlusCircle, XCircle } from "lucide-react";
