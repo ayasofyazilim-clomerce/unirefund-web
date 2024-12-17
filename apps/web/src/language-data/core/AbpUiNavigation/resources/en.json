@@ -72,6 +72,6 @@
   "ExportValidation": "Export Validation",
   "ExportValidation.Description": "You can view the export validations from here.",
   "Finance": "Finance",
-  "Billing": "Billing",
-  "Billing.Description": "You can view the billing from here."
+  "VatStatements": "Vat Statements",
+  "VatStatements.Description": "You can view the vat statements from here."
 }

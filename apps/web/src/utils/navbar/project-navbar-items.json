@@ -403,10 +403,10 @@
     "requiredPolicies": ["FinanceService.Billings"]
   },
   {
-    "key": "finance/billing",
-    "displayName": "Billing",
-    "description": "Manage billing settings.",
-    "href": "finance/billing",
+    "key": "finance/vat-statements",
+    "displayName": "VatStatements",
+    "description": "Manage Vat Statement settings.",
+    "href": "finance/vat-statements",
     "icon": "log",
     "parentNavbarItemKey": "finance",
     "displayOrder": 1,

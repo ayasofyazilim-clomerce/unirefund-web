@@ -77,6 +77,6 @@
   "ExportValidation": "İhracat Doğrulaması",
   "ExportValidation.Description": "İhracat Doğrulamasını buradan görüntüleyebilirsiniz.",
   "Finance": "Finans",
-  "Billing": "Fatura",
-  "Billing.Description": "Fatura listesini buradan görüntüleyebilirsiniz."
+  "VatStatements": "KDV Beyanları",
+  "VatStatements.Description": "Buradan KDV beyanlarını görüntüleyebilirsiniz."
 }

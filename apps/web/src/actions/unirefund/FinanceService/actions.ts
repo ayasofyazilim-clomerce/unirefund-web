@@ -1,31 +1,54 @@
 "use server";
-import type { GetApiFinanceServiceBillingsData } from "@ayasofyazilim/saas/FinanceService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import type {
+  GetApiFinanceServiceVatStatementHeadersByIdData,
+  GetApiFinanceServiceVatStatementHeadersData,
+  GetApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
+} from "@ayasofyazilim/saas/FinanceService";
+import {
+  getFinanceServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 
-export async function getBillingApi(data: GetApiFinanceServiceBillingsData) {
+export async function getVatStatementHeadersApi(
+  data: GetApiFinanceServiceVatStatementHeadersData,
+) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.billing.get(data);
+    const client = await getFinanceServiceClient();
+    const dataResponse =
+      await client.vatStatementHeader.getApiFinanceServiceVatStatementHeaders(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function getBillingDetailApi(id: string) {
+
+export async function getVatStatementHeadersDetailApi(
+  data: GetApiFinanceServiceVatStatementHeadersByIdData,
+) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.billing.getDetail(id);
+    const client = await getFinanceServiceClient();
+    const dataResponse =
+      await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function deleteBillingApi(id: string) {
+export async function getVatStatementHeadersFormDraftApi(
+  data: GetApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
+) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.billing.deleteRow(id);
+    const client = await getFinanceServiceClient();
+    const dataResponse =
+      await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersFormDraftByMerchantId(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

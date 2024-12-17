@@ -69,11 +69,6 @@ import type {
   PutApiExportValidationServiceExportValidationByIdData,
 } from "@ayasofyazilim/saas/ExportValidationService";
 import type {
-  GetApiFinanceServiceBillingsData,
-  PostApiFinanceServiceBillingsData,
-  PutApiFinanceServiceBillingsByIdData,
-} from "@ayasofyazilim/saas/FinanceService";
-import type {
   GetApiIdentityClaimTypesData,
   GetApiIdentityRolesByIdClaimsData,
   GetApiIdentityRolesData,
@@ -116,7 +111,6 @@ import {
   getContractServiceClient,
   getCRMServiceClient,
   getExportValidationServiceClient,
-  getFinanceServiceClient,
   getIdentityServiceClient,
   getLocationServiceClient,
   getRefundServiceClient,
@@ -160,7 +154,6 @@ export type GetDetailTableDataTypes = Exclude<
   | "users"
   | "tags"
   | "editions"
-  | "billing"
   | "applications"
   | "tenants"
   | "refund"
@@ -180,7 +173,6 @@ export async function getApiRequests() {
   const exportValidationClient =
     await getExportValidationServiceClient(session);
   const tagClient = await getTagServiceClient(session);
-  const financeClient = await getFinanceServiceClient(session);
   const refundClient = await getRefundServiceClient(session);
   const administrationClient = await getAdministrationServiceClient(session);
   const tableRequests = {
@@ -895,22 +887,6 @@ export async function getApiRequests() {
     tags: {
       get: async (data: GetApiTagServiceTagData) =>
         await tagClient.tag.getApiTagServiceTag(data),
-    },
-    billing: {
-      get: async (data: GetApiFinanceServiceBillingsData) =>
-        await financeClient.billing.getApiFinanceServiceBillings(data),
-      getDetail: async (id: string) =>
-        await financeClient.billing.getApiFinanceServiceBillingsById({
-          id,
-        }),
-      post: async (data: PostApiFinanceServiceBillingsData) =>
-        await financeClient.billing.postApiFinanceServiceBillings(data),
-      put: async (data: PutApiFinanceServiceBillingsByIdData) =>
-        await financeClient.billing.putApiFinanceServiceBillingsById(data),
-      deleteRow: async (id: string) =>
-        await financeClient.billing.deleteApiFinanceServiceBillings({
-          id,
-        }),
     },
     applications: {
       getTokenLifetime: async (
