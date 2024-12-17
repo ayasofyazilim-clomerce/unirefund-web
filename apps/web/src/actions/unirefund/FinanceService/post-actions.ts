@@ -1,12 +1,20 @@
 "use server";
-import type { PostApiFinanceServiceBillingsData } from "@ayasofyazilim/saas/FinanceService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import type { PostApiFinanceServiceVatStatementHeadersData } from "@ayasofyazilim/saas/FinanceService";
+import {
+  getFinanceServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 
-export async function postBillingApi(data: PostApiFinanceServiceBillingsData) {
+export async function postVatStatementHeadersApi(
+  data: PostApiFinanceServiceVatStatementHeadersData,
+) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.billing.post(data);
+    const client = await getFinanceServiceClient();
+    const dataResponse =
+      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeaders(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
