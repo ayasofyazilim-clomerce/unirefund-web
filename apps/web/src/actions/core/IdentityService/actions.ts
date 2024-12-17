@@ -9,11 +9,7 @@ import type {
   PutApiIdentityRolesByIdMoveAllUsersData,
   PutApiIdentityUsersByIdClaimsData,
 } from "@ayasofyazilim/saas/IdentityService";
-import {
-  getIdentityServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import { structuredError, structuredResponse } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function getClaimsApi(body: GetApiIdentityClaimTypesData = {}) {
@@ -142,19 +138,6 @@ export async function deleteUserSessionsApi(id: string) {
   try {
     const requests = await getApiRequests();
     const dataResponse = await requests.sessions.deleteRow(id);
-    return structuredResponse(dataResponse);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getAssignableRolesApi(id: string) {
-  try {
-    const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.assignableRole.getApiIdentityAssignableRolesAllRolesWithAssignableById(
-        { id },
-      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
