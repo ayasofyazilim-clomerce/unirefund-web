@@ -26,8 +26,8 @@ export default async function Page({
         <TagSummary languageData={languageData} tagDetail={tagDetail} />
       </div>
       <div className="flex w-1/3 flex-col">
-        <MerchantDetails tagDetail={tagDetail} />
-        <TravellerDetails tagDetail={tagDetail} />
+        <MerchantDetails languageData={languageData} tagDetail={tagDetail} />
+        <TravellerDetails languageData={languageData} tagDetail={tagDetail} />
       </div>
     </div>
   );
