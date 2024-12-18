@@ -24,8 +24,8 @@ import {
   putTravellerPersonalPreferenceApi,
   putTravellerPersonalSummaryApi,
 } from "src/actions/unirefund/TravellerService/put-actions";
-import useGrantedPolicies from "src/hooks/use-granted-policies";
 import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
+import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./identification-table-data";
 
 export default function Page({
@@ -59,7 +59,7 @@ export default function Page({
     resources: languageData,
     name: "Form.Summary",
   });
-  const grantedPolicies = useGrantedPolicies();
+  const { grantedPolicies } = useGrantedPolicies();
   const { lang } = useParams<{ lang: string }>();
   const columns = tableData.identifications.columns(
     lang,
