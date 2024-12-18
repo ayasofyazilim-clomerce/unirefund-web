@@ -1,4 +1,6 @@
 {
+  "VatStatements.Information": "Bilgi",
+  "VatStatements.TaxFreeTags": "Tax Free etiketleri",
   "Form.merchantId": "Mağaza Adı",
   "Form.merchantName": "Mağaza Adı",
   "Form.date": "Tarih",
@@ -27,5 +29,11 @@
   "Form.paymentStatus.Paid": "Ödendi",
   "Form.paymentStatus.NotPaid": "Ödenmedi",
   "Form.paymentStatus.PartlyPaid": "Kısmen Ödendi",
-  "Form.paymentStatus.OverPaid": "Fazla Ödenmiş"
+  "Form.paymentStatus.OverPaid": "Fazla Ödenmiş",
+  "Form.tagNumber": "Etiket Numarası",
+  "Form.refundDate": "İade Tarihi",
+  "Form.grandTotal": "Toplam",
+  "Form.taxAmount": "Vergi Tutarı",
+  "Form.refundAmount": "İade Tutarı",
+  "Form.correctedAmount": "Düzeltilmiş Tutar"
 }
