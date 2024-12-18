@@ -1,4 +1,9 @@
 {
+  "TagNumber": "Etiket Numarası",
+  "TravellerFullName": "Yolcunun Tam Adı",
+  "MerchantTitle": "Mağaza Adı",
+  "InvoiceNumber": "Fatura Numarası",
+
   "SalesAmount": "Satış Tutarı",
   "VatAmount": "KDV Tutarı",
   "GrossRefund": "Net Tutar",
