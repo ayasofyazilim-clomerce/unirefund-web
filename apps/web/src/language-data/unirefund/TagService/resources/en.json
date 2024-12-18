@@ -29,5 +29,10 @@
   "TaxFreeTagID": "Tax Free Tag ID",
   "PurchaseDetails": "Purchase Details",
   "TagHistory": "Tag History",
-  "NoHistoryFound": "No history found..."
+  "NoHistoryFound": "No history found...",
+  "FacturaNo": "Factura No",
+  "Amount": "Amount",
+  "Totals": "Totals",
+
+  "Earnings": "Earnings"
 }

@@ -2,7 +2,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
-import { useParams } from "next/navigation";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import PurchaseDetailsTable from "./purchase-details/table";
 
@@ -13,7 +12,6 @@ function TagTabs({
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
   languageData: TagServiceResource;
 }) {
-  const params = useParams<{ lang: "en" }>();
   return (
     <Tabs defaultValue="account">
       <TabsList className="grid w-full grid-cols-2">
@@ -26,7 +24,6 @@ function TagTabs({
         <Card className="min-h-0 flex-1 rounded-none p-0">
           <PurchaseDetailsTable
             languageData={languageData}
-            locale={params.lang}
             tagDetail={tagDetail}
             tagNo={tagDetail.id || ""}
           />
