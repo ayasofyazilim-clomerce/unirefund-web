@@ -5,9 +5,9 @@ import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useRouter } from "next/navigation";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { useGrantedPolicies } from "src/providers/granted-policies";
-import { tableData } from "./table-data";
+import { tableData } from "./refunds-table-data";
 
-function RefundTable({
+function RefundsTable({
   locale,
   response,
   languageData,
@@ -18,8 +18,8 @@ function RefundTable({
 }) {
   const { grantedPolicies } = useGrantedPolicies();
   const router = useRouter();
-  const columns = tableData.refund.columns(locale);
-  const table = tableData.refund.table(languageData, router, grantedPolicies);
+  const columns = tableData.refunds.columns(locale);
+  const table = tableData.refunds.table(languageData, router, grantedPolicies);
 
   return (
     <TanstackTable
@@ -31,4 +31,4 @@ function RefundTable({
   );
 }
 
-export default RefundTable;
+export default RefundsTable;
