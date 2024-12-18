@@ -5,7 +5,7 @@ import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getRefundApi } from "src/actions/unirefund/RefundService/actions";
-import RefundTable from "./table";
+import RefundsTable from "./table";
 
 export default async function Page(props: {
   params: { lang: string };
@@ -24,7 +24,7 @@ export default async function Page(props: {
   const { languageData } = await getResourceData(props.params.lang);
 
   return (
-    <RefundTable
+    <RefundsTable
       languageData={languageData}
       locale={props.params.lang}
       response={response.data}

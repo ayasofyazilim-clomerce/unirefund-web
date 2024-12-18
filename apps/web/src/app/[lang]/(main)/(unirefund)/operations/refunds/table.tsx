@@ -7,7 +7,7 @@ import type { ContractServiceResource } from "src/language-data/unirefund/Contra
 import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./table-data";
 
-function RefundTable({
+function RefundsTable({
   locale,
   response,
   languageData,
@@ -31,4 +31,4 @@ function RefundTable({
   );
 }
 
-export default RefundTable;
+export default RefundsTable;
