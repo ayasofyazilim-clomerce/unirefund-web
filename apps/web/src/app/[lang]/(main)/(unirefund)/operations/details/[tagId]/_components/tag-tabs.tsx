@@ -13,14 +13,14 @@ function TagTabs({
   languageData: TagServiceResource;
 }) {
   return (
-    <Tabs defaultValue="account">
+    <Tabs defaultValue="purchase-details">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">
+        <TabsTrigger value="purchase-details">
           {languageData.PurchaseDetails}
         </TabsTrigger>
-        <TabsTrigger value="password">{languageData.TagHistory}</TabsTrigger>
+        <TabsTrigger value="tag-history">{languageData.TagHistory}</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">
+      <TabsContent value="purchase-details">
         <Card className="min-h-0 flex-1 rounded-none p-0">
           <PurchaseDetailsTable
             languageData={languageData}
@@ -29,7 +29,7 @@ function TagTabs({
           />
         </Card>
       </TabsContent>
-      <TabsContent value="password">
+      <TabsContent value="tag-history">
         <Card className="h-32 min-h-0 flex-1 rounded-none py-6">
           <CardContent>{languageData.NoHistoryFound}</CardContent>
         </Card>
