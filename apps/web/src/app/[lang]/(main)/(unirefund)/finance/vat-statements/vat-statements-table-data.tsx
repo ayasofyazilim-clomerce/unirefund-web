@@ -1,31 +1,46 @@
 import type { UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
 import { $PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {
+  TanstackTableColumnLink,
+  TanstackTableCreationProps,
+} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import isActionGranted from "src/utils/page-policy/action-policy";
+import type { Policy } from "src/utils/page-policy/utils";
 
-type BillingTable =
+type VatStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>;
 
-const billingColumns = (locale: string, languageData: FinanceServiceResource) =>
-  tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>(
+const links: Partial<
+  Record<
+    keyof UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto,
+    TanstackTableColumnLink
+  >
+> = {};
+const vatStatementsColumns = (
+  locale: string,
+  languageData: FinanceServiceResource,
+  grantedPolicies: Record<Policy, boolean>,
+) => {
+  if (isActionGranted(["FinanceService.Billings.Edit"], grantedPolicies)) {
+    links.merchantName = {
+      prefix: "vat-statements",
+      targetAccessorKey: "id",
+    };
+  }
+  return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>(
     {
       rows: $PagedResultDto_VATStatementHeaderForListDto.properties.items.items
         .properties,
       languageData: {
-        languageData: languageData as Record<string, string>,
+        languageData,
         constantKey: "Form",
       },
       config: {
         locale,
       },
-
-      links: {
-        merchantName: {
-          prefix: "vat-statements",
-          targetAccessorKey: "id",
-        },
-      },
+      links,
       badges: {
         merchantName: {
           values:
@@ -64,9 +79,9 @@ const billingColumns = (locale: string, languageData: FinanceServiceResource) =>
       },
     },
   );
-
-const billingTable = () => {
-  const table: BillingTable = {
+};
+function vatStatementsTable() {
+  const table: VatStatementsTable = {
     fillerColumn: "merchantName",
     columnVisibility: {
       type: "hide",
@@ -84,11 +99,11 @@ const billingTable = () => {
     ],
   };
   return table;
-};
+}
 
 export const tableData = {
-  billing: {
-    columns: billingColumns,
-    table: billingTable,
+  vatStatements: {
+    columns: vatStatementsColumns,
+    table: vatStatementsTable,
   },
 };
