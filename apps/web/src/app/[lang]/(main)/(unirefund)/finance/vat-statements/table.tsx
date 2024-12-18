@@ -3,9 +3,10 @@
 import type { PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./vat-statements-table-data";
 
-function BillingTable({
+function VatStatementTable({
   locale,
   response,
   languageData,
@@ -14,8 +15,13 @@ function BillingTable({
   response: PagedResultDto_VATStatementHeaderForListDto;
   languageData: FinanceServiceResource;
 }) {
-  const columns = tableData.billing.columns(locale, languageData);
-  const table = tableData.billing.table();
+  const { grantedPolicies } = useGrantedPolicies();
+  const columns = tableData.vatStatements.columns(
+    locale,
+    languageData,
+    grantedPolicies,
+  );
+  const table = tableData.vatStatements.table();
 
   return (
     <TanstackTable
@@ -26,4 +32,4 @@ function BillingTable({
     />
   );
 }
-export default BillingTable;
+export default VatStatementTable;
