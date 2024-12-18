@@ -4,7 +4,7 @@ import type { PagedResultDto_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRM
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import useGrantedPolicies from "src/hooks/use-granted-policies";
+import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./tax-offices-table-data";
 
 function TaxOfficesTable({
@@ -14,7 +14,7 @@ function TaxOfficesTable({
   response: PagedResultDto_TaxOfficeProfileDto;
   languageData: CRMServiceServiceResource;
 }) {
-  const grantedPolicies = useGrantedPolicies();
+  const { grantedPolicies } = useGrantedPolicies();
   const router = useRouter();
   const { lang } = useParams<{ lang: string }>();
   const columns = tableData.taxOffices.columns(

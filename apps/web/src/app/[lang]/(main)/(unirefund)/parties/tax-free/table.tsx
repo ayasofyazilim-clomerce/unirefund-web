@@ -4,7 +4,7 @@ import type { PagedResultDto_TaxFreeProfileDto } from "@ayasofyazilim/saas/CRMSe
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import useGrantedPolicies from "src/hooks/use-granted-policies";
+import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./tax-free-table-data";
 
 function TaxFreeTable({
@@ -14,7 +14,7 @@ function TaxFreeTable({
   response: PagedResultDto_TaxFreeProfileDto;
   languageData: CRMServiceServiceResource;
 }) {
-  const grantedPolicies = useGrantedPolicies();
+  const { grantedPolicies } = useGrantedPolicies();
   const router = useRouter();
   const { lang } = useParams<{ lang: string }>();
   const columns = tableData.taxFrees.columns(
