@@ -100,7 +100,7 @@ function TagStatuses({
   };
   return (
     <Card className="flex-1 rounded-none">
-      <CardHeader className="py-6">
+      <CardHeader className="py-4">
         <div className="flex flex-row gap-4">
           <SummaryList summaryList={exportValidationList} />
           <SummaryList summaryList={billingList} />

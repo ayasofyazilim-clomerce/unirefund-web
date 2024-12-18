@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { useParams } from "next/navigation";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import InvoiceTable from "./purchase-details/table";
+import PurchaseDetailsTable from "./purchase-details/table";
 
 function TagTabs({
   tagDetail,
@@ -24,7 +24,7 @@ function TagTabs({
       </TabsList>
       <TabsContent value="account">
         <Card className="min-h-0 flex-1 rounded-none p-0">
-          <InvoiceTable
+          <PurchaseDetailsTable
             languageData={languageData}
             locale={params.lang}
             tagDetail={tagDetail}

@@ -14,7 +14,7 @@ function TagSummary({
 }) {
   return (
     <Card className="flex-1 rounded-none">
-      <CardHeader className="py-6">
+      <CardHeader className="py-4">
         <CardTitle className="mb-4 flex items-center gap-2 text-2xl">
           <FileIcon />
           {languageData.TagSummary}
