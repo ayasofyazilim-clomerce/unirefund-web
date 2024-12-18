@@ -26,5 +26,12 @@
   "MerchantDetails": "Mağaza Detayı",
   "TagSummary": "Etiket Özeti",
   "TravellerDetails": "Yolcu Detayı",
-  "TaxFreeTagID": "Tax Free Etiket ID"
+  "TaxFreeTagID": "Tax Free Etiket ID",
+  "PurchaseDetails": "Harcama Detayları",
+  "TagHistory": "Etiket Geçmişi",
+  "NoHistoryFound": "Geçmiş hareket bulunamadı...",
+  "FacturaNo": "Fatura No",
+  "Amount": "Miktar",
+  "Totals": "Toplam",
+  "Earnings": "Kazançlar"
 }

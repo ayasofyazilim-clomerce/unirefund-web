@@ -26,5 +26,13 @@
   "MerchantDetails": "Merchant Details",
   "TagSummary": "Tag Summary",
   "TravellerDetails": "Traveller Details",
-  "TaxFreeTagID": "Tax Free Tag ID"
+  "TaxFreeTagID": "Tax Free Tag ID",
+  "PurchaseDetails": "Purchase Details",
+  "TagHistory": "Tag History",
+  "NoHistoryFound": "No history found...",
+  "FacturaNo": "Factura No",
+  "Amount": "Amount",
+  "Totals": "Totals",
+
+  "Earnings": "Earnings"
 }
