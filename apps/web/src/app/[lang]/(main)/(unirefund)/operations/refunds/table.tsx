@@ -5,7 +5,7 @@ import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useRouter } from "next/navigation";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { useGrantedPolicies } from "src/providers/granted-policies";
-import { tableData } from "./table-data";
+import { tableData } from "./refunds-table-data";
 
 function RefundsTable({
   locale,
