@@ -1,10 +1,9 @@
 "use client";
 
-import type { PagedResultDto_BillingDto } from "@ayasofyazilim/saas/FinanceService";
+import type { PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useRouter } from "next/navigation";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
-import { tableData } from "./table-data";
+import { tableData } from "./vat-statements-table-data";
 
 function BillingTable({
   locale,
@@ -12,12 +11,11 @@ function BillingTable({
   languageData,
 }: {
   locale: string;
-  response: PagedResultDto_BillingDto;
+  response: PagedResultDto_VATStatementHeaderForListDto;
   languageData: FinanceServiceResource;
 }) {
-  const router = useRouter();
   const columns = tableData.billing.columns(locale, languageData);
-  const table = tableData.billing.table(router, languageData);
+  const table = tableData.billing.table();
 
   return (
     <TanstackTable
