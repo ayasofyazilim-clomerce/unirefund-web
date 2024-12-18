@@ -1,4 +1,9 @@
 {
+  "TagNumber": "Tag Number",
+  "TravellerFullName": "Traveller Full Name",
+  "MerchantTitle": "Merchant Title",
+  "InvoiceNumber": "Invoice Number",
+
   "SalesAmount": "Sale Amount",
   "VatAmount": "Vat Amount",
   "GrossRefund": "Gross Refund",
