@@ -1,6 +1,15 @@
 "use client";
 
 import { IdCardIcon } from "@radix-ui/react-icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import {
+  ISection,
+  SectionLayoutNavbar,
+} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 import {
   BookA,
@@ -37,17 +46,13 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
+import Link from "next/link";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
 import SearchBar from "./navbar-searchbar";
 import NotificationsDropdown from "./notifications";
 import ProfileMenu from "./profile-menu";
-import {
-  ISection,
-  SectionLayoutNavbar,
-} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
-import Link from "next/link";
 
 export default function Navbar({
   prefix,
@@ -56,6 +61,7 @@ export default function Navbar({
   activeSectionLayoutItem,
   navigation,
   lang,
+  tenantData,
 }: {
   prefix: string;
   lang: string;
@@ -63,6 +69,7 @@ export default function Navbar({
   navigation: BreadcrumbItemType[];
   sectionLayoutItems: ISection[];
   activeSectionLayoutItem: string;
+  tenantData?: { tenantId: string; tenantName: string };
 }) {
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
@@ -70,6 +77,23 @@ export default function Navbar({
         <div className="flex flex-wrap items-center justify-between">
           <div className="flex items-center justify-start">
             <Logo />
+            {tenantData && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    className="text-muted-foreground font-light"
+                    onClick={() => {
+                      navigator.clipboard.writeText(tenantData.tenantId);
+                    }}
+                  >
+                    □ {tenantData.tenantName}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-black">
+                  Click to copy tenant id.
+                </TooltipContent>
+              </Tooltip>
+            )}
           </div>
           <div className="flex items-center lg:order-2">
             <SearchBar navbarItems={navbarItems} prefix={prefix} />

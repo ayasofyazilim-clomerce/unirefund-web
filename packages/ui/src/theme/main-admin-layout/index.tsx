@@ -13,6 +13,7 @@ function MainAdminLayout(props: any) {
       profileMenu={props.profileMenu}
       prefix={props.prefix}
       lang={props.lang}
+      tenantData={props.tenantData}
     >
       <HeaderSection />
     </ThemeProvider>
