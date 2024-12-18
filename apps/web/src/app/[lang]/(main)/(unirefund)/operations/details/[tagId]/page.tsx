@@ -21,14 +21,12 @@ export default async function Page({
 
   const tagDetail = response.data;
   return (
-    <div className="gap-3">
-      <div className="grid grid-cols-2 gap-3">
-        <TagSummary languageData={languageData} tagDetail={tagDetail} />
-        <MerchantDetails languageData={languageData} tagDetail={tagDetail} />
-        <TagStatuses languageData={languageData} tagDetail={tagDetail} />
-        <TravellerDetails languageData={languageData} tagDetail={tagDetail} />
-        <TagTabs languageData={languageData} tagDetail={tagDetail} />
-      </div>
+    <div className="mb-2 grid h-full grid-cols-2 gap-3 overflow-auto">
+      <TagSummary languageData={languageData} tagDetail={tagDetail} />
+      <MerchantDetails languageData={languageData} tagDetail={tagDetail} />
+      <TagStatuses languageData={languageData} tagDetail={tagDetail} />
+      <TravellerDetails languageData={languageData} tagDetail={tagDetail} />
+      <TagTabs languageData={languageData} tagDetail={tagDetail} />
     </div>
   );
 }
