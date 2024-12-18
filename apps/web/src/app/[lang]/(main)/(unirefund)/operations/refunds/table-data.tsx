@@ -17,10 +17,10 @@ import isActionGranted from "src/utils/page-policy/action-policy";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import type { Policy } from "src/utils/page-policy/utils";
 
-type RefundTable =
+type RefundsTable =
   TanstackTableCreationProps<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>;
 
-function refundTableActions(
+function refundsTableActions(
   languageData: ContractServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
@@ -33,14 +33,14 @@ function refundTableActions(
       cta: languageData.New,
       icon: PlusCircle,
       onClick() {
-        router.push("refund/new");
+        router.push("refunds/new");
       },
     });
   }
   return actions;
 }
 
-const refundColumns = (
+const refundsColumns = (
   locale: string,
   languageData?: TanstackTableLanguageDataType,
 ) =>
@@ -54,14 +54,14 @@ const refundColumns = (
     },
   );
 
-function refundTable(
+function refundsTable(
   languageData: ContractServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
-): RefundTable {
-  const table: RefundTable = {
+): RefundsTable {
+  const table: RefundsTable = {
     fillerColumn: "userDeviceName",
-    tableActions: refundTableActions(languageData, router, grantedPolicies),
+    tableActions: refundsTableActions(languageData, router, grantedPolicies),
 
     filters: {
       facetedFilters: {
@@ -84,8 +84,8 @@ function refundTable(
               }),
             ),
         },
-        statusesFilterRefundTypes: {
-          title: "RefundTypes",
+        statusesFilterRefundsTypes: {
+          title: "RefundsTypes",
           options: $UniRefund_TagService_Tags_RefundType.enum.map((x) => ({
             label: x,
             value: x,
@@ -104,8 +104,8 @@ function refundTable(
   return table;
 }
 export const tableData = {
-  refund: {
-    columns: refundColumns,
-    table: refundTable,
+  refunds: {
+    columns: refundsColumns,
+    table: refundsTable,
   },
 };

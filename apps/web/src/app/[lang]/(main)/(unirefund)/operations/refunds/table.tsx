@@ -18,8 +18,8 @@ function RefundTable({
 }) {
   const { grantedPolicies } = useGrantedPolicies();
   const router = useRouter();
-  const columns = tableData.refund.columns(locale);
-  const table = tableData.refund.table(languageData, router, grantedPolicies);
+  const columns = tableData.refunds.columns(locale);
+  const table = tableData.refunds.table(languageData, router, grantedPolicies);
 
   return (
     <TanstackTable
