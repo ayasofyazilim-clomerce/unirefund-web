@@ -1,4 +1,6 @@
 {
+  "VatStatements.Information": "Information",
+  "VatStatements.TaxFreeTags": "Tax Free Tags",
   "Form.merchantId": "Merchant Name",
   "Form.merchantName": "Merchant Name",
   "Form.dueDate": "Due Date",
@@ -25,5 +27,11 @@
   "Form.paymentStatus.Paid": "Paid",
   "Form.paymentStatus.NotPaid": "Not Paid",
   "Form.paymentStatus.PartlyPaid": "Partially Paid",
-  "Form.paymentStatus.OverPaid": "Overpaid"
+  "Form.paymentStatus.OverPaid": "Overpaid",
+  "Form.tagNumber": "Tag Number",
+  "Form.refundDate": "Refund Date",
+  "Form.grandTotal": "Total",
+  "Form.taxAmount": "Tax Amount",
+  "Form.refundAmount": "Refund Amount",
+  "Form.correctedAmount": "Corrected Amount"
 }
