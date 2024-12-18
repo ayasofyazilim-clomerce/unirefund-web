@@ -9,7 +9,7 @@ function Logo() {
   return (
     <Link
       href={baseURL}
-      className="text-primary mr-2 flex items-center justify-between px-2 text-lg font-bold md:mr-6 md:px-0"
+      className="text-primary mr-2 flex items-center justify-between px-2 text-lg font-bold md:mr-2 md:px-0"
     >
       {logo ? (
         <Image

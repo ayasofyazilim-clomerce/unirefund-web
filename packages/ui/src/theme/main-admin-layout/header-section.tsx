@@ -47,7 +47,7 @@ function findBreadcrumbItems(
 }
 
 export function HeaderSection() {
-  const { navbarItems, prefix, lang } = useTheme();
+  const { navbarItems, prefix, lang, tenantData } = useTheme();
   const pathName = usePathname();
   const {
     activeNavItem,
@@ -128,6 +128,7 @@ export function HeaderSection() {
         sectionLayoutItems={sectionLayoutItems}
         prefix={prefix}
         lang={lang}
+        tenantData={tenantData}
       />
       <PageHeader
         title={pageHeaderProps.title}

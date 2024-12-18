@@ -6,6 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import {
   getGrantedPolicies,
   getMyProfile,
+  getTenantData,
   obtainAccessTokenByRefreshToken,
   signInWithCredentials,
 } from "auth-action";
@@ -25,7 +26,6 @@ export interface Token {
 declare module "next-auth" {
   interface User extends Token {
     userName: string;
-    grantedPolicies?: Record<string, boolean>;
   }
 }
 
@@ -35,6 +35,7 @@ declare module "next-auth" {
     access_token?: string;
     user?: GetApiAccountMyProfileResponse;
     grantedPolicies?: Record<string, boolean>;
+    tenantData?: { tenantId: string; tenantName: string };
   }
 }
 declare module "@auth/core/jwt" {
@@ -42,7 +43,6 @@ declare module "@auth/core/jwt" {
     access_token: string;
     expires_at: number;
     refresh_token: string;
-    grantedPolicies?: Record<string, boolean>;
     error?: "RefreshAccessTokenError";
   }
 }
@@ -120,12 +120,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
       }
       const userData = await getMyProfile(typedToken.access_token);
+      const tenantData = await getTenantData(typedToken.access_token);
       const grantedPolicies = await getGrantedPolicies(typedToken.access_token);
       return {
         ...session,
         user: userData,
         access_token: typedToken.access_token,
         grantedPolicies: grantedPolicies || {},
+        tenantData,
       };
     },
     async jwt({ token, user }) {
@@ -137,7 +139,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           access_token: user.access_token,
           expires_at: Math.floor(Date.now() / 1000) + (user.expires_in || 0),
           refresh_token: user.refresh_token,
-          grantedPolicies: user.grantedPolicies,
         };
       } else if (Date.now() < (typedToken.expires_at || 0) * 1000) {
         return token;
@@ -165,7 +166,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         access_token: tokens.access_token,
         expires_at: Math.floor(Date.now() / 1000 + tokens.expires_in),
         refresh_token: tokens.refresh_token ?? token.refresh_token,
-        grantedPolicies: user.grantedPolicies,
       };
     },
   },

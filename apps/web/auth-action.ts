@@ -151,6 +151,26 @@ export async function getMyProfile(
   const profile = await client.profile.getApiAccountMyProfile();
   return profile;
 }
+export async function getTenantData(token: string) {
+  const client = new AccountServiceClient({
+    TOKEN: token,
+    BASE: process.env.BASE_URL,
+    HEADERS: {
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const session = await client.sessions.getApiAccountSessions();
+  const activeSession = session.items?.[0];
+  if (!activeSession?.tenantId || !activeSession.tenantName) {
+    return undefined;
+  }
+  return {
+    tenantId: activeSession.tenantId,
+    tenantName: activeSession.tenantName,
+  };
+}
 
 export async function signInWithCredentials(credentials: {
   username: string;

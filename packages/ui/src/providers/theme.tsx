@@ -12,6 +12,7 @@ interface ThemeProviderProps {
   profileMenu?: ProfileMenuProps;
   prefix: string;
   lang: string;
+  tenantData?: { tenantId: string; tenantName: string };
   children: JSX.Element;
 }
 interface ThemeContextProps {
@@ -22,6 +23,7 @@ interface ThemeContextProps {
   profileMenu?: ProfileMenuProps;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
+  tenantData?: { tenantId: string; tenantName: string };
 }
 
 const ThemeProviderContext = createContext<ThemeContextProps>({
@@ -31,6 +33,7 @@ const ThemeProviderContext = createContext<ThemeContextProps>({
   lang: "en",
   navbarItems: [],
   profileMenu: undefined,
+  tenantData: undefined,
   logo: "",
 });
 
@@ -47,6 +50,7 @@ export function ThemeProvider({
   profileMenu,
   lang,
   navbarItems,
+  tenantData,
 }: ThemeProviderProps) {
   return (
     <ThemeProviderContext.Provider
@@ -58,6 +62,7 @@ export function ThemeProvider({
         prefix,
         lang,
         profileMenu,
+        tenantData,
       }}
     >
       {children}
