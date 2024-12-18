@@ -373,14 +373,24 @@
     "displayOrder": 1
   },
   {
-    "key": "operations/details",
+    "key": "operations/tax-free-tags",
     "displayName": "TaxFreeTags",
     "description": "Manage tax-free tags and settings.",
-    "href": "operations/details",
+    "href": "operations/tax-free-tags",
     "icon": "dashboard",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
     "requiredPolicies": ["TagService.Tags"]
+  },
+  {
+    "key": "operations/refunds",
+    "displayName": "Refunds",
+    "description": "Manage refunds.",
+    "href": "operations/refunds",
+    "icon": "log",
+    "parentNavbarItemKey": "operations",
+    "displayOrder": 1,
+    "requiredPolicies": ["RefundService.Refunds"]
   },
   {
     "key": "operations/export-validation",
@@ -411,15 +421,5 @@
     "parentNavbarItemKey": "finance",
     "displayOrder": 1,
     "requiredPolicies": ["FinanceService.Billings"]
-  },
-  {
-    "key": "refund",
-    "displayName": "Refund",
-    "description": "Manage refund.",
-    "href": "refund",
-    "icon": "log",
-    "parentNavbarItemKey": "/",
-    "displayOrder": 1,
-    "requiredPolicies": ["RefundService.Refunds"]
   }
 ]
