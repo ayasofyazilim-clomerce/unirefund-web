@@ -1,6 +1,5 @@
 "use server";
 import type {
-  GetApiFinanceServiceVatStatementHeadersByIdData,
   GetApiFinanceServiceVatStatementHeadersData,
   GetApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
 } from "@ayasofyazilim/saas/FinanceService";
@@ -25,14 +24,12 @@ export async function getVatStatementHeadersApi(
   }
 }
 
-export async function getVatStatementHeadersDetailApi(
-  data: GetApiFinanceServiceVatStatementHeadersByIdData,
-) {
+export async function getVatStatementHeadersDetailApi(id: string) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
       await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById(
-        data,
+        { id },
       );
     return structuredResponse(dataResponse);
   } catch (error) {
