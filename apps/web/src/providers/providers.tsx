@@ -2,10 +2,11 @@
 
 import Toaster from "@repo/ayasofyazilim-ui/molecules/toaster";
 import { getLocalizationResources } from "src/utils";
+import { auth } from "auth";
 import AuthSession from "./auth";
 import { ConfigProvider } from "./configuration";
 import { LocaleProvider } from "./locale";
-import { PermissionProvider } from "./permissions";
+import { GrantedPoliciesProvider } from "./granted-policies";
 import { ApplicationProvider } from "./application";
 import Tooltip from "./tooltip";
 
@@ -15,6 +16,8 @@ interface ProvidersProps {
 }
 export default async function Providers({ children, lang }: ProvidersProps) {
   const resources = await getLocalizationResources(lang);
+  const sessions = await auth();
+  const grantedPolicies = sessions?.grantedPolicies;
 
   const appName = process.env.APPLICATION_NAME || "UNIREFUND";
   return (
@@ -22,7 +25,7 @@ export default async function Providers({ children, lang }: ProvidersProps) {
       <Toaster richColors />
       <ApplicationProvider appName={appName}>
         <AuthSession>
-          <PermissionProvider>
+          <GrantedPoliciesProvider grantedPolicies={grantedPolicies}>
             <ConfigProvider>
               <Tooltip>
                 <LocaleProvider lang={lang} resources={resources}>
@@ -30,7 +33,7 @@ export default async function Providers({ children, lang }: ProvidersProps) {
                 </LocaleProvider>
               </Tooltip>
             </ConfigProvider>
-          </PermissionProvider>
+          </GrantedPoliciesProvider>
         </AuthSession>
       </ApplicationProvider>
     </>
