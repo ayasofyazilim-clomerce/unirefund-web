@@ -3,6 +3,12 @@
   "TravellerFullName": "Traveller Full Name",
   "MerchantTitle": "Merchant Title",
   "InvoiceNumber": "Invoice Number",
+  "ReconciliationStatuses": "Reconciliation Statuses",
+  "TravellerFeeAmount": "Traveller Fee Amount",
+  "ProcessedDate": "Processed Date",
+  "PaidDate": "Paid Date",
+  "ReferenceNumber": "Reference Number",
+  "Currency": "Currency",
 
   "SalesAmount": "Sale Amount",
   "VatAmount": "Vat Amount",
