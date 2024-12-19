@@ -13,6 +13,7 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { putCountrySettingsApi } from "src/actions/core/AdministrationService/put-actions";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
 import {
   createDependencies,
   createFieldConfig,
@@ -24,7 +25,7 @@ export default function TenantSettingsPage({
   languageData,
 }: {
   list: CountrySettingDto;
-  languageData: AdministrationServiceResource;
+  languageData: AdministrationServiceResource | SettingServiceResource;
 }) {
   const router = useRouter();
   const { group } = useParams<{ group: string }>();
@@ -73,7 +74,7 @@ export default function TenantSettingsPage({
 
 function createTabListFromList(
   list: CountrySettingDto,
-  languageData: AdministrationServiceResource,
+  languageData: AdministrationServiceResource | SettingServiceResource,
 ) {
   return list.groups.map((item) => {
     return {
