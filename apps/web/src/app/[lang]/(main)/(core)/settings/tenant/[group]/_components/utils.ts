@@ -13,6 +13,7 @@ import type {
   FieldConfig,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
 import { description } from "./description";
 
 export type AllowedValueTypeModelNameStringEnum =
@@ -32,7 +33,7 @@ export function isGroupDto(
 
 function createConfig(
   item: UniRefund_SettingService_Items_GroupItemDto,
-  languageData: AdministrationServiceResource,
+  languageData: AdministrationServiceResource | SettingServiceResource,
 ): Record<
   string,
   { description: string; displayName: string; fieldType?: string }
@@ -68,7 +69,7 @@ function createConfig(
 }
 function subField(
   item: UniRefund_SettingService_Items_GroupItemDto,
-  languageData: AdministrationServiceResource,
+  languageData: AdministrationServiceResource | SettingServiceResource,
 ) {
   if (item.subItems && item.subItems.length > 0) {
     const subitemconfigs = item.subItems.map(
@@ -82,7 +83,10 @@ function subField(
           const key = subitem.key || "";
           return {
             [key]: {
-              ...Object.values(subsubitemconfigs),
+              ...subsubitemconfigs.reduce(
+                (acc, curr) => ({ ...acc, ...curr }),
+                {},
+              ),
               displayName:
                 languageData[
                   subitem.displayName as keyof typeof languageData
@@ -103,7 +107,7 @@ function subField(
     const key = item.key || "";
     const subs = {
       [key]: {
-        ...Object.values(subitemconfigs),
+        ...subitemconfigs.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         displayName:
           languageData[item.displayName as keyof typeof languageData] ||
           item.displayName,
@@ -120,7 +124,7 @@ function subField(
 }
 export function createFieldConfig(
   object: UniRefund_SettingService_Groups_GroupDto,
-  languageData: AdministrationServiceResource,
+  languageData: AdministrationServiceResource | SettingServiceResource,
 ): FieldConfig<Record<string, string | boolean | number>> {
   const configs = object.items?.map(
     (item: UniRefund_SettingService_Items_GroupItemDto) => {

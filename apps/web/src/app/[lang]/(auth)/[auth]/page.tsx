@@ -7,6 +7,7 @@ import NextError from "next/error";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
+import { Logo } from "@repo/ui/logo";
 import { useLocale } from "src/providers/locale";
 import {
   sendPasswordResetCodeServer,
@@ -161,10 +162,18 @@ export default function Page(): JSX.Element {
   }
 
   const renderAppContent = (projectName: string) => {
-    const baseClassName = "text-2xl font-bold text-[#f15656] md:text-5xl";
     switch (projectName) {
       default:
-        return <div className={baseClassName}>ABP.io react</div>;
+        return (
+          <Logo
+            textProps={{
+              className: "max-w-lg w-full px-4",
+            }}
+            variant="text"
+          />
+          // <div className={baseClassName}>
+          // </div>
+        );
     }
   };
   return (

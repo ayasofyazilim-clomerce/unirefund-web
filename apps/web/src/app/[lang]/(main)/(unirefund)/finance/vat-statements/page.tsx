@@ -5,7 +5,7 @@ import { getVatStatementHeadersApi } from "src/actions/unirefund/FinanceService/
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import BillingTable from "./table";
+import VatStatementTable from "./table";
 
 export default async function Page(props: {
   params: { lang: string };
@@ -25,7 +25,7 @@ export default async function Page(props: {
   if (isErrorOnRequest(response, props.params.lang)) return;
 
   return (
-    <BillingTable
+    <VatStatementTable
       languageData={languageData}
       locale={props.params.lang}
       response={response.data}
