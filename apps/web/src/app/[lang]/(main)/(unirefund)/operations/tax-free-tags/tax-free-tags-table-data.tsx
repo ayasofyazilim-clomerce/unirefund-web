@@ -141,6 +141,26 @@ function taxFreeTagsTable(languageData: TagServiceResource): RefundsTable {
         "tagNumber",
         "invoiceNumber",
       ],
+      dateFilters: [
+        {
+          label: languageData.IssueDate,
+          startAccessorKey: "issuedStartDate",
+          endAccessorKey: "issuedEndDate",
+          canFilteredBySingleDate: false,
+        },
+        {
+          label: languageData.ExportDate,
+          startAccessorKey: "exportStartDate",
+          endAccessorKey: "exportEndDate",
+          canFilteredBySingleDate: false,
+        },
+        {
+          label: languageData.PaidDate,
+          startAccessorKey: "paidStartDate",
+          endAccessorKey: "paidEndDate",
+          canFilteredBySingleDate: false,
+        },
+      ],
     },
   };
   return table;
