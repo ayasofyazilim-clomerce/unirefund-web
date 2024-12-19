@@ -12,7 +12,10 @@ export default async function Page(props: {
   searchParams: Promise<GetApiFinanceServiceVatStatementHeadersData>;
 }) {
   await isUnauthorized({
-    requiredPolicies: ["FinanceService.Billings"],
+    requiredPolicies: [
+      "FinanceService.Billings",
+      "FinanceService.VATStatementHeader",
+    ],
     lang: props.params.lang,
   });
 

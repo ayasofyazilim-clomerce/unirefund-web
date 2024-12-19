@@ -25,8 +25,9 @@ const vatStatementsColumns = (
 ) => {
   if (isActionGranted(["FinanceService.Billings.Edit"], grantedPolicies)) {
     links.merchantName = {
-      prefix: "vat-statements",
+      prefix: "/finance/vat-statements",
       targetAccessorKey: "id",
+      suffix: "/information",
     };
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>(
