@@ -2,6 +2,7 @@
 
 import type { PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
+import { useRouter } from "next/navigation";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
 import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./vat-statements-table-data";
@@ -15,13 +16,18 @@ function VatStatementTable({
   response: PagedResultDto_VATStatementHeaderForListDto;
   languageData: FinanceServiceResource;
 }) {
+  const router = useRouter();
   const { grantedPolicies } = useGrantedPolicies();
   const columns = tableData.vatStatements.columns(
     locale,
     languageData,
     grantedPolicies,
   );
-  const table = tableData.vatStatements.table();
+  const table = tableData.vatStatements.table(
+    languageData,
+    router,
+    grantedPolicies,
+  );
 
   return (
     <TanstackTable

@@ -3,8 +3,11 @@ import { $PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saa
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
+  TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { PlusIcon } from "lucide-react";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 import type { Policy } from "src/utils/page-policy/utils";
@@ -25,7 +28,7 @@ const vatStatementsColumns = (
 ) => {
   if (isActionGranted(["FinanceService.Billings.Edit"], grantedPolicies)) {
     links.merchantName = {
-      prefix: "/finance/vat-statements",
+      prefix: "vat-statements",
       targetAccessorKey: "id",
       suffix: "/information",
     };
@@ -81,8 +84,43 @@ const vatStatementsColumns = (
     },
   );
 };
-function vatStatementsTable() {
+
+function vatStatementTableActions(
+  languageData: FinanceServiceResource,
+  router: AppRouterInstance,
+  grantedPolicies: Record<Policy, boolean>,
+) {
+  const actions: TanstackTableTableActionsType[] = [];
+  if (
+    isActionGranted(
+      ["FinanceService.VATStatementHeader.Create"],
+      grantedPolicies,
+    )
+  ) {
+    actions.push({
+      type: "simple",
+      cta: languageData["VatStatements.New"],
+      icon: PlusIcon,
+      actionLocation: "table",
+      onClick: () => {
+        router.push("vat-statements/new");
+      },
+    });
+  }
+  return actions;
+}
+
+function vatStatementsTable(
+  languageData: FinanceServiceResource,
+  router: AppRouterInstance,
+  grantedPolicies: Record<Policy, boolean>,
+) {
   const table: VatStatementsTable = {
+    tableActions: vatStatementTableActions(
+      languageData,
+      router,
+      grantedPolicies,
+    ),
     fillerColumn: "merchantName",
     columnVisibility: {
       type: "hide",
