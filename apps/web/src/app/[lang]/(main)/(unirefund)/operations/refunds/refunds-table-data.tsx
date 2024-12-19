@@ -7,21 +7,20 @@ import {
 } from "@ayasofyazilim/saas/RefundService";
 import type {
   TanstackTableCreationProps,
-  TanstackTableLanguageDataType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { PlusCircle } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import type { Policy } from "src/utils/page-policy/utils";
 
 type RefundsTable =
   TanstackTableCreationProps<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>;
 
 function refundsTableActions(
-  languageData: ContractServiceResource,
+  languageData: TagServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
@@ -40,14 +39,21 @@ function refundsTableActions(
   return actions;
 }
 
-const refundsColumns = (
-  locale: string,
-  languageData?: TanstackTableLanguageDataType,
-) =>
+const refundsColumns = (locale: string, languageData: TagServiceResource) =>
   tanstackTableCreateColumnsByRowData<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>(
     {
       rows: $PagedResultDto_RefundListItem.properties.items.items.properties,
-      languageData,
+      languageData: {
+        refundType: languageData.RefundMethod,
+        travellerDocumentNumber: languageData.TravellerDocumentNo,
+        refundAmount: languageData.Amount,
+        refundCurrency: languageData.Currency,
+        travellerFeeAmount: languageData.TravellerFeeAmount,
+        processedDate: languageData.ProcessedDate,
+        paidDate: languageData.PaidDate,
+        referenceNumber: languageData.ReferenceNumber,
+        status: languageData.Status,
+      },
       config: {
         locale,
       },
@@ -55,18 +61,31 @@ const refundsColumns = (
   );
 
 function refundsTable(
-  languageData: ContractServiceResource,
+  languageData: TagServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ): RefundsTable {
   const table: RefundsTable = {
-    fillerColumn: "userDeviceName",
+    fillerColumn: "referenceNumber",
     tableActions: refundsTableActions(languageData, router, grantedPolicies),
-
+    columnVisibility: {
+      type: "show",
+      columns: [
+        "paidDate",
+        "processedDate",
+        "referenceNumber",
+        "refundType",
+        "refundAmount",
+        "refundCurrency",
+        "travellerDocumentNumber",
+        "travellerFeeAmount",
+      ],
+    },
+    columnOrder: ["referenceNumber", "travellerDocumentNumber"],
     filters: {
       facetedFilters: {
         statusesFilterStatuses: {
-          title: "Statuses",
+          title: languageData.Status,
           options: $UniRefund_RefundService_Enums_RefundStatus.enum.map(
             (x) => ({
               label: x,
@@ -75,7 +94,7 @@ function refundsTable(
           ),
         },
         statusesFilterReconciliationStatuses: {
-          title: "ReconciliationStatuses",
+          title: languageData.ReconciliationStatuses,
           options:
             $UniRefund_RefundService_Enums_RefundReconciliationStatus.enum.map(
               (x) => ({
@@ -84,8 +103,8 @@ function refundsTable(
               }),
             ),
         },
-        statusesFilterRefundsTypes: {
-          title: "RefundsTypes",
+        statusesFilterRefundTypes: {
+          title: languageData.RefundMethod,
           options: $UniRefund_TagService_Tags_RefundType.enum.map((x) => ({
             label: x,
             value: x,
@@ -94,7 +113,7 @@ function refundsTable(
       },
       dateFilters: [
         {
-          label: "Creation Time",
+          label: languageData.CreationTime,
           startAccessorKey: "timeFilterStartDate",
           endAccessorKey: "timeFilterEndDate",
         },

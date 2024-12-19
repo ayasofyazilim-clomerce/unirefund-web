@@ -3,6 +3,12 @@
   "TravellerFullName": "Yolcunun Tam Adı",
   "MerchantTitle": "Mağaza Adı",
   "InvoiceNumber": "Fatura Numarası",
+  "ReconciliationStatuses": "Uzlaşma Durumu",
+  "TravellerFeeAmount": "Yolcu Ücreti",
+  "ProcessedDate": "İşlem Tarihi",
+  "PaidDate": "Ödeme Tarihi",
+  "ReferenceNumber": "Referans Numarası",
+  "Currency": "Para Birimi",
 
   "SalesAmount": "Satış Tutarı",
   "VatAmount": "KDV Tutarı",
