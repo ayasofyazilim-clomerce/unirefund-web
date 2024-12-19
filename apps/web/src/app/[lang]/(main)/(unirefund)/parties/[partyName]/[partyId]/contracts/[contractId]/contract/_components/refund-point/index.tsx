@@ -24,11 +24,13 @@ export function ContractHeader({
   addressList,
   languageData,
   refundFeeHeaders,
+  fromDate,
 }: {
   contractHeaderDetails: ContractHeaderDetailForRefundPointDto;
   addressList: AddressCommonDataDto[];
   refundFeeHeaders: RefundFeeHeader[];
   languageData: ContractServiceResource;
+  fromDate: Date;
 }) {
   const [loading, setLoading] = useState(false);
   return (
@@ -57,6 +59,7 @@ export function ContractHeader({
             }),
         }}
         formType="update"
+        fromDate={fromDate}
         languageData={languageData}
         loading={loading}
         refundFeeHeaders={refundFeeHeaders}

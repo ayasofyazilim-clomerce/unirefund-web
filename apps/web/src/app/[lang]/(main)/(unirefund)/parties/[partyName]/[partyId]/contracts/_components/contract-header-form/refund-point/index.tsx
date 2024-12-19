@@ -34,6 +34,7 @@ type RefundPointContractHeaderFormProps = {
   languageData: ContractServiceResource;
   addresses: AddressTypeDto[];
   refundFeeHeaders: RefundFeeHeaderDto[];
+  fromDate: Date;
 } & (
   | RefundPointContractHeaderUpdateFormProps
   | RefundPointContractHeaderCreateFormProps
@@ -58,6 +59,7 @@ export default function RefundPointContractHeaderForm(
     addresses,
     refundFeeHeaders,
     setLoading,
+    fromDate,
   } = props;
   const router = useRouter();
   const { partyId, partyName } = useParams<{
@@ -98,6 +100,13 @@ export default function RefundPointContractHeaderForm(
       earlyRefund: {
         "ui:widget": "switch",
       },
+      validFrom: {
+        "ui:options": {
+          fromDate,
+          //eğer aktif contract varsa onun validTosundan önce olamaz
+          //eğer aktif contract yoksa bugünden önce olamaz
+        },
+      },
       refundFeeHeaders: {
         "ui:className": "md:col-span-full",
         items: {
@@ -112,6 +121,7 @@ export default function RefundPointContractHeaderForm(
       disabled={formLoading || loading}
       fields={{
         RefundFeeHeadersItemField: RefundFeeHeadersItemField({
+          fromDate,
           loading: formLoading || loading,
           languageData,
           refundFeeHeaders,
@@ -182,10 +192,12 @@ function RefundFeeHeadersItemField({
   languageData,
   refundFeeHeaders,
   loading,
+  fromDate,
 }: {
   languageData: ContractServiceResource;
   refundFeeHeaders: RefundFeeHeaderDto[];
   loading: boolean;
+  fromDate: Date;
 }) {
   function Field(props: FieldProps) {
     const [open, setOpen] = useState(false);
@@ -198,9 +210,9 @@ function RefundFeeHeadersItemField({
       hasValue ? _formData.isDefault ?? true : props.index === 0,
     );
     const _defaults = {
-      validFrom: new Date().toISOString(),
+      validFrom: fromDate.toISOString(),
       validTo: new Date(
-        new Date().setFullYear(new Date().getFullYear() + 1),
+        new Date(fromDate).setFullYear(new Date(fromDate).getFullYear() + 1),
       ).toISOString(),
       refundFeeHeaderId:
         refundFeeHeaders.length === 1
@@ -216,6 +228,11 @@ function RefundFeeHeadersItemField({
           "ui:widget": "refundFee",
           "ui:title":
             languageData["Contracts.Form.refundFeeHeaders.refundFeeHeaderId"],
+        },
+        validFrom: {
+          "ui:options": {
+            fromDate,
+          },
         },
       },
     });
