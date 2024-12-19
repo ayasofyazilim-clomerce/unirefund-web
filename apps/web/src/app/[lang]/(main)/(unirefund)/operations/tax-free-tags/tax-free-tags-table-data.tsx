@@ -6,6 +6,7 @@ import {
 } from "@ayasofyazilim/saas/TagService";
 import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type { Dispatch, SetStateAction } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 
 const statusArray = [
@@ -30,7 +31,13 @@ const statusArray = [
 type RefundsTable =
   TanstackTableCreationProps<UniRefund_TagService_Tags_TagListItemDto>;
 
-const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
+const taxFreeTagsColumns = (
+  locale: string,
+  languageData: TagServiceResource,
+  setSelectedRows: Dispatch<
+    SetStateAction<UniRefund_TagService_Tags_TagListItemDto[]>
+  >,
+) =>
   tanstackTableCreateColumnsByRowData<UniRefund_TagService_Tags_TagListItemDto>(
     {
       rows: $UniRefund_TagService_Tags_TagListItemDto.properties,
@@ -53,6 +60,10 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
           prefix: "tax-free-tags",
           targetAccessorKey: "id",
         },
+      },
+      selectableRows: true,
+      onSelectedRowChange: (selectedRows) => {
+        setSelectedRows(selectedRows);
       },
       badges: {
         status: {
@@ -107,6 +118,7 @@ function taxFreeTagsTable(languageData: TagServiceResource): RefundsTable {
     columnVisibility: {
       type: "show",
       columns: [
+        "select",
         "merchantTitle",
         "status",
         "tagNumber",
