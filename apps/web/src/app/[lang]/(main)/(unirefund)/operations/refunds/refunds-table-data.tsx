@@ -116,6 +116,7 @@ function refundsTable(
           label: languageData.CreationTime,
           startAccessorKey: "timeFilterStartDate",
           endAccessorKey: "timeFilterEndDate",
+          canFilteredBySingleDate: true,
         },
       ],
     },

@@ -6,6 +6,7 @@
   "ReconciliationStatuses": "Reconciliation Statuses",
   "TravellerFeeAmount": "Traveller Fee Amount",
   "ProcessedDate": "Processed Date",
+  "ExportDate": "Export Date",
   "PaidDate": "Paid Date",
   "ReferenceNumber": "Reference Number",
   "Currency": "Currency",
