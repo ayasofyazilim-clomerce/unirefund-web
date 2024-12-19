@@ -1,17 +1,20 @@
 import { notFound } from "next/navigation";
 import {
-  getRefundTableHeadersApi,
+  getMerchantContractHeadersByMerchantIdApi,
   getRefundFeeHeadersApi,
+  getRefundPointContractHeadersByRefundPointIdApi,
+  getRefundTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
 import {
   getAdressesApi,
   getMerchantByIdApi,
   getRefundPointDetailsByIdApi,
 } from "src/actions/unirefund/CrmService/actions";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import MerchantContractHeaderForm from "../_components/contract-header-form/merchant";
 import RefundPointContractHeaderForm from "../_components/contract-header-form/refund-point";
 import type { ContractPartyName } from "../_components/types";
@@ -25,28 +28,38 @@ export default async function Page({
     lang: string;
   };
 }) {
+  const { partyName, partyId, lang } = params;
   await isUnauthorized({
     requiredPolicies: ["ContractService.ContractHeaderForMerchant.Create"],
-    lang: params.lang,
+    lang,
   });
 
-  const { languageData } = await getResourceData(params.lang);
-  if (params.partyName === "merchants") {
-    const addresses = await getAdressesApi(params.partyId, params.partyName);
+  const { languageData } = await getResourceData(lang);
+  if (partyName === "merchants") {
+    const addresses = await getAdressesApi(partyId, partyName);
+    if (isErrorOnRequest(addresses, lang)) return;
     const refundTableHeaders = await getRefundTableHeadersApi({});
-    const merchantDetails = await getMerchantByIdApi(params.partyId);
-    if (
-      addresses.type !== "success" ||
-      refundTableHeaders.type !== "success" ||
-      merchantDetails.type !== "success"
-    ) {
-      return notFound();
-    }
+    if (isErrorOnRequest(refundTableHeaders, lang)) return;
+    const merchantDetails = await getMerchantByIdApi(partyId);
+    if (isErrorOnRequest(merchantDetails, lang)) return;
+    const otherContractHeaders =
+      await getMerchantContractHeadersByMerchantIdApi({
+        id: partyId,
+        sorting: "validTo desc",
+      });
+    if (isErrorOnRequest(otherContractHeaders, lang)) return;
+
+    const biggestContractHeader = otherContractHeaders.data.items?.at(0);
     return (
       <>
         <MerchantContractHeaderForm
           addresses={addresses.data}
           formType="create"
+          fromDate={
+            biggestContractHeader
+              ? new Date(biggestContractHeader.validTo)
+              : new Date()
+          }
           languageData={languageData}
           loading={false}
           refundTableHeaders={refundTableHeaders.data.items || []}
@@ -59,18 +72,21 @@ export default async function Page({
       </>
     );
   }
-
-  const refundPointDetails = await getRefundPointDetailsByIdApi(params.partyId);
+  const refundPointDetails = await getRefundPointDetailsByIdApi(partyId);
+  if (isErrorOnRequest(refundPointDetails, lang)) return notFound();
   const refundFeeHeaders = await getRefundFeeHeadersApi({});
-  if (
-    refundPointDetails.type !== "success" ||
-    refundFeeHeaders.type !== "success"
-  )
-    return notFound();
-
+  if (isErrorOnRequest(refundFeeHeaders, lang)) return notFound();
+  const otherContractHeaders =
+    await getRefundPointContractHeadersByRefundPointIdApi({
+      id: partyId,
+      sorting: "validTo desc",
+    });
+  if (isErrorOnRequest(otherContractHeaders, lang)) return;
   const refundPointDetailsSummary = refundPointDetails.data.entityInformations
     ?.at(0)
     ?.organizations?.at(0);
+  const biggestContractHeader = otherContractHeaders.data.items?.at(0);
+
   return (
     <>
       <RefundPointContractHeaderForm
@@ -90,6 +106,11 @@ export default async function Page({
           merchantClassification: "Low",
         }}
         formType="create"
+        fromDate={
+          biggestContractHeader
+            ? new Date(biggestContractHeader.validTo)
+            : new Date()
+        }
         languageData={languageData}
         loading={false}
         refundFeeHeaders={refundFeeHeaders.data.items || []}

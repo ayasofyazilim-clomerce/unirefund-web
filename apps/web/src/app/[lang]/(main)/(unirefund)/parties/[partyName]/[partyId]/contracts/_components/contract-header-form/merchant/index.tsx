@@ -37,6 +37,7 @@ type ContractHeaderFormProps = {
   refundTableHeaders: RefundTableHeaderDto[];
   loading: boolean;
   setLoading?: Dispatch<SetStateAction<boolean>>;
+  fromDate: Date;
 } & (CreateContractHeaderFormProps | UpdateContractHeaderFormProps);
 
 interface CreateContractHeaderFormProps {
@@ -51,12 +52,19 @@ interface UpdateContractHeaderFormProps {
 export default function MerchantContractHeaderForm(
   props: ContractHeaderFormProps,
 ): JSX.Element {
-  const { languageData, addresses, refundTableHeaders, loading, setLoading } =
-    props;
+  const {
+    languageData,
+    addresses,
+    refundTableHeaders,
+    loading,
+    setLoading,
+    fromDate,
+  } = props;
   const router = useRouter();
-  const { partyId, partyName } = useParams<{
+  const { partyId, partyName, lang } = useParams<{
     partyId: string;
     partyName: string;
+    lang: string;
   }>();
   const [formLoading, setFormLoading] = useState(loading || false);
   function handleLoading(_loading: boolean) {
@@ -77,6 +85,9 @@ export default function MerchantContractHeaderForm(
     resources: languageData,
     schema: $Schema[props.formType],
     extend: {
+      "ui:config": {
+        locale: lang,
+      },
       "ui:options": {
         expandable: false,
       },
@@ -84,11 +95,6 @@ export default function MerchantContractHeaderForm(
         "ui:className": "md:col-span-full",
         "ui:options": {
           inputType: "url",
-        },
-      },
-      validFrom: {
-        "ui:options": {
-          fromDate: new Date(),
         },
       },
       "ui:className": "md:grid md:gap-2 md:grid-cols-2",
@@ -106,6 +112,13 @@ export default function MerchantContractHeaderForm(
           displayLabel: false,
         },
       },
+      validFrom: {
+        "ui:options": {
+          fromDate,
+          //eğer aktif contract varsa onun validTosundan önce olamaz
+          //eğer aktif contract yoksa bugünden önce olamaz
+        },
+      },
     },
   });
 
@@ -118,6 +131,7 @@ export default function MerchantContractHeaderForm(
           loading,
           languageData,
           refundTableHeaders,
+          fromDate,
         }),
       }}
       filter={{
@@ -187,10 +201,12 @@ function RefundTableHeadersItemField({
   languageData,
   refundTableHeaders,
   loading,
+  fromDate,
 }: {
   languageData: ContractServiceResource;
   refundTableHeaders: RefundTableHeaderDto[];
   loading: boolean;
+  fromDate: Date;
 }) {
   function Field(props: FieldProps) {
     const [open, setOpen] = useState(false);
@@ -214,6 +230,11 @@ function RefundTableHeadersItemField({
             languageData[
               "Contracts.Form.refundTableHeaders.refundTableHeaderId"
             ],
+        },
+        validFrom: {
+          "ui:options": {
+            fromDate,
+          },
         },
       },
     });
