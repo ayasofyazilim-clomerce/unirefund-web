@@ -1,4 +1,7 @@
 {
+  "Missing.TaxOffices.Title": "Missing Tax Office",
+  "Missing.TaxOffices.Message": "There is no tax office in the system. Please create one to continue.",
+
   "Merchants": "Merchants",
   "Merchants.Description": "You can view stores from here.",
   "Merchant.Select": "Select Merchant",

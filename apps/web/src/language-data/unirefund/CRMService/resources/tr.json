@@ -1,4 +1,7 @@
 {
+  "Missing.TaxOffices.Title": "Eksik Vergi Dairesi",
+  "Missing.TaxOffices.Message": "Sistemde vergi dairesi yok. Lütfen devam etmek için bir vergi dairesi oluşturun.",
+
   "Merchants": "Mağazalar",
   "Merchants.Description": "Mağazaları buradan görüntüleyebilirsiniz.",
   "Merchant.Select": "Mağaza seç",
