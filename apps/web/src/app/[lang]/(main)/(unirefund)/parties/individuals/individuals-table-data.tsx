@@ -94,7 +94,7 @@ function individualTable(
     fillerColumn: "name",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "affiliationId"],
+      columns: ["id", "affiliationId", "affiliationCode"],
     },
     columnOrder: ["name"],
     tableActions: individualsTableActions(
