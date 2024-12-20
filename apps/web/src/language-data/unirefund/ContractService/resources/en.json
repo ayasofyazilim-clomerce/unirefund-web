@@ -1,4 +1,6 @@
 {
+  "Missing.ContractStores.Title": "Missing sub store",
+  "Missing.ContractStores.Message": "Please add at least one store to the headquarter.",
   "Contracts.Contract": "Contract",
   "Contracts.RebateSettings": "Rebate settings",
   "Contracts.Stores": "Stores",

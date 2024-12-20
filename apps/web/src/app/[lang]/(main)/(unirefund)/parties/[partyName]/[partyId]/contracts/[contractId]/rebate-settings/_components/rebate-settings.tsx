@@ -45,7 +45,7 @@ export function RebateSettings({
   lang,
 }: {
   languageData: ContractServiceResource;
-  rebateSettings: RebateSettingDto;
+  rebateSettings: RebateSettingDto | undefined;
   rebateTables: RebateTableHeaderDto[];
   subMerchants: StoreProfileDto[];
   contractId: string;
@@ -97,18 +97,22 @@ export function RebateSettings({
           subMerchants,
         }),
       }}
-      formData={{
-        ...rebateSettings,
-        rebateTableHeaders: rebateSettings.rebateTableHeaders?.map(
-          (rebateTableHeader) => {
-            return {
-              ...rebateTableHeader,
-              validFrom:
-                rebateTableHeader.validFrom || new Date().toISOString(),
-            };
-          },
-        ),
-      }}
+      formData={
+        rebateSettings
+          ? {
+              ...rebateSettings,
+              rebateTableHeaders: rebateSettings.rebateTableHeaders?.map(
+                (rebateTableHeader) => {
+                  return {
+                    ...rebateTableHeader,
+                    validFrom:
+                      rebateTableHeader.validFrom || new Date().toISOString(),
+                  };
+                },
+              ),
+            }
+          : undefined
+      }
       onSubmit={(data) => {
         if (!data.formData) return;
         setLoading(true);

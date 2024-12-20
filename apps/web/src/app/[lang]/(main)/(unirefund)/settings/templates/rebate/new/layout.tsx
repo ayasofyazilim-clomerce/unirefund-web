@@ -32,17 +32,17 @@ export default function Layout({ children, params }: LayoutProps) {
         "admin",
       ),
     },
-    {
-      name: languageData["Rebate.Preview"],
-      id: "new/preview",
-      link: getBaseLink(
-        "settings/templates/rebate/new/preview",
-        true,
-        params.lang,
-        true,
-        "admin",
-      ),
-    },
+    // {
+    //   name: languageData["Rebate.Preview"],
+    //   id: "new/preview",
+    //   link: getBaseLink(
+    //     "settings/templates/rebate/new/preview",
+    //     true,
+    //     params.lang,
+    //     true,
+    //     "admin",
+    //   ),
+    // },
   ];
   return (
     <SectionLayout

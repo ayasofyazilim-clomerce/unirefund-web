@@ -113,8 +113,7 @@
     "href": "management/saas/tenant",
     "icon": "globe",
     "parentNavbarItemKey": "management/saas",
-    "displayOrder": 1,
-    "requiredPolicies": ["UniRefund.Dashboard.Tenant"]
+    "displayOrder": 1
   },
   {
     "key": "management/identity",
