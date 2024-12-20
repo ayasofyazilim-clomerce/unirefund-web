@@ -5,6 +5,7 @@ import { getTagsApi } from "src/actions/unirefund/TagService/actions";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import { getRefundPointsApi } from "src/actions/unirefund/CrmService/actions";
 import RefundsTable from "./table";
 
 export default async function Page(props: {
@@ -23,10 +24,16 @@ export default async function Page(props: {
 
   const { languageData } = await getResourceData(props.params.lang);
 
+  const refundPointsResponse = await getRefundPointsApi();
+  const refundPoints =
+    (refundPointsResponse.type === "success"
+      ? refundPointsResponse.data.items
+      : []) || [];
   return (
     <RefundsTable
       languageData={languageData}
       locale={props.params.lang}
+      refundPoints={refundPoints}
       response={response.data}
     />
   );
