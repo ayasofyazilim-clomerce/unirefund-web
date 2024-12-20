@@ -125,6 +125,27 @@ export async function getIndividualsApi(
     return structuredError(error);
   }
 }
+export async function getIndividualsByIdApi(
+  partyName:
+    | "merchants"
+    | "refund-points"
+    | "customs"
+    | "tax-offices"
+    | "tax-free",
+  id: string,
+) {
+  try {
+    const requests = await getApiRequests();
+    const response = await requests[partyName].getIndivuals({
+      id,
+      maxResultCount: 100,
+      skipCount: 0,
+    });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 
 export async function getAffiliationCodeApi(partyName: "individuals") {
   try {

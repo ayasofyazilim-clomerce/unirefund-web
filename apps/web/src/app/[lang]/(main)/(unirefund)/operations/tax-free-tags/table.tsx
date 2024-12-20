@@ -40,7 +40,7 @@ function TaxFreeTagsTable({
           columns={columns}
           data={response.items || []}
           rowCount={response.totalCount}
-        />{" "}
+        />
       </div>
 
       <div className="col-span-4 h-full overflow-hidden">

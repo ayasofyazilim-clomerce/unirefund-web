@@ -111,7 +111,7 @@ export function RebateSettings({
                 },
               ),
             }
-          : null
+          : undefined
       }
       onSubmit={(data) => {
         if (!data.formData) return;
