@@ -66,6 +66,8 @@ export default function Individual({
     countryId: "",
     regionId: "",
     cityId: "",
+    neighborhoodId: "",
+    districtId: "",
   };
 
   const {

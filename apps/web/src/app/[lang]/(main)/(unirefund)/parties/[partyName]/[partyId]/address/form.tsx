@@ -43,6 +43,8 @@ function Address({
     countryId: addressData?.countryId || "",
     regionId: addressData?.regionId || "",
     cityId: addressData?.cityId || "",
+    districtId: addressData?.districtId || "",
+    neighborhoodId: addressData?.neighborhoodId || "",
   };
 
   const {
