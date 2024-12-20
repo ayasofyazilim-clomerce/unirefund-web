@@ -33,8 +33,8 @@ function TaxFreeTagsTable({
   const table = tableData.taxFreeTags.table(languageData);
 
   return (
-    <div className="grid grid-cols-10 gap-5">
-      <div className="col-span-6">
+    <div className="grid h-full grid-cols-10 gap-5 overflow-hidden">
+      <div className="col-span-6 h-full overflow-hidden">
         <TanstackTable
           {...table}
           columns={columns}
@@ -43,7 +43,7 @@ function TaxFreeTagsTable({
         />
       </div>
 
-      <div className="col-span-4">
+      <div className="col-span-4 h-full overflow-hidden">
         <RefundForm refundPoints={refundPoints} selectedRows={selectedRows} />
       </div>
     </div>
