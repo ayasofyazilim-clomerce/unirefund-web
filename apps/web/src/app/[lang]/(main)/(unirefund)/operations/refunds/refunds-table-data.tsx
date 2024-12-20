@@ -5,39 +5,12 @@ import {
   $UniRefund_RefundService_Enums_RefundStatus,
   $UniRefund_TagService_Tags_RefundType,
 } from "@ayasofyazilim/saas/RefundService";
-import type {
-  TanstackTableCreationProps,
-  TanstackTableTableActionsType,
-} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
 
 type RefundsTable =
   TanstackTableCreationProps<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>;
-
-function refundsTableActions(
-  languageData: TagServiceResource,
-  router: AppRouterInstance,
-  grantedPolicies: Record<Policy, boolean>,
-) {
-  const actions: TanstackTableTableActionsType[] = [];
-  if (isActionGranted(["RefundService.Refunds.Create"], grantedPolicies)) {
-    actions.push({
-      type: "simple",
-      actionLocation: "table",
-      cta: languageData.New,
-      icon: PlusCircle,
-      onClick() {
-        router.push("refunds/new");
-      },
-    });
-  }
-  return actions;
-}
 
 const refundsColumns = (locale: string, languageData: TagServiceResource) =>
   tanstackTableCreateColumnsByRowData<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>(
@@ -60,14 +33,9 @@ const refundsColumns = (locale: string, languageData: TagServiceResource) =>
     },
   );
 
-function refundsTable(
-  languageData: TagServiceResource,
-  router: AppRouterInstance,
-  grantedPolicies: Record<Policy, boolean>,
-): RefundsTable {
+function refundsTable(languageData: TagServiceResource): RefundsTable {
   const table: RefundsTable = {
     fillerColumn: "referenceNumber",
-    tableActions: refundsTableActions(languageData, router, grantedPolicies),
     columnVisibility: {
       type: "show",
       columns: [

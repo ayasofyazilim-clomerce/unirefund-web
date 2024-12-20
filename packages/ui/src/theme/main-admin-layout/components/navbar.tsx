@@ -83,7 +83,11 @@ export default function Navbar({
                   <button
                     className="text-muted-foreground font-light"
                     onClick={() => {
-                      navigator.clipboard.writeText(tenantData.tenantId);
+                      if (navigator.clipboard) {
+                        navigator.clipboard.writeText(tenantData.tenantId);
+                      } else {
+                        alert(tenantData.tenantId);
+                      }
                     }}
                   >
                     □ {tenantData.tenantName}

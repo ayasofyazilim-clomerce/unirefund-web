@@ -1,4 +1,6 @@
 {
+  "Missing.ContractStores.Title": "Eksik alt mağaza",
+  "Missing.ContractStores.Message": "Lütfen merkeze en az bir mağaza ekleyin.",
   "Contracts.Contract": "Sözleşme",
   "Contracts.RebateSettings": "Komisyon ayarları",
   "Contracts.Stores": "Mağazalar",

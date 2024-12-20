@@ -237,6 +237,9 @@ export default function Page({
             all: {
               withoutBorder: true,
             },
+            adminPassword: {
+              fieldType: "password",
+            },
             roleNames: {
               renderer(props) {
                 return (
