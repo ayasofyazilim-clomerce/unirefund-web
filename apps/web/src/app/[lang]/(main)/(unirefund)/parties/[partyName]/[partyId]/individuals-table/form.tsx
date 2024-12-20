@@ -6,7 +6,7 @@ import type {
   UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto,
 } from "@ayasofyazilim/saas/CRMService";
 import {
-  $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
+  $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
   $UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto,
 } from "@ayasofyazilim/saas/CRMService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
@@ -18,15 +18,15 @@ import AutoForm, {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  handleGetResponseError,
+  handlePostResponse,
+} from "src/actions/core/api-utils-client";
+import {
   getAffiliationCodeApi,
   getIndividualsApi,
 } from "src/actions/unirefund/CrmService/actions";
 import { postAffiliationsApi } from "src/actions/unirefund/CrmService/post-actions";
 import type { AffiliationsPostDto } from "src/actions/unirefund/CrmService/types";
-import {
-  handleGetResponseError,
-  handlePostResponse,
-} from "src/actions/core/api-utils-client";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import type { PartyNameType } from "../../../types";
 
@@ -54,14 +54,14 @@ function AffiliationsForm({
       properties: {
         email: $UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto,
         affilation:
-          $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
+          $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
       },
     },
     undefined,
     undefined,
     {
       email: ["emailAddress"],
-      affilation: ["roleId"],
+      affilation: ["affiliationCodeId"],
     },
   );
 
@@ -90,8 +90,8 @@ function AffiliationsForm({
       const individualId = doesEmailExistsResponse.data.items?.[0].id;
       const requestBody: AffiliationsPostDto = {
         affiliationCodeId: formData.affilation.affiliationCodeId,
-        name: "",
-        description: "",
+        name: email,
+        description: "description",
         partyId: individualId,
       };
       void postAffiliationsApi(partyName, {
@@ -108,7 +108,7 @@ function AffiliationsForm({
 
   const fieldConfig = {
     affilation: {
-      roleId: {
+      affiliationCodeId: {
         displayName: languageData.Role,
         renderer: (props: AutoFormInputComponentProps) => {
           "use client";
