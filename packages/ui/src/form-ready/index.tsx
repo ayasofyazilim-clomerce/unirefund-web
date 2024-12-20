@@ -15,6 +15,7 @@ export function FormReadyComponent({
   if (!active) return children;
   return (
     <div className="relative size-full">
+      <div className="pointer-events-none">{children}</div>
       <div className="absolute inset-0 z-20">
         <div className="flex size-full flex-col items-center justify-center gap-4 px-4 py-8 text-center lg:px-12 lg:py-16">
           {content.icon}
@@ -28,7 +29,6 @@ export function FormReadyComponent({
         </div>
       </div>
       <div className="absolute inset-0 bg-white opacity-90"></div>
-      <div className="pointer-events-none">{children}</div>
     </div>
   );
 }
