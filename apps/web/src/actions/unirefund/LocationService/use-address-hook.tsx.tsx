@@ -3,6 +3,8 @@ import type { AppLanguageDataResourceType } from "src/language-data/unirefund/la
 import type {
   CityDto,
   CountryDto,
+  DistrictDto,
+  NeighborhoodDto,
   RegionDto,
   SelectedAddressField,
 } from "./types";
@@ -31,6 +33,12 @@ export function useAddressHook({
     selectedFieldsDefaultValue,
   );
   const [cityList, setCityList] = useState<CityDto[] | undefined>(undefined);
+  const [districtList, setDistrictList] = useState<DistrictDto[] | undefined>(
+    undefined,
+  );
+  const [neighborhoodList, setNeighborhoodList] = useState<
+    NeighborhoodDto[] | undefined
+  >(undefined);
   const [regionList, setRegionList] = useState<RegionDto[] | undefined>(
     undefined,
   );
@@ -46,9 +54,13 @@ export function useAddressHook({
     regionList,
     countryList,
     languageData,
+    neighborhoodList,
+    districtList,
   });
   const addressSettings = getAddressSettingsForSchemaForm({
     cityList,
+    districtList,
+    neighborhoodList,
     regionList,
     countryList,
     languageData,
@@ -82,6 +94,8 @@ export function useAddressHook({
       values,
       setRegionList,
       setCityList,
+      setNeighborhoodList,
+      setDistrictList,
       languageData,
     });
   }
