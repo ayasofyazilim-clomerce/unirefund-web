@@ -1,5 +1,9 @@
 "use server";
-import { structuredError, structuredResponse } from "src/lib";
+import {
+  getContractServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function deleteMerchantContractHeaderByIdApi(id: string) {
@@ -17,6 +21,36 @@ export async function deleteRefundPointContractHeadersById(id: string) {
     const requests = await getApiRequests();
     return structuredResponse(
       await requests["refund-points"].deleteContractHeadersById(id),
+    );
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function deleteRefundFeeHeadersById(id: string) {
+  try {
+    const client = await getContractServiceClient();
+    return structuredResponse(
+      await client.refundTables.deleteApiContractServiceRefundTablesRefundFeeHeadersById(
+        {
+          id,
+        },
+      ),
+    );
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function deleteRefundTableHeadersById(id: string) {
+  try {
+    const client = await getContractServiceClient();
+    return structuredResponse(
+      await client.refundTables.deleteApiContractServiceRefundTablesRefundTableHeadersById(
+        {
+          id,
+        },
+      ),
     );
   } catch (error) {
     return structuredError(error);
