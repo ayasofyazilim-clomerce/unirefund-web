@@ -41,8 +41,6 @@ export function RefundForm({
       .filter((i) => i !== selectedRows[0].travellerDocumentNumber).length ===
     0;
 
-  if (selectedRows.length === 0) return null;
-
   function onSubmit() {
     startTransition(() => {
       void postRefundApi({
@@ -191,7 +189,12 @@ export function RefundForm({
       <div className="flex items-center">
         <Button
           className="w-full"
-          disabled={!canRefundable || refundMethod !== "Cash" || isPending}
+          disabled={
+            !canRefundable ||
+            refundMethod !== "Cash" ||
+            isPending ||
+            selectedRows.length === 0
+          }
           onClick={onSubmit}
         >
           Continue
