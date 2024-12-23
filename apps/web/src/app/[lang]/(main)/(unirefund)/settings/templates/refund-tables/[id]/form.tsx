@@ -1,8 +1,12 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/sonner";
 import type { UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
 import { $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderUpdateDto } from "@ayasofyazilim/saas/ContractService";
+import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import { ActionList } from "@repo/ui/action-button";
 import { useRouter } from "next/navigation";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putRefundTableHeadersApi } from "src/actions/unirefund/ContractService/put-actions";
@@ -37,9 +41,33 @@ function Form({
       schema={
         $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderUpdateDto
       }
-      submitText={languageData.Save}
       uiSchema={uiSchema}
-    />
+    >
+      <ActionList className="mb-4 border-0 p-0">
+        <ConfirmDialog
+          confirmProps={{
+            onConfirm: () => {
+              toast.warning(languageData.NotImplemented);
+
+              // void deleteRefundTableHeadersById(id).then((res) => {
+              //   handleDeleteResponse(res, router, "../");
+              // });
+            },
+            closeAfterConfirm: true,
+          }}
+          description={languageData["RefundFees.Delete.Description"]}
+          loading={false}
+          title={languageData["RefundFees.Delete.Title"]}
+          triggerProps={{
+            variant: "outline",
+            disabled: true,
+            children: languageData["RefundFees.Delete"],
+          }}
+          type="with-trigger"
+        />
+        <Button>{languageData.Save}</Button>
+      </ActionList>
+    </SchemaForm>
   );
 }
 

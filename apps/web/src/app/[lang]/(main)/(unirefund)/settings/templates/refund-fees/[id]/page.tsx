@@ -38,7 +38,7 @@ export default async function Page({
         {response.data.name}
       </div>
       <div className="hidden" id="page-description">
-        {languageData["RefundTables.Edit.Description"]}
+        {languageData["RefundFees.Description"]}
       </div>
     </>
   );
