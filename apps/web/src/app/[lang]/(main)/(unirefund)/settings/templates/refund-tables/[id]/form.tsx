@@ -24,10 +24,15 @@ function Form({
     resources: languageData,
     schema:
       $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderUpdateDto,
+    extend: {
+      "ui:className": "md:grid md:grid-cols-2 md:gap-4",
+      name: {
+        "ui:className": "md:col-span-full",
+      },
+    },
   });
   return (
     <SchemaForm
-      fields={{}}
       formData={response}
       onSubmit={(data) => {
         const formData = {
@@ -42,6 +47,8 @@ function Form({
         $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderUpdateDto
       }
       uiSchema={uiSchema}
+      useDefaultSubmit={false}
+      withScrollArea={false}
     >
       <ActionList className="mb-4 border-0 p-0">
         <ConfirmDialog
