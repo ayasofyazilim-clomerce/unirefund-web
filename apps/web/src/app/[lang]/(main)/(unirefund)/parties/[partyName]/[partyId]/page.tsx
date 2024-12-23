@@ -29,6 +29,7 @@ import PersonalSummariesForm from "./personal-summaries/form";
 import SubCompany from "./subcompanies-table/form";
 import Telephone from "./telephone/form";
 import type { GetPartiesDetailResult } from "./types";
+import AffiliationsTable from "./affiliations/table";
 
 export default async function Page({
   params,
@@ -93,6 +94,7 @@ export default async function Page({
     { name: languageData.Email, id: "email" },
     { name: languageData[formData.subEntityName], id: "SubCompany" },
     { name: languageData.Individuals, id: "individuals" },
+    { name: "Affiliations", id: "affiliations" },
   ];
 
   if (organizationData) {
@@ -212,6 +214,13 @@ export default async function Page({
             partyId={params.partyId}
             partyName={params.partyName}
             response={individuals}
+          />
+          <AffiliationsTable
+            languageData={languageData}
+            locale={params.lang}
+            partyId={params.partyId}
+            partyName={params.partyName}
+            response={affiliationCodes}
           />
           {contracts &&
           (params.partyName === "merchants" ||
