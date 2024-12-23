@@ -1,6 +1,7 @@
 "use client";
 import { toast } from "@/components/ui/sonner";
 import type {
+  PagedResultDto_AffiliationCodeDto,
   PagedResultDto_AffiliationTypeDto,
   UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto,
   UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto,
@@ -41,7 +42,7 @@ function Individual({
   partyId: string;
   locale: string;
   response: PagedResultDto_AffiliationTypeDto;
-  affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[];
+  affiliationCodes: PagedResultDto_AffiliationCodeDto;
 }) {
   const router = useRouter();
   const affiliationsSchema = createZodObject(
@@ -69,7 +70,7 @@ function Individual({
           return (
             <CustomCombobox<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>
               childrenProps={props}
-              list={affiliationCodes}
+              list={affiliationCodes.items}
               selectIdentifier="id"
               selectLabel="name"
             />
