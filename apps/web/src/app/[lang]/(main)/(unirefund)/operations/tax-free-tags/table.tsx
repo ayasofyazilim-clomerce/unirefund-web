@@ -7,6 +7,7 @@ import type {
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import { tableData } from "./tax-free-tags-table-data";
 import { RefundForm } from "./refund-form";
@@ -43,7 +44,12 @@ function TaxFreeTagsTable({
         />
       </div>
 
-      <div className="col-span-4 h-full overflow-hidden">
+      <div
+        className={cn(
+          "col-span-4 h-full overflow-hidden",
+          selectedRows.length ? "" : "pointer-events-none opacity-30",
+        )}
+      >
         <RefundForm refundPoints={refundPoints} selectedRows={selectedRows} />
       </div>
     </div>
