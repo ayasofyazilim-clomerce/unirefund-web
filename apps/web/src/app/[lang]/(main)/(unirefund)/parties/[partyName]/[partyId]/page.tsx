@@ -130,10 +130,12 @@ export default async function Page({
       : { items: [], totalCount: 0 };
 
   const affiliationCodesResponse = await getAffiliationCodeApi("individuals");
+
   const affiliationCodes =
-    (affiliationCodesResponse.type === "success"
-      ? affiliationCodesResponse.data.items
-      : []) || [];
+    affiliationCodesResponse.type === "success"
+      ? affiliationCodesResponse.data
+      : { items: [], totalCount: 0 };
+
   return (
     <>
       <div className="h-full overflow-hidden">
