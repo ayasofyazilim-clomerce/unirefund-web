@@ -28,7 +28,7 @@ export async function postTravellerIdentificationApi(
   try {
     const client = await getTravellersServiceClient();
     const response =
-      await client.traveller.putApiTravellerServiceTravellersByIdUpdatePersonalIdentification(
+      await client.traveller.postApiTravellerServiceTravellersByIdCreatePersonalIdentification(
         data,
       );
     return structuredResponse(response);

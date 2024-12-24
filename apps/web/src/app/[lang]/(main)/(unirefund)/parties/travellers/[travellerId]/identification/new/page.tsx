@@ -1,11 +1,11 @@
 "use server";
 
-import type { UniRefund_TravellerService_Travellers_TravellerDetailProfileDto } from "@ayasofyazilim/saas/TravellerService";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import { getTravellersDetailsApi } from "src/actions/unirefund/TravellerService/actions";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
 import { getBaseLink } from "src/utils";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Form from "./form";
 
 export default async function Page({
@@ -18,27 +18,21 @@ export default async function Page({
     requiredPolicies: ["TravellerService.Travellers.Create"],
     lang,
   });
-
+  const travellerDetailResponse = await getTravellersDetailsApi(travellerId);
+  if (isErrorOnRequest(travellerDetailResponse, lang)) return;
+  const countriesResponse = await getCountriesApi();
+  if (isErrorOnRequest(countriesResponse, lang)) return;
   const { languageData } = await getResourceData(lang);
-  const traveller = await getTravellersDetailsApi(travellerId);
-  const countries = await getCountriesApi();
-  const countryList =
-    (countries.type === "success" && countries.data.items) || [];
-  const travellerData =
-    traveller.data as UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
 
   return (
     <>
       <Form
-        countryList={{
-          data: countryList,
-          success: countries.type === "success",
-        }}
+        countryList={countriesResponse.data.items || []}
         languageData={languageData}
         travellerId={travellerId}
       />
       <div className="hidden" id="page-title">
-        {`${languageData.Traveller} (${travellerData.personalIdentifications[0].fullName})`}
+        {`${languageData.Traveller} (${travellerDetailResponse.data.personalIdentifications[0].fullName})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Travellers.Create.Identification.Description"]}

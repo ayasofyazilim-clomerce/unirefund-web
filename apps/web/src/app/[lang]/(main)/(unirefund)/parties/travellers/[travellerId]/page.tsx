@@ -16,20 +16,19 @@ export default async function Page({
     requiredPolicies: ["TravellerService.Travellers"],
     lang,
   });
-
-  const travellerDetailsData = await getTravellersDetailsApi(travellerId);
-  if (isErrorOnRequest(travellerDetailsData, lang)) return;
+  const travellerDetailResponse = await getTravellersDetailsApi(travellerId);
+  if (isErrorOnRequest(travellerDetailResponse, lang)) return;
   const { languageData } = await getResourceData(lang);
 
   return (
     <>
       <Form
         languageData={languageData}
-        travellerData={travellerDetailsData.data}
+        travellerData={travellerDetailResponse.data}
         travellerId={travellerId}
       />
       <div className="hidden" id="page-title">
-        {`${languageData.Traveller} (${travellerDetailsData.data.personalIdentifications[0].fullName})`}
+        {`${languageData.Traveller} (${travellerDetailResponse.data.personalIdentifications[0].fullName})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Travellers.Edit.Description"]}

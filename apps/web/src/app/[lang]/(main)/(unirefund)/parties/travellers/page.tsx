@@ -25,23 +25,21 @@ export default async function Page({
     requiredPolicies: ["TravellerService.Travellers"],
     lang,
   });
-
-  const countries = await getCountriesApi();
-  const countryList =
-    (countries.type === "success" && countries.data.items) || [];
-  const response = await getTravellersApi({
+  const travellerResponse = await getTravellersApi({
     ...searchParams,
     nationalities: searchParams.nationalities?.split(",") || [],
     residences: searchParams.residences?.split(",") || [],
   });
-  if (isErrorOnRequest(response, lang)) return;
-
+  if (isErrorOnRequest(travellerResponse, lang)) return;
+  const countriesResponse = await getCountriesApi();
+  if (isErrorOnRequest(countriesResponse, lang)) return;
   const { languageData } = await getResourceData(lang);
+
   return (
     <TravellersTable
-      countryList={countryList}
+      countryList={countriesResponse.data.items || []}
       languageData={languageData}
-      response={response.data}
+      response={travellerResponse.data}
     />
   );
 }
