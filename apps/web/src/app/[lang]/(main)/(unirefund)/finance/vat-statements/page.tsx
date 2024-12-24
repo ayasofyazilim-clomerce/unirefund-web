@@ -7,27 +7,32 @@ import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import VatStatementTable from "./table";
 
-export default async function Page(props: {
-  params: { lang: string };
-  searchParams: Promise<GetApiFinanceServiceVatStatementHeadersData>;
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: {
+    lang: string;
+  };
+  searchParams: GetApiFinanceServiceVatStatementHeadersData;
 }) {
+  const { lang } = params;
   await isUnauthorized({
     requiredPolicies: [
       "FinanceService.Billings",
       "FinanceService.VATStatementHeader",
     ],
-    lang: props.params.lang,
+    lang,
   });
 
-  const searchParams = await props.searchParams;
   const response = await getVatStatementHeadersApi(searchParams);
-  const { languageData } = await getResourceData(props.params.lang);
-  if (isErrorOnRequest(response, props.params.lang)) return;
+  const { languageData } = await getResourceData(lang);
+  if (isErrorOnRequest(response, lang)) return;
 
   return (
     <VatStatementTable
       languageData={languageData}
-      locale={props.params.lang}
+      locale={lang}
       response={response.data}
     />
   );
