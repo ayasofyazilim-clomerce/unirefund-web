@@ -3,7 +3,7 @@
 import type {
   UniRefund_RefundService_Enums_RefundReconciliationStatus,
   UniRefund_RefundService_Enums_RefundStatus,
-  UniRefund_TagService_Tags_RefundType,
+  UniRefund_TagService_Tags_Enums_RefundType,
 } from "@ayasofyazilim/saas/RefundService";
 import { getRefundApi } from "src/actions/unirefund/RefundService/actions";
 import { getResourceData } from "src/language-data/unirefund/TagService";
@@ -39,7 +39,7 @@ export default async function Page(props: {
       | undefined,
     statusesFilterRefundTypes: searchParams.statusesFilterRefundTypes?.split(
       ",",
-    ) as UniRefund_TagService_Tags_RefundType[] | undefined,
+    ) as UniRefund_TagService_Tags_Enums_RefundType[] | undefined,
     statusesFilterReconciliationStatuses:
       searchParams.statusesFilterReconciliationStatuses?.split(",") as
         | UniRefund_RefundService_Enums_RefundReconciliationStatus[]

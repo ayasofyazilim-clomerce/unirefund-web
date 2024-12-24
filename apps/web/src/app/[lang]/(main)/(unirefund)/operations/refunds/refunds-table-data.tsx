@@ -3,7 +3,7 @@ import {
   $PagedResultDto_RefundListItem,
   $UniRefund_RefundService_Enums_RefundReconciliationStatus,
   $UniRefund_RefundService_Enums_RefundStatus,
-  $UniRefund_TagService_Tags_RefundType,
+  $UniRefund_TagService_Tags_Enums_RefundType,
 } from "@ayasofyazilim/saas/RefundService";
 import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
@@ -73,10 +73,12 @@ function refundsTable(languageData: TagServiceResource): RefundsTable {
         },
         statusesFilterRefundTypes: {
           title: languageData.RefundMethod,
-          options: $UniRefund_TagService_Tags_RefundType.enum.map((x) => ({
-            label: x,
-            value: x,
-          })),
+          options: $UniRefund_TagService_Tags_Enums_RefundType.enum.map(
+            (x) => ({
+              label: x,
+              value: x,
+            }),
+          ),
         },
       },
       dateFilters: [
