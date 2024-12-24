@@ -1,50 +1,42 @@
 "use server";
 
 import type { GetApiTravellerServiceTravellersData } from "@ayasofyazilim/saas/TravellerService";
-import { notFound } from "next/navigation";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { getCountriesApi } from "../../../../../../actions/unirefund/LocationService/actions";
 import { getTravellersApi } from "../../../../../../actions/unirefund/TravellerService/actions";
 import TravellersTable from "./table";
 
-interface SearchParamType {
-  maxResultCount?: number;
-  skipCount?: number;
-  sorting?: string;
-  name?: string;
-  email?: string;
-  fullName?: string;
-  phoneNumber?: string;
-  travelDocumentNumber?: string;
-  username?: string;
-  nationalities?: string;
-  residences?: string;
-  showExpired?: boolean;
-}
-
-export default async function Page(props: {
-  params: { lang: string };
-  searchParams?: Promise<SearchParamType>;
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: {
+    lang: string;
+  };
+  searchParams: GetApiTravellerServiceTravellersData & {
+    nationalities?: string;
+    residences?: string;
+  };
 }) {
+  const { lang } = params;
   await isUnauthorized({
     requiredPolicies: ["TravellerService.Travellers"],
-    lang: props.params.lang,
+    lang,
   });
 
-  const searchParams = await props.searchParams;
   const countries = await getCountriesApi();
   const countryList =
     (countries.type === "success" && countries.data.items) || [];
   const response = await getTravellersApi({
     ...searchParams,
-    nationalities: searchParams?.nationalities?.split(",") || [],
-    residences: searchParams?.residences?.split(",") || [],
-  } as GetApiTravellerServiceTravellersData);
+    nationalities: searchParams.nationalities?.split(",") || [],
+    residences: searchParams.residences?.split(",") || [],
+  });
+  if (isErrorOnRequest(response, lang)) return;
 
-  if (response.type !== "success") return notFound();
-
-  const { languageData } = await getResourceData(props.params.lang);
+  const { languageData } = await getResourceData(lang);
   return (
     <TravellersTable
       countryList={countryList}

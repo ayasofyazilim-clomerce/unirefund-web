@@ -13,13 +13,14 @@ export default async function Page({
 }: {
   params: { travellerId: string; lang: string };
 }) {
+  const { lang, travellerId } = params;
   await isUnauthorized({
     requiredPolicies: ["TravellerService.Travellers.Create"],
-    lang: params.lang,
+    lang,
   });
 
-  const { languageData } = await getResourceData(params.lang);
-  const traveller = await getTravellersDetailsApi(params.travellerId);
+  const { languageData } = await getResourceData(lang);
+  const traveller = await getTravellersDetailsApi(travellerId);
   const countries = await getCountriesApi();
   const countryList =
     (countries.type === "success" && countries.data.items) || [];
@@ -34,7 +35,7 @@ export default async function Page({
           success: countries.type === "success",
         }}
         languageData={languageData}
-        travellerId={params.travellerId}
+        travellerId={travellerId}
       />
       <div className="hidden" id="page-title">
         {`${languageData.Traveller} (${travellerData.personalIdentifications[0].fullName})`}
@@ -43,7 +44,7 @@ export default async function Page({
         {languageData["Travellers.Create.Identification.Description"]}
       </div>
       <div className="hidden" id="page-back-link">
-        {getBaseLink(`/parties/travellers/${params.travellerId}`)}
+        {getBaseLink(`/parties/travellers/${travellerId}`)}
       </div>
     </>
   );

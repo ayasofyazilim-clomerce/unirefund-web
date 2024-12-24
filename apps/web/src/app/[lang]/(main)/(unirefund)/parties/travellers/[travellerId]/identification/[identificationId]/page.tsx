@@ -13,18 +13,20 @@ export default async function Page({
 }: {
   params: { travellerId: string; lang: string; identificationId: string };
 }) {
+  const { lang, travellerId, identificationId } = params;
   await isUnauthorized({
     requiredPolicies: ["TravellerService.Travellers.Edit"],
-    lang: params.lang,
+    lang,
   });
 
-  const { languageData } = await getResourceData(params.lang);
-  const traveller = await getTravellersDetailsApi(params.travellerId);
+  const traveller = await getTravellersDetailsApi(travellerId);
   const countries = await getCountriesApi();
   const travellerData =
     traveller.data as UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
   const countryList =
     (countries.type === "success" && countries.data.items) || [];
+
+  const { languageData } = await getResourceData(params.lang);
 
   return (
     <>
@@ -33,10 +35,10 @@ export default async function Page({
           data: countryList,
           success: countries.type === "success",
         }}
-        identificationId={params.identificationId}
+        identificationId={identificationId}
         languageData={languageData}
         travellerData={travellerData}
-        travellerId={params.travellerId}
+        travellerId={travellerId}
       />
       <div className="hidden" id="page-title">
         {`${languageData["Travellers.Personal.Identification"]} (${travellerData.personalIdentifications[0].travelDocumentNumber})`}
@@ -45,7 +47,7 @@ export default async function Page({
         {languageData["Travellers.Identifications.Edit.Description"]}
       </div>
       <div className="hidden" id="page-back-link">
-        {getBaseLink(`/parties/travellers/${params.travellerId}`)}
+        {getBaseLink(`/parties/travellers/${travellerId}`)}
       </div>
     </>
   );
