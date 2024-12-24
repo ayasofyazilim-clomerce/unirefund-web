@@ -140,12 +140,15 @@ const MerchantWidget = ({
   languageData: FinanceServiceResource;
   merchantList: UniRefund_CRMService_Merchants_MerchantProfileDto[];
 }) => {
+  const merchantHeadquarter = merchantList.filter(
+    (merchant) => merchant.typeCode === "HEADQUARTER",
+  );
   function Widget(props: WidgetProps) {
     return (
       <CustomCombobox<UniRefund_CRMService_Merchants_MerchantProfileDto>
         {...props}
         emptyValue={languageData["Select.Merchant"]}
-        list={merchantList}
+        list={merchantHeadquarter}
         searchPlaceholder={languageData["Select.Placeholder"]}
         searchResultLabel={languageData["Select.ResultLabel"]}
         selectIdentifier="id"
