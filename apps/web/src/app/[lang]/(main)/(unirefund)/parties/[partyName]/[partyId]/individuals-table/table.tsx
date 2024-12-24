@@ -18,7 +18,7 @@ import { SectionLayoutContent } from "@repo/ayasofyazilim-ui/templates/section-l
 import { useRouter } from "next/navigation";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
 import { getIndividualsApi } from "src/actions/unirefund/CrmService/actions";
-import { postAffiliationsApi } from "src/actions/unirefund/CrmService/post-actions";
+import { postAffiliationsToPartyApi } from "src/actions/unirefund/CrmService/post-actions";
 import type { AffiliationsPostDto } from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import type { PartyNameType } from "../../../types";
@@ -98,7 +98,7 @@ function Individual({
         description: "description",
         partyId: individualId,
       };
-      void postAffiliationsApi(partyName, {
+      void postAffiliationsToPartyApi(partyName, {
         requestBody,
         id: partyId,
       }).then((res) => {
