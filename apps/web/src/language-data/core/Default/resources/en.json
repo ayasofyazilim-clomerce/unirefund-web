@@ -28,6 +28,7 @@
   "District.Select": "Select District",
   "Select.Placeholder": "Search...",
   "Select.ResultLabel": "0 search result.",
+  "Select.EmptyValue": "Please select a value.",
   "PhoneNumber": "Phone Number",
   "Country.Fetch.Fail": "An error occurred while fetching countries.",
   "City.Fetch.Fail": "An error occurred while fetching cities.",

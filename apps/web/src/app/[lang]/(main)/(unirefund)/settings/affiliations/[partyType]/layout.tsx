@@ -1,6 +1,6 @@
 "use server";
 import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { getResourceData } from "src/language-data/core/AccountService";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
 
 export default async function Layout({
   children,
@@ -12,23 +12,26 @@ export default async function Layout({
   const { languageData } = await getResourceData(params.lang);
   return (
     <TabLayout
-      orientation="horizontal"
       tabList={[
         {
-          label: languageData.Sessions,
-          href: "sessions",
+          label: languageData.Merchants,
+          href: "merchants",
         },
         {
-          label: languageData.SecurityLogs,
-          href: "security-logs",
+          label: languageData.RefundPoints,
+          href: "refund-points",
         },
         {
-          label: languageData["Personal.Information"],
-          href: "personal-information",
+          label: languageData.Customs,
+          href: "customs",
         },
         {
-          label: languageData["Change.Password"],
-          href: "change-password",
+          label: languageData.TaxFree,
+          href: "tax-free",
+        },
+        {
+          label: languageData.TaxOffices,
+          href: "tax-offices",
         },
       ]}
     >

@@ -40,8 +40,8 @@ importers:
         specifier: ^0.30.0
         version: 0.30.0
       '@ayasofyazilim/saas':
-        specifier: 0.0.94
-        version: 0.0.94(openapi-types@12.1.3)
+        specifier: 0.0.95
+        version: 0.0.95(openapi-types@12.1.3)
       '@formatjs/intl-localematcher':
         specifier: ^0.5.4
         version: 0.5.4
@@ -671,8 +671,8 @@ importers:
   packages/ui:
     dependencies:
       '@ayasofyazilim/saas':
-        specifier: 0.0.93
-        version: 0.0.93(openapi-types@12.1.3)
+        specifier: 0.0.95
+        version: 0.0.95(openapi-types@12.1.3)
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
@@ -810,8 +810,8 @@ packages:
       nodemailer:
         optional: true
 
-  '@ayasofyazilim/saas@0.0.93':
-    resolution: {integrity: sha512-DcjTkhpXjzPINmz66nsZAPX9oyTfMrDgQz8V7ZUVPQ/pyx/oK4l1z044GH/L53PudRYIXbnT4wvEXcs7AvUJ5Q==}
+  '@ayasofyazilim/saas@0.0.95':
+    resolution: {integrity: sha512-EQWTVr3OFcmJe+L6dOBBW+a/6kCR4PMgnsBEmkAhvpwn8Lz8Ht2AZhM0tPaSnfZK/zOzQ+O8Kwx2KWuBeMlDbQ==}
     hasBin: true
 
   '@ayasofyazilim/saas@0.0.94':
@@ -9681,7 +9681,7 @@ snapshots:
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
 
-  '@ayasofyazilim/saas@0.0.93(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.95(openapi-types@12.1.3)':
     dependencies:
       '@apidevtools/swagger-parser': 10.1.0(openapi-types@12.1.3)
       '@hey-api/openapi-ts': 0.45.1(typescript@5.7.2)
