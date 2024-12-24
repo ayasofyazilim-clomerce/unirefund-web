@@ -4,7 +4,7 @@ import type { PostApiCrmServiceMerchantsByIdAffiliationsData } from "@ayasofyazi
 import { structuredError, structuredResponse } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
-export async function postAffiliationsApi(
+export async function postAffiliationsToPartyApi(
   partyType:
     | "merchants"
     | "refund-points"

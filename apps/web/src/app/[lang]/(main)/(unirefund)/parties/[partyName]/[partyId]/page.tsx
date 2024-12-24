@@ -29,7 +29,6 @@ import PersonalSummariesForm from "./personal-summaries/form";
 import SubCompany from "./subcompanies-table/form";
 import Telephone from "./telephone/form";
 import type { GetPartiesDetailResult } from "./types";
-import AffiliationsTable from "./affiliations/table";
 
 export default async function Page({
   params,
@@ -131,7 +130,7 @@ export default async function Page({
       ? individualsResponse.data
       : { items: [], totalCount: 0 };
 
-  const affiliationCodesResponse = await getAffiliationCodeApi("individuals");
+  const affiliationCodesResponse = await getAffiliationCodeApi();
 
   const affiliationCodes =
     affiliationCodesResponse.type === "success"
@@ -215,13 +214,7 @@ export default async function Page({
             partyName={params.partyName}
             response={individuals}
           />
-          <AffiliationsTable
-            languageData={languageData}
-            locale={params.lang}
-            partyId={params.partyId}
-            partyName={params.partyName}
-            response={affiliationCodes}
-          />
+
           {contracts &&
           (params.partyName === "merchants" ||
             params.partyName === "refund-points") ? (

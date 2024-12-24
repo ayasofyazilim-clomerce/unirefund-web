@@ -42,7 +42,7 @@ export default function TenantSettingsPage({
   const dependencies = createDependencies(activeGroup);
   const tabList = createTabListFromList(list, languageData);
   return (
-    <TabLayout orientation="horizontal" tabList={tabList}>
+    <TabLayout orientation="vertical" tabList={tabList}>
       <AutoForm
         className="w-full"
         dependencies={dependencies}

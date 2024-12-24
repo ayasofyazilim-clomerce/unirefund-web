@@ -215,6 +215,16 @@
     "requiredPolicies": ["ContractService.RebateSetting"]
   },
   {
+    "key": "settings/affiliations",
+    "displayName": "Affiliation",
+    "description": "Manage affiliations for tenants.",
+    "href": "settings/affiliations/merchants",
+    "icon": "settings",
+    "parentNavbarItemKey": "settings",
+    "displayOrder": 1,
+    "requiredPolicies": ["UniRefund.Dashboard.Tenant"]
+  },
+  {
     "key": "parties",
     "displayName": "Parties",
     "description": "Manage customer relationship management settings.",
