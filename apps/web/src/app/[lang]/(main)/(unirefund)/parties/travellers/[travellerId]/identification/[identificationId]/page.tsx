@@ -1,11 +1,11 @@
 "use server";
 
-import type { UniRefund_TravellerService_Travellers_TravellerDetailProfileDto } from "@ayasofyazilim/saas/TravellerService";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import { getTravellersDetailsApi } from "src/actions/unirefund/TravellerService/actions";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
 import { getBaseLink } from "src/utils";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Form from "./form";
 
 export default async function Page({
@@ -13,39 +13,34 @@ export default async function Page({
 }: {
   params: { travellerId: string; lang: string; identificationId: string };
 }) {
+  const { lang, travellerId, identificationId } = params;
   await isUnauthorized({
     requiredPolicies: ["TravellerService.Travellers.Edit"],
-    lang: params.lang,
+    lang,
   });
-
+  const travellerDetailResponse = await getTravellersDetailsApi(travellerId);
+  if (isErrorOnRequest(travellerDetailResponse, lang)) return;
+  const countriesResponse = await getCountriesApi();
+  if (isErrorOnRequest(countriesResponse, lang)) return;
   const { languageData } = await getResourceData(params.lang);
-  const traveller = await getTravellersDetailsApi(params.travellerId);
-  const countries = await getCountriesApi();
-  const travellerData =
-    traveller.data as UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
-  const countryList =
-    (countries.type === "success" && countries.data.items) || [];
 
   return (
     <>
       <Form
-        countryList={{
-          data: countryList,
-          success: countries.type === "success",
-        }}
-        identificationId={params.identificationId}
+        countryList={countriesResponse.data.items || []}
+        identificationId={identificationId}
         languageData={languageData}
-        travellerData={travellerData}
-        travellerId={params.travellerId}
+        travellerData={travellerDetailResponse.data}
+        travellerId={travellerId}
       />
       <div className="hidden" id="page-title">
-        {`${languageData["Travellers.Personal.Identification"]} (${travellerData.personalIdentifications[0].travelDocumentNumber})`}
+        {`${languageData["Travellers.Personal.Identification"]} (${travellerDetailResponse.data.personalIdentifications[0].travelDocumentNumber})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Travellers.Identifications.Edit.Description"]}
       </div>
       <div className="hidden" id="page-back-link">
-        {getBaseLink(`/parties/travellers/${params.travellerId}`)}
+        {getBaseLink(`/parties/travellers/${travellerId}`)}
       </div>
     </>
   );

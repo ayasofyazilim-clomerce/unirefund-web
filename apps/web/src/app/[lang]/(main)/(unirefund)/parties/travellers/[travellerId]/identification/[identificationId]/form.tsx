@@ -44,7 +44,7 @@ export default function Form({
   travellerId: string;
   identificationId: string;
   travellerData: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
-  countryList: { data: CountryDto[]; success: boolean };
+  countryList: CountryDto[];
 }) {
   const router = useRouter();
   function putTravellerPersonalIdentification(
@@ -69,13 +69,8 @@ export default function Form({
         renderer: (props) => (
           <CustomCombobox<CountryDto>
             childrenProps={props}
-            disabled={!countryList.success}
-            emptyValue={
-              countryList.success
-                ? languageData["Country.Select"]
-                : languageData["Country.Fetch.Fail"]
-            }
-            list={countryList.data}
+            emptyValue={languageData["Country.Select"]}
+            list={countryList}
             searchPlaceholder={languageData["Select.Placeholder"]}
             searchResultLabel={languageData["Select.ResultLabel"]}
             selectIdentifier="code2"
@@ -88,13 +83,8 @@ export default function Form({
         renderer: (props) => (
           <CustomCombobox<CountryDto>
             childrenProps={props}
-            disabled={!countryList.success}
-            emptyValue={
-              countryList.success
-                ? languageData["Country.Select"]
-                : languageData["Country.Fetch.Fail"]
-            }
-            list={countryList.data}
+            emptyValue={languageData["Country.Select"]}
+            list={countryList}
             searchPlaceholder={languageData["Select.Placeholder"]}
             searchResultLabel={languageData["Select.ResultLabel"]}
             selectIdentifier="code2"
