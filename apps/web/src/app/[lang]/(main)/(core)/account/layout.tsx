@@ -30,10 +30,6 @@ export default async function Layout({
           label: languageData["Change.Password"],
           href: "change-password",
         },
-        {
-          label: languageData["Profile.Picture"],
-          href: "profile-picture",
-        },
       ]}
     >
       {children}
