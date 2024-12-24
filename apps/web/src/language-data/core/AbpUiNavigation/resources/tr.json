@@ -80,5 +80,8 @@
   "Finance": "Finans",
   "VatStatements": "KDV Beyanları",
   "VatStatements.Description": "Buradan KDV beyanlarını görüntüleyebilirsiniz.",
+  "Billing": "Fatura",
+  "Billing.Description": "Fatura listesini buradan görüntüleyebilirsiniz.",
+  "MyAccount": "Hesabım",
   "Affiliation": "Bağlılıklar"
 }
