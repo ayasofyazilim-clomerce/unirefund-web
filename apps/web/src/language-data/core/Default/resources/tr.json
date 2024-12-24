@@ -29,6 +29,7 @@
   "District.Select": "İlçe Seç",
   "Select.Placeholder": "Ara...",
   "Select.ResultLabel": "0 arama sonucu.",
+  "Select.EmptyValue": "Lütfen seçim yapınız.",
   "PhoneNumber": "Telefon Numarası",
 
   "Country.Fetch.Fail": "Ülkeler getirilirken bir hata oluştu..",
