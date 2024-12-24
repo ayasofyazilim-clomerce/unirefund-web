@@ -1,4 +1,4 @@
-- Server side sayfa yapısı bu şekilde olmalı.
+# Server side sayfa yapısı bu şekilde olmalı.
 
 ```
 export default async function Page({
@@ -16,7 +16,7 @@ export default async function Page({
 }
 ```
 
-- Client side sayfa yapısı bu şekilde olmalı.
+# Client side sayfa yapısı bu şekilde olmalı.
 
 ```
 export function Page() {
@@ -31,14 +31,14 @@ export function Page() {
 }
 ```
 
-- Serverside api istekleri bu şekilde olmalı.
+# Serverside api istekleri bu şekilde olmalı.
 
 ```
 const securityLogResponse = await getSecurityLogsApi(searchParams);
 if(isErrorOnRequest(securityLogResponse,lang)) return;
 ```
 
-- Client side api istekleri bu şekilde olmalı.
+# Client side api istekleri bu şekilde olmalı.
 
 ```
 setLoading(true);
@@ -47,4 +47,23 @@ void postRequest(formData).then((response) => {
 }).finally(() => {
     setLoading(false);
 });
+```
+
+# Sayfaların klasör yapısı.
+
+```
+|
+├── _components
+|   |
+│   ├── component-name.tsx
+│   ├── form.tsx
+│   ├── table.tsx
+│   ├── table-data.tsx
+│   └── types.ts
+|
+├── client.tsx(client-side)
+│
+├── layout.tsx
+|
+└── page.tsx(server-side)
 ```
