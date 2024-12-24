@@ -2,6 +2,7 @@
 import type {
   GetApiTagServiceTagByIdDetailData,
   GetApiTagServiceTagData,
+  GetApiTagServiceTagSummaryData,
 } from "@ayasofyazilim/saas/TagService";
 import {
   getTagServiceClient,
@@ -14,6 +15,18 @@ export async function getTagsApi(data: GetApiTagServiceTagData = {}) {
   try {
     const requests = await getApiRequests();
     const response = await requests.tags.get(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getTagSummaryApi(
+  data: GetApiTagServiceTagSummaryData = {},
+) {
+  try {
+    const client = await getTagServiceClient();
+    const response = await client.tag.getApiTagServiceTagSummary(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
