@@ -76,6 +76,8 @@ export default function CrmIndividual({
     countryId: "",
     regionId: "",
     cityId: "",
+    neighborhoodId: "",
+    districtId: "",
   };
 
   const {
