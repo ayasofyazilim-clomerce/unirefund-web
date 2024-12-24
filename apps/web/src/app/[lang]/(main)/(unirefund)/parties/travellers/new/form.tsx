@@ -78,7 +78,7 @@ export default function Form({
       toast.error(response.message || languageData["Travellers.New.Error"]);
     } else {
       toast.success([languageData["Travellers.New.Succes"]]);
-      router.push(getBaseLink(`/parties/traveller`));
+      router.push(getBaseLink(`/parties/travellers`));
     }
   }
 
