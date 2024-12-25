@@ -1,21 +1,19 @@
 "use server";
 
-import type { FilterColumnResult } from "@repo/ayasofyazilim-ui/molecules/tables/types";
 import type { GetApiTravellerServiceTravellersData } from "@ayasofyazilim/saas/TravellerService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests, getTableData } from "../../api-requests";
-
-export async function getTravellers(page: number, filter?: FilterColumnResult) {
-  const response = await getTableData("travellers", page, 10, filter);
-  return response;
-}
+import {
+  getTravellersServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 
 export async function getTravellersApi(
   data: GetApiTravellerServiceTravellersData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.travellers.get(data);
+    const client = await getTravellersServiceClient();
+    const response =
+      await client.traveller.getApiTravellerServiceTravellers(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -23,19 +21,9 @@ export async function getTravellersApi(
 }
 export async function getTravellersDetailsApi(id: string) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.travellers.getDetail(id);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function deleteTravellerPersonalIdentificationApi(id: string) {
-  try {
-    const requests = await getApiRequests();
+    const client = await getTravellersServiceClient();
     const response =
-      await requests.travellers.deleteTravellerPersonalIdentification(id);
+      await client.traveller.getApiTravellerServiceTravellersById({ id });
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
