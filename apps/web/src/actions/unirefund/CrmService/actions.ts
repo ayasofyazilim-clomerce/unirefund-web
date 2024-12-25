@@ -1,15 +1,15 @@
 "use server";
 import type {
   GetApiCrmServiceRefundPointsAccessibleData,
-  type GetApiCrmServiceCustomsData,
-  type GetApiCrmServiceIndividualsData,
-  type GetApiCrmServiceMerchantsByIdSubMerchantsData,
-  type GetApiCrmServiceMerchantsData,
-  type GetApiCrmServiceMerchantsResponse,
-  type GetApiCrmServiceRefundPointsData,
-  type GetApiCrmServiceTaxFreesData,
-  type GetApiCrmServiceTaxOfficesData,
-  type UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
+  GetApiCrmServiceCustomsData,
+  GetApiCrmServiceIndividualsData,
+  GetApiCrmServiceMerchantsByIdSubMerchantsData,
+  GetApiCrmServiceMerchantsData,
+  GetApiCrmServiceMerchantsResponse,
+  GetApiCrmServiceRefundPointsData,
+  GetApiCrmServiceTaxFreesData,
+  GetApiCrmServiceTaxOfficesData,
+  UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
 } from "@ayasofyazilim/saas/CRMService";
 import type { ServerResponse } from "src/lib";
 import {
