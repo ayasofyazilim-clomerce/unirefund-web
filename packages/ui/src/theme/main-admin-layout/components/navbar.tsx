@@ -6,10 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import {
-  ISection,
-  SectionLayoutNavbar,
-} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
+import { ISection } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 import {
   BookA,
@@ -46,7 +43,6 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
-import Link from "next/link";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
@@ -113,11 +109,11 @@ export default function Navbar({
           navbarItems={navbarItems}
         />
       </div>
-      <SectionLayoutNavbar
+      {/* <SectionLayoutNavbar
         sections={sectionLayoutItems}
         activeSectionId={activeSectionLayoutItem}
         linkElement={Link}
-      />
+      /> */}
       {/* 
       eğer ihtiyaç duyarsak ikincil menü tasarımı 
       <div className="relative flex border-b bg-white py-1">
