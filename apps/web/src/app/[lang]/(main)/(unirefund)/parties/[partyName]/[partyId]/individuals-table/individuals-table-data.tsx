@@ -1,5 +1,5 @@
-import type { UniRefund_CRMService_AffiliationTypes_AffiliationTypeDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDto } from "@ayasofyazilim/saas/CRMService";
+import type { UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto } from "@ayasofyazilim/saas/CRMService";
+import { $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto } from "@ayasofyazilim/saas/CRMService";
 import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {
@@ -11,16 +11,16 @@ import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMS
 import type { AutoFormValues } from "./table";
 
 type IndividualsTable =
-  TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDto>;
+  TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
 
 export function individualsColumns(
   languageData: CRMServiceServiceResource,
   locale: string,
 ) {
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDto>(
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>(
     {
       languageData,
-      rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDto.properties,
+      rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto.properties,
       config: {
         locale,
       },
@@ -39,7 +39,7 @@ function individualsTable(
     columnOrder: ["name"],
     columnVisibility: {
       type: "show",
-      columns: ["name", "creationTime"],
+      columns: ["name", "codeName"],
     },
     tableActions: [
       {
