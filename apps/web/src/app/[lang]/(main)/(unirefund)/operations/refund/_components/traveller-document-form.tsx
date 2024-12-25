@@ -29,36 +29,34 @@ export default function TravellerDocumentForm({
   }
 
   return (
-    <div>
-      <form
-        className="flex max-w-lg items-end gap-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
+    <form
+      className="flex max-w-lg items-end gap-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <div className="grid w-full items-center gap-1.5">
+        <Label htmlFor="picture">{languageData.TravellerDocumentNo}</Label>
+        <Input
+          disabled={isPending}
+          name="travellerDocumentNumber"
+          onChange={(e) => {
+            setTravellerDocumentNumberInput(e.target.value);
+          }}
+          value={travellerDocumentNumberInput}
+        />
+      </div>
+      <Button
+        disabled={
+          isPending ||
+          !travellerDocumentNumberInput?.length ||
+          travellerDocumentNumber === travellerDocumentNumberInput
+        }
+        onClick={searchForTraveller}
+        type="submit"
       >
-        <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="picture">{languageData.TravellerDocumentNo}</Label>
-          <Input
-            disabled={isPending}
-            name="travellerDocumentNumber"
-            onChange={(e) => {
-              setTravellerDocumentNumberInput(e.target.value);
-            }}
-            value={travellerDocumentNumberInput}
-          />
-        </div>
-        <Button
-          disabled={
-            isPending ||
-            !travellerDocumentNumberInput?.length ||
-            travellerDocumentNumber === travellerDocumentNumberInput
-          }
-          onClick={searchForTraveller}
-          type="submit"
-        >
-          {isPending ? languageData.Searching : languageData.Search}
-        </Button>
-      </form>
-    </div>
+        {isPending ? languageData.Searching : languageData.Search}
+      </Button>
+    </form>
   );
 }
