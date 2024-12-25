@@ -30,12 +30,12 @@ export default function TravellerDocumentForm({
 
   return (
     <form
-      className="flex max-w-lg items-end gap-4"
+      className="flex items-end gap-4"
       onSubmit={(e) => {
         e.preventDefault();
       }}
     >
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid max-w-lg items-center gap-1.5">
         <Label htmlFor="traveller-document-no">
           {languageData.TravellerDocumentNo}
         </Label>
@@ -50,6 +50,7 @@ export default function TravellerDocumentForm({
         />
       </div>
       <Button
+        className="w-24"
         disabled={
           isPending ||
           !travellerDocumentNumberInput?.length ||
