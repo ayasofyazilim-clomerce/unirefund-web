@@ -36,9 +36,12 @@ export default function TravellerDocumentForm({
       }}
     >
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="picture">{languageData.TravellerDocumentNo}</Label>
+        <Label htmlFor="traveller-document-no">
+          {languageData.TravellerDocumentNo}
+        </Label>
         <Input
           disabled={isPending}
+          id="traveller-document-no"
           name="travellerDocumentNumber"
           onChange={(e) => {
             setTravellerDocumentNumberInput(e.target.value);

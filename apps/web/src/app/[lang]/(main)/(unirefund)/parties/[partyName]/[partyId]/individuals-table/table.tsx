@@ -2,7 +2,7 @@
 import { toast } from "@/components/ui/sonner";
 import type {
   PagedResultDto_AffiliationCodeDto,
-  PagedResultDto_AffiliationTypeDto,
+  PagedResultDto_AffiliationTypeDetailDto,
   UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto,
   UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto,
 } from "@ayasofyazilim/saas/CRMService";
@@ -41,7 +41,7 @@ function Individual({
   partyName: Exclude<PartyNameType, "individuals">;
   partyId: string;
   locale: string;
-  response: PagedResultDto_AffiliationTypeDto;
+  response: PagedResultDto_AffiliationTypeDetailDto;
   affiliationCodes: PagedResultDto_AffiliationCodeDto;
 }) {
   const router = useRouter();
@@ -94,9 +94,8 @@ function Individual({
       const individualId = doesEmailExistsResponse.data.items?.[0].id;
       const requestBody: AffiliationsPostDto = {
         affiliationCodeId: formData.affilation.affiliationCodeId,
-        name: email,
-        description: "description",
-        partyId: individualId,
+        partyId: individualId || "",
+        entityInformationTypeCode: "INDIVIDUAL",
       };
       void postAffiliationsToPartyApi(partyName, {
         requestBody,
