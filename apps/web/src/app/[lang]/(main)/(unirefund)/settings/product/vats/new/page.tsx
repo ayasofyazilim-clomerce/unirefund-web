@@ -2,7 +2,7 @@
 
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import Form from "./form";
+import Form from "./_components/form";
 
 export default async function Page({ params }: { params: { lang: string } }) {
   const { lang } = params;

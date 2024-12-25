@@ -5,7 +5,7 @@ import { getVatsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import VatsTable from "./table";
+import VatsTable from "./_components/table";
 
 export default async function Page({
   params,

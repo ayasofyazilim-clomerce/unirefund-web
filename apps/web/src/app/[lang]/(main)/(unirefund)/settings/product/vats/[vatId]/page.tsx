@@ -4,7 +4,7 @@ import { getVatDetailsByIdApi } from "src/actions/unirefund/SettingService/actio
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import Form from "./form";
+import Form from "./_components/form";
 
 export default async function Page({
   params,
