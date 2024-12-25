@@ -4,39 +4,61 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 
 export default function TravellerDocumentForm({
   languageData,
+  travellerDocumentNumber,
 }: {
   languageData: TagServiceResource;
+  travellerDocumentNumber?: string;
 }) {
   const router = useRouter();
   const pathName = usePathname();
-  const [travellerDocumentNumber, setTravellerDocumentNumber] = useState("");
+  const [travellerDocumentNumberInput, setTravellerDocumentNumberInput] =
+    useState(travellerDocumentNumber);
+  const [isPending, startTransition] = useTransition();
+
   function searchForTraveller() {
-    router.replace(
-      `${pathName}?travellerDocumentNumber=${travellerDocumentNumber}`,
-    );
+    startTransition(() => {
+      router.replace(
+        `${pathName}?travellerDocumentNumber=${travellerDocumentNumberInput}`,
+      );
+    });
   }
 
   return (
-    <div className="flex max-w-lg items-end gap-4">
-      <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="picture">{languageData.TravellerDocumentNo}</Label>
-        <Input
-          name="travellerDocumentNumber"
-          onChange={(e) => {
-            setTravellerDocumentNumber(e.target.value);
-          }}
-          value={travellerDocumentNumber}
-        />
-      </div>
-
-      <Button onClick={searchForTraveller} type="submit">
-        {languageData.Search}
-      </Button>
+    <div>
+      <form
+        className="flex max-w-lg items-end gap-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="picture">{languageData.TravellerDocumentNo}</Label>
+          <Input
+            disabled={isPending}
+            name="travellerDocumentNumber"
+            onChange={(e) => {
+              setTravellerDocumentNumberInput(e.target.value);
+            }}
+            value={travellerDocumentNumberInput}
+          />
+        </div>
+        <Button
+          disabled={
+            isPending ||
+            !travellerDocumentNumberInput?.length ||
+            travellerDocumentNumber === travellerDocumentNumberInput
+          }
+          onClick={searchForTraveller}
+          type="submit"
+        >
+          {isPending ? languageData.Searching : languageData.Search}
+        </Button>
+      </form>
     </div>
   );
 }
