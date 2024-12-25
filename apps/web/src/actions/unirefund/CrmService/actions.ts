@@ -1,5 +1,6 @@
 "use server";
-import {
+import type {
+  GetApiCrmServiceRefundPointsAccessibleData,
   type GetApiCrmServiceCustomsData,
   type GetApiCrmServiceIndividualsData,
   type GetApiCrmServiceMerchantsByIdSubMerchantsData,
@@ -64,6 +65,19 @@ export async function getTaxFreesApi(data: GetApiCrmServiceTaxFreesData = {}) {
     return structuredError(error);
   }
 }
+export async function getAccessibleRefundPointsApi(
+  data: GetApiCrmServiceRefundPointsAccessibleData = {},
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsAccessible(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
 export async function getRefundPointsApi(
   data: GetApiCrmServiceRefundPointsData = {},
 ) {
