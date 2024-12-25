@@ -6,9 +6,8 @@ import type {
 } from "@ayasofyazilim/saas/SettingService";
 import { $UniRefund_SettingService_ProductGroups_UpdateProductGroupDto } from "@ayasofyazilim/saas/SettingService";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
@@ -40,7 +39,7 @@ export default function Form({
         "ui:className": "md:col-span-2",
       },
       vatId: {
-        "ui:widget": "Vat",
+        "ui:widget": "VatWidget",
         "ui:className": "md:col-span-2",
       },
       "ui:className": "md:grid md:grid-cols-2 md:gap-2",
@@ -82,34 +81,13 @@ export default function Form({
       submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
       widgets={{
-        Vat: VatWidget({
+        VatWidget: CustomComboboxWidget<UniRefund_SettingService_Vats_VatDto>({
           languageData,
-          vatList,
+          list: vatList,
+          selectIdentifier: "id",
+          selectLabel: "percent",
         }),
       }}
     />
   );
 }
-
-const VatWidget = ({
-  languageData,
-  vatList,
-}: {
-  languageData: SettingServiceResource;
-  vatList: UniRefund_SettingService_Vats_VatDto[];
-}) => {
-  function Widget(props: WidgetProps) {
-    return (
-      <CustomCombobox<UniRefund_SettingService_Vats_VatDto>
-        {...props}
-        emptyValue="select vat"
-        list={vatList}
-        searchPlaceholder={languageData["Select.Placeholder"]}
-        searchResultLabel={languageData["Select.ResultLabel"]}
-        selectIdentifier="id"
-        selectLabel="percent"
-      />
-    );
-  }
-  return Widget;
-};
