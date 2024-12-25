@@ -97,24 +97,24 @@ const productGroupsColumns = (
         locale,
       },
       links,
-      faceted: {
-        active: {
-          options: [
+      badges: {
+        name: {
+          values: [
             {
-              value: "true",
-              label: "",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-            },
-            {
-              value: "false",
-              label: "",
-              icon: XCircle,
-              iconClassName: "text-red-700",
+              position: "after",
+              conditions: [
+                {
+                  when: (value) => value === true,
+                  conditionAccessorKey: "food",
+                },
+              ],
+              label: languageData["Form.food"],
             },
           ],
         },
-        food: {
+      },
+      faceted: {
+        active: {
           options: [
             {
               value: "true",
@@ -153,7 +153,7 @@ function productGroupsTable(
     fillerColumn: "name",
     columnVisibility: {
       type: "hide",
-      columns: ["id"],
+      columns: ["id", "food"],
     },
     columnOrder: [
       "name",
@@ -162,7 +162,6 @@ function productGroupsTable(
       "companyType",
       "vatId",
       "active",
-      "food",
     ],
     tableActions: productGroupsTableActions(
       languageData,
