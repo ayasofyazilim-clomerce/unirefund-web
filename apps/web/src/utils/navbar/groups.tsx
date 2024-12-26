@@ -28,7 +28,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "app",
     parentNavbarItemKey: "management/openiddict",
     displayOrder: 1,
-    requiredPolicies: ["UniRefund.Settings"],
+    requiredPolicies: ["OpenIddictPro.Application"],
   },
   {
     key: "management/openiddict/scopes",
@@ -38,7 +38,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "scope",
     parentNavbarItemKey: "management/openiddict",
     displayOrder: 1,
-    requiredPolicies: ["UniRefund.Settings"],
+    requiredPolicies: ["OpenIddictPro.Scope"],
   },
   {
     key: "management/admin",
@@ -88,7 +88,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "edition",
     parentNavbarItemKey: "management/saas",
     displayOrder: 1,
-    requiredPolicies: ["UniRefund.Settings"],
+    requiredPolicies: ["Saas.Editions"],
   },
   {
     key: "management/saas/tenant",
@@ -98,7 +98,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "globe",
     parentNavbarItemKey: "management/saas",
     displayOrder: 1,
-    requiredPolicies: ["UniRefund.Dashboard.Tenant"],
+    requiredPolicies: ["Saas.Tenants"],
   },
   {
     key: "management/identity",
@@ -138,7 +138,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "scan",
     parentNavbarItemKey: "management/identity",
     displayOrder: 1,
-    requiredPolicies: ["AbpIdentity.Roles"],
+    requiredPolicies: ["AbpIdentity.ClaimTypes"],
   },
   {
     key: "management/identity/security-logs",
@@ -178,7 +178,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "text",
     parentNavbarItemKey: "management",
     displayOrder: 1,
-    requiredPolicies: ["LanguageManagement.LanguageTexts"],
+    requiredPolicies: ["TextTemplateManagement.TextTemplates"],
   },
 ];
 export const settings: NavbarItemsFromDB[] = [
