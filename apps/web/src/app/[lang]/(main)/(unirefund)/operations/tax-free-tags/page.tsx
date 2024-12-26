@@ -1,6 +1,5 @@
 "use server";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { GetApiTagServiceTagData } from "@ayasofyazilim/saas/TagService";
 import { CreditCard, DollarSign, Tags } from "lucide-react";
 import {
@@ -11,29 +10,8 @@ import { getResourceData } from "src/language-data/unirefund/TagService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { localizeCurrency } from "src/utils/utils-number";
+import { TagSummary } from "../_components/tag-summary";
 import TaxFreeTagsTable from "./_components/table";
-
-function TagSummary({
-  title,
-  value,
-  icon,
-}: {
-  title: string;
-  value: string | number;
-  icon: React.ReactNode;
-}) {
-  return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {icon}
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-      </CardContent>
-    </Card>
-  );
-}
 
 export default async function Page({
   params,
