@@ -18,7 +18,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "id",
     parentNavbarItemKey: "management",
     displayOrder: 1,
-    requiredPolicies: ["UniRefund.Settings"],
+    requiredPolicies: ["OpenIddictPro.Application", "OpenIddictPro.Scope"],
   },
   {
     key: "management/openiddict/applications",
@@ -78,7 +78,7 @@ export const management: NavbarItemsFromDB[] = [
     icon: "management",
     parentNavbarItemKey: "management",
     displayOrder: 1,
-    requiredPolicies: ["UniRefund.Settings"],
+    requiredPolicies: ["Saas.Editions", "Saas.Tenants"],
   },
   {
     key: "management/saas/edition",
