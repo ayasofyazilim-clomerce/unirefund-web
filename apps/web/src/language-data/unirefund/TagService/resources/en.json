@@ -13,6 +13,8 @@
   "PaidDate": "Paid Date",
   "ReferenceNumber": "Reference Number",
   "Currency": "Currency",
+  "ExportValidated": "Export Validated",
+  "NeedValidation": "Need Validation",
 
   "SalesAmount": "Sale Amount",
   "VatAmount": "Vat Amount",
