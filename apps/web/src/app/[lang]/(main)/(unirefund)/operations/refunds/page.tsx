@@ -9,6 +9,7 @@ import { getRefundApi } from "src/actions/unirefund/RefundService/actions";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "../../../_components/error-component";
 import RefundsTable from "./table";
 
 interface SearchParamType {
@@ -22,16 +23,20 @@ interface SearchParamType {
   timeFilterStartDate?: string;
 }
 
-export default async function Page(props: {
+export default async function Page({
+  params,
+  searchParams,
+}: {
   params: { lang: string };
   searchParams: SearchParamType;
 }) {
+  const { lang } = params;
+
   await isUnauthorized({
     requiredPolicies: ["RefundService.Refunds"],
-    lang: props.params.lang,
+    lang,
   });
 
-  const searchParams = props.searchParams;
   const response = await getRefundApi({
     ...searchParams,
     statusesFilterStatuses: searchParams.statusesFilterStatuses?.split(",") as
@@ -45,14 +50,19 @@ export default async function Page(props: {
         | UniRefund_RefundService_Enums_RefundReconciliationStatus[]
         | undefined,
   });
-  if (isErrorOnRequest(response, props.params.lang)) return;
 
-  const { languageData } = await getResourceData(props.params.lang);
+  const { languageData } = await getResourceData(lang);
+
+  if (isErrorOnRequest(response, lang, false)) {
+    return (
+      <ErrorComponent languageData={languageData} message={response.message} />
+    );
+  }
 
   return (
     <RefundsTable
       languageData={languageData}
-      locale={props.params.lang}
+      locale={lang}
       response={response.data}
     />
   );
