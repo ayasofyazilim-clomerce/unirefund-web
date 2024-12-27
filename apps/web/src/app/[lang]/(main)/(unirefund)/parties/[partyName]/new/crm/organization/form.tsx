@@ -44,6 +44,8 @@ export default function CrmOrganization({
     countryId: "",
     regionId: "",
     cityId: "",
+    neighborhoodId: "",
+    districtId: "",
   };
 
   const {
@@ -54,7 +56,7 @@ export default function CrmOrganization({
   } = useAddressHook({
     countryList,
     selectedFieldsDefaultValue,
-    fieldsToHideInAddressSchema: ["districtId"],
+    fieldsToHideInAddressSchema: [],
     languageData,
   });
 

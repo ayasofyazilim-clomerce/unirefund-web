@@ -6,9 +6,17 @@ import type { AppLanguageDataResourceType } from "src/language-data/unirefund/la
 import {
   getCitiesByRegionId,
   getDefaultRegionsByCountryIdApi,
+  getDistrictsByCityIdApi,
+  getNeighborhoodsByDistrictIdApi,
   getRegionsByCountryIdApi,
 } from "./actions";
-import type { CityDto, CountryDto, RegionDto } from "./types";
+import type {
+  CityDto,
+  CountryDto,
+  DistrictDto,
+  NeighborhoodDto,
+  RegionDto,
+} from "./types";
 
 export async function getRegion({
   countryList,
@@ -64,7 +72,40 @@ export async function getCity({
   setCityList([]);
   toast.error(`location/utils/city: ${languageData["Fetch.Fail"]}`);
 }
-
+export async function getDistrict({
+  cityId,
+  setDistrictList,
+  languageData,
+}: {
+  cityId: string;
+  setDistrictList: Dispatch<SetStateAction<DistrictDto[] | undefined>>;
+  languageData: AppLanguageDataResourceType;
+}) {
+  const districts = await getDistrictsByCityIdApi({ cityId });
+  if (districts.type === "success") {
+    setDistrictList(districts.data);
+    return;
+  }
+  setDistrictList([]);
+  toast.error(`location/utils/district: ${languageData["Fetch.Fail"]}`);
+}
+export async function getNeighborhood({
+  districtId,
+  setNeighborhoodList,
+  languageData,
+}: {
+  districtId: string;
+  setNeighborhoodList: Dispatch<SetStateAction<NeighborhoodDto[] | undefined>>;
+  languageData: AppLanguageDataResourceType;
+}) {
+  const neighborhoods = await getNeighborhoodsByDistrictIdApi({ districtId });
+  if (neighborhoods.type === "success") {
+    setNeighborhoodList(neighborhoods.data);
+    return;
+  }
+  setNeighborhoodList([]);
+  toast.error(`location/utils/neighborhood: ${languageData["Fetch.Fail"]}`);
+}
 export function getAddressList({
   countryList,
   countryId,
