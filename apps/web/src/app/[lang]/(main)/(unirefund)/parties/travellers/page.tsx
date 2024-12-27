@@ -6,6 +6,7 @@ import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { getCountriesApi } from "../../../../../../actions/unirefund/LocationService/actions";
 import { getTravellersApi } from "../../../../../../actions/unirefund/TravellerService/actions";
+import ErrorComponent from "../../../_components/error-component";
 import TravellersTable from "./table";
 
 export default async function Page({
@@ -25,15 +26,32 @@ export default async function Page({
     requiredPolicies: ["TravellerService.Travellers"],
     lang,
   });
+
+  const { languageData } = await getResourceData(lang);
+
   const travellerResponse = await getTravellersApi({
     ...searchParams,
     nationalities: searchParams.nationalities?.split(",") || [],
     residences: searchParams.residences?.split(",") || [],
   });
-  if (isErrorOnRequest(travellerResponse, lang)) return;
+  if (isErrorOnRequest(travellerResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={travellerResponse.message}
+      />
+    );
+  }
+
   const countriesResponse = await getCountriesApi();
-  if (isErrorOnRequest(countriesResponse, lang)) return;
-  const { languageData } = await getResourceData(lang);
+  if (isErrorOnRequest(countriesResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={countriesResponse.message}
+      />
+    );
+  }
 
   return (
     <TravellersTable
