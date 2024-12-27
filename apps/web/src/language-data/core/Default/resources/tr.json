@@ -22,20 +22,21 @@
   "Delete": "Sil",
   "Delete.Success": "Veri başarıyla silindi.",
   "Delete.Fail": "Veri silinirken bir hata oluştu.",
-
   "Fetch.Fail": "Veriler alırken bir hata oluştu.",
 
   "Country.Select": "Ülke Seç",
   "Region.Select": "Bölge Seç",
   "City.Select": "Şehir Seç",
   "District.Select": "İlçe Seç",
+  "Neighborhood.Select": "Mahalle Seç",
   "Select.Placeholder": "Ara...",
   "Select.ResultLabel": "0 arama sonucu.",
   "Select.EmptyValue": "Lütfen seçim yapınız.",
   "PhoneNumber": "Telefon Numarası",
-
   "Country.Fetch.Fail": "Ülkeler getirilirken bir hata oluştu..",
   "City.Fetch.Fail": "Şehirleri getirilirken bir hata oluştu.",
+  "District.Fetch.Fail": "İlçeler getirilirken bir hata oluştu.",
+  "Neighborhood.Fetch.Fail": "Mahalleler getirilirken bir hata oluştu.",
 
   "ExportCSV": "CSV Dışa Aktar",
 
@@ -100,6 +101,8 @@
   "Form.address.countryId": "Ülke",
   "Form.address.regionId": "Bölge",
   "Form.address.cityId": "Şehir",
+  "Form.address.districtId": "Ilçe",
+  "Form.address.neighborhoodId": "Mahalle",
   "Form.address.postalCode": "Posta Kodu",
   "Form.address.addressLine": "Adres Satırı",
   "Form.address.fullAddress": "Tam Adres",

@@ -4,6 +4,8 @@ import type {
   GetApiLocationServiceCitiesData,
   GetApiLocationServiceCitiesGetListByRegionByRegionIdData,
   GetApiLocationServiceCountriesData,
+  GetApiLocationServiceDistrictsGetListByCityByCityIdData,
+  GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
 } from "@ayasofyazilim/saas/LocationService";
 import { structuredError, structuredResponse } from "src/lib";
@@ -65,6 +67,29 @@ export async function getCitiesApi(data: GetApiLocationServiceCitiesData = {}) {
   try {
     const requests = await getApiRequests();
     const response = await requests.locations.getCities(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function getDistrictsByCityIdApi(
+  data: GetApiLocationServiceDistrictsGetListByCityByCityIdData,
+) {
+  try {
+    const requests = await getApiRequests();
+    const response = await requests.locations.getDistrictsByCityId(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function getNeighborhoodsByDistrictIdApi(
+  data: GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
+) {
+  try {
+    const requests = await getApiRequests();
+    const response =
+      await requests.locations.getNeighborhoodsByDistrictId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
