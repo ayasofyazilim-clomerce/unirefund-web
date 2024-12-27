@@ -3,9 +3,11 @@ import type { ServerResponse } from "src/lib";
 import type policies from "./policies.json";
 
 export type Policy = keyof typeof policies;
+
 export function isErrorOnRequest<T>(
   response: ServerResponse<T>,
   lang: string,
+  redirectToNotFound = true,
 ): response is
   | { type: "api-error"; message: string; status: number; data: string }
   | { type: "error"; message: string; status: number; data: unknown } {
@@ -15,5 +17,8 @@ export function isErrorOnRequest<T>(
     return permanentRedirect(`/${lang}/unauthorized`, RedirectType.replace);
   }
 
-  return notFound();
+  if (redirectToNotFound) {
+    return notFound();
+  }
+  return true;
 }
