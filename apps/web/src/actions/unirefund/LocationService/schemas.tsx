@@ -6,17 +6,19 @@ import {
   createFieldConfigWithResource,
   CustomCombobox,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import { CustomCombobox as SchemaFormCustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type { Dispatch, SetStateAction } from "react";
-import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import type { AppLanguageDataResourceType } from "src/language-data/unirefund/language-data";
 import type {
   CityDto,
   CountryDto,
+  DistrictDto,
+  NeighborhoodDto,
   RegionDto,
   SelectedAddressField,
 } from "./types";
-import { getCity, getRegion } from "./utils";
+import { getCity, getDistrict, getNeighborhood, getRegion } from "./utils";
 
 const AddressFormFields: AddressFormFieldsType[] = [
   "type",
@@ -42,6 +44,8 @@ export function getAddressFieldConfig(params: {
   cityList?: CityDto[];
   regionList?: RegionDto[];
   countryList?: CountryDto[];
+  neighborhoodList?: NeighborhoodDto[];
+  districtList?: DistrictDto[];
   languageData: AppLanguageDataResourceType;
 }) {
   const fieldConfig = {
@@ -51,6 +55,28 @@ export function getAddressFieldConfig(params: {
           childrenProps={props}
           emptyValue={params.languageData["City.Select"]}
           list={params.cityList}
+          selectIdentifier="id"
+          selectLabel="name"
+        />
+      ),
+    },
+    districtId: {
+      renderer: (props: AutoFormInputComponentProps) => (
+        <CustomCombobox<DistrictDto>
+          childrenProps={props}
+          emptyValue={params.languageData["District.Select"]}
+          list={params.districtList}
+          selectIdentifier="id"
+          selectLabel="name"
+        />
+      ),
+    },
+    neighborhoodId: {
+      renderer: (props: AutoFormInputComponentProps) => (
+        <CustomCombobox<NeighborhoodDto>
+          childrenProps={props}
+          emptyValue={params.languageData["Neighborhood.Select"]}
+          list={params.neighborhoodList}
           selectIdentifier="id"
           selectLabel="name"
         />
@@ -98,6 +124,10 @@ export function handleOnAddressValueChange({
   regionList,
   setRegionList,
   setCityList,
+  // neighborhoodList,
+  setNeighborhoodList,
+  // districtList,
+  setDistrictList,
   languageData,
 }: {
   values: Record<string, string>;
@@ -107,6 +137,10 @@ export function handleOnAddressValueChange({
   regionList?: RegionDto[];
   selectedFields: SelectedAddressField;
   setSelectedFields: Dispatch<SetStateAction<SelectedAddressField>>;
+  neighborhoodList?: NeighborhoodDto[];
+  setNeighborhoodList: Dispatch<SetStateAction<NeighborhoodDto[] | undefined>>;
+  districtList?: DistrictDto[];
+  setDistrictList: Dispatch<SetStateAction<DistrictDto[] | undefined>>;
   languageData: AppLanguageDataResourceType;
 }) {
   const val = values as {
@@ -120,11 +154,14 @@ export function handleOnAddressValueChange({
   ) {
     setRegionList(undefined);
     setCityList(undefined);
+    setDistrictList(undefined);
+    setNeighborhoodList(undefined);
     setSelectedFields((current) => ({
       ...current,
       countryId: val.countryId,
       regionId: "",
       cityId: "",
+      neighborhoodId: "",
     }));
     void getRegion({
       countryList,
@@ -153,6 +190,25 @@ export function handleOnAddressValueChange({
       ...current,
       cityId: val.cityId,
     }));
+    void getDistrict({ cityId: val.cityId, setDistrictList, languageData });
+  } else if (val.districtId && val.districtId !== selectedFields.districtId) {
+    setSelectedFields((current) => ({
+      ...current,
+      districtId: val.districtId,
+    }));
+    void getNeighborhood({
+      districtId: val.districtId,
+      setNeighborhoodList,
+      languageData,
+    });
+  } else if (
+    val.neighborhoodId &&
+    val.neighborhoodId !== selectedFields.neighborhoodId
+  ) {
+    setSelectedFields((current) => ({
+      ...current,
+      neighborhoodId: val.neighborhoodId,
+    }));
   }
 }
 export function hideAddressFields(hideFields: AddressFormFieldsType[]) {
@@ -168,6 +224,8 @@ export function getAddressSettingsForSchemaForm(params: {
   cityList?: CityDto[];
   regionList?: RegionDto[];
   countryList?: CountryDto[];
+  neighborhoodList?: NeighborhoodDto[];
+  districtList?: DistrictDto[];
   languageData: AppLanguageDataResourceType;
 }) {
   const widgets = {
@@ -177,6 +235,26 @@ export function getAddressSettingsForSchemaForm(params: {
         emptyValue={params.languageData["City.Select"]}
         label={params.languageData["Form.address.cityId"]}
         list={params.cityList}
+        selectIdentifier="id"
+        selectLabel="name"
+      />
+    ),
+    districtId: (props: WidgetProps) => (
+      <SchemaFormCustomCombobox<DistrictDto>
+        {...props}
+        emptyValue={params.languageData["District.Select"]}
+        label={params.languageData["Form.address.districtId"]}
+        list={params.districtList}
+        selectIdentifier="id"
+        selectLabel="name"
+      />
+    ),
+    neighborhoodId: (props: WidgetProps) => (
+      <SchemaFormCustomCombobox<NeighborhoodDto>
+        {...props}
+        emptyValue={params.languageData["Neighborhood.Select"]}
+        label={params.languageData["Form.address.neighborhoodId"]}
+        list={params.neighborhoodList}
         selectIdentifier="id"
         selectLabel="name"
       />
@@ -206,6 +284,10 @@ export function getAddressSettingsForSchemaForm(params: {
     cityId: {
       "ui:widget": "cityId",
       "ui:title": params.languageData["Form.address.cityId"],
+    },
+    neighborhoodId: {
+      "ui:widget": "neighborhoodId",
+      "ui:title": params.languageData["Form.address.neighborhoodId"],
     },
     countryId: {
       "ui:widget": "countryId",
