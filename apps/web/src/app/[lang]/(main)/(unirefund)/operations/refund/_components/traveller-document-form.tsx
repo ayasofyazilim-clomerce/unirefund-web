@@ -79,7 +79,7 @@ export default function TravellerDocumentForm({
         <Popover>
           <PopoverTrigger asChild>
             <Button
-              className="w-[200px] justify-between"
+              className="w-[300px] justify-between"
               role="combobox"
               variant="outline"
             >
