@@ -393,15 +393,21 @@
     "requiredPolicies": ["TagService.Tags"]
   },
   {
-    "key": "operations/refunds",
-    "displayName": "Refunds",
+    "key": "operations/refund",
+    "displayName": "Refund",
     "description": "Manage refunds.",
-    "href": "operations/refunds",
-    "icon": "log",
+    "href": "operations/refund/export-validated",
+    "icon": "dashboard",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
-    "requiredPolicies": ["RefundService.Refunds"]
+    "requiredPolicies": [
+      "TagService.Tags",
+      "RefundService.Refunds",
+      "RefundService.Refunds.Create",
+      "RefundService.Refunds.View"
+    ]
   },
+
   {
     "key": "operations/export-validation",
     "displayName": "ExportValidation",
