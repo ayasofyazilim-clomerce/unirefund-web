@@ -407,7 +407,16 @@
       "RefundService.Refunds.View"
     ]
   },
-
+  {
+    "key": "operations/refunds",
+    "displayName": "Refunds",
+    "description": "Manage refunds.",
+    "href": "operations/refunds",
+    "icon": "dashboard",
+    "parentNavbarItemKey": "operations",
+    "displayOrder": 1,
+    "requiredPolicies": ["RefundService.Refunds"]
+  },
   {
     "key": "operations/export-validation",
     "displayName": "ExportValidation",
