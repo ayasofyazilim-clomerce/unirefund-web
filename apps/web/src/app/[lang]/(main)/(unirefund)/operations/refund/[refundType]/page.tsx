@@ -57,7 +57,7 @@ export default async function Page({
   const refundableTagsResponse = await getRefundableTagsApi({
     travellerDocumentNumber: searchParams.travellerDocumentNumber,
     refundType: searchParams.refundType || "Cash",
-    refundPointId: "E243C7EE-AE7B-7C7F-B026-3A16A3088678",
+    refundPointId: searchParams.refundPointId,
     isExportValidated: params.refundType === "export-validated",
   });
 
