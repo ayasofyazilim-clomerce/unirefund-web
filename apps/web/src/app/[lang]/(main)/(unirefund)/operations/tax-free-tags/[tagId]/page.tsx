@@ -1,8 +1,9 @@
 "use server";
 
-import { notFound } from "next/navigation";
 import { getTagByIdApi } from "src/actions/unirefund/TagService/actions";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TagService";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import MerchantDetails from "./_components/merchant-details";
 import TagStatuses from "./_components/tag-statuses";
 import TagSummary from "./_components/tag-summary";
@@ -14,12 +15,21 @@ export default async function Page({
 }: {
   params: { tagId: string; lang: string };
 }) {
-  const response = await getTagByIdApi({ id: params.tagId });
-  const { languageData } = await getResourceData(params.lang);
+  const { tagId, lang } = params;
 
-  if (response.type !== "success") return notFound();
+  const { languageData } = await getResourceData(lang);
 
-  const tagDetail = response.data;
+  const tagDetailResponse = await getTagByIdApi({ id: tagId });
+  if (isErrorOnRequest(tagDetailResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={tagDetailResponse.message}
+      />
+    );
+  }
+
+  const tagDetail = tagDetailResponse.data;
   return (
     <div className="mb-2 grid h-full grid-cols-2 gap-3 overflow-auto">
       <TagSummary languageData={languageData} tagDetail={tagDetail} />
