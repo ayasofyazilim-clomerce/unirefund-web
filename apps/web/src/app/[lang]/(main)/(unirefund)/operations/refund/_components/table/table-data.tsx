@@ -5,24 +5,8 @@ import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/mole
 import type { Dispatch, SetStateAction } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 
-const statusArray = [
-  "None",
-  "Open",
-  "PreIssued",
-  "Issued",
-  "WaitingGoodsValidation",
-  "WaitingStampValidation",
-  "Declined",
-  "ExportValidated",
-  "PaymentBlocked",
-  "PaymentInProgress",
-  "PaymentProblem",
-  "Paid",
-  "Cancelled",
-  "Expired",
-  "Correction",
-  "OptedOut",
-];
+const statusArray =
+  $UniRefund_TagService_Tags_TagListItemDto.properties.status.enum;
 
 type RefundsTable =
   TanstackTableCreationProps<UniRefund_TagService_Tags_TagListItemDto>;
