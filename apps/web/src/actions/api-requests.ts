@@ -98,14 +98,6 @@ import type {
   PutApiSaasTenantsByIdSetPasswordData,
 } from "@ayasofyazilim/saas/SaasService";
 import type { GetApiTagServiceTagData } from "@ayasofyazilim/saas/TagService";
-import type {
-  GetApiTravellerServiceTravellersData,
-  PostApiTravellerServiceTravellersByIdCreatePersonalIdentificationData,
-  PostApiTravellerServiceTravellersData,
-  PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,
-  PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
-  PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
-} from "@ayasofyazilim/saas/TravellerService";
 import type { FilterColumnResult } from "@repo/ayasofyazilim-ui/molecules/tables/types";
 import { auth } from "auth";
 import {
@@ -118,7 +110,6 @@ import {
   getRefundServiceClient,
   getSaasServiceClient,
   getTagServiceClient,
-  getTravellersServiceClient,
   structuredError,
   structuredResponse,
 } from "src/lib";
@@ -135,7 +126,6 @@ export type GetTableDataTypes = Exclude<
 >;
 export type DeleteTableDataTypes = Exclude<
   ApiRequestTypes,
-  | "travellers"
   | "claims"
   | "roles"
   | "locations"
@@ -167,7 +157,6 @@ export type GetDetailTableDataTypes = Exclude<
 export async function getApiRequests() {
   const session = await auth();
   const crmClient = await getCRMServiceClient(session);
-  const travellerClient = await getTravellersServiceClient(session);
   const contractsClient = await getContractServiceClient(session);
   const locationClient = await getLocationServiceClient(session);
   const identityClient = await getIdentityServiceClient(session);
@@ -677,44 +666,6 @@ export async function getApiRequests() {
     refund: {
       get: async (data: GetApiRefundServiceRefundsData) =>
         await refundClient.refund.getApiRefundServiceRefunds(data),
-    },
-    travellers: {
-      get: async (data: GetApiTravellerServiceTravellersData) =>
-        await travellerClient.traveller.getApiTravellerServiceTravellers(data),
-      getDetail: async (id: string) =>
-        await travellerClient.traveller.getApiTravellerServiceTravellersById({
-          id,
-        }),
-      post: async (data: PostApiTravellerServiceTravellersData) =>
-        await travellerClient.traveller.postApiTravellerServiceTravellers(data),
-      postTravellerIdentification: async (
-        data: PostApiTravellerServiceTravellersByIdCreatePersonalIdentificationData,
-      ) =>
-        await travellerClient.traveller.postApiTravellerServiceTravellersByIdCreatePersonalIdentification(
-          data,
-        ),
-      putPersonalIdentification: async (
-        data: PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,
-      ) =>
-        await travellerClient.traveller.putApiTravellerServiceTravellersByIdUpdatePersonalIdentification(
-          data,
-        ),
-      putPersonalPreference: async (
-        data: PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
-      ) =>
-        await travellerClient.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalPreference(
-          data,
-        ),
-      putPersonalSummary: async (
-        data: PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
-      ) =>
-        await travellerClient.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalSummary(
-          data,
-        ),
-      deleteTravellerPersonalIdentification: async (id: string) =>
-        await travellerClient.traveller.deleteApiTravellerServiceTravellersByIdDeletePersonalIdentification(
-          { id },
-        ),
     },
     claims: {
       get: async (data: GetApiIdentityClaimTypesData) =>

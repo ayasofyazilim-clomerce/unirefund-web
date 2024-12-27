@@ -1,6 +1,9 @@
 {
+  "NotImplemented": "Not implemented yet.",
   "Back": "Back",
   "Save": "Save",
+  "Search": "Search",
+  "Searching": "Searching",
   "Delete.Assurance": "Are you sure you want to delete?",
   "Cancel": "Cancel",
   "Edit.Save": "Save Changes",
@@ -28,6 +31,7 @@
   "Neighborhood.Select": "Select Neighborhood",
   "Select.Placeholder": "Search...",
   "Select.ResultLabel": "0 search result.",
+  "Select.EmptyValue": "Please select a value.",
   "PhoneNumber": "Phone Number",
   "Country.Fetch.Fail": "An error occurred while fetching countries.",
   "City.Fetch.Fail": "An error occurred while fetching cities.",

@@ -1,7 +1,7 @@
 "use server";
 
 import { notFound } from "next/navigation";
-import { getTagById } from "src/actions/unirefund/TagService/actions";
+import { getTagByIdApi } from "src/actions/unirefund/TagService/actions";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import MerchantDetails from "./_components/merchant-details";
 import TagStatuses from "./_components/tag-statuses";
@@ -14,7 +14,7 @@ export default async function Page({
 }: {
   params: { tagId: string; lang: string };
 }) {
-  const response = await getTagById({ id: params.tagId });
+  const response = await getTagByIdApi({ id: params.tagId });
   const { languageData } = await getResourceData(params.lang);
 
   if (response.type !== "success") return notFound();

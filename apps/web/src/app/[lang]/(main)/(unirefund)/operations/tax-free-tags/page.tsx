@@ -1,40 +1,69 @@
 "use server";
 
 import type { GetApiTagServiceTagData } from "@ayasofyazilim/saas/TagService";
-import { getTagsApi } from "src/actions/unirefund/TagService/actions";
+import { CreditCard, DollarSign, Tags } from "lucide-react";
+import {
+  getTagsApi,
+  getTagSummaryApi,
+} from "src/actions/unirefund/TagService/actions";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import { getRefundPointsApi } from "src/actions/unirefund/CrmService/actions";
-import RefundsTable from "./table";
+import { localizeCurrency } from "src/utils/utils-number";
+import { TagSummary } from "../_components/tag-summary";
+import TaxFreeTagsTable from "./_components/table";
 
-export default async function Page(props: {
+export default async function Page({
+  params,
+  searchParams,
+}: {
   params: { lang: string };
   searchParams?: GetApiTagServiceTagData;
 }) {
   await isUnauthorized({
     requiredPolicies: ["TagService.Tags"],
-    lang: props.params.lang,
+    lang: params.lang,
   });
 
-  const searchParams = props.searchParams;
+  const tagsResponse = await getTagsApi(searchParams);
+  if (isErrorOnRequest(tagsResponse, params.lang)) return;
 
-  const response = await getTagsApi(searchParams);
-  if (isErrorOnRequest(response, props.params.lang)) return;
+  const tagSummaryResponse = await getTagSummaryApi(searchParams);
+  if (isErrorOnRequest(tagSummaryResponse, params.lang)) return;
 
-  const { languageData } = await getResourceData(props.params.lang);
+  const { languageData } = await getResourceData(params.lang);
 
-  const refundPointsResponse = await getRefundPointsApi();
-  const refundPoints =
-    (refundPointsResponse.type === "success"
-      ? refundPointsResponse.data.items
-      : []) || [];
+  const currencyFormatter = localizeCurrency(params.lang);
+  const summary = tagSummaryResponse.data;
   return (
-    <RefundsTable
-      languageData={languageData}
-      locale={props.params.lang}
-      refundPoints={refundPoints}
-      response={response.data}
-    />
+    <div>
+      <div className="mb-3 grid grid-cols-3 gap-4">
+        <TagSummary
+          icon={<Tags className="size-4" />}
+          title={languageData.TotalTags}
+          value={tagsResponse.data.totalCount || 0}
+        />
+        <TagSummary
+          icon={<DollarSign className="size-4" />}
+          title={languageData.Sales}
+          value={currencyFormatter(
+            summary.totalSalesAmount || 0,
+            summary.currency || "TRY",
+          )}
+        />
+        <TagSummary
+          icon={<CreditCard className="size-4" />}
+          title={languageData.Refunds}
+          value={currencyFormatter(
+            summary.totalRefundAmount || 0,
+            summary.currency || "TRY",
+          )}
+        />
+      </div>
+      <TaxFreeTagsTable
+        languageData={languageData}
+        response={tagsResponse.data}
+      />
+    </div>
   );
 }

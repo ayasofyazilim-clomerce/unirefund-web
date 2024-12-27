@@ -40,6 +40,7 @@ export interface CreatePartiesDto {
   telephone: UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto;
   address: UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto;
   email: UniRefund_CRMService_EmailCommonDatas_CreateEmailCommonDataWithComponentsDto;
+  createAbpUserAccount: boolean;
 }
 
 const CommonOrganizationFields = ["name", "taxpayerId", "branchId"];

@@ -12,7 +12,6 @@ export default async function Layout({
   const { languageData } = await getResourceData(params.lang);
   return (
     <TabLayout
-      orientation="vertical"
       tabList={[
         {
           label: languageData["VatStatements.Information"],

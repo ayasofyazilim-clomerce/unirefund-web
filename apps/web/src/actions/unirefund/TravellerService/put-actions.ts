@@ -4,17 +4,22 @@ import type {
   PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
   PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
 } from "@ayasofyazilim/saas/TravellerService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import {
+  getTravellersServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 
 export async function putTravellerPersonalIdentificationApi(
   data: PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse =
-      await requests.travellers.putPersonalIdentification(data);
-    return structuredResponse(dataResponse);
+    const client = await getTravellersServiceClient();
+    const response =
+      await client.traveller.putApiTravellerServiceTravellersByIdUpdatePersonalIdentification(
+        data,
+      );
+    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
@@ -24,9 +29,12 @@ export async function putTravellerPersonalPreferenceApi(
   data: PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.travellers.putPersonalPreference(data);
-    return structuredResponse(dataResponse);
+    const client = await getTravellersServiceClient();
+    const response =
+      await client.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalPreference(
+        data,
+      );
+    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
@@ -36,9 +44,12 @@ export async function putTravellerPersonalSummaryApi(
   data: PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.travellers.putPersonalSummary(data);
-    return structuredResponse(dataResponse);
+    const client = await getTravellersServiceClient();
+    const response =
+      await client.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalSummary(
+        data,
+      );
+    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }

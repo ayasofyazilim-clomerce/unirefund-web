@@ -148,13 +148,23 @@ export async function deleteUserSessionsApi(id: string) {
   }
 }
 
-export async function getAssignableRolesApi(id: string) {
+export async function getAssignableRolesApi(roleId: string) {
   try {
     const client = await getIdentityServiceClient();
     const dataResponse =
-      await client.assignableRole.getApiIdentityAssignableRolesAllRolesWithAssignableById(
-        { id },
+      await client.assignableRole.getApiIdentityAssignableRolesAllRolesWithAssignableByRoleId(
+        { roleId },
       );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function getAssignableRolesByCurrentUserApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.role.getApiIdentityRolesAssignableRolesByCurrentUser();
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

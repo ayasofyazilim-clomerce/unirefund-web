@@ -1,10 +1,12 @@
-import { notFound } from "next/navigation";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText } from "lucide-react";
 import {
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
   getMerchantContractHeadersContractStoresByHeaderIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { ContractStoresTable } from "./_components/table";
 
 export default async function Page({
@@ -24,25 +26,33 @@ export default async function Page({
   });
 
   const { languageData } = await getResourceData(lang);
-  const contractStores =
-    await getMerchantContractHeadersContractStoresByHeaderIdApi({
-      id: contractId,
-    });
   const contractSettings =
     await getMerchantContractHeaderContractSettingsByHeaderIdApi({
       id: contractId,
     });
-  if (
-    contractStores.type !== "success" ||
-    contractSettings.type !== "success"
-  ) {
-    return notFound();
-  }
+  if (isErrorOnRequest(contractSettings, lang)) return;
+  const contractStores =
+    await getMerchantContractHeadersContractStoresByHeaderIdApi({
+      id: contractId,
+    });
   return (
-    <ContractStoresTable
-      contractSettings={contractSettings.data.items || []}
-      contractStores={contractStores.data.items || []}
-      languageData={languageData}
-    />
+    <FormReadyComponent
+      active={contractStores.type !== "success"}
+      content={{
+        icon: <FileText className="size-20 text-gray-400" />,
+        title: languageData["Missing.ContractStores.Title"],
+        message: languageData["Missing.ContractStores.Message"],
+      }}
+    >
+      <ContractStoresTable
+        contractSettings={contractSettings.data.items || []}
+        contractStores={
+          contractStores.type === "success"
+            ? contractStores.data.items || []
+            : []
+        }
+        languageData={languageData}
+      />
+    </FormReadyComponent>
   );
 }

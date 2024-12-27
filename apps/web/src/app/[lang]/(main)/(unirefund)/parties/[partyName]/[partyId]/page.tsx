@@ -8,6 +8,8 @@ import {
   getRefundPointContractHeadersByRefundPointIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import {
+  getAffiliationCodeApi,
+  getIndividualsByIdApi,
   getMerchantsApi,
   getTaxOfficesApi,
 } from "src/actions/unirefund/CrmService/actions";
@@ -91,6 +93,7 @@ export default async function Page({
     { name: languageData.Email, id: "email" },
     { name: languageData[formData.subEntityName], id: "SubCompany" },
     { name: languageData.Individuals, id: "individuals" },
+    { name: "Affiliations", id: "affiliations" },
   ];
 
   if (organizationData) {
@@ -117,6 +120,22 @@ export default async function Page({
   ) {
     sections.push({ name: languageData.Contracts, id: "contracts" });
   }
+
+  const individualsResponse = await getIndividualsByIdApi(
+    params.partyName,
+    params.partyId,
+  );
+  const individuals =
+    individualsResponse.type === "success"
+      ? individualsResponse.data
+      : { items: [], totalCount: 0 };
+
+  const affiliationCodesResponse = await getAffiliationCodeApi();
+
+  const affiliationCodes =
+    affiliationCodesResponse.type === "success"
+      ? affiliationCodesResponse.data
+      : { items: [], totalCount: 0 };
 
   return (
     <>
@@ -188,10 +207,14 @@ export default async function Page({
             partyName={params.partyName}
           />
           <IndividualTable
+            affiliationCodes={affiliationCodes}
             languageData={languageData}
+            locale={params.lang}
             partyId={params.partyId}
             partyName={params.partyName}
+            response={individuals}
           />
+
           {contracts &&
           (params.partyName === "merchants" ||
             params.partyName === "refund-points") ? (

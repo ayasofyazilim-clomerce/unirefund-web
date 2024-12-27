@@ -1,6 +1,9 @@
 {
+  "NotImplemented": "Geliştirme aşamasında.",
   "Back": "Geri",
   "Save": "Kaydet",
+  "Search": "Ara",
+  "Searching": "Aranıyor",
   "Delete.Assurance": "Silmek istediğinize emin misiniz?",
   "Cancel": "İptal",
   "Edit.Save": "Değişiklikleri kaydet",
@@ -28,6 +31,7 @@
   "Neighborhood.Select": "Mahalle Seç",
   "Select.Placeholder": "Ara...",
   "Select.ResultLabel": "0 arama sonucu.",
+  "Select.EmptyValue": "Lütfen seçim yapınız.",
   "PhoneNumber": "Telefon Numarası",
   "Country.Fetch.Fail": "Ülkeler getirilirken bir hata oluştu..",
   "City.Fetch.Fail": "Şehirleri getirilirken bir hata oluştu.",

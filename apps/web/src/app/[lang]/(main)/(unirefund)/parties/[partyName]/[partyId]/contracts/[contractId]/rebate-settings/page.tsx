@@ -26,11 +26,11 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
   const rebateSettings =
     await getMerchantContractHeaderRebateSettingsByHeaderIdApi(contractId);
-  if (rebateSettings.type !== "success") return notFound();
   const rebateTables = await getRebateTableHeadersApi({});
   const subMerchants = await getSubMerchantsByMerchantIdApi({
     id: partyId,
   });
+
   if (rebateTables.type !== "success" || subMerchants.type !== "success") {
     return notFound();
   }
@@ -39,7 +39,9 @@ export default async function Page({
       contractId={contractId}
       lang={lang}
       languageData={languageData}
-      rebateSettings={rebateSettings.data}
+      rebateSettings={
+        rebateSettings.type === "success" ? rebateSettings.data : undefined
+      }
       rebateTables={rebateTables.data.items || []}
       subMerchants={subMerchants.data.items || []}
     />

@@ -48,6 +48,9 @@ function createScheme(schema: typeof CreateMerchantSchema) {
       email:
         schema.properties.entityInformationTypes.items.properties.individuals
           .items.properties.contactInformations.items.properties.emails.items,
+      createAbpUserAccount:
+        schema.properties.entityInformationTypes.items.properties.individuals
+          .items.properties.createAbpUserAccount,
     },
   };
 }
@@ -93,7 +96,14 @@ export default function Individual({
     };
     return createZodObject(
       schema,
-      ["name", "personalSummaries", "address", "telephone", "email"],
+      [
+        "name",
+        "personalSummaries",
+        "address",
+        "telephone",
+        "email",
+        "createAbpUserAccount",
+      ],
       undefined,
       formSubPositions,
     );
@@ -111,6 +121,7 @@ export default function Individual({
     const createformData: CreateIndividualDTO = {
       name: formData.name,
       personalSummaries: [formData.personalSummaries],
+      createAbpUserAccount: formData.createAbpUserAccount,
       contactInformations: [
         {
           telephones: [{ ...formData.telephone, primaryFlag: true }],

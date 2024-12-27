@@ -1,4 +1,7 @@
 {
+  "TotalTags": "Etiket Sayısı",
+  "Sales": "Satışlar",
+  "Refunds": "İadeler",
   "TagNumber": "Etiket Numarası",
   "TravellerFullName": "Yolcunun Tam Adı",
   "MerchantTitle": "Mağaza Adı",
@@ -10,6 +13,9 @@
   "ExportDate": "İhracat Tarihi",
   "ReferenceNumber": "Referans Numarası",
   "Currency": "Para Birimi",
+  "ExportValidated": "İhracat Doğrulandı",
+  "NeedValidation": "Doğrulama Gerekli",
+  "RefundPoint": "İade Noktası",
 
   "SalesAmount": "Satış Tutarı",
   "VatAmount": "KDV Tutarı",

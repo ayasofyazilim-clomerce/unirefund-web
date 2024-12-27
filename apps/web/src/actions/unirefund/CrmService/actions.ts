@@ -1,5 +1,6 @@
 "use server";
 import type {
+  GetApiCrmServiceRefundPointsAccessibleData,
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
   GetApiCrmServiceMerchantsByIdSubMerchantsData,
@@ -11,7 +12,11 @@ import type {
   UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
 } from "@ayasofyazilim/saas/CRMService";
 import type { ServerResponse } from "src/lib";
-import { structuredError, structuredResponse } from "src/lib";
+import {
+  getCRMServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function getMerchantsApi(
@@ -60,6 +65,19 @@ export async function getTaxFreesApi(data: GetApiCrmServiceTaxFreesData = {}) {
     return structuredError(error);
   }
 }
+export async function getAccessibleRefundPointsApi(
+  data: GetApiCrmServiceRefundPointsAccessibleData = {},
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsAccessible(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
 export async function getRefundPointsApi(
   data: GetApiCrmServiceRefundPointsData = {},
 ) {
@@ -125,11 +143,33 @@ export async function getIndividualsApi(
     return structuredError(error);
   }
 }
-
-export async function getAffiliationCodeApi(partyName: "individuals") {
+export async function getIndividualsByIdApi(
+  partyName:
+    | "merchants"
+    | "refund-points"
+    | "customs"
+    | "tax-offices"
+    | "tax-free",
+  id: string,
+) {
   try {
     const requests = await getApiRequests();
-    const response = await requests[partyName].getAffiliationCode();
+    const response = await requests[partyName].getIndivuals({
+      id,
+      maxResultCount: 100,
+      skipCount: 0,
+    });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getAffiliationCodeApi() {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes();
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
