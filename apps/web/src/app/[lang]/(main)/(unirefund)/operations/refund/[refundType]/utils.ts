@@ -1,0 +1,16 @@
+import type { UniRefund_TagService_Tags_TagListItemDto } from "@ayasofyazilim/saas/TagService";
+
+export function getTotals(
+  totalType: string,
+  selectedRows: UniRefund_TagService_Tags_TagListItemDto[],
+) {
+  const total = selectedRows.reduce(
+    (acc, row) =>
+      acc + (row.totals?.find((t) => t.totalType === totalType)?.amount || 0),
+    0,
+  );
+
+  if (!total) return 0;
+
+  return `${total.toFixed(2)} ${selectedRows[0]?.totals?.[0]?.currency || ""}`;
+}
