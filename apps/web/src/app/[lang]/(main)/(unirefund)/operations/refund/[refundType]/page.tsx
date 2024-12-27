@@ -7,6 +7,7 @@ import { getRefundableTagsApi } from "src/actions/unirefund/TagService/actions";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import TravellerDocumentForm from "../_components/traveller-document-form";
 import ClientPage from "./client-page";
 import { isUnauthorizedRefundPoint } from "./utils";
@@ -18,6 +19,7 @@ export default async function Page({
   params: { lang: string; refundType: "export-validated" | "need-validation" };
   searchParams?: Partial<GetApiTagServiceTagTagsRefundData>;
 }) {
+  const { lang, refundType } = params;
   await isUnauthorized({
     requiredPolicies: [
       "TagService.Tags",
@@ -25,13 +27,20 @@ export default async function Page({
       "RefundService.Refunds.Create",
       "RefundService.Refunds.View",
     ],
-    lang: params.lang,
+    lang,
   });
 
-  const { languageData } = await getResourceData(params.lang);
+  const { languageData } = await getResourceData(lang);
 
   const accessibleRefundPointsResponse = await getAccessibleRefundPointsApi();
-  if (isErrorOnRequest(accessibleRefundPointsResponse, params.lang)) return;
+  if (isErrorOnRequest(accessibleRefundPointsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={accessibleRefundPointsResponse.message}
+      />
+    );
+  }
 
   const accessibleRefundPoints =
     accessibleRefundPointsResponse.data.items || [];
@@ -42,7 +51,7 @@ export default async function Page({
       accessibleRefundPoints,
     )
   ) {
-    return redirect(`/${params.lang}/unauthorized`);
+    return redirect(`/${lang}/unauthorized`);
   }
 
   if (!searchParams?.travellerDocumentNumber || !searchParams.refundPointId) {
@@ -58,11 +67,19 @@ export default async function Page({
     travellerDocumentNumber: searchParams.travellerDocumentNumber,
     refundType: searchParams.refundType || "Cash",
     refundPointId: searchParams.refundPointId,
-    isExportValidated: params.refundType === "export-validated",
+    isExportValidated: refundType === "export-validated",
   });
 
-  // Backend problemi için yorum satırına alındı
-  // if (isErrorOnRequest(refundableTagsResponse, params.lang)) return;
+  // Traveller'ın uygun durumda  tag'ı yoksa "An internal error occurred during your request!" dönüyor. Backend değişince bu kontrol silinebilir.
+  // if (isErrorOnRequest(refundableTagsResponse, lang, false)) {
+  //   return (
+  //     <ErrorComponent
+  //       languageData={languageData}
+  //       message={refundableTagsResponse.message}
+  //     />
+  //   );
+  // }
+
   const refundableTags =
     refundableTagsResponse.type === "success"
       ? refundableTagsResponse.data
@@ -74,7 +91,7 @@ export default async function Page({
     <ClientPage
       accessibleRefundPoints={accessibleRefundPoints}
       languageData={languageData}
-      locale={params.lang}
+      locale={lang}
       response={refundableTags}
     />
   );

@@ -4,9 +4,10 @@ import {
   getMerchantContractHeaderByIdApi,
   getRefundPointContractHeaderById,
 } from "src/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import type { ContractPartyName } from "../_components/types";
 
@@ -35,9 +36,18 @@ export default async function Layout({
       ],
       lang,
     });
+
     const contractHeaderDetails =
       await getMerchantContractHeaderByIdApi(contractId);
-    if (isErrorOnRequest(contractHeaderDetails, lang)) return;
+    if (isErrorOnRequest(contractHeaderDetails, lang, false)) {
+      return (
+        <ErrorComponent
+          languageData={languageData}
+          message={contractHeaderDetails.message}
+        />
+      );
+    }
+
     return (
       <>
         <TabLayout
@@ -83,9 +93,18 @@ export default async function Layout({
     ],
     lang,
   });
+
   const contractHeaderDetails =
     await getRefundPointContractHeaderById(contractId);
-  if (isErrorOnRequest(contractHeaderDetails, lang)) return;
+  if (isErrorOnRequest(contractHeaderDetails, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={contractHeaderDetails.message}
+      />
+    );
+  }
+
   return (
     <>
       {children}

@@ -1,8 +1,4 @@
 import {
-  getRefundPointDetailsByIdApi,
-  getAdressesApi,
-} from "src/actions/unirefund/CrmService/actions";
-import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeadersByMerchantIdApi,
   getRefundFeeHeadersApi,
@@ -10,12 +6,17 @@ import {
   getRefundPointContractHeadersByRefundPointIdApi,
   getRefundTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import {
+  getAdressesApi,
+  getRefundPointDetailsByIdApi,
+} from "src/actions/unirefund/CrmService/actions";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import type { ContractPartyName } from "../../_components/types";
-import { ContractHeader as RefundPointContractHeader } from "./_components/refund-point";
 import { ContractHeader as MerchantContractHeader } from "./_components/merchant";
+import { ContractHeader as RefundPointContractHeader } from "./_components/refund-point";
 
 export default async function Page({
   params,
@@ -34,32 +35,64 @@ export default async function Page({
       requiredPolicies: ["ContractService.ContractHeaderForMerchant.Edit"],
       lang,
     });
-    const refundTableHeaders = await getRefundTableHeadersApi({});
-    if (isErrorOnRequest(refundTableHeaders, lang)) return;
-    const otherContractHeaders =
+
+    const refundTableHeadersResponse = await getRefundTableHeadersApi({});
+    if (isErrorOnRequest(refundTableHeadersResponse, lang, false)) {
+      return (
+        <ErrorComponent
+          languageData={languageData}
+          message={refundTableHeadersResponse.message}
+        />
+      );
+    }
+
+    const otherContractHeadersResponse =
       await getMerchantContractHeadersByMerchantIdApi({
         id: partyId,
         isDraft: false,
       });
-    if (isErrorOnRequest(otherContractHeaders, lang)) return;
-    const contractHeaderDetails =
-      await getMerchantContractHeaderByIdApi(contractId);
-    if (isErrorOnRequest(contractHeaderDetails, lang)) return;
-    const addressList = await getAdressesApi(partyId, partyName);
-    if (isErrorOnRequest(addressList, lang)) return;
+    if (isErrorOnRequest(otherContractHeadersResponse, lang, false)) {
+      return (
+        <ErrorComponent
+          languageData={languageData}
+          message={otherContractHeadersResponse.message}
+        />
+      );
+    }
 
-    const contractHeaders = otherContractHeaders.data.items;
+    const contractHeaderDetailsResponse =
+      await getMerchantContractHeaderByIdApi(contractId);
+    if (isErrorOnRequest(contractHeaderDetailsResponse, lang, false)) {
+      return (
+        <ErrorComponent
+          languageData={languageData}
+          message={contractHeaderDetailsResponse.message}
+        />
+      );
+    }
+
+    const addressListResponse = await getAdressesApi(partyId, partyName);
+    if (isErrorOnRequest(addressListResponse, lang, false)) {
+      return (
+        <ErrorComponent
+          languageData={languageData}
+          message={addressListResponse.message}
+        />
+      );
+    }
+
+    const contractHeaders = otherContractHeadersResponse.data.items;
     const activeContract = contractHeaders?.find((i) => i.isActive === true);
 
     return (
       <MerchantContractHeader
-        addressList={addressList.data}
-        contractHeaderDetails={contractHeaderDetails.data}
+        addressList={addressListResponse.data}
+        contractHeaderDetails={contractHeaderDetailsResponse.data}
         fromDate={
           activeContract ? new Date(activeContract.validTo) : new Date()
         }
         languageData={languageData}
-        refundTableHeaders={refundTableHeaders.data.items || []}
+        refundTableHeaders={refundTableHeadersResponse.data.items || []}
       />
     );
   }
@@ -68,24 +101,59 @@ export default async function Page({
     requiredPolicies: ["ContractService.ContractHeaderForRefundPoint.Edit"],
     lang,
   });
-  const refundFeeHeaders = await getRefundFeeHeadersApi({});
-  if (isErrorOnRequest(refundFeeHeaders, lang)) return;
-  const contractHeaderDetails =
+  const refundFeeHeadersResponse = await getRefundFeeHeadersApi({});
+  if (isErrorOnRequest(refundFeeHeadersResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={refundFeeHeadersResponse.message}
+      />
+    );
+  }
+
+  const contractHeaderDetailsResponse =
     await getRefundPointContractHeaderById(contractId);
-  if (isErrorOnRequest(contractHeaderDetails, lang)) return;
-  const refundPointDetails = await getRefundPointDetailsByIdApi(params.partyId);
-  if (isErrorOnRequest(refundPointDetails, lang)) return;
-  const otherContractHeaders =
+  if (isErrorOnRequest(contractHeaderDetailsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={contractHeaderDetailsResponse.message}
+      />
+    );
+  }
+
+  const refundPointDetailsResponse = await getRefundPointDetailsByIdApi(
+    params.partyId,
+  );
+  if (isErrorOnRequest(refundPointDetailsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={refundPointDetailsResponse.message}
+      />
+    );
+  }
+
+  const otherContractHeadersResponse =
     await getRefundPointContractHeadersByRefundPointIdApi({
       id: partyId,
       isDraft: false,
     });
-  if (isErrorOnRequest(otherContractHeaders, lang)) return;
-  const refundPointDetailsSummary = refundPointDetails.data.entityInformations
-    ?.at(0)
-    ?.organizations?.at(0);
+  if (isErrorOnRequest(otherContractHeadersResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={otherContractHeadersResponse.message}
+      />
+    );
+  }
 
-  const contractHeaders = otherContractHeaders.data.items;
+  const refundPointDetailsSummary =
+    refundPointDetailsResponse.data.entityInformations
+      ?.at(0)
+      ?.organizations?.at(0);
+
+  const contractHeaders = otherContractHeadersResponse.data.items;
   const activeContract = contractHeaders?.find((i) => i.isActive === true);
 
   return (
@@ -93,10 +161,10 @@ export default async function Page({
       addressList={
         refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
       }
-      contractHeaderDetails={contractHeaderDetails.data}
+      contractHeaderDetails={contractHeaderDetailsResponse.data}
       fromDate={activeContract ? new Date(activeContract.validTo) : new Date()}
       languageData={languageData}
-      refundFeeHeaders={refundFeeHeaders.data.items || []}
+      refundFeeHeaders={refundFeeHeadersResponse.data.items || []}
     />
   );
 }

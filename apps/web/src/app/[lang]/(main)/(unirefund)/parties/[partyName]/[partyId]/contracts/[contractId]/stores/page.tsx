@@ -4,6 +4,7 @@ import {
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
   getMerchantContractHeadersContractStoresByHeaderIdApi,
 } from "src/actions/unirefund/ContractService/action";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
@@ -26,18 +27,28 @@ export default async function Page({
   });
 
   const { languageData } = await getResourceData(lang);
-  const contractSettings =
+
+  const contractSettingsResponse =
     await getMerchantContractHeaderContractSettingsByHeaderIdApi({
       id: contractId,
     });
-  if (isErrorOnRequest(contractSettings, lang)) return;
-  const contractStores =
+  if (isErrorOnRequest(contractSettingsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={contractSettingsResponse.message}
+      />
+    );
+  }
+
+  const contractStoresResponse =
     await getMerchantContractHeadersContractStoresByHeaderIdApi({
       id: contractId,
     });
+
   return (
     <FormReadyComponent
-      active={contractStores.type !== "success"}
+      active={contractStoresResponse.type !== "success"}
       content={{
         icon: <FileText className="size-20 text-gray-400" />,
         title: languageData["Missing.ContractStores.Title"],
@@ -45,10 +56,10 @@ export default async function Page({
       }}
     >
       <ContractStoresTable
-        contractSettings={contractSettings.data.items || []}
+        contractSettings={contractSettingsResponse.data.items || []}
         contractStores={
-          contractStores.type === "success"
-            ? contractStores.data.items || []
+          contractStoresResponse.type === "success"
+            ? contractStoresResponse.data.items || []
             : []
         }
         languageData={languageData}
