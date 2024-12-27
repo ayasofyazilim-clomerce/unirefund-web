@@ -3,16 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
+import { Combobox } from "@repo/ayasofyazilim-ui/molecules/combobox";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
@@ -36,13 +28,15 @@ export default function TravellerDocumentForm({
 
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] =
     useState(travellerDocumentNo);
-  const [refundPointIdInput, setRefundPointId] = useState(refundPointId);
+  const [refundPointIdInput, setRefundPointIdInput] = useState<
+    UniRefund_CRMService_Merchants_RefundPointProfileDto | null | undefined
+  >(accessibleRefundPoints.find((i) => i.id === refundPointId) || null);
   const [isPending, startTransition] = useTransition();
 
   function searchForTraveller() {
     startTransition(() => {
       router.replace(
-        `${pathName}?travellerDocumentNumber=${travellerDocumentNoInput}&refundPointId=${refundPointIdInput}`,
+        `${pathName}?travellerDocumentNumber=${travellerDocumentNoInput}&refundPointId=${refundPointIdInput?.id}`,
       );
     });
   }
@@ -70,34 +64,22 @@ export default function TravellerDocumentForm({
       </div>
       <div className="grid max-w-lg items-center gap-1.5">
         <Label htmlFor="refund-point">{languageData.RefundPoint}</Label>
-        <Select
-          name="refund-point"
-          onValueChange={setRefundPointId}
+        <Combobox<UniRefund_CRMService_Merchants_RefundPointProfileDto>
+          list={accessibleRefundPoints}
+          onValueChange={setRefundPointIdInput}
+          selectIdentifier="id"
+          selectLabel="name"
           value={refundPointIdInput}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a refund point" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Refund Points</SelectLabel>
-              {accessibleRefundPoints.map((refundPoint) => (
-                <SelectItem key={refundPoint.id} value={refundPoint.id || ""}>
-                  {refundPoint.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        />
       </div>
       <Button
         className="w-24"
         disabled={
           isPending ||
           !travellerDocumentNoInput.length ||
-          !refundPointIdInput.length ||
+          !refundPointIdInput?.id ||
           (travellerDocumentNo === travellerDocumentNoInput &&
-            refundPointId === refundPointIdInput)
+            refundPointId === refundPointIdInput.id)
         }
         onClick={searchForTraveller}
         type="submit"
