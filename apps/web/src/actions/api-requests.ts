@@ -87,6 +87,8 @@ import type {
   GetApiLocationServiceCitiesData,
   GetApiLocationServiceCitiesGetListByRegionByRegionIdData,
   GetApiLocationServiceCountriesData,
+  GetApiLocationServiceDistrictsGetListByCityByCityIdData,
+  GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
   GetApiLocationServiceRegionsGetDefaultRegionIdByCountryIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
 } from "@ayasofyazilim/saas/LocationService";
@@ -648,6 +650,18 @@ export async function getApiRequests() {
       getCities: async (
         data: GetApiLocationServiceCitiesData, //this should be removed when the forms updated
       ) => await locationClient.city.getApiLocationServiceCities(data),
+      getDistrictsByCityId: async (
+        data: GetApiLocationServiceDistrictsGetListByCityByCityIdData, //this should be removed when the forms updated
+      ) =>
+        await locationClient.district.getApiLocationServiceDistrictsGetListByCityByCityId(
+          data,
+        ),
+      getNeighborhoodsByDistrictId: async (
+        data: GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData, //this should be removed when the forms updated
+      ) =>
+        await locationClient.neighborhood.getApiLocationServiceNeighborhoodsGetListByDistrictByDistrictId(
+          data,
+        ),
     },
     refund: {
       get: async (data: GetApiRefundServiceRefundsData) =>
