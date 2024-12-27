@@ -1,14 +1,15 @@
 "use server";
-import {
-  type GetApiCrmServiceCustomsData,
-  type GetApiCrmServiceIndividualsData,
-  type GetApiCrmServiceMerchantsByIdSubMerchantsData,
-  type GetApiCrmServiceMerchantsData,
-  type GetApiCrmServiceMerchantsResponse,
-  type GetApiCrmServiceRefundPointsData,
-  type GetApiCrmServiceTaxFreesData,
-  type GetApiCrmServiceTaxOfficesData,
-  type UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
+import type {
+  GetApiCrmServiceRefundPointsAccessibleData,
+  GetApiCrmServiceCustomsData,
+  GetApiCrmServiceIndividualsData,
+  GetApiCrmServiceMerchantsByIdSubMerchantsData,
+  GetApiCrmServiceMerchantsData,
+  GetApiCrmServiceMerchantsResponse,
+  GetApiCrmServiceRefundPointsData,
+  GetApiCrmServiceTaxFreesData,
+  GetApiCrmServiceTaxOfficesData,
+  UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
 } from "@ayasofyazilim/saas/CRMService";
 import type { ServerResponse } from "src/lib";
 import {
@@ -64,6 +65,19 @@ export async function getTaxFreesApi(data: GetApiCrmServiceTaxFreesData = {}) {
     return structuredError(error);
   }
 }
+export async function getAccessibleRefundPointsApi(
+  data: GetApiCrmServiceRefundPointsAccessibleData = {},
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsAccessible(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
 export async function getRefundPointsApi(
   data: GetApiCrmServiceRefundPointsData = {},
 ) {
