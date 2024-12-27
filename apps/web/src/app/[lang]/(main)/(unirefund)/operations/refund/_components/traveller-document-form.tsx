@@ -29,7 +29,10 @@ export default function TravellerDocumentForm({
   const searchParams = useSearchParams();
 
   const travellerDocumentNo = searchParams.get("travellerDocumentNumber") || "";
-  const refundPointId = searchParams.get("refundPointId") || "";
+  const refundPointId =
+    accessibleRefundPoints.find(
+      (i) => i.id === searchParams.get("refundPointId"),
+    )?.id || "";
 
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] =
     useState(travellerDocumentNo);
