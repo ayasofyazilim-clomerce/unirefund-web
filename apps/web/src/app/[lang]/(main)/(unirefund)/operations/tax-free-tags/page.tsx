@@ -10,6 +10,7 @@ import { getResourceData } from "src/language-data/unirefund/TagService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { localizeCurrency } from "src/utils/utils-number";
+import ErrorComponent from "../../../_components/error-component";
 import { TagSummary } from "../_components/tag-summary";
 import TaxFreeTagsTable from "./_components/table";
 
@@ -18,22 +19,37 @@ export default async function Page({
   searchParams,
 }: {
   params: { lang: string };
-  searchParams?: GetApiTagServiceTagData;
+  searchParams: GetApiTagServiceTagData;
 }) {
+  const { lang } = params;
   await isUnauthorized({
     requiredPolicies: ["TagService.Tags"],
-    lang: params.lang,
+    lang,
   });
 
+  const { languageData } = await getResourceData(lang);
+
   const tagsResponse = await getTagsApi(searchParams);
-  if (isErrorOnRequest(tagsResponse, params.lang)) return;
+  if (isErrorOnRequest(tagsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={tagsResponse.message}
+      />
+    );
+  }
 
   const tagSummaryResponse = await getTagSummaryApi(searchParams);
-  if (isErrorOnRequest(tagSummaryResponse, params.lang)) return;
+  if (isErrorOnRequest(tagSummaryResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={tagSummaryResponse.message}
+      />
+    );
+  }
 
-  const { languageData } = await getResourceData(params.lang);
-
-  const currencyFormatter = localizeCurrency(params.lang);
+  const currencyFormatter = localizeCurrency(lang);
   const summary = tagSummaryResponse.data;
   return (
     <div>
