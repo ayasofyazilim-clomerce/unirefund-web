@@ -1,18 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
@@ -36,7 +42,7 @@ export default function TravellerDocumentForm({
 
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] =
     useState(travellerDocumentNo);
-  const [refundPointIdInput, setRefundPointId] = useState(refundPointId);
+  const [refundPointIdInput, setRefundPointIdInput] = useState(refundPointId);
   const [isPending, startTransition] = useTransition();
 
   function searchForTraveller() {
@@ -70,25 +76,58 @@ export default function TravellerDocumentForm({
       </div>
       <div className="grid max-w-lg items-center gap-1.5">
         <Label htmlFor="refund-point">{languageData.RefundPoint}</Label>
-        <Select
-          name="refund-point"
-          onValueChange={setRefundPointId}
-          value={refundPointIdInput}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a refund point" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Refund Points</SelectLabel>
-              {accessibleRefundPoints.map((refundPoint) => (
-                <SelectItem key={refundPoint.id} value={refundPoint.id || ""}>
-                  {refundPoint.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              className="w-[200px] justify-between"
+              role="combobox"
+              variant="outline"
+            >
+              {refundPointIdInput
+                ? accessibleRefundPoints.find(
+                    (refundPoint) => refundPoint.id === refundPointIdInput,
+                  )?.name
+                : languageData["Select.EmptyValue"]}
+              <ChevronsUpDown className="opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[200px] p-0">
+            <Command>
+              <CommandInput
+                className="h-9"
+                placeholder={languageData["Select.Placeholder"]}
+              />
+              <CommandList>
+                <CommandEmpty>{languageData["Select.EmptyValue"]}</CommandEmpty>
+                <CommandGroup>
+                  {accessibleRefundPoints.map((refundPoint) => (
+                    <CommandItem
+                      key={refundPoint.id}
+                      onSelect={(currentValue) => {
+                        setRefundPointIdInput(
+                          currentValue === refundPointIdInput
+                            ? ""
+                            : currentValue,
+                        );
+                      }}
+                      value={refundPoint.id || ""}
+                    >
+                      {refundPoint.name}
+                      <Check
+                        className={cn(
+                          "ml-auto",
+                          refundPointIdInput === refundPoint.id
+                            ? "opacity-100"
+                            : "opacity-0",
+                        )}
+                      />
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
       </div>
       <Button
         className="w-24"
