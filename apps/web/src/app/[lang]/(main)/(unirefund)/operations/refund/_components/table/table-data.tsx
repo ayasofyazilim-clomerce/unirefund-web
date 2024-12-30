@@ -37,7 +37,7 @@ const taxFreeTagsColumns = (
       },
       links: {
         tagNumber: {
-          prefix: "tax-free-tags",
+          prefix: `/${locale}/operations/tax-free-tags`,
           targetAccessorKey: "id",
         },
       },

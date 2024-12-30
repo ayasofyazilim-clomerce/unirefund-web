@@ -54,7 +54,7 @@ export default function Filter({
     <Card>
       <CardHeader>Filters</CardHeader>
       <CardContent className="flex flex-col gap-5">
-        <div className="grid max-w-lg items-center gap-1.5">
+        <div className="grid items-center gap-1.5">
           <Label htmlFor="refund-point">{languageData.Status}</Label>
           <MultiSelect
             onValueChange={setStatuses}
@@ -66,7 +66,7 @@ export default function Filter({
             )}
           />
         </div>
-        <div className="grid max-w-lg items-center gap-1.5">
+        <div className="grid items-center gap-1.5">
           <Label htmlFor="refund-method">{languageData.RefundMethod}</Label>
           <MultiSelect
             onValueChange={setRefundTypes}
@@ -78,7 +78,7 @@ export default function Filter({
             )}
           />
         </div>
-        <div className="grid max-w-lg items-center gap-1.5">
+        <div className="grid items-center gap-1.5">
           <Label htmlFor="merchants">Merchants</Label>
           <AsyncCommand
             fetchAction={searchMerchants}

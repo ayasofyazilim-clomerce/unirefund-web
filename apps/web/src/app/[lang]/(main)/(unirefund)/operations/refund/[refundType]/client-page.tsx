@@ -66,10 +66,12 @@ export default function ClientPage({
       />
 
       <Tabs defaultValue={refundType}>
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid h-auto w-full grid-cols-2">
           {tabList.map((tab) => (
             <TabsTrigger asChild key={tab.label} value={tab.value}>
-              <Link href={tab.href}>{tab.label}</Link>
+              <Link className="py-3" href={tab.href}>
+                {tab.label}
+              </Link>
             </TabsTrigger>
           ))}
         </TabsList>

@@ -20,6 +20,7 @@ export default async function Page({
   searchParams?: Partial<GetApiTagServiceTagTagsRefundData>;
 }) {
   const { lang, refundType } = params;
+
   await isUnauthorized({
     requiredPolicies: [
       "TagService.Tags",
