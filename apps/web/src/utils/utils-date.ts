@@ -13,12 +13,27 @@ export function getDateRanges() {
   endDate = new Date(today.setHours(23, 59, 59, 999)); // Dün 23:59
   ranges.yesterday = { startDate, endDate };
 
-  // Geçen Hafta
-  startDate = new Date(today.setDate(today.getDate() - today.getDay() - 7)); // Geçen hafta başlangıç
+  // Bu Hafta
+  const dayOfWeek = today.getDay();
+  startDate = new Date(today.setDate(today.getDate() - dayOfWeek)); // Bu haftanın ilk günü (Pazar)
   startDate.setHours(0, 0, 0, 0);
-  endDate = new Date(today.setDate(today.getDate() - today.getDay())); // Geçen hafta bitiş
+  endDate = new Date(today.setDate(today.getDate() - dayOfWeek + 6)); // Bu haftanın son günü (Cumartesi)
+  endDate.setHours(23, 59, 59, 999);
+  ranges.thisWeek = { startDate, endDate };
+
+  // Geçen Hafta
+  startDate = new Date(today.setDate(today.getDate() - dayOfWeek - 7)); // Geçen hafta başlangıç
+  startDate.setHours(0, 0, 0, 0);
+  endDate = new Date(today.setDate(today.getDate() - dayOfWeek - 1)); // Geçen hafta bitiş
   endDate.setHours(23, 59, 59, 999);
   ranges.lastWeek = { startDate, endDate };
+
+  // Bu Ay
+  startDate = new Date(today.setDate(1)); // Bu ayın ilk günü
+  startDate.setHours(0, 0, 0, 0);
+  endDate = new Date(today.setMonth(today.getMonth() + 1, 0)); // Bu ayın son günü
+  endDate.setHours(23, 59, 59, 999);
+  ranges.thisMonth = { startDate, endDate };
 
   // Geçen Ay
   startDate = new Date(today.setMonth(today.getMonth() - 1, 1)); // Geçen ayın ilk günü
