@@ -1,9 +1,5 @@
 import type { UniRefund_TagService_Tags_TagListItemDto } from "@ayasofyazilim/saas/TagService";
-import {
-  $UniRefund_TagService_Tags_RefundType,
-  $UniRefund_TagService_Tags_TagListItemDto,
-  $UniRefund_TagService_Tags_TagStatusType,
-} from "@ayasofyazilim/saas/TagService";
+import { $UniRefund_TagService_Tags_TagListItemDto } from "@ayasofyazilim/saas/TagService";
 import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
@@ -118,24 +114,6 @@ function taxFreeTagsTable(languageData: TagServiceResource): RefundsTable {
       ],
     },
     filters: {
-      facetedFilters: {
-        statuses: {
-          title: languageData.Status,
-          options: $UniRefund_TagService_Tags_TagStatusType.enum.map(
-            (status) => ({
-              label: status,
-              value: status,
-            }),
-          ),
-        },
-        refundTypes: {
-          title: languageData.RefundMethod,
-          options: $UniRefund_TagService_Tags_RefundType.enum.map((x) => ({
-            label: x,
-            value: x,
-          })),
-        },
-      },
       textFilters: [
         "travellerFullName",
         "travellerDocumentNumber",
