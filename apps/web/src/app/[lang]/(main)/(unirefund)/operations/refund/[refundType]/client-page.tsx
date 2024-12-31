@@ -1,14 +1,13 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type {
   PagedResultDto_TagListItemDto,
   UniRefund_TagService_Tags_TagListItemDto,
 } from "@ayasofyazilim/saas/TagService";
-import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import SummarySection from "../_components/summary-section";
@@ -28,15 +27,11 @@ export default function ClientPage({
   languageData: TagServiceResource;
   accessibleRefundPoints: UniRefund_CRMService_Merchants_RefundPointProfileDto[];
 }) {
-  const { refundType } = useParams<{
-    refundType: "export-validated" | "need-validation";
-  }>();
   const [selectedRows, setSelectedRows] = useState<
     UniRefund_TagService_Tags_TagListItemDto[]
   >([]);
   const searchParams = useSearchParams();
   const refundPointId = searchParams.get("refundPointId") || "";
-  const tabHref = `?${searchParams.toString()}`;
 
   const totalDataOfSelectedTags = {
     refund: getTotals("Refund", selectedRows),
@@ -48,12 +43,12 @@ export default function ClientPage({
   const tabList = [
     {
       label: languageData.ExportValidated,
-      href: `export-validated${tabHref}`,
+      href: `export-validated?${searchParams.toString()}`,
       value: "export-validated",
     },
     {
       label: languageData.NeedValidation,
-      href: `need-validation${tabHref}`,
+      href: `need-validation?${searchParams.toString()}`,
       value: "need-validation",
     },
   ];
@@ -65,45 +60,43 @@ export default function ClientPage({
         languageData={languageData}
       />
 
-      <Tabs defaultValue={refundType}>
-        <TabsList className="grid h-auto w-full grid-cols-2">
-          {tabList.map((tab) => (
-            <TabsTrigger asChild key={tab.label} value={tab.value}>
-              <Link className="py-3" href={tab.href}>
-                {tab.label}
-              </Link>
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        <TabsContent key={refundType} value={refundType}>
-          <SummarySection
-            languageData={languageData}
-            totalDataOfSelectedTags={totalDataOfSelectedTags}
-          />
-          <div className="grid grid-cols-10 gap-5">
-            <div className="col-span-6">
-              <ExportValidatedTable
-                languageData={languageData}
-                locale={locale}
-                response={response}
-                setSelectedRows={setSelectedRows}
-              />
-            </div>
-
-            <div
-              className={cn(
-                "col-span-4 h-full overflow-hidden",
-                selectedRows.length ? "" : "pointer-events-none opacity-30",
-              )}
-            >
-              <RefundForm
-                refundPointId={refundPointId}
-                selectedRows={selectedRows}
-              />
-            </div>
+      <TabLayout
+        classNames={{
+          horizontal: {
+            tabList: "grid h-16 w-full grid-cols-2",
+            tabTrigger: "h-full text-center",
+          },
+        }}
+        orientation="horizontal"
+        tabList={tabList}
+      >
+        <SummarySection
+          languageData={languageData}
+          totalDataOfSelectedTags={totalDataOfSelectedTags}
+        />
+        <div className="grid grid-cols-10 gap-5">
+          <div className="col-span-6">
+            <ExportValidatedTable
+              languageData={languageData}
+              locale={locale}
+              response={response}
+              setSelectedRows={setSelectedRows}
+            />
           </div>
-        </TabsContent>
-      </Tabs>
+
+          <div
+            className={cn(
+              "col-span-4 h-full overflow-hidden",
+              selectedRows.length ? "" : "pointer-events-none opacity-30",
+            )}
+          >
+            <RefundForm
+              refundPointId={refundPointId}
+              selectedRows={selectedRows}
+            />
+          </div>
+        </div>
+      </TabLayout>
     </div>
   );
 }
