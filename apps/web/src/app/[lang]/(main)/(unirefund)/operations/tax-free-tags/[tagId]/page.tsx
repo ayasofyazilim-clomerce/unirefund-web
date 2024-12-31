@@ -9,6 +9,7 @@ import TagStatuses from "./_components/tag-statuses";
 import TagSummary from "./_components/tag-summary";
 import TagTabs from "./_components/tag-tabs";
 import TravellerDetails from "./_components/traveller-details";
+import TagActions from "./_components/tag-actions";
 
 export default async function Page({
   params,
@@ -32,6 +33,7 @@ export default async function Page({
   const tagDetail = tagDetailResponse.data;
   return (
     <div className="mb-2 grid h-full grid-cols-2 gap-3 overflow-auto">
+      <TagActions languageData={languageData} tagDetail={tagDetail} />
       <TagSummary languageData={languageData} tagDetail={tagDetail} />
       <MerchantDetails languageData={languageData} tagDetail={tagDetail} />
       <TagStatuses languageData={languageData} tagDetail={tagDetail} />
