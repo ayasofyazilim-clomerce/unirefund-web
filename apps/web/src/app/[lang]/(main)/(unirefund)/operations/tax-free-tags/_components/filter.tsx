@@ -1,18 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import {
   $UniRefund_TagService_Tags_RefundType,
   $UniRefund_TagService_Tags_TagStatusType,
 } from "@ayasofyazilim/saas/TagService";
-import AsyncCommand from "@repo/ayasofyazilim-ui/molecules/async-command";
-import { MultiSelect } from "@repo/ayasofyazilim-ui/molecules/multi-select";
+import type { FilterComponentSearchItem } from "@repo/ayasofyazilim-ui/molecules/filter-component";
+import FilterComponent from "@repo/ayasofyazilim-ui/molecules/filter-component";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { searchMerchants } from "src/actions/unirefund/CrmService/search";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
+import { getDateRanges } from "src/utils/utils-date";
 
 export default function Filter({
   languageData,
@@ -26,69 +24,102 @@ export default function Filter({
   const [statuses, setStatuses] = useState<string[]>(
     searchParams.get("statuses")?.split(",") || [],
   );
-  const [merchantIds, setMerchantIds] = useState<string[]>(
-    searchParams.get("merchantIds")?.split(",") || [],
+  const merchantIdsParsed = JSON.parse(
+    searchParams.get("merchantIds") || "[]",
+  ) as FilterComponentSearchItem[];
+  const [merchantIds, setMerchantIds] = useState<FilterComponentSearchItem[]>(
+    merchantIdsParsed.map((i) => ({ id: i.id, name: i.name })),
   );
   const [refundTypes, setRefundTypes] = useState<string[]>(
     searchParams.get("refundTypes")?.split(",") || [],
   );
-  const [isPending, startTransition] = useTransition();
+  const [issuedDate, setIssuedDate] = useState<string>("");
+  const [exportDate, setExportDate] = useState<string>("");
+  const [paidDate, setPaidDate] = useState<string>("");
+
+  const { rangeItems } = getDateRanges();
 
   function onSubmit() {
-    startTransition(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("statuses", statuses.join(",") || "");
-      params.set("merchantIds", merchantIds.join(",") || "");
-      params.set("refundTypes", refundTypes.join(",") || "");
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("statuses", statuses.join(",") || "");
+    params.set(
+      "merchantIds",
+      merchantIds.length > 0 ? JSON.stringify(merchantIds) : "",
+    );
+    params.set("refundTypes", refundTypes.join(",") || "");
+    params.set("refundTypes", refundTypes.join(",") || "");
+    params.set("issuedDate", issuedDate);
+    params.set("exportDate", exportDate);
+    params.set("paidDate", paidDate);
 
-      const newParams = new URLSearchParams();
-      params.forEach((value, key) => {
-        if (value) {
-          newParams.set(key, value);
-        }
-      });
-      router.push(`${pathname}?${newParams.toString()}`);
+    const newParams = new URLSearchParams();
+    params.forEach((value, key) => {
+      if (value) {
+        newParams.set(key, value);
+      }
     });
+    router.push(`${pathname}?${newParams.toString()}`);
   }
+
+  const filterData = {
+    dateSelect: [
+      {
+        title: languageData.IssueDate,
+        onChange: setIssuedDate,
+        value: issuedDate,
+        options: rangeItems,
+      },
+      {
+        title: languageData.ExportDate,
+        onChange: setExportDate,
+        value: exportDate,
+        options: rangeItems,
+      },
+      {
+        title: languageData.PaidDate,
+        onChange: setPaidDate,
+        value: paidDate,
+        options: rangeItems,
+      },
+    ],
+    multiSelect: [
+      {
+        title: languageData.Status,
+        value: statuses,
+        options: $UniRefund_TagService_Tags_TagStatusType.enum.map(
+          (status) => ({
+            value: status,
+            label: status,
+          }),
+        ),
+        onChange: setStatuses,
+      },
+      {
+        title: languageData.RefundMethod,
+        value: refundTypes,
+        options: $UniRefund_TagService_Tags_RefundType.enum.map((status) => ({
+          value: status,
+          label: status,
+        })),
+        onChange: setRefundTypes,
+      },
+    ],
+    asyncSelect: [
+      {
+        title: languageData.MerchantTitle,
+        fetchAction: searchMerchants,
+        onChange: setMerchantIds,
+        value: merchantIds,
+      },
+    ],
+  };
+
   return (
-    <Card>
-      <CardHeader>Filters</CardHeader>
-      <CardContent className="flex flex-col gap-5">
-        <div className="grid max-w-lg items-center gap-1.5">
-          <Label htmlFor="refund-point">{languageData.Status}</Label>
-          <MultiSelect
-            onValueChange={setStatuses}
-            options={$UniRefund_TagService_Tags_TagStatusType.enum.map(
-              (status) => ({
-                value: status,
-                label: status,
-              }),
-            )}
-          />
-        </div>
-        <div className="grid max-w-lg items-center gap-1.5">
-          <Label htmlFor="refund-method">{languageData.RefundMethod}</Label>
-          <MultiSelect
-            onValueChange={setRefundTypes}
-            options={$UniRefund_TagService_Tags_RefundType.enum.map(
-              (status) => ({
-                value: status,
-                label: status,
-              }),
-            )}
-          />
-        </div>
-        <div className="grid max-w-lg items-center gap-1.5">
-          <Label htmlFor="merchants">Merchants</Label>
-          <AsyncCommand
-            fetchAction={searchMerchants}
-            onSelectedItemsChange={setMerchantIds}
-          />
-        </div>
-        <Button disabled={isPending} onClick={onSubmit} variant="default">
-          Apply
-        </Button>
-      </CardContent>
-    </Card>
+    <FilterComponent
+      asyncSelect={filterData.asyncSelect}
+      dateSelect={filterData.dateSelect}
+      multiSelect={filterData.multiSelect}
+      onSubmit={onSubmit}
+    />
   );
 }
