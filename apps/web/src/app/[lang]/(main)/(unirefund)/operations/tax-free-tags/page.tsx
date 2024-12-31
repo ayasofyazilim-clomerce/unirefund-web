@@ -5,6 +5,7 @@ import type {
   UniRefund_TagService_Tags_TagStatusType,
 } from "@ayasofyazilim/saas/TagService";
 import { CreditCard, DollarSign, Tags } from "lucide-react";
+import type { FilterComponentSearchItem } from "@repo/ayasofyazilim-ui/molecules/filter-component";
 import {
   getTagsApi,
   getTagSummaryApi,
@@ -55,9 +56,16 @@ export default async function Page({
 
   const { languageData } = await getResourceData(lang);
 
+  const merchantIdsParsed = JSON.parse(
+    searchParams.merchantIds || "[]",
+  ) as FilterComponentSearchItem[];
+  const merchantIds = merchantIdsParsed.map(
+    (i: FilterComponentSearchItem) => i.id,
+  );
+
   const tagData = {
     ...searchParams,
-    merchantIds: searchParams.merchantIds?.split(","),
+    merchantIds,
     statuses: searchParams.statuses?.split(
       ",",
     ) as UniRefund_TagService_Tags_TagStatusType[],
