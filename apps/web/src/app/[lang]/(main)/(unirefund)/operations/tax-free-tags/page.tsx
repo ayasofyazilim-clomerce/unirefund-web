@@ -1,7 +1,7 @@
 "use server";
 
 import type {
-  UniRefund_TagService_Tags_RefundType,
+  UniRefund_TagService_Tags_Enums_RefundType,
   UniRefund_TagService_Tags_TagStatusType,
 } from "@ayasofyazilim/saas/TagService";
 import { CreditCard, DollarSign, Tags } from "lucide-react";
@@ -71,7 +71,7 @@ export default async function Page({
     ) as UniRefund_TagService_Tags_TagStatusType[],
     refundTypes: searchParams.refundTypes?.split(
       ",",
-    ) as UniRefund_TagService_Tags_RefundType[],
+    ) as UniRefund_TagService_Tags_Enums_RefundType[],
     travellerIds: searchParams.travellerIds?.split(","),
   };
 

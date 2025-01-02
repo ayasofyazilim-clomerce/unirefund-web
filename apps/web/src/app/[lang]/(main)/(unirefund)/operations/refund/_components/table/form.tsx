@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type {
-  UniRefund_TagService_Tags_RefundType,
+  UniRefund_TagService_Tags_Enums_RefundType,
   UniRefund_TagService_Tags_TagListItemDto,
 } from "@ayasofyazilim/saas/TagService";
 import { AlertCircle, Banknote, CreditCard } from "lucide-react";
@@ -32,7 +32,8 @@ export function RefundForm({
     startTransition(() => {
       void postRefundApi({
         requestBody: {
-          refundType: refundMethod as UniRefund_TagService_Tags_RefundType,
+          refundType:
+            refundMethod as UniRefund_TagService_Tags_Enums_RefundType,
           refundPointId,
           tagIds: selectedRows.map((tag) => tag.id || ""),
         },
