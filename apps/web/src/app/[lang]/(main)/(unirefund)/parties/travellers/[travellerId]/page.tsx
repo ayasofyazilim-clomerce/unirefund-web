@@ -1,6 +1,7 @@
 "use server";
 
 import { getTravellersDetailsApi } from "src/actions/unirefund/TravellerService/actions";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
@@ -12,13 +13,21 @@ export default async function Page({
   params: { travellerId: string; lang: string };
 }) {
   const { lang, travellerId } = params;
+  const { languageData } = await getResourceData(lang);
+
   await isUnauthorized({
     requiredPolicies: ["TravellerService.Travellers"],
     lang,
   });
   const travellerDetailResponse = await getTravellersDetailsApi(travellerId);
-  if (isErrorOnRequest(travellerDetailResponse, lang)) return;
-  const { languageData } = await getResourceData(lang);
+  if (isErrorOnRequest(travellerDetailResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={travellerDetailResponse.message}
+      />
+    );
+  }
 
   return (
     <>

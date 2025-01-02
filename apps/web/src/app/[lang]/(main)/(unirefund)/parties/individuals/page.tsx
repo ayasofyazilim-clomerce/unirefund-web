@@ -1,10 +1,11 @@
 "use server";
 
 import type { GetApiCrmServiceIndividualsData } from "@ayasofyazilim/saas/CRMService";
-import { notFound } from "next/navigation";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { getIndividualsApi } from "src/actions/unirefund/CrmService/actions";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "../../../_components/error-component";
 import IndividualsTable from "./table";
 
 interface SearchParamType {
@@ -17,25 +18,37 @@ interface SearchParamType {
   entityPartyTypeCode?: string;
 }
 
-export default async function Page(props: {
+export default async function Page({
+  params,
+  searchParams,
+}: {
   params: { lang: string };
-  searchParams?: Promise<SearchParamType>;
+  searchParams?: SearchParamType;
 }) {
+  const { lang } = params;
   await isUnauthorized({
     requiredPolicies: ["CRMService.Merchants"],
-    lang: props.params.lang,
+    lang,
   });
-
-  const searchParams = await props.searchParams;
-  const response = await getIndividualsApi({
+  const { languageData } = await getResourceData(lang);
+  const individualResponse = await getIndividualsApi({
     ...searchParams,
     typeCodes: searchParams?.typeCode?.split(",") || [],
   } as GetApiCrmServiceIndividualsData);
 
-  if (response.type !== "success") return notFound();
+  if (isErrorOnRequest(individualResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={individualResponse.message}
+      />
+    );
+  }
 
-  const { languageData } = await getResourceData(props.params.lang);
   return (
-    <IndividualsTable languageData={languageData} response={response.data} />
+    <IndividualsTable
+      languageData={languageData}
+      response={individualResponse.data}
+    />
   );
 }

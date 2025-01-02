@@ -1,12 +1,13 @@
-import { notFound } from "next/navigation";
 import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
   getRefundTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getAdressesApi } from "src/actions/unirefund/CrmService/actions";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { ContractSettings } from "./_components/contract-settings";
 
 export default async function Page({
@@ -26,26 +27,56 @@ export default async function Page({
   });
 
   const { languageData } = await getResourceData(lang);
-  const contractSettings =
+
+  const contractSettingsResponse =
     await getMerchantContractHeaderContractSettingsByHeaderIdApi({
       id: contractId,
     });
-  const refundTableHeaders = await getRefundTableHeadersApi({});
-  const contractHeaderDetails =
+  if (isErrorOnRequest(contractSettingsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={contractSettingsResponse.message}
+      />
+    );
+  }
+
+  const refundTableHeadersResponse = await getRefundTableHeadersApi({});
+  if (isErrorOnRequest(refundTableHeadersResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={refundTableHeadersResponse.message}
+      />
+    );
+  }
+
+  const contractHeaderDetailsResponse =
     await getMerchantContractHeaderByIdApi(contractId);
-  const addressList = await getAdressesApi(partyId, partyName);
-  if (
-    contractSettings.type !== "success" ||
-    refundTableHeaders.type !== "success" ||
-    contractHeaderDetails.type !== "success" ||
-    addressList.type !== "success"
-  )
-    return notFound();
+  if (isErrorOnRequest(contractHeaderDetailsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={contractHeaderDetailsResponse.message}
+      />
+    );
+  }
+
+  const addressListResponse = await getAdressesApi(partyId, partyName);
+  if (isErrorOnRequest(addressListResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={addressListResponse.message}
+      />
+    );
+  }
+
   return (
     <ContractSettings
-      addressList={addressList.data}
-      contractHeaderDetails={contractHeaderDetails.data}
-      contractSettings={contractSettings.data}
+      addressList={addressListResponse.data}
+      contractHeaderDetails={contractHeaderDetailsResponse.data}
+      contractSettings={contractSettingsResponse.data}
       lang={lang}
       languageData={languageData}
     />
