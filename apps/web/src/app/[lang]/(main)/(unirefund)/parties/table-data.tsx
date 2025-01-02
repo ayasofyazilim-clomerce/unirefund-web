@@ -43,7 +43,8 @@ export interface CreatePartiesDto {
   createAbpUserAccount: boolean;
 }
 
-const CommonOrganizationFields = ["name", "taxpayerId", "branchId"];
+const CommonOrganizationFields: (keyof UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto)[] =
+  ["name", "taxpayerId"];
 const OrganizationFields = ["customerNumber", "legalStatusCode"];
 export const MerchantsFormSubPositions = {
   organization: [...CommonOrganizationFields, ...OrganizationFields],

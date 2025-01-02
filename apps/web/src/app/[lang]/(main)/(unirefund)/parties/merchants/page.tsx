@@ -32,7 +32,6 @@ export default async function Page(props: {
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
   } as GetApiCrmServiceMerchantsData);
-
   if (response.type !== "success") return notFound();
 
   const { languageData } = await getResourceData(props.params.lang);
