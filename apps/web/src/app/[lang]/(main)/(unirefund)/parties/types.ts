@@ -38,14 +38,6 @@ export type GetTaxFreeDTO = UniRefund_CRMService_TaxFrees_TaxFreeDto;
 export type GetTaxOfficeDTO = UniRefund_CRMService_TaxOffices_TaxOfficeDto;
 export type GetIndividualDTO = UniRefund_CRMService_Individuals_IndividualDto;
 
-export type PartyNameType =
-  | "merchants"
-  | "refund-points"
-  | "customs"
-  | "tax-free"
-  | "tax-offices"
-  | "individuals";
-
 export type PartiesResultType =
   | GetMerchantDTO
   | GetRefundPointDTO

@@ -1,14 +1,14 @@
 "use client";
 
+import type { UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRMService";
 import SelectTabs, {
   SelectTabsContent,
 } from "@repo/ayasofyazilim-ui/molecules/select-tabs";
 import { Building2, User } from "lucide-react";
 import { useState } from "react";
-import type { UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRMService";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import type { CountryDto } from "src/actions/unirefund/LocationService/types";
-import type { PartyNameType } from "../../types";
+import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import CrmIndividual from "./crm/individual/form";
 import CrmOrganization from "./crm/organization/form";
 import Individual from "./individual/form";

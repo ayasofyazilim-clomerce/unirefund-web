@@ -19,9 +19,11 @@ import { useRouter } from "next/navigation";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
 import { getIndividualsApi } from "src/actions/unirefund/CrmService/actions";
 import { postAffiliationsToPartyApi } from "src/actions/unirefund/CrmService/post-actions";
-import type { AffiliationsPostDto } from "src/actions/unirefund/CrmService/types";
+import type {
+  AffiliationsPostDto,
+  PartyNameType,
+} from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { PartyNameType } from "../../../types";
 import { tableData } from "./individuals-table-data";
 
 export interface AutoFormValues {
