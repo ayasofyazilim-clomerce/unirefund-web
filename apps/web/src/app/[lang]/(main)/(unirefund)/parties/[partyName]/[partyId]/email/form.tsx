@@ -10,11 +10,13 @@ import AutoForm, {
 import { SectionLayoutContent } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { emailSchema } from "@repo/ui/utils/table/form-schemas";
 import { useRouter } from "next/navigation";
-import { putCrmEmailAddressApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { EmailAddressUpdateDto } from "src/actions/unirefund/CrmService/types";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
+import { putCrmEmailAddressApi } from "src/actions/unirefund/CrmService/put-actions";
+import type {
+  EmailAddressUpdateDto,
+  PartyNameType,
+} from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { PartyNameType } from "../../../types";
 
 function Email({
   languageData,

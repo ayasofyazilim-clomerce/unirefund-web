@@ -1,11 +1,12 @@
 "use server";
 import type {
-  GetApiCrmServiceRefundPointsAccessibleData,
+  GetApiCrmServiceAffiliationCodesData,
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
   GetApiCrmServiceMerchantsByIdSubMerchantsData,
   GetApiCrmServiceMerchantsData,
   GetApiCrmServiceMerchantsResponse,
+  GetApiCrmServiceRefundPointsAccessibleData,
   GetApiCrmServiceRefundPointsData,
   GetApiCrmServiceTaxFreesData,
   GetApiCrmServiceTaxOfficesData,
@@ -165,11 +166,13 @@ export async function getIndividualsByIdApi(
   }
 }
 
-export async function getAffiliationCodeApi() {
+export async function getAffiliationCodeApi(
+  data: GetApiCrmServiceAffiliationCodesData,
+) {
   try {
     const crmClient = await getCRMServiceClient();
     const response =
-      await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes();
+      await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

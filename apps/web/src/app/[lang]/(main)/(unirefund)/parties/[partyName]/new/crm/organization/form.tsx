@@ -11,6 +11,7 @@ import AutoForm, {
 import { type TableData } from "@repo/ui/utils/table/table-utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import type {
   CountryDto,
   SelectedAddressField,
@@ -21,7 +22,7 @@ import { getBaseLink } from "src/utils";
 import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
 import type { CreatePartiesDto } from "../../../../table-data";
 import { dataConfigOfParties } from "../../../../table-data";
-import type { PartiesCreateDTOType, PartyNameType } from "../../../../types";
+import type { PartiesCreateDTOType } from "../../../../types";
 import { createPartyRow } from "../../../action";
 
 export default function CrmOrganization({

@@ -18,8 +18,9 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
+import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import { dataConfigOfParties } from "../../table-data";
-import type { PartyNameType } from "../../types";
 import Address from "./address/form";
 import Contracts from "./contracts/table";
 import Email from "./email/form";
@@ -129,7 +130,9 @@ export default async function Page({
       ? individualsResponse.data
       : { items: [], totalCount: 0 };
 
-  const affiliationCodesResponse = await getAffiliationCodeApi();
+  const affiliationCodesResponse = await getAffiliationCodeApi({
+    entityPartyTypeCode: partyNameToEntityPartyTypeCode[partyName],
+  });
 
   const affiliationCodes =
     affiliationCodesResponse.type === "success"

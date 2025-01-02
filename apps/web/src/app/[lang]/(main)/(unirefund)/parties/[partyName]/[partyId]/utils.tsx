@@ -2,7 +2,7 @@
 
 import { toast } from "@/components/ui/sonner";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { PartyNameType } from "../../types";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import { putParty } from "./action";
 import type {
   PutAddress,

@@ -1,6 +1,7 @@
 "use server";
 import type { UniRefund_CRMService_Individuals_CreateIndividualDto } from "@ayasofyazilim/saas/CRMService";
 import { getCRMServiceClient, structuredError } from "src/lib";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import type {
   CreateCustomsDTO,
   CreateMerchantDTO,
@@ -8,7 +9,6 @@ import type {
   CreateTaxFreeDTO,
   CreateTaxOfficeDTO,
   PartiesCreateDTOType,
-  PartyNameType,
 } from "../types";
 
 export async function getPartyRequests(partyType: PartyNameType) {

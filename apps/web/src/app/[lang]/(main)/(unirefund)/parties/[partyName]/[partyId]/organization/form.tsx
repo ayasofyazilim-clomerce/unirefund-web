@@ -7,11 +7,13 @@ import AutoForm, {
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { SectionLayoutContent } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { useRouter } from "next/navigation";
-import { putCrmOrganizationApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { OrganizationUpdateDto } from "src/actions/unirefund/CrmService/types";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
+import { putCrmOrganizationApi } from "src/actions/unirefund/CrmService/put-actions";
+import type {
+  OrganizationUpdateDto,
+  PartyNameType,
+} from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { PartyNameType } from "../../../types";
 import { editSchemasOfParties } from "../update-data";
 
 function OrganizationForm({

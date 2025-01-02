@@ -1,6 +1,6 @@
 "use server";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import { getCRMServiceClient, structuredError } from "src/lib";
-import type { PartyNameType } from "../../types";
 import type {
   PutAddress,
   PutEmail,
