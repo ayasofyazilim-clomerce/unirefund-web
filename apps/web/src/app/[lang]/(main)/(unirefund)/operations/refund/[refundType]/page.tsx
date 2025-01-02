@@ -20,6 +20,11 @@ export default async function Page({
   searchParams?: Partial<GetApiTagServiceTagTagsRefundData>;
 }) {
   const { lang, refundType } = params;
+  const {
+    travellerDocumentNumber,
+    refundPointId,
+    refundType: refundMethod,
+  } = searchParams || {};
 
   await isUnauthorized({
     requiredPolicies: [
@@ -46,16 +51,20 @@ export default async function Page({
   const accessibleRefundPoints =
     accessibleRefundPointsResponse.data.items || [];
 
-  if (
-    isUnauthorizedRefundPoint(
-      searchParams?.refundPointId,
-      accessibleRefundPoints,
-    )
-  ) {
+  if (isUnauthorizedRefundPoint(refundPointId, accessibleRefundPoints)) {
     return redirect(`/${lang}/unauthorized`);
   }
 
-  if (!searchParams?.travellerDocumentNumber || !searchParams.refundPointId) {
+  if (accessibleRefundPoints.length === 1 && !refundPointId) {
+    const newParams = travellerDocumentNumber
+      ? `travellerDocumentNumber=${travellerDocumentNumber}&`
+      : "";
+    return redirect(
+      `/${lang}/operations/refund/${refundType}/?${newParams}refundPointId=${accessibleRefundPoints[0].id}`,
+    );
+  }
+
+  if (!travellerDocumentNumber || !refundPointId) {
     return (
       <TravellerDocumentForm
         accessibleRefundPoints={accessibleRefundPoints}
@@ -65,9 +74,9 @@ export default async function Page({
   }
 
   const refundableTagsResponse = await getRefundableTagsApi({
-    travellerDocumentNumber: searchParams.travellerDocumentNumber,
-    refundType: searchParams.refundType || "Cash",
-    refundPointId: searchParams.refundPointId,
+    travellerDocumentNumber,
+    refundType: refundMethod || "Cash",
+    refundPointId,
     isExportValidated: refundType === "export-validated",
   });
 
