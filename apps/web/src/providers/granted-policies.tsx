@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import policies from "src/utils/page-policy/policies.json";
 import type { Policy } from "src/utils/page-policy/utils";
 
@@ -20,8 +20,10 @@ export function GrantedPoliciesProvider({
   children: ReactNode;
   grantedPolicies?: Record<string, boolean> | undefined;
 }) {
+  const key = useMemo(() => new Date().getTime().toString(), [grantedPolicies]);
   return (
     <GrantedPoliciesContext.Provider
+      key={key}
       value={{ grantedPolicies: grantedPolicies as Record<Policy, boolean> }}
     >
       {children}
