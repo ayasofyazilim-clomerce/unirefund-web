@@ -6,6 +6,7 @@ import { getResourceData } from "src/language-data/unirefund/TravellerService";
 import { getBaseLink } from "src/utils";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import Form from "./form";
 
 export default async function Page({
@@ -18,16 +19,26 @@ export default async function Page({
     requiredPolicies: ["TravellerService.Travellers.Edit"],
     lang,
   });
-  const travellerDetailResponse = await getTravellersDetailsApi(travellerId);
-  if (isErrorOnRequest(travellerDetailResponse, lang)) return;
-  const countriesResponse = await getCountriesApi();
-  if (isErrorOnRequest(countriesResponse, lang)) return;
   const { languageData } = await getResourceData(params.lang);
+  const travellerDetailResponse = await getTravellersDetailsApi(travellerId);
+  if (isErrorOnRequest(travellerDetailResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={travellerDetailResponse.message}
+      />
+    );
+  }
+
+  const countriesResponse = await getCountriesApi();
+  const countryList =
+    (countriesResponse.type === "success" && countriesResponse.data.items) ||
+    [];
 
   return (
     <>
       <Form
-        countryList={countriesResponse.data.items || []}
+        countryList={countryList}
         identificationId={identificationId}
         languageData={languageData}
         travellerData={travellerDetailResponse.data}

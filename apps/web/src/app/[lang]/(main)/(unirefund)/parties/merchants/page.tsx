@@ -1,10 +1,11 @@
 "use server";
 
 import type { GetApiCrmServiceMerchantsData } from "@ayasofyazilim/saas/CRMService";
-import { notFound } from "next/navigation";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { getMerchantsApi } from "src/actions/unirefund/CrmService/actions";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "../../../_components/error-component";
 import MerchantsTable from "./table";
 
 interface SearchParamType {
@@ -16,26 +17,39 @@ interface SearchParamType {
   typeCode?: string;
 }
 
-export default async function Page(props: {
+export default async function Page({
+  params,
+  searchParams,
+}: {
   params: { lang: string };
-  searchParams?: Promise<SearchParamType>;
+  searchParams?: SearchParamType;
 }) {
+  const { lang } = params;
   await isUnauthorized({
     requiredPolicies: ["CRMService.Merchants"],
-    lang: props.params.lang,
+    lang,
   });
-
-  const searchParams = await props.searchParams;
-  const response = await getMerchantsApi({
+  const { languageData } = await getResourceData(lang);
+  const merchantResponse = await getMerchantsApi({
     typeCodes: searchParams?.typeCode?.split(",") || [],
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
   } as GetApiCrmServiceMerchantsData);
-  if (response.type !== "success") return notFound();
 
-  const { languageData } = await getResourceData(props.params.lang);
+  if (isErrorOnRequest(merchantResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={merchantResponse.message}
+      />
+    );
+  }
+
   return (
-    <MerchantsTable languageData={languageData} response={response.data} />
+    <MerchantsTable
+      languageData={languageData}
+      response={merchantResponse.data}
+    />
   );
 }

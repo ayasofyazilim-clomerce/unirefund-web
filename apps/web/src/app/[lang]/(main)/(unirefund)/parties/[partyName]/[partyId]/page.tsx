@@ -14,8 +14,10 @@ import {
   getTaxOfficesApi,
 } from "src/actions/unirefund/CrmService/actions";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { dataConfigOfParties } from "../../table-data";
 import type { PartyNameType } from "../../types";
 import Address from "./address/form";
@@ -39,19 +41,24 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const { languageData } = await getResourceData(params.lang);
+  const { lang, partyName, partyId } = params;
+  const { languageData } = await getResourceData(lang);
   const { languageData: contractsLanguageData } =
-    await getContractsResourceData(params.lang);
-  const formData = dataConfigOfParties[params.partyName];
+    await getContractsResourceData(lang);
+  const formData = dataConfigOfParties[partyName];
 
-  const partyDetail = await getTableDataDetail(
-    params.partyName,
-    params.partyId,
-  );
-  if (partyDetail.type !== "success" || !partyDetail.data) {
-    notFound();
+  const partyDetailResponse = await getTableDataDetail(partyName, partyId);
+
+  if (isErrorOnRequest(partyDetailResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={partyDetailResponse.message}
+      />
+    );
   }
-  const partyDetailData = partyDetail.data as GetPartiesDetailResult;
+
+  const partyDetailData = partyDetailResponse.data as GetPartiesDetailResult;
   const organizationData =
     partyDetailData.entityInformations?.[0]?.organizations?.[0];
   const individualData =
@@ -67,20 +74,18 @@ export default async function Page({
   const merchants = await getMerchantsApi();
   const merchantList =
     (merchants.type === "success" &&
-      merchants.data.items?.filter(
-        (merchant) => merchant.id !== params.partyId,
-      )) ||
+      merchants.data.items?.filter((merchant) => merchant.id !== partyId)) ||
     [];
 
   let contracts;
-  if (params.partyName === "refund-points") {
+  if (partyName === "refund-points") {
     contracts = await getRefundPointContractHeadersByRefundPointIdApi({
-      id: params.partyId,
+      id: partyId,
     });
   }
-  if (params.partyName === "merchants") {
+  if (partyName === "merchants") {
     contracts = await getMerchantContractHeadersByMerchantIdApi({
-      id: params.partyId,
+      id: partyId,
     });
   }
   const taxOffices = await getTaxOfficesApi();
@@ -108,23 +113,17 @@ export default async function Page({
     });
     sections.unshift({ name: languageData.Name, id: "name" });
   }
-  if (params.partyName === "merchants") {
+  if (partyName === "merchants") {
     sections.unshift({
       name: languageData.Merchants,
       id: "merchant-base",
     });
   }
-  if (
-    params.partyName === "refund-points" ||
-    params.partyName === "merchants"
-  ) {
+  if (partyName === "refund-points" || partyName === "merchants") {
     sections.push({ name: languageData.Contracts, id: "contracts" });
   }
 
-  const individualsResponse = await getIndividualsByIdApi(
-    params.partyName,
-    params.partyId,
-  );
+  const individualsResponse = await getIndividualsByIdApi(partyName, partyId);
   const individuals =
     individualsResponse.type === "success"
       ? individualsResponse.data
@@ -141,41 +140,40 @@ export default async function Page({
     <>
       <div className="h-full overflow-hidden">
         <SectionLayout sections={sections} vertical>
-          {params.partyName === "merchants" &&
-            "taxOfficeId" in partyDetailData && (
-              <MerchantForm
-                languageData={languageData}
-                merchantBaseData={partyDetailData}
-                merchantList={merchantList}
-                partyId={params.partyId}
-                partyName={params.partyName}
-                taxOfficeList={taxOfficeList}
-              />
-            )}
+          {partyName === "merchants" && "taxOfficeId" in partyDetailData && (
+            <MerchantForm
+              languageData={languageData}
+              merchantBaseData={partyDetailData}
+              merchantList={merchantList}
+              partyId={partyId}
+              partyName={partyName}
+              taxOfficeList={taxOfficeList}
+            />
+          )}
 
           {organizationData ? (
             <OrganizationForm
               languageData={languageData}
               organizationData={organizationData}
               organizationId={organizationData.id || ""}
-              partyId={params.partyId}
-              partyName={params.partyName}
+              partyId={partyId}
+              partyName={partyName}
             />
           ) : null}
 
-          {params.partyName === "merchants" && individualData ? (
+          {partyName === "merchants" && individualData ? (
             <>
               <NameForm
                 individualData={individualData.name}
                 languageData={languageData}
-                partyId={params.partyId}
-                partyName={params.partyName}
+                partyId={partyId}
+                partyName={partyName}
               />
               <PersonalSummariesForm
                 individualData={individualData.personalSummaries?.[0]}
                 languageData={languageData}
-                partyId={params.partyId}
-                partyName={params.partyName}
+                partyId={partyId}
+                partyName={partyName}
               />
             </>
           ) : null}
@@ -183,49 +181,48 @@ export default async function Page({
           <Telephone
             languageData={languageData}
             organizationData={organizationData || individualData}
-            partyId={params.partyId}
-            partyName={params.partyName}
+            partyId={partyId}
+            partyName={partyName}
           />
 
           <Address
             countryList={countryList}
             languageData={languageData}
             organizationData={organizationData || individualData}
-            partyId={params.partyId}
-            partyName={params.partyName}
+            partyId={partyId}
+            partyName={partyName}
           />
 
           <Email
             languageData={languageData}
             organizationData={organizationData || individualData}
-            partyId={params.partyId}
-            partyName={params.partyName}
+            partyId={partyId}
+            partyName={partyName}
           />
           <SubCompany
             languageData={languageData}
-            partyId={params.partyId}
-            partyName={params.partyName}
+            partyId={partyId}
+            partyName={partyName}
           />
           <IndividualTable
             affiliationCodes={affiliationCodes}
             languageData={languageData}
-            locale={params.lang}
-            partyId={params.partyId}
-            partyName={params.partyName}
+            locale={lang}
+            partyId={partyId}
+            partyName={partyName}
             response={individuals}
           />
 
           {contracts &&
-          (params.partyName === "merchants" ||
-            params.partyName === "refund-points") ? (
+          (partyName === "merchants" || partyName === "refund-points") ? (
             <Contracts
               contractsData={
                 contracts.type === "success" ? contracts.data : { items: [] }
               }
-              lang={params.lang}
+              lang={lang}
               languageData={{ ...languageData, ...contractsLanguageData }}
-              partyId={params.partyId}
-              partyName={params.partyName}
+              partyId={partyId}
+              partyName={partyName}
             />
           ) : null}
         </SectionLayout>
