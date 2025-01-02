@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  $UniRefund_TagService_Tags_RefundType,
+  $UniRefund_TagService_Tags_Enums_RefundType,
   $UniRefund_TagService_Tags_TagStatusType,
 } from "@ayasofyazilim/saas/TagService";
 import type { FilterComponentSearchItem } from "@repo/ayasofyazilim-ui/molecules/filter-component";
@@ -97,10 +97,12 @@ export default function Filter({
       {
         title: languageData.RefundMethod,
         value: refundTypes,
-        options: $UniRefund_TagService_Tags_RefundType.enum.map((status) => ({
-          value: status,
-          label: status,
-        })),
+        options: $UniRefund_TagService_Tags_Enums_RefundType.enum.map(
+          (status) => ({
+            value: status,
+            label: status,
+          }),
+        ),
         onChange: setRefundTypes,
       },
     ],

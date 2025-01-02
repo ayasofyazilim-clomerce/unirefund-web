@@ -39,7 +39,7 @@ export default function TagActions({
             <Button
               onClick={() => {
                 router.push(
-                  `/operations/refund/need-validation?travellerDocumentNo=${travellerDocumentNo}`,
+                  `/operations/refund/need-validation?travellerDocumentNumber=${travellerDocumentNo}`,
                 );
               }}
               variant="default"
@@ -51,7 +51,7 @@ export default function TagActions({
             <Button
               onClick={() => {
                 router.push(
-                  `/operations/refund/export-validated?travellerDocumentNo=${travellerDocumentNo}`,
+                  `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}`,
                 );
               }}
               variant="default"
