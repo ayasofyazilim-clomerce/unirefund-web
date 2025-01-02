@@ -45,9 +45,8 @@ export interface CreatePartiesDto {
 
 const CommonOrganizationFields: (keyof UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto)[] =
   ["name", "taxpayerId"];
-const OrganizationFields = ["customerNumber", "legalStatusCode"];
 export const MerchantsFormSubPositions = {
-  organization: [...CommonOrganizationFields, ...OrganizationFields],
+  organization: [...CommonOrganizationFields, "legalStatusCode"],
   ...ContactFormSubPositions,
 };
 export const RefundPointsFormSubPositions = {
@@ -59,11 +58,11 @@ export const CustomsFormSubPositions = {
   ...ContactFormSubPositions,
 };
 export const TaxFreeFormSubPositions = {
-  organization: [...CommonOrganizationFields, ...OrganizationFields],
+  organization: [...CommonOrganizationFields, "legalStatusCode"],
   ...ContactFormSubPositions,
 };
 export const TaxOfficesFormSubPositions = {
-  organization: [...CommonOrganizationFields, ...OrganizationFields],
+  organization: [...CommonOrganizationFields],
   ...ContactFormSubPositions,
 };
 

@@ -63,7 +63,6 @@ export default function CrmOrganization({
 
   function formSchemaByData() {
     const config = dataConfigOfParties[partyName];
-
     return createZodObject(
       config.createFormSchema.schema,
       config.createFormSchema.formPositions,

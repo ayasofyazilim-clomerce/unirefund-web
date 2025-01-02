@@ -99,7 +99,6 @@ export default async function Page({
     { name: languageData.Email, id: "email" },
     { name: languageData[formData.subEntityName], id: "SubCompany" },
     { name: languageData.Individuals, id: "individuals" },
-    { name: "Affiliations", id: "affiliations" },
   ];
 
   if (organizationData) {
