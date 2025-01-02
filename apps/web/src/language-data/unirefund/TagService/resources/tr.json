@@ -16,6 +16,8 @@
   "ExportValidated": "İhracat Doğrulandı",
   "NeedValidation": "Doğrulama Gerekli",
   "RefundPoint": "İade Noktası",
+  "EarlyRefund": "Erken İade",
+  "TagActions": "Etiket Aksiyonları",
 
   "SalesAmount": "Satış Tutarı",
   "VatAmount": "KDV Tutarı",
