@@ -1,11 +1,12 @@
-import { notFound } from "next/navigation";
 import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getSubMerchantsByMerchantIdApi } from "src/actions/unirefund/CrmService/actions";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { RebateSettings } from "./_components/rebate-settings";
 
 export default async function Page({
@@ -26,14 +27,29 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
   const rebateSettings =
     await getMerchantContractHeaderRebateSettingsByHeaderIdApi(contractId);
+
   const rebateTables = await getRebateTableHeadersApi({});
-  const subMerchants = await getSubMerchantsByMerchantIdApi({
+  if (isErrorOnRequest(rebateTables, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={rebateTables.message}
+      />
+    );
+  }
+
+  const subMerchantsResponse = await getSubMerchantsByMerchantIdApi({
     id: partyId,
   });
-
-  if (rebateTables.type !== "success" || subMerchants.type !== "success") {
-    return notFound();
+  if (isErrorOnRequest(subMerchantsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={subMerchantsResponse.message}
+      />
+    );
   }
+
   return (
     <RebateSettings
       contractId={contractId}
@@ -43,7 +59,7 @@ export default async function Page({
         rebateSettings.type === "success" ? rebateSettings.data : undefined
       }
       rebateTables={rebateTables.data.items || []}
-      subMerchants={subMerchants.data.items || []}
+      subMerchants={subMerchantsResponse.data.items || []}
     />
   );
 }

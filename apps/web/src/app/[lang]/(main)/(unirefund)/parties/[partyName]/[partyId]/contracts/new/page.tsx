@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import {
   getMerchantContractHeadersByMerchantIdApi,
   getRefundFeeHeadersApi,
@@ -10,6 +9,7 @@ import {
   getMerchantByIdApi,
   getRefundPointDetailsByIdApi,
 } from "src/actions/unirefund/CrmService/actions";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
@@ -72,19 +72,37 @@ export default async function Page({
       </>
     );
   }
-  const refundPointDetails = await getRefundPointDetailsByIdApi(partyId);
-  if (isErrorOnRequest(refundPointDetails, lang)) return notFound();
-  const refundFeeHeaders = await getRefundFeeHeadersApi({});
-  if (isErrorOnRequest(refundFeeHeaders, lang)) return notFound();
+  const refundPointDetailsResponse =
+    await getRefundPointDetailsByIdApi(partyId);
+  if (isErrorOnRequest(refundPointDetailsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={refundPointDetailsResponse.message}
+      />
+    );
+  }
+
+  const refundFeeHeadersResponse = await getRefundFeeHeadersApi({});
+  if (isErrorOnRequest(refundFeeHeadersResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={refundFeeHeadersResponse.message}
+      />
+    );
+  }
+
   const otherContractHeaders =
     await getRefundPointContractHeadersByRefundPointIdApi({
       id: partyId,
       sorting: "validTo desc",
     });
   if (isErrorOnRequest(otherContractHeaders, lang)) return;
-  const refundPointDetailsSummary = refundPointDetails.data.entityInformations
-    ?.at(0)
-    ?.organizations?.at(0);
+  const refundPointDetailsSummary =
+    refundPointDetailsResponse.data.entityInformations
+      ?.at(0)
+      ?.organizations?.at(0);
   const biggestContractHeader = otherContractHeaders.data.items?.at(0);
 
   return (
@@ -113,7 +131,7 @@ export default async function Page({
         }
         languageData={languageData}
         loading={false}
-        refundFeeHeaders={refundFeeHeaders.data.items || []}
+        refundFeeHeaders={refundFeeHeadersResponse.data.items || []}
       />
       <PageHeader
         languageData={languageData}
