@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { PencilRuler } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -11,13 +12,14 @@ export default function TagActions({
   languageData,
 }: {
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
+  accessibleRefundPoints: UniRefund_CRMService_Merchants_RefundPointProfileDto[];
   languageData: TagServiceResource;
 }) {
   const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
   const router = useRouter();
 
   const status = tagDetail.status;
-  if (status === "Paid") return null;
+  if (status !== "ExportValidated" && status !== "Issued") return null;
 
   return (
     <Card className="col-span-2 flex-1 rounded-none">
@@ -27,19 +29,11 @@ export default function TagActions({
           {languageData.TagActions}
         </CardTitle>
         <div className="flex flex-row gap-4">
-          {status === "Open" && (
-            <Button
-              className="bg-green-700 text-white hover:bg-green-700/90 hover:text-white"
-              variant="ghost"
-            >
-              {languageData.ExportValidation}
-            </Button>
-          )}
-          {status === "Open" && (
+          {status === "ExportValidated" && (
             <Button
               onClick={() => {
                 router.push(
-                  `/operations/refund/need-validation?travellerDocumentNumber=${travellerDocumentNo}`,
+                  `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&selectedTagId=${tagDetail.id}`,
                 );
               }}
               variant="default"
