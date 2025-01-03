@@ -10,6 +10,7 @@ import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
+import type { TotalDataOfSelectedTagsType } from "../_components/summary-section";
 import SummarySection from "../_components/summary-section";
 import { RefundForm } from "../_components/table/form";
 import ExportValidatedTable from "../_components/table/table";
@@ -33,7 +34,7 @@ export default function ClientPage({
   const searchParams = useSearchParams();
   const refundPointId = searchParams.get("refundPointId") || "";
 
-  const totalDataOfSelectedTags = {
+  const totalDataOfSelectedTags: TotalDataOfSelectedTagsType = {
     refund: getTotals("Refund", selectedRows),
     refundFee: getTotals("RefundFee", selectedRows),
     salesAmount: getTotals("SalesAmount", selectedRows),
