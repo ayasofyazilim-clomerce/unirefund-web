@@ -26,7 +26,7 @@ function Totals({
           )}
           icon={<DollarSign className="size-4" />}
           key={total.totalType}
-          title={languageData[total.totalType || "None"]}
+          title={languageData[total.totalType]}
         />
       ))}
     </div>

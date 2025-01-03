@@ -30,7 +30,7 @@ function TagSummary({
           <div className="mt-2 flex w-1/3 flex-col">
             <div className="text-sm text-gray-500 ">{languageData.Status}</div>
             <div
-              className={`${getStatusColor(tagDetail.status || "")} font-semibold`}
+              className={`${getStatusColor(tagDetail.status)} font-semibold`}
             >
               {tagDetail.status}
             </div>

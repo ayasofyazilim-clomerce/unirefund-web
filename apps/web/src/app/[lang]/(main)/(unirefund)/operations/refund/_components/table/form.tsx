@@ -17,7 +17,10 @@ export function RefundForm({
   refundPointId,
   selectedRows,
 }: {
-  selectedRows: UniRefund_TagService_Tags_TagListItemDto[];
+  selectedRows: Pick<
+    UniRefund_TagService_Tags_TagListItemDto,
+    "id" | "travellerDocumentNumber"
+  >[];
   refundPointId: string;
 }) {
   const [refundMethod, setRefundMethod] = useState<string>("Cash");

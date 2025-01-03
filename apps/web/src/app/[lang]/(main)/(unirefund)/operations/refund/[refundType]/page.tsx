@@ -56,11 +56,14 @@ export default async function Page({
   }
 
   if (accessibleRefundPoints.length === 1 && !refundPointId) {
-    const newParams = travellerDocumentNumber
-      ? `travellerDocumentNumber=${travellerDocumentNumber}&`
-      : "";
+    const newParams = Object.keys(searchParams || {})
+      .map((key) => {
+        return `${key}=${searchParams?.[key as keyof typeof searchParams]}`;
+      })
+      .join("&");
+
     return redirect(
-      `/${lang}/operations/refund/${refundType}/?${newParams}refundPointId=${accessibleRefundPoints[0].id}`,
+      `/${lang}/operations/refund/${refundType}/?${newParams ? `${newParams}&` : ""}refundPointId=${accessibleRefundPoints[0].id}`,
     );
   }
 
