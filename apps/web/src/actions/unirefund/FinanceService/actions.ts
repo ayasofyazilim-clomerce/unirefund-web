@@ -1,7 +1,7 @@
 "use server";
 import type {
+  GetApiFinanceServiceRebateStatementHeadersData,
   GetApiFinanceServiceVatStatementHeadersData,
-  GetApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
 } from "@ayasofyazilim/saas/FinanceService";
 import {
   getFinanceServiceClient,
@@ -24,7 +24,7 @@ export async function getVatStatementHeadersApi(
   }
 }
 
-export async function getVatStatementHeadersDetailApi(id: string) {
+export async function getVatStatementHeadersByIdApi(id: string) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
@@ -37,14 +37,27 @@ export async function getVatStatementHeadersDetailApi(id: string) {
   }
 }
 
-export async function getVatStatementHeadersFormDraftApi(
-  data: GetApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
+export async function getRebateStatementHeadersApi(
+  data: GetApiFinanceServiceRebateStatementHeadersData,
 ) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
-      await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersFormDraftByMerchantId(
+      await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeaders(
         data,
+      );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getRebateStatementHeadersByIdApi(id: string) {
+  try {
+    const client = await getFinanceServiceClient();
+    const dataResponse =
+      await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeadersById(
+        { id },
       );
     return structuredResponse(dataResponse);
   } catch (error) {
