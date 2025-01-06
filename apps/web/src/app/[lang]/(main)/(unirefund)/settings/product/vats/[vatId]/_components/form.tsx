@@ -6,7 +6,7 @@ import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
+import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putVatApi } from "src/actions/unirefund/SettingService/put-actions";
 import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
 
@@ -42,7 +42,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
+            handlePutResponse(res, router);
           })
           .finally(() => {
             setLoading(false);
