@@ -20,9 +20,18 @@ import { useAddressHook } from "src/actions/unirefund/LocationService/use-addres
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import { getBaseLink } from "src/utils";
 import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
-import type { CreatePartiesDto } from "../../../../table-data";
+import { handlePostResponse } from "src/actions/core/api-utils-client";
+import type {
+  CreateMerchantFormData,
+  CreatePartiesDto,
+  CreateRefundPointFormData,
+} from "../../../../table-data";
 import { dataConfigOfParties } from "../../../../table-data";
-import type { PartiesCreateDTOType } from "../../../../types";
+import type {
+  CreateMerchantDTO,
+  CreateRefundPointDTO,
+  PartiesCreateDTOType,
+} from "../../../../types";
 import { createPartyRow } from "../../../action";
 
 export default function CrmOrganization({
@@ -81,11 +90,10 @@ export default function CrmOrganization({
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
     formData.telephone = { ...formData.telephone, ...phoneData };
+
     const createformData: PartiesCreateDTOType = {
       taxOfficeId: formData.taxOfficeId,
-      typeCode: parentId
-        ? dataConfigOfParties[partyName].subEntityType
-        : "HEADQUARTER",
+      taxpayerId: formData.taxpayerId,
       parentId,
       entityInformationTypes: [
         {
@@ -119,6 +127,89 @@ export default function CrmOrganization({
       toast.error(response.message || `Failed to add ${partyName}`);
     }
   };
+
+  async function handleSaveMerchant(formData: CreateMerchantFormData) {
+    const isValid = isPhoneValid(formData.telephone.localNumber);
+    if (!isValid) {
+      return;
+    }
+    const phoneData = splitPhone(formData.telephone.localNumber);
+    formData.telephone = { ...formData.telephone, ...phoneData };
+
+    const createData: CreateMerchantDTO = {
+      parentId,
+      taxpayerId: formData.taxpayerId,
+      taxOfficeId: formData.taxOfficeId,
+      entityInformationTypes: [
+        {
+          organizations: [
+            {
+              ...formData.organization,
+              contactInformations: [
+                {
+                  telephones: [{ ...formData.telephone, primaryFlag: true }],
+                  emails: [{ ...formData.email, primaryFlag: true }],
+                  addresses: [
+                    {
+                      ...formData.address,
+                      ...selectedFields,
+                      primaryFlag: true,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      typeCode: parentId
+        ? dataConfigOfParties.merchants.subEntityType
+        : "HEADQUARTER",
+    };
+    const response = await createPartyRow("merchants", createData);
+    handlePostResponse(response, router, `/parties/${partyName}`);
+  }
+  async function handleSaveRefundPoint(formData: CreateRefundPointFormData) {
+    const isValid = isPhoneValid(formData.telephone.localNumber);
+    if (!isValid) {
+      return;
+    }
+    const phoneData = splitPhone(formData.telephone.localNumber);
+    formData.telephone = { ...formData.telephone, ...phoneData };
+
+    const createData: CreateRefundPointDTO = {
+      parentId,
+      taxpayerId: formData.taxpayerId,
+      taxOfficeId: formData.taxOfficeId,
+      entityInformationTypes: [
+        {
+          organizations: [
+            {
+              ...formData.organization,
+              contactInformations: [
+                {
+                  telephones: [{ ...formData.telephone, primaryFlag: true }],
+                  emails: [{ ...formData.email, primaryFlag: true }],
+                  addresses: [
+                    {
+                      ...formData.address,
+                      ...selectedFields,
+                      primaryFlag: true,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      typeCode: parentId
+        ? dataConfigOfParties["refund-points"].subEntityType
+        : "HEADQUARTER",
+    };
+    const response = await createPartyRow("refund-points", createData);
+    handlePostResponse(response, router, `/parties/${partyName}`);
+  }
 
   return (
     <AutoForm
@@ -160,7 +251,13 @@ export default function CrmOrganization({
       formClassName="pb-4"
       formSchema={formSchemaByData()}
       onSubmit={(val) => {
-        void handleSave(val as CreatePartiesDto);
+        if (partyName === "merchants") {
+          void handleSaveMerchant(val as CreateMerchantFormData);
+        } else if (partyName === "refund-points") {
+          void handleSaveRefundPoint(val as CreateRefundPointFormData);
+        } else {
+          void handleSave(val as CreatePartiesDto);
+        }
       }}
       onValuesChange={(values) => {
         onAddressValueChanged(values);

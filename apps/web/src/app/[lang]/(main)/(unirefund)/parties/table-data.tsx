@@ -14,7 +14,7 @@ import {
   $UniRefund_CRMService_Customss_CustomsProfileDto,
   $UniRefund_CRMService_Individuals_IndividualProfileDto,
   $UniRefund_CRMService_Merchants_MerchantProfileDto,
-  $UniRefund_CRMService_Merchants_RefundPointProfileDto,
+  $UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
   $UniRefund_CRMService_TaxFrees_TaxFreeProfileDto,
   $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
   $UniRefund_CRMService_Customss_CreateCustomsDto as CreateCustomsSchema,
@@ -29,10 +29,9 @@ import type { PartiesCreateType } from "./types";
 
 export interface CreatePartiesDto {
   taxOfficeId: string;
+  taxpayerId: string;
   organization:
-    | UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto
     | UniRefund_CRMService_Customss_CreateCustomsOrganizationDto
-    | UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationDto
     | UniRefund_CRMService_TaxFrees_CreateTaxFreeOrganizationDto
     | UniRefund_CRMService_TaxOffices_CreateTaxOfficeOrganizationDto;
   name: UniRefund_CRMService_NameCommonDatas_CreateNameCommonDataDto;
@@ -42,9 +41,14 @@ export interface CreatePartiesDto {
   email: UniRefund_CRMService_EmailCommonDatas_CreateEmailCommonDataWithComponentsDto;
   createAbpUserAccount: boolean;
 }
-
+export type CreateMerchantFormData = CreatePartiesDto & {
+  organization: UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto;
+};
+export type CreateRefundPointFormData = CreatePartiesDto & {
+  organization: UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationDto;
+};
 const CommonOrganizationFields: (keyof UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto)[] =
-  ["name", "taxpayerId"];
+  ["name"];
 export const MerchantsFormSubPositions = {
   organization: [...CommonOrganizationFields, "legalStatusCode"],
   ...ContactFormSubPositions,
@@ -191,7 +195,7 @@ export const dataConfigOfParties = {
         "individualId",
         "entityInformationTypeCodeValue",
       ],
-      schema: $UniRefund_CRMService_Merchants_RefundPointProfileDto,
+      schema: $UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
     },
   },
   customs: {
