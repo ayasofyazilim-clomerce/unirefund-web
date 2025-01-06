@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
     <>
       <VatStatementForm languageData={languageData} />
       <div className="hidden" id="page-description">
-        {languageData["VATStatements.Create.Description"]}
+        {languageData["VATStatement.Create.Description"]}
       </div>
     </>
   );
