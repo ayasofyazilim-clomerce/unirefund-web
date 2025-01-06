@@ -4,7 +4,7 @@ import type {
   UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto as RefundTableHeaderDto,
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto as RefundFeeHeaderDto,
 } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto as StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 

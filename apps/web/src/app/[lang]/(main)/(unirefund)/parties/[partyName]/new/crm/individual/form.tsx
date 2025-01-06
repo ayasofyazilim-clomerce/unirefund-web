@@ -20,7 +20,7 @@ import { getBaseLink } from "src/utils";
 import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
 import type { CreatePartiesDto } from "../../../../table-data";
 import { dataConfigOfParties, localNumber } from "../../../../table-data";
-import type { CreateMerchantDTO } from "../../../../types";
+import type { PartiesCreateDTOType } from "../../../../types";
 import { createPartyRow } from "../../../action";
 
 function createScheme(schema: typeof CreateMerchantSchema) {
@@ -123,8 +123,9 @@ export default function CrmIndividual({
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
     formData.telephone = { ...formData.telephone, ...phoneData };
-    const createformData: CreateMerchantDTO = {
+    const createformData: PartiesCreateDTOType = {
       taxOfficeId: formData.taxOfficeId,
+      taxpayerId: "",
       typeCode: parentId
         ? dataConfigOfParties[partyName].subEntityType
         : "HEADQUARTER",
