@@ -1,5 +1,5 @@
-import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
+import { $UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -13,11 +13,11 @@ import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMS
 import type { Policy } from "src/utils/page-policy/utils";
 
 type RefundPointsTable =
-  TanstackTableCreationProps<UniRefund_CRMService_Merchants_RefundPointProfileDto>;
+  TanstackTableCreationProps<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>;
 
 const links: Partial<
   Record<
-    keyof UniRefund_CRMService_Merchants_RefundPointProfileDto,
+    keyof UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
     TanstackTableColumnLink
   >
 > = {};
@@ -53,9 +53,9 @@ function refundPointsColumns(
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Merchants_RefundPointProfileDto>(
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>(
     {
-      rows: $UniRefund_CRMService_Merchants_RefundPointProfileDto.properties,
+      rows: $UniRefund_CRMService_RefundPoints_RefundPointProfileDto.properties,
       languageData: {
         name: languageData.Name,
       },

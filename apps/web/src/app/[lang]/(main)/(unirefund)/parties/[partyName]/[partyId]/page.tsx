@@ -2,6 +2,7 @@
 
 import { SectionLayout } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { notFound } from "next/navigation";
+import type { UniRefund_CRMService_Merchants_UpdateMerchantDto } from "@ayasofyazilim/saas/CRMService";
 import { getTableDataDetail } from "src/actions/api-requests";
 import {
   getMerchantContractHeadersByMerchantIdApi,
@@ -142,16 +143,20 @@ export default async function Page({
     <>
       <div className="h-full overflow-hidden">
         <SectionLayout sections={sections} vertical>
-          {partyName === "merchants" && "taxOfficeId" in partyDetailData && (
+          {partyName === "merchants" &&
+          "taxOfficeId" in partyDetailData &&
+          partyDetailData.taxpayerId ? (
             <MerchantForm
               languageData={languageData}
-              merchantBaseData={partyDetailData}
+              merchantBaseData={
+                partyDetailData as UniRefund_CRMService_Merchants_UpdateMerchantDto // #1099
+              }
               merchantList={merchantList}
               partyId={partyId}
               partyName={partyName}
               taxOfficeList={taxOfficeList}
             />
-          )}
+          ) : null}
 
           {organizationData ? (
             <OrganizationForm
