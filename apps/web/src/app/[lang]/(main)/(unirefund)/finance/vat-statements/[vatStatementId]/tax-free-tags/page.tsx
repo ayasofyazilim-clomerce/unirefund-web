@@ -1,27 +1,29 @@
 "use server";
-import { getVatStatementHeadersDetailApi } from "src/actions/unirefund/FinanceService/actions";
+import { getVatStatementHeadersByIdApi } from "src/actions/unirefund/FinanceService/actions";
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import TaxFreeTagTable from "./table";
+import TaxFreeTagTable from "./_components/table";
 
 export default async function Page({
   params,
 }: {
   params: { lang: string; vatStatementId: string };
 }) {
+  const { lang, vatStatementId } = params;
   await isUnauthorized({
     requiredPolicies: ["FinanceService.VATStatementTagDetail"],
-    lang: params.lang,
+    lang,
   });
-  const response = await getVatStatementHeadersDetailApi(params.vatStatementId);
-  const { languageData } = await getResourceData(params.lang);
-  if (isErrorOnRequest(response, params.lang)) return;
+  const vatStatementHeadersResponse =
+    await getVatStatementHeadersByIdApi(vatStatementId);
+  if (isErrorOnRequest(vatStatementHeadersResponse, lang)) return;
+  const { languageData } = await getResourceData(lang);
 
   return (
     <TaxFreeTagTable
       languageData={languageData}
-      taxFreeTagsData={response.data}
+      taxFreeTagsData={vatStatementHeadersResponse.data}
     />
   );
 }
