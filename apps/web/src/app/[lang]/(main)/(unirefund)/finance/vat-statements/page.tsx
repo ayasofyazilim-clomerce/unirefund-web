@@ -5,6 +5,7 @@ import { getVatStatementHeadersApi } from "src/actions/unirefund/FinanceService/
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "../../../_components/error-component";
 import VatStatementTable from "./_components/table";
 
 export default async function Page({
@@ -17,20 +18,27 @@ export default async function Page({
   searchParams: GetApiFinanceServiceVatStatementHeadersData;
 }) {
   const { lang } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["FinanceService.VATStatementHeaders"],
     lang,
   });
-
-  const vatStatementResponse = await getVatStatementHeadersApi(searchParams);
-  if (isErrorOnRequest(vatStatementResponse, lang)) return;
-  const { languageData } = await getResourceData(lang);
+  const vatStatementHeadersResponse =
+    await getVatStatementHeadersApi(searchParams);
+  if (isErrorOnRequest(vatStatementHeadersResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={vatStatementHeadersResponse.message}
+      />
+    );
+  }
 
   return (
     <VatStatementTable
       languageData={languageData}
       locale={lang}
-      response={vatStatementResponse.data}
+      response={vatStatementHeadersResponse.data}
     />
   );
 }

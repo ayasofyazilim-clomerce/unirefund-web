@@ -5,6 +5,7 @@ import { getRebateStatementHeadersApi } from "src/actions/unirefund/FinanceServi
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "../../../_components/error-component";
 import RebateStatementTable from "./_components/table";
 
 export default async function Page({
@@ -17,20 +18,28 @@ export default async function Page({
   searchParams: GetApiFinanceServiceRebateStatementHeadersData;
 }) {
   const { lang } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["FinanceService.RebateStatementHeaders"],
     lang,
   });
+  const rebateStatementHeadersResponse =
+    await getRebateStatementHeadersApi(searchParams);
 
-  const response = await getRebateStatementHeadersApi(searchParams);
-  const { languageData } = await getResourceData(lang);
-  if (isErrorOnRequest(response, lang)) return;
+  if (isErrorOnRequest(rebateStatementHeadersResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={rebateStatementHeadersResponse.message}
+      />
+    );
+  }
 
   return (
     <RebateStatementTable
       languageData={languageData}
       locale={lang}
-      response={response.data}
+      response={rebateStatementHeadersResponse.data}
     />
   );
 }
