@@ -49,11 +49,11 @@ export default function RebateStatementInformation({
     title: rebateStatementData.status,
     rows: [
       {
-        title: "Merchant Name",
+        title: languageData["RebateStatements.MerchantName"],
         content: rebateStatementData.merchantName,
       },
       {
-        title: "total",
+        title: languageData["RebateStatements.Total"],
         content: rebateStatementData.total.toString(),
       },
     ],
@@ -61,11 +61,11 @@ export default function RebateStatementInformation({
   const secondColumn: SummaryListType = {
     rows: [
       {
-        title: "number",
+        title: languageData["RebateStatements.Number"],
         content: rebateStatementData.number,
       },
       {
-        title: "status",
+        title: languageData["RebateStatements.Status"],
         content: rebateStatementData.status,
       },
     ],
@@ -73,11 +73,11 @@ export default function RebateStatementInformation({
   const thirdColumn: SummaryListType = {
     rows: [
       {
-        title: "customerNumber",
+        title: languageData["RebateStatements.CustomerNumber"],
         content: rebateStatementData.customerNumber || "",
       },
       {
-        title: "date",
+        title: languageData["RebateStatements.RebateStatementDate"],
         content: rebateStatementData.rebateStatementDate || "",
       },
     ],
@@ -85,7 +85,7 @@ export default function RebateStatementInformation({
   const fourthColumn: SummaryListType = {
     rows: [
       {
-        title: "period",
+        title: languageData["RebateStatements.Period"],
         content: rebateStatementData.period,
       },
     ],

@@ -44,7 +44,7 @@ const vatStatementsColumns = (
         .properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.VatStatement",
       },
       config: {
         locale,
@@ -62,7 +62,8 @@ const vatStatementsColumns = (
                   OverPaid: "text-green-800 bg-orange-100 border-green-500",
                 };
                 return {
-                  label: languageData[`Form.paymentStatus.${status}`],
+                  label:
+                    languageData[`Form.VatStatement.paymentStatus.${status}`],
                   badgeClassName: badgeClasses[status],
                   conditions: [
                     {
@@ -80,7 +81,7 @@ const vatStatementsColumns = (
           options:
             $PagedResultDto_VATStatementHeaderForListDto.properties.items.items.properties.status.enum.map(
               (x) => ({
-                label: languageData[`Form.status.${x}`],
+                label: languageData[`Form.VatStatement.status.${x}`],
                 value: x,
               }),
             ),

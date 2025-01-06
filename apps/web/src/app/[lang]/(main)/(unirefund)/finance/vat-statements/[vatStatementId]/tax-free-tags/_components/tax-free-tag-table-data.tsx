@@ -40,7 +40,7 @@ function taxFreeTagColumns(
       rows: $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto.properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.VatStatement",
       },
       config: {
         locale,

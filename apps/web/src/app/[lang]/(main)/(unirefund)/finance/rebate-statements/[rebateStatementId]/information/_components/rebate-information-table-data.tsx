@@ -40,7 +40,7 @@ const rebateInformationColumns = (
       rows: $UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto.properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.RebateStatement",
       },
       config: {
         locale,
