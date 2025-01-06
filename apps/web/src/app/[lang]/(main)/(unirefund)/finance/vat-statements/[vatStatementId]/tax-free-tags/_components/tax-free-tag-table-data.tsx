@@ -1,5 +1,5 @@
-import type { UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailWithoutAuditedDto } from "@ayasofyazilim/saas/FinanceService";
-import { $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailWithoutAuditedDto } from "@ayasofyazilim/saas/FinanceService";
+import type { UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto } from "@ayasofyazilim/saas/FinanceService";
+import { $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto } from "@ayasofyazilim/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -10,11 +10,11 @@ import isActionGranted from "src/utils/page-policy/action-policy";
 import type { Policy } from "src/utils/page-policy/utils";
 
 type TaxFreeTagTable =
-  TanstackTableCreationProps<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailWithoutAuditedDto>;
+  TanstackTableCreationProps<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto>;
 
 const links: Partial<
   Record<
-    keyof UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailWithoutAuditedDto,
+    keyof UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto,
     TanstackTableColumnLink
   >
 > = {};
@@ -32,9 +32,9 @@ function taxFreeTagColumns(
       targetAccessorKey: "tagId",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailWithoutAuditedDto>(
+  return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto>(
     {
-      rows: $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailWithoutAuditedDto.properties,
+      rows: $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto.properties,
       languageData: {
         languageData,
         constantKey: "Form",
@@ -52,17 +52,19 @@ function taxFreeTagTable() {
     fillerColumn: "tagNumber",
     columnOrder: [
       "tagNumber",
+      "merchantName",
       "refundDate",
-      "grandTotal",
+      "currency",
       "taxAmount",
       "refundAmount",
       "correctedAmount",
+      "grandTotal",
     ],
     pinColumns: ["tagNumber"],
 
     columnVisibility: {
       type: "hide",
-      columns: ["tagId"],
+      columns: ["tagId", "id", "merchantId"],
     },
   };
   return table;

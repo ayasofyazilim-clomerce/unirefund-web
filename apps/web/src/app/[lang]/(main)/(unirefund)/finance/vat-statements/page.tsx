@@ -5,7 +5,7 @@ import { getVatStatementHeadersApi } from "src/actions/unirefund/FinanceService/
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import VatStatementTable from "./table";
+import VatStatementTable from "./_components/table";
 
 export default async function Page({
   params,
@@ -25,15 +25,15 @@ export default async function Page({
     lang,
   });
 
-  const response = await getVatStatementHeadersApi(searchParams);
+  const vatStatementResponse = await getVatStatementHeadersApi(searchParams);
+  if (isErrorOnRequest(vatStatementResponse, lang)) return;
   const { languageData } = await getResourceData(lang);
-  if (isErrorOnRequest(response, lang)) return;
 
   return (
     <VatStatementTable
       languageData={languageData}
       locale={lang}
-      response={response.data}
+      response={vatStatementResponse.data}
     />
   );
 }
