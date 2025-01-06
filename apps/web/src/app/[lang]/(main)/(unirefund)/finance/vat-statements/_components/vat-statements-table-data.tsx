@@ -26,7 +26,12 @@ const vatStatementsColumns = (
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
-  if (isActionGranted(["FinanceService.Billings.Edit"], grantedPolicies)) {
+  if (
+    isActionGranted(
+      ["FinanceService.RebateStatementHeaders.View"],
+      grantedPolicies,
+    )
+  ) {
     links.merchantName = {
       prefix: "vat-statements",
       targetAccessorKey: "id",
@@ -56,7 +61,6 @@ const vatStatementsColumns = (
                   PartlyPaid: "text-orange-500 bg-orange-100 border-orange-500",
                   OverPaid: "text-green-800 bg-orange-100 border-green-500",
                 };
-                ``;
                 return {
                   label: languageData[`Form.paymentStatus.${status}`],
                   badgeClassName: badgeClasses[status],
@@ -94,7 +98,7 @@ function vatStatementTableActions(
   const actions: TanstackTableTableActionsType[] = [];
   if (
     isActionGranted(
-      ["FinanceService.VATStatementHeader.Create"],
+      ["FinanceService.VATStatementHeaders.Create"],
       grantedPolicies,
     )
   ) {

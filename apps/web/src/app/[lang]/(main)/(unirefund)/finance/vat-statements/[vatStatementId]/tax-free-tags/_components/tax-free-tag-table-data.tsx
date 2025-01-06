@@ -25,7 +25,10 @@ function taxFreeTagColumns(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   if (
-    isActionGranted(["FinanceService.VATStatementTagDetail"], grantedPolicies)
+    isActionGranted(
+      ["FinanceService.VATStatementHeaders.View"],
+      grantedPolicies,
+    )
   ) {
     links.tagNumber = {
       prefix: `/operations/tax-free-tags`,

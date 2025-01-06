@@ -20,6 +20,7 @@
   "VatStatements.ReferenceNumber": "Reference Number",
   "VatStatements.YourReference": "Your Reference",
   "VatStatement.Preview.NoData": "There is currently no preview data. Please try again later.",
+  "VATStatements.Create.Description": "You can create a new VAT statement from here.",
   "Button.Form": "Form",
   "Button.Preview": "Preview",
   "Button.PreviewData": "Preview Data",
@@ -59,5 +60,9 @@
   "Form.grandTotal": "Total",
   "Form.taxAmount": "Tax Amount",
   "Form.refundAmount": "Refund Amount",
-  "Form.correctedAmount": "Corrected Amount"
+  "Form.correctedAmount": "Corrected Amount",
+
+  "RebateStatements.New": "New rebate statement",
+  "RebateStatements.Information": "Information",
+  "RebateStatements.Create.Description": "You can create a new rebate statement from here."
 }

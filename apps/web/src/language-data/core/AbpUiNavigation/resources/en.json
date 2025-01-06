@@ -75,8 +75,8 @@
   "Finance": "Finance",
   "VatStatements": "Vat Statements",
   "VatStatements.Description": "You can view the vat statements from here.",
-  "Billing": "Billing",
-  "Billing.Description": "You can view the billing from here.",
+  "RebateStatements": "Rebate Statements",
+  "RebateStatements.Description": "You can view the rebate statements from here.",
   "MyAccount": "My Account",
   "Affiliation": "Affiliation"
 }

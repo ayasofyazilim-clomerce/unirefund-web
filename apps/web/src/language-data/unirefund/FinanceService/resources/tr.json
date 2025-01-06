@@ -20,6 +20,7 @@
   "VatStatements.ReferenceNumber": "Referans Numarası",
   "VatStatements.YourReference": "Sizin Referansınız",
   "VatStatement.Preview.NoData": "Şu anda önizleme verileri yok. Lütfen daha sonra tekrar deneyiniz.",
+  "VATStatements.Create.Description": "Buradan Yeni KDV Beyanı oluşturabilirsiniz.",
   "Button.Form": "Form",
   "Button.Preview": "Önizleme",
   "Button.PreviewData": "Verileri Önizle",
@@ -61,5 +62,9 @@
   "Form.grandTotal": "Toplam",
   "Form.taxAmount": "Vergi Tutarı",
   "Form.refundAmount": "İade Tutarı",
-  "Form.correctedAmount": "Düzeltilmiş Tutar"
+  "Form.correctedAmount": "Düzeltilmiş Tutar",
+
+  "RebateStatements.New": "Yeni komisyon beyanı",
+  "RebateStatements.Information": "Bilgi",
+  "RebateStatements.Create.Description": "Buradan Yeni komisyon beyanı oluşturabilirsiniz."
 }
