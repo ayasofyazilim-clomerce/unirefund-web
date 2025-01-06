@@ -21,9 +21,14 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
 
   return (
-    <VatStatementInformation
-      VatStatementData={vatStatementHeadersResponse.data}
-      languageData={languageData}
-    />
+    <>
+      <VatStatementInformation
+        VatStatementData={vatStatementHeadersResponse.data}
+        languageData={languageData}
+      />
+      <div className="hidden" id="page-description">
+        {languageData["VatStatement.Information.Description"]}
+      </div>
+    </>
   );
 }

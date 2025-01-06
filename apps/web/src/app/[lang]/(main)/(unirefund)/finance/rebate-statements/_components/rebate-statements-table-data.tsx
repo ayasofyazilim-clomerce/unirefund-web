@@ -67,7 +67,7 @@ function rebateStatementTableActions(
   ) {
     actions.push({
       type: "simple",
-      cta: languageData["RebateStatements.New"],
+      cta: languageData["RebateStatement.New"],
       icon: PlusIcon,
       actionLocation: "table",
       onClick: () => {

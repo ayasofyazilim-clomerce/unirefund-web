@@ -21,9 +21,14 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
 
   return (
-    <RebateStatementInformation
-      languageData={languageData}
-      rebateStatementData={rebateStatementHeadersResponse.data}
-    />
+    <>
+      <RebateStatementInformation
+        languageData={languageData}
+        rebateStatementData={rebateStatementHeadersResponse.data}
+      />
+      <div className="hidden" id="page-description">
+        {languageData["RebateStatement.Information.Description"]}
+      </div>
+    </>
   );
 }

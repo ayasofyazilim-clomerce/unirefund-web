@@ -21,9 +21,14 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
 
   return (
-    <TaxFreeTagTable
-      languageData={languageData}
-      taxFreeTagsData={vatStatementHeadersResponse.data}
-    />
+    <>
+      <TaxFreeTagTable
+        languageData={languageData}
+        taxFreeTagsData={vatStatementHeadersResponse.data}
+      />
+      <div className="hidden" id="page-description">
+        {languageData["VatStatement.TaxFreeTags.Description"]}
+      </div>
+    </>
   );
 }

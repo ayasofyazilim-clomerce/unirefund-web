@@ -105,7 +105,7 @@ function vatStatementTableActions(
   ) {
     actions.push({
       type: "simple",
-      cta: languageData["VatStatements.New"],
+      cta: languageData["VatStatement.New"],
       icon: PlusIcon,
       actionLocation: "table",
       onClick: () => {

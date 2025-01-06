@@ -14,11 +14,11 @@ export default async function Layout({
     <TabLayout
       tabList={[
         {
-          label: languageData["VatStatements.Information"],
+          label: languageData["VatStatement.Information"],
           href: "information",
         },
         {
-          label: languageData["VatStatements.TaxFreeTags"],
+          label: languageData["VatStatement.TaxFreeTags"],
           href: "tax-free-tags",
         },
       ]}
