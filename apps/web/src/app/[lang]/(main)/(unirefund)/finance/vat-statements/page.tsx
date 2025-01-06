@@ -18,10 +18,7 @@ export default async function Page({
 }) {
   const { lang } = params;
   await isUnauthorized({
-    requiredPolicies: [
-      "FinanceService.Billings",
-      "FinanceService.VATStatementHeader",
-    ],
+    requiredPolicies: ["FinanceService.VATStatementHeaders"],
     lang,
   });
 

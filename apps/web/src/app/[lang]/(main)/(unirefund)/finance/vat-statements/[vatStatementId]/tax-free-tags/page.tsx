@@ -12,7 +12,7 @@ export default async function Page({
 }) {
   const { lang, vatStatementId } = params;
   await isUnauthorized({
-    requiredPolicies: ["FinanceService.VATStatementTagDetail"],
+    requiredPolicies: ["FinanceService.VATStatementHeaders.View"],
     lang,
   });
   const vatStatementHeadersResponse =
