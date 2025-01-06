@@ -1,4 +1,7 @@
 {
+  "Missing.Vat.Title": "Missing VAT",
+  "Missing.Vat.Message": "There is no vat in the system. Please create one to continue.",
+
   "Vat": "VAT",
   "ProductGroup": "Product Group",
   "Vat.New": "New VAT",

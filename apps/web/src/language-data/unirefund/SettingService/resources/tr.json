@@ -1,4 +1,7 @@
 {
+  "Missing.Vat.Title": "Eksik VAT",
+  "Missing.Vat.Message": "Sistemde VAT bulunmamaktadır. Devam etmek için lütfen bir tane oluşturun.",
+
   "Vat": "VAT",
   "ProductGroup": "Ürün Grubu",
   "Vat.New": "Yeni VAT",
