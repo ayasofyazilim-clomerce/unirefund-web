@@ -32,6 +32,7 @@ function createScheme(schema: typeof CreateMerchantSchema) {
       },
       name: schema.properties.entityInformationTypes.items.properties
         .individuals.items.properties.name,
+      taxpayerId: schema.properties.taxpayerId,
       personalSummaries:
         schema.properties.entityInformationTypes.items.properties.individuals
           .items.properties.personalSummaries.items,
@@ -101,6 +102,7 @@ export default function CrmIndividual({
       [
         "name",
         "personalSummaries",
+        "taxpayerId",
         "address",
         "taxOfficeId",
         "telephone",
@@ -125,7 +127,7 @@ export default function CrmIndividual({
     formData.telephone = { ...formData.telephone, ...phoneData };
     const createformData: PartiesCreateDTOType = {
       taxOfficeId: formData.taxOfficeId,
-      taxpayerId: "",
+      taxpayerId: formData.taxpayerId,
       typeCode: parentId
         ? dataConfigOfParties[partyName].subEntityType
         : "HEADQUARTER",

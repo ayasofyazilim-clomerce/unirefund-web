@@ -97,6 +97,7 @@ function createScheme(schema: PartiesCreateType) {
       taxOfficeId: {
         type: "string",
       },
+      taxpayerId: schema.properties.taxpayerId,
       organization:
         schema.properties.entityInformationTypes.items.properties.organizations
           .items,
@@ -154,6 +155,7 @@ export const dataConfigOfParties = {
         "telephone",
         "address",
         "email",
+        "taxpayerId",
         "taxOfficeId",
       ],
 
