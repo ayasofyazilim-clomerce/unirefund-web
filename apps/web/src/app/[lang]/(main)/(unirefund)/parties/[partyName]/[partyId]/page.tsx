@@ -22,16 +22,16 @@ import { getResourceData as getContractsResourceData } from "src/language-data/u
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { dataConfigOfParties } from "../../table-data";
-import Address from "./address/form";
-import Contracts from "./contracts/table";
-import Email from "./email/form";
-import IndividualTable from "./individuals-table/table";
-import MerchantForm from "./merchant/form";
-import NameForm from "./name/form";
-import OrganizationForm from "./organization/form";
-import PersonalSummariesForm from "./personal-summaries/form";
-import SubCompany from "./subcompanies-table/form";
-import Telephone from "./telephone/form";
+import Address from "./_components/address/form";
+import Contracts from "./_components/contracts/table";
+import Email from "./_components/email/form";
+import IndividualTable from "./_components/individuals-table/table";
+import MerchantForm from "./_components/merchant/form";
+import NameForm from "./_components/name/form";
+import OrganizationForm from "./_components/organization/form";
+import PersonalSummariesForm from "./_components/personal-summaries/form";
+import SubCompany from "./_components/subcompanies-table/form";
+import Telephone from "./_components/contracts/telephone/form";
 import type { GetPartiesDetailResult } from "./types";
 
 interface SearchParamType {
