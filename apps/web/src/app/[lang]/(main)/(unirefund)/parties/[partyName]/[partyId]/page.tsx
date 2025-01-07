@@ -1,8 +1,8 @@
 "use server";
 
+import type { UniRefund_CRMService_Merchants_UpdateMerchantDto } from "@ayasofyazilim/saas/CRMService";
 import { SectionLayout } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { notFound } from "next/navigation";
-import type { UniRefund_CRMService_Merchants_UpdateMerchantDto } from "@ayasofyazilim/saas/CRMService";
 import { getTableDataDetail } from "src/actions/api-requests";
 import {
   getMerchantContractHeadersByMerchantIdApi,
@@ -14,13 +14,13 @@ import {
   getMerchantsApi,
   getTaxOfficesApi,
 } from "src/actions/unirefund/CrmService/actions";
+import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
+import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
-import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./address/form";
 import Contracts from "./contracts/table";
@@ -34,14 +34,28 @@ import SubCompany from "./subcompanies-table/form";
 import Telephone from "./telephone/form";
 import type { GetPartiesDetailResult } from "./types";
 
+interface SearchParamType {
+  affiliationCodeId?: number;
+  email?: string;
+  entityInformationTypeCode?: "INDIVIDUAL" | "ORGANIZATION";
+  id: string;
+  maxResultCount?: number;
+  name?: string;
+  skipCount?: number;
+  sorting?: string;
+  telephone?: string;
+}
+
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: {
     partyId: string;
     partyName: Exclude<PartyNameType, "individuals">;
     lang: string;
   };
+  searchParams: SearchParamType;
 }) {
   const { lang, partyName, partyId } = params;
   const { languageData } = await getResourceData(lang);
@@ -124,7 +138,10 @@ export default async function Page({
     sections.push({ name: languageData.Contracts, id: "contracts" });
   }
 
-  const individualsResponse = await getIndividualsByIdApi(partyName, partyId);
+  const individualsResponse = await getIndividualsByIdApi(partyName, {
+    ...searchParams,
+    id: partyId,
+  });
   const individuals =
     individualsResponse.type === "success"
       ? individualsResponse.data
