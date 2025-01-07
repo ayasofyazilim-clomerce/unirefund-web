@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { PencilRuler } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,7 +11,6 @@ export default function TagActions({
   languageData,
 }: {
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
-  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointProfileDto[];
   languageData: TagServiceResource;
 }) {
   const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
@@ -29,11 +27,11 @@ export default function TagActions({
           {languageData.TagActions}
         </CardTitle>
         <div className="flex flex-row gap-4">
-          {status === "ExportValidated" && (
+          {status === "Issued" && (
             <Button
               onClick={() => {
                 router.push(
-                  `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&selectedTagId=${tagDetail.id}`,
+                  `/operations/refund/need-validated?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
                 );
               }}
               variant="default"
@@ -41,11 +39,11 @@ export default function TagActions({
               {languageData.EarlyRefund}
             </Button>
           )}
-          {status === "Issued" && (
+          {status === "ExportValidated" && (
             <Button
               onClick={() => {
                 router.push(
-                  `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}`,
+                  `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
                 );
               }}
               variant="default"

@@ -17,13 +17,15 @@ export default async function Page({
   searchParams,
 }: {
   params: { lang: string; refundType: "export-validated" | "need-validation" };
-  searchParams?: Partial<GetApiTagServiceTagTagsRefundData>;
+  searchParams?: Partial<Omit<GetApiTagServiceTagTagsRefundData, "tagIds">> &
+    Partial<{ tagIds: string }>;
 }) {
   const { lang, refundType } = params;
   const {
     travellerDocumentNumber,
     refundPointId,
     refundType: refundMethod,
+    tagIds,
   } = searchParams || {};
 
   await isUnauthorized({
@@ -81,6 +83,7 @@ export default async function Page({
     refundType: refundMethod || "Cash",
     refundPointId,
     isExportValidated: refundType === "export-validated",
+    tagIds: tagIds?.split(",") || [],
   });
 
   // Traveller'ın uygun durumda  tag'ı yoksa "An internal error occurred during your request!" dönüyor. Backend değişince bu kontrol silinebilir.

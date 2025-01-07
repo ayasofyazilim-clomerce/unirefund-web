@@ -49,7 +49,7 @@ function TagStatuses({
         contentClassName: getStatusColor(exportValidation?.status || ""),
       },
       {
-        title: languageData.Date,
+        title: languageData.ExportDate,
         content: dateToString(exportValidation?.exportDate || "", "tr"),
       },
       {
