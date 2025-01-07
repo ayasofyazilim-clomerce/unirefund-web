@@ -1,7 +1,11 @@
 "use server";
 import type { UniRefund_CRMService_Individuals_CreateIndividualDto } from "@ayasofyazilim/saas/CRMService";
-import { getCRMServiceClient, structuredError } from "src/lib";
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
+import {
+  getCRMServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 import type {
   CreateCustomsDTO,
   CreateMerchantDTO,
@@ -66,12 +70,7 @@ export async function createPartyRow(
   const client = await getPartyRequests(partyType);
   try {
     const response = await client.post(data);
-    return {
-      type: "success",
-      data: response,
-      status: 200,
-      message: "",
-    };
+    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }

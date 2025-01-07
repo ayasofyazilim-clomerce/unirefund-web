@@ -20,7 +20,7 @@ import { getBaseLink } from "src/utils";
 import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
 import type { CreatePartiesDto } from "../../../../table-data";
 import { dataConfigOfParties, localNumber } from "../../../../table-data";
-import type { CreateMerchantDTO } from "../../../../types";
+import type { PartiesCreateDTOType } from "../../../../types";
 import { createPartyRow } from "../../../action";
 
 function createScheme(schema: typeof CreateMerchantSchema) {
@@ -32,6 +32,7 @@ function createScheme(schema: typeof CreateMerchantSchema) {
       },
       name: schema.properties.entityInformationTypes.items.properties
         .individuals.items.properties.name,
+      taxpayerId: schema.properties.taxpayerId,
       personalSummaries:
         schema.properties.entityInformationTypes.items.properties.individuals
           .items.properties.personalSummaries.items,
@@ -101,6 +102,7 @@ export default function CrmIndividual({
       [
         "name",
         "personalSummaries",
+        "taxpayerId",
         "address",
         "taxOfficeId",
         "telephone",
@@ -123,8 +125,9 @@ export default function CrmIndividual({
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
     formData.telephone = { ...formData.telephone, ...phoneData };
-    const createformData: CreateMerchantDTO = {
+    const createformData: PartiesCreateDTOType = {
       taxOfficeId: formData.taxOfficeId,
+      taxpayerId: formData.taxpayerId,
       typeCode: parentId
         ? dataConfigOfParties[partyName].subEntityType
         : "HEADQUARTER",
