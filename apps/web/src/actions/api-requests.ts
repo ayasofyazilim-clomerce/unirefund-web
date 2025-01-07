@@ -65,11 +65,6 @@ import type {
   PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type {
-  GetApiExportValidationServiceExportValidationData,
-  PostApiExportValidationServiceExportValidationData,
-  PutApiExportValidationServiceExportValidationByIdData,
-} from "@ayasofyazilim/saas/ExportValidationService";
-import type {
   GetApiIdentityClaimTypesData,
   GetApiIdentityRolesByIdClaimsData,
   GetApiIdentityRolesData,
@@ -105,7 +100,6 @@ import {
   getAdministrationServiceClient,
   getContractServiceClient,
   getCRMServiceClient,
-  getExportValidationServiceClient,
   getIdentityServiceClient,
   getLocationServiceClient,
   getRefundServiceClient,
@@ -162,8 +156,6 @@ export async function getApiRequests() {
   const locationClient = await getLocationServiceClient(session);
   const identityClient = await getIdentityServiceClient(session);
   const saasClient = await getSaasServiceClient(session);
-  const exportValidationClient =
-    await getExportValidationServiceClient(session);
   const tagClient = await getTagServiceClient(session);
   const refundClient = await getRefundServiceClient(session);
   const administrationClient = await getAdministrationServiceClient(session);
@@ -810,34 +802,6 @@ export async function getApiRequests() {
       getRebateTableHeadersById: async (id: string) =>
         await contractsClient.rebateTables.getApiContractServiceRebateTablesRebateTableHeadersById(
           { id },
-        ),
-    },
-    "export-validation": {
-      get: async (data: GetApiExportValidationServiceExportValidationData) =>
-        await exportValidationClient.exportValidation.getApiExportValidationServiceExportValidation(
-          data,
-        ),
-      getDetail: async (id: string) =>
-        await exportValidationClient.exportValidation.getApiExportValidationServiceExportValidationById(
-          {
-            id,
-          },
-        ),
-      post: async (data: PostApiExportValidationServiceExportValidationData) =>
-        await exportValidationClient.exportValidation.postApiExportValidationServiceExportValidation(
-          data,
-        ),
-      put: async (
-        data: PutApiExportValidationServiceExportValidationByIdData,
-      ) =>
-        await exportValidationClient.exportValidation.putApiExportValidationServiceExportValidationById(
-          data,
-        ),
-      deleteRow: async (id: string) =>
-        await exportValidationClient.exportValidation.deleteApiExportValidationServiceExportValidationById(
-          {
-            id,
-          },
         ),
     },
     tags: {

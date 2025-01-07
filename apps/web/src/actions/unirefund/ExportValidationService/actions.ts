@@ -1,33 +1,33 @@
 "use server";
 import type { GetApiExportValidationServiceExportValidationData } from "@ayasofyazilim/saas/ExportValidationService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import {
+  getExportValidationServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 
 export async function getExportValidationApi(
-  data: GetApiExportValidationServiceExportValidationData = {},
+  data: GetApiExportValidationServiceExportValidationData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests["export-validation"].get(data);
-    return structuredResponse(response);
+    const client = await getExportValidationServiceClient();
+    const dataResponse =
+      await client.exportValidation.getApiExportValidationServiceExportValidation(
+        data,
+      );
+    return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function getExportValidationDetailApi(id: string) {
+export async function getExportValidationDetailsApi(id: string) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests["export-validation"].getDetail(id);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function deleteExportValidationApi(id: string) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests["export-validation"].deleteRow(id);
-    return structuredResponse(response);
+    const client = await getExportValidationServiceClient();
+    const dataResponse =
+      await client.exportValidation.getApiExportValidationServiceExportValidationById(
+        { id },
+      );
+    return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
