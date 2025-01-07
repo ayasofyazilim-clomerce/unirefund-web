@@ -15,7 +15,7 @@ function TaxFreeTagsTable({
 }) {
   const { lang } = useParams<{ lang: string }>();
   const columns = tableData.taxFreeTags.columns(lang, languageData);
-  const table = tableData.taxFreeTags.table(languageData);
+  const table = tableData.taxFreeTags.table();
 
   return (
     <TanstackTable

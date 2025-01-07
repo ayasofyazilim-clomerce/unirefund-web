@@ -35,6 +35,7 @@ import type {
 import type {
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
+  GetApiCrmServiceMerchantsByIdAffiliationsData,
   GetApiCrmServiceMerchantsData,
   GetApiCrmServiceRefundPointsData,
   GetApiCrmServiceTaxFreesData,
@@ -183,11 +184,9 @@ export async function getApiRequests() {
         await crmClient.merchant.getApiCrmServiceMerchantsByIdSubMerchants(
           data,
         ),
-      getIndivuals: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
+      getIndivuals: async (
+        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
+      ) =>
         await crmClient.merchant.getApiCrmServiceMerchantsByIdAffiliations(
           data,
         ),
@@ -350,11 +349,9 @@ export async function getApiRequests() {
         await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdSubRefundPoints(
           data,
         ),
-      getIndivuals: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
+      getIndivuals: async (
+        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
+      ) =>
         await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAffiliations(
           data,
         ),
@@ -444,11 +441,9 @@ export async function getApiRequests() {
         maxResultCount: number;
         skipCount: number;
       }) => await crmClient.customs.getApiCrmServiceCustomsByIdSubCustoms(data),
-      getIndivuals: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
+      getIndivuals: async (
+        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
+      ) =>
         await crmClient.customs.getApiCrmServiceCustomsByIdAffiliations(data),
       deleteRow: async (id: string) =>
         await crmClient.customs.deleteApiCrmServiceCustomsByIdWithComponents({
@@ -501,11 +496,9 @@ export async function getApiRequests() {
         skipCount: number;
       }) =>
         await crmClient.taxFree.getApiCrmServiceTaxFreesByIdSubTaxFree(data),
-      getIndivuals: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
+      getIndivuals: async (
+        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
+      ) =>
         await crmClient.taxFree.getApiCrmServiceTaxFreesByIdAffiliations(data),
 
       deleteRow: async (id: string) =>
@@ -561,11 +554,9 @@ export async function getApiRequests() {
         await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdSubTaxOffices(
           data,
         ),
-      getIndivuals: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
+      getIndivuals: async (
+        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
+      ) =>
         await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAffiliations(
           data,
         ),

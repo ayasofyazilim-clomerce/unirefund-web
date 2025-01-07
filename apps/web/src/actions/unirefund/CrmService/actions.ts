@@ -3,6 +3,7 @@ import type {
   GetApiCrmServiceAffiliationCodesData,
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
+  GetApiCrmServiceMerchantsByIdAffiliationsData,
   GetApiCrmServiceMerchantsByIdSubMerchantsData,
   GetApiCrmServiceMerchantsData,
   GetApiCrmServiceMerchantsResponse,
@@ -151,15 +152,11 @@ export async function getIndividualsByIdApi(
     | "customs"
     | "tax-offices"
     | "tax-free",
-  id: string,
+  params: GetApiCrmServiceMerchantsByIdAffiliationsData,
 ) {
   try {
     const requests = await getApiRequests();
-    const response = await requests[partyName].getIndivuals({
-      id,
-      maxResultCount: 100,
-      skipCount: 0,
-    });
+    const response = await requests[partyName].getIndivuals(params);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
