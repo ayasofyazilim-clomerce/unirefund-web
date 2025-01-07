@@ -445,6 +445,16 @@
     "icon": "log",
     "parentNavbarItemKey": "finance",
     "displayOrder": 1,
-    "requiredPolicies": ["FinanceService.Billings"]
+    "requiredPolicies": ["FinanceService.VATStatementHeader"]
+  },
+  {
+    "key": "finance/rebate-statements",
+    "displayName": "RebateStatements",
+    "description": "Manage Rebate Statement settings.",
+    "href": "finance/rebate-statements",
+    "icon": "log",
+    "parentNavbarItemKey": "finance",
+    "displayOrder": 1,
+    "requiredPolicies": ["FinanceService.RebateStatementHeaders"]
   }
 ]

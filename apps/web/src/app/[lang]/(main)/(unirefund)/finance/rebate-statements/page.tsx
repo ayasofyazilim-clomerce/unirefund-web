@@ -1,12 +1,12 @@
 "use server";
 
-import type { GetApiFinanceServiceVatStatementHeadersData } from "@ayasofyazilim/saas/FinanceService";
-import { getVatStatementHeadersApi } from "src/actions/unirefund/FinanceService/actions";
+import type { GetApiFinanceServiceRebateStatementHeadersData } from "@ayasofyazilim/saas/FinanceService";
+import { getRebateStatementHeadersApi } from "src/actions/unirefund/FinanceService/actions";
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
-import VatStatementTable from "./_components/table";
+import RebateStatementTable from "./_components/table";
 
 export default async function Page({
   params,
@@ -15,30 +15,31 @@ export default async function Page({
   params: {
     lang: string;
   };
-  searchParams: GetApiFinanceServiceVatStatementHeadersData;
+  searchParams: GetApiFinanceServiceRebateStatementHeadersData;
 }) {
   const { lang } = params;
   const { languageData } = await getResourceData(lang);
   await isUnauthorized({
-    requiredPolicies: ["FinanceService.VATStatementHeaders"],
+    requiredPolicies: ["FinanceService.RebateStatementHeaders"],
     lang,
   });
-  const vatStatementHeadersResponse =
-    await getVatStatementHeadersApi(searchParams);
-  if (isErrorOnRequest(vatStatementHeadersResponse, lang, false)) {
+  const rebateStatementHeadersResponse =
+    await getRebateStatementHeadersApi(searchParams);
+
+  if (isErrorOnRequest(rebateStatementHeadersResponse, lang, false)) {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={vatStatementHeadersResponse.message}
+        message={rebateStatementHeadersResponse.message}
       />
     );
   }
 
   return (
-    <VatStatementTable
+    <RebateStatementTable
       languageData={languageData}
       locale={lang}
-      response={vatStatementHeadersResponse.data}
+      response={rebateStatementHeadersResponse.data}
     />
   );
 }

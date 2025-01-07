@@ -25,7 +25,10 @@ function taxFreeTagColumns(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   if (
-    isActionGranted(["FinanceService.VATStatementTagDetail"], grantedPolicies)
+    isActionGranted(
+      ["FinanceService.VATStatementHeaders.View"],
+      grantedPolicies,
+    )
   ) {
     links.tagNumber = {
       prefix: `/operations/tax-free-tags`,
@@ -37,7 +40,7 @@ function taxFreeTagColumns(
       rows: $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto.properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.VatStatement",
       },
       config: {
         locale,

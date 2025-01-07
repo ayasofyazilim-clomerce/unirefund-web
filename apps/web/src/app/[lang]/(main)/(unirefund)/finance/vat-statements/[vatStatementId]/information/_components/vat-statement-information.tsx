@@ -35,19 +35,19 @@ export default function VatStatementInformation({
     title: VatStatementData.status,
     rows: [
       {
-        title: languageData["VatStatements.MerchantName"],
+        title: languageData["VatStatement.MerchantName"],
         content: VatStatementData.merchantName,
       },
       {
-        title: languageData["VatStatements.Status"],
+        title: languageData["VatStatement.Status"],
         content: VatStatementData.status,
       },
       {
-        title: languageData["VatStatements.Total"],
+        title: languageData["VatStatement.Total"],
         content: VatStatementData.total.toString(),
       },
       {
-        title: languageData["VatStatements.BillingPeriod"],
+        title: languageData["VatStatement.BillingPeriod"],
         content: VatStatementData.billingPeriod,
       },
     ],
@@ -55,23 +55,23 @@ export default function VatStatementInformation({
   const secondColumn: SummaryListType = {
     rows: [
       {
-        title: languageData["VatStatements.InvoiceNumber"],
+        title: languageData["VatStatement.InvoiceNumber"],
         content: VatStatementData.invoiceNumber,
       },
       {
-        title: languageData["VatStatements.VatStatementDate"],
+        title: languageData["VatStatement.VatStatementDate"],
         content: VatStatementData.vatStatementDate,
       },
       {
-        title: languageData["VatStatements.ReferenceDateBegin"],
+        title: languageData["VatStatement.ReferenceDateBegin"],
         content: VatStatementData.referenceDateBegin,
       },
       {
-        title: languageData["VatStatements.TermOfPayment"],
+        title: languageData["VatStatement.TermOfPayment"],
         content: VatStatementData.termOfPayment.toString(),
       },
       {
-        title: languageData["VatStatements.DeliveryMethod"],
+        title: languageData["VatStatement.DeliveryMethod"],
         content: VatStatementData.deliveryMethod,
       },
     ],
@@ -79,23 +79,23 @@ export default function VatStatementInformation({
   const thirdColumn: SummaryListType = {
     rows: [
       {
-        title: languageData["VatStatements.CustomerNumber"],
+        title: languageData["VatStatement.CustomerNumber"],
         content: VatStatementData.customerNumber || "",
       },
       {
-        title: languageData["VatStatements.DueDate"],
+        title: languageData["VatStatement.DueDate"],
         content: VatStatementData.dueDate,
       },
       {
-        title: languageData["VatStatements.ReferenceDateEnd"],
+        title: languageData["VatStatement.ReferenceDateEnd"],
         content: VatStatementData.referenceDateEnd,
       },
       {
-        title: languageData["VatStatements.ReferenceNumber"],
+        title: languageData["VatStatement.ReferenceNumber"],
         content: VatStatementData.referenceNumber || "",
       },
       {
-        title: languageData["VatStatements.YourReference"],
+        title: languageData["VatStatement.YourReference"],
         content: VatStatementData.yourReference || "",
       },
     ],

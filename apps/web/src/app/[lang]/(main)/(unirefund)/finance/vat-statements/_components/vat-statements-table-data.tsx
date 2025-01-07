@@ -26,7 +26,12 @@ const vatStatementsColumns = (
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
-  if (isActionGranted(["FinanceService.Billings.Edit"], grantedPolicies)) {
+  if (
+    isActionGranted(
+      ["FinanceService.RebateStatementHeaders.View"],
+      grantedPolicies,
+    )
+  ) {
     links.merchantName = {
       prefix: "vat-statements",
       targetAccessorKey: "id",
@@ -39,7 +44,7 @@ const vatStatementsColumns = (
         .properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.VatStatement",
       },
       config: {
         locale,
@@ -56,9 +61,9 @@ const vatStatementsColumns = (
                   PartlyPaid: "text-orange-500 bg-orange-100 border-orange-500",
                   OverPaid: "text-green-800 bg-orange-100 border-green-500",
                 };
-                ``;
                 return {
-                  label: languageData[`Form.paymentStatus.${status}`],
+                  label:
+                    languageData[`Form.VatStatement.paymentStatus.${status}`],
                   badgeClassName: badgeClasses[status],
                   conditions: [
                     {
@@ -76,7 +81,7 @@ const vatStatementsColumns = (
           options:
             $PagedResultDto_VATStatementHeaderForListDto.properties.items.items.properties.status.enum.map(
               (x) => ({
-                label: languageData[`Form.status.${x}`],
+                label: languageData[`Form.VatStatement.status.${x}`],
                 value: x,
               }),
             ),
@@ -94,13 +99,13 @@ function vatStatementTableActions(
   const actions: TanstackTableTableActionsType[] = [];
   if (
     isActionGranted(
-      ["FinanceService.VATStatementHeader.Create"],
+      ["FinanceService.VATStatementHeaders.Create"],
       grantedPolicies,
     )
   ) {
     actions.push({
       type: "simple",
-      cta: languageData["VatStatements.New"],
+      cta: languageData["VatStatement.New"],
       icon: PlusIcon,
       actionLocation: "table",
       onClick: () => {
