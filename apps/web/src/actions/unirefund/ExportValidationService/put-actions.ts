@@ -1,15 +1,21 @@
 "use server";
 import type { PutApiExportValidationServiceExportValidationByIdData } from "@ayasofyazilim/saas/ExportValidationService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import {
+  getExportValidationServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 
 export async function putExportValidationApi(
   data: PutApiExportValidationServiceExportValidationByIdData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests["export-validation"].put(data);
-    return structuredResponse(response);
+    const client = await getExportValidationServiceClient();
+    const dataResponse =
+      await client.exportValidation.putApiExportValidationServiceExportValidationById(
+        data,
+      );
+    return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
