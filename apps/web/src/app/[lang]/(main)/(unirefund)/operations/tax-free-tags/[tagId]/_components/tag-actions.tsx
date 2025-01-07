@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import type { UniRefund_CRMService_Merchants_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { PencilRuler } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ export default function TagActions({
   languageData,
 }: {
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
-  accessibleRefundPoints: UniRefund_CRMService_Merchants_RefundPointProfileDto[];
+  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointProfileDto[];
   languageData: TagServiceResource;
 }) {
   const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
