@@ -20,6 +20,7 @@ export default function TravellerDocumentForm({
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
+  const tagId = searchParams.get("tagIds") || "";
   const travellerDocumentNo = searchParams.get("travellerDocumentNumber") || "";
   const refundPointId =
     accessibleRefundPoints.find(
@@ -28,6 +29,7 @@ export default function TravellerDocumentForm({
 
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] =
     useState(travellerDocumentNo);
+  const [tagIdInput, setTagIdInput] = useState(tagId);
   const [refundPointIdInput, setRefundPointIdInput] = useState<
     UniRefund_CRMService_RefundPoints_RefundPointProfileDto | null | undefined
   >(accessibleRefundPoints.find((i) => i.id === refundPointId) || null);
@@ -36,7 +38,7 @@ export default function TravellerDocumentForm({
   function searchForTraveller() {
     startTransition(() => {
       router.replace(
-        `${pathName}?travellerDocumentNumber=${travellerDocumentNoInput}&refundPointId=${refundPointIdInput?.id}`,
+        `${pathName}?travellerDocumentNumber=${travellerDocumentNoInput}&tagIds=${tagIdInput}&refundPointId=${refundPointIdInput?.id}`,
       );
     });
   }
@@ -63,6 +65,20 @@ export default function TravellerDocumentForm({
         />
       </div>
       <div className="grid max-w-lg items-center gap-1.5">
+        <Label htmlFor="traveller-document-no">
+          {languageData.TaxFreeTagID}
+        </Label>
+        <Input
+          disabled={isPending}
+          id="tagId"
+          name="tagId"
+          onChange={(e) => {
+            setTagIdInput(e.target.value);
+          }}
+          value={tagIdInput}
+        />
+      </div>
+      <div className="grid max-w-lg items-center gap-1.5">
         <Label htmlFor="refund-point">{languageData.RefundPoint}</Label>
         <Combobox<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>
           list={accessibleRefundPoints}
@@ -79,7 +95,8 @@ export default function TravellerDocumentForm({
           !travellerDocumentNoInput.length ||
           !refundPointIdInput?.id ||
           (travellerDocumentNo === travellerDocumentNoInput &&
-            refundPointId === refundPointIdInput.id)
+            refundPointId === refundPointIdInput.id &&
+            tagId === tagIdInput)
         }
         onClick={searchForTraveller}
         type="submit"
