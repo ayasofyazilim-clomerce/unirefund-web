@@ -14,7 +14,7 @@ import type {
   PartyNameType,
 } from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { editSchemasOfParties } from "../update-data";
+import { editSchemasOfParties } from "../../update-data";
 
 function OrganizationForm({
   languageData,

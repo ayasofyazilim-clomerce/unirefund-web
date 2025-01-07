@@ -4,7 +4,7 @@ import TableComponent from "@repo/ui/TableComponent";
 import { deleteTableRow, getApiRequests } from "src/actions/api-requests";
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { dataConfigOfParties } from "../../../table-data";
+import { dataConfigOfParties } from "../../../../table-data";
 
 function SubCompany({
   languageData,
