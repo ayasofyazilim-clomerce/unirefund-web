@@ -20,6 +20,7 @@ import ErrorComponent from "../../../_components/error-component";
 import { TagSummary } from "../_components/tag-summary";
 import Filter from "./_components/filter";
 import TaxFreeTagsTable from "./_components/table";
+import TaxFreeTagsSearchForm from "./_components/tax-free-tags-search-form";
 
 interface SearchParamType {
   maxResultCount?: number;
@@ -147,11 +148,12 @@ export default async function Page({
           )}
         />
       </div>
-      <div className="grid grid-cols-10 gap-4 overflow-hidden">
-        <div className="col-span-3 overflow-y-auto">
+      <div className="grid grid-cols-12 gap-4 overflow-hidden">
+        <div className="col-span-4 overflow-y-auto">
           <Filter languageData={languageData} />
         </div>
-        <div className="col-span-7">
+        <div className="col-span-8 flex flex-col gap-3">
+          <TaxFreeTagsSearchForm languageData={languageData} />
           <TaxFreeTagsTable
             languageData={languageData}
             response={tagsResponse.data}

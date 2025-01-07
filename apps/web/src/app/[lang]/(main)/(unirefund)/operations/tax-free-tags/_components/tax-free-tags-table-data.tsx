@@ -43,6 +43,13 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
       },
       config: {
         locale,
+        dateOptions: {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        },
       },
       links: {
         tagNumber: {
@@ -90,7 +97,7 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
     },
   );
 
-function taxFreeTagsTable(languageData: TagServiceResource): RefundsTable {
+function taxFreeTagsTable(): RefundsTable {
   const table: RefundsTable = {
     fillerColumn: "tagNumber",
     columnOrder: [
@@ -110,35 +117,6 @@ function taxFreeTagsTable(languageData: TagServiceResource): RefundsTable {
         "travellerFullName",
         "travellerDocumentNumber",
         "issueDate",
-        "expireDate",
-      ],
-    },
-    filters: {
-      textFilters: [
-        "travellerFullName",
-        "travellerDocumentNumber",
-        "tagNumber",
-        "invoiceNumber",
-      ],
-      dateFilters: [
-        {
-          label: languageData.IssueDate,
-          startAccessorKey: "issuedStartDate",
-          endAccessorKey: "issuedEndDate",
-          canFilteredBySingleDate: false,
-        },
-        {
-          label: languageData.ExportDate,
-          startAccessorKey: "exportStartDate",
-          endAccessorKey: "exportEndDate",
-          canFilteredBySingleDate: false,
-        },
-        {
-          label: languageData.PaidDate,
-          startAccessorKey: "paidStartDate",
-          endAccessorKey: "paidEndDate",
-          canFilteredBySingleDate: false,
-        },
       ],
     },
   };
