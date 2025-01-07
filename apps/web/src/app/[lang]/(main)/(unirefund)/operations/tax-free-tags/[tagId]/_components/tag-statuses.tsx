@@ -50,7 +50,7 @@ function TagStatuses({
       },
       {
         title: languageData.Date,
-        content: dateToString(exportValidation?.date || "", "tr"),
+        content: dateToString(exportValidation?.exportDate || "", "tr"),
       },
       {
         title: languageData.Stamp,
