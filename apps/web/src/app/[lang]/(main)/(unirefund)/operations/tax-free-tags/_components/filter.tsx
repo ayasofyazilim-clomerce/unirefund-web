@@ -33,9 +33,15 @@ export default function Filter({
   const [refundTypes, setRefundTypes] = useState<string[]>(
     searchParams.get("refundTypes")?.split(",") || [],
   );
-  const [issuedDate, setIssuedDate] = useState<string>("");
-  const [exportDate, setExportDate] = useState<string>("");
-  const [paidDate, setPaidDate] = useState<string>("");
+  const [issuedDate, setIssuedDate] = useState<string>(
+    searchParams.get("issuedDate") || "",
+  );
+  const [exportDate, setExportDate] = useState<string>(
+    searchParams.get("exportDate") || "",
+  );
+  const [paidDate, setPaidDate] = useState<string>(
+    searchParams.get("paidDate") || "",
+  );
 
   const { rangeItems } = getDateRanges();
 
