@@ -49,8 +49,8 @@ function TagStatuses({
         contentClassName: getStatusColor(exportValidation?.status || ""),
       },
       {
-        title: languageData.Date,
-        content: dateToString(exportValidation?.date || "", "tr"),
+        title: languageData.ExportDate,
+        content: dateToString(exportValidation?.exportDate || "", "tr"),
       },
       {
         title: languageData.Stamp,
