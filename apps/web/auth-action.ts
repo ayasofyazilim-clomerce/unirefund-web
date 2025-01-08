@@ -33,7 +33,7 @@ export async function signOutServer() {
   } catch (error) {
     return { error: "Unknown error" };
   }
-  redirect(getBaseLink("login", true));
+  redirect(getBaseLink("login"));
 }
 export async function signInServer({
   userIdentifier,

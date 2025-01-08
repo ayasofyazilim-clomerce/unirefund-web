@@ -30,8 +30,7 @@ function TravellerDetails({
               <Link
                 className="text-blue-700"
                 href={
-                  getBaseLink("parties/travellers/", true) +
-                  tagDetail.traveller?.id
+                  getBaseLink("parties/travellers/") + tagDetail.traveller?.id
                 }
               >
                 {`${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`}

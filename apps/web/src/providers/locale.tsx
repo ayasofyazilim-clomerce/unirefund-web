@@ -3,7 +3,6 @@
 import type { Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto } from "@ayasofyazilim/saas/AccountService";
 import { createContext, useContext } from "react";
 import type { ResourceResult } from "src/utils";
-import { getBaseLink } from "src/utils";
 
 type ResourceDto =
   Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto;
@@ -35,8 +34,7 @@ export function LocaleProvider({
 }: LocaleProviderProps) {
   function changeLocale(cultureName: string) {
     if (!cultureName) return;
-    const newUrl = `${cultureName}/${location.pathname.split("/").slice(2).join("/")}`;
-    location.href = getBaseLink(newUrl, false);
+    location.href = `${cultureName}/${location.pathname.split("/").slice(2).join("/")}`;
   }
   const providerValue = { resources, cultureName: lang, changeLocale };
   return (
