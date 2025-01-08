@@ -1,6 +1,9 @@
 "use server";
 
-import type { UniRefund_CRMService_Merchants_UpdateMerchantDto } from "@ayasofyazilim/saas/CRMService";
+import type {
+  GetApiCrmServiceMerchantsByIdDetailResponse,
+  UniRefund_CRMService_Merchants_UpdateMerchantDto,
+} from "@ayasofyazilim/saas/CRMService";
 import { SectionLayout } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { notFound } from "next/navigation";
 import { getTableDataDetail } from "src/actions/api-requests";
@@ -20,18 +23,18 @@ import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./_components/address/form";
 import Contracts from "./_components/contracts/table";
+import Telephone from "./_components/contracts/telephone/form";
 import Email from "./_components/email/form";
 import IndividualTable from "./_components/individuals-table/table";
 import MerchantForm from "./_components/merchant/form";
 import NameForm from "./_components/name/form";
 import OrganizationForm from "./_components/organization/form";
 import PersonalSummariesForm from "./_components/personal-summaries/form";
+import ProductGroups from "./_components/product-groups";
 import SubCompany from "./_components/subcompanies-table/form";
-import Telephone from "./_components/contracts/telephone/form";
 import type { GetPartiesDetailResult } from "./types";
 
 interface SearchParamType {
@@ -44,6 +47,42 @@ interface SearchParamType {
   skipCount?: number;
   sorting?: string;
   telephone?: string;
+}
+
+async function getPartyDetail(
+  partyName: Exclude<PartyNameType, "individuals">,
+  partyId: string,
+) {
+  if (partyName === "merchants") {
+    const response = await getTableDataDetail("merchants", partyId);
+    if (response.type === "success") {
+      const data = response.data as GetApiCrmServiceMerchantsByIdDetailResponse;
+      return {
+        detail: data.merchant,
+        productGroups: data.productGroups,
+        message: response.message,
+      };
+    }
+    return {
+      detail: null,
+      productGroups: null,
+      message: response.message,
+    };
+  }
+  const response = await getTableDataDetail(partyName, partyId);
+  if (response.type === "success") {
+    const data = response.data as GetPartiesDetailResult;
+    return {
+      detail: data,
+      productGroups: [],
+      message: response.message,
+    };
+  }
+  return {
+    detail: null,
+    productGroups: null,
+    message: response.message,
+  };
 }
 
 export default async function Page({
@@ -63,9 +102,9 @@ export default async function Page({
     await getContractsResourceData(lang);
   const formData = dataConfigOfParties[partyName];
 
-  const partyDetailResponse = await getTableDataDetail(partyName, partyId);
+  const partyDetailResponse = await getPartyDetail(partyName, partyId);
 
-  if (isErrorOnRequest(partyDetailResponse, lang, false)) {
+  if (!partyDetailResponse.detail) {
     return (
       <ErrorComponent
         languageData={languageData}
@@ -74,7 +113,9 @@ export default async function Page({
     );
   }
 
-  const partyDetailData = partyDetailResponse.data as GetPartiesDetailResult;
+  const partyDetailData = partyDetailResponse.detail;
+  const productGroups = partyDetailResponse.productGroups || [];
+
   const organizationData =
     partyDetailData.entityInformations?.[0]?.organizations?.[0];
   const individualData =
@@ -114,6 +155,7 @@ export default async function Page({
     { name: languageData.Email, id: "email" },
     { name: languageData[formData.subEntityName], id: "SubCompany" },
     { name: languageData.Individuals, id: "individuals" },
+    { name: "Product Groups", id: "product-groups" },
   ];
 
   if (organizationData) {
@@ -160,6 +202,9 @@ export default async function Page({
     <>
       <div className="h-full overflow-hidden">
         <SectionLayout sections={sections} vertical>
+          {partyName === "merchants" && (
+            <ProductGroups productGroups={productGroups} />
+          )}
           {partyName === "merchants" &&
           "taxOfficeId" in partyDetailData &&
           partyDetailData.taxpayerId ? (
