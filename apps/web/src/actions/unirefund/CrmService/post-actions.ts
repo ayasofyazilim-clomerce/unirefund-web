@@ -2,6 +2,7 @@
 
 import type {
   PostApiCrmServiceAffiliationCodesData,
+  PostApiCrmServiceMerchantsBulkProductGroupMerchantsData,
   PostApiCrmServiceMerchantsByIdAffiliationsData,
 } from "@ayasofyazilim/saas/CRMService";
 import {
@@ -28,7 +29,20 @@ export async function postAffiliationsToPartyApi(
     return structuredError(error);
   }
 }
-
+export async function postProductGroupsToMerchantsApi(
+  data: PostApiCrmServiceMerchantsBulkProductGroupMerchantsData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.postApiCrmServiceMerchantsBulkProductGroupMerchants(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function postAffiliationsApi(
   data: PostApiCrmServiceAffiliationCodesData,
 ) {
