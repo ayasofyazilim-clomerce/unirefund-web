@@ -162,8 +162,7 @@ export async function getApiRequests() {
   const tableRequests = {
     merchants: {
       getDetail: async (id: string) =>
-        (await crmClient.merchant.getApiCrmServiceMerchantsByIdDetail({ id }))
-          .merchant,
+        await crmClient.merchant.getApiCrmServiceMerchantsByIdDetail({ id }),
       get: async (data: GetApiCrmServiceMerchantsData) =>
         await crmClient.merchant.getApiCrmServiceMerchants(data),
       getById: async (id: string) =>

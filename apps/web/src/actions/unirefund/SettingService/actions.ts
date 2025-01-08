@@ -29,7 +29,7 @@ export async function getVatDetailsByIdApi(id: string) {
     return structuredError(error);
   }
 }
-export async function getproductGroupsApi(
+export async function getProductGroupsApi(
   data: GetApiSettingServiceProductGroupData,
 ) {
   try {

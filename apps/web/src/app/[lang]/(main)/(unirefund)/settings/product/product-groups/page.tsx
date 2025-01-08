@@ -1,7 +1,7 @@
 "use server";
 
 import type { GetApiSettingServiceProductGroupData } from "@ayasofyazilim/saas/SettingService";
-import { getproductGroupsApi } from "src/actions/unirefund/SettingService/actions";
+import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
@@ -19,7 +19,7 @@ export default async function Page({
     requiredPolicies: ["SettingService.ProductGroups"],
     lang,
   });
-  const productGroupsResponse = await getproductGroupsApi(searchParams);
+  const productGroupsResponse = await getProductGroupsApi(searchParams);
   if (isErrorOnRequest(productGroupsResponse, lang)) return;
   const { languageData } = await getResourceData(lang);
 
