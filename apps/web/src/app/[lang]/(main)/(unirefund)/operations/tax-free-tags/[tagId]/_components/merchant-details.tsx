@@ -30,8 +30,7 @@ function MerchantDetails({
               <Link
                 className="text-blue-700"
                 href={
-                  getBaseLink("parties/merchants/", true) +
-                  tagDetail.merchant?.id
+                  getBaseLink("parties/merchants/") + tagDetail.merchant?.id
                 }
               >
                 {tagDetail.merchant?.name}

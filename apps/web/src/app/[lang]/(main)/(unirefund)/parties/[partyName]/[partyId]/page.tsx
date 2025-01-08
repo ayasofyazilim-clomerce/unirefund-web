@@ -23,6 +23,7 @@ import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./_components/address/form";
 import Contracts from "./_components/contracts/table";
@@ -33,7 +34,7 @@ import MerchantForm from "./_components/merchant/form";
 import NameForm from "./_components/name/form";
 import OrganizationForm from "./_components/organization/form";
 import PersonalSummariesForm from "./_components/personal-summaries/form";
-import ProductGroups from "./_components/product-groups";
+import ProductGroups from "./_components/product-groups/table";
 import SubCompany from "./_components/subcompanies-table/form";
 import type { GetPartiesDetailResult } from "./types";
 
@@ -57,9 +58,17 @@ async function getPartyDetail(
     const response = await getTableDataDetail("merchants", partyId);
     if (response.type === "success") {
       const data = response.data as GetApiCrmServiceMerchantsByIdDetailResponse;
+      const productGroupResponse = await getProductGroupsApi({
+        maxResultCount: 1000,
+      });
+      const productGroupList =
+        (productGroupResponse.type === "success" &&
+          productGroupResponse.data.items) ||
+        [];
       return {
         detail: data.merchant,
         productGroups: data.productGroups,
+        productGroupList,
         message: response.message,
       };
     }
@@ -203,7 +212,12 @@ export default async function Page({
       <div className="h-full overflow-hidden">
         <SectionLayout sections={sections} vertical>
           {partyName === "merchants" && (
-            <ProductGroups productGroups={productGroups} />
+            <ProductGroups
+              languageData={languageData}
+              merchantId={partyId}
+              productGroupList={partyDetailResponse.productGroupList || []}
+              productGroups={productGroups}
+            />
           )}
           {partyName === "merchants" &&
           "taxOfficeId" in partyDetailData &&

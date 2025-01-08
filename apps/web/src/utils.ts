@@ -37,47 +37,11 @@ export async function getLocalizationResources(
   }
 }
 
-function getLocale(locale?: string): string {
-  if (locale) return locale;
-  // FIXME: This is a temporary solution for eslint
+export function getBaseLink(location: string, locale?: string) {
   if (isServerSide()) {
-    //   return localeServerSide();
-    return "en";
+    return `/${locale || "en"}/${location}`;
   }
   const pathname = window.location.pathname;
   const pathnameParts = pathname.split("/");
-  return pathnameParts[1] ?? "en";
-}
-function getAppType(appType?: string) {
-  if (appType === "public") return `${appType}/`;
-
-  if (appType) {
-    return `app/${appType}/`;
-  }
-
-  if (!isServerSide()) {
-    const pathname = window.location.pathname;
-    const pathnameParts = pathname.split("/");
-    return `app/${pathnameParts[3]}/`;
-  }
-  return "public/";
-}
-export function getBaseLink(
-  location: string,
-  withLocale?: boolean,
-  locale?: string,
-  withAppType?: boolean,
-  appType?: string,
-) {
-  // check if location first character is a slash
-  let newLocation = location;
-  if (location.startsWith("/")) {
-    newLocation = location.slice(1);
-  }
-  let localePath = withLocale ? `${getLocale(locale)}/` : "";
-  if (withAppType) {
-    localePath += getAppType(appType);
-  }
-
-  return `/${localePath}${newLocation}`;
+  return `/${locale || pathnameParts[1] || "en"}/${location}`;
 }
