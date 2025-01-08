@@ -418,10 +418,10 @@
     "requiredPolicies": ["RefundService.Refunds"]
   },
   {
-    "key": "operations/export-validation",
+    "key": "operations/export-validations",
     "displayName": "ExportValidation",
     "description": "Manage export validation settings.",
-    "href": "operations/export-validation",
+    "href": "operations/export-validations",
     "icon": "tax",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
