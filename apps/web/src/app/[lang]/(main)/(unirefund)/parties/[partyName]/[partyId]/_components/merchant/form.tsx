@@ -5,7 +5,7 @@ import type {
   UniRefund_CRMService_Merchants_UpdateMerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Merchants_MerchantBaseDto } from "@ayasofyazilim/saas/CRMService";
+import { $UniRefund_CRMService_Merchants_UpdateMerchantDto } from "@ayasofyazilim/saas/CRMService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {
   AutoFormInputComponentProps,
@@ -38,8 +38,8 @@ function MerchantForm({
 }) {
   const router = useRouter();
   const schema = createZodObject(
-    $UniRefund_CRMService_Merchants_MerchantBaseDto,
-    ["typeCode", "taxOfficeId", "parentId"],
+    $UniRefund_CRMService_Merchants_UpdateMerchantDto,
+    ["typeCode", "taxOfficeId", "parentId", "taxpayerId"],
   );
   const dependencies: DependenciesType = [
     {
