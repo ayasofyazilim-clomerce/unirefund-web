@@ -185,6 +185,7 @@ export const dataConfigOfParties = {
         "telephone",
         "address",
         "email",
+        "taxpayerId",
         "taxOfficeId",
       ],
       formSubPositions: RefundPointsFormSubPositions,
