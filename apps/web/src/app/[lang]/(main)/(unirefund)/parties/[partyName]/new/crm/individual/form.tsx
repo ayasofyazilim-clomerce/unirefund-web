@@ -140,13 +140,22 @@ export default function CrmIndividual({
               personalSummaries: [formData.personalSummaries],
               contactInformations: [
                 {
-                  telephones: [{ ...formData.telephone, primaryFlag: true }],
-                  emails: [{ ...formData.email, primaryFlag: true }],
+                  telephones: [
+                    {
+                      ...formData.telephone,
+                      primaryFlag: true,
+                      typeCode: "OFFICE",
+                    },
+                  ],
+                  emails: [
+                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
+                  ],
                   addresses: [
                     {
                       ...formData.address,
                       ...selectedFields,
                       primaryFlag: true,
+                      type: "Office",
                     },
                   ],
                 },
