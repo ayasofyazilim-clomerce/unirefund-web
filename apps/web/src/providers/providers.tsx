@@ -1,30 +1,35 @@
 "use server";
 
 import Toaster from "@repo/ayasofyazilim-ui/molecules/toaster";
+import type { Session } from "next-auth";
 import { getLocalizationResources } from "src/utils";
-import { auth } from "auth";
-import AuthSession from "./auth";
-import { ConfigProvider } from "./configuration";
-import { LocaleProvider } from "./locale";
-import { GrantedPoliciesProvider } from "./granted-policies";
+import type { Policy } from "src/utils/page-policy/utils";
 import { ApplicationProvider } from "./application";
+import { SessionProvider } from "./session";
+import { ConfigProvider } from "./configuration";
+import { GrantedPoliciesProvider } from "./granted-policies";
+import { LocaleProvider } from "./locale";
 import Tooltip from "./tooltip";
 
 interface ProvidersProps {
   children: JSX.Element;
   lang: string;
+  grantedPolicies: Record<Policy, boolean> | undefined;
+  session: Session | null;
 }
-export default async function Providers({ children, lang }: ProvidersProps) {
+export default async function Providers({
+  children,
+  lang,
+  grantedPolicies,
+  session,
+}: ProvidersProps) {
   const resources = await getLocalizationResources(lang);
-  const sessions = await auth();
-  const grantedPolicies = sessions?.grantedPolicies;
-
   const appName = process.env.APPLICATION_NAME || "UNIREFUND";
   return (
     <>
       <Toaster richColors />
       <ApplicationProvider appName={appName}>
-        <AuthSession>
+        <SessionProvider session={session}>
           <GrantedPoliciesProvider grantedPolicies={grantedPolicies}>
             <ConfigProvider>
               <Tooltip>
@@ -34,7 +39,7 @@ export default async function Providers({ children, lang }: ProvidersProps) {
               </Tooltip>
             </ConfigProvider>
           </GrantedPoliciesProvider>
-        </AuthSession>
+        </SessionProvider>
       </ApplicationProvider>
     </>
   );

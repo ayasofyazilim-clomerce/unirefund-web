@@ -1,73 +1,52 @@
 "use server";
+
 import type {
   GetApiIdentityClaimTypesData,
-  GetApiIdentityRolesByIdClaimsData,
+  GetApiIdentityRolesData,
+  GetApiIdentitySecurityLogsData,
   GetApiIdentitySessionsData,
-  GetApiIdentityUsersByIdClaimsData,
-  GetApiOpeniddictApplicationsByIdTokenLifetimeData,
-  PutApiIdentityRolesByIdClaimsData,
-  PutApiIdentityRolesByIdMoveAllUsersData,
-  PutApiIdentityUsersByIdClaimsData,
+  GetApiIdentityUsersData,
+  GetApiOpeniddictApplicationsData,
+  GetApiOpeniddictScopesData,
 } from "@ayasofyazilim/saas/IdentityService";
 import {
   getIdentityServiceClient,
   structuredError,
   structuredResponse,
 } from "src/lib";
-import { getApiRequests } from "../../api-requests";
 
-export async function getClaimsApi(body: GetApiIdentityClaimTypesData = {}) {
+export async function getRolesByIdClaimsApi(id: string) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.claims.get(body);
+    const client = await getIdentityServiceClient();
+    const response = await client.role.getApiIdentityRolesByIdClaims({ id });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function getAllRoleClaimsApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.role.getApiIdentityRolesAllClaimTypes();
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function getUsersByIdClaimsApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.user.getApiIdentityUsersByIdClaims({ id });
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putRoleClaimsApi(
-  body: PutApiIdentityRolesByIdClaimsData,
-) {
+export async function getAllUserClaimsApi() {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.roles.putRoleClaims(body);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getRoleClaimsApi(
-  body: GetApiIdentityRolesByIdClaimsData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests.roles.getRoleClaims(body);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function putUserClaimsApi(
-  body: PutApiIdentityUsersByIdClaimsData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests.users.putUserClaims(body);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getUserClaimsApi(
-  body: GetApiIdentityUsersByIdClaimsData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests.users.getUserClaims(body);
+    const client = await getIdentityServiceClient();
+    const response = await client.user.getApiIdentityUsersAllClaimTypes();
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -76,72 +55,40 @@ export async function getUserClaimsApi(
 
 export async function getAllRolesApi() {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.roles.getAllRoles();
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.role.getApiIdentityRolesAll();
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function moveAllUsersApi(
-  data: PutApiIdentityRolesByIdMoveAllUsersData,
-) {
+export async function getUsersByIdTwoFactorEnabledApi(id: string) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.roles.MoveAllUsers(data);
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.user.getApiIdentityUsersByIdTwoFactorEnabled({ id });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function getApplicationTokenLifetimeApi(
-  data: GetApiOpeniddictApplicationsByIdTokenLifetimeData,
-) {
+export async function getSessionsApi(data: GetApiIdentitySessionsData) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.applications.getTokenLifetime(data);
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.sessions.getApiIdentitySessions(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function getTwoFactorEnableApi(id: string) {
+export async function getUserOrganizationByIdApi(id: string) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.users.getTwoFactorEnable(id);
-    return structuredResponse(dataResponse);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getUserSessionsApi(data: GetApiIdentitySessionsData) {
-  try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.sessions.get(data);
-    return structuredResponse(dataResponse);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getUserOrganizationApi(id: string) {
-  try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.users.getUserOrganization(id);
-    return structuredResponse(dataResponse);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function deleteUserSessionsApi(id: string) {
-  try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.sessions.deleteRow(id);
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.user.getApiIdentityUsersByIdOrganizationUnits({ id });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -166,6 +113,223 @@ export async function getAssignableRolesByCurrentUserApi() {
     const dataResponse =
       await client.role.getApiIdentityRolesAssignableRolesByCurrentUser();
     return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getAllOrganizationApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.getApiIdentityOrganizationUnitsAll();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getIdentitySecurityLogsApi(
+  data: GetApiIdentitySecurityLogsData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.securityLog.getApiIdentitySecurityLogs(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getRolesApi(data: GetApiIdentityRolesData = {}) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.role.getApiIdentityRoles(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getRoleDetailsByIdApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.role.getApiIdentityRolesById({ id });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersApi(data: GetApiIdentityUsersData) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.user.getApiIdentityUsers(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUserDetailsByIdApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.user.getApiIdentityUsersByIdById({ id });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersLookupRolesApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.user.getApiIdentityUsersLookupRoles();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersLookupOrganizationUnitsApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.user.getApiIdentityUsersLookupOrganizationUnits();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersAssignableRolesApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.user.getApiIdentityUsersAssignableRoles();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersAvailableOrganizationUnitsApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.user.getApiIdentityUsersAvailableOrganizationUnits();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersByIdRolesApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.user.getApiIdentityUsersByIdRoles({ id });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getUsersByIdOrganizationUnitsApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.user.getApiIdentityUsersByIdOrganizationUnits({ id });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getClaimTypesApi(data: GetApiIdentityClaimTypesData) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.claimType.getApiIdentityClaimTypes(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getClaimTypeDetailsByIdApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.claimType.getApiIdentityClaimTypesById({
+      id,
+    });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getScopesApi(data: GetApiOpeniddictScopesData) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.scopes.getApiOpeniddictScopes(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getAllScopesApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.scopes.getApiOpeniddictScopesAll();
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getScopeDetailsByIdApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.scopes.getApiOpeniddictScopesById({ id });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getApplicationsApi(
+  data: GetApiOpeniddictApplicationsData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.applications.getApiOpeniddictApplications(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getApplicationDetailsByIdApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response = await client.applications.getApiOpeniddictApplicationsById(
+      { id },
+    );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getApplicationsByIdTokenLifetimeApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.applications.getApiOpeniddictApplicationsByIdTokenLifetime({
+        id,
+      });
+    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }

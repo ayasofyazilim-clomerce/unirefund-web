@@ -1,4 +1,3 @@
-import type { ResourceResult } from "src/utils";
 import { getLocalizationResources } from "src/utils";
 import defaultEn from "../Default/resources/en.json";
 import defaultTr from "../Default/resources/tr.json";
@@ -27,7 +26,7 @@ export async function getResourceData(lang: string) {
     resources,
   };
 }
-export function getResourceDataClient(resources: ResourceResult, lang: string) {
+export function getResourceDataClient(lang: string) {
   const languageData = getLanguageData(lang);
   return languageData;
 }
