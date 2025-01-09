@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { PencilRuler } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 
 export default function TagActions({
@@ -13,8 +13,9 @@ export default function TagActions({
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
   languageData: TagServiceResource;
 }) {
-  const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
   const router = useRouter();
+  const { tagId } = useParams<{ tagId: string }>();
+  const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
 
   const status = tagDetail.status;
   if (status !== "ExportValidated" && status !== "Issued") return null;
@@ -27,6 +28,16 @@ export default function TagActions({
           {languageData.TagActions}
         </CardTitle>
         <div className="flex flex-row gap-4">
+          {status !== "ExportValidated" && (
+            <Button
+              onClick={() => {
+                router.push(`/operations/export-validations/tag/${tagId}/new`);
+              }}
+              variant="default"
+            >
+              {languageData.ExportValidation}
+            </Button>
+          )}
           {status === "Issued" && (
             <Button
               onClick={() => {
@@ -51,7 +62,6 @@ export default function TagActions({
               {languageData.Refund}
             </Button>
           )}
-
           <Button disabled variant="secondary">
             {languageData.Cancel}
           </Button>
