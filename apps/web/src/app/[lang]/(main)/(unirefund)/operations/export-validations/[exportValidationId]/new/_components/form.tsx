@@ -19,7 +19,10 @@ export default function Form({
   languageData: ExportValidationServiceResource;
   customList: UniRefund_CRMService_Customss_CustomsProfileDto[];
 }) {
-  const { tagId } = useParams<{ tagId: string }>();
+  const { exportValidationId: tagId } = useParams<{
+    exportValidationId: string;
+  }>();
+
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -57,8 +60,10 @@ export default function Form({
         })
           .then((res) => {
             handlePostResponse(res, router);
-            if (res.type === "success")
+            if (res.type === "success") {
               router.push(`/operations/tax-free-tags/${tagId}`);
+              router.refresh();
+            }
           })
           .finally(() => {
             setLoading(false);

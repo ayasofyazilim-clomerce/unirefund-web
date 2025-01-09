@@ -28,10 +28,10 @@ export default function TagActions({
           {languageData.TagActions}
         </CardTitle>
         <div className="flex flex-row gap-4">
-          {status !== "ExportValidated" && (
+          {status === "Issued" && (
             <Button
               onClick={() => {
-                router.push(`/operations/export-validations/tag/${tagId}/new`);
+                router.push(`/operations/export-validations/${tagId}/new`);
               }}
               variant="default"
             >
