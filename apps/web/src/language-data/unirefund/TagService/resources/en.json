@@ -19,6 +19,9 @@
   "EarlyRefund": "Early Refund",
   "TagActions": "Tag Actions",
 
+  "Missing.ProductGroups.Title": "Missing Product Groups",
+  "Missing.ProductGroups.Message": "There is no product group in the system. Please create one to continue.",
+
   "SalesAmount": "Sale Amount",
   "VatAmount": "Vat Amount",
   "GrossRefund": "Gross Refund",
