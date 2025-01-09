@@ -102,13 +102,22 @@ export default function CrmOrganization({
               ...formData.organization,
               contactInformations: [
                 {
-                  telephones: [{ ...formData.telephone, primaryFlag: true }],
-                  emails: [{ ...formData.email, primaryFlag: true }],
+                  telephones: [
+                    {
+                      ...formData.telephone,
+                      primaryFlag: true,
+                      typeCode: "OFFICE",
+                    },
+                  ],
+                  emails: [
+                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
+                  ],
                   addresses: [
                     {
                       ...formData.address,
                       ...selectedFields,
                       primaryFlag: true,
+                      type: "Office",
                     },
                   ],
                 },
@@ -147,13 +156,22 @@ export default function CrmOrganization({
               ...formData.organization,
               contactInformations: [
                 {
-                  telephones: [{ ...formData.telephone, primaryFlag: true }],
-                  emails: [{ ...formData.email, primaryFlag: true }],
+                  telephones: [
+                    {
+                      ...formData.telephone,
+                      primaryFlag: true,
+                      typeCode: "OFFICE",
+                    },
+                  ],
+                  emails: [
+                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
+                  ],
                   addresses: [
                     {
                       ...formData.address,
                       ...selectedFields,
                       primaryFlag: true,
+                      type: "Office",
                     },
                   ],
                 },
@@ -188,13 +206,22 @@ export default function CrmOrganization({
               ...formData.organization,
               contactInformations: [
                 {
-                  telephones: [{ ...formData.telephone, primaryFlag: true }],
-                  emails: [{ ...formData.email, primaryFlag: true }],
+                  telephones: [
+                    {
+                      ...formData.telephone,
+                      primaryFlag: true,
+                      typeCode: "OFFICE",
+                    },
+                  ],
+                  emails: [
+                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
+                  ],
                   addresses: [
                     {
                       ...formData.address,
                       ...selectedFields,
                       primaryFlag: true,
+                      type: "Office",
                     },
                   ],
                 },
@@ -213,7 +240,7 @@ export default function CrmOrganization({
 
   return (
     <AutoForm
-      className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
+      className="grid grid-rows-3 gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
       fieldConfig={{
         taxOfficeId: {
           renderer: (props: AutoFormInputComponentProps) => {
@@ -227,9 +254,9 @@ export default function CrmOrganization({
             );
           },
         },
-        address: { ...addressSchemaFieldConfig, className: "row-span-2" },
+        address: { ...addressSchemaFieldConfig, className: "row-span-3" },
         organization: {
-          className: "row-span-2",
+          className: "",
         },
         email: {
           emailAddress: {
@@ -237,6 +264,7 @@ export default function CrmOrganization({
               type: "email",
             },
           },
+          className: "row-span-2",
         },
         telephone: {
           localNumber: {

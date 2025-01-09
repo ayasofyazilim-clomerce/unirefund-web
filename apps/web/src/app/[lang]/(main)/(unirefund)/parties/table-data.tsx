@@ -152,8 +152,8 @@ export const dataConfigOfParties = {
       schema: createScheme(CreateMerchantSchema),
       formPositions: [
         "organization",
-        "telephone",
         "address",
+        "telephone",
         "email",
         "taxpayerId",
         "taxOfficeId",

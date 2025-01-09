@@ -21,7 +21,6 @@ import type {
 import { getCity, getDistrict, getNeighborhood, getRegion } from "./utils";
 
 const AddressFormFields: AddressFormFieldsType[] = [
-  "type",
   "countryId",
   "regionId",
   "cityId",
@@ -31,7 +30,6 @@ const AddressFormFields: AddressFormFieldsType[] = [
   "postalCode",
 ];
 export type AddressFormFieldsType =
-  | "type"
   | "countryId"
   | "regionId"
   | "cityId"
