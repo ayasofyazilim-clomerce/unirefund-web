@@ -208,7 +208,13 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateCustomsSchema),
-      formPositions: ["organization", "telephone", "address", "email"],
+      formPositions: [
+        "organization",
+        "telephone",
+        "address",
+        "email",
+        "taxpayerId",
+      ],
       formSubPositions: CustomsFormSubPositions,
       convertors: {},
     },
@@ -224,7 +230,13 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateTaxFreeSchema),
-      formPositions: ["organization", "telephone", "address", "email"],
+      formPositions: [
+        "organization",
+        "telephone",
+        "address",
+        "email",
+        "taxpayerId",
+      ],
       formSubPositions: TaxFreeFormSubPositions,
       convertors: {},
     },
@@ -240,7 +252,13 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateTaxOfficeSchema),
-      formPositions: ["organization", "telephone", "address", "email"],
+      formPositions: [
+        "organization",
+        "telephone",
+        "address",
+        "email",
+        "taxpayerId",
+      ],
       formSubPositions: TaxOfficesFormSubPositions,
       convertors: {},
     },
