@@ -1,9 +1,9 @@
 "use server";
 import type {
-  PostApiFinanceServiceRebateStatementHeadersByMerchantIdData,
-  PostApiFinanceServiceRebateStatementHeadersFormDraftByMerchantIdData,
-  PostApiFinanceServiceVatStatementHeadersByMerchantIdData,
-  PostApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
+  PostApiFinanceServiceRebateStatementHeadersData,
+  PostApiFinanceServiceRebateStatementHeadersFormDraftData,
+  PostApiFinanceServiceVatStatementHeadersData,
+  PostApiFinanceServiceVatStatementHeadersFormDraftData,
 } from "@ayasofyazilim/saas/FinanceService";
 import {
   getFinanceServiceClient,
@@ -11,13 +11,13 @@ import {
   structuredResponse,
 } from "src/lib";
 
-export async function postVatStatementHeadersFormDraftByMerchantIdApi(
-  data: PostApiFinanceServiceVatStatementHeadersFormDraftByMerchantIdData,
+export async function postVatStatementHeadersFormDraftApi(
+  data: PostApiFinanceServiceVatStatementHeadersFormDraftData,
 ) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
-      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersFormDraftByMerchantId(
+      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersFormDraft(
         data,
       );
     return structuredResponse(dataResponse);
@@ -26,13 +26,13 @@ export async function postVatStatementHeadersFormDraftByMerchantIdApi(
   }
 }
 
-export async function postVatStatementHeadersByMerchantIdApi(
-  data: PostApiFinanceServiceVatStatementHeadersByMerchantIdData,
+export async function postVatStatementHeaderApi(
+  data: PostApiFinanceServiceVatStatementHeadersData,
 ) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
-      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersByMerchantId(
+      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeaders(
         data,
       );
     return structuredResponse(dataResponse);
@@ -41,13 +41,13 @@ export async function postVatStatementHeadersByMerchantIdApi(
   }
 }
 
-export async function postRebateStatementHeadersFormDraftByMerchantIdApi(
-  data: PostApiFinanceServiceRebateStatementHeadersFormDraftByMerchantIdData,
+export async function postRebateStatementHeadersFormDraftApi(
+  data: PostApiFinanceServiceRebateStatementHeadersFormDraftData,
 ) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
-      await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeadersFormDraftByMerchantId(
+      await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeadersFormDraft(
         data,
       );
     return structuredResponse(dataResponse);
@@ -56,13 +56,13 @@ export async function postRebateStatementHeadersFormDraftByMerchantIdApi(
   }
 }
 
-export async function postRebateStatementHeadersByMerchantIdApi(
-  data: PostApiFinanceServiceRebateStatementHeadersByMerchantIdData,
+export async function postRebateStatementHeadersApi(
+  data: PostApiFinanceServiceRebateStatementHeadersData,
 ) {
   try {
     const client = await getFinanceServiceClient();
     const dataResponse =
-      await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeadersByMerchantId(
+      await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeaders(
         data,
       );
     return structuredResponse(dataResponse);
