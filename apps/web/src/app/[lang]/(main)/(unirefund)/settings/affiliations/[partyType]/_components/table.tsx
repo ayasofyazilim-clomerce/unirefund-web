@@ -4,6 +4,7 @@ import type { GetApiIdentityRolesAssignableRolesByCurrentUserResponse } from "@a
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams } from "next/navigation";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./affiliations-table-data";
 
 function AffiliationsTable({
@@ -16,8 +17,17 @@ function AffiliationsTable({
   assignableRoles: GetApiIdentityRolesAssignableRolesByCurrentUserResponse;
 }) {
   const { lang } = useParams<{ lang: string }>();
-  const columns = tableData.affiliations.columns(languageData, lang);
-  const table = tableData.affiliations.table(languageData, assignableRoles);
+  const { grantedPolicies } = useGrantedPolicies();
+  const columns = tableData.affiliations.columns(
+    languageData,
+    lang,
+    grantedPolicies,
+  );
+  const table = tableData.affiliations.table(
+    languageData,
+    assignableRoles,
+    grantedPolicies,
+  );
 
   return (
     <TanstackTable

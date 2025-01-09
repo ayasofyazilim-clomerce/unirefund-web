@@ -1,15 +1,20 @@
 "use server";
 
 import type {
+  PutApiCrmServiceAffiliationCodesByIdData,
   PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
   PutApiCrmServiceMerchantsByIdData,
-  PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
   PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
-  PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameIdData,
+  PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
+  PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 } from "@ayasofyazilim/saas/CRMService";
-import { structuredError, structuredResponse } from "src/lib";
+import {
+  getCRMServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function putMerchantBaseApi(
@@ -116,6 +121,21 @@ export async function putCrmIndividualPersonalSummaryApi(
     const requests = await getApiRequests();
     const response =
       await requests[partyName].putIndividualPersonalSummary(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putAffiliationsApi(
+  data: PutApiCrmServiceAffiliationCodesByIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.affiliationCode.putApiCrmServiceAffiliationCodesById(
+        data,
+      );
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
