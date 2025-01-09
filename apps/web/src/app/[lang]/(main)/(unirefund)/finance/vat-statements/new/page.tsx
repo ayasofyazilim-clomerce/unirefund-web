@@ -4,6 +4,7 @@ import { getResourceData } from "src/language-data/unirefund/FinanceService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getMerchantsApi } from "src/actions/unirefund/CrmService/actions";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import VatStatementForm from "./_components/form";
 
 export default async function Page({ params }: { params: { lang: string } }) {
@@ -17,7 +18,12 @@ export default async function Page({ params }: { params: { lang: string } }) {
     typeCodes: ["HEADQUARTER"],
   });
   if (isErrorOnRequest(merchantListResponse, lang)) {
-    return;
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={merchantListResponse.message}
+      />
+    );
   }
   return (
     <>
