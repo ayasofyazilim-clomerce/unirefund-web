@@ -152,8 +152,8 @@ export const dataConfigOfParties = {
       schema: createScheme(CreateMerchantSchema),
       formPositions: [
         "organization",
-        "telephone",
         "address",
+        "telephone",
         "email",
         "taxpayerId",
         "taxOfficeId",
@@ -185,6 +185,7 @@ export const dataConfigOfParties = {
         "telephone",
         "address",
         "email",
+        "taxpayerId",
         "taxOfficeId",
       ],
       formSubPositions: RefundPointsFormSubPositions,
@@ -207,7 +208,13 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateCustomsSchema),
-      formPositions: ["organization", "telephone", "address", "email"],
+      formPositions: [
+        "organization",
+        "telephone",
+        "address",
+        "email",
+        "taxpayerId",
+      ],
       formSubPositions: CustomsFormSubPositions,
       convertors: {},
     },
@@ -223,7 +230,13 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateTaxFreeSchema),
-      formPositions: ["organization", "telephone", "address", "email"],
+      formPositions: [
+        "organization",
+        "telephone",
+        "address",
+        "email",
+        "taxpayerId",
+      ],
       formSubPositions: TaxFreeFormSubPositions,
       convertors: {},
     },
@@ -239,7 +252,13 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateTaxOfficeSchema),
-      formPositions: ["organization", "telephone", "address", "email"],
+      formPositions: [
+        "organization",
+        "telephone",
+        "address",
+        "email",
+        "taxpayerId",
+      ],
       formSubPositions: TaxOfficesFormSubPositions,
       convertors: {},
     },
