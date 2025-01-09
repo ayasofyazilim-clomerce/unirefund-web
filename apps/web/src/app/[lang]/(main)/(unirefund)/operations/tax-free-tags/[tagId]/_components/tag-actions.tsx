@@ -9,9 +9,11 @@ import type { TagServiceResource } from "src/language-data/unirefund/TagService"
 export default function TagActions({
   tagDetail,
   languageData,
+  refundPoint,
 }: {
   tagDetail: UniRefund_TagService_Tags_TagDetailDto;
   languageData: TagServiceResource;
+  refundPoint: boolean;
 }) {
   const router = useRouter();
   const { tagId } = useParams<{ tagId: string }>();
@@ -38,7 +40,7 @@ export default function TagActions({
               {languageData.ExportValidation}
             </Button>
           )}
-          {status === "Issued" && (
+          {refundPoint && status === "Issued" ? (
             <Button
               onClick={() => {
                 router.push(
@@ -49,8 +51,8 @@ export default function TagActions({
             >
               {languageData.EarlyRefund}
             </Button>
-          )}
-          {status === "ExportValidated" && (
+          ) : null}
+          {refundPoint && status === "ExportValidated" ? (
             <Button
               onClick={() => {
                 router.push(
@@ -61,7 +63,7 @@ export default function TagActions({
             >
               {languageData.Refund}
             </Button>
-          )}
+          ) : null}
           <Button disabled variant="secondary">
             {languageData.Cancel}
           </Button>

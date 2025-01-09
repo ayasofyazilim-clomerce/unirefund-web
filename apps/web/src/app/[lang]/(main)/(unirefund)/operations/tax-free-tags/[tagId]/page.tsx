@@ -78,9 +78,12 @@ export default async function Page({
       }}
     >
       <div className="mb-2 grid h-full grid-cols-2 gap-3 overflow-auto">
-        {accessibleRefundPoints.length > 0 && (
-          <TagActions languageData={languageData} tagDetail={tagDetail} />
-        )}
+        <TagActions
+          languageData={languageData}
+          refundPoint={accessibleRefundPoints.length > 0}
+          tagDetail={tagDetail}
+        />
+
         <TagSummary languageData={languageData} tagDetail={tagDetail} />
         <MerchantDetails languageData={languageData} tagDetail={tagDetail} />
         <TagStatuses languageData={languageData} tagDetail={tagDetail} />
