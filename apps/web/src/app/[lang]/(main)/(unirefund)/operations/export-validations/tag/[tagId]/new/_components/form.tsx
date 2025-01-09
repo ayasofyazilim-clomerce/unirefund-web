@@ -1,0 +1,83 @@
+"use client";
+
+import type { UniRefund_CRMService_Customss_CustomsProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type { UniRefund_TagService_Tags_ExportValidationRequestDto } from "@ayasofyazilim/saas/TagService";
+import { $UniRefund_TagService_Tags_ExportValidationRequestDto } from "@ayasofyazilim/saas/TagService";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { handlePostResponse } from "src/actions/core/api-utils-client";
+import { putExportValidationByIdApi } from "src/actions/unirefund/TagService/put-actions";
+import type { ExportValidationServiceResource } from "src/language-data/unirefund/ExportValidationService";
+
+export default function Form({
+  languageData,
+  customList,
+}: {
+  languageData: ExportValidationServiceResource;
+  customList: UniRefund_CRMService_Customss_CustomsProfileDto[];
+}) {
+  const { tagId } = useParams<{ tagId: string }>();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const uiSchema = createUiSchemaWithResource({
+    schema: $UniRefund_TagService_Tags_ExportValidationRequestDto,
+    resources: languageData,
+    name: "Form.ExportValidation",
+    extend: {
+      exportLocationId: {
+        "ui:widget": "CustomWidget",
+      },
+    },
+  });
+  return (
+    <SchemaForm<UniRefund_TagService_Tags_ExportValidationRequestDto>
+      className="flex flex-col gap-4"
+      disabled={loading}
+      filter={{
+        type: "include",
+        sort: true,
+        keys: [
+          "exportLocationId",
+          "referenceId",
+          "exportDate",
+          "responseCode",
+          "description",
+        ],
+      }}
+      onSubmit={(data) => {
+        setLoading(true);
+        const formData = data.formData;
+        void putExportValidationByIdApi({
+          id: tagId,
+          requestBody: formData,
+        })
+          .then((res) => {
+            handlePostResponse(res, router);
+            if (res.type === "success")
+              router.push(`/operations/tax-free-tags/${tagId}`);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }}
+      schema={$UniRefund_TagService_Tags_ExportValidationRequestDto}
+      submitText={languageData.Save}
+      uiSchema={uiSchema}
+      widgets={{
+        CustomWidget:
+          CustomComboboxWidget<UniRefund_CRMService_Customss_CustomsProfileDto>(
+            {
+              languageData,
+              list: customList,
+              selectIdentifier: "id",
+              selectLabel: "name",
+            },
+          ),
+      }}
+    />
+  );
+}
