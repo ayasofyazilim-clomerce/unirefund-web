@@ -19,6 +19,9 @@
   "EarlyRefund": "Erken İade",
   "TagActions": "Etiket Aksiyonları",
 
+  "Missing.ProductGroups.Title": "Eksik Ürün Grubu",
+  "Missing.ProductGroups.Message": "Sistemde ürün grubu bulunmamaktadır. Devam etmek için lütfen bir tane oluşturun.",
+
   "SalesAmount": "Satış Tutarı",
   "VatAmount": "KDV Tutarı",
   "GrossRefund": "Net Tutar",
