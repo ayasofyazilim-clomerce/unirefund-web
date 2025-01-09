@@ -11,23 +11,32 @@ import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type { UniRefund_CRMService_Merchants_MerchantProfileDto } from "@ayasofyazilim/saas/CRMService";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
-import {
-  postVatStatementHeadersByMerchantIdApi,
-  postVatStatementHeadersFormDraftByMerchantIdApi,
-} from "src/actions/unirefund/FinanceService/post-actions";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import {
+  postVatStatementHeaderApi,
+  postVatStatementHeadersFormDraftApi,
+} from "src/actions/unirefund/FinanceService/post-actions";
 import VatStatementInformation from "../../[vatStatementId]/information/_components/vat-statement-information";
 
 export default function VatStatementForm({
   languageData,
+  merchantList,
 }: {
   languageData: FinanceServiceResource;
+  merchantList: UniRefund_CRMService_Merchants_MerchantProfileDto[];
 }) {
   const router = useRouter();
   const uiSchema = createUiSchemaWithResource({
     schema: $VATStatementHeaderCreateDto,
     resources: languageData,
+    extend: {
+      merchantId: {
+        "ui:widget": "Merchant",
+      },
+    },
   });
   const [vatStatementData] =
     useState<
@@ -55,8 +64,7 @@ export default function VatStatementForm({
           onSubmit={(e) => {
             if (!e.formData) return;
             setLoading(true);
-            void postVatStatementHeadersByMerchantIdApi({
-              merchantId: "",
+            void postVatStatementHeaderApi({
               requestBody: e.formData,
             })
               .then((res) => {
@@ -69,6 +77,17 @@ export default function VatStatementForm({
           schema={$VATStatementHeaderCreateDto}
           uiSchema={uiSchema}
           useDefaultSubmit={false}
+          widgets={{
+            Merchant:
+              CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantProfileDto>(
+                {
+                  languageData,
+                  list: merchantList,
+                  selectIdentifier: "id",
+                  selectLabel: "name",
+                },
+              ),
+          }}
         >
           <div className="flex w-full justify-end gap-4 pt-8">
             <Button
@@ -76,8 +95,7 @@ export default function VatStatementForm({
               onClick={() => {
                 if (!_formData) return;
                 setLoading(true);
-                void postVatStatementHeadersFormDraftByMerchantIdApi({
-                  merchantId: "",
+                void postVatStatementHeadersFormDraftApi({
                   requestBody: _formData,
                 })
                   .then((res) => {
