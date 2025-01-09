@@ -7,6 +7,7 @@ import type {
 import { SectionLayout } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { notFound } from "next/navigation";
 import { getTableDataDetail } from "src/actions/api-requests";
+import { getAssignableRolesByCurrentUserApi } from "src/actions/core/IdentityService/actions";
 import {
   getMerchantContractHeadersByMerchantIdApi,
   getRefundPointContractHeadersByRefundPointIdApi,
@@ -20,14 +21,12 @@ import {
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
+import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./_components/address/form";
-import Contracts from "./contracts/table";
-import Telephone from "./contracts/telephone/form";
 import Email from "./_components/email/form";
 import IndividualTable from "./_components/individuals-table/table";
 import MerchantForm from "./_components/merchant/form";
@@ -36,6 +35,8 @@ import OrganizationForm from "./_components/organization/form";
 import PersonalSummariesForm from "./_components/personal-summaries/form";
 import ProductGroups from "./_components/product-groups/table";
 import SubCompany from "./_components/subcompanies-table/form";
+import Contracts from "./contracts/table";
+import Telephone from "./contracts/telephone/form";
 import type { GetPartiesDetailResult } from "./types";
 
 interface SearchParamType {
@@ -202,10 +203,18 @@ export default async function Page({
     entityPartyTypeCode: partyNameToEntityPartyTypeCode[partyName],
   });
 
+  const assignableRolesResponse = await getAssignableRolesByCurrentUserApi();
+  const assignableRoles =
+    assignableRolesResponse.type === "success"
+      ? assignableRolesResponse.data
+      : [];
+
   const affiliationCodes =
     affiliationCodesResponse.type === "success"
-      ? affiliationCodesResponse.data
-      : { items: [], totalCount: 0 };
+      ? affiliationCodesResponse.data.items?.filter((a) =>
+          assignableRoles.find((r) => r.isAssignable && r.roleId === a.roleId),
+        ) || []
+      : [];
 
   return (
     <>
