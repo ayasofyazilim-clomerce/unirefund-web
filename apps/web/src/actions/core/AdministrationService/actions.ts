@@ -1,18 +1,24 @@
 "use server";
-import type { GetApiPermissionManagementPermissionsData } from "@ayasofyazilim/saas/AdministrationService";
+import type {
+  GetApiAuditLoggingAuditLogsData,
+  GetApiLanguageManagementLanguagesData,
+  GetApiLanguageManagementLanguageTextsData,
+  GetApiPermissionManagementPermissionsData,
+  GetApiTextTemplateManagementTemplateDefinitionsData,
+} from "@ayasofyazilim/saas/AdministrationService";
 import {
   getAdministrationServiceClient,
   structuredError,
   structuredResponse,
 } from "src/lib";
-import { getApiRequests } from "../../api-requests";
 
 export async function getPermissionsApi(
   data: GetApiPermissionManagementPermissionsData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const dataResponse = await requests.permissions.getPermissions(data);
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.permissions.getApiPermissionManagementPermissions(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -24,6 +30,91 @@ export async function getCountrySettingsApi() {
     const client = await getAdministrationServiceClient();
     const dataResponse =
       await client.countrySetting.getApiAdministrationServiceCountrySettings();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getTextTemplateApi(
+  data: GetApiTextTemplateManagementTemplateDefinitionsData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.textTemplateDefinitions.getApiTextTemplateManagementTemplateDefinitions(
+        data,
+      );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getAuditLogsApi(data: GetApiAuditLoggingAuditLogsData) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.auditLogs.getApiAuditLoggingAuditLogs(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getLanguagesApi(
+  data: GetApiLanguageManagementLanguagesData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languages.getApiLanguageManagementLanguages(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getLanguageDetailsByIdApi(id: string) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languages.getApiLanguageManagementLanguagesById({ id });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getLanguagesResourcesApi() {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languages.getApiLanguageManagementLanguagesResources();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getLanguagesCultureListApi() {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languages.getApiLanguageManagementLanguagesCultureList();
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getLanguageTextsApi(
+  data: GetApiLanguageManagementLanguageTextsData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languageTexts.getApiLanguageManagementLanguageTexts(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
