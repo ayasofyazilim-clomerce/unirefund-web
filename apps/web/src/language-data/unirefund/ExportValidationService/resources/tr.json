@@ -3,6 +3,7 @@
   "ExportValidation.New": "Yeni İhracat Doğrulaması",
   "ExportValidation.Delete": "İhracat Doğrulamasını Sil",
   "ExportValidation.Update.Description": "İhracat Doğrulamasının detaylarını buradan güncelleyebilirsin.",
+  "ExportValidation.Create.Description": "Buradan yeni bir ihracat doğrulaması oluşturabilirsin.",
   "Custom.Select": "Gümrük Seçin",
   "Tag.Select": "Etiket Seçin",
 
@@ -15,6 +16,8 @@
   "Form.ExportValidation.stampType": "Damga Türü",
   "Form.ExportValidation.initialValidationResult": "İlk Doğrulama Sonucu",
   "Form.ExportValidation.finalValidationResult": "Son Doğrulama Sonucu",
+  "Form.ExportValidation.responseCode": "Cevap Kodu",
+  "Form.ExportValidation.description": "Acıklama",
 
   "Form.ExportValidation.status.None": "Yok",
   "Form.ExportValidation.status.Waiting": "Bekleniyor",
