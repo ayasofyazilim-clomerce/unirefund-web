@@ -7,11 +7,7 @@ import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Form from "./_components/form";
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; tagId: string };
-}) {
+export default async function Page({ params }: { params: { lang: string } }) {
   const { lang } = params;
   const { languageData } = await getResourceData(lang);
   await isUnauthorized({
