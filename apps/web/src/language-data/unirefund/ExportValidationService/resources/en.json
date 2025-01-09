@@ -3,6 +3,7 @@
   "ExportValidation.New": "New Export Validation",
   "ExportValidation.Delete": "Delete Export Validation",
   "ExportValidation.Update.Description": "You can update the export validation's details from here.",
+  "ExportValidation.Create.Description": "You can create a new export validation from here.",
   "Custom.Select": "Select Custom",
   "Tag.Select": "Select Tag",
 
@@ -15,6 +16,8 @@
   "Form.ExportValidation.stampType": "Stamp Type",
   "Form.ExportValidation.initialValidationResult": "Initial Validation Result",
   "Form.ExportValidation.finalValidationResult": "Final Validation Result",
+  "Form.ExportValidation.responseCode": "Response Code",
+  "Form.ExportValidation.description": "Description",
 
   "Form.ExportValidation.status.None": "None",
   "Form.ExportValidation.status.Waiting": "Waiting",
