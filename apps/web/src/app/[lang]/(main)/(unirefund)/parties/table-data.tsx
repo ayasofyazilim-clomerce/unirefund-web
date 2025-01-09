@@ -182,8 +182,8 @@ export const dataConfigOfParties = {
       schema: createScheme(CreateRefundPointSchema),
       formPositions: [
         "organization",
-        "telephone",
         "address",
+        "telephone",
         "email",
         "taxpayerId",
         "taxOfficeId",
@@ -232,8 +232,8 @@ export const dataConfigOfParties = {
       schema: createScheme(CreateTaxFreeSchema),
       formPositions: [
         "organization",
-        "telephone",
         "address",
+        "telephone",
         "email",
         "taxpayerId",
       ],

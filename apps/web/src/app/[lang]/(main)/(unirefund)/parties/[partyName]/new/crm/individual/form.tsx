@@ -102,11 +102,11 @@ export default function CrmIndividual({
       [
         "name",
         "personalSummaries",
-        "taxpayerId",
         "address",
-        "taxOfficeId",
         "telephone",
         "email",
+        "taxpayerId",
+        "taxOfficeId",
       ],
       undefined,
       {
@@ -174,7 +174,11 @@ export default function CrmIndividual({
     <AutoForm
       className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
       fieldConfig={{
+        taxpayerId: {
+          containerClassName: "border p-4 rounded-md",
+        },
         taxOfficeId: {
+          containerClassName: "border p-4 rounded-md",
           renderer: (props: AutoFormInputComponentProps) => {
             return (
               <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
@@ -186,7 +190,7 @@ export default function CrmIndividual({
             );
           },
         },
-        address: { ...addressSchemaFieldConfig, className: "row-span-2" },
+        address: { ...addressSchemaFieldConfig, className: "row-span-3" },
         organization: {
           className: "row-span-2",
         },

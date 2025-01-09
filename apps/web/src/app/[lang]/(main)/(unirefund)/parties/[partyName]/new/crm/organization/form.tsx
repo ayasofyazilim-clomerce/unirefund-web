@@ -240,9 +240,11 @@ export default function CrmOrganization({
 
   return (
     <AutoForm
-      className="grid grid-rows-3 gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
+      className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
       fieldConfig={{
         taxOfficeId: {
+          containerClassName: "lg:col-span-2 border p-4 rounded-md",
+
           renderer: (props: AutoFormInputComponentProps) => {
             return (
               <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
@@ -254,9 +256,9 @@ export default function CrmOrganization({
             );
           },
         },
-        address: { ...addressSchemaFieldConfig, className: "row-span-3" },
+        address: { ...addressSchemaFieldConfig, className: "row-span-4" },
         organization: {
-          className: "",
+          className: "lg:col-span-2",
         },
         email: {
           emailAddress: {
@@ -264,7 +266,10 @@ export default function CrmOrganization({
               type: "email",
             },
           },
-          className: "row-span-2",
+          className: "",
+        },
+        taxpayerId: {
+          containerClassName: "lg:col-span-2 border p-4 rounded-md",
         },
         telephone: {
           localNumber: {
