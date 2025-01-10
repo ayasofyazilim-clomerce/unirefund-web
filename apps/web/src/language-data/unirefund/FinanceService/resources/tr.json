@@ -111,5 +111,8 @@
   "Form.RebateStatement.tagCount": "Etiket Sayısı",
   "Form.RebateStatement.vatAmount": "Vergi Tutarı",
   "Form.RebateStatement.rebateAmount": "Komisyon Tutarı",
-  "Form.RebateStatement.grandTotalAmount": "Toplam Tutar"
+  "Form.RebateStatement.grandTotalAmount": "Toplam Tutar",
+  "Form.RebateStatement.yearMonthPairs": "Yıl-Ay Paraları",
+  "Form.RebateStatement.yearMonthPairs.year": "Yıl",
+  "Form.RebateStatement.yearMonthPairs.month": "Ay"
 }

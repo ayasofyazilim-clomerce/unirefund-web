@@ -1,5 +1,9 @@
 import type { UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
-import { $UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
+import {
+  $UniRefund_ContractService_Enums_RebateStatementPeriod,
+  $UniRefund_FinanceService_Enums_RebateStatementStatus,
+  $UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto,
+} from "@ayasofyazilim/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -49,6 +53,26 @@ const rebateStatementsColumns = (
         locale,
       },
       links,
+      faceted: {
+        status: {
+          options:
+            $UniRefund_FinanceService_Enums_RebateStatementStatus.enum.map(
+              (x) => ({
+                label: languageData[`Form.RebateStatement.status.${x}`],
+                value: x,
+              }),
+            ),
+        },
+        period: {
+          options:
+            $UniRefund_ContractService_Enums_RebateStatementPeriod.enum.map(
+              (x) => ({
+                label: languageData[`Form.RebateStatement.period.${x}`],
+                value: x,
+              }),
+            ),
+        },
+      },
     },
   );
 };
