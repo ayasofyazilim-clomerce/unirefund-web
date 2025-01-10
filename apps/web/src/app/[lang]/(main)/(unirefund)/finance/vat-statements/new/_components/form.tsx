@@ -32,6 +32,7 @@ export default function VatStatementForm({
   const uiSchema = createUiSchemaWithResource({
     schema: $VATStatementHeaderCreateDto,
     resources: languageData,
+    name: "Form.VatStatement",
     extend: {
       merchantId: {
         "ui:widget": "Merchant",

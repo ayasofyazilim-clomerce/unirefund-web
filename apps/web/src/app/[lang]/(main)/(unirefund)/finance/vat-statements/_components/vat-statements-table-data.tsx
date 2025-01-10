@@ -1,5 +1,9 @@
 import type { UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
-import { $PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
+import {
+  $PagedResultDto_VATStatementHeaderForListDto,
+  $UniRefund_FinanceService_Enums_PaymentStatus,
+  $UniRefund_FinanceService_Enums_VATStatementStatus,
+} from "@ayasofyazilim/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -52,39 +56,37 @@ const vatStatementsColumns = (
       links,
       badges: {
         merchantName: {
-          values:
-            $PagedResultDto_VATStatementHeaderForListDto.properties.items.items.properties.paymentStatus.enum.map(
-              (status) => {
-                const badgeClasses = {
-                  Paid: "text-green-500 bg-green-100 border-green-500",
-                  NotPaid: "text-red-500 bg-red-100 border-red-500",
-                  PartlyPaid: "text-orange-500 bg-orange-100 border-orange-500",
-                  OverPaid: "text-green-800 bg-orange-100 border-green-500",
-                };
-                return {
-                  label:
-                    languageData[`Form.VatStatement.paymentStatus.${status}`],
-                  badgeClassName: badgeClasses[status],
-                  conditions: [
-                    {
-                      conditionAccessorKey: "paymentStatus",
-                      when: (value) => value === status,
-                    },
-                  ],
-                };
-              },
-            ),
+          values: $UniRefund_FinanceService_Enums_PaymentStatus.enum.map(
+            (status) => {
+              const badgeClasses = {
+                Paid: "text-green-500 bg-green-100 border-green-500",
+                NotPaid: "text-red-500 bg-red-100 border-red-500",
+                PartlyPaid: "text-orange-500 bg-orange-100 border-orange-500",
+                OverPaid: "text-green-800 bg-orange-100 border-green-500",
+              };
+              return {
+                label:
+                  languageData[`Form.VatStatement.paymentStatus.${status}`],
+                badgeClassName: badgeClasses[status],
+                conditions: [
+                  {
+                    conditionAccessorKey: "paymentStatus",
+                    when: (value) => value === status,
+                  },
+                ],
+              };
+            },
+          ),
         },
       },
       faceted: {
         status: {
-          options:
-            $PagedResultDto_VATStatementHeaderForListDto.properties.items.items.properties.status.enum.map(
-              (x) => ({
-                label: languageData[`Form.VatStatement.status.${x}`],
-                value: x,
-              }),
-            ),
+          options: $UniRefund_FinanceService_Enums_VATStatementStatus.enum.map(
+            (x) => ({
+              label: languageData[`Form.VatStatement.status.${x}`],
+              value: x,
+            }),
+          ),
         },
       },
     },
