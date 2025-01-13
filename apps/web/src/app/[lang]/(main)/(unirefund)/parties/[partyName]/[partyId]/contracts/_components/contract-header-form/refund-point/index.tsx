@@ -34,7 +34,7 @@ type RefundPointContractHeaderFormProps = {
   languageData: ContractServiceResource;
   addresses: AddressTypeDto[];
   refundFeeHeaders: RefundFeeHeaderDto[];
-  fromDate: Date;
+  fromDate: Date | undefined;
 } & (
   | RefundPointContractHeaderUpdateFormProps
   | RefundPointContractHeaderCreateFormProps
@@ -197,7 +197,7 @@ function RefundFeeHeadersItemField({
   languageData: ContractServiceResource;
   refundFeeHeaders: RefundFeeHeaderDto[];
   loading: boolean;
-  fromDate: Date;
+  fromDate: Date | undefined;
 }) {
   function Field(props: FieldProps) {
     const [open, setOpen] = useState(false);
@@ -210,10 +210,14 @@ function RefundFeeHeadersItemField({
       hasValue ? _formData.isDefault ?? true : props.index === 0,
     );
     const _defaults = {
-      validFrom: fromDate.toISOString(),
-      validTo: new Date(
-        new Date(fromDate).setFullYear(new Date(fromDate).getFullYear() + 1),
-      ).toISOString(),
+      validFrom: fromDate?.toISOString() || "",
+      validTo: fromDate
+        ? new Date(
+            new Date(fromDate).setFullYear(
+              new Date(fromDate).getFullYear() + 1,
+            ),
+          ).toISOString()
+        : "",
       refundFeeHeaderId:
         refundFeeHeaders.length === 1
           ? refundFeeHeaders.at(0)?.id
