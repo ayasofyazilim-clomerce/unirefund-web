@@ -49,7 +49,7 @@ export function individualsColumns(
 function individualsTable(
   languageData: CRMServiceServiceResource,
   addAffilationsFormSchema: ZodObjectOrWrapped,
-  handleSubmit: (formData: AutoFormValues) => Promise<void>,
+  handleSubmit: (formData: AutoFormValues) => void,
   fieldConfig: FieldConfigType,
 ): IndividualsTable {
   const table: IndividualsTable = {
@@ -88,7 +88,7 @@ function individualsTable(
         fieldConfig,
         icon: PlusCircle,
         onSubmit(values) {
-          void handleSubmit(values as AutoFormValues);
+          handleSubmit(values as AutoFormValues);
         },
         submitText: languageData.Save,
       },

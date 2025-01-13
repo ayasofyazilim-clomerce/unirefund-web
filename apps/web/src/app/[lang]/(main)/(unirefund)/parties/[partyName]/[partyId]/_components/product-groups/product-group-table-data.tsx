@@ -52,8 +52,8 @@ function productGroupsTable(
       {
         type: "autoform-dialog",
         actionLocation: "table",
-        cta: languageData["ProductGroups.New"],
-        title: languageData["ProductGroups.New"],
+        cta: languageData["ProductGroups.Assign"],
+        title: languageData["ProductGroups.Assign"],
         schema: addProductGroupsFormSchema,
         fieldConfig,
         icon: PlusCircle,
