@@ -197,6 +197,7 @@
   "RefundTables.Details.Edit.Description": "Edit selected rule",
   "RefundTables.Details.Delete.Confirm": "Are you sure you want to delete this rule?",
   "RefundTables.Details.Delete.Confirm.Title": "Delete rule",
+  "RefundTables.Form.RefundTableDetails.add": "Add refund table detail",
 
   "RefundTables.Name": "Name",
   "RefundTables.ValidFrom": "Valid from",

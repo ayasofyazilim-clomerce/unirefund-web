@@ -46,7 +46,7 @@ export default function RefundTableDetailsForm({
             {
               type: "create-row",
               actionLocation: "table",
-              cta: languageData["Rebate.Form.rebateTableDetails.add"],
+              cta: languageData["RefundTables.Form.RefundTableDetails.add"],
               icon: PlusCircle,
             },
           ],
