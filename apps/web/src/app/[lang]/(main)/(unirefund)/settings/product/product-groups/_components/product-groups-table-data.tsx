@@ -153,14 +153,14 @@ function productGroupsTable(
     fillerColumn: "name",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "food"],
+      columns: ["id", "food", "vatId"],
     },
     columnOrder: [
       "name",
       "articleCode",
       "unitCode",
       "companyType",
-      "vatId",
+      "vatPercent",
       "active",
     ],
     tableActions: productGroupsTableActions(

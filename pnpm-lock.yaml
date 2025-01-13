@@ -764,6 +764,7 @@ importers:
       '@ayasofyazilim/core-saas':
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@repo/ayasofyazilim-ui':
         specifier: workspace:*
         version: link:../ayasofyazilim-ui
@@ -8302,6 +8303,9 @@ packages:
   readdirp@4.0.2:
     resolution: {integrity: sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==}
     engines: {node: '>= 14.16.0'}
+  readdirp@4.0.2:
+    resolution: {integrity: sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==}
+    engines: {node: '>= 14.16.0'}
 
   recast@0.23.9:
     resolution: {integrity: sha512-Hx/BGIbwj+Des3+xy5uAtAbdCyqK9y9wbBcDFDYanLS9JnMqf7OeF87HQwUimE87OEc72mr6tkKUKMBBL+hF9Q==}
@@ -9778,7 +9782,9 @@ snapshots:
       preact-render-to-string: 5.2.3(preact@10.11.3)
 
   '@ayasofyazilim/core-saas@0.0.4(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/core-saas@0.0.4(magicast@0.3.5)(openapi-types@12.1.3)':
     dependencies:
+      '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.0.0
       create-release-it: 2.1.0
@@ -14332,6 +14338,7 @@ snapshots:
   chokidar@4.0.3:
     dependencies:
       readdirp: 4.0.2
+      readdirp: 4.0.2
 
   chownr@2.0.0: {}
 
@@ -18133,6 +18140,7 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
+  readdirp@4.0.2: {}
   readdirp@4.0.2: {}
 
   recast@0.23.9:
