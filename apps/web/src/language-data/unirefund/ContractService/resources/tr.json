@@ -197,6 +197,7 @@
   "RefundTables.Details.Edit.Description": "Seçili kuralı düzenle",
   "RefundTables.Details.Delete.Confirm": "Bu kuralı silmek istediğinizden emin misiniz?",
   "RefundTables.Details.Delete.Confirm.Title": "Kuralı sil",
+  "RefundTables.Form.RefundTableDetails.add": "Yeni iade tablosu detayı ekle",
 
   "RefundTables.Name": "Tablo adı",
   "RefundTables.ValidFrom": "Geçerli başlangıç tarihi",
