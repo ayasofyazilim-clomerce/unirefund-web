@@ -3,8 +3,8 @@
 import type { PagedResultDto_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./product-groups-table-data";
 
 function ProductGroupsTable({

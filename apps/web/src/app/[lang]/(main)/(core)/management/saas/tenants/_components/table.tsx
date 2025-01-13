@@ -6,8 +6,8 @@ import type {
 } from "@ayasofyazilim/saas/SaasService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { SaasServiceResource } from "src/language-data/core/SaasService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./tenants-table-data";
 
 function TenantsTable({

@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["@repo/ui", "geist", "@ayasofyazilim/saas"],
+  transpilePackages: [
+    "@repo/ui",
+    "geist",
+    "@ayasofyazilim/saas",
+    "@ayasofyazilim/core-saas",
+  ],
   output: "standalone",
   experimental: {
     serverActions: {

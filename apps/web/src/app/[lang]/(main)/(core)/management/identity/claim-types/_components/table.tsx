@@ -3,8 +3,8 @@
 import type { PagedResultDto_ClaimTypeDto } from "@ayasofyazilim/saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./claim-types-table-data";
 
 function ClaimTypesTable({

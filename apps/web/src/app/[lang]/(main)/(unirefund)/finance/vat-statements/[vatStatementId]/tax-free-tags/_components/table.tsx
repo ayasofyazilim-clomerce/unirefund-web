@@ -3,8 +3,8 @@
 import type { UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto } from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./tax-free-tag-table-data";
 
 function TaxFreeTagTable({

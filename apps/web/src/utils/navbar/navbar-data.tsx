@@ -1,6 +1,5 @@
 "use server";
 import type { NavbarItemsFromDB } from "@repo/ui/theme/types";
-import type { Session } from "next-auth";
 import type { AbpUiNavigationResource } from "src/language-data/core/AbpUiNavigation";
 import coreNavItems from "./core-navbar-items.json";
 import projectNavItems from "./project-navbar-items.json";
@@ -31,10 +30,13 @@ function getDescription(
   return languageData[descriptionKey] || "No description";
 }
 
-function processPolicies(item: NavbarItemsFromDB, session: Session | null) {
+function processPolicies(
+  item: NavbarItemsFromDB,
+  grantedPolicies: Record<string, boolean> | undefined,
+) {
   if (item.requiredPolicies) {
     const missingPolicies = item.requiredPolicies.filter(
-      (policy) => !session?.grantedPolicies?.[policy],
+      (policy) => !grantedPolicies?.[policy],
     );
     if (missingPolicies.length > 0) {
       item.hidden = true;
@@ -45,11 +47,11 @@ function processPolicies(item: NavbarItemsFromDB, session: Session | null) {
 function processNavbarItems(
   items: NavbarItemsFromDB[],
   prefix: string,
-  session: Session | null,
+  grantedPolicies: Record<string, boolean> | undefined,
   languageData: AbpUiNavigationResource,
 ) {
   return items.map((item) => {
-    processPolicies(item, session);
+    processPolicies(item, grantedPolicies);
 
     item.href = buildItemHref(prefix, item);
     item.parentNavbarItemKey = buildParentKey(prefix, item);
@@ -98,7 +100,7 @@ function checkForChildLink(
 export async function getNavbarFromDB(
   prefix: string,
   languageData: AbpUiNavigationResource,
-  session: Session | null,
+  grantedPolicies: Record<string, boolean> | undefined,
 ) {
   await Promise.resolve();
   const navbarDataFromDB: NavbarItemsFromDB[] = JSON.parse(
@@ -108,7 +110,7 @@ export async function getNavbarFromDB(
   const processedItems = processNavbarItems(
     navbarDataFromDB,
     prefix,
-    session,
+    grantedPolicies,
     languageData,
   );
 

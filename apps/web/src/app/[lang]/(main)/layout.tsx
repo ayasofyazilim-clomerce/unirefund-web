@@ -1,9 +1,10 @@
 "use server";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
+import { auth, signOutServer } from "@repo/utils/auth";
 import { LogOut } from "lucide-react";
-import { auth } from "auth";
-import { signOutServer } from "auth-action";
+import type { Policy } from "@repo/utils/policies";
 import unirefund from "public/unirefund.png";
+import { getGrantedPoliciesApi } from "src/actions/core/AccountService/actions";
 import { getResourceData } from "src/language-data/core/AbpUiNavigation";
 import { getBaseLink } from "src/utils";
 import { getNavbarFromDB } from "../../../utils/navbar/navbar-data";
@@ -18,8 +19,16 @@ export default async function Layout({ children, params }: LayoutProps) {
   const { lang } = params;
   const { languageData } = await getResourceData(lang);
   const session = await auth();
+  const grantedPolicies = (await getGrantedPoliciesApi()) as Record<
+    Policy,
+    boolean
+  >;
   const baseURL = getBaseLink("", lang);
-  const navbarFromDB = await getNavbarFromDB(lang, languageData, session);
+  const navbarFromDB = await getNavbarFromDB(
+    lang,
+    languageData,
+    grantedPolicies,
+  );
   const profileMenuProps = getProfileMenuFromDB(languageData);
   profileMenuProps.info.name =
     session?.user?.name ?? profileMenuProps.info.name;
@@ -47,7 +56,7 @@ export default async function Layout({ children, params }: LayoutProps) {
         navbarItems={navbarFromDB}
         prefix=""
         profileMenu={profileMenuProps}
-        tenantData={session?.tenantData}
+        tenantData={session}
       />
       <div className="flex h-full flex-col overflow-hidden px-4">
         {children}

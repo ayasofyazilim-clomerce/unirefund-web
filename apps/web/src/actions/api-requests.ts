@@ -95,7 +95,7 @@ import type {
 } from "@ayasofyazilim/saas/SaasService";
 import type { GetApiTagServiceTagData } from "@ayasofyazilim/saas/TagService";
 import type { FilterColumnResult } from "@repo/ayasofyazilim-ui/molecules/tables/types";
-import { auth } from "auth";
+import { auth } from "@repo/utils/auth";
 import {
   getAdministrationServiceClient,
   getContractServiceClient,

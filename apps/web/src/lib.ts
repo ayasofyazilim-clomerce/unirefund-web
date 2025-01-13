@@ -13,7 +13,7 @@ import { ExportValidationServiceClient } from "@ayasofyazilim/saas/ExportValidat
 import { FinanceServiceClient } from "@ayasofyazilim/saas/FinanceService";
 import { RefundServiceClient } from "@ayasofyazilim/saas/RefundService";
 import type { Session } from "next-auth";
-import { auth } from "auth";
+import { auth } from "@repo/utils/auth";
 import { isApiError } from "./app/api/util";
 
 const HEADERS = {
@@ -22,7 +22,7 @@ const HEADERS = {
 };
 export async function getIdentityServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new IdentityServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -35,7 +35,7 @@ export async function getAccountServiceClient(
   session?: Session | null,
 ) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new AccountServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -45,7 +45,7 @@ export async function getAccountServiceClient(
 
 export async function getSaasServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new SaasServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -57,7 +57,7 @@ export async function getSettingServiceClient(
   session?: Session | null,
 ): Promise<SettingServiceClient> {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new SettingServiceClient({
     BASE: process.env.BASE_URL,
     TOKEN: token,
@@ -69,7 +69,7 @@ export async function getContractServiceClient(
   session?: Session | null,
 ): Promise<ContractServiceClient> {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new ContractServiceClient({
     BASE: process.env.BASE_URL,
     TOKEN: token,
@@ -79,7 +79,7 @@ export async function getContractServiceClient(
 
 export async function getAdministrationServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new AdministrationServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -91,7 +91,7 @@ export async function getCRMServiceClient(
   session?: Session | null,
 ): Promise<CRMServiceClient> {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new CRMServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -101,7 +101,7 @@ export async function getCRMServiceClient(
 
 export async function getTravellersServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new TravellerServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -111,7 +111,7 @@ export async function getTravellersServiceClient(session?: Session | null) {
 
 export async function getTagServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new TagServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -121,7 +121,7 @@ export async function getTagServiceClient(session?: Session | null) {
 
 export async function getLocationServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new LocationServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -133,7 +133,7 @@ export async function getExportValidationServiceClient(
   session?: Session | null,
 ) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new ExportValidationServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -143,7 +143,7 @@ export async function getExportValidationServiceClient(
 
 export async function getFinanceServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new FinanceServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
@@ -153,7 +153,7 @@ export async function getFinanceServiceClient(session?: Session | null) {
 
 export async function getRefundServiceClient(session?: Session | null) {
   const userData = session || (await auth());
-  const token = userData?.access_token;
+  const token = userData?.user?.access_token;
   return new RefundServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,

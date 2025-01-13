@@ -3,8 +3,8 @@
 import type { PagedResultDto_RebateStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./rebate-statements-table-data";
 
 function RebateStatementTable({

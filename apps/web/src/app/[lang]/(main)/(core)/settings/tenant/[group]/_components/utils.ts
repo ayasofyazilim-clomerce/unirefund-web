@@ -1,8 +1,8 @@
 import type {
-  UniRefund_SettingService_Bonds_BondDto,
-  UniRefund_SettingService_Groups_GroupDto,
-  UniRefund_SettingService_Items_GroupItemDto,
-} from "@ayasofyazilim/saas/SettingService";
+  UniRefund_AdministrationService_Bonds_BondDto,
+  UniRefund_AdministrationService_Groups_GroupDto,
+  UniRefund_AdministrationService_Items_GroupItemDto,
+} from "@ayasofyazilim/saas/AdministrationService";
 import type {
   JsonSchema,
   SchemaType,
@@ -13,7 +13,6 @@ import type {
   FieldConfig,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
 import { description } from "./description";
 
 export type AllowedValueTypeModelNameStringEnum =
@@ -27,13 +26,13 @@ export type AllowedValueTypeModelNameStringEnum =
 
 export function isGroupDto(
   object: object,
-): object is UniRefund_SettingService_Groups_GroupDto {
+): object is UniRefund_AdministrationService_Groups_GroupDto {
   return "isEnabled" in object;
 }
 
 function createConfig(
-  item: UniRefund_SettingService_Items_GroupItemDto,
-  languageData: AdministrationServiceResource | SettingServiceResource,
+  item: UniRefund_AdministrationService_Items_GroupItemDto,
+  languageData: AdministrationServiceResource,
 ): Record<
   string,
   { description: string; displayName: string; fieldType?: string }
@@ -68,15 +67,17 @@ function createConfig(
   return config;
 }
 function subField(
-  item: UniRefund_SettingService_Items_GroupItemDto,
-  languageData: AdministrationServiceResource | SettingServiceResource,
+  item: UniRefund_AdministrationService_Items_GroupItemDto,
+  languageData: AdministrationServiceResource,
 ) {
   if (item.subItems && item.subItems.length > 0) {
     const subitemconfigs = item.subItems.map(
-      (subitem: UniRefund_SettingService_Items_GroupItemDto) => {
+      (subitem: UniRefund_AdministrationService_Items_GroupItemDto) => {
         if (subitem.subItems && subitem.subItems.length > 0) {
           const subsubitemconfigs = subitem.subItems.map(
-            (subsubitem: UniRefund_SettingService_Items_GroupItemDto) => {
+            (
+              subsubitem: UniRefund_AdministrationService_Items_GroupItemDto,
+            ) => {
               return createConfig(subsubitem, languageData);
             },
           );
@@ -123,11 +124,11 @@ function subField(
   return createConfig(item, languageData);
 }
 export function createFieldConfig(
-  object: UniRefund_SettingService_Groups_GroupDto,
-  languageData: AdministrationServiceResource | SettingServiceResource,
+  object: UniRefund_AdministrationService_Groups_GroupDto,
+  languageData: AdministrationServiceResource,
 ): FieldConfig<Record<string, string | boolean | number>> {
   const configs = object.items?.map(
-    (item: UniRefund_SettingService_Items_GroupItemDto) => {
+    (item: UniRefund_AdministrationService_Items_GroupItemDto) => {
       if (item.subItems && item.subItems.length > 0) {
         return subField(item, languageData);
       }
@@ -142,7 +143,7 @@ export function createFieldConfig(
 }
 
 interface CreateBondType {
-  bonds: UniRefund_SettingService_Bonds_BondDto[];
+  bonds: UniRefund_AdministrationService_Bonds_BondDto[];
   targetField: string;
   parentField?: string;
 }
@@ -174,13 +175,13 @@ function createBonds(sett: CreateBondType): BondType[] {
   });
 }
 export function createDependencies(
-  group: UniRefund_SettingService_Groups_GroupDto,
+  group: UniRefund_AdministrationService_Groups_GroupDto,
 ): DependenciesType {
   const bonds = group.items?.map(
-    (item: UniRefund_SettingService_Items_GroupItemDto) => {
+    (item: UniRefund_AdministrationService_Items_GroupItemDto) => {
       if (item.subItems && item.subItems.length > 0) {
         const subitembonds = item.subItems.map(
-          (subitem: UniRefund_SettingService_Items_GroupItemDto) => {
+          (subitem: UniRefund_AdministrationService_Items_GroupItemDto) => {
             return createBonds({
               bonds: subitem.bonds || [],
               targetField: subitem.key || "",
@@ -236,7 +237,7 @@ function convertValueTypeNameToSchemaType(
   }
 }
 function createProperties(
-  item: UniRefund_SettingService_Items_GroupItemDto,
+  item: UniRefund_AdministrationService_Items_GroupItemDto,
 ): Record<string, JsonSchema> | object {
   const key = item.key || "";
   if (!item.valueType) return {};
@@ -248,8 +249,8 @@ function createProperties(
 }
 //Creates item & parent schema
 export function createSchema(
-  group?: UniRefund_SettingService_Groups_GroupDto,
-  item?: UniRefund_SettingService_Items_GroupItemDto,
+  group?: UniRefund_AdministrationService_Groups_GroupDto,
+  item?: UniRefund_AdministrationService_Items_GroupItemDto,
 ): SchemaType {
   let properties: Record<string, JsonSchema> = {};
   if (group) {
@@ -283,7 +284,7 @@ export function createSchema(
 }
 //Creates item schema
 function createJsonSchema(
-  item: UniRefund_SettingService_Items_GroupItemDto,
+  item: UniRefund_AdministrationService_Items_GroupItemDto,
 ): JsonSchema {
   let schema: JsonSchema = {
     type: convertValueTypeNameToSchemaType(

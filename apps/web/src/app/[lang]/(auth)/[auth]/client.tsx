@@ -3,18 +3,18 @@
 import type { ResetPasswordFormDataType } from "@repo/ayasofyazilim-ui/molecules/forms/reset-password-form";
 import type { authTypes } from "@repo/ayasofyazilim-ui/pages/auth";
 import { Auth, isAuthType } from "@repo/ayasofyazilim-ui/pages/auth";
+import { Logo } from "@repo/ui/logo";
 import NextError from "next/error";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
-import { Logo } from "@repo/ui/logo";
-import { useLocale } from "src/providers/locale";
 import {
   sendPasswordResetCodeServer,
   signInServer,
   signUpServer,
-} from "auth-action";
+} from "src/actions/core/AccountService/actions";
 import { useApplication } from "src/providers/application";
+import { useLocale } from "src/providers/locale";
 
 export function AuthPage({ tenantId }: { tenantId: string }): JSX.Element {
   const { cultureName, resources, changeLocale } = useLocale();

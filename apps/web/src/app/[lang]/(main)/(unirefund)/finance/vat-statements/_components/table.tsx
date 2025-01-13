@@ -3,8 +3,8 @@
 import type { PagedResultDto_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./vat-statements-table-data";
 
 function VatStatementTable({
