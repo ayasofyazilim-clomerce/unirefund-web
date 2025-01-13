@@ -49,7 +49,7 @@ export default function ProductGroups({
   const fieldConfig = {
     productGroup: {
       productGroupId: {
-        displayName: languageData["ProductGroups.New"],
+        displayName: languageData["ProductGroups.Assign"],
         renderer: (props: AutoFormInputComponentProps) => {
           "use client";
           return (
