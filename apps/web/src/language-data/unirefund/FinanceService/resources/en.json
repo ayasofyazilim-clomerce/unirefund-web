@@ -109,5 +109,8 @@
   "Form.RebateStatement.tagCount": "Tag Count",
   "Form.RebateStatement.vatAmount": "VAT Amount",
   "Form.RebateStatement.rebateAmount": "Rebate Amount",
-  "Form.RebateStatement.grandTotalAmount": "Grand Total Amount"
+  "Form.RebateStatement.grandTotalAmount": "Grand Total Amount",
+  "Form.RebateStatement.yearMonthPairs": "Year Month Pairs",
+  "Form.RebateStatement.yearMonthPairs.year": "Year",
+  "Form.RebateStatement.yearMonthPairs.month": "Month"
 }
