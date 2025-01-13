@@ -40,8 +40,8 @@ importers:
         specifier: ^0.30.0
         version: 0.30.0
       '@ayasofyazilim/saas':
-        specifier: 0.0.111
-        version: 0.0.111(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.112
+        version: 0.0.112(magicast@0.3.5)(openapi-types@12.1.3)
       '@formatjs/intl-localematcher':
         specifier: ^0.5.4
         version: 0.5.4
@@ -677,8 +677,8 @@ importers:
   packages/ui:
     dependencies:
       '@ayasofyazilim/saas':
-        specifier: 0.0.111
-        version: 0.0.111(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.112
+        version: 0.0.112(magicast@0.3.5)(openapi-types@12.1.3)
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.3.1(react@18.3.0))(react@18.3.0)
@@ -850,8 +850,8 @@ packages:
   '@ayasofyazilim/core-saas@0.0.4':
     resolution: {integrity: sha512-x6gJsYW9BKWt5XV32kkXhGEAyUfphhA/ZZhZY/HIilvEh14eOtdOST7NHM6ds1GxZ2bwM9WO5jQDCEo4LfVskA==}
 
-  '@ayasofyazilim/saas@0.0.111':
-    resolution: {integrity: sha512-FnhN0NETojsgV4yonbc9aHES4uPvo9EZqr1gnuhGEbGYR0SqSjOwxbXjUX3ageT1iGhYX6dD/cEtS1rXY/g9Xg==}
+  '@ayasofyazilim/saas@0.0.112':
+    resolution: {integrity: sha512-10/RO/yYcLnSd5fFmqL1WhEDdqT9ArJBhpdleozbwAa7iT1l+j8A1uzWsVRjvN/o2HDOW7fG0VMV8a+Y2JXJ6A==}
 
   '@ayasofyazilim/sdk_generator@0.0.13':
     resolution: {integrity: sha512-Iof0t+ZKdIEJS2ddm2HBqSMncalBNyKsYYlMq1tkH8vQHgtG7kZMPy2YTRHP6WlH/CKcHC3R5ulOf8xmC2H3UA==}
@@ -9786,7 +9786,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/saas@0.0.111(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.112(magicast@0.3.5)(openapi-types@12.1.3)':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.0.0
