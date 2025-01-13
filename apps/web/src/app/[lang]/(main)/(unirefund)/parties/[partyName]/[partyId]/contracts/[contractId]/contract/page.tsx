@@ -88,9 +88,7 @@ export default async function Page({
       <MerchantContractHeader
         addressList={addressListResponse.data}
         contractHeaderDetails={contractHeaderDetailsResponse.data}
-        fromDate={
-          activeContract ? new Date(activeContract.validTo) : new Date()
-        }
+        fromDate={activeContract ? new Date(activeContract.validTo) : undefined}
         languageData={languageData}
         refundTableHeaders={refundTableHeadersResponse.data.items || []}
       />
@@ -162,7 +160,7 @@ export default async function Page({
         refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
       }
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      fromDate={activeContract ? new Date(activeContract.validTo) : new Date()}
+      fromDate={activeContract ? new Date(activeContract.validTo) : undefined}
       languageData={languageData}
       refundFeeHeaders={refundFeeHeadersResponse.data.items || []}
     />

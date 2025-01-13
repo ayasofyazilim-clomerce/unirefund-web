@@ -30,7 +30,7 @@ export function ContractHeader({
   addressList: AddressCommonDataDto[];
   refundFeeHeaders: RefundFeeHeader[];
   languageData: ContractServiceResource;
-  fromDate: Date;
+  fromDate: Date | undefined;
 }) {
   const [loading, setLoading] = useState(false);
   return (
