@@ -37,7 +37,7 @@ type ContractHeaderFormProps = {
   refundTableHeaders: RefundTableHeaderDto[];
   loading: boolean;
   setLoading?: Dispatch<SetStateAction<boolean>>;
-  fromDate: Date;
+  fromDate?: Date | undefined;
 } & (CreateContractHeaderFormProps | UpdateContractHeaderFormProps);
 
 interface CreateContractHeaderFormProps {
@@ -206,7 +206,7 @@ function RefundTableHeadersItemField({
   languageData: ContractServiceResource;
   refundTableHeaders: RefundTableHeaderDto[];
   loading: boolean;
-  fromDate: Date;
+  fromDate?: Date | undefined;
 }) {
   function Field(props: FieldProps) {
     const [open, setOpen] = useState(false);

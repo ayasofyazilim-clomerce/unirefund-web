@@ -58,7 +58,7 @@ export default async function Page({
           fromDate={
             biggestContractHeader
               ? new Date(biggestContractHeader.validTo)
-              : new Date()
+              : undefined
           }
           languageData={languageData}
           loading={false}
