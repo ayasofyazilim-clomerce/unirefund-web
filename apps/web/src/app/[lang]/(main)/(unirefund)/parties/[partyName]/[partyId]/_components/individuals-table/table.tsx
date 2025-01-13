@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "@/components/ui/sonner";
 import type {
   PagedResultDto_AffiliationTypeDetailDto,
   UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto,
@@ -16,7 +15,6 @@ import { CustomCombobox } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { SectionLayoutContent } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import { useRouter } from "next/navigation";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { getIndividualsApi } from "src/actions/unirefund/CrmService/actions";
 import { postAffiliationsToPartyApi } from "src/actions/unirefund/CrmService/post-actions";
 import type {
   AffiliationsPostDto,
@@ -80,34 +78,19 @@ function Individual({
       },
     },
   };
-  async function handleSubmit(formData: AutoFormValues) {
+  function handleSubmit(formData: AutoFormValues) {
     const email = formData.email.emailAddress;
-    const doesEmailExistsResponse = await getIndividualsApi({
-      email,
-      maxResultCount: 1,
+    const requestBody: AffiliationsPostDto = {
+      affiliationCodeId: formData.affilation.affiliationCodeId,
+      email: email || "",
+      entityInformationTypeCode: "INDIVIDUAL",
+    };
+    void postAffiliationsToPartyApi(partyName, {
+      requestBody,
+      id: partyId,
+    }).then((res) => {
+      handlePostResponse(res, router);
     });
-    if (doesEmailExistsResponse.type !== "success") {
-      toast.error(languageData["Fetch.Fail"]);
-      return;
-    }
-
-    if (doesEmailExistsResponse.data.items?.length !== 0) {
-      const individualId = doesEmailExistsResponse.data.items?.[0].id;
-      const requestBody: AffiliationsPostDto = {
-        affiliationCodeId: formData.affilation.affiliationCodeId,
-        partyId: individualId || "",
-        entityInformationTypeCode: "INDIVIDUAL",
-      };
-      void postAffiliationsToPartyApi(partyName, {
-        requestBody,
-        id: partyId,
-      }).then((res) => {
-        handlePostResponse(res, router);
-      });
-      return;
-    }
-
-    toast.error(languageData.NoIndividualFound);
   }
   const columns = tableData.individuals.columns(languageData, locale);
   const table = tableData.individuals.table(
