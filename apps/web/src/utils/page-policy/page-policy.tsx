@@ -1,6 +1,6 @@
 "use server";
 import { permanentRedirect, RedirectType } from "next/navigation";
-import { auth } from "auth";
+import { getGrantedPoliciesApi } from "src/actions/core/AccountService/actions";
 import type { Policy } from "src/utils/page-policy/utils";
 
 export default async function PagePolicy({
@@ -12,8 +12,7 @@ export default async function PagePolicy({
   children: JSX.Element;
   lang: string;
 }) {
-  const sessions = await auth();
-  const grantedPolicies = sessions?.grantedPolicies;
+  const grantedPolicies = await getGrantedPoliciesApi();
 
   const missingPolicies = requiredPolicies.filter(
     (policy) => !grantedPolicies?.[policy],
@@ -32,8 +31,7 @@ export async function isUnauthorized({
   requiredPolicies: Policy[];
   lang: string;
 }) {
-  const sessions = await auth();
-  const grantedPolicies = sessions?.grantedPolicies;
+  const grantedPolicies = await getGrantedPoliciesApi();
 
   const missingPolicies = requiredPolicies.filter(
     (policy) => !grantedPolicies?.[policy],

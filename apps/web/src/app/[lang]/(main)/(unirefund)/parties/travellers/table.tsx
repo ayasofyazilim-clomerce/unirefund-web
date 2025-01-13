@@ -3,8 +3,8 @@
 import type { PagedResultDto_TravellerListProfileDto } from "@ayasofyazilim/saas/TravellerService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import type { CountryDto } from "../../../../../../actions/unirefund/LocationService/types";
 import { tableData } from "./travellers-table-data";
 

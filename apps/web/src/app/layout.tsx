@@ -1,9 +1,11 @@
 "use server";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { auth } from "auth";
+import { getGrantedPoliciesApi } from "src/actions/core/AccountService/actions";
 import Providers from "src/providers/providers";
 import "./globals.css";
+import { auth } from "@repo/utils/auth";
+import type { Policy } from "@repo/utils/policies";
 
 interface RootLayoutProps {
   params: { lang: string };
@@ -25,7 +27,10 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   const { lang } = params;
   const session = await auth();
-  const grantedPolicies = session?.grantedPolicies;
+  const grantedPolicies = (await getGrantedPoliciesApi()) as Record<
+    Policy,
+    boolean
+  >;
 
   return (
     <html className="h-full overflow-hidden" lang={lang}>

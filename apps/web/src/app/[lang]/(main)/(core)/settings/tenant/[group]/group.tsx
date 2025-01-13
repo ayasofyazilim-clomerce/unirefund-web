@@ -1,9 +1,9 @@
 "use client";
-import type { UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto as SetCountrySettingsByListDto } from "@ayasofyazilim/saas/AdministrationService";
 import type {
-  UniRefund_SettingService_CountrySettings_CountrySettingDto as CountrySettingDto,
-  UniRefund_SettingService_Items_GroupItemDto as GroupItemDto,
-} from "@ayasofyazilim/saas/SettingService";
+  UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto as SetCountrySettingsByListDto,
+  UniRefund_AdministrationService_CountrySettings_CountrySettingDto as CountrySettingDto,
+  UniRefund_AdministrationService_Items_GroupItemDto as GroupItemDto,
+} from "@ayasofyazilim/saas/AdministrationService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {
   AutoFormSubmit,
@@ -25,7 +25,7 @@ export default function TenantSettingsPage({
   languageData,
 }: {
   list: CountrySettingDto;
-  languageData: AdministrationServiceResource | SettingServiceResource;
+  languageData: AdministrationServiceResource;
 }) {
   const router = useRouter();
   const { group } = useParams<{ group: string }>();

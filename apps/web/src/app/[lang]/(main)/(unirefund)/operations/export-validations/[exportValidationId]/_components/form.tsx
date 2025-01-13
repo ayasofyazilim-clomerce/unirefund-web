@@ -12,6 +12,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import {
   handleDeleteResponse,
   handlePutResponse,
@@ -19,7 +20,6 @@ import {
 import { deleteExportValidationByIdApi } from "src/actions/unirefund/ExportValidationService/delete-actions";
 import { putExportValidationApi } from "src/actions/unirefund/ExportValidationService/put-actions";
 import type { ExportValidationServiceResource } from "src/language-data/unirefund/ExportValidationService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({

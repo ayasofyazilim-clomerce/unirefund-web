@@ -3,8 +3,8 @@ import { type PagedResultDto_AffiliationCodeDto } from "@ayasofyazilim/saas/CRMS
 import type { GetApiIdentityRolesAssignableRolesByCurrentUserResponse } from "@ayasofyazilim/saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./affiliations-table-data";
 
 function AffiliationsTable({

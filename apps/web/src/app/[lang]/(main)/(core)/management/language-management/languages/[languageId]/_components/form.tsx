@@ -12,6 +12,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import { deleteLanguageByIdApi } from "src/actions/core/AdministrationService/delete-actions";
 import { putLanguageApi } from "src/actions/core/AdministrationService/put-actions";
 import {
@@ -19,7 +20,6 @@ import {
   handlePutResponse,
 } from "src/actions/core/api-utils-client";
 import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({

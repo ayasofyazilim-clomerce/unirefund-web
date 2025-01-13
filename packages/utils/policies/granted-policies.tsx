@@ -1,9 +1,9 @@
 "use client";
-
+import React from "react";
 import type { ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
-import policies from "src/utils/page-policy/policies.json";
-import type { Policy } from "src/utils/page-policy/utils";
+import { Policy } from "./types";
+import policies from "./policies.json";
 
 const GrantedPoliciesContext = createContext<{
   grantedPolicies: Record<Policy, boolean>;

@@ -1,9 +1,9 @@
 import { match as matchLocale } from "@formatjs/intl-localematcher";
+import { auth } from "@repo/utils/auth";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import type { NextAuthRequest } from "node_modules/next-auth/lib";
-import { auth } from "auth";
 
 export const i18n = {
   defaultLocale: "en",
@@ -72,8 +72,8 @@ export const middleware = auth((request: NextAuthRequest) => {
 
   function isUserAuthorized(req: NextAuthRequest) {
     return Boolean(
-      req.auth?.access_token &&
-        (req.auth.user?.userName || req.auth.user?.email),
+      req.auth?.user?.access_token &&
+        (req.auth.user.userName || req.auth.user.email),
     );
   }
   function isPathHasLocale(path: string) {

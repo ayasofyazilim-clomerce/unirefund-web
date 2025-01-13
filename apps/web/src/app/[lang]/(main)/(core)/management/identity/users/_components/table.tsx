@@ -7,8 +7,8 @@ import type {
 } from "@ayasofyazilim/saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./users-table-data";
 
 function UsersTable({

@@ -3,8 +3,8 @@
 import type { PagedResultDto_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./refund-points-table-data";
 
 function RefundPointsTable({

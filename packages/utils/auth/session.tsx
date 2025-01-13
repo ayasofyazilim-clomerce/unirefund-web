@@ -1,5 +1,4 @@
 "use client";
-
 import type { Session } from "next-auth";
 import { createContext, useContext, useMemo } from "react";
 

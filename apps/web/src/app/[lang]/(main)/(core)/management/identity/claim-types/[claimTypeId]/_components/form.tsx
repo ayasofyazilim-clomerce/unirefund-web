@@ -9,6 +9,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import {
   handleDeleteResponse,
   handlePutResponse,
@@ -16,7 +17,6 @@ import {
 import { putClaimTypeApi } from "src/actions/core/IdentityService/put-actions";
 import { deleteClaimTypeByIdApi } from "src/actions/core/IdentityService/delete-actions";
 import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({

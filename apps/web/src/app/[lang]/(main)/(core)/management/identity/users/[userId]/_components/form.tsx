@@ -16,6 +16,7 @@ import { CustomMultiSelectWidget } from "@repo/ayasofyazilim-ui/organisms/schema
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import {
   handleDeleteResponse,
   handlePutResponse,
@@ -23,7 +24,6 @@ import {
 import { deleteUserByIdApi } from "src/actions/core/IdentityService/delete-actions";
 import { putUserApi } from "src/actions/core/IdentityService/put-actions";
 import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 type UserFormDto = Volo_Abp_Identity_IdentityUserDto & {

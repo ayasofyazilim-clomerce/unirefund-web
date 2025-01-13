@@ -9,6 +9,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import {
   handleDeleteResponse,
   handlePutResponse,
@@ -16,7 +17,6 @@ import {
 import { deleteEditionByIdApi } from "src/actions/core/SaasService/delete-actions";
 import { putEditionApi } from "src/actions/core/SaasService/put-actions";
 import type { SaasServiceResource } from "src/language-data/core/SaasService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({

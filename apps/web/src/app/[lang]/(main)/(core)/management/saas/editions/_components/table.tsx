@@ -3,8 +3,8 @@
 import type { Volo_Abp_Application_Dtos_PagedResultDto_1 } from "@ayasofyazilim/saas/SaasService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useParams, useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { SaasServiceResource } from "src/language-data/core/SaasService";
-import { useGrantedPolicies } from "src/providers/granted-policies";
 import { tableData } from "./editions-table-data";
 
 function EditionsTable({
