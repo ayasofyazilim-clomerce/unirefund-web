@@ -19,6 +19,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { useParams, useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
+import Link from "next/link";
 import {
   handlePostResponse,
   handlePutResponse,
@@ -26,6 +27,7 @@ import {
 import { postMerchantContractHeadersByMerchantIdApi } from "src/actions/unirefund/ContractService/action";
 import { putMerchantContractHeadersByIdApi } from "src/actions/unirefund/ContractService/put-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
+import { getBaseLink } from "src/utils";
 import {
   MerchantAddressWidget,
   RefundTableWidget,
@@ -238,6 +240,9 @@ function RefundTableHeadersItemField({
         },
       },
     });
+    const [selectedRefundTableHeader, setSelectedRefundTableHeader] = useState(
+      _formData.refundTableHeaderId,
+    );
     return (
       <div
         className="grid w-full grid-cols-2 gap-2 rounded-md p-2"
@@ -286,12 +291,17 @@ function RefundTableHeadersItemField({
           <SheetContent>
             <SchemaForm<ContractHeaderRefundTableHeaderCreateAndUpdateDto>
               formData={_formData}
+              onChange={({ formData }) => {
+                if (!formData) return;
+                setSelectedRefundTableHeader(formData.refundTableHeaderId);
+              }}
               onSubmit={(data) => {
                 props.onChange({ ...data.formData, isDefault: defaultItem });
                 setOpen(false);
               }}
               schema={props.schema}
               uiSchema={uiSchema}
+              useDefaultSubmit={false}
               widgets={{
                 refundTable: RefundTableWidget({
                   loading,
@@ -299,7 +309,20 @@ function RefundTableHeadersItemField({
                   languageData,
                 }),
               }}
-            />
+            >
+              <div className="mt-2 flex w-full justify-end gap-2">
+                <Button asChild variant="outline">
+                  <Link
+                    href={getBaseLink(
+                      `settings/templates/refund-tables/${selectedRefundTableHeader}`,
+                    )}
+                  >
+                    {languageData.Edit}
+                  </Link>
+                </Button>
+                <Button>{languageData.Save}</Button>
+              </div>
+            </SchemaForm>
           </SheetContent>
         </Sheet>
       </div>
