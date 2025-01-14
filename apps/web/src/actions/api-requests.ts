@@ -206,8 +206,8 @@ export async function getApiRequests() {
         await contractsClient.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersById(
           data,
         ),
-      getContractHeaderMissingStepsById: async (id: string) =>
-        await contractsClient.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdGetMissingSteps(
+      getContractHeaderIsValidatable: async (id: string) =>
+        await contractsClient.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdIsValidatable(
           { id },
         ),
       getContractHeaderById: async (id: string) =>
@@ -405,8 +405,8 @@ export async function getApiRequests() {
         await contractsClient.contractsRefundPoint.putApiContractServiceRefundPointsContractsContractHeadersById(
           data,
         ),
-      getContractHeaderMissingStepsById: async (id: string) =>
-        await contractsClient.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersByIdGetMissingSteps(
+      getContractHeaderIsValidatable: async (id: string) =>
+        await contractsClient.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersByIdIsValidatable(
           { id },
         ),
       getContractHeaderById: async (id: string) =>
