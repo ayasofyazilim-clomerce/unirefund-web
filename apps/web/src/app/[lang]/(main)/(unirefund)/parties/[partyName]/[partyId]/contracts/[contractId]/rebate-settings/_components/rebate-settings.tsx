@@ -22,7 +22,10 @@ import {
   $UniRefund_ContractService_Rebates_MinimumNetCommissions_MinimumNetCommissionCreateDto as $MinimumNetCommissionCreateDto,
   $UniRefund_ContractService_Rebates_RebateSettings_RebateSettingCreateDto as $RebateSettingCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {
+  UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto,
+  UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto as AffiliationTypeDetailDto,
+} from "@ayasofyazilim/saas/CRMService";
 import { Combobox } from "@repo/ayasofyazilim-ui/molecules/combobox";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -30,6 +33,7 @@ import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/ty
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
 import { postMerchantContractHeaderRebateSettingByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
 import RebateForm from "src/app/[lang]/(main)/(unirefund)/settings/templates/rebate/rebate-form";
@@ -41,6 +45,7 @@ export function RebateSettings({
   rebateSettings,
   rebateTables,
   subMerchants,
+  individuals,
   contractId,
   lang,
 }: {
@@ -48,6 +53,7 @@ export function RebateSettings({
   rebateSettings: RebateSettingDto | undefined;
   rebateTables: RebateTableHeaderDto[];
   subMerchants: StoreProfileDto[];
+  individuals: AffiliationTypeDetailDto[];
   contractId: string;
   lang: string;
 }) {
@@ -65,6 +71,9 @@ export function RebateSettings({
         items: {
           "ui:field": "CreateRebateTableField",
         },
+      },
+      contactInformationTypeId: {
+        "ui:widget": "Individuals",
       },
       minimumNetCommissions: {
         items: {
@@ -129,6 +138,19 @@ export function RebateSettings({
       }}
       schema={$RebateSettingCreateDto}
       uiSchema={uiSchema}
+      widgets={{
+        Individuals: CustomComboboxWidget<AffiliationTypeDetailDto>({
+          languageData,
+          selectLabel: "name",
+          selectIdentifier: "id",
+          list: individuals,
+          badges: {
+            codeName: {
+              className: "",
+            },
+          },
+        }),
+      }}
     />
   );
 }
