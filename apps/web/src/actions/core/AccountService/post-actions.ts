@@ -3,6 +3,7 @@
 import type {
   PostApiAccountMyProfileChangePasswordData,
   PostApiAccountProfilePictureData,
+  PostApiAccountSendPasswordResetCodeData,
 } from "@ayasofyazilim/saas/AccountService";
 import {
   getAccountServiceClient,
@@ -30,6 +31,19 @@ export async function postProfilePictureApi(
     const client = await getAccountServiceClient();
     const dataResponse =
       await client.account.postApiAccountProfilePicture(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postSendPasswordResetCodeApi(
+  data: PostApiAccountSendPasswordResetCodeData,
+) {
+  try {
+    const client = await getAccountServiceClient();
+    const dataResponse =
+      await client.account.postApiAccountSendPasswordResetCode(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
