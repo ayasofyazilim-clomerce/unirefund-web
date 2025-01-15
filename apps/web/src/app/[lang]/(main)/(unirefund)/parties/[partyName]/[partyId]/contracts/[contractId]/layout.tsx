@@ -121,25 +121,3 @@ export default async function Layout({
     </>
   );
 }
-
-// function BadgeWithTooltip({
-//   label,
-//   languageData,
-// }: {
-//   label: string;
-//   languageData: ContractServiceResource;
-// }) {
-//   return (
-//     <Tooltip>
-//       <TooltipTrigger asChild>
-//         <div className="flex items-center gap-2">
-//           <Circle className="text-destructive w-3" />
-//           <span>{label}</span>
-//         </div>
-//       </TooltipTrigger>
-//       <TooltipContent>
-//         {languageData["Contracts.MissingSteps.Missing"]}
-//       </TooltipContent>
-//     </Tooltip>
-//   );
-// }

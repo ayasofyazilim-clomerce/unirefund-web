@@ -38,7 +38,7 @@ function TagStatuses({
   languageData: TagServiceResource;
 }) {
   const exportValidation = tagDetail.exportValidation;
-  const billing = tagDetail.billing;
+  // const billing = tagDetail.billing;
   const refund = tagDetail.refund;
   const exportValidationList: SummaryListType = {
     title: languageData.ExportValidation,
@@ -58,24 +58,24 @@ function TagStatuses({
       },
     ],
   };
-  const billingList: SummaryListType = {
-    title: languageData.Billing,
-    rows: [
-      {
-        title: languageData.Status,
-        content: billing?.status?.toString() || "",
-        contentClassName: getStatusColor(billing?.status?.toString() || ""),
-      },
-      {
-        title: languageData.Date,
-        content: dateToString(billing?.billingDate || "", "tr"),
-      },
-      {
-        title: languageData.BillingNo,
-        content: billing?.billingNumber || "",
-      },
-    ],
-  };
+  // const billingList: SummaryListType = {
+  //   title: languageData.Billing,
+  //   rows: [
+  //     {
+  //       title: languageData.Status,
+  //       content: billing?.status?.toString() || "",
+  //       contentClassName: getStatusColor(billing?.status?.toString() || ""),
+  //     },
+  //     {
+  //       title: languageData.Date,
+  //       content: dateToString(billing?.billingDate || "", "tr"),
+  //     },
+  //     {
+  //       title: languageData.BillingNo,
+  //       content: billing?.billingNumber || "",
+  //     },
+  //   ],
+  // };
   const refundList: SummaryListType = {
     title: languageData.Refund,
     rows: [
@@ -103,7 +103,7 @@ function TagStatuses({
       <CardHeader className="py-4">
         <div className="flex flex-row gap-4">
           <SummaryList summaryList={exportValidationList} />
-          <SummaryList summaryList={billingList} />
+          {/* <SummaryList summaryList={billingList} /> */}
           <SummaryList summaryList={refundList} />
         </div>
       </CardHeader>

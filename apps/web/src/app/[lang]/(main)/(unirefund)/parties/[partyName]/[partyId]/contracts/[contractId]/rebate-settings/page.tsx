@@ -2,7 +2,10 @@ import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getSubMerchantsByMerchantIdApi } from "src/actions/unirefund/CrmService/actions";
+import {
+  getIndividualsByIdApi,
+  getSubMerchantsByMerchantIdApi,
+} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
@@ -50,9 +53,22 @@ export default async function Page({
     );
   }
 
+  const individualsResponse = await getIndividualsByIdApi("merchants", {
+    id: partyId,
+  });
+  if (isErrorOnRequest(individualsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={individualsResponse.message}
+      />
+    );
+  }
+
   return (
     <RebateSettings
       contractId={contractId}
+      individuals={individualsResponse.data.items || []}
       lang={lang}
       languageData={languageData}
       rebateSettings={
