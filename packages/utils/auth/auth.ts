@@ -33,7 +33,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if ("error" in signInResponse) {
           }
           if (signInResponse?.access_token && signInResponse.refresh_token) {
-            console.log("exin", signInResponse.expires_in);
             const userData = await getUserData(
               signInResponse.access_token,
               signInResponse.refresh_token,
@@ -65,7 +64,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token?.user) {
         const user = token?.user as AdapterUser & MyUser;
         if (user.expiration_date < Date.now()) {
-          console.log("token expired");
           const { access_token, refresh_token, expires_in } =
             await fetchNewAccessTokenByRefreshToken(user.refresh_token || "");
 
@@ -74,7 +72,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             user.refresh_token = refresh_token;
             user.expiration_date = expires_in * 1000 + Date.now();
           }
-          console.log("refreshed");
         }
         session.user = user;
       }

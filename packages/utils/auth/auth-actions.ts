@@ -130,20 +130,21 @@ export async function getUserData(
   if (userProfileResponse.type !== "success") {
     return Promise.reject("new Error(userProfileResponse.message)");
   }
-  // const tenantDataResponse = await getTenantData(accessToken);
-  // if (tenantDataResponse.type !== "success") {
-  //   return Promise.reject("new Error(userProfileResponse.message)");
-  // }
-
+  let tenantData = { tenantId: "", tenantName: "" };
+  if (process.env.FETCH_TENANT) {
+    const tenantDataResponse = await getTenantData(accessToken);
+    if (tenantDataResponse.type === "success") {
+      tenantData = tenantDataResponse.data;
+    }
+  }
   return {
     userName: userProfileResponse.data.userName || "",
     email: userProfileResponse.data.email || "",
     name: userProfileResponse.data.name || "",
     surname: userProfileResponse.data.surname || "",
-    tenantId: "", //tenantDataResponse.data.tenantId || "",
-    tenantName: "", //tenantDataResponse.data.tenantName || "",
     access_token: accessToken,
     refresh_token: refresh_token,
     expiration_date: expiration_date,
+    ...tenantData,
   };
 }

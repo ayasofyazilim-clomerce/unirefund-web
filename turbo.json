@@ -9,6 +9,7 @@
     "CLIENT_SECRET",
     "OPENID_URL",
     "TOKEN_URL",
+    "FETCH_TENANT",
 
     "APP_NAME",
     "APPLICATION_NAME",
