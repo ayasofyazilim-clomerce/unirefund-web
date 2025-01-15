@@ -8,7 +8,7 @@ import type {
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto } from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import { ActionButton, ActionList } from "@repo/ui/action-button";
-import { CheckCircle, ListTodo, Trash } from "lucide-react";
+import { CheckCircle, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
@@ -16,7 +16,6 @@ import { handleDeleteResponse } from "src/actions/core/api-utils-client";
 import { deleteMerchantContractHeaderByIdApi } from "src/actions/unirefund/ContractService/delete-actions";
 import { postMerchantContractHeaderValidateByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { getMerchantContractHeaderIsValidatableByIdApi } from "src/actions/unirefund/ContractService/action";
 import MerchantContractHeaderForm from "../../../../_components/contract-header-form/merchant";
 
 export function ContractHeader({
@@ -106,7 +105,7 @@ function ContractActions({
         }}
         text={languageData["Contracts.Actions.Validate"]}
       />
-
+      {/* 
       <ActionButton
         icon={ListTodo}
         loading={loading}
@@ -128,7 +127,7 @@ function ContractActions({
             });
         }}
         text={languageData["Contracts.Actions.IsValidatable"]}
-      />
+      /> */}
       <ConfirmDialog
         confirmProps={{
           variant: "destructive",
