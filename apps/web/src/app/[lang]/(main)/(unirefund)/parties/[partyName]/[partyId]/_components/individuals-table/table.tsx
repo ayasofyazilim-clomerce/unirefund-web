@@ -98,6 +98,7 @@ function Individual({
     affiliationsSchema,
     handleSubmit,
     fieldConfig,
+    router,
   );
 
   return (
