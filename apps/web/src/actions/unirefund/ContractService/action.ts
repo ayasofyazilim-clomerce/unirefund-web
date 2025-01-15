@@ -34,11 +34,15 @@ export async function getMerchantContractHeadersByMerchantIdApi(
     return structuredError(error);
   }
 }
-export async function getMerchantContractHeaderMissingStepsByIdApi(id: string) {
+export async function getMerchantContractHeaderIsValidatableByIdApi(
+  id: string,
+) {
   try {
-    const requests = await getApiRequests();
+    const client = await getContractServiceClient();
     const response =
-      await requests.merchants.getContractHeaderMissingStepsById(id);
+      await client.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdIsValidatable(
+        { id },
+      );
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -256,11 +260,15 @@ export async function getRefundPointContractHeadersByRefundPointIdApi(
     return structuredError(error);
   }
 }
-export async function getRefundPointContractHeaderMissingStepsById(id: string) {
+export async function getRefundPointContractHeaderIsValidatableByIdApi(
+  id: string,
+) {
   try {
-    const requests = await getApiRequests();
+    const client = await getContractServiceClient();
     return structuredResponse(
-      await requests["refund-points"].getContractHeaderMissingStepsById(id),
+      await client.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersByIdIsValidatable(
+        { id },
+      ),
     );
   } catch (error) {
     return structuredError(error);

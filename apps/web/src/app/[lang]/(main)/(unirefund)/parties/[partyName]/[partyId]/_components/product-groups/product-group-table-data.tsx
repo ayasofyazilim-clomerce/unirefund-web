@@ -46,7 +46,7 @@ function productGroupsTable(
     columnOrder: ["name"],
     columnVisibility: {
       type: "hide",
-      columns: ["id"],
+      columns: ["id", "vatId"],
     },
     tableActions: [
       {

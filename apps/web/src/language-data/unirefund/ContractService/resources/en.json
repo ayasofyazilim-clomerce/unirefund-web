@@ -32,8 +32,8 @@
   "Contracts.Create.Fail": "Contract creation failed.",
   "Contracts.Update.Success": "Contract updated.",
   "Contracts.Update.Fail": "Contract update failed.",
-  "Contracts.MissingSteps.Fail": "Failed to fetch missing steps.",
-  "Contracts.MissingSteps.Missing": "This step is not completed yet.",
+  "Contracts.IsValidatable.Fail": "Failed to fetch validatable.",
+  "Contracts.IsValidatable.Missing": "This step is not completed yet.",
 
   "Contracts.name": "Contract Name",
   "Contracts.validFrom": "Begin Date",
@@ -46,8 +46,8 @@
   "Contracts.Actions.Delete": "Delete",
   "Contracts.Actions.Delete.Title": "Delete contract",
   "Contracts.Actions.Delete.Description": "Are you sure you want to delete this contract?",
-  "Contracts.Actions.CheckMissingSteps": "Check Missing Steps",
-  "Contracts.Actions.CheckMissingSteps.Success": "Congratulations! No missing steps found.",
+  "Contracts.Actions.IsValidatable": "Check Validatable",
+  "Contracts.Actions.IsValidatable.Success": "Congratulations! The contract is validatable.",
 
   "Contracts.Form.webSite": "Web Site",
   "Contracts.Form.status": "Status",
@@ -197,6 +197,7 @@
   "RefundTables.Details.Edit.Description": "Edit selected rule",
   "RefundTables.Details.Delete.Confirm": "Are you sure you want to delete this rule?",
   "RefundTables.Details.Delete.Confirm.Title": "Delete rule",
+  "RefundTables.Form.RefundTableDetails.add": "Add refund table detail",
 
   "RefundTables.Name": "Name",
   "RefundTables.ValidFrom": "Valid from",
