@@ -3,7 +3,13 @@
   "globalDependencies": [".env.local", ".env"],
   "globalEnv": [
     "NODE_ENV",
+
     "BASE_URL",
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "OPENID_URL",
+    "TOKEN_URL",
+
     "APP_NAME",
     "APPLICATION_NAME",
     "AUTH_SECRET",

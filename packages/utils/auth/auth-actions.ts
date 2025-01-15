@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import { structuredError, structuredResponse } from "./../api";
 import { signOut } from "./auth";
 
-const TOKEN_URL = `${process.env.BASE_URL}/connect/token`;
-const OPENID_URL = `${process.env.BASE_URL}/.well-known/openid-configuration`;
+const TOKEN_URL = `${process.env.TOKEN_URL}/connect/token`;
+const OPENID_URL = `${process.env.OPENID_URL}/.well-known/openid-configuration`;
 const HEADERS = {
   "X-Requested-With": "XMLHttpRequest",
   "Content-Type": "application/json",
@@ -46,7 +46,8 @@ export async function fetchToken(credentials: {
   const urlencoded = new URLSearchParams();
   const urlEncodedContent: Record<string, string> = {
     grant_type: "password",
-    client_id: "Angular",
+    client_id: process.env.CLIENT_ID || "",
+    client_secret: process.env.CLIENT_SECRET || "",
     username: credentials.username,
     password: credentials.password,
     scope: scopes,
@@ -60,7 +61,7 @@ export async function fetchToken(credentials: {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       "X-Requested-With": "XMLHttpRequest",
-      __tenant: credentials.tenantId || "",
+      __tenant: credentials.tenantId || "F3B84A96-8A04-87B7-D3C3-3A1675322587",
     },
     body: urlencoded,
   });
@@ -84,6 +85,7 @@ export async function fetchNewAccessTokenByRefreshToken(refreshToken: string) {
     },
     body: urlencoded,
   });
+
   return await response.json();
 }
 async function getUserProfile(accessToken: string) {
@@ -118,25 +120,30 @@ async function getTenantData(accessToken: string) {
   }
 }
 
-export async function getUserData(accessToken: string, refresh_token: string) {
+export async function getUserData(
+  accessToken: string,
+  refresh_token: string,
+  expiration_date: number,
+) {
   "use server";
   const userProfileResponse = await getUserProfile(accessToken);
   if (userProfileResponse.type !== "success") {
     return Promise.reject("new Error(userProfileResponse.message)");
   }
-  const tenantDataResponse = await getTenantData(accessToken);
-  if (tenantDataResponse.type !== "success") {
-    return Promise.reject("new Error(userProfileResponse.message)");
-  }
+  // const tenantDataResponse = await getTenantData(accessToken);
+  // if (tenantDataResponse.type !== "success") {
+  //   return Promise.reject("new Error(userProfileResponse.message)");
+  // }
 
   return {
     userName: userProfileResponse.data.userName || "",
     email: userProfileResponse.data.email || "",
     name: userProfileResponse.data.name || "",
     surname: userProfileResponse.data.surname || "",
-    tenantId: tenantDataResponse.data.tenantId || "",
-    tenantName: tenantDataResponse.data.tenantName || "",
+    tenantId: "", //tenantDataResponse.data.tenantId || "",
+    tenantName: "", //tenantDataResponse.data.tenantName || "",
     access_token: accessToken,
     refresh_token: refresh_token,
+    expiration_date: expiration_date,
   };
 }
