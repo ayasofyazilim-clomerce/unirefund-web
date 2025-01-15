@@ -32,8 +32,8 @@
   "Contracts.Create.Fail": "Sözleşme oluşturulurken bir hata oluştu.",
   "Contracts.Update.Success": "Sözleşme güncellendi.",
   "Contracts.Update.Fail": "Sözleşme güncellenirken bir hata oluştu.",
-  "Contracts.MissingSteps.Fail": "Gerekli adımlar alınırken bir hata oluştu.",
-  "Contracts.MissingSteps.Missing": "Bu adım henüztamamlanmamış.",
+  "Contracts.IsValidatable.Fail": "Gerekli adımlar alınırken bir hata oluştu.",
+  "Contracts.IsValidatable.Missing": "Bu adım henüztamamlanmamış.",
 
   "Contracts.name": "Kontrat Adı",
   "Contracts.validFrom": "Başlangıç Tarihi",
@@ -46,8 +46,8 @@
   "Contracts.Actions.Delete": "Sil",
   "Contracts.Actions.Delete.Title": "Sözleşmeyi sil",
   "Contracts.Actions.Delete.Description": "Bu sözleşmeyi silmek istediğinizden emin misiniz?",
-  "Contracts.Actions.CheckMissingSteps": "Eksik adımları kontrol et",
-  "Contracts.Actions.CheckMissingSteps.Success": "Tebrikler! Sözleşmede eksik adım bulunmadı.",
+  "Contracts.Actions.IsValidatable": "Doğrulanabilirlik kontrolü",
+  "Contracts.Actions.IsValidatable.Success": "Tebrikler! Sözleşme doğrulanabilir.",
 
   "Contracts.Form.webSite": "Web Sitesi",
   "Contracts.Form.status": "Durum",
