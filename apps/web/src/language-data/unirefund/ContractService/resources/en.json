@@ -48,6 +48,9 @@
   "Contracts.Actions.Delete.Description": "Are you sure you want to delete this contract?",
   "Contracts.Actions.IsValidatable": "Check Validatable",
   "Contracts.Actions.IsValidatable.Success": "Congratulations! The contract is validatable.",
+  "Contracts.Actions.MakePassive": "Set as Passive",
+  "Contracts.Actions.MakePassive.Title": "Make contract passive",
+  "Contracts.Actions.MakePassive.Description": "Are you sure you want to make this contract passive?",
 
   "Contracts.Form.webSite": "Web Site",
   "Contracts.Form.status": "Status",

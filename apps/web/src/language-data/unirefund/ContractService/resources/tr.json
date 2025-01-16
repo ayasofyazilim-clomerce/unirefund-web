@@ -48,6 +48,9 @@
   "Contracts.Actions.Delete.Description": "Bu sözleşmeyi silmek istediğinizden emin misiniz?",
   "Contracts.Actions.IsValidatable": "Doğrulanabilirlik kontrolü",
   "Contracts.Actions.IsValidatable.Success": "Tebrikler! Sözleşme doğrulanabilir.",
+  "Contracts.Actions.MakePassive": "Pasif yap",
+  "Contracts.Actions.MakePassive.Title": "Sözleşmeyi pasif yap",
+  "Contracts.Actions.MakePassive.Description": "Bu sözleşmeyi pasif yapmak istediğinizden emin misiniz?",
 
   "Contracts.Form.webSite": "Web Sitesi",
   "Contracts.Form.status": "Durum",
