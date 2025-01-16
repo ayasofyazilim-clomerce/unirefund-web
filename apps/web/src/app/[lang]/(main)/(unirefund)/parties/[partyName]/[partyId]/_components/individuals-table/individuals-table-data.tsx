@@ -29,7 +29,7 @@ type IndividualsTable =
   TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
 
 interface FormData {
-  lockoutEnd?: string;
+  lockoutEnd: string;
 }
 
 function individualsRowActions(
@@ -97,18 +97,19 @@ function individualsRowActions(
       icon: KeyIcon,
       content: (row) => {
         return (
-          <SchemaForm
-            onSubmit={(data) => {
-              const formData = data.formData as FormData;
+          <SchemaForm<FormData>
+            onSubmit={({ formData }) => {
+              if (!formData) return;
               void putUsersByIdLockByLockoutEndApi({
                 id: row.abpUserId || "",
-                lockoutEnd: formData.lockoutEnd || "",
+                lockoutEnd: formData.lockoutEnd,
               }).then((res) => {
                 handlePutResponse(res, router);
               });
             }}
             schema={{
               type: "object",
+              required: ["lockoutEnd"],
               properties: {
                 lockoutEnd: {
                   type: "string",
