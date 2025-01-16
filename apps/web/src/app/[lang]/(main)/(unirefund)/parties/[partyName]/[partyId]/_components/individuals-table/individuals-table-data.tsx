@@ -48,6 +48,7 @@ function individualsRowActions(
       confirmationText: languageData.Save,
       cancelText: languageData.Cancel,
       description: languageData["Merchants.Individual.Create.User.Description"],
+      condition: (row) => row.abpUserId === null,
       icon: User2,
       onConfirm: (row) => {
         void postAbpUserAccountByIndividualIdApi(row.partyId || "").then(
@@ -61,6 +62,7 @@ function individualsRowActions(
       type: "simple",
       cta: languageData["Merchants.Individual.SetPassword"],
       actionLocation: "row",
+      condition: (row) => row.abpUserId !== null,
       icon: Eye,
       onClick: (row) => {
         router.push(`/management/identity/users/${row.abpUserId}/set-password`);
@@ -78,6 +80,7 @@ function individualsRowActions(
           "Merchants.Individual.Send.Password.Code.Reset.Description"
         ],
       icon: Eye,
+      condition: (row) => row.abpUserId !== null,
       onConfirm: (row) => {
         void postSendPasswordResetCodeApi({
           requestBody: {
@@ -95,6 +98,7 @@ function individualsRowActions(
       title: languageData["Merchants.Individual.Lock.User"],
       actionLocation: "row",
       icon: KeyIcon,
+      condition: (row) => row.abpUserId !== null,
       content: (row) => {
         return (
           <SchemaForm<FormData>
@@ -130,6 +134,7 @@ function individualsRowActions(
       cancelText: languageData.Cancel,
       description: languageData["Merchants.Individual.Unlock.User.Description"],
       icon: KeyIcon,
+      condition: (row) => row.abpUserId !== null,
       onConfirm: (row) => {
         void putUsersByIdUnlockApi(row.abpUserId || "").then((res) => {
           handlePostResponse(res, router);
