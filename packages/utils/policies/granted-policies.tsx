@@ -20,7 +20,9 @@ export function GrantedPoliciesProvider({
   children: ReactNode;
   grantedPolicies?: Record<string, boolean> | undefined;
 }) {
-  const key = useMemo(() => new Date().getTime().toString(), [grantedPolicies]);
+  const key = useMemo(() => {
+    return new Date().getTime().toString();
+  }, [grantedPolicies]);
   return (
     <GrantedPoliciesContext.Provider
       key={key}
