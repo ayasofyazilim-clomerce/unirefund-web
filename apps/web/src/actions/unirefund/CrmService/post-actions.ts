@@ -55,3 +55,16 @@ export async function postAffiliationsApi(
     return structuredError(error);
   }
 }
+
+export async function postAbpUserAccountByIndividualIdApi(id: string) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.individual.postApiCrmServiceIndividualsByIdAbpUserAccount(
+        { id },
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}

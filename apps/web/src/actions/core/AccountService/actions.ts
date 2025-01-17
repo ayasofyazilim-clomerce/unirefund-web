@@ -5,7 +5,7 @@ import type {
   GetApiAccountSessionsData,
 } from "@ayasofyazilim/saas/AccountService";
 import { isApiError } from "@repo/utils/api";
-import { signIn } from "@repo/utils/auth";
+import { signIn } from "@repo/utils/auth/next-auth";
 import {
   getAccountServiceClient,
   structuredError,

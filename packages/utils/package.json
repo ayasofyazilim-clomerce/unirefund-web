@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "exports": {
-    "./*": "./*/index.tsx"
+    "./*": "./*/index.tsx",
+    "./auth/next-auth": "./auth/auth.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

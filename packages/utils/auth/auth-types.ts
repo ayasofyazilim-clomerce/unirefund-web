@@ -13,3 +13,5 @@ export interface MyUser {
   access_token: string;
   expiration_date: number;
 }
+
+export type { Session } from "next-auth";

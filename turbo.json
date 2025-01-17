@@ -4,21 +4,18 @@
   "globalEnv": [
     "NODE_ENV",
 
-    "BASE_URL",
-    "CLIENT_ID",
-    "CLIENT_SECRET",
-    "OPENID_URL",
-    "TOKEN_URL",
-    "FETCH_TENANT",
-
-    "APP_NAME",
-    "APPLICATION_NAME",
-    "AUTH_SECRET",
     "HOSTNAME",
     "PORT",
-    "TEST_USERNAME",
-    "TEST_PASSWORD",
-    "TENANT_ID"
+    "BASE_URL",
+    "TOKEN_URL",
+    "NEXT_PUBLIC_PRIMARY_COLOR",
+    "APPLICATION_NAME",
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "AUTH_SECRET",
+    "FETCH_TENANT",
+    "TENANT_ID",
+    "APP_NAME"
   ],
   "tasks": {
     "build": {
