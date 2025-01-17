@@ -8,6 +8,7 @@ import type {
   PutApiIdentityUsersByIdChangePasswordData,
   PutApiIdentityUsersByIdClaimsData,
   PutApiIdentityUsersByIdData,
+  PutApiIdentityUsersByIdLockByLockoutEndData,
   PutApiIdentityUsersByIdTwoFactorByEnabledData,
   PutApiOpeniddictApplicationsByIdData,
   PutApiOpeniddictApplicationsByIdTokenLifetimeData,
@@ -158,6 +159,31 @@ export async function putApplicationsByIdTokenLifetimeApi(
       await client.applications.putApiOpeniddictApplicationsByIdTokenLifetime(
         data,
       );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putUsersByIdLockByLockoutEndApi(
+  data: PutApiIdentityUsersByIdLockByLockoutEndData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.user.putApiIdentityUsersByIdLockByLockoutEnd(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putUsersByIdUnlockApi(id: string) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse = await client.user.putApiIdentityUsersByIdUnlock({
+      id,
+    });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
