@@ -12,7 +12,7 @@ import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
 import { ExportValidationServiceClient } from "@ayasofyazilim/saas/ExportValidationService";
 import { FinanceServiceClient } from "@ayasofyazilim/saas/FinanceService";
 import { RefundServiceClient } from "@ayasofyazilim/saas/RefundService";
-import type { Session } from "next-auth";
+import type { Session } from "@repo/utils/auth";
 import { auth } from "@repo/utils/auth/next-auth";
 import { isApiError } from "./app/api/util";
 
