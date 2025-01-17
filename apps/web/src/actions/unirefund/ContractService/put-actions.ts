@@ -6,7 +6,11 @@ import type {
   PutApiContractServiceRefundTablesRefundFeeHeadersByIdData,
   PutApiContractServiceRefundTablesRefundTableHeadersByIdData,
 } from "@ayasofyazilim/saas/ContractService";
-import { structuredError, structuredResponse } from "src/lib";
+import {
+  getContractServiceClient,
+  structuredError,
+  structuredResponse,
+} from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function putRebateTableHeadersApi(
@@ -64,6 +68,36 @@ export async function putRefundPointContractHeadersById(
     return structuredResponse(
       await requests["refund-points"].putContractHeadersById(data),
     );
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putMerchantsContractHeadersByIdMakePassiveApi(
+  id: string,
+) {
+  try {
+    const client = await getContractServiceClient();
+    const response =
+      await client.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersByIdMakePassive(
+        { id },
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putRefundPointContractHeadersByIdMakePassiveApis(
+  id: string,
+) {
+  try {
+    const client = await getContractServiceClient();
+    const response =
+      await client.contractsRefundPoint.putApiContractServiceRefundPointsContractsContractHeadersByIdMakePassive(
+        { id },
+      );
+    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
