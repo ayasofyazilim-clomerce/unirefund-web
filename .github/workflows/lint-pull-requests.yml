@@ -1,4 +1,4 @@
-name: Lint
+name: Lint PR
 run-name: Linting the Pull request 🚀
 on:
   pull_request_target:
@@ -38,18 +38,8 @@ jobs:
         run: |
           npm install -g pnpm
           pnpm install
-      - name: format
-        run: |
-          cd apps/web
-          pnpm format
-      - name: lint
-        run: |
-          cd apps/web 
-          pnpm lint:fix
-      - name: Check types
-        run: |
-          cd apps/web
-          pnpm type-check
+      - name: precommit
+        run: pnpm precommit
       - name: commit
         uses: EndBug/add-and-commit@v9
         with:
