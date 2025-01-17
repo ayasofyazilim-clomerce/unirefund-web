@@ -57,7 +57,7 @@ export default async function Layout({ children, params }: LayoutProps) {
         navbarItems={navbarFromDB}
         prefix=""
         profileMenu={profileMenuProps}
-        tenantData={session}
+        tenantData={session?.user}
       />
       <div className="flex h-full flex-col overflow-hidden px-4">
         {children}
