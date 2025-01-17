@@ -18,7 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       credentials: {
         username: {},
         password: {},
-        tenant: {},
+        tenantId: {},
       },
       authorize: async (credentials) => {
         function authorizeError(message: string) {
@@ -28,20 +28,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const signInResponse = await fetchToken({
             username: credentials?.username as string,
             password: credentials.password as string,
-            tenantId: credentials.tenant as string,
+            tenantId: credentials.tenantId as string,
           });
-          if ("error" in signInResponse) {
+          if (signInResponse.error_description) {
+            return authorizeError(signInResponse.error_description);
           }
+          const { access_token, refresh_token, expires_in } = signInResponse;
+          const expiration_date = expires_in * 1000 + Date.now();
 
-          if (signInResponse?.access_token && signInResponse.refresh_token) {
-            const userData = await getUserData(
-              signInResponse.access_token,
-              signInResponse.refresh_token,
-            );
-            return userData;
-          }
-          return authorizeError("Unknown Error: No token provided");
+          const user_data = await getUserData(
+            access_token,
+            refresh_token,
+            expiration_date,
+          );
+          return user_data;
         } catch (error) {
+          console.log(error);
           return null;
         }
       },
@@ -63,22 +65,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (token?.user) {
         const user = token?.user as AdapterUser & MyUser;
+        if (user.expiration_date < Date.now()) {
+          const { access_token, refresh_token, expires_in } =
+            await fetchNewAccessTokenByRefreshToken(user.refresh_token || "");
 
+          if (access_token && refresh_token) {
+            user.access_token = access_token;
+            user.refresh_token = refresh_token;
+            user.expiration_date = expires_in * 1000 + Date.now();
+          }
+        }
         session.user = user;
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
-        if ((token?.exp || 0) * 1000 < Date.now()) {
-          const { access_token, refresh_token } =
-            await fetchNewAccessTokenByRefreshToken(user.refresh_token || "");
-
-          if (access_token && refresh_token) {
-            user.access_token = access_token;
-            user.refresh_token = refresh_token;
-          }
-        }
         token.user = user;
       }
 

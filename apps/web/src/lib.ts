@@ -13,7 +13,7 @@ import { ExportValidationServiceClient } from "@ayasofyazilim/saas/ExportValidat
 import { FinanceServiceClient } from "@ayasofyazilim/saas/FinanceService";
 import { RefundServiceClient } from "@ayasofyazilim/saas/RefundService";
 import type { Session } from "next-auth";
-import { auth } from "@repo/utils/auth";
+import { auth } from "@repo/utils/auth/next-auth";
 import { isApiError } from "./app/api/util";
 
 const HEADERS = {

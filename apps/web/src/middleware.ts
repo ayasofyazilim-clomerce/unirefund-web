@@ -1,5 +1,5 @@
 import { match as matchLocale } from "@formatjs/intl-localematcher";
-import { auth } from "@repo/utils/auth";
+import { auth } from "@repo/utils/auth/next-auth";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";

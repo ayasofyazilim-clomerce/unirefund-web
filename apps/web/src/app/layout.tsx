@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getGrantedPoliciesApi } from "src/actions/core/AccountService/actions";
 import Providers from "src/providers/providers";
 import "./globals.css";
-import { auth } from "@repo/utils/auth";
+import { auth } from "@repo/utils/auth/next-auth";
 import type { Policy } from "@repo/utils/policies";
 
 interface RootLayoutProps {
