@@ -21,7 +21,7 @@ import {
   handlePostResponse,
   handlePutResponse,
 } from "src/actions/core/api-utils-client";
-import { deleteAffiliationCodeApi } from "src/actions/unirefund/CrmService/detele-actions";
+import { deleteAffiliationCodeApi } from "src/actions/unirefund/CrmService/delete-actions";
 import { postAffiliationsApi } from "src/actions/unirefund/CrmService/post-actions";
 import { putAffiliationsApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
