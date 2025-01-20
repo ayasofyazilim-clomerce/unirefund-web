@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import Providers from "src/providers/providers";
 import "./globals.css";
+import { Suspense } from "react";
 
 interface RootLayoutProps {
   params: { lang: string };
@@ -28,9 +29,11 @@ export default async function RootLayout({
   return (
     <html className="h-full overflow-hidden" lang={lang}>
       <body className={GeistSans.className} data-app-name={appName}>
-        <Providers lang={lang} session={session}>
-          {children}
-        </Providers>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Providers lang={lang} session={session}>
+            {children}
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );
