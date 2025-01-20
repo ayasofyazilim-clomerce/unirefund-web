@@ -18,7 +18,6 @@ jobs:
     if: github.event.pull_request.draft == false
     permissions:
       pull-requests: write
-      contents: write
     steps:
       - run: echo "🎉 The job is linting the project"
       - uses: actions/checkout@v4
