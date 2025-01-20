@@ -1,4 +1,4 @@
-name: Lint PR
+name: Lint
 run-name: Linting the Pull request 🚀
 on:
   pull_request_target:
@@ -10,7 +10,7 @@ on:
       - ready_for_review
 permissions:
   pull-requests: write
-
+  contents: write
 jobs:
   lint_project:
     timeout-minutes: 60
@@ -50,6 +50,7 @@ jobs:
         run: |
           cd apps/web
           pnpm type-check
+          git diff --name-only
       - name: commit
         uses: EndBug/add-and-commit@v9
         with:
