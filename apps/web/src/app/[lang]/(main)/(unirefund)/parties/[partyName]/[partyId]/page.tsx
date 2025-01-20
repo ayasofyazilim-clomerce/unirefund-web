@@ -16,15 +16,17 @@ import {
   getAffiliationCodeApi,
   getIndividualsByIdApi,
   getMerchantsApi,
+  getMerchantsByIdProductGroupApi,
   getTaxOfficesApi,
 } from "src/actions/unirefund/CrmService/actions";
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
-import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./_components/address/form";
 import Email from "./_components/email/form";
@@ -59,23 +61,13 @@ async function getPartyDetail(
     const response = await getTableDataDetail("merchants", partyId);
     if (response.type === "success") {
       const data = response.data as GetApiCrmServiceMerchantsByIdDetailResponse;
-      const productGroupResponse = await getProductGroupsApi({
-        maxResultCount: 1000,
-      });
-      const productGroupList =
-        (productGroupResponse.type === "success" &&
-          productGroupResponse.data.items) ||
-        [];
       return {
         detail: data.merchant,
-        productGroups: data.productGroups,
-        productGroupList,
         message: response.message,
       };
     }
     return {
       detail: null,
-      productGroups: null,
       message: response.message,
     };
   }
@@ -84,13 +76,11 @@ async function getPartyDetail(
     const data = response.data as GetPartiesDetailResult;
     return {
       detail: data,
-      productGroups: [],
       message: response.message,
     };
   }
   return {
     detail: null,
-    productGroups: null,
     message: response.message,
   };
 }
@@ -124,7 +114,6 @@ export default async function Page({
   }
 
   const partyDetailData = partyDetailResponse.detail;
-  const productGroups = partyDetailResponse.productGroups || [];
 
   const organizationData =
     partyDetailData.entityInformations?.[0]?.organizations?.[0];
@@ -216,6 +205,28 @@ export default async function Page({
         ) || []
       : [];
 
+  const merchantProductGroupsResponse =
+    await getMerchantsByIdProductGroupApi(partyId);
+  if (isErrorOnRequest(merchantProductGroupsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={merchantProductGroupsResponse.message}
+      />
+    );
+  }
+  const productGroupsResponse = await getProductGroupsApi({
+    maxResultCount: 1000,
+  });
+  if (isErrorOnRequest(productGroupsResponse, lang, false)) {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={productGroupsResponse.message}
+      />
+    );
+  }
+
   return (
     <>
       <div className="h-full overflow-hidden">
@@ -223,9 +234,8 @@ export default async function Page({
           {partyName === "merchants" && (
             <ProductGroups
               languageData={languageData}
-              merchantId={partyId}
-              productGroupList={partyDetailResponse.productGroupList || []}
-              productGroups={productGroups}
+              merchantProductGroupsList={merchantProductGroupsResponse.data}
+              productGroupsList={productGroupsResponse.data.items || []}
             />
           )}
           {partyName === "merchants" &&
