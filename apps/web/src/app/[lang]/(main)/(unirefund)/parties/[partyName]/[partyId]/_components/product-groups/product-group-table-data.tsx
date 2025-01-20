@@ -18,7 +18,7 @@ import {
   handleDeleteResponse,
   handlePostResponse,
 } from "src/actions/core/api-utils-client";
-import { deleteMerchantsByIdProductGroupsApi } from "src/actions/unirefund/CrmService/detele-actions";
+import { deleteMerchantsByIdProductGroupsApi } from "src/actions/unirefund/CrmService/delete-actions";
 import {
   postMerchantsByIdProductGroupByProductGroupIdDefaultApi,
   postMerchantsByIdProductGroupsApi,
