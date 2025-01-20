@@ -175,3 +175,16 @@ export async function getAffiliationCodeApi(
     return structuredError(error);
   }
 }
+
+export async function getMerchantsByIdProductGroupApi(id: string) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdProductGroup({
+        id,
+      });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}

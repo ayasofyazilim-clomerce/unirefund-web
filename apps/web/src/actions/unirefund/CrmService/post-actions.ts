@@ -4,6 +4,8 @@ import type {
   PostApiCrmServiceAffiliationCodesData,
   PostApiCrmServiceMerchantsBulkProductGroupMerchantsData,
   PostApiCrmServiceMerchantsByIdAffiliationsData,
+  PostApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefaultData,
+  PostApiCrmServiceMerchantsByIdProductGroupsData,
 } from "@ayasofyazilim/saas/CRMService";
 import {
   getCRMServiceClient,
@@ -62,6 +64,36 @@ export async function postAbpUserAccountByIndividualIdApi(id: string) {
     const response =
       await crmClient.individual.postApiCrmServiceIndividualsByIdAbpUserAccount(
         { id },
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postMerchantsByIdProductGroupsApi(
+  data: PostApiCrmServiceMerchantsByIdProductGroupsData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.postApiCrmServiceMerchantsByIdProductGroups(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postMerchantsByIdProductGroupByProductGroupIdDefaultApi(
+  data: PostApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefaultData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.postApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefault(
+        data,
       );
     return structuredResponse(response);
   } catch (error) {
