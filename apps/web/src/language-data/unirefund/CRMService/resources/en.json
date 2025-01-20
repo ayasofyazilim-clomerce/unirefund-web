@@ -38,6 +38,8 @@
   "Merchant.ProductGroup.Add": "Add Product Group",
   "Merchant.ProductGroup.Add.Description": "You can add a new product group to the merchant from here.",
   "Form.Merchant.productGroup.productGroupId": "Product Group",
+  "Form.Merchant.productGroup.productGroupName": "Product Group Name",
+  "Form.Merchant.productGroup.isActive": "Active",
   "Form.Merchant.productGroup.isDefault": "Default",
 
   "RefundPoints": "Refund Points",

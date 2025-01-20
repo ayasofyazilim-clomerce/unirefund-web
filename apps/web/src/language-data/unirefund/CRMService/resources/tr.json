@@ -38,6 +38,8 @@
   "Merchant.ProductGroup.Add": "Ürün Grubu Ekle",
   "Merchant.ProductGroup.Add.Description": "Buradan Mağaza'ya yeni bir ürün grubu ekleyebilirsiniz.",
   "Form.Merchant.productGroup.productGroupId": "Ürün Grubu",
+  "Form.Merchant.productGroup.productGroupName": "Ürün Grubu Adı",
+  "Form.Merchant.productGroup.isActive": "aktif",
   "Form.Merchant.productGroup.isDefault": "Varsayılan",
 
   "RefundPoints": "İade Noktaları",

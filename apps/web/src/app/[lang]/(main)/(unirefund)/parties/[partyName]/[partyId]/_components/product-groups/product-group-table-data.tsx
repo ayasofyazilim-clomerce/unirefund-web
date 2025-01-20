@@ -34,8 +34,11 @@ export function productGroupsColumns(
 ) {
   return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>(
     {
-      languageData,
       rows: $UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto.properties,
+      languageData: {
+        languageData,
+        constantKey: "Form.Merchant.productGroup",
+      },
       config: {
         locale,
       },
