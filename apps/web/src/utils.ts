@@ -14,7 +14,7 @@ export type ResourceResult = Record<
 >;
 
 export async function getLocalizationResources(
-  languageCode: string,
+  languageCode = "en",
 ): Promise<ResourceResult> {
   try {
     const response = await fetch(
