@@ -1,12 +1,19 @@
 "use client";
 
-import { PageHeader } from "@repo/ayasofyazilim-ui/molecules/page-header";
 import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "../../providers/theme";
 import Navbar from "./components/navbar";
+
+const PageHeader = dynamic(
+  () => import("../../../../ayasofyazilim-ui/src/molecules/page-header"),
+  {
+    ssr: false,
+  },
+);
 
 function findActiveNavbarItem(
   navbarItems: NavbarItemsFromDB[],
