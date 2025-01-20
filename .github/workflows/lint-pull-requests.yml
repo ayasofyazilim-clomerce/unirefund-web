@@ -10,7 +10,6 @@ on:
       - ready_for_review
 permissions:
   pull-requests: write
-  contents: write
 jobs:
   lint_project:
     timeout-minutes: 60
