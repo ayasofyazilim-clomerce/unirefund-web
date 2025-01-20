@@ -7,11 +7,21 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "../../providers/theme";
 import Navbar from "./components/navbar";
+import { Skeleton } from "@repo/ayasofyazilim-ui/atoms/skeleton";
 
 const PageHeader = dynamic(
   () => import("../../../../ayasofyazilim-ui/src/molecules/page-header"),
   {
     ssr: false,
+    loading: () => (
+      <div className="mb-4 flex items-center gap-4 px-2">
+        <Skeleton className="h-12 w-12 " />
+        <div>
+          <Skeleton className="h-6 w-80 " />
+          <Skeleton className="w-120 mt-1  h-6" />
+        </div>
+      </div>
+    ),
   },
 );
 
