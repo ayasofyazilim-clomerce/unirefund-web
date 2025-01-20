@@ -49,8 +49,8 @@ jobs:
       - name: Check types
         run: |
           cd apps/web
-          pnpm type-check
-          git diff --name-only  
+          pnpm type-check 
+          git diff --name-only 
       - name: commit
         uses: EndBug/add-and-commit@v9
         with:
