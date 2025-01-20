@@ -41,6 +41,12 @@
   "Form.Merchant.productGroup.productGroupName": "Product Group Name",
   "Form.Merchant.productGroup.isActive": "Active",
   "Form.Merchant.productGroup.isDefault": "Default",
+  "Form.Merchant.Affiliation.email": "Email",
+  "Form.Merchant.Affiliation.affiliationCodeId": "Affiliation Code",
+  "Form.Merchant.Affiliation.name": "Name",
+  "Form.Merchant.Affiliation.codeName": "Code Name",
+  "Form.Merchant.Affiliation.telephone": "Telephone",
+  "Form.Merchant.Affiliation.entityInformationTypeCode": "Entity Information Type Code",
 
   "RefundPoints": "Refund Points",
   "RefundPoints.Description": "You can view refund points from here.",
