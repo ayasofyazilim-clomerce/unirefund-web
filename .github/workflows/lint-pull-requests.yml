@@ -38,11 +38,18 @@ jobs:
         run: |
           npm install -g pnpm
           pnpm install
-      - name: Lint
+      - name: format
         run: |
           cd apps/web
           pnpm format
-          pnpm precommit
+      - name: lint
+        run: |
+          cd apps/web 
+          pnpm lint:fix
+      - name: Check types
+        run: |
+          cd apps/web
+          pnpm type-check
       - name: commit
         uses: EndBug/add-and-commit@v9
         with:
