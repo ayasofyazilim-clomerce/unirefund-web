@@ -50,8 +50,7 @@ export default function Form({
                 setLoading(true);
                 void deleteScopeByIdApi(response.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../scopes`);
+                    handleDeleteResponse(res, router, "../scopes");
                   })
                   .finally(() => {
                     setLoading(false);

@@ -38,8 +38,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            if (res.type === "success") router.push(`../editions`);
+            handlePostResponse(res, router, "../editions");
           })
           .finally(() => {
             setLoading(false);

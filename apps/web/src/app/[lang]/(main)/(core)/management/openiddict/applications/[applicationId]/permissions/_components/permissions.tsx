@@ -18,28 +18,19 @@ import { putPermissionsApi } from "src/actions/core/AdministrationService/put-ac
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
 
-export default function UserPermissions({
+export default function ApplicationPermissions({
   languageData,
-  userPermissionsData,
+  applicationPermissionsData,
 }: {
   languageData: IdentityServiceResource;
-  userPermissionsData: Volo_Abp_PermissionManagement_GetPermissionListResultDto;
+  applicationPermissionsData: Volo_Abp_PermissionManagement_GetPermissionListResultDto;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [permissionsData, setPermissionsData] = useState<PermissionGroup[]>(
-    userPermissionsData.groups || [],
+    applicationPermissionsData.groups || [],
   );
   const [updatedPermissionsData] = useState<UpdatePermissionDto[]>([]);
-
-  const isRoleManaged = useCallback(
-    (permission: Volo_Abp_PermissionManagement_PermissionGrantInfoDto) => {
-      return permission.grantedProviders?.some(
-        (provider) => provider.providerName === "R",
-      );
-    },
-    [],
-  );
 
   const permissionChange = (permissionName: string, isGranted: boolean) => {
     const existingIndex = updatedPermissionsData.findIndex(
@@ -108,10 +99,7 @@ export default function UserPermissions({
         if (group.name !== groupName) return group;
 
         const updatedPermissionsList = group.permissions?.map((permission) => {
-          if (
-            permission.name === permissionName &&
-            !isRoleManaged(permission)
-          ) {
+          if (permission.name === permissionName) {
             const newGrant = !permission.isGranted;
             permissionChange(permissionName, newGrant);
 
@@ -134,7 +122,7 @@ export default function UserPermissions({
 
       setPermissionsData(updatedPermissions);
     },
-    [permissionsData, isRoleManaged],
+    [permissionsData],
   );
 
   const toggleGroupPermissions = (groupName: string, isGranted: boolean) => {
@@ -142,11 +130,8 @@ export default function UserPermissions({
       prev.map((group) => {
         if (group.name !== groupName) return group;
         const updatedPermissions = group.permissions?.map((permission) => {
-          if (!isRoleManaged(permission)) {
-            permissionChange(permission.name || "", isGranted);
-            return { ...permission, isGranted };
-          }
-          return permission;
+          permissionChange(permission.name || "", isGranted);
+          return { ...permission, isGranted };
         });
         return { ...group, permissions: updatedPermissions };
       }),
@@ -158,11 +143,8 @@ export default function UserPermissions({
       prev.map((group) => ({
         ...group,
         permissions: group.permissions?.map((permission) => {
-          if (!isRoleManaged(permission)) {
-            permissionChange(permission.name || "", isGranted);
-            return { ...permission, isGranted };
-          }
-          return permission;
+          permissionChange(permission.name || "", isGranted);
+          return { ...permission, isGranted };
         }),
       })),
     );
@@ -172,24 +154,34 @@ export default function UserPermissions({
     (groupName: string, parentName: string | null) => {
       const group = permissionsData.find((g) => g.name === groupName);
       if (!group) return null;
+
       const permissions = group.permissions?.filter(
         (p) => p.parentName === parentName,
       );
+
       return (
         <div className={parentName ? "ml-8" : ""}>
           {permissions?.map((permission) => {
-            const disabled = isRoleManaged(permission);
             return (
               <div className="mb-2 gap-2" key={permission.name}>
                 <Checkbox
                   checked={permission.isGranted || false}
                   className="mr-2"
-                  disabled={disabled}
                   onCheckedChange={() => {
                     togglePermission(groupName, permission.name || "");
                   }}
                 />
                 <span>{permission.displayName}</span>
+                {permission.isGranted
+                  ? permission.grantedProviders?.map((provider) => (
+                      <span
+                        className="ml-2 rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600"
+                        key={`${provider.providerName}-${provider.providerKey}`}
+                      >
+                        {`${provider.providerName}: ${provider.providerKey}`}
+                      </span>
+                    ))
+                  : null}
                 {renderPermissions(groupName, permission.name || null)}
               </div>
             );
@@ -197,7 +189,7 @@ export default function UserPermissions({
         </div>
       );
     },
-    [permissionsData, togglePermission, isRoleManaged],
+    [permissionsData, togglePermission],
   );
 
   return (
@@ -206,9 +198,6 @@ export default function UserPermissions({
         <Checkbox
           checked={permissionsData.every((group) =>
             group.permissions?.every((p) => p.isGranted),
-          )}
-          disabled={permissionsData.every((group) =>
-            group.permissions?.every((p) => isRoleManaged(p)),
           )}
           onCheckedChange={(checked) => {
             toggleAllPermissions(checked === true);
@@ -229,7 +218,6 @@ export default function UserPermissions({
             <div className="flex items-center gap-2">
               <Checkbox
                 checked={group.permissions?.every((p) => p.isGranted)}
-                disabled={group.permissions?.every((p) => isRoleManaged(p))}
                 onCheckedChange={(checked) => {
                   toggleGroupPermissions(group.name || "", checked === true);
                 }}
@@ -247,12 +235,12 @@ export default function UserPermissions({
           onClick={() => {
             setLoading(true);
             void putPermissionsApi({
-              providerKey: userPermissionsData.entityDisplayName || "",
-              providerName: "U",
+              providerKey: applicationPermissionsData.entityDisplayName || "",
+              providerName: "C",
               requestBody: { permissions: updatedPermissionsData },
             })
               .then((res) => {
-                handlePutResponse(res, router, "../users");
+                handlePutResponse(res, router, "../applications");
               })
               .finally(() => {
                 setLoading(false);

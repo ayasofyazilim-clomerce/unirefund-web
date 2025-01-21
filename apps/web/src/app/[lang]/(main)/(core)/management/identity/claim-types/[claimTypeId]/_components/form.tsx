@@ -60,8 +60,7 @@ export default function Form({
                 setLoading(true);
                 void deleteClaimTypeByIdApi(response.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../claim-types`);
+                    handleDeleteResponse(res, router, "../claim-types");
                   })
                   .finally(() => {
                     setLoading(false);
