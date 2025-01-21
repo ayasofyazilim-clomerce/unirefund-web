@@ -152,7 +152,7 @@ export default async function Page({
         <div className="col-span-4 overflow-y-auto">
           <Filter languageData={languageData} />
         </div>
-        <div className="col-span-8 flex flex-col gap-3">
+        <div className="col-span-8 flex flex-col gap-3 overflow-auto">
           <TaxFreeTagsSearchForm languageData={languageData} />
           <TaxFreeTagsTable
             languageData={languageData}
