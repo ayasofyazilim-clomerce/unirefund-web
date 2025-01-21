@@ -41,4 +41,3 @@ jobs:
           title: "ci: lint [auto]"
           assignees: |
             ${{ github.actor }}
-            a0m0rajab

@@ -56,8 +56,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            if (res.type === "success") router.push(`../languages`);
+            handlePostResponse(res, router, "../languages");
           })
           .finally(() => {
             setLoading(false);
