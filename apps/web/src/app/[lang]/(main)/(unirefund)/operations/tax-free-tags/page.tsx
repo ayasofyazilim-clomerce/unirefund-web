@@ -124,7 +124,7 @@ export default async function Page({
   const currencyFormatter = localizeCurrency(lang);
   const summary = tagSummaryResponse.data;
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col overflow-auto">
       <div className="mb-3 grid grid-cols-3 gap-4">
         <TagSummary
           icon={<Tags className="size-4" />}
@@ -148,8 +148,8 @@ export default async function Page({
           )}
         />
       </div>
-      <div className="grid grid-cols-12 gap-4 overflow-hidden">
-        <div className="col-span-4 overflow-y-auto">
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-4">
           <Filter languageData={languageData} />
         </div>
         <div className="col-span-8 flex flex-col gap-3">
