@@ -41,6 +41,12 @@
   "Form.Merchant.productGroup.productGroupName": "Ürün Grubu Adı",
   "Form.Merchant.productGroup.isActive": "aktif",
   "Form.Merchant.productGroup.isDefault": "Varsayılan",
+  "Form.Merchant.Affiliation.email": "E-posta",
+  "Form.Merchant.Affiliation.affiliationCodeId": "Bağlantı Kodu",
+  "Form.Merchant.Affiliation.name": "Ad",
+  "Form.Merchant.Affiliation.codeName": "Kod Adı",
+  "Form.Merchant.Affiliation.telephone": "Telefon",
+  "Form.Merchant.Affiliation.entityInformationTypeCode": "Varlık Bilgi Türü Kodu",
 
   "RefundPoints": "İade Noktaları",
   "RefundPoints.Description": "İade noktalarını buradan görüntüleyebilirsiniz.",
