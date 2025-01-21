@@ -43,6 +43,9 @@ interface FormData {
 function individualsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
+  partyName: Exclude<PartyNameType, "individuals">,
+  partyId: string,
+  affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] =
     [];
@@ -65,6 +68,62 @@ function individualsRowActions(
           },
         );
       },
+    },
+    {
+      type: "custom-dialog",
+      actionLocation: "row",
+      cta: languageData["Affiliations.New"],
+      title: languageData["Affiliations.New"],
+      icon: Plus,
+      content: (row) => (
+        <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
+          className="flex flex-col gap-4"
+          filter={{
+            type: "include",
+            sort: true,
+            keys: ["affiliationCodeId"],
+          }}
+          onSubmit={({ formData }) => {
+            if (!formData) return;
+            void postAffiliationsToPartyApi(partyName, {
+              id: partyId,
+              requestBody: {
+                ...formData,
+                entityInformationTypeCode: "INDIVIDUAL",
+                email: row.email || "",
+              },
+            }).then((res) => {
+              handlePostResponse(res, router);
+            });
+          }}
+          schema={
+            $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
+          }
+          submitText={languageData.Save}
+          uiSchema={createUiSchemaWithResource({
+            schema:
+              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
+            resources: languageData,
+            name: "Form.Merchant.Affiliation",
+            extend: {
+              affiliationCodeId: {
+                "ui:widget": "affilationCode",
+              },
+            },
+          })}
+          widgets={{
+            affilationCode:
+              CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
+                {
+                  languageData,
+                  list: affiliationCodes,
+                  selectIdentifier: "id",
+                  selectLabel: "name",
+                },
+              ),
+          }}
+        />
+      ),
     },
     {
       type: "simple",
@@ -251,6 +310,9 @@ function individualsTable(
                 affiliationCodeId: {
                   "ui:widget": "affilationCode",
                 },
+                email: {
+                  "ui:widget": "email",
+                },
               },
             })}
             widgets={{
@@ -268,7 +330,13 @@ function individualsTable(
         ),
       },
     ],
-    rowActions: individualsRowActions(languageData, router),
+    rowActions: individualsRowActions(
+      languageData,
+      router,
+      partyName,
+      partyId,
+      affiliationCodes,
+    ),
   };
   return table;
 }
