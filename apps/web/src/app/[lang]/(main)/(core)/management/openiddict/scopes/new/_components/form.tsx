@@ -34,8 +34,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res);
-            if (res.type === "success") router.push(`../scopes`);
+            handlePostResponse(res, router, "../scopes");
           })
           .finally(() => {
             setLoading(false);

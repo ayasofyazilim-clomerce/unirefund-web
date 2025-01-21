@@ -2,19 +2,19 @@ name: Publish apps
 run-name: ${{ github.actor }} is publishing projects to dev 🚀
 on:
   workflow_dispatch:
-      inputs:
-        release-type:
-          description: 'Release type (one of): dev, prod'
-          required: true
-          default: 'dev'
-          type: choice
-          options:
-          - dev
-          # - prod
-  workflow_call: 
     inputs:
       release-type:
-        default: 'dev'
+        description: "Release type (one of): dev, prod"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+        # - prod
+  workflow_call:
+    inputs:
+      release-type:
+        default: "dev"
         type: string
 jobs:
   publish_dev:

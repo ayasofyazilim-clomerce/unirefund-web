@@ -109,8 +109,7 @@ export default function Page({
           requestBody: data as Volo_Saas_Host_Dtos_SaasTenantCreateDto,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            if (res.type === "success") router.push(`../tenants`);
+            handlePostResponse(res, router, "../tenants");
           })
           .finally(() => {
             setLoading(false);
