@@ -16,7 +16,6 @@ import MerchantDetails from "./_components/merchant-details";
 import TagActions from "./_components/tag-actions";
 import TagStatuses from "./_components/tag-statuses";
 import TagSummary from "./_components/tag-summary";
-import TagTabs from "./_components/tag-tabs";
 import TravellerDetails from "./_components/traveller-details";
 
 export default async function Page({
@@ -88,11 +87,6 @@ export default async function Page({
         <MerchantDetails languageData={languageData} tagDetail={tagDetail} />
         <TagStatuses languageData={languageData} tagDetail={tagDetail} />
         <TravellerDetails languageData={languageData} tagDetail={tagDetail} />
-        <TagTabs
-          languageData={languageData}
-          productGroups={productGroups}
-          tagDetail={tagDetail}
-        />
       </div>
     </FormReadyComponent>
   );

@@ -50,7 +50,9 @@ function MerchantDetails({
               {languageData.ProductGroups}
             </div>
             <div className=" w-2/3">
-              {tagDetail.merchant?.productGroups?.join(", ")}
+              {tagDetail.merchant?.productGroups
+                ?.map((p) => p.description)
+                .join(", ")}
             </div>
           </div>
         </div>

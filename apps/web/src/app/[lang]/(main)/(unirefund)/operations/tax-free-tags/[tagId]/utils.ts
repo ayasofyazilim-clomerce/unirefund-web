@@ -1,5 +1,3 @@
-"use client";
-
 export function getStatusColor(status: string) {
   switch (status) {
     case "None":
