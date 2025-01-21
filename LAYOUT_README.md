@@ -15,7 +15,7 @@ Bir elemanlı örnek:
 <!-- Sayfada tek bir eleman olacaksa kalan boşluğu doldurması için bu elemana h-full ve overflow-hidden eklemeliyiz. -->
 <div className="h-full overflow-hidden">
   <!-- Herhangi bir eleman -->
-  <div className=""></div>
+  <div></div>
 
   <!-- Kaydırılması gerekebilecek olan eleman -->
   <div className="overflow-auto"></div>
@@ -33,7 +33,7 @@ Birden fazla eleman bulunan örnek:
   <!-- Boşluğu dolduracak olan  eleman -->
   <div className="h-full overflow-hidden">
     <!-- Herhangi bir eleman -->
-    <div className=""></div>
+    <div></div>
 
     <!-- Kaydırılması gerekebilecek olan eleman -->
     <div className="overflow-auto"></div>

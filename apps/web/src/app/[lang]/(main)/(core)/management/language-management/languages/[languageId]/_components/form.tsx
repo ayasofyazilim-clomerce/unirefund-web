@@ -61,8 +61,7 @@ export default function Form({
                 setLoading(true);
                 void deleteLanguageByIdApi(languageDetailsData.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../languages`);
+                    handleDeleteResponse(res, router, "../languages");
                   })
                   .finally(() => {
                     setLoading(false);

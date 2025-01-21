@@ -50,8 +50,7 @@ export default function Form({
                 setLoading(true);
                 void deleteEditionByIdApi(response.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../editions`);
+                    handleDeleteResponse(res, router, "../editions");
                   })
                   .finally(() => {
                     setLoading(false);

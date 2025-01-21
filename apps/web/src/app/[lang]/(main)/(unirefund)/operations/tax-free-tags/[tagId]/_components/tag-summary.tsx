@@ -20,30 +20,34 @@ function TagSummary({
           {languageData.TagSummary}
         </CardTitle>
 
-        <div className="justif y-between flex flex-row gap-5">
-          <div className="mt-2 flex w-1/3 flex-col">
-            <div className="text-sm text-gray-500 ">
+        <div>
+          <div className="mt-2 flex flex-row">
+            <div className="w-1/3 text-sm text-gray-500">
               {languageData.TaxFreeTagID}
             </div>
-            <div className="font-semibold">{tagDetail.tagNumber}</div>
+            <div className="w-2/3 font-semibold">{tagDetail.tagNumber}</div>
           </div>
-          <div className="mt-2 flex w-1/3 flex-col">
-            <div className="text-sm text-gray-500 ">{languageData.Status}</div>
+          <div className="flex flex-row text-gray-500">
+            <div className="w-1/3 text-sm text-gray-500">
+              {languageData.Status}
+            </div>
             <div
-              className={`${getStatusColor(tagDetail.status)} font-semibold`}
+              className={`${getStatusColor(tagDetail.status)} w-2/3 font-semibold`}
             >
               {tagDetail.status}
             </div>
           </div>
-          <div className="mt-2 flex w-1/3 flex-col">
-            <div className="text-sm text-gray-500 ">
+          <div className="flex flex-row text-gray-500">
+            <div className="w-1/3 text-sm text-gray-500">
               {languageData.IssueDate}
             </div>
-            <div className="font-semibold">
-              {dateToString(tagDetail.issueDate || "", "tr")}
-            </div>
-            <div className="font- text-sm text-gray-500">
-              Exp: {dateToString(tagDetail.expireDate || "", "tr")}
+            <div className="w-2/3">
+              <div className="font-semibold">
+                {dateToString(tagDetail.issueDate || "", "tr")}
+              </div>
+              <div className="text-gray-500">
+                Exp: {dateToString(tagDetail.expireDate || "", "tr")}
+              </div>
             </div>
           </div>
         </div>

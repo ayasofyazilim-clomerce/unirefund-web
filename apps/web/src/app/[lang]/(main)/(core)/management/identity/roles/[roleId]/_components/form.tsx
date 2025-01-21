@@ -58,8 +58,7 @@ export default function Form({
                 setLoading(true);
                 void deleteRoleByIdApi(response.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../roles`);
+                    handleDeleteResponse(res, router, "../roles");
                   })
                   .finally(() => {
                     setLoading(false);

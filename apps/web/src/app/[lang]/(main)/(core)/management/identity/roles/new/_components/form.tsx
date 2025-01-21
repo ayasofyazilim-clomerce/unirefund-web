@@ -42,8 +42,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            if (res.type === "success") router.push(`../roles`);
+            handlePostResponse(res, router, "../roles");
           })
           .finally(() => {
             setLoading(false);

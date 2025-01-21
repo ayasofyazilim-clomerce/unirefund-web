@@ -103,8 +103,7 @@ export default function Page({
                 setLoading(true);
                 void deleteTenantByIdApi(tenantDetailsData.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../tenants`);
+                    handleDeleteResponse(res, router, "../tenants");
                   })
                   .finally(() => {
                     setLoading(false);

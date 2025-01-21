@@ -46,8 +46,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            if (res.type === "success") router.push(`../claim-types`);
+            handlePostResponse(res, router, "../claim-types");
           })
           .finally(() => {
             setLoading(false);

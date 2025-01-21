@@ -93,8 +93,7 @@ export default function Form({
                 setLoading(true);
                 void deleteUserByIdApi(userDetailsData.id || "")
                   .then((res) => {
-                    handleDeleteResponse(res);
-                    if (res.type === "success") router.push(`../users`);
+                    handleDeleteResponse(res, router, "../users");
                   })
                   .finally(() => {
                     setLoading(false);
