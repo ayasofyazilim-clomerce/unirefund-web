@@ -12,6 +12,7 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { getBaseLink } from "src/utils";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import { getRefundDetailByIdApi } from "src/actions/unirefund/RefundService/actions";
 import Invoices from "./_components/invoices";
 import TagCardList, { TagCard } from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
@@ -60,6 +61,13 @@ export default async function Page({
       ? tagVatStatementHeadersResponse.data
       : null;
 
+  const tagRefundDetailResponse = tagDetail.refundId
+    ? await getRefundDetailByIdApi(tagDetail.refundId)
+    : null;
+  const tagRefundDetail =
+    tagRefundDetailResponse?.type === "success"
+      ? tagRefundDetailResponse.data
+      : null;
   return (
     <FormReadyComponent
       active={productGroups.length === 0}
@@ -166,6 +174,7 @@ export default async function Page({
         <TagStatusDiagram
           languageData={languageData}
           tagDetail={tagDetail}
+          tagRefundDetail={tagRefundDetail}
           tagVatStatementHeader={tagVatStatementHeader}
         />
       </div>

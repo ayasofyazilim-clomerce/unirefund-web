@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { GetApiFinanceServiceVatStatementHeadersByIdResponse } from "@ayasofyazilim/saas/FinanceService";
 import type { GetApiTagServiceTagByIdDetailResponse } from "@ayasofyazilim/saas/TagService";
 import { ClockIcon, SquareArrowOutUpRight } from "lucide-react";
+import type { UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto } from "@ayasofyazilim/saas/RefundService";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
 import { dateToString } from "../utils";
 import TagActions from "./tag-actions";
@@ -55,10 +56,12 @@ function ValidStatus({
 export default function TagStatusDiagram({
   tagDetail,
   tagVatStatementHeader,
+  tagRefundDetail,
   languageData,
 }: {
   tagDetail: GetApiTagServiceTagByIdDetailResponse;
-  tagVatStatementHeader: null | GetApiFinanceServiceVatStatementHeadersByIdResponse;
+  tagVatStatementHeader: GetApiFinanceServiceVatStatementHeadersByIdResponse | null;
+  tagRefundDetail: UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto | null;
   languageData: TagServiceResource;
 }) {
   return (
@@ -81,13 +84,13 @@ export default function TagStatusDiagram({
       ) : (
         <ValidStatus title="Tag awaits export validation" />
       )}
-      {tagDetail.refund ? (
+      {tagRefundDetail ? (
         <ValidStatus
-          date={dateToString(tagDetail.refund.paidDate, "tr")}
-          link={`/operations/refunds/${tagDetail.refund.id}`}
+          date={dateToString(tagRefundDetail.paidDate, "tr")}
+          link={`/operations/refunds/${tagDetail.refundId}`}
           message={[
-            `Refund Location: ${tagDetail.refund.refundLocation}`,
-            `Refund Method: ${tagDetail.refund.refundMethod}`,
+            `Refund Location: ${tagRefundDetail.refundPoint.name}`,
+            `Refund Method: ${tagRefundDetail.refundType}`,
           ]}
           title="Refund"
         />
@@ -99,8 +102,8 @@ export default function TagStatusDiagram({
           date={dateToString(tagVatStatementHeader.vatStatementDate, "tr")}
           link={`/operations/vat-statements/${tagVatStatementHeader.id}`}
           message={[
-            `Invoice Number: ${tagDetail.refund?.refundLocation}`,
-            `Merchant Name: ${tagDetail.refund?.refundMethod}`,
+            `Invoice Number: ${tagVatStatementHeader.invoiceNumber}`,
+            `Merchant Name: ${tagVatStatementHeader.merchantName}`,
           ]}
           title="Vat Statement"
         />
