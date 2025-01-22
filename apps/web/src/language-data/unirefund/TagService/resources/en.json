@@ -22,13 +22,17 @@
   "Missing.ProductGroups.Title": "Missing Product Groups",
   "Missing.ProductGroups.Message": "There is no product group in the system. Please create one to continue.",
 
-  "SalesAmount": "Sale Amount",
+  "SalesAmount": "Sales Amount",
   "VatAmount": "Vat Amount",
   "GrossRefund": "Gross Refund",
   "RefundFee": "Refund Fee",
   "AgentRefundFee": "Agent Refund Fee",
   "Refund": "Refund",
   "None": "None",
+  "GrossComission": "Gross Comission",
+  "RedefinedGC": "Redefined GC",
+  "NetComission": "Net Commission",
+  "Rebate": "Rebate",
 
   "Date": "Date",
   "Status": "Status",
