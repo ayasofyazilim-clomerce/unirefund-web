@@ -226,7 +226,7 @@ export default function RolePermissions({
               requestBody: { permissions: updatedPermissionsData },
             })
               .then((res) => {
-                handlePutResponse(res, router, "../roles");
+                handlePutResponse(res, router, "..");
               })
               .finally(() => {
                 setLoading(false);
