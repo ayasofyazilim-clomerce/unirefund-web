@@ -51,7 +51,7 @@ export default async function Page({
         languageData={languageData}
       />
       <div className="hidden" id="page-title">
-        {`${languageData.Role} (${applicationDetailsResponse.data.displayName})`}
+        {`${languageData.Application} (${applicationDetailsResponse.data.displayName})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Application.Permissions.Description"]}

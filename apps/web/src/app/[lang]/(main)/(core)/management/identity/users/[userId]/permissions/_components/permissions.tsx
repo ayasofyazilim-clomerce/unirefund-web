@@ -252,7 +252,7 @@ export default function UserPermissions({
               requestBody: { permissions: updatedPermissionsData },
             })
               .then((res) => {
-                handlePutResponse(res, router, "../users");
+                handlePutResponse(res, router, "..");
               })
               .finally(() => {
                 setLoading(false);
