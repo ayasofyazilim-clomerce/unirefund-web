@@ -15,6 +15,7 @@ import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Invoices from "./_components/invoices";
 import TagCardList, { TagCard } from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
+import TotalsEarnings from "./_components/totals-earnings";
 import { dateToString, getStatusColor } from "./utils";
 
 export default async function Page({
@@ -150,6 +151,14 @@ export default async function Page({
           <div className="col-span-full">
             <TagCard icon={<ReceiptText />} title="Invoices">
               <Invoices languageData={languageData} tagDetail={tagDetail} />
+            </TagCard>
+          </div>
+          <div className="col-span-full">
+            <TagCard icon={<ReceiptText />} title="Summary">
+              <TotalsEarnings
+                languageData={languageData}
+                tagDetail={tagDetail}
+              />
             </TagCard>
           </div>
         </div>
