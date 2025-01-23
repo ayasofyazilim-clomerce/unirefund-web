@@ -61,6 +61,20 @@ export async function putMerchantEmailApi(
     throw structuredError(error);
   }
 }
+export async function putMerchantAddressApi(
+  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdAddressesByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function putMerchantTelephoneApi(
   data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 ) {
