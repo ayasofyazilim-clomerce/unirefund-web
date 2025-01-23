@@ -75,6 +75,20 @@ export async function putMerchantAddressApi(
     throw structuredError(error);
   }
 }
+export async function putRefundPointAddressApi(
+  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdAddressesByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function putMerchantTelephoneApi(
   data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 ) {
