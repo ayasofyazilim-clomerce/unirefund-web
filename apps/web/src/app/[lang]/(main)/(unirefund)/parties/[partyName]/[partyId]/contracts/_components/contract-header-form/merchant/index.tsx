@@ -6,7 +6,7 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as ContractHeaderForMerchantCreateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as ContractHeaderRefundTableHeaderCreateAndUpdateDto,
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto as RefundTableHeaderDto,
+  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
 } from "@ayasofyazilim/saas/ContractService";
 import {
   $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto,
@@ -16,10 +16,10 @@ import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto 
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
-import Link from "next/link";
 import {
   handlePostResponse,
   handlePutResponse,
@@ -36,7 +36,7 @@ import {
 type ContractHeaderFormProps = {
   languageData: ContractServiceResource;
   addresses: AddressTypeDto[];
-  refundTableHeaders: RefundTableHeaderDto[];
+  refundTableHeaders: AssignableRefundTableHeaders[];
   loading: boolean;
   setLoading?: Dispatch<SetStateAction<boolean>>;
   fromDate?: Date | undefined;
@@ -206,7 +206,7 @@ function RefundTableHeadersItemField({
   fromDate,
 }: {
   languageData: ContractServiceResource;
-  refundTableHeaders: RefundTableHeaderDto[];
+  refundTableHeaders: AssignableRefundTableHeaders[];
   loading: boolean;
   fromDate?: Date | undefined;
 }) {

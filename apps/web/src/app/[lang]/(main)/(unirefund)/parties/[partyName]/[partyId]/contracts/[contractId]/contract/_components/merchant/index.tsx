@@ -50,18 +50,18 @@ export function ContractHeader({
         formData={{
           ...contractHeaderDetails,
           status: contractHeaderDetails.status || "None",
-          addressCommonDataId: contractHeaderDetails.addressCommonData.id,
-          refundTableHeaders:
-            contractHeaderDetails.contractHeaderRefundTableHeaders.map(
-              (item) => {
+          refundTableHeaders: {
+            ...contractHeaderDetails.refundTableHeaders.map(
+              (refundTableHeader) => {
                 return {
-                  validFrom: item.validFrom,
-                  validTo: item.validTo,
-                  isDefault: item.refundTableHeader.isDefault,
-                  refundTableHeaderId: item.refundTableHeader.id,
+                  ...refundTableHeader,
+                  refundTableHeaderId: refundTableHeader.id,
+                  validTo:
+                    refundTableHeader.validTo || new Date().toISOString(),
                 };
               },
             ),
+          },
         }}
         formType="update"
         fromDate={fromDate}
