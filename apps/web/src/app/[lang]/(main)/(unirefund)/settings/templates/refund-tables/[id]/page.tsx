@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
-import { getRefundTableHeadersById } from "src/actions/unirefund/ContractService/action";
+import { getRefundTableHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import Form from "./form";
-import RefundTableDetailsForm from "./table";
 
 export default async function Page({
   params,
@@ -22,7 +21,7 @@ export default async function Page({
     lang: params.lang,
   });
 
-  const response = await getRefundTableHeadersById({ id: params.id });
+  const response = await getRefundTableHeadersByIdApi({ id: params.id });
   if (response.type !== "success") return notFound();
 
   const { languageData } = await getResourceData(params.lang);
@@ -30,10 +29,6 @@ export default async function Page({
   return (
     <>
       <Form languageData={languageData} response={response.data} />
-      <RefundTableDetailsForm
-        languageData={languageData}
-        response={response.data}
-      />
       <div className="hidden" id="page-title">
         {response.data.name}
       </div>
