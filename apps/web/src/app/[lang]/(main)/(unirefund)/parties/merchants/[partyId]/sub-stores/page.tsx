@@ -6,7 +6,7 @@ export default async function Page({
   params,
 }: {
   params: {
-    merchantId: string;
+    partyId: string;
     lang: string;
   };
 }) {
