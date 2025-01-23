@@ -42,13 +42,12 @@ export default async function Page({
   }
 
   const [phoneResponse] = apiRequests.data;
-  const phoneData = phoneResponse.data;
 
   return (
     <TelephoneForm
       languageData={languageData}
       partyId={partyId}
-      phoneData={phoneData}
+      phoneResponse={phoneResponse.data}
     />
   );
 }
