@@ -15,7 +15,10 @@ export default async function Layout({
   };
 }) {
   const { merchantId, lang } = params;
-  const baseLink = getBaseLink(`parties/merchants/${merchantId}/detail/`, lang);
+  const baseLink = getBaseLink(
+    `parties/merchants/${merchantId}/details/`,
+    lang,
+  );
   const { languageData } = await getResourceData(lang);
   return (
     <TabLayout
@@ -27,6 +30,18 @@ export default async function Layout({
         {
           label: languageData["Parties.Organization"],
           href: `${baseLink}organization`,
+        },
+        {
+          label: languageData.Email,
+          href: `${baseLink}email`,
+        },
+        {
+          label: languageData.Telephone,
+          href: `${baseLink}phone`,
+        },
+        {
+          label: languageData.Address,
+          href: `${baseLink}address`,
         },
       ]}
     >

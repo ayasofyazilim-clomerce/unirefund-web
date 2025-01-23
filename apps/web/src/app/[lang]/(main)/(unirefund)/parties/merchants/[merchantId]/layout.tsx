@@ -23,7 +23,7 @@ export default async function Layout({
       tabList={[
         {
           label: "Details",
-          href: `${baseLink}detail/info`,
+          href: `${baseLink}details/info`,
         },
         {
           label: languageData["Merchants.SubOrganization"],

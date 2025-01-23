@@ -4,7 +4,6 @@ import type { GetApiCrmServiceMerchantsData } from "@ayasofyazilim/saas/CRMServi
 import { getMerchantsApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import MerchantsTable from "./table";
 
@@ -15,6 +14,22 @@ interface SearchParamType {
   skipCount?: number;
   sorting?: string;
   typeCode?: string;
+}
+
+async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
+  try {
+    const apiRequests = await Promise.all([getMerchantsApi(filters)]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
 }
 
 export default async function Page({
@@ -30,21 +45,24 @@ export default async function Page({
     lang,
   });
   const { languageData } = await getResourceData(lang);
-  const merchantResponse = await getMerchantsApi({
+
+  const apiRequests = await getApiRequests({
     typeCodes: searchParams?.typeCode?.split(",") || [],
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
   } as GetApiCrmServiceMerchantsData);
 
-  if (isErrorOnRequest(merchantResponse, lang, false)) {
+  if (apiRequests.type === "error") {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={merchantResponse.message}
+        message={apiRequests.message || "Unknown error occurred"}
       />
     );
   }
+
+  const [merchantResponse] = apiRequests.data;
 
   return (
     <MerchantsTable

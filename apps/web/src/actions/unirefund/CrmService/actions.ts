@@ -6,7 +6,6 @@ import type {
   GetApiCrmServiceMerchantsByIdAffiliationsData,
   GetApiCrmServiceMerchantsByIdSubMerchantsData,
   GetApiCrmServiceMerchantsData,
-  GetApiCrmServiceMerchantsResponse,
   GetApiCrmServiceRefundPointsAccessibleData,
   GetApiCrmServiceRefundPointsData,
   GetApiCrmServiceTaxFreesData,
@@ -18,27 +17,38 @@ import {
   getCRMServiceClient,
   structuredError,
   structuredResponse,
+  structuredSuccessResponse,
 } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function getMerchantsApi(
   data: GetApiCrmServiceMerchantsData = {},
-): Promise<ServerResponse<GetApiCrmServiceMerchantsResponse>> {
+) {
   try {
     const requests = await getApiRequests();
     const response = await requests.merchants.get(data);
-    return structuredResponse(response);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
+  }
+}
+export async function getMerchantEmailByIdApi(id: string) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdEmails({ id });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }
 export async function getMerchantByIdApi(id: string) {
   try {
     const requests = await getApiRequests();
     const response = await requests.merchants.getById(id);
-    return structuredResponse(response);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 export async function getSubMerchantsByMerchantIdApi(
@@ -106,9 +116,9 @@ export async function getTaxOfficesApi(
   try {
     const requests = await getApiRequests();
     const response = await requests["tax-offices"].get(data);
-    return structuredResponse(response);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
