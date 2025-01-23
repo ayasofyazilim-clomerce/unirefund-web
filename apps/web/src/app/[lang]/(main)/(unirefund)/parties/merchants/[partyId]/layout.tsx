@@ -10,13 +10,13 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
   params: {
-    merchantId: string;
+    partyId: string;
     lang: string;
   };
 }) {
-  const { merchantId, lang } = params;
+  const { partyId, lang } = params;
   const { languageData } = await getResourceData(lang);
-  const baseLink = getBaseLink(`parties/merchants/${merchantId}/`, lang);
+  const baseLink = getBaseLink(`parties/merchants/${partyId}/`, lang);
   return (
     <TabLayout
       orientation="vertical"
