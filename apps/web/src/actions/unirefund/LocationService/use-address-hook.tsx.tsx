@@ -70,9 +70,13 @@ export function useAddressHook({
     getAddressList({
       countryId: selectedFields.countryId,
       regionId: selectedFields.regionId,
+      cityId: selectedFields.cityId,
+      districtId: selectedFields.districtId,
       languageData,
       countryList,
       setCityList,
+      setDistrictList,
+      setNeighborhoodList,
       setRegionList,
     });
   }, []);
