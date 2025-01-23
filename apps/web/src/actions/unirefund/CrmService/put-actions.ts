@@ -14,6 +14,7 @@ import {
   getCRMServiceClient,
   structuredError,
   structuredResponse,
+  structuredSuccessResponse,
 } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
@@ -46,7 +47,20 @@ export async function putCrmAddressApi(
     return structuredError(error);
   }
 }
-
+export async function putMerchantEmailApi(
+  data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putCrmEmailAddressApi(
   partyName:
     | "merchants"
