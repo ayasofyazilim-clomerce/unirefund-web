@@ -1,11 +1,12 @@
-import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { CustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto as RefundTableHeaderDto,
-  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto as RefundFeeHeaderDto,
+  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderInformationDto as AssignableRebateTableHeaders,
+  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
+  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto as StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
+import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import { CustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 
 export function MerchantAddressWidget({
@@ -47,11 +48,11 @@ export function RefundTableWidget({
 }: {
   loading: boolean;
   languageData: ContractServiceResource;
-  refundTableHeaders: RefundTableHeaderDto[] | undefined;
+  refundTableHeaders: AssignableRefundTableHeaders[] | undefined;
 }) {
   function Widget(comboboxProps: WidgetProps) {
     return (
-      <CustomCombobox<RefundTableHeaderDto>
+      <CustomCombobox<AssignableRefundTableHeaders>
         {...comboboxProps}
         disabled={loading}
         emptyValue={
@@ -78,6 +79,44 @@ export function RefundTableWidget({
   return Widget;
 }
 
+export function RebateTableWidget({
+  loading,
+  languageData,
+  rebateTableHeaders,
+}: {
+  loading: boolean;
+  languageData: ContractServiceResource;
+  rebateTableHeaders: AssignableRebateTableHeaders[] | undefined;
+}) {
+  function Widget(comboboxProps: WidgetProps) {
+    return (
+      <CustomCombobox<AssignableRebateTableHeaders>
+        {...comboboxProps}
+        disabled={loading}
+        emptyValue={
+          languageData[
+            "Contracts.Form.rebateTableHeaders.rebateTableHeaderId.emptyValue"
+          ]
+        }
+        list={rebateTableHeaders}
+        searchPlaceholder={
+          languageData[
+            "Contracts.Form.rebateTableHeaders.rebateTableHeaderId.searchPlaceholder"
+          ]
+        }
+        searchResultLabel={
+          languageData[
+            "Contracts.Form.rebateTableHeaders.rebateTableHeaderId.searchResultLabel"
+          ]
+        }
+        selectIdentifier="id"
+        selectLabel="name"
+      />
+    );
+  }
+  return Widget;
+}
+
 export function RefundFeeWidget({
   loading,
   languageData,
@@ -85,11 +124,11 @@ export function RefundFeeWidget({
 }: {
   loading: boolean;
   languageData: ContractServiceResource;
-  refundFeeHeaders: RefundFeeHeaderDto[] | undefined;
+  refundFeeHeaders: AssignableRefundFeeHeaders[] | undefined;
 }) {
   function Widget(comboboxProps: WidgetProps) {
     return (
-      <CustomCombobox<RefundFeeHeaderDto>
+      <CustomCombobox<AssignableRefundFeeHeaders>
         {...comboboxProps}
         disabled={loading}
         emptyValue={

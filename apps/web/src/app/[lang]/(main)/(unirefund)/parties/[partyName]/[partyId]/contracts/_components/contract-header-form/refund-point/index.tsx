@@ -6,7 +6,7 @@ import type {
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as ContractHeaderForRefundPointCreateDto,
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as ContractHeaderForRefundPointUpdateDto,
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaderRefundFeeHeaders_ContractHeaderRefundFeeHeaderCreateAndUpdateDto as ContractHeaderRefundFeeHeaderCreateAndUpdateDto,
-  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto as RefundFeeHeaderDto,
+  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
 } from "@ayasofyazilim/saas/ContractService";
 import {
   $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as $ContractHeaderForRefundPointCreateDto,
@@ -33,7 +33,7 @@ type RefundPointContractHeaderFormProps = {
   setLoading?: Dispatch<SetStateAction<boolean>>;
   languageData: ContractServiceResource;
   addresses: AddressTypeDto[];
-  refundFeeHeaders: RefundFeeHeaderDto[];
+  refundFeeHeaders: AssignableRefundFeeHeaders[];
   fromDate: Date | undefined;
 } & (
   | RefundPointContractHeaderUpdateFormProps
@@ -195,7 +195,7 @@ function RefundFeeHeadersItemField({
   fromDate,
 }: {
   languageData: ContractServiceResource;
-  refundFeeHeaders: RefundFeeHeaderDto[];
+  refundFeeHeaders: AssignableRefundFeeHeaders[];
   loading: boolean;
   fromDate: Date | undefined;
 }) {

@@ -50,16 +50,15 @@ export function ContractHeader({
         formData={{
           ...contractHeaderDetails,
           status: contractHeaderDetails.status || "None",
-          addressCommonDataId: contractHeaderDetails.addressCommonData.id,
-          refundFeeHeaders:
-            contractHeaderDetails.contractHeaderRefundFeeHeaders.map((item) => {
+          refundFeeHeaders: contractHeaderDetails.refundFeeHeaders.map(
+            (refundFeeHeader) => {
               return {
-                validFrom: item.validFrom,
-                validTo: item.validTo,
-                refundFeeHeaderId: item.refundFeeHeader.id,
-                isDefault: item.isDefault,
+                ...refundFeeHeader,
+                refundFeeHeaderId: refundFeeHeader.id,
+                validTo: refundFeeHeader.validTo || new Date().toISOString(),
               };
-            }),
+            },
+          ),
         }}
         formType="update"
         fromDate={fromDate}
