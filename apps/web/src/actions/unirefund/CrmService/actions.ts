@@ -42,6 +42,16 @@ export async function getMerchantEmailByIdApi(id: string) {
     throw structuredError(error);
   }
 }
+export async function getMerchantPhoneByIdApi(id: string) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdTelephones({ id });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantByIdApi(id: string) {
   try {
     const requests = await getApiRequests();
