@@ -1,8 +1,8 @@
 import {
   getMerchantContractHeadersByMerchantIdApi,
-  getRefundFeeHeadersApi,
+  getRefundFeeHeadersAssignablesByRefundPointIdApi,
   getRefundPointContractHeadersByRefundPointIdApi,
-  getRefundTableHeadersApi,
+  getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import {
   getAdressesApi,
@@ -38,7 +38,11 @@ export default async function Page({
   if (partyName === "merchants") {
     const addresses = await getAdressesApi(partyId, partyName);
     if (isErrorOnRequest(addresses, lang)) return;
-    const refundTableHeaders = await getRefundTableHeadersApi({});
+    const refundTableHeaders =
+      await getRefundTableHeadersAssignablesByMerchantIdApi({
+        merchantId: partyId,
+        sorting: "name",
+      });
     if (isErrorOnRequest(refundTableHeaders, lang)) return;
     const merchantDetails = await getMerchantByIdApi(partyId);
     if (isErrorOnRequest(merchantDetails, lang)) return;
@@ -62,7 +66,7 @@ export default async function Page({
           }
           languageData={languageData}
           loading={false}
-          refundTableHeaders={refundTableHeaders.data.items || []}
+          refundTableHeaders={refundTableHeaders.data}
         />
         <PageHeader
           languageData={languageData}
@@ -83,7 +87,11 @@ export default async function Page({
     );
   }
 
-  const refundFeeHeadersResponse = await getRefundFeeHeadersApi({});
+  const refundFeeHeadersResponse =
+    await getRefundFeeHeadersAssignablesByRefundPointIdApi({
+      refundPointId: partyId,
+      sorting: "name",
+    });
   if (isErrorOnRequest(refundFeeHeadersResponse, lang, false)) {
     return (
       <ErrorComponent
@@ -131,7 +139,7 @@ export default async function Page({
         }
         languageData={languageData}
         loading={false}
-        refundFeeHeaders={refundFeeHeadersResponse.data.items || []}
+        refundFeeHeaders={refundFeeHeadersResponse.data}
       />
       <PageHeader
         languageData={languageData}

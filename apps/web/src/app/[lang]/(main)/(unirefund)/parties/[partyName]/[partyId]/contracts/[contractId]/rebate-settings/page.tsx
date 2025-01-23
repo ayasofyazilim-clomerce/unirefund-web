@@ -74,7 +74,7 @@ export default async function Page({
       rebateSettings={
         rebateSettings.type === "success" ? rebateSettings.data : undefined
       }
-      rebateTables={rebateTables.data.items || []}
+      rebateTableHeaders={rebateTables.data.items || []}
       subMerchants={subMerchantsResponse.data.items || []}
     />
   );
