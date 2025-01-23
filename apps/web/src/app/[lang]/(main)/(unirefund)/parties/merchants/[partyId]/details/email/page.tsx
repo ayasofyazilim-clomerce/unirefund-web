@@ -5,11 +5,9 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import EmailForm from "./form";
 
-async function getApiRequests({ merchantId }: { merchantId: string }) {
+async function getApiRequests({ partyId }: { partyId: string }) {
   try {
-    const apiRequests = await Promise.all([
-      getMerchantEmailByIdApi(merchantId),
-    ]);
+    const apiRequests = await Promise.all([getMerchantEmailByIdApi(partyId)]);
     return {
       type: "success" as const,
       data: apiRequests,
@@ -26,14 +24,14 @@ export default async function Page({
   params,
 }: {
   params: {
-    merchantId: string;
+    partyId: string;
     lang: string;
   };
 }) {
-  const { merchantId, lang } = params;
+  const { partyId, lang } = params;
   const { languageData } = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests({ merchantId });
+  const apiRequests = await getApiRequests({ partyId });
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
@@ -50,7 +48,7 @@ export default async function Page({
     <EmailForm
       emailData={emaildata}
       languageData={languageData}
-      merchantId={merchantId}
+      partyId={partyId}
     />
   );
 }

@@ -13,11 +13,11 @@ import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMS
 
 function EmailForm({
   languageData,
-  merchantId,
+  partyId,
   emailData,
 }: {
   languageData: CRMServiceServiceResource;
-  merchantId: string;
+  partyId: string;
   emailData: GetApiCrmServiceMerchantsByIdEmailsResponse;
 }) {
   const router = useRouter();
@@ -26,7 +26,7 @@ function EmailForm({
   function handleSubmit(formData: EmailAddressUpdateDto) {
     void putMerchantEmailApi({
       requestBody: formData,
-      id: merchantId,
+      id: partyId,
       emailId: emailValues.id || "",
     }).then((response) => {
       handlePutResponse(response, router);
