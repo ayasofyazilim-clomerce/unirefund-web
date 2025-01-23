@@ -128,7 +128,9 @@ export default async function Page({
     (countries.type === "success" && countries.data.items) || [];
 
   const merchants = await getMerchantsApi();
+
   const merchantList =
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: we need to fix this
     (merchants.type === "success" &&
       merchants.data.items?.filter((merchant) => merchant.id !== partyId)) ||
     [];
@@ -145,7 +147,7 @@ export default async function Page({
     });
   }
   const taxOffices = await getTaxOfficesApi();
-  const taxOfficeList =
+  const taxOfficeList = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: we need to fix this
     (taxOffices.type === "success" && taxOffices.data.items) || [];
 
   const sections = [

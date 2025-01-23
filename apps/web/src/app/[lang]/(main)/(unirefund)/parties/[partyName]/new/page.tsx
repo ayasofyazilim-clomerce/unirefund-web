@@ -26,7 +26,7 @@ export default async function Page({
     (countries.type === "success" && countries.data.items) || [];
 
   const taxOffices = await getTaxOfficesApi();
-  const taxOfficeList =
+  const taxOfficeList = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: we need to fix this
     (taxOffices.type === "success" && taxOffices.data.items) || [];
 
   return (
