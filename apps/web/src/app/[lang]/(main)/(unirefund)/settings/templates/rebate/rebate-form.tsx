@@ -2,19 +2,17 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type {
+  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto,
   UniRefund_ContractService_Rebates_ProcessingFeeDetails_ProcessingFeeDetailCreateDto as ProcessingFeeDetailCreateDto,
   UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as RebateTableDetailCreateDto,
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderForTemplateCreateDto as RebateTableHeaderCreateDto,
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderTemplateDto as RebateTableHeaderDto,
+  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as RebateTableHeaderCreateDto,
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as RebateTableHeaderUpdateDto,
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderNotTemplateCreateDto as RebateTableHeaderNotTemplateCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {
   $UniRefund_ContractService_Rebates_ProcessingFeeDetails_ProcessingFeeDetailCreateDto as $ProcessingFeeDetailCreateDto,
   $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as $RebateTableDetailCreateDto,
-  $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderForTemplateCreateDto as $RebateTableHeaderCreateDto,
+  $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto,
   $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto,
-  $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderNotTemplateCreateDto as $RebateTableHeaderNotTemplateCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -28,12 +26,12 @@ import {
   handlePutResponse,
 } from "src/actions/core/api-utils-client";
 import { postRebateTableHeadersApi } from "src/actions/unirefund/ContractService/post-actions";
-import { putRebateTableHeadersApi } from "src/actions/unirefund/ContractService/put-actions";
+import { putRebateTableHeadersByIdApi } from "src/actions/unirefund/ContractService/put-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 
 type RebateFormProps = {
   languageData: ContractServiceResource;
-} & (RebateFormCreateProps | RebateFormUpdateProps | RebateFormAddProps);
+} & (RebateFormCreateProps | RebateFormUpdateProps) /*| RebateFormAddProps*/;
 interface RebateFormCreateProps {
   formType: "create";
 }
@@ -41,14 +39,6 @@ interface RebateFormUpdateProps {
   formType: "update";
   id: string;
   formData: RebateTableHeaderDto;
-}
-
-interface RebateFormAddProps {
-  formType: "add";
-  id?: string;
-  formData?: RebateTableHeaderNotTemplateCreateDto;
-  onSubmit: (data: RebateTableHeaderDto) => void;
-  children?: React.ReactNode;
 }
 
 export default function RebateForm(props: RebateFormProps) {
@@ -59,12 +49,10 @@ export default function RebateForm(props: RebateFormProps) {
   const $Schema = {
     create: $RebateTableHeaderCreateDto,
     update: $RebateTableHeaderUpdateDto,
-    add: $RebateTableHeaderNotTemplateCreateDto,
   };
   const formData = {
     create: {},
     update: props.formType === "update" && props.formData,
-    add: props.formType === "add" && props.formData,
   };
   const RebateTableColumns =
     tanstackTableEditableColumnsByRowData<RebateTableDetailCreateDto>({
@@ -110,22 +98,15 @@ export default function RebateForm(props: RebateFormProps) {
     name: "Rebate.Form",
     extend: {
       "ui:className": "md:grid md:grid-cols-2 md:gap-4",
-      name: { "ui:className": "md:col-span-full" },
       rebateTableDetails: {
         "ui:field": "RebateTable",
-        "ui:className": props.formType === "add" && "md:col-span-full",
       },
       processingFeeDetails: {
         "ui:field": "ProcessingFeeDetails",
-        "ui:className": props.formType === "add" && "md:col-span-full",
       },
       calculateNetCommissionInsteadOfRefund: {
         "ui:widget": "switch",
-        "ui:className": cn(
-          "border rounded-md px-2",
-          (props.formType === "create" || props.formType === "add") &&
-            "md:col-span-full",
-        ),
+        "ui:className": cn("border rounded-md px-2 h-auto mt-auto"),
       },
       validFrom: {
         "ui:className": "md:col-span-full",
@@ -140,7 +121,7 @@ export default function RebateForm(props: RebateFormProps) {
         RebateTable: TableField<RebateTableDetailCreateDto>({
           editable: true,
           columns: RebateTableColumns,
-          data: isCreate ? [] : props.formData?.rebateTableDetails || [],
+          data: isCreate ? [] : props.formData.rebateTableDetails || [],
           fillerColumn: "refundMethod",
           columnOrder: [
             "refundMethod",
@@ -171,7 +152,7 @@ export default function RebateForm(props: RebateFormProps) {
           data:
             props.formType === "create"
               ? []
-              : props.formData?.processingFeeDetails || [],
+              : props.formData.processingFeeDetails || [],
           fillerColumn: "name",
           tableActions: [
             {
@@ -193,7 +174,6 @@ export default function RebateForm(props: RebateFormProps) {
       }}
       filter={{
         type: "include",
-        sort: true,
         keys: [
           "name",
           "calculateNetCommissionInsteadOfRefund",
@@ -212,16 +192,14 @@ export default function RebateForm(props: RebateFormProps) {
           }).then((response) => {
             handlePostResponse(response, router, "../rebate");
           });
-        } else if (props.formType === "update") {
-          void putRebateTableHeadersApi({
+        }
+        if (props.formType === "update") {
+          void putRebateTableHeadersByIdApi({
             id: props.id,
             requestBody: data.formData as RebateTableHeaderUpdateDto,
           }).then((response) => {
             handlePutResponse(response, router);
           });
-        } else {
-          if (!data.formData) return;
-          props.onSubmit(data.formData as RebateTableHeaderDto);
         }
         setLoading(false);
       }}
@@ -230,16 +208,10 @@ export default function RebateForm(props: RebateFormProps) {
       useDefaultSubmit={false}
     >
       <div className="sticky bottom-0 z-50 flex justify-end gap-2 bg-white py-4">
-        {props.formType === "add" ? (
-          props.children
-        ) : (
-          <Button type="submit">
-            {props.formType === "create" &&
-              languageData["Rebate.Create.Submit"]}
-            {props.formType === "update" &&
-              languageData["Rebate.Update.Submit"]}
-          </Button>
-        )}
+        <Button type="submit">
+          {props.formType === "create" && languageData["Rebate.Create.Submit"]}
+          {props.formType === "update" && languageData["Rebate.Update.Submit"]}
+        </Button>
       </div>
     </SchemaForm>
   );

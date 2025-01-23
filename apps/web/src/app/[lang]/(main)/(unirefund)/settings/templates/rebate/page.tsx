@@ -18,13 +18,13 @@ export default async function Page({
   });
 
   const { languageData } = await getResourceData(params.lang);
-  const templates = await getRebateTableHeadersApi({});
-  if (templates.type !== "success") return notFound();
+  const rebateTableHeadersResponse = await getRebateTableHeadersApi({});
+  if (rebateTableHeadersResponse.type !== "success") return notFound();
   return (
     <RebateTable
       lang={params.lang}
       languageData={languageData}
-      templates={templates.data}
+      rebateTableHeaders={rebateTableHeadersResponse.data}
     />
   );
 }
