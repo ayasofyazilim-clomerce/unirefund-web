@@ -1,5 +1,5 @@
 "use client";
-import type { PagedResultDto_RefundFeeHeaderDto } from "@ayasofyazilim/saas/ContractService";
+import type { UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto } from "@ayasofyazilim/saas/ContractService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useRouter } from "next/navigation";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
@@ -11,7 +11,7 @@ function Table({
   languageData,
 }: {
   locale: string;
-  response: PagedResultDto_RefundFeeHeaderDto;
+  response: UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto[];
   languageData: ContractServiceResource;
 }) {
   const router = useRouter();
@@ -28,8 +28,8 @@ function Table({
     <TanstackTable
       {...table}
       columns={columns}
-      data={response.items || []}
-      rowCount={response.totalCount}
+      data={response}
+      rowCount={response.length}
     />
   );
 }
