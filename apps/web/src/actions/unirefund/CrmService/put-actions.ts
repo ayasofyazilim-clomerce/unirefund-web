@@ -58,7 +58,7 @@ export async function putMerchantEmailApi(
       );
     return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 export async function putCrmEmailAddressApi(
