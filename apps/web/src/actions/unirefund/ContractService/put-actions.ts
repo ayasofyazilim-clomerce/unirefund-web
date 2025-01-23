@@ -11,14 +11,16 @@ import {
   structuredError,
   structuredResponse,
 } from "src/lib";
-import { getApiRequests } from "../../api-requests";
 
 export async function putMerchantContractHeadersByIdApi(
   data: PutApiContractServiceMerchantsContractsContractHeadersByIdData,
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.merchants.putContractHeadersById(data);
+    const client = await getContractServiceClient();
+    const response =
+      await client.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersById(
+        data,
+      );
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -29,9 +31,11 @@ export async function putRefundPointContractHeadersById(
   data: PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
 ) {
   try {
-    const requests = await getApiRequests();
+    const client = await getContractServiceClient();
     return structuredResponse(
-      await requests["refund-points"].putContractHeadersById(data),
+      await client.contractsRefundPoint.putApiContractServiceRefundPointsContractsContractHeadersById(
+        data,
+      ),
     );
   } catch (error) {
     return structuredError(error);
