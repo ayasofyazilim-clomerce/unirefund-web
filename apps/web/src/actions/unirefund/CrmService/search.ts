@@ -11,13 +11,10 @@ export async function searchMerchants(search: string) {
   }
 }
 export async function searchRefundPoints(search: string) {
-  const res = await getRefundPointsApi({ name: search });
-  const data =
-    res.type === "success"
-      ? res.data.items?.map((i) => ({
-          id: i.id || "",
-          name: i.name || "",
-        })) || []
-      : [];
-  return data;
+  try {
+    const res = await getRefundPointsApi({ name: search });
+    return res.data.items?.map((i) => ({ id: i.id, name: i.name })) || [];
+  } catch (error) {
+    return [];
+  }
 }
