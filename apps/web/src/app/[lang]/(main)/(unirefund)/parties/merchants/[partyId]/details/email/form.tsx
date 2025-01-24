@@ -14,14 +14,14 @@ import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMS
 function EmailForm({
   languageData,
   partyId,
-  emailData,
+  emailResponse,
 }: {
   languageData: CRMServiceServiceResource;
   partyId: string;
-  emailData: GetApiCrmServiceMerchantsByIdEmailsResponse;
+  emailResponse: GetApiCrmServiceMerchantsByIdEmailsResponse;
 }) {
   const router = useRouter();
-  const emailValues = emailData[0];
+  const emailValues = emailResponse[0];
 
   function handleSubmit(formData: EmailAddressUpdateDto) {
     void putMerchantEmailApi({

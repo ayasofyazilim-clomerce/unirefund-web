@@ -109,16 +109,24 @@ export async function getNeighborhood({
 export function getAddressList({
   countryList,
   countryId,
+  districtId,
   regionId,
   setRegionList,
   setCityList,
+  setDistrictList,
+  setNeighborhoodList,
+  cityId,
   languageData,
 }: {
   countryList: CountryDto[];
   countryId: string;
   regionId?: string;
+  cityId?: string;
+  districtId?: string;
   setRegionList: Dispatch<SetStateAction<RegionDto[] | undefined>>;
   setCityList: Dispatch<SetStateAction<CityDto[] | undefined>>;
+  setDistrictList: Dispatch<SetStateAction<DistrictDto[] | undefined>>;
+  setNeighborhoodList: Dispatch<SetStateAction<NeighborhoodDto[] | undefined>>;
   languageData: AppLanguageDataResourceType;
 }) {
   if (countryId) {
@@ -127,12 +135,19 @@ export function getAddressList({
       countryId,
       setRegionList,
       languageData,
-    }).then((response) => {
-      if (response) {
-        void getCity({ regionId: response, setCityList, languageData });
-      } else if (regionId) {
-        void getCity({ regionId, setCityList, languageData });
-      }
+    });
+  }
+  if (regionId) {
+    void getCity({ regionId, setCityList, languageData });
+  }
+  if (cityId) {
+    void getDistrict({ cityId, setDistrictList, languageData });
+  }
+  if (districtId) {
+    void getNeighborhood({
+      districtId,
+      setNeighborhoodList,
+      languageData,
     });
   }
 }

@@ -42,11 +42,10 @@ export default async function Page({
   }
 
   const [emailResponse] = apiRequests.data;
-  const emaildata = emailResponse.data;
 
   return (
     <EmailForm
-      emailData={emaildata}
+      emailResponse={emailResponse.data}
       languageData={languageData}
       partyId={partyId}
     />

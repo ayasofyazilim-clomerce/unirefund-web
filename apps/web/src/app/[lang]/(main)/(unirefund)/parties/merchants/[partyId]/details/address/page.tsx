@@ -1,13 +1,17 @@
 "use server";
 
-import { getMerchantPhoneByIdApi } from "src/actions/unirefund/CrmService/actions";
+import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
+import { getAllCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import TelephoneForm from "./form";
+import AddressForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
-    const apiRequests = await Promise.all([getMerchantPhoneByIdApi(partyId)]);
+    const apiRequests = await Promise.all([
+      getMerchantAddressByIdApi(partyId),
+      getAllCountriesApi(),
+    ]);
     return {
       type: "success" as const,
       data: apiRequests,
@@ -41,13 +45,14 @@ export default async function Page({
     );
   }
 
-  const [phoneResponse] = apiRequests.data;
+  const [addressResponse, countriesResponse] = apiRequests.data;
 
   return (
-    <TelephoneForm
+    <AddressForm
+      addressResponse={addressResponse.data}
+      countryList={countriesResponse.data.items || []}
       languageData={languageData}
       partyId={partyId}
-      phoneResponse={phoneResponse.data}
     />
   );
 }

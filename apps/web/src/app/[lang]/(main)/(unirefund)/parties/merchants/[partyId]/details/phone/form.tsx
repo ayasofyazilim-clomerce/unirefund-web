@@ -15,14 +15,14 @@ import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
 function TelephoneForm({
   languageData,
   partyId,
-  phoneData,
+  phoneResponse,
 }: {
   languageData: CRMServiceServiceResource;
   partyId: string;
-  phoneData: GetApiCrmServiceMerchantsByIdTelephonesResponse;
+  phoneResponse: GetApiCrmServiceMerchantsByIdTelephonesResponse;
 }) {
   const router = useRouter();
-  const phoneValues = phoneData[0];
+  const phoneValues = phoneResponse[0];
 
   const telephoneValues = {
     localNumber:

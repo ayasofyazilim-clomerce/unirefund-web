@@ -40,8 +40,8 @@ importers:
         specifier: ^0.30.0
         version: 0.30.0
       '@ayasofyazilim/saas':
-        specifier: 0.0.121
-        version: 0.0.121(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.122
+        version: 0.0.122(magicast@0.3.5)(openapi-types@12.1.3)
       '@formatjs/intl-localematcher':
         specifier: ^0.5.4
         version: 0.5.4
@@ -677,8 +677,8 @@ importers:
   packages/ui:
     dependencies:
       '@ayasofyazilim/saas':
-        specifier: 0.0.118
-        version: 0.0.118(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.122
+        version: 0.0.122(magicast@0.3.5)(openapi-types@12.1.3)
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.3.1(react@18.3.0))(react@18.3.0)
@@ -850,11 +850,8 @@ packages:
   '@ayasofyazilim/core-saas@0.0.4':
     resolution: {integrity: sha512-x6gJsYW9BKWt5XV32kkXhGEAyUfphhA/ZZhZY/HIilvEh14eOtdOST7NHM6ds1GxZ2bwM9WO5jQDCEo4LfVskA==}
 
-  '@ayasofyazilim/saas@0.0.118':
-    resolution: {integrity: sha512-2Ga0P5ZGxRGFeOZeu5s7/TtPfm8tw3yW5rnGSNqP7hG2rlJ/x2GRY2A3E55TAl9s+DBOEG8ddHAprx/u/OLJcA==}
-
-  '@ayasofyazilim/saas@0.0.121':
-    resolution: {integrity: sha512-u7U2rlNhOUVtv6uFX+IGL4veyc2Q2AgFk0Ld/P7wtRMQH76ilaqfxolPkwh8MVkDLXYCjYgsZrDL+KX/HnEMaQ==}
+  '@ayasofyazilim/saas@0.0.122':
+    resolution: {integrity: sha512-mCwj4n4SmHVZfnKdqCZtm5xgS1531zAbkQ+SPmQdmU/eL8+K/Delo283+YKZGBf2YAz8p25gyPq7GEcwenZ3OQ==}
 
   '@ayasofyazilim/sdk_generator@0.0.13':
     resolution: {integrity: sha512-Iof0t+ZKdIEJS2ddm2HBqSMncalBNyKsYYlMq1tkH8vQHgtG7kZMPy2YTRHP6WlH/CKcHC3R5ulOf8xmC2H3UA==}
@@ -9797,16 +9794,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/saas@0.0.118(magicast@0.3.5)(openapi-types@12.1.3)':
-    dependencies:
-      '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
-      commander: 13.0.0
-      create-release-it: 2.1.0
-    transitivePeerDependencies:
-      - magicast
-      - openapi-types
-
-  '@ayasofyazilim/saas@0.0.121(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.122(magicast@0.3.5)(openapi-types@12.1.3)':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.0.0
