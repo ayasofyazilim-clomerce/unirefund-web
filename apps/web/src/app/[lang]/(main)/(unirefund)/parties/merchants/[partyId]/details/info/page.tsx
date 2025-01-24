@@ -57,7 +57,6 @@ export default async function Page({
 
   const merchantList =
     merchants.items?.filter((merchant) => merchant.id !== partyId) || [];
-  const taxOfficeList = taxOffices.items || [];
 
   return (
     <MerchantForm
@@ -65,7 +64,7 @@ export default async function Page({
       merchantDetail={merchantDetail}
       merchantList={merchantList}
       partyId={partyId}
-      taxOfficeList={taxOfficeList}
+      taxOfficeList={taxOffices.items || []}
     />
   );
 }
