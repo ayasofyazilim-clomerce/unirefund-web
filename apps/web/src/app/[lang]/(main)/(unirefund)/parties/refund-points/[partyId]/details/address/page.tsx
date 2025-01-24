@@ -1,20 +1,16 @@
 "use server";
 
-import {
-  getMerchantByIdApi,
-  getMerchantsApi,
-  getTaxOfficesApi,
-} from "src/actions/unirefund/CrmService/actions";
+import { getRefundPointAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
+import { getAllCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import MerchantForm from "./form";
+import AddressForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const apiRequests = await Promise.all([
-      getMerchantsApi(),
-      getMerchantByIdApi(partyId),
-      getTaxOfficesApi(),
+      getRefundPointAddressByIdApi(partyId),
+      getAllCountriesApi(),
     ]);
     return {
       type: "success" as const,
@@ -49,22 +45,14 @@ export default async function Page({
     );
   }
 
-  const [merchantsResponse, merchantDetailResponse, taxOfficesResponse] =
-    apiRequests.data;
-  const merchants = merchantsResponse.data;
-  const merchantDetail = merchantDetailResponse.data;
-  const taxOffices = taxOfficesResponse.data;
-
-  const merchantList =
-    merchants.items?.filter((merchant) => merchant.id !== partyId) || [];
+  const [addressResponse, countriesResponse] = apiRequests.data;
 
   return (
-    <MerchantForm
+    <AddressForm
+      addressResponse={addressResponse.data}
+      countryList={countriesResponse.data.items || []}
       languageData={languageData}
-      merchantDetail={merchantDetail}
-      merchantList={merchantList}
       partyId={partyId}
-      taxOfficeList={taxOffices.items || []}
     />
   );
 }
