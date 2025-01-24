@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@repo/utils/auth/next-auth";
 import { getMerchantEmailByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
@@ -7,7 +8,10 @@ import EmailForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
-    const apiRequests = await Promise.all([getMerchantEmailByIdApi(partyId)]);
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getMerchantEmailByIdApi(partyId, session),
+    ]);
     return {
       type: "success" as const,
       data: apiRequests,

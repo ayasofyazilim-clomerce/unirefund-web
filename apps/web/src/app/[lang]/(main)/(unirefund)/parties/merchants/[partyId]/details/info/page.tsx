@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@repo/utils/auth/next-auth";
 import {
   getMerchantByIdApi,
   getMerchantsApi,
@@ -11,10 +12,11 @@ import MerchantForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
+    const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantsApi(),
-      getMerchantByIdApi(partyId),
-      getTaxOfficesApi(),
+      getMerchantsApi({}, session),
+      getMerchantByIdApi(partyId, session),
+      getTaxOfficesApi({}, session),
     ]);
     return {
       type: "success" as const,
@@ -28,6 +30,7 @@ async function getApiRequests({ partyId }: { partyId: string }) {
     };
   }
 }
+
 export default async function Page({
   params,
 }: {
@@ -40,6 +43,7 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({ partyId });
+
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
