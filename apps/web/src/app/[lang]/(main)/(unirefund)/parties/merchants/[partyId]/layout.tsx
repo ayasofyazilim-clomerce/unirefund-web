@@ -29,6 +29,10 @@ export default async function Layout({
           label: languageData["Merchants.SubOrganization"],
           href: `${baseLink}sub-stores`,
         },
+        {
+          label: languageData.ProductGroups,
+          href: `${baseLink}product-groups`,
+        },
       ]}
       variant="simple"
     >

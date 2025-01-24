@@ -167,6 +167,21 @@ export async function getMerchantPhoneByIdApi(
   }
 }
 
+export async function getMerchantsByIdProductGroupApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdProductGroup({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 //Unupdated actions
 
 export async function getSubMerchantsByMerchantIdApi(
@@ -276,19 +291,6 @@ export async function getAffiliationCodeApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getMerchantsByIdProductGroupApi(id: string) {
-  try {
-    const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.merchant.getApiCrmServiceMerchantsByIdProductGroup({
-        id,
-      });
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
