@@ -3,9 +3,9 @@
 import { $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto } from "@ayasofyazilim/saas/CRMService";
 import type {
   UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
-  type GetApiCrmServiceRefundPointsByIdResponse,
-  type UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
-  type UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
+  GetApiCrmServiceRefundPointsByIdResponse,
+  UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
+  UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {

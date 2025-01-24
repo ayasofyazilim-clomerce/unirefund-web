@@ -9,7 +9,9 @@ import type {
   PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
   PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
+  PutApiCrmServiceRefundPointsByIdData,
 } from "@ayasofyazilim/saas/CRMService";
+import type { Session } from "@repo/utils/auth";
 import {
   getCRMServiceClient,
   structuredError,
@@ -20,13 +22,28 @@ import { getApiRequests } from "../../api-requests";
 
 export async function putMerchantBaseApi(
   data: PutApiCrmServiceMerchantsByIdData,
+  session?: Session | null,
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.merchants.putMerchantBase(data);
-    return structuredResponse(response);
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsById(data);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
+  }
+}
+export async function putRefundPointBaseApi(
+  data: PutApiCrmServiceRefundPointsByIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsById(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }
 
