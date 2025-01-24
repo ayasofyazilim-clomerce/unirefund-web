@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@repo/utils/auth/next-auth";
 import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
 import { getAllCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
@@ -8,9 +9,10 @@ import AddressForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
+    const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantAddressByIdApi(partyId),
-      getAllCountriesApi(),
+      getMerchantAddressByIdApi(partyId, session),
+      getAllCountriesApi({}, session),
     ]);
     return {
       type: "success" as const,

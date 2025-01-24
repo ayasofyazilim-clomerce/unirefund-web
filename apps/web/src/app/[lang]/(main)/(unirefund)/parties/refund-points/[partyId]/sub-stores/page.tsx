@@ -1,18 +1,24 @@
 "use server";
 
+import type { GetApiCrmServiceMerchantsByIdSubMerchantsData } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
-import { getRefundPointAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
-import { getAllCountriesApi } from "src/actions/unirefund/LocationService/actions";
+import { getRefundPointSubStoresByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import AddressForm from "./form";
+import SubStoresTable from "./table";
 
-async function getApiRequests({ partyId }: { partyId: string }) {
+interface SearchParamType {
+  maxResultCount?: number;
+  skipCount?: number;
+}
+
+async function getApiRequests(
+  filters: GetApiCrmServiceMerchantsByIdSubMerchantsData,
+) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getRefundPointAddressByIdApi(partyId, session),
-      getAllCountriesApi({}, session),
+      getRefundPointSubStoresByIdApi(filters, session),
     ]);
     return {
       type: "success" as const,
@@ -28,16 +34,23 @@ async function getApiRequests({ partyId }: { partyId: string }) {
 }
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: {
     partyId: string;
     lang: string;
   };
+  searchParams?: SearchParamType;
 }) {
-  const { partyId, lang } = params;
+  const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests({ partyId });
+  const apiRequests = await getApiRequests({
+    id: partyId,
+    maxResultCount: searchParams?.maxResultCount || 10,
+    skipCount: searchParams?.skipCount || 0,
+  });
+
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
@@ -47,14 +60,12 @@ export default async function Page({
     );
   }
 
-  const [addressResponse, countriesResponse] = apiRequests.data;
+  const [subStoresResponse] = apiRequests.data;
 
   return (
-    <AddressForm
-      addressResponse={addressResponse.data}
-      countryList={countriesResponse.data.items || []}
+    <SubStoresTable
       languageData={languageData}
-      partyId={partyId}
+      response={subStoresResponse.data}
     />
   );
 }

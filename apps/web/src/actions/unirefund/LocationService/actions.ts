@@ -8,6 +8,7 @@ import type {
   GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
 } from "@ayasofyazilim/saas/LocationService";
+import type { Session } from "@repo/utils/auth";
 import {
   getLocationServiceClient,
   structuredError,
@@ -36,9 +37,10 @@ export async function getAllCountriesApi(
     maxResultCount: 250,
     sorting: "name",
   },
+  session?: Session | null,
 ) {
   try {
-    const locationClient = await getLocationServiceClient();
+    const locationClient = await getLocationServiceClient(session);
     const response =
       await locationClient.country.getApiLocationServiceCountries(data);
     return structuredSuccessResponse(response);

@@ -1,6 +1,7 @@
 "use server";
 
 import type { GetApiCrmServiceMerchantsData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getMerchantsApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
@@ -18,7 +19,8 @@ interface SearchParamType {
 
 async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
   try {
-    const apiRequests = await Promise.all([getMerchantsApi(filters)]);
+    const session = await auth();
+    const apiRequests = await Promise.all([getMerchantsApi(filters, session)]);
     return {
       type: "success" as const,
       data: apiRequests,

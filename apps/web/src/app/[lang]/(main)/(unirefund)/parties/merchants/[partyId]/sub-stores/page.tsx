@@ -1,6 +1,7 @@
 "use server";
 
 import type { GetApiCrmServiceMerchantsByIdSubMerchantsData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getMerchantSubStoresByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
@@ -15,8 +16,9 @@ async function getApiRequests(
   filters: GetApiCrmServiceMerchantsByIdSubMerchantsData,
 ) {
   try {
+    const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantSubStoresByIdApi(filters),
+      getMerchantSubStoresByIdApi(filters, session),
     ]);
     return {
       type: "success" as const,

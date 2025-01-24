@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@repo/utils/auth/next-auth";
 import { getMerchantsApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
@@ -8,10 +9,14 @@ import VatStatementForm from "./_components/form";
 
 async function getApiRequests() {
   try {
+    const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantsApi({
-        typeCodes: ["HEADQUARTER"],
-      }),
+      getMerchantsApi(
+        {
+          typeCodes: ["HEADQUARTER"],
+        },
+        session,
+      ),
     ]);
     return {
       type: "success" as const,
