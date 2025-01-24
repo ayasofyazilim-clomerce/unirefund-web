@@ -25,28 +25,41 @@ export async function getMerchantsApi(
   data: GetApiCrmServiceMerchantsData = {},
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.merchants.get(data);
+    const crmClient = await getCRMServiceClient();
+    const response = await crmClient.merchant.getApiCrmServiceMerchants(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
   }
 }
-export async function getMerchantEmailByIdApi(id: string) {
+export async function getRefundPointsApi(
+  data: GetApiCrmServiceRefundPointsData = {},
+) {
   try {
     const crmClient = await getCRMServiceClient();
     const response =
-      await crmClient.merchant.getApiCrmServiceMerchantsByIdEmails({ id });
+      await crmClient.refundPoint.getApiCrmServiceRefundPoints(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
   }
 }
-export async function getMerchantPhoneByIdApi(id: string) {
+export async function getMerchantByIdApi(id: string) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response = await crmClient.merchant.getApiCrmServiceMerchantsById({
+      id,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getRefundPointByIdApi(id: string) {
   try {
     const crmClient = await getCRMServiceClient();
     const response =
-      await crmClient.merchant.getApiCrmServiceMerchantsByIdTelephones({ id });
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsById({ id });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -74,15 +87,29 @@ export async function getRefundPointAddressByIdApi(id: string) {
     throw structuredError(error);
   }
 }
-export async function getMerchantByIdApi(id: string) {
+export async function getMerchantEmailByIdApi(id: string) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.merchants.getById(id);
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdEmails({ id });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
   }
 }
+export async function getMerchantPhoneByIdApi(id: string) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdTelephones({ id });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
+//Unupdated actions
+
 export async function getSubMerchantsByMerchantIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
 ): Promise<
@@ -122,17 +149,6 @@ export async function getAccessibleRefundPointsApi(
   }
 }
 
-export async function getRefundPointsApi(
-  data: GetApiCrmServiceRefundPointsData = {},
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests["refund-points"].get(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
 export async function getRefundPointDetailsByIdApi(id: string) {
   try {
     const requests = await getApiRequests();
