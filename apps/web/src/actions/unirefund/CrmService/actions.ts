@@ -7,6 +7,7 @@ import type {
   GetApiCrmServiceMerchantsByIdSubMerchantsData,
   GetApiCrmServiceMerchantsData,
   GetApiCrmServiceRefundPointsAccessibleData,
+  GetApiCrmServiceRefundPointsByIdSubRefundPointsData,
   GetApiCrmServiceRefundPointsData,
   GetApiCrmServiceTaxFreesData,
   GetApiCrmServiceTaxOfficesData,
@@ -91,6 +92,21 @@ export async function getMerchantSubStoresByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.merchant.getApiCrmServiceMerchantsByIdSubMerchants(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getRefundPointSubStoresByIdApi(
+  data: GetApiCrmServiceRefundPointsByIdSubRefundPointsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdSubRefundPoints(
+        data,
+      );
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
