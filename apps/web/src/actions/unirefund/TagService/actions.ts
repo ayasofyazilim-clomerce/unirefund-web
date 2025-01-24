@@ -9,6 +9,7 @@ import {
   getTagServiceClient,
   structuredError,
   structuredResponse,
+  structuredSuccessResponse,
 } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
@@ -38,9 +39,9 @@ export async function getTagByIdApi(data: GetApiTagServiceTagByIdDetailData) {
   try {
     const client = await getTagServiceClient();
     const response = await client.tag.getApiTagServiceTagByIdDetail(data);
-    return structuredResponse(response);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
