@@ -1,6 +1,7 @@
 "use server";
 
 import type { GetApiCrmServiceTaxOfficesData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getTaxOfficesApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
@@ -15,7 +16,8 @@ interface SearchParamType {
 }
 async function getApiRequests(filters: GetApiCrmServiceTaxOfficesData) {
   try {
-    const apiRequests = await Promise.all([getTaxOfficesApi(filters)]);
+    const session = await auth();
+    const apiRequests = await Promise.all([getTaxOfficesApi(filters, session)]);
     return {
       type: "success" as const,
       data: apiRequests,

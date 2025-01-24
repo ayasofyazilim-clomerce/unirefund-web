@@ -1,6 +1,7 @@
 "use server";
 
 import type { GetApiCrmServiceRefundPointsData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getRefundPointsApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
@@ -16,7 +17,10 @@ interface SearchParamType {
 
 async function getApiRequests(filters: GetApiCrmServiceRefundPointsData) {
   try {
-    const apiRequests = await Promise.all([getRefundPointsApi(filters)]);
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getRefundPointsApi(filters, session),
+    ]);
     return {
       type: "success" as const,
       data: apiRequests,
