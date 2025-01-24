@@ -65,6 +65,18 @@ export async function getRefundPointByIdApi(id: string) {
     throw structuredError(error);
   }
 }
+export async function getMerchantSubStoresByIdApi(
+  data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdSubMerchants(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantAddressByIdApi(id: string) {
   try {
     const crmClient = await getCRMServiceClient();
