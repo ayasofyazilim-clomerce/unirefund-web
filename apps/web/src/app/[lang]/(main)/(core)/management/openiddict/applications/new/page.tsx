@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
     <>
       <Form languageData={languageData} scopeList={scopesResponse.data} />
       <div className="hidden" id="page-description">
-        {languageData["Scope.Create.Description"]}
+        {languageData["Application.Create.Description"]}
       </div>
     </>
   );

@@ -1,15 +1,15 @@
 "use server";
 
-import type { GetApiContractServiceRefundTablesRefundFeeHeadersData } from "@ayasofyazilim/saas/ContractService";
+import type { GetApiContractServiceRefundFeeHeadersData } from "@ayasofyazilim/saas/ContractService";
 import { notFound } from "next/navigation";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getRefundFeeHeadersApi } from "../../../../../../../actions/unirefund/ContractService/action";
 import Table from "./table";
 
 export default async function Page(props: {
   params: { lang: string };
-  searchParams: Promise<GetApiContractServiceRefundTablesRefundFeeHeadersData>;
+  searchParams: Promise<GetApiContractServiceRefundFeeHeadersData>;
 }) {
   await isUnauthorized({
     requiredPolicies: [
@@ -29,7 +29,7 @@ export default async function Page(props: {
     <Table
       languageData={languageData}
       locale={props.params.lang}
-      response={response.data}
+      response={response.data.items || []}
     />
   );
 }

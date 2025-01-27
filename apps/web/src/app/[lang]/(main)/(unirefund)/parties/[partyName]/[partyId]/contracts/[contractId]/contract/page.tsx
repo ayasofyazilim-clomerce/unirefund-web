@@ -2,7 +2,7 @@ import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeadersByMerchantIdApi,
   getRefundFeeHeadersApi,
-  getRefundPointContractHeaderById,
+  getRefundPointContractHeaderByIdApi,
   getRefundPointContractHeadersByRefundPointIdApi,
   getRefundTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
@@ -110,7 +110,7 @@ export default async function Page({
   }
 
   const contractHeaderDetailsResponse =
-    await getRefundPointContractHeaderById(contractId);
+    await getRefundPointContractHeaderByIdApi(contractId);
   if (isErrorOnRequest(contractHeaderDetailsResponse, lang, false)) {
     return (
       <ErrorComponent

@@ -69,7 +69,9 @@ export async function createPartyRow(
 ) {
   const client = await getPartyRequests(partyType);
   try {
-    const response = await client.post(data);
+    //refactor bittiğinde ihtiyaç kalmayacak
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument -- TODO: we need to fix this
+    const response = await client.post(data as any);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

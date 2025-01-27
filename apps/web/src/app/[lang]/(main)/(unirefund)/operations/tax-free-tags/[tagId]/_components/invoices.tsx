@@ -49,7 +49,7 @@ export default function Invoices({
           <div>
             <Label htmlFor="product-group">{languageData.ProductGroups}</Label>
             <Select defaultValue={line.productGroup?.id} name="product-group">
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger>
                 <SelectValue placeholder="Select a product group" />
               </SelectTrigger>
               <SelectContent>
@@ -67,8 +67,8 @@ export default function Invoices({
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className="col-span-2">
+            <div className="ml-auto grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="factura-no">{languageData.Amount}</Label>
               <Input
                 disabled
@@ -78,22 +78,7 @@ export default function Invoices({
               />
             </div>
           </div>
-          <div className="flex justify-end gap-6 text-right">
-            <div>
-              <div>Tax Rate</div>
-              <div>Tax Base</div>
-              <div>Tax Amount</div>
-            </div>
-            <div className="flex flex-col">
-              <div>{line.taxRate}%</div>
-              <div>
-                {line.taxBase} {line.currency}
-              </div>
-              <div>
-                {line.taxAmount} {line.currency}
-              </div>
-            </div>
-          </div>
+
           <div className="col-span-full flex justify-end">
             <Button disabled variant="outline">
               {languageData.Save}

@@ -22,11 +22,10 @@ import {
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
+import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./_components/address/form";
 import Email from "./_components/email/form";
@@ -128,7 +127,9 @@ export default async function Page({
     (countries.type === "success" && countries.data.items) || [];
 
   const merchants = await getMerchantsApi();
+
   const merchantList =
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: we need to fix this
     (merchants.type === "success" &&
       merchants.data.items?.filter((merchant) => merchant.id !== partyId)) ||
     [];
@@ -145,7 +146,7 @@ export default async function Page({
     });
   }
   const taxOffices = await getTaxOfficesApi();
-  const taxOfficeList =
+  const taxOfficeList = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: we need to fix this
     (taxOffices.type === "success" && taxOffices.data.items) || [];
 
   const sections = [
@@ -207,25 +208,10 @@ export default async function Page({
 
   const merchantProductGroupsResponse =
     await getMerchantsByIdProductGroupApi(partyId);
-  if (isErrorOnRequest(merchantProductGroupsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={merchantProductGroupsResponse.message}
-      />
-    );
-  }
+
   const productGroupsResponse = await getProductGroupsApi({
     maxResultCount: 1000,
   });
-  if (isErrorOnRequest(productGroupsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={productGroupsResponse.message}
-      />
-    );
-  }
 
   return (
     <>

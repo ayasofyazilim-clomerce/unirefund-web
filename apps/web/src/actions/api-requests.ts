@@ -5,34 +5,6 @@ import type {
   PutApiPermissionManagementPermissionsData,
 } from "@ayasofyazilim/saas/AdministrationService";
 import type {
-  GetApiContractServiceMerchantsByIdContractsContractHeadersData,
-  GetApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
-  GetApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
-  GetApiContractServiceRebateTablesRebateTableHeadersTemplatesData,
-  GetApiContractServiceRefundPointsByIdContractsContractHeadersData,
-  GetApiContractServiceRefundTablesRefundFeeHeadersByIdData,
-  GetApiContractServiceRefundTablesRefundFeeHeadersData,
-  GetApiContractServiceRefundTablesRefundTableHeadersByIdData,
-  GetApiContractServiceRefundTablesRefundTableHeadersData,
-  PostApiContractServiceMerchantsByIdContractsContractHeadersData,
-  PostApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
-  PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
-  PostApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsData,
-  PostApiContractServiceRebateTablesRebateTableHeadersTemplatesData,
-  PostApiContractServiceRefundPointsByIdContractsContractHeadersData,
-  PostApiContractServiceRefundTablesRefundFeeHeadersByIdRefundFeeDetailsData,
-  PostApiContractServiceRefundTablesRefundFeeHeadersData,
-  PostApiContractServiceRefundTablesRefundTableHeadersByIdRefundTableDetailsData,
-  PostApiContractServiceRefundTablesRefundTableHeadersData,
-  PutApiContractServiceMerchantsContractsContractHeadersByIdData,
-  PutApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSettingData,
-  PutApiContractServiceMerchantsContractsContractSettingsByIdData,
-  PutApiContractServiceRebateTablesRebateTableHeadersByIdData,
-  PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
-  PutApiContractServiceRefundTablesRefundFeeHeadersByIdData,
-  PutApiContractServiceRefundTablesRefundTableHeadersByIdData,
-} from "@ayasofyazilim/saas/ContractService";
-import type {
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
   GetApiCrmServiceMerchantsByIdAffiliationsData,
@@ -98,7 +70,6 @@ import type { FilterColumnResult } from "@repo/ayasofyazilim-ui/molecules/tables
 import { auth } from "@repo/utils/auth/next-auth";
 import {
   getAdministrationServiceClient,
-  getContractServiceClient,
   getCRMServiceClient,
   getIdentityServiceClient,
   getLocationServiceClient,
@@ -152,7 +123,6 @@ export type GetDetailTableDataTypes = Exclude<
 export async function getApiRequests() {
   const session = await auth();
   const crmClient = await getCRMServiceClient(session);
-  const contractsClient = await getContractServiceClient(session);
   const locationClient = await getLocationServiceClient(session);
   const identityClient = await getIdentityServiceClient(session);
   const saasClient = await getSaasServiceClient(session);
@@ -188,86 +158,6 @@ export async function getApiRequests() {
 
       getAdresses: async (data: { id: string }) =>
         await crmClient.merchant.getApiCrmServiceMerchantsByIdAddresses(data),
-      getContractHeadersByMerchantId: async (
-        data: GetApiContractServiceMerchantsByIdContractsContractHeadersData,
-      ) =>
-        await contractsClient.contractsMerchant.getApiContractServiceMerchantsByIdContractsContractHeaders(
-          data,
-        ),
-      postContractHeadersById: async (
-        data: PostApiContractServiceMerchantsByIdContractsContractHeadersData,
-      ) =>
-        await contractsClient.contractsMerchant.postApiContractServiceMerchantsByIdContractsContractHeaders(
-          data,
-        ),
-      putContractHeadersById: async (
-        data: PutApiContractServiceMerchantsContractsContractHeadersByIdData,
-      ) =>
-        await contractsClient.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersById(
-          data,
-        ),
-      getContractHeaderIsValidatable: async (id: string) =>
-        await contractsClient.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdIsValidatable(
-          { id },
-        ),
-      getContractHeaderById: async (id: string) =>
-        await contractsClient.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersById(
-          { id },
-        ),
-      putContractSettingsById: async (
-        data: PutApiContractServiceMerchantsContractsContractSettingsByIdData,
-      ) =>
-        await contractsClient.contractsMerchant.putApiContractServiceMerchantsContractsContractSettingsById(
-          data,
-        ),
-      deleteContractHeadersById: async (id: string) =>
-        await contractsClient.contractsMerchant.deleteApiContractServiceMerchantsContractsContractHeadersById(
-          { id },
-        ),
-      deleteContractSettingsById: async (id: string) =>
-        await contractsClient.contractsMerchant.deleteApiContractServiceMerchantsContractsContractSettingsById(
-          { id },
-        ),
-      getContractHeadersContractStoresByHeaderId: async (
-        data: GetApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
-      ) =>
-        await contractsClient.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdContractStores(
-          data,
-        ),
-      postContractHeadersContractStoresByHeaderId: async (
-        data: PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
-      ) =>
-        await contractsClient.contractsMerchant.postApiContractServiceMerchantsContractsContractHeadersByIdContractStores(
-          data,
-        ),
-      getContractHeaderContractSettingsByHeaderId: async (
-        data: GetApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
-      ) =>
-        await contractsClient.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdContractSettings(
-          data,
-        ),
-      postContractHeaderContractSettingsByHeaderId: async (
-        data: PostApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
-      ) =>
-        await contractsClient.contractsMerchant.postApiContractServiceMerchantsContractsContractHeadersByIdContractSettings(
-          data,
-        ),
-      putContractHeaderSetDefaultContractSettingByHeaderId: async (
-        data: PutApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSettingData,
-      ) =>
-        await contractsClient.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSetting(
-          data,
-        ),
-      postContractHeaderRebateSettingByHeaderId: async (
-        data: PostApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsData,
-      ) =>
-        await contractsClient.contractsMerchant.postApiContractServiceMerchantsContractsContractHeadersByIdRebateSettings(
-          data,
-        ),
-      postContractHeaderValidateByHeaderId: async (id: string) =>
-        await contractsClient.contractsMerchant.postApiContractServiceMerchantsContractsContractHeadersByIdValidate(
-          { id },
-        ),
       putMerchantBase: async (data: PutApiCrmServiceMerchantsByIdData) => {
         return await crmClient.merchant.putApiCrmServiceMerchantsById({
           requestBody: data.requestBody,
@@ -387,40 +277,6 @@ export async function getApiRequests() {
           data,
         );
       },
-      getContractHeadersByRefundPointId: async (
-        data: GetApiContractServiceRefundPointsByIdContractsContractHeadersData,
-      ) =>
-        await contractsClient.contractsRefundPoint.getApiContractServiceRefundPointsByIdContractsContractHeaders(
-          data,
-        ),
-      postContractHeadersById: async (
-        data: PostApiContractServiceRefundPointsByIdContractsContractHeadersData,
-      ) =>
-        await contractsClient.contractsRefundPoint.postApiContractServiceRefundPointsByIdContractsContractHeaders(
-          data,
-        ),
-      putContractHeadersById: async (
-        data: PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
-      ) =>
-        await contractsClient.contractsRefundPoint.putApiContractServiceRefundPointsContractsContractHeadersById(
-          data,
-        ),
-      getContractHeaderIsValidatable: async (id: string) =>
-        await contractsClient.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersByIdIsValidatable(
-          { id },
-        ),
-      getContractHeaderById: async (id: string) =>
-        await contractsClient.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersById(
-          { id },
-        ),
-      deleteContractHeadersById: async (id: string) =>
-        await contractsClient.contractsRefundPoint.deleteApiContractServiceRefundPointsContractsContractHeadersById(
-          { id },
-        ),
-      postContractHeaderValidateByHeaderId: async (id: string) =>
-        await contractsClient.contractsRefundPoint.postApiContractServiceRefundPointsContractsContractHeadersByIdValidate(
-          { id },
-        ),
     },
     customs: {
       getDetail: async (id: string) =>
@@ -718,90 +574,6 @@ export async function getApiRequests() {
         await saasClient.edition.getApiSaasEditionsAll(),
       moveAllTenants: async (data: PutApiSaasEditionsByIdMoveAllTenantsData) =>
         await saasClient.edition.putApiSaasEditionsByIdMoveAllTenants(data),
-    },
-    templates: {
-      getRefundTableHeaders: async (
-        data: GetApiContractServiceRefundTablesRefundTableHeadersData,
-      ) =>
-        await contractsClient.refundTables.getApiContractServiceRefundTablesRefundTableHeaders(
-          data,
-        ),
-      getRefundTableHeadersById: async (
-        data: GetApiContractServiceRefundTablesRefundTableHeadersByIdData,
-      ) =>
-        await contractsClient.refundTables.getApiContractServiceRefundTablesRefundTableHeadersById(
-          data,
-        ),
-      postRefundTableHeaders: async (
-        data: PostApiContractServiceRefundTablesRefundTableHeadersData,
-      ) =>
-        await contractsClient.refundTables.postApiContractServiceRefundTablesRefundTableHeaders(
-          data,
-        ),
-      putRefundTableHeaders: async (
-        data: PutApiContractServiceRefundTablesRefundTableHeadersByIdData,
-      ) =>
-        await contractsClient.refundTables.putApiContractServiceRefundTablesRefundTableHeadersById(
-          data,
-        ),
-      postRefundTableHeadersRefundTableDetails: async (
-        data: PostApiContractServiceRefundTablesRefundTableHeadersByIdRefundTableDetailsData,
-      ) =>
-        await contractsClient.refundTables.postApiContractServiceRefundTablesRefundTableHeadersByIdRefundTableDetails(
-          data,
-        ),
-      getRefundFeeHeaders: async (
-        data: GetApiContractServiceRefundTablesRefundFeeHeadersData,
-      ) =>
-        await contractsClient.refundTables.getApiContractServiceRefundTablesRefundFeeHeaders(
-          data,
-        ),
-      getRefundFeeHeadersById: async (
-        data: GetApiContractServiceRefundTablesRefundFeeHeadersByIdData,
-      ) =>
-        await contractsClient.refundTables.getApiContractServiceRefundTablesRefundFeeHeadersById(
-          data,
-        ),
-      postRefundFeeHeadersRefundTableDetails: async (
-        data: PostApiContractServiceRefundTablesRefundFeeHeadersByIdRefundFeeDetailsData,
-      ) =>
-        await contractsClient.refundTables.postApiContractServiceRefundTablesRefundFeeHeadersByIdRefundFeeDetails(
-          data,
-        ),
-      postRefundFeeHeaders: async (
-        data: PostApiContractServiceRefundTablesRefundFeeHeadersData,
-      ) =>
-        await contractsClient.refundTables.postApiContractServiceRefundTablesRefundFeeHeaders(
-          data,
-        ),
-      putRefundFeeHeadersApi: async (
-        data: PutApiContractServiceRefundTablesRefundFeeHeadersByIdData,
-      ) =>
-        await contractsClient.refundTables.putApiContractServiceRefundTablesRefundFeeHeadersById(
-          data,
-        ),
-      getRebateTableHeaders: async (
-        data: GetApiContractServiceRebateTablesRebateTableHeadersTemplatesData,
-      ) =>
-        await contractsClient.rebateTables.getApiContractServiceRebateTablesRebateTableHeadersTemplates(
-          data,
-        ),
-      putRebateTableHeaders: async (
-        data: PutApiContractServiceRebateTablesRebateTableHeadersByIdData,
-      ) =>
-        await contractsClient.rebateTables.putApiContractServiceRebateTablesRebateTableHeadersById(
-          data,
-        ),
-      postRebateTableHeaders: async (
-        data: PostApiContractServiceRebateTablesRebateTableHeadersTemplatesData,
-      ) =>
-        await contractsClient.rebateTables.postApiContractServiceRebateTablesRebateTableHeadersTemplates(
-          data,
-        ),
-      getRebateTableHeadersById: async (id: string) =>
-        await contractsClient.rebateTables.getApiContractServiceRebateTablesRebateTableHeadersById(
-          { id },
-        ),
     },
     tags: {
       get: async (data: GetApiTagServiceTagData) =>

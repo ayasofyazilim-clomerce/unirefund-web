@@ -225,3 +225,11 @@ export function structuredResponse<T>(data: T): ServerResponse<T> {
     message: "",
   };
 }
+export function structuredSuccessResponse<T>(data: T) {
+  return {
+    type: "success" as const,
+    data,
+    status: 200,
+    message: "",
+  };
+}

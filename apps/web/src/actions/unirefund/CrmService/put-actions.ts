@@ -9,23 +9,41 @@ import type {
   PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
   PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
+  PutApiCrmServiceRefundPointsByIdData,
 } from "@ayasofyazilim/saas/CRMService";
+import type { Session } from "@repo/utils/auth";
 import {
   getCRMServiceClient,
   structuredError,
   structuredResponse,
+  structuredSuccessResponse,
 } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
 export async function putMerchantBaseApi(
   data: PutApiCrmServiceMerchantsByIdData,
+  session?: Session | null,
 ) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.merchants.putMerchantBase(data);
-    return structuredResponse(response);
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsById(data);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
+  }
+}
+export async function putRefundPointBaseApi(
+  data: PutApiCrmServiceRefundPointsByIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsById(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }
 
@@ -46,7 +64,62 @@ export async function putCrmAddressApi(
     return structuredError(error);
   }
 }
-
+export async function putMerchantEmailApi(
+  data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function putMerchantAddressApi(
+  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdAddressesByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function putRefundPointAddressApi(
+  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdAddressesByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function putMerchantTelephoneApi(
+  data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdTelephonesByTelephoneId(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function putCrmEmailAddressApi(
   partyName:
     | "merchants"

@@ -3,19 +3,46 @@
 import type { UniRefund_SettingService_ProductGroups_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import { FormReadyComponent } from "@repo/ui/form-ready";
+import { auth } from "@repo/utils/auth/next-auth";
 import { FileIcon, FileText, Plane, ReceiptText, Store } from "lucide-react";
 import Link from "next/link";
 import { getVatStatementHeadersByIdApi } from "src/actions/unirefund/FinanceService/actions";
+import { getRefundDetailByIdApi } from "src/actions/unirefund/RefundService/actions";
 import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { getTagByIdApi } from "src/actions/unirefund/TagService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { getBaseLink } from "src/utils";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Invoices from "./_components/invoices";
 import TagCardList, { TagCard } from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
+import TotalsEarnings from "./_components/totals-earnings";
 import { dateToString, getStatusColor } from "./utils";
+
+async function getApiRequests(tagId: string) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      await getTagByIdApi({ id: tagId }),
+      await getProductGroupsApi(
+        {
+          maxResultCount: 1000,
+        },
+        session,
+      ),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -25,28 +52,18 @@ export default async function Page({
   const { tagId, lang } = params;
   const { languageData } = await getResourceData(lang);
 
-  const tagDetailResponse = await getTagByIdApi({ id: tagId });
-  if (isErrorOnRequest(tagDetailResponse, lang, false)) {
+  const apiRequests = await getApiRequests(tagId);
+  if (apiRequests.type === "error") {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={tagDetailResponse.message}
+        message={apiRequests.message || "Unknown error occurred"}
       />
     );
   }
 
-  //this will change in the future
-  const productGroupsResponse = await getProductGroupsApi({
-    maxResultCount: 1000,
-  });
-  if (isErrorOnRequest(productGroupsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={productGroupsResponse.message}
-      />
-    );
-  }
+  const [tagDetailResponse, productGroupsResponse] = apiRequests.data;
+
   const productGroups: UniRefund_SettingService_ProductGroups_ProductGroupDto[] =
     productGroupsResponse.data.items || [];
 
@@ -59,6 +76,13 @@ export default async function Page({
       ? tagVatStatementHeadersResponse.data
       : null;
 
+  const tagRefundDetailResponse = tagDetail.refundId
+    ? await getRefundDetailByIdApi(tagDetail.refundId)
+    : null;
+  const tagRefundDetail =
+    tagRefundDetailResponse?.type === "success"
+      ? tagRefundDetailResponse.data
+      : null;
   return (
     <FormReadyComponent
       active={productGroups.length === 0}
@@ -152,11 +176,20 @@ export default async function Page({
               <Invoices languageData={languageData} tagDetail={tagDetail} />
             </TagCard>
           </div>
+          <div className="col-span-full">
+            <TagCard icon={<ReceiptText />} title="Summary">
+              <TotalsEarnings
+                languageData={languageData}
+                tagDetail={tagDetail}
+              />
+            </TagCard>
+          </div>
         </div>
 
         <TagStatusDiagram
           languageData={languageData}
           tagDetail={tagDetail}
+          tagRefundDetail={tagRefundDetail}
           tagVatStatementHeader={tagVatStatementHeader}
         />
       </div>

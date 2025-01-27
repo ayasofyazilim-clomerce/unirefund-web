@@ -2,7 +2,7 @@
 import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {
   getMerchantContractHeaderByIdApi,
-  getRefundPointContractHeaderById,
+  getRefundPointContractHeaderByIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
@@ -95,7 +95,7 @@ export default async function Layout({
   });
 
   const contractHeaderDetails =
-    await getRefundPointContractHeaderById(contractId);
+    await getRefundPointContractHeaderByIdApi(contractId);
   if (isErrorOnRequest(contractHeaderDetails, lang, false)) {
     return (
       <ErrorComponent

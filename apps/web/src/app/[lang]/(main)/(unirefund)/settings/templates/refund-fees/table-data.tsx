@@ -3,8 +3,8 @@ import type {
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {
-  $PagedResultDto_RefundFeeHeaderDto,
-  $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto,
+  $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderCreateDto,
+  $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto,
 } from "@ayasofyazilim/saas/ContractService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {
@@ -42,8 +42,7 @@ const refundFeeHeadersColumns = (
 ) =>
   tanstackTableCreateColumnsByRowData<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>(
     {
-      rows: $PagedResultDto_RefundFeeHeaderDto.properties.items.items
-        .properties,
+      rows: $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto.properties,
       languageData,
       config: {
         locale,
@@ -88,7 +87,7 @@ const refundFeeHeadersTable = (params: {
           });
         },
         schema: createZodObject(
-          $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto,
+          $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderCreateDto,
         ),
       },
     ],

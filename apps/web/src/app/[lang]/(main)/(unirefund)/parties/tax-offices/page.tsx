@@ -1,10 +1,10 @@
 "use server";
 
 import type { GetApiCrmServiceTaxOfficesData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getTaxOfficesApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import TaxOfficesTable from "./table";
 
@@ -14,7 +14,22 @@ interface SearchParamType {
   sorting?: string;
   name?: string;
 }
-
+async function getApiRequests(filters: GetApiCrmServiceTaxOfficesData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([getTaxOfficesApi(filters, session)]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 export default async function Page({
   params,
   searchParams,
@@ -27,22 +42,24 @@ export default async function Page({
     requiredPolicies: ["CRMService.TaxOffices"],
     lang,
   });
-
-  const taxOfficeResponse = await getTaxOfficesApi({
+  const { languageData } = await getResourceData(lang);
+  const apiRequests = await getApiRequests({
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
-  } as GetApiCrmServiceTaxOfficesData);
+  });
 
-  const { languageData } = await getResourceData(lang);
-  if (isErrorOnRequest(taxOfficeResponse, lang, false)) {
+  if (apiRequests.type === "error") {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={taxOfficeResponse.message}
+        message={apiRequests.message || "Unknown error occurred"}
       />
     );
   }
+
+  const [taxOfficeResponse] = apiRequests.data;
+
   return (
     <TaxOfficesTable
       languageData={languageData}

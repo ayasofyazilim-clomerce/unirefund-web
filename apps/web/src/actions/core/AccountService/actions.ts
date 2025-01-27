@@ -83,11 +83,15 @@ export async function signUpServer({
 }
 export async function sendPasswordResetCodeServer({
   email,
+  tenant,
 }: {
   email: string;
+  tenant: string;
 }) {
   try {
-    const client = await getAccountServiceClient();
+    const client = await getAccountServiceClient({
+      __tenant: tenant,
+    });
     await client.account.postApiAccountSendPasswordResetCode({
       requestBody: {
         email,

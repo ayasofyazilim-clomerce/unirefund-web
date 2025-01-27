@@ -4,7 +4,7 @@ import {
 } from "src/actions/unirefund/ContractService/action";
 import {
   getIndividualsByIdApi,
-  getSubMerchantsByMerchantIdApi,
+  // getSubMerchantsByMerchantIdApi,
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
@@ -41,17 +41,17 @@ export default async function Page({
     );
   }
 
-  const subMerchantsResponse = await getSubMerchantsByMerchantIdApi({
-    id: partyId,
-  });
-  if (isErrorOnRequest(subMerchantsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={subMerchantsResponse.message}
-      />
-    );
-  }
+  // const subMerchantsResponse = await getSubMerchantsByMerchantIdApi({
+  //   id: partyId,
+  // });
+  // if (isErrorOnRequest(subMerchantsResponse, lang, false)) {
+  //   return (
+  //     <ErrorComponent
+  //       languageData={languageData}
+  //       message={subMerchantsResponse.message}
+  //     />
+  //   );
+  // }
 
   const individualsResponse = await getIndividualsByIdApi("merchants", {
     id: partyId,
@@ -69,13 +69,13 @@ export default async function Page({
     <RebateSettings
       contractId={contractId}
       individuals={individualsResponse.data.items || []}
-      lang={lang}
+      // lang={lang}
       languageData={languageData}
       rebateSettings={
         rebateSettings.type === "success" ? rebateSettings.data : undefined
       }
-      rebateTables={rebateTables.data.items || []}
-      subMerchants={subMerchantsResponse.data.items || []}
+      rebateTableHeaders={rebateTables.data.items || []}
+      // subMerchants={subMerchantsResponse.data.items || []}
     />
   );
 }

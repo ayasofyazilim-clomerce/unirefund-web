@@ -24,11 +24,15 @@
 
   "SalesAmount": "Satış Tutarı",
   "VatAmount": "KDV Tutarı",
-  "GrossRefund": "Net Tutar",
+  "GrossRefund": "Brüt Tutar",
   "RefundFee": "İade Ücreti",
   "AgentRefundFee": "Acenta İade Ücreti",
   "Refund": "İade",
   "None": "Hiçbiri",
+  "GrossComission": "Brüt Komisyon",
+  "RedefinedGC": "Redefined GC",
+  "NetComission": "Net Komisyon",
+  "Rebate": "İndirim",
 
   "Date": "Tarih",
   "Status": "Durum",

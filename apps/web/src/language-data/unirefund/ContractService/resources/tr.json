@@ -97,6 +97,16 @@
   "Contracts.Form.refundTableHeaders.validFrom": "Başlangıç Tarihi",
   "Contracts.Form.refundTableHeaders.validTo": "Bitiş Tarihi",
 
+  "Contracts.Form.rebateTableHeaders": "Komisyon tabloları",
+  "Contracts.Form.rebateTableHeaders.rebateTableHeaderId": "Komisyon tablosu",
+  "Contracts.Form.rebateTableHeaders.rebateTableHeaderId.emptyValue": "Lütfen bir komisyon tablosu seçin",
+  "Contracts.Form.rebateTableHeaders.rebateTableHeaderId.searchPlaceholder": "Komisyon tablosu ara",
+  "Contracts.Form.rebateTableHeaders.rebateTableHeaderId.searchResultLabel": "Aranan komisyon tablosu bulunamadı.",
+  "Contracts.Form.rebateTableHeaders.isDefault": "Varsayılan",
+  "Contracts.Form.rebateTableHeaders.edit": "Düzenle",
+  "Contracts.Form.rebateTableHeaders.validFrom": "Başlangıç Tarihi",
+  "Contracts.Form.rebateTableHeaders.validTo": "Bitiş Tarihi",
+
   "Contracts.Form.defaultRefundFeeHeader": "Varsayılan iade ücreti",
   "Contracts.Form.defaultRefundFeeHeader.undefined": "Lütfen bir varsayılan iade ücreti seçin",
   "Contracts.Form.refundFeeHeaders": "İade ücretleri",
