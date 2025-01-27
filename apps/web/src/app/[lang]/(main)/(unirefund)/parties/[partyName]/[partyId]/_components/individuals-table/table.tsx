@@ -16,7 +16,7 @@ import { tableData } from "./individuals-table-data";
 
 export interface AutoFormValues {
   email: UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto;
-  affilation: AffiliationsPostDto;
+  affiliation: AffiliationsPostDto;
 }
 
 function Individual({

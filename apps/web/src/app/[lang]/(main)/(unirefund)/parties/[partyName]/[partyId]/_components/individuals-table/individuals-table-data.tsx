@@ -107,12 +107,12 @@ function individualsRowActions(
             name: "Form.Merchant.Affiliation",
             extend: {
               affiliationCodeId: {
-                "ui:widget": "affilationCode",
+                "ui:widget": "affiliationCode",
               },
             },
           })}
           widgets={{
-            affilationCode:
+            affiliationCode:
               CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
                 {
                   languageData,
@@ -308,7 +308,7 @@ function individualsTable(
               name: "Form.Merchant.Affiliation",
               extend: {
                 affiliationCodeId: {
-                  "ui:widget": "affilationCode",
+                  "ui:widget": "affiliationCode",
                 },
                 email: {
                   "ui:widget": "email",
@@ -316,7 +316,7 @@ function individualsTable(
               },
             })}
             widgets={{
-              affilationCode:
+              affiliationCode:
                 CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
                   {
                     languageData,

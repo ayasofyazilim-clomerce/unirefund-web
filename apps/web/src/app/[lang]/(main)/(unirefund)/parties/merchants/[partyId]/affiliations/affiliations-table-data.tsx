@@ -32,14 +32,14 @@ import {
 } from "src/actions/unirefund/CrmService/post-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 
-type AffilationsTable =
+type AffiliationsTable =
   TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
 
 interface FormData {
   lockoutEnd: string;
 }
 
-function affilationsRowActions(
+function affiliationsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   partyId: string,
@@ -105,12 +105,12 @@ function affilationsRowActions(
             name: "Form.Merchant.Affiliation",
             extend: {
               affiliationCodeId: {
-                "ui:widget": "affilationCode",
+                "ui:widget": "affiliationCode",
               },
             },
           })}
           widgets={{
-            affilationCode:
+            affiliationCode:
               CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
                 {
                   languageData,
@@ -210,7 +210,7 @@ function affilationsRowActions(
   return actions;
 }
 
-export function affilationsColumns(
+export function affiliationsColumns(
   languageData: CRMServiceServiceResource,
   locale: string,
 ) {
@@ -228,13 +228,13 @@ export function affilationsColumns(
   );
 }
 
-function affilationsTable(
+function affiliationsTable(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   partyId: string,
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
-): AffilationsTable {
-  const table: AffilationsTable = {
+): AffiliationsTable {
+  const table: AffiliationsTable = {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
@@ -305,7 +305,7 @@ function affilationsTable(
               name: "Form.Merchant.Affiliation",
               extend: {
                 affiliationCodeId: {
-                  "ui:widget": "affilationCode",
+                  "ui:widget": "affiliationCode",
                 },
                 email: {
                   "ui:widget": "email",
@@ -313,7 +313,7 @@ function affilationsTable(
               },
             })}
             widgets={{
-              affilationCode:
+              affiliationCode:
                 CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
                   {
                     languageData,
@@ -327,7 +327,7 @@ function affilationsTable(
         ),
       },
     ],
-    rowActions: affilationsRowActions(
+    rowActions: affiliationsRowActions(
       languageData,
       router,
       partyId,
@@ -337,8 +337,8 @@ function affilationsTable(
   return table;
 }
 export const tableData = {
-  affilations: {
-    columns: affilationsColumns,
-    table: affilationsTable,
+  affiliations: {
+    columns: affiliationsColumns,
+    table: affiliationsTable,
   },
 };

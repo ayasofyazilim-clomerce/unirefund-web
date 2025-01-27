@@ -12,10 +12,10 @@ import { tableData } from "./affiliations-table-data";
 
 export interface AutoFormValues {
   email: UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto;
-  affilation: AffiliationsPostDto;
+  affiliation: AffiliationsPostDto;
 }
 
-function Affilations({
+function Affiliations({
   locale,
   languageData,
   partyId,
@@ -29,8 +29,8 @@ function Affilations({
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[];
 }) {
   const router = useRouter();
-  const columns = tableData.affilations.columns(languageData, locale);
-  const table = tableData.affilations.table(
+  const columns = tableData.affiliations.columns(languageData, locale);
+  const table = tableData.affiliations.table(
     languageData,
     router,
     partyId,
@@ -46,4 +46,4 @@ function Affilations({
   );
 }
 
-export default Affilations;
+export default Affiliations;
