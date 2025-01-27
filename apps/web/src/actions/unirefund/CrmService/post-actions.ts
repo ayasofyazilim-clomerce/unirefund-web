@@ -2,11 +2,13 @@
 
 import type {
   PostApiCrmServiceAffiliationCodesData,
+  PostApiCrmServiceCustomsByIdAffiliationsData,
   PostApiCrmServiceMerchantsBulkProductGroupMerchantsData,
   PostApiCrmServiceMerchantsByIdAffiliationsData,
   PostApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefaultData,
   PostApiCrmServiceMerchantsByIdProductGroupsData,
   PostApiCrmServiceTaxFreesByIdAffiliationsData,
+  PostApiCrmServiceTaxOfficesByIdAffiliationsData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
 import {
@@ -53,6 +55,34 @@ export async function postAffiliationsToTaxFreeApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.taxFree.postApiCrmServiceTaxFreesByIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function postAffiliationsToTaxOfficeApi(
+  data: PostApiCrmServiceTaxOfficesByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.postApiCrmServiceTaxOfficesByIdAffiliations(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function postAffiliationsToCustomApi(
+  data: PostApiCrmServiceCustomsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.postApiCrmServiceCustomsByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);

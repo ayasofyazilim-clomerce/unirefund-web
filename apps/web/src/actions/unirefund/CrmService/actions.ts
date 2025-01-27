@@ -1,6 +1,8 @@
 "use server";
 import type {
   GetApiCrmServiceAffiliationCodesData,
+  GetApiCrmServiceCustomsByIdAffiliationsData,
+  GetApiCrmServiceCustomsByIdSubCustomsData,
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
   GetApiCrmServiceMerchantsByIdAffiliationsData,
@@ -13,6 +15,8 @@ import type {
   GetApiCrmServiceTaxFreesByIdAffiliationsData,
   GetApiCrmServiceTaxFreesByIdSubTaxFreeData,
   GetApiCrmServiceTaxFreesData,
+  GetApiCrmServiceTaxOfficesByIdAffiliationsData,
+  GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData,
   GetApiCrmServiceTaxOfficesData,
   UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
 } from "@ayasofyazilim/saas/CRMService";
@@ -128,6 +132,35 @@ export async function getTaxFreeSubStoresByIdApi(
     throw structuredError(error);
   }
 }
+export async function getTaxOfficeSubStoresByIdApi(
+  data: GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdSubTaxOffices(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getCustomSubStoresByIdApi(
+  data: GetApiCrmServiceCustomsByIdSubCustomsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdSubCustoms(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 export async function getMerchantAddressByIdApi(
   id: string,
   session?: Session | null,
@@ -233,6 +266,34 @@ export async function getTaxFreeAffiliationByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.taxFree.getApiCrmServiceTaxFreesByIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxOfficeAffiliationByIdApi(
+  data: GetApiCrmServiceTaxOfficesByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAffiliations(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getCustomsAffiliationByIdApi(
+  data: GetApiCrmServiceCustomsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
