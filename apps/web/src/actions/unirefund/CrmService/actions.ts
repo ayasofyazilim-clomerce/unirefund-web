@@ -166,7 +166,6 @@ export async function getMerchantPhoneByIdApi(
     throw structuredError(error);
   }
 }
-
 export async function getMerchantsByIdProductGroupApi(
   id: string,
   session?: Session | null,
@@ -182,8 +181,21 @@ export async function getMerchantsByIdProductGroupApi(
     throw structuredError(error);
   }
 }
-//Unupdated actions
+export async function getMerchantAffiliationByIdApi(
+  data: GetApiCrmServiceMerchantsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 
+//Unupdated actions
 export async function getSubMerchantsByMerchantIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
 ): Promise<

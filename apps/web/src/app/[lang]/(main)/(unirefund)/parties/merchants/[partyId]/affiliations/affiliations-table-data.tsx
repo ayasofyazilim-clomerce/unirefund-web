@@ -28,22 +28,20 @@ import {
 } from "src/actions/core/IdentityService/put-actions";
 import {
   postAbpUserAccountByIndividualIdApi,
-  postAffiliationsToPartyApi,
+  postAffiliationsToMerchantApi,
 } from "src/actions/unirefund/CrmService/post-actions";
-import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 
-type IndividualsTable =
+type AffiliationsTable =
   TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
 
 interface FormData {
   lockoutEnd: string;
 }
 
-function individualsRowActions(
+function affiliationsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
-  partyName: Exclude<PartyNameType, "individuals">,
   partyId: string,
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
@@ -85,7 +83,7 @@ function individualsRowActions(
           }}
           onSubmit={({ formData }) => {
             if (!formData) return;
-            void postAffiliationsToPartyApi(partyName, {
+            void postAffiliationsToMerchantApi({
               id: partyId,
               requestBody: {
                 ...formData,
@@ -212,7 +210,7 @@ function individualsRowActions(
   return actions;
 }
 
-export function individualsColumns(
+export function affiliationsColumns(
   languageData: CRMServiceServiceResource,
   locale: string,
 ) {
@@ -230,14 +228,13 @@ export function individualsColumns(
   );
 }
 
-function individualsTable(
+function affiliationsTable(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
-  partyName: Exclude<PartyNameType, "individuals">,
   partyId: string,
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
-): IndividualsTable {
-  const table: IndividualsTable = {
+): AffiliationsTable {
+  const table: AffiliationsTable = {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
@@ -287,7 +284,7 @@ function individualsTable(
             }}
             onSubmit={({ formData }) => {
               if (!formData) return;
-              void postAffiliationsToPartyApi(partyName, {
+              void postAffiliationsToMerchantApi({
                 id: partyId,
                 requestBody: {
                   ...formData,
@@ -330,10 +327,9 @@ function individualsTable(
         ),
       },
     ],
-    rowActions: individualsRowActions(
+    rowActions: affiliationsRowActions(
       languageData,
       router,
-      partyName,
       partyId,
       affiliationCodes,
     ),
@@ -341,8 +337,8 @@ function individualsTable(
   return table;
 }
 export const tableData = {
-  individuals: {
-    columns: individualsColumns,
-    table: individualsTable,
+  affiliations: {
+    columns: affiliationsColumns,
+    table: affiliationsTable,
   },
 };
