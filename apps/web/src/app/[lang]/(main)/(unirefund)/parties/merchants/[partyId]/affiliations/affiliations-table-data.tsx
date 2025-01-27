@@ -284,15 +284,15 @@ function affiliationsTable(
             }}
             onSubmit={({ formData }) => {
               if (!formData) return;
-              // void postAffiliationsToPartyApi(partyName, {
-              //   id: partyId,
-              //   requestBody: {
-              //     ...formData,
-              //     entityInformationTypeCode: "INDIVIDUAL",
-              //   },
-              // }).then((res) => {
-              //   handlePostResponse(res, router);
-              // });
+              void postAffiliationsToMerchantApi({
+                id: partyId,
+                requestBody: {
+                  ...formData,
+                  entityInformationTypeCode: "INDIVIDUAL",
+                },
+              }).then((res) => {
+                handlePostResponse(res, router);
+              });
             }}
             schema={
               $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
