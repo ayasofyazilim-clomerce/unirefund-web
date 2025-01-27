@@ -1,6 +1,8 @@
 "use server";
 import type {
   GetApiCrmServiceAffiliationCodesData,
+  GetApiCrmServiceCustomsByIdAffiliationsData,
+  GetApiCrmServiceCustomsByIdSubCustomsData,
   GetApiCrmServiceCustomsData,
   GetApiCrmServiceIndividualsData,
   GetApiCrmServiceMerchantsByIdAffiliationsData,
@@ -13,6 +15,8 @@ import type {
   GetApiCrmServiceTaxFreesByIdAffiliationsData,
   GetApiCrmServiceTaxFreesByIdSubTaxFreeData,
   GetApiCrmServiceTaxFreesData,
+  GetApiCrmServiceTaxOfficesByIdAffiliationsData,
+  GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData,
   GetApiCrmServiceTaxOfficesData,
   UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
 } from "@ayasofyazilim/saas/CRMService";
@@ -51,6 +55,18 @@ export async function getRefundPointsApi(
     throw structuredError(error);
   }
 }
+export async function getTaxFreesApi(
+  data: GetApiCrmServiceTaxFreesData = {},
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFrees(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getTaxOfficesApi(
   data: GetApiCrmServiceTaxOfficesData = {},
   session?: Session | null,
@@ -82,6 +98,42 @@ export async function getRefundPointByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.refundPoint.getApiCrmServiceRefundPointsById({ id });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxFreeByIdApi(id: string, session?: Session | null) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdDetail(
+      { id },
+    );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxOfficeByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesById({
+      id,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getCustomByIdApi(id: string, session?: Session | null) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.customs.getApiCrmServiceCustomsByIdDetail({
+      id,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -128,6 +180,35 @@ export async function getTaxFreeSubStoresByIdApi(
     throw structuredError(error);
   }
 }
+export async function getTaxOfficeSubStoresByIdApi(
+  data: GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdSubTaxOffices(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getCustomSubStoresByIdApi(
+  data: GetApiCrmServiceCustomsByIdSubCustomsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdSubCustoms(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 export async function getMerchantAddressByIdApi(
   id: string,
   session?: Session | null,
@@ -238,6 +319,34 @@ export async function getTaxFreeAffiliationByIdApi(
     throw structuredError(error);
   }
 }
+export async function getTaxOfficeAffiliationByIdApi(
+  data: GetApiCrmServiceTaxOfficesByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAffiliations(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getCustomsAffiliationByIdApi(
+  data: GetApiCrmServiceCustomsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getAffiliationCodeApi(
   data: GetApiCrmServiceAffiliationCodesData,
   session?: Session | null,
@@ -270,15 +379,7 @@ export async function getSubMerchantsByMerchantIdApi(
     return structuredError(error);
   }
 }
-export async function getTaxFreesApi(data: GetApiCrmServiceTaxFreesData = {}) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests["tax-free"].get(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
+
 export async function getAccessibleRefundPointsApi(
   data: GetApiCrmServiceRefundPointsAccessibleData = {},
 ) {

@@ -10,6 +10,7 @@ import type {
   PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceRefundPointsByIdData,
+  PutApiCrmServiceTaxFreesByIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
 import {
@@ -46,6 +47,20 @@ export async function putRefundPointBaseApi(
     throw structuredError(error);
   }
 }
+export async function putTaxFreeBaseApi(
+  data: PutApiCrmServiceTaxFreesByIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.putApiCrmServiceTaxFreesById(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
+//Unupdated
 
 export async function putCrmAddressApi(
   partyName:
