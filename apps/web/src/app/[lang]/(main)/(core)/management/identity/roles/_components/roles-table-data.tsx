@@ -73,6 +73,7 @@ function rolesRowActions(
       type: "simple",
       actionLocation: "row",
       cta: languageData["Role.MoveAllUsers"],
+      condition: (row) => row.userCount !== 0,
       icon: User2Icon,
       onClick: (row) => {
         router.push(`roles/${row.id}/move-all-users`);

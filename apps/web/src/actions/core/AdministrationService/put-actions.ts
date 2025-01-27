@@ -1,6 +1,8 @@
 "use server";
 import type {
   PutApiLanguageManagementLanguagesByIdData,
+  PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
+  PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestoreData,
   PutApiPermissionManagementPermissionsData,
   UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto,
 } from "@ayasofyazilim/saas/AdministrationService";
@@ -59,6 +61,36 @@ export async function putLanguagesByIdSetAsDefaultApi(id: string) {
       await client.languages.putApiLanguageManagementLanguagesByIdSetAsDefault({
         id,
       });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putLanguageTextsByResourceNameByCultureNameByNameApi(
+  data: PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languageTexts.putApiLanguageManagementLanguageTextsByResourceNameByCultureNameByName(
+        data,
+      );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putLanguageTextsByResourceNameByCultureNameByNameRestoreApi(
+  data: PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestoreData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languageTexts.putApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestore(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

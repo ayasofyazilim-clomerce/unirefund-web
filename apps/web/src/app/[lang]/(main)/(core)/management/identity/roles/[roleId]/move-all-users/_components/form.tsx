@@ -59,14 +59,14 @@ export default function Form({
           roleId: formData.roleId,
         })
           .then((res) => {
-            handlePutResponse(res, router);
+            handlePutResponse(res, router, "..");
           })
           .finally(() => {
             setLoading(false);
           });
       }}
       schema={$Volo_Abp_Identity_UpdateMoveAllUsersDto}
-      submitText={languageData.Save}
+      submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
       widgets={{
         RoleWidget: CustomComboboxWidget<Volo_Abp_Identity_IdentityRoleDto>({

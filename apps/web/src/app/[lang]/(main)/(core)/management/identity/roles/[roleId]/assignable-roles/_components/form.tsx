@@ -61,7 +61,7 @@ export default function Form({
           },
         })
           .then((res) => {
-            handlePutResponse(res, router);
+            handlePutResponse(res, router, "..");
           })
           .finally(() => {
             setLoading(false);

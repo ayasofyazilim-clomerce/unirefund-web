@@ -59,6 +59,9 @@ export default function Form({
       organizationUnitIds: {
         "ui:widget": "OrganizationUnit",
       },
+      email: {
+        "ui:widget": "email",
+      },
       isActive: {
         "ui:widget": "switch",
         "ui:className": "md:col-span-2",
@@ -152,7 +155,7 @@ export default function Form({
             },
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../users");
             })
             .finally(() => {
               setLoading(false);

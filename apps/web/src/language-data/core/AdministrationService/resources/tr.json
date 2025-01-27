@@ -41,11 +41,14 @@
   "Form.Language.isDefaultLanguage": "Varsayılan Dil",
   "Form.Language.filter": "Ara",
 
+  "LanguageText.Edit.Value": "Değeri Düzenle",
+  "LanguageText.Restore.Value": "Varsayılan Değere Döndür",
+  "LanguageText.Restore.Value.Assurance": "Bu değeri varsayılan değere geri döndürmek istediğinizden emin misiniz?",
   "Form.LanguageText.baseCultureName": "Temel Kültür Adı",
   "Form.LanguageText.getOnlyEmptyValues": "Sadece Boş Değerleri Al",
   "Form.LanguageText.targetCultureName": "Hedef Kültür Adı",
   "Form.LanguageText.resourceName": "Kaynak Adı",
-  "Form.LanguageText.name": "Ad",
+  "Form.LanguageText.name": "Anahtar",
   "Form.LanguageText.baseValue": "Temel Değer",
   "Form.LanguageText.value": "Değer"
 }

@@ -36,11 +36,14 @@
   "Form.Language.isDefaultLanguage": "Default language",
   "Form.Language.filter": "Search",
 
+  "LanguageText.Edit.Value": "Edit Value",
+  "LanguageText.Restore.Value": "Restore to Default Value",
+  "LanguageText.Restore.Value.Assurance": "Are you sure you want to restore this value to the default value?",
   "Form.LanguageText.baseCultureName": "Base Culture Name",
   "Form.LanguageText.getOnlyEmptyValues": "Get Only Empty Values",
   "Form.LanguageText.targetCultureName": "Target Culture Name",
   "Form.LanguageText.resourceName": "Resource Name",
-  "Form.LanguageText.name": "Name",
+  "Form.LanguageText.name": "Key",
   "Form.LanguageText.baseValue": "Base Value",
   "Form.LanguageText.value": "Value"
 }

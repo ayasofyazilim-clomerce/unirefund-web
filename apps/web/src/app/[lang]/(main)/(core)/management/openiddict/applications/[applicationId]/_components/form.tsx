@@ -328,7 +328,7 @@ export default function Form({
               data as Volo_Abp_OpenIddict_Applications_Dtos_UpdateApplicationInput,
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../applications");
             })
             .finally(() => {
               setLoading(false);

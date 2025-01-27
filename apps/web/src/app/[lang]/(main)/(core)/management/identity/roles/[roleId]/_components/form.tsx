@@ -96,7 +96,7 @@ export default function Form({
             requestBody: { ...formData, name: formData?.name || "" },
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../roles");
             })
             .finally(() => {
               setLoading(false);

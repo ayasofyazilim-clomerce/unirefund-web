@@ -91,7 +91,7 @@ export default function Form({
             },
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../editions");
             })
             .finally(() => {
               setLoading(false);

@@ -2,6 +2,7 @@
 
 import type {
   PostApiIdentityClaimTypesData,
+  PostApiIdentityOrganizationUnitsData,
   PostApiIdentityRolesData,
   PostApiIdentityUsersData,
   PostApiOpeniddictApplicationsData,
@@ -60,6 +61,19 @@ export async function postApplicationApi(
     const client = await getIdentityServiceClient();
     const dataResponse =
       await client.applications.postApiOpeniddictApplications(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postOrganizationUnitsApi(
+  data: PostApiIdentityOrganizationUnitsData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.postApiIdentityOrganizationUnits(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

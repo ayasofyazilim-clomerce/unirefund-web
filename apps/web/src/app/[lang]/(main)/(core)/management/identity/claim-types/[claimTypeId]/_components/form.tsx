@@ -98,7 +98,7 @@ export default function Form({
             requestBody: { ...formData, name: formData?.name || "" },
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../claim-types");
             })
             .finally(() => {
               setLoading(false);

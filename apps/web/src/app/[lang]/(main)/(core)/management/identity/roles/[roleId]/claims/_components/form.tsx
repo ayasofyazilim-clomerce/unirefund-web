@@ -143,18 +143,19 @@ export default function Claims({
         <Button
           className="ml-4"
           disabled={loading}
-          onClick={() =>
+          onClick={() => {
+            setLoading(true);
             void putRoleClaimsByIdApi({
               id: roleId,
               requestBody: roleClaimsData,
             })
               .then((res) => {
-                handlePutResponse(res, router);
+                handlePutResponse(res, router, "..");
               })
               .finally(() => {
                 setLoading(false);
-              })
-          }
+              });
+          }}
         >
           {languageData["Edit.Save"]}
         </Button>
