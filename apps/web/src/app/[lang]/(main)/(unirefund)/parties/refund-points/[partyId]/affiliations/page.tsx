@@ -3,7 +3,7 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import {
   getAffiliationCodeApi,
-  getMerchantAffiliationByIdApi,
+  getRefundPointAffiliationByIdApi,
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
@@ -25,9 +25,9 @@ async function getApiRequests(filters: SearchParamType) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantAffiliationByIdApi(filters, session),
+      getRefundPointAffiliationByIdApi(filters, session),
       getAffiliationCodeApi(
-        { entityPartyTypeCode: "MERCHANT", maxResultCount: 1000 },
+        { entityPartyTypeCode: "REFUNDPOINT", maxResultCount: 1000 },
         session,
       ),
     ]);

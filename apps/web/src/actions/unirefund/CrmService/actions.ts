@@ -7,6 +7,7 @@ import type {
   GetApiCrmServiceMerchantsByIdSubMerchantsData,
   GetApiCrmServiceMerchantsData,
   GetApiCrmServiceRefundPointsAccessibleData,
+  GetApiCrmServiceRefundPointsByIdAffiliationsData,
   GetApiCrmServiceRefundPointsByIdSubRefundPointsData,
   GetApiCrmServiceRefundPointsData,
   GetApiCrmServiceTaxFreesData,
@@ -194,6 +195,35 @@ export async function getMerchantAffiliationByIdApi(
     throw structuredError(error);
   }
 }
+export async function getRefundPointAffiliationByIdApi(
+  data: GetApiCrmServiceRefundPointsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAffiliations(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
+export async function getAffiliationCodeApi(
+  data: GetApiCrmServiceAffiliationCodesData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 
 //Unupdated actions
 export async function getSubMerchantsByMerchantIdApi(
@@ -290,19 +320,6 @@ export async function getIndividualsByIdApi(
   try {
     const requests = await getApiRequests();
     const response = await requests[partyName].getIndivuals(params);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getAffiliationCodeApi(
-  data: GetApiCrmServiceAffiliationCodesData,
-) {
-  try {
-    const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
