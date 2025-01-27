@@ -6,6 +6,7 @@ import type {
   PostApiCrmServiceMerchantsByIdAffiliationsData,
   PostApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefaultData,
   PostApiCrmServiceMerchantsByIdProductGroupsData,
+  PostApiCrmServiceTaxFreesByIdAffiliationsData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
 import {
@@ -39,6 +40,19 @@ export async function postAffiliationsToRefundPointApi(
       await crmClient.refundPoint.postApiCrmServiceRefundPointsByIdAffiliations(
         data,
       );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function postAffiliationsToTaxFreeApi(
+  data: PostApiCrmServiceTaxFreesByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxFree.postApiCrmServiceTaxFreesByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);

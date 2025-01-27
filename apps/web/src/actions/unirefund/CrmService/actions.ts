@@ -10,6 +10,8 @@ import type {
   GetApiCrmServiceRefundPointsByIdAffiliationsData,
   GetApiCrmServiceRefundPointsByIdSubRefundPointsData,
   GetApiCrmServiceRefundPointsData,
+  GetApiCrmServiceTaxFreesByIdAffiliationsData,
+  GetApiCrmServiceTaxFreesByIdSubTaxFreeData,
   GetApiCrmServiceTaxFreesData,
   GetApiCrmServiceTaxOfficesData,
   UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
@@ -113,6 +115,19 @@ export async function getRefundPointSubStoresByIdApi(
     throw structuredError(error);
   }
 }
+export async function getTaxFreeSubStoresByIdApi(
+  data: GetApiCrmServiceTaxFreesByIdSubTaxFreeData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxFree.getApiCrmServiceTaxFreesByIdSubTaxFree(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantAddressByIdApi(
   id: string,
   session?: Session | null,
@@ -210,7 +225,19 @@ export async function getRefundPointAffiliationByIdApi(
     throw structuredError(error);
   }
 }
-
+export async function getTaxFreeAffiliationByIdApi(
+  data: GetApiCrmServiceTaxFreesByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxFree.getApiCrmServiceTaxFreesByIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getAffiliationCodeApi(
   data: GetApiCrmServiceAffiliationCodesData,
   session?: Session | null,
