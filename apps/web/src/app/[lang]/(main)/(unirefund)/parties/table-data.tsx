@@ -120,7 +120,6 @@ function createScheme(schema: PartiesCreateType) {
         schema.properties.entityInformationTypes.items.properties.organizations
           .items.properties.contactInformations.items.properties.emails.items,
     },
-    required: ["taxOfficeId", "taxpayerId"],
   };
 }
 
