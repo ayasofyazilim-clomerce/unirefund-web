@@ -54,7 +54,7 @@ export default function Form({
           enabled: formData.twoFactorAuthenticationEnabled || false,
         })
           .then((res) => {
-            handlePutResponse(res, router);
+            handlePutResponse(res, router, "..");
           })
           .finally(() => {
             setLoading(false);

@@ -2,6 +2,11 @@
 import type {
   PutApiIdentityAssignableRolesData,
   PutApiIdentityClaimTypesByIdData,
+  PutApiIdentityOrganizationUnitsByIdData,
+  PutApiIdentityOrganizationUnitsByIdMembersData,
+  PutApiIdentityOrganizationUnitsByIdMoveAllUsersData,
+  PutApiIdentityOrganizationUnitsByIdMoveData,
+  PutApiIdentityOrganizationUnitsByIdRolesData,
   PutApiIdentityRolesByIdClaimsData,
   PutApiIdentityRolesByIdData,
   PutApiIdentityRolesByIdMoveAllUsersData,
@@ -184,6 +189,79 @@ export async function putUsersByIdUnlockApi(id: string) {
     const dataResponse = await client.user.putApiIdentityUsersByIdUnlock({
       id,
     });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putOrganizationUnitsByIdApi(
+  data: PutApiIdentityOrganizationUnitsByIdData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.putApiIdentityOrganizationUnitsById(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putOrganizationUnitsByIdMembersApi(
+  data: PutApiIdentityOrganizationUnitsByIdMembersData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMembers(
+        data,
+      );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putOrganizationUnitsByIdMoveApi(
+  data: PutApiIdentityOrganizationUnitsByIdMoveData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMove(
+        data,
+      );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putOrganizationUnitsByIdMoveAllUsersApi(
+  data: PutApiIdentityOrganizationUnitsByIdMoveAllUsersData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMoveAllUsers(
+        data,
+      );
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putOrganizationUnitsByIdRolesApi(
+  data: PutApiIdentityOrganizationUnitsByIdRolesData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const dataResponse =
+      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdRoles(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

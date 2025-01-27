@@ -38,6 +38,12 @@ export default function Form({
       organizationUnitIds: {
         "ui:widget": "OrganizationUnit",
       },
+      password: {
+        "ui:widget": "password",
+      },
+      email: {
+        "ui:widget": "email",
+      },
       isActive: {
         "ui:widget": "switch",
       },

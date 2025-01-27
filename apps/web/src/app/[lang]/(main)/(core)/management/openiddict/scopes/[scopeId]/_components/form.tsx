@@ -84,7 +84,7 @@ export default function Form({
             requestBody: { ...formData, name: formData?.name || "" },
           })
             .then((res) => {
-              handlePutResponse(res);
+              handlePutResponse(res, router, "../scopes");
             })
             .finally(() => {
               setLoading(false);

@@ -2,6 +2,7 @@
 import type {
   GetApiAuditLoggingAuditLogsData,
   GetApiLanguageManagementLanguagesData,
+  GetApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
   GetApiLanguageManagementLanguageTextsData,
   GetApiPermissionManagementPermissionsData,
   GetApiTextTemplateManagementTemplateDefinitionsData,
@@ -115,6 +116,20 @@ export async function getLanguageTextsApi(
     const client = await getAdministrationServiceClient();
     const dataResponse =
       await client.languageTexts.getApiLanguageManagementLanguageTexts(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function getLanguageTextsDetailsByResourceNameByCultureNameByNameApi(
+  data: GetApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.languageTexts.getApiLanguageManagementLanguageTextsByResourceNameByCultureNameByName(
+        data,
+      );
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

@@ -7,9 +7,17 @@ import { $Volo_Abp_LanguageManagement_Dto_LanguageTextDto } from "@ayasofyazilim
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
+  TanstackTableRowActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { ArchiveRestore, Edit } from "lucide-react";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { putLanguageTextsByResourceNameByCultureNameByNameRestoreApi } from "src/actions/core/AdministrationService/put-actions";
+import { handlePutResponse } from "src/actions/core/api-utils-client";
 import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import isActionGranted from "src/utils/page-policy/action-policy";
+import type { Policy } from "src/utils/page-policy/utils";
+import LanguageTextsEdit from "./language-text-edit";
 
 type LanguageTextsTable =
   TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageTextDto>;
@@ -21,6 +29,52 @@ const links: Partial<
   >
 > = {};
 
+function languageTextsRowActions(
+  languageData: AdministrationServiceResource,
+  grantedPolicies: Record<Policy, boolean>,
+  router: AppRouterInstance,
+) {
+  const actions: TanstackTableRowActionsType<Volo_Abp_LanguageManagement_Dto_LanguageTextDto>[] =
+    [];
+  if (
+    isActionGranted(["LanguageManagement.LanguageTexts.Edit"], grantedPolicies)
+  ) {
+    actions.push({
+      type: "custom-dialog",
+      cta: languageData["LanguageText.Edit.Value"],
+      title: languageData["LanguageText.Edit.Value"],
+      actionLocation: "row",
+      icon: Edit,
+      content: (row) => (
+        <LanguageTextsEdit languageData={languageData} languageTextData={row} />
+      ),
+    });
+  }
+  if (
+    isActionGranted(["LanguageManagement.LanguageTexts.Edit"], grantedPolicies)
+  ) {
+    actions.push({
+      type: "confirmation-dialog",
+      cta: languageData["LanguageText.Restore.Value"],
+      title: languageData["LanguageText.Restore.Value"],
+      actionLocation: "row",
+      confirmationText: languageData["Language.Confirm"],
+      cancelText: languageData.Cancel,
+      description: languageData["LanguageText.Restore.Value.Assurance"],
+      icon: ArchiveRestore,
+      onConfirm: (row) => {
+        void putLanguageTextsByResourceNameByCultureNameByNameRestoreApi({
+          resourceName: row.resourceName || "",
+          cultureName: row.cultureName || "",
+          name: row.name || "",
+        }).then((response) => {
+          handlePutResponse(response, router);
+        });
+      },
+    });
+  }
+  return actions;
+}
 const languageTextsColumns = (
   locale: string,
   languageData: AdministrationServiceResource,
@@ -43,9 +97,11 @@ function languageTextsTable(
   languageData: AdministrationServiceResource,
   languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[],
   languagesResourcesData: Volo_Abp_LanguageManagement_Dto_LanguageResourceDto[],
+  grantedPolicies: Record<Policy, boolean>,
+  router: AppRouterInstance,
 ) {
   const table: LanguageTextsTable = {
-    fillerColumn: "cultureName",
+    fillerColumn: "name",
     columnVisibility: {
       type: "show",
       columns: ["name", "baseValue", "value", "resourceName"],
@@ -90,6 +146,7 @@ function languageTextsTable(
         },
       },
     },
+    rowActions: languageTextsRowActions(languageData, grantedPolicies, router),
   };
   return table;
 }

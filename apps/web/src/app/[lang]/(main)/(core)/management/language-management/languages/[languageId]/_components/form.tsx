@@ -100,7 +100,7 @@ export default function Form({
             requestBody: formData,
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../languages");
             })
             .finally(() => {
               setLoading(false);

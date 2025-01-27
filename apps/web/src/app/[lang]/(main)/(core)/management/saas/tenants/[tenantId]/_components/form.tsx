@@ -144,7 +144,7 @@ export default function Page({
             requestBody: data as Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
           })
             .then((res) => {
-              handlePutResponse(res, router);
+              handlePutResponse(res, router, "../tenants");
             })
             .finally(() => {
               setLoading(false);

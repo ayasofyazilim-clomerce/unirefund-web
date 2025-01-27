@@ -2,6 +2,10 @@
 
 import type {
   GetApiIdentityClaimTypesData,
+  GetApiIdentityOrganizationUnitsAvailableRolesData,
+  GetApiIdentityOrganizationUnitsAvailableUsersData,
+  GetApiIdentityOrganizationUnitsByIdMembersData,
+  GetApiIdentityOrganizationUnitsByIdRolesData,
   GetApiIdentityRolesData,
   GetApiIdentitySecurityLogsData,
   GetApiIdentitySessionsData,
@@ -112,17 +116,6 @@ export async function getAssignableRolesByCurrentUserApi() {
     const client = await getIdentityServiceClient();
     const dataResponse =
       await client.role.getApiIdentityRolesAssignableRolesByCurrentUser();
-    return structuredResponse(dataResponse);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getAllOrganizationApi() {
-  try {
-    const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.getApiIdentityOrganizationUnitsAll();
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -329,6 +322,77 @@ export async function getApplicationsByIdTokenLifetimeApi(id: string) {
       await client.applications.getApiOpeniddictApplicationsByIdTokenLifetime({
         id,
       });
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getAllOrganizationUnitsApi() {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.organizationUnit.getApiIdentityOrganizationUnitsAll();
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getOrganizationUnitsAvailableRolesApi(
+  data: GetApiIdentityOrganizationUnitsAvailableRolesData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.organizationUnit.getApiIdentityOrganizationUnitsAvailableRoles(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getOrganizationUnitsAvailableUsersApi(
+  data: GetApiIdentityOrganizationUnitsAvailableUsersData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.organizationUnit.getApiIdentityOrganizationUnitsAvailableUsers(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getOrganizationUnitsByIdMembersApi(
+  data: GetApiIdentityOrganizationUnitsByIdMembersData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.organizationUnit.getApiIdentityOrganizationUnitsByIdMembers(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getOrganizationUnitsByIdRolesApi(
+  data: GetApiIdentityOrganizationUnitsByIdRolesData,
+) {
+  try {
+    const client = await getIdentityServiceClient();
+    const response =
+      await client.organizationUnit.getApiIdentityOrganizationUnitsByIdRoles(
+        data,
+      );
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

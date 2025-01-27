@@ -11,6 +11,7 @@
   "Edition.MoveAllTenants.Description": "Tüm müşterileri mevcut paketten seçilen paket'e taşıyabilirsiniz.",
   "Form.Edition.tenantCount": "Müşteri Sayısı",
   "Form.Edition.displayName": "Paket Adı",
+  "Form.Edition.editionId": "Paket Adı",
 
   "Tenant": "Müşteri",
   "Tenants": "Müşteriler",
@@ -38,6 +39,6 @@
   "Form.Tenant.activeWithLimitedTime": "Sınırlı Süreli Aktif",
   "Form.Tenant.passive": "Pasif",
   "Form.Tenant.activationEndDate": "Aktivasyon Bitiş Tarihi",
-  "Form.Tenant.SetPassword.username": "kullanıcı adı",
-  "Form.Tenant.SetPassword.password": "sifre"
+  "Form.Tenant.SetPassword.username": "Kullanıcı adı",
+  "Form.Tenant.SetPassword.password": "Şifre"
 }

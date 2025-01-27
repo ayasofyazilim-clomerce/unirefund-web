@@ -49,6 +49,7 @@ function editionsRowActions(
     actions.push({
       type: "simple",
       actionLocation: "row",
+      condition: (row) => row.tenantCount !== 0,
       cta: languageData["Edition.MoveAllTenants"],
       icon: User2Icon,
       onClick: (row) => {

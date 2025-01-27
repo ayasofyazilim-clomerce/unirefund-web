@@ -11,6 +11,7 @@
   "Edition.MoveAllTenants.Description": "You can move all tenants from the current edition to the selected edition.",
   "Form.Edition.tenantCount": "Tenant Count",
   "Form.Edition.displayName": "Display Name",
+  "Form.Edition.editionId": "Edition Name",
 
   "Tenant": "Tenant",
   "Tenants": "Tenants",
