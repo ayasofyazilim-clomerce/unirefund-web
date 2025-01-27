@@ -1,19 +1,35 @@
 "use server";
 
-import type { GetApiCrmServiceRefundPointsByIdSubRefundPointsData } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
-import { getRefundPointSubStoresByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {
+  getAffiliationCodeApi,
+  getRefundPointAffiliationByIdApi,
+} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import SubStoresTable from "./table";
+import AffiliationsTable from "./table";
 
-async function getApiRequests(
-  filters: GetApiCrmServiceRefundPointsByIdSubRefundPointsData,
-) {
+interface SearchParamType {
+  affiliationCodeId?: number;
+  email?: string;
+  entityInformationTypeCode?: "INDIVIDUAL" | "ORGANIZATION";
+  id: string;
+  maxResultCount?: number;
+  name?: string;
+  skipCount?: number;
+  sorting?: string;
+  telephone?: string;
+}
+
+async function getApiRequests(filters: SearchParamType) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getRefundPointSubStoresByIdApi(filters, session),
+      getRefundPointAffiliationByIdApi(filters, session),
+      getAffiliationCodeApi(
+        { entityPartyTypeCode: "REFUNDPOINT", maxResultCount: 1000 },
+        session,
+      ),
     ]);
     return {
       type: "success" as const,
@@ -29,16 +45,19 @@ async function getApiRequests(
 }
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: {
     partyId: string;
     lang: string;
   };
+  searchParams?: SearchParamType;
 }) {
   const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
+    ...searchParams,
     id: partyId,
   });
 
@@ -51,11 +70,14 @@ export default async function Page({
     );
   }
 
-  const [subStoresResponse] = apiRequests.data;
+  const [subStoresResponse, affiliationCodesResponse] = apiRequests.data;
 
   return (
-    <SubStoresTable
+    <AffiliationsTable
+      affiliationCodes={affiliationCodesResponse.data.items || []}
       languageData={languageData}
+      locale={lang}
+      partyId={partyId}
       response={subStoresResponse.data}
     />
   );

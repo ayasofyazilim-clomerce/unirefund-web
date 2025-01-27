@@ -1,10 +1,12 @@
 "use server";
 
 import type {
+  GetApiCrmServiceAffiliationCodesData,
   GetApiCrmServiceMerchantsByIdDetailResponse,
   UniRefund_CRMService_Merchants_UpdateMerchantDto,
 } from "@ayasofyazilim/saas/CRMService";
 import { SectionLayout } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
+import { auth } from "@repo/utils/auth/next-auth";
 import { notFound } from "next/navigation";
 import { getTableDataDetail } from "src/actions/api-requests";
 import { getAssignableRolesByCurrentUserApi } from "src/actions/core/IdentityService/actions";
@@ -82,6 +84,25 @@ async function getPartyDetail(
     detail: null,
     message: response.message,
   };
+}
+
+async function getApiRequests(filters: GetApiCrmServiceAffiliationCodesData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getAffiliationCodeApi(filters, session),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
 }
 
 export default async function Page({
@@ -189,9 +210,19 @@ export default async function Page({
       ? individualsResponse.data
       : { items: [], totalCount: 0 };
 
-  const affiliationCodesResponse = await getAffiliationCodeApi({
+  const apiRequests = await getApiRequests({
     entityPartyTypeCode: partyNameToEntityPartyTypeCode[partyName],
   });
+  if (apiRequests.type === "error") {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={apiRequests.message || "Unknown error occurred"}
+      />
+    );
+  }
+
+  const [affiliationCodesResponse] = apiRequests.data;
 
   const assignableRolesResponse = await getAssignableRolesByCurrentUserApi();
   const assignableRoles =
@@ -200,11 +231,9 @@ export default async function Page({
       : [];
 
   const affiliationCodes =
-    affiliationCodesResponse.type === "success"
-      ? affiliationCodesResponse.data.items?.filter((a) =>
-          assignableRoles.find((r) => r.isAssignable && r.roleId === a.roleId),
-        ) || []
-      : [];
+    affiliationCodesResponse.data.items?.filter((a) =>
+      assignableRoles.find((r) => r.isAssignable && r.roleId === a.roleId),
+    ) || [];
 
   const merchantProductGroupsResponse =
     await getMerchantsByIdProductGroupApi(partyId);

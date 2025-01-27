@@ -1,13 +1,40 @@
 "use server";
 
+import type { GetApiCrmServiceAffiliationCodesData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getAssignableRolesByCurrentUserApi } from "src/actions/core/IdentityService/actions";
 import { getAffiliationCodeApi } from "src/actions/unirefund/CrmService/actions";
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";
-import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService/types";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import AffiliationsTable from "./_components/table";
+
+async function getApiRequests(partyType: PartyNameType) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getAffiliationCodeApi(
+        {
+          entityPartyTypeCode:
+            partyType as GetApiCrmServiceAffiliationCodesData["entityPartyTypeCode"],
+          maxResultCount: 1000,
+        },
+        session,
+      ),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -20,17 +47,18 @@ export default async function Page({
   const { lang, partyType } = params;
   const { languageData } = await getResourceData(lang);
 
-  const affiliationCodesResponse = await getAffiliationCodeApi({
-    entityPartyTypeCode: partyNameToEntityPartyTypeCode[partyType],
-  });
-  if (isErrorOnRequest(affiliationCodesResponse, lang, false)) {
+  const apiRequests = await getApiRequests(partyType);
+
+  if (apiRequests.type === "error") {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={affiliationCodesResponse.message}
+        message={apiRequests.message || "Unknown error occurred"}
       />
     );
   }
+
+  const [affiliationCodesResponse] = apiRequests.data;
 
   const affiliationCodes = affiliationCodesResponse.data;
 

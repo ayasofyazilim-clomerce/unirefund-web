@@ -1,7 +1,10 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
-import { getMerchantAffiliationByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {
+  getAffiliationCodeApi,
+  getMerchantAffiliationByIdApi,
+} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "./table";
@@ -23,6 +26,10 @@ async function getApiRequests(filters: SearchParamType) {
     const session = await auth();
     const apiRequests = await Promise.all([
       getMerchantAffiliationByIdApi(filters, session),
+      getAffiliationCodeApi(
+        { entityPartyTypeCode: "MERCHANT", maxResultCount: 1000 },
+        session,
+      ),
     ]);
     return {
       type: "success" as const,
@@ -63,11 +70,11 @@ export default async function Page({
     );
   }
 
-  const [subStoresResponse] = apiRequests.data;
+  const [subStoresResponse, affiliationCodesResponse] = apiRequests.data;
 
   return (
     <AffiliationsTable
-      affiliationCodes={[]}
+      affiliationCodes={affiliationCodesResponse.data.items || []}
       languageData={languageData}
       locale={lang}
       partyId={partyId}

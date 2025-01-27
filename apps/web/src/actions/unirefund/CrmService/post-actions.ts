@@ -26,7 +26,22 @@ export async function postAffiliationsToMerchantApi(
       await crmClient.merchant.postApiCrmServiceMerchantsByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
+  }
+}
+export async function postAffiliationsToRefundPointApi(
+  data: PostApiCrmServiceMerchantsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.postApiCrmServiceRefundPointsByIdAffiliations(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
   }
 }
 
