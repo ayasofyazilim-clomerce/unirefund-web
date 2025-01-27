@@ -33,6 +33,10 @@ export default async function Layout({
           label: languageData.ProductGroups,
           href: `${baseLink}product-groups`,
         },
+        {
+          label: languageData.Affiliations,
+          href: `${baseLink}affiliations`,
+        },
       ]}
       variant="simple"
     >

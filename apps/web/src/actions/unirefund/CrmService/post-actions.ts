@@ -7,13 +7,30 @@ import type {
   PostApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefaultData,
   PostApiCrmServiceMerchantsByIdProductGroupsData,
 } from "@ayasofyazilim/saas/CRMService";
+import type { Session } from "@repo/utils/auth";
 import {
   getCRMServiceClient,
   structuredError,
   structuredResponse,
+  structuredSuccessResponse,
 } from "src/lib";
 import { getApiRequests } from "../../api-requests";
 
+export async function postAffiliationsToMerchantApi(
+  data: PostApiCrmServiceMerchantsByIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.postApiCrmServiceMerchantsByIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
+//Unupdated
 export async function postAffiliationsToPartyApi(
   partyType:
     | "merchants"
