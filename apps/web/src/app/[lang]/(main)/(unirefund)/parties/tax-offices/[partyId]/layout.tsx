@@ -21,10 +21,11 @@ export default async function Layout({
     <TabLayout
       orientation="vertical"
       tabList={[
-        // {
-        //   label: "Details",
-        //   href: `${baseLink}details/info`,
-        // },
+        {
+          label: "Details",
+          href: `${baseLink}details/info`,
+          disabled: true,
+        },
         {
           label: languageData["Merchants.SubOrganization"],
           href: `${baseLink}sub-stores`,

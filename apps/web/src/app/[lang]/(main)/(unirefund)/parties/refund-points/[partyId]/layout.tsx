@@ -24,6 +24,7 @@ export default async function Layout({
         {
           label: "Details",
           href: `${baseLink}details/info`,
+          disabled: true,
         },
         {
           label: languageData["Merchants.SubOrganization"],
