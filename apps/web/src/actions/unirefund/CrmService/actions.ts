@@ -334,7 +334,7 @@ export async function getTaxOfficeAffiliationByIdApi(
     throw structuredError(error);
   }
 }
-export async function getCustomsAffiliationByIdApi(
+export async function getCustomAffiliationByIdApi(
   data: GetApiCrmServiceCustomsByIdAffiliationsData,
   session?: Session | null,
 ) {

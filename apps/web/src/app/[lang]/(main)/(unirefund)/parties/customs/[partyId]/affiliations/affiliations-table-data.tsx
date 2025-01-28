@@ -28,7 +28,7 @@ import {
 } from "src/actions/core/IdentityService/put-actions";
 import {
   postAbpUserAccountByIndividualIdApi,
-  postAffiliationsToRefundPointApi,
+  postAffiliationsToCustomApi,
 } from "src/actions/unirefund/CrmService/post-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 
@@ -83,7 +83,7 @@ function affiliationsRowActions(
           }}
           onSubmit={({ formData }) => {
             if (!formData) return;
-            void postAffiliationsToRefundPointApi({
+            void postAffiliationsToCustomApi({
               id: partyId,
               requestBody: {
                 ...formData,
@@ -102,7 +102,7 @@ function affiliationsRowActions(
             schema:
               $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
             resources: languageData,
-            name: "Form.RefundPoint.Affiliation",
+            name: "Form.Custom.Affiliation",
             extend: {
               affiliationCodeId: {
                 "ui:widget": "affiliationCode",
@@ -218,7 +218,7 @@ export function affiliationsColumns(
     {
       languageData: {
         languageData,
-        constantKey: "Form.RefundPoint.Affiliation",
+        constantKey: "Form.Custom.Affiliation",
       },
       rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto.properties,
       config: {
@@ -310,7 +310,7 @@ function affiliationsTable(
             }}
             onSubmit={({ formData }) => {
               if (!formData) return;
-              void postAffiliationsToRefundPointApi({
+              void postAffiliationsToCustomApi({
                 id: partyId,
                 requestBody: {
                   ...formData,
@@ -328,7 +328,7 @@ function affiliationsTable(
               schema:
                 $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
               resources: languageData,
-              name: "Form.RefundPoint.Affiliation",
+              name: "Form.Custom.Affiliation",
               extend: {
                 affiliationCodeId: {
                   "ui:widget": "affiliationCode",
