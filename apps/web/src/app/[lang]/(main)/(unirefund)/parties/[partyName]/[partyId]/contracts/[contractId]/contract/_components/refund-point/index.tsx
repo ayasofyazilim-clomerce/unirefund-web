@@ -3,7 +3,7 @@
 import { toast } from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractHeaderDetailForRefundPointDto,
-  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto as RefundFeeHeader,
+  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto } from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
@@ -31,7 +31,7 @@ export function ContractHeader({
 }: {
   contractHeaderDetails: ContractHeaderDetailForRefundPointDto;
   addressList: AddressCommonDataDto[];
-  refundFeeHeaders: RefundFeeHeader[];
+  refundFeeHeaders: AssignableRefundFeeHeaders[];
   languageData: ContractServiceResource;
   fromDate: Date | undefined;
 }) {
@@ -50,15 +50,15 @@ export function ContractHeader({
         formData={{
           ...contractHeaderDetails,
           status: contractHeaderDetails.status || "None",
-          refundFeeHeaders: contractHeaderDetails.refundFeeHeaders.map(
-            (refundFeeHeader) => {
+          refundFeeHeaders: [
+            ...contractHeaderDetails.refundFeeHeaders.map((refundFeeHeader) => {
               return {
                 ...refundFeeHeader,
                 refundFeeHeaderId: refundFeeHeader.id,
                 validTo: refundFeeHeader.validTo || new Date().toISOString(),
               };
-            },
-          ),
+            }),
+          ],
         }}
         formType="update"
         fromDate={fromDate}
