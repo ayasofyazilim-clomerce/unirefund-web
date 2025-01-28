@@ -1,10 +1,10 @@
 import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeadersByMerchantIdApi,
-  getRefundFeeHeadersApi,
+  getRefundFeeHeadersAssignablesByRefundPointIdApi,
   getRefundPointContractHeaderByIdApi,
   getRefundPointContractHeadersByRefundPointIdApi,
-  getRefundTableHeadersApi,
+  getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import {
   getAdressesApi,
@@ -36,7 +36,10 @@ export default async function Page({
       lang,
     });
 
-    const refundTableHeadersResponse = await getRefundTableHeadersApi({});
+    const refundTableHeadersResponse =
+      await getRefundTableHeadersAssignablesByMerchantIdApi({
+        merchantId: partyId,
+      });
     if (isErrorOnRequest(refundTableHeadersResponse, lang, false)) {
       return (
         <ErrorComponent
@@ -90,7 +93,7 @@ export default async function Page({
         contractHeaderDetails={contractHeaderDetailsResponse.data}
         fromDate={activeContract ? new Date(activeContract.validTo) : undefined}
         languageData={languageData}
-        refundTableHeaders={refundTableHeadersResponse.data.items || []}
+        refundTableHeaders={refundTableHeadersResponse.data}
       />
     );
   }
@@ -99,7 +102,10 @@ export default async function Page({
     requiredPolicies: ["ContractService.ContractHeaderForRefundPoint.Edit"],
     lang,
   });
-  const refundFeeHeadersResponse = await getRefundFeeHeadersApi({});
+  const refundFeeHeadersResponse =
+    await getRefundFeeHeadersAssignablesByRefundPointIdApi({
+      refundPointId: partyId,
+    });
   if (isErrorOnRequest(refundFeeHeadersResponse, lang, false)) {
     return (
       <ErrorComponent
@@ -162,7 +168,7 @@ export default async function Page({
       contractHeaderDetails={contractHeaderDetailsResponse.data}
       fromDate={activeContract ? new Date(activeContract.validTo) : undefined}
       languageData={languageData}
-      refundFeeHeaders={refundFeeHeadersResponse.data.items || []}
+      refundFeeHeaders={refundFeeHeadersResponse.data}
     />
   );
 }

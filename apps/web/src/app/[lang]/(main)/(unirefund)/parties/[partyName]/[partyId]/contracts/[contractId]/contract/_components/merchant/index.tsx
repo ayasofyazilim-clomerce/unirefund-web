@@ -3,7 +3,7 @@
 import { toast } from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto as RefundTableHeaderDto,
+  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto } from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
@@ -31,7 +31,7 @@ export function ContractHeader({
 }: {
   contractHeaderDetails: ContractHeaderDetailForMerchantDto;
   addressList: AddressCommonDataDto[];
-  refundTableHeaders: RefundTableHeaderDto[];
+  refundTableHeaders: AssignableRefundTableHeaders[];
   languageData: ContractServiceResource;
   fromDate: Date | undefined;
 }) {
@@ -50,7 +50,7 @@ export function ContractHeader({
         formData={{
           ...contractHeaderDetails,
           status: contractHeaderDetails.status || "None",
-          refundTableHeaders: {
+          refundTableHeaders: [
             ...contractHeaderDetails.refundTableHeaders.map(
               (refundTableHeader) => {
                 return {
@@ -61,7 +61,7 @@ export function ContractHeader({
                 };
               },
             ),
-          },
+          ],
         }}
         formType="update"
         fromDate={fromDate}

@@ -1,22 +1,21 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import type {
+  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as ContractHeaderForMerchantCreateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as ContractHeaderRefundTableHeaderCreateAndUpdateDto,
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
 } from "@ayasofyazilim/saas/ContractService";
 import {
   $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto,
   $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto,
+  $UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as $ContractHeaderRefundTableHeaderCreateAndUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
+import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import Link from "next/link";
+import { PlusCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
@@ -27,7 +26,6 @@ import {
 import { postMerchantContractHeadersByMerchantIdApi } from "src/actions/unirefund/ContractService/action";
 import { putMerchantContractHeadersByIdApi } from "src/actions/unirefund/ContractService/put-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { getBaseLink } from "src/utils";
 import {
   MerchantAddressWidget,
   RefundTableWidget,
@@ -77,10 +75,6 @@ export default function MerchantContractHeaderForm(
     create: $ContractHeaderForMerchantCreateDto,
     update: $ContractHeaderForMerchantUpdateDto,
   };
-  const formData = {
-    create: {},
-    update: props.formType === "update" && props.formData,
-  };
 
   const uiSchema = createUiSchemaWithResource({
     name: "Contracts.Form",
@@ -109,10 +103,7 @@ export default function MerchantContractHeaderForm(
       },
       refundTableHeaders: {
         "ui:className": "md:col-span-full",
-        items: {
-          "ui:field": "RefundTableHeadersItemField",
-          displayLabel: false,
-        },
+        "ui:field": "RefundTableHeaders",
       },
       validFrom: {
         "ui:options": {
@@ -123,18 +114,18 @@ export default function MerchantContractHeaderForm(
       },
     },
   });
-
   return (
     <SchemaForm
       className="grid gap-2"
       disabled={formLoading || loading}
       fields={{
-        RefundTableHeadersItemField: RefundTableHeadersItemField({
-          loading,
+        RefundTableHeaders: RefundTableField(
+          props.formType === "update"
+            ? props.formData.refundTableHeaders
+            : undefined,
           languageData,
           refundTableHeaders,
-          fromDate,
-        }),
+        ),
       }}
       filter={{
         type: "include",
@@ -147,12 +138,13 @@ export default function MerchantContractHeaderForm(
           "webSite",
           "status",
           "refundTableHeaders",
+          "refundTableHeaders.isDefault",
           "refundTableHeaders.validFrom",
           "refundTableHeaders.validTo",
           "refundTableHeaders.refundTableHeaderId",
         ],
       }}
-      formData={formData[props.formType]}
+      formData={props.formType === "update" ? props.formData : undefined}
       onSubmit={(data) => {
         if (!data.formData) return;
         handleLoading(true);
@@ -174,7 +166,7 @@ export default function MerchantContractHeaderForm(
         } else {
           void putMerchantContractHeadersByIdApi({
             id: props.contractId,
-            requestBody: data.formData as ContractHeaderForMerchantUpdateDto,
+            requestBody: data.formData,
           })
             .then((response) => {
               handlePutResponse(response, router);
@@ -193,140 +185,60 @@ export default function MerchantContractHeaderForm(
           addressList: addresses,
           languageData,
         }),
+        refundTable: RefundTableWidget({
+          loading,
+          refundTableHeaders,
+          languageData,
+        }),
       }}
       withScrollArea
     />
   );
 }
 
-function RefundTableHeadersItemField({
-  languageData,
-  refundTableHeaders,
-  loading,
-  fromDate,
-}: {
-  languageData: ContractServiceResource;
-  refundTableHeaders: AssignableRefundTableHeaders[];
-  loading: boolean;
-  fromDate?: Date | undefined;
-}) {
-  function Field(props: FieldProps) {
-    const [open, setOpen] = useState(false);
-
-    const { schema } = props;
-    const _formData: ContractHeaderRefundTableHeaderCreateAndUpdateDto =
-      props.formData as ContractHeaderRefundTableHeaderCreateAndUpdateDto;
-    const hasValue: boolean = Object.keys(props.formData as object).length > 0;
-    const [defaultItem, setDefaultItem] = useState<boolean>(
-      hasValue ? _formData.isDefault ?? true : props.index === 0,
-    );
-
-    const uiSchema = createUiSchemaWithResource({
-      name: "Contracts.Form",
-      resources: languageData,
-      schema,
-      extend: {
-        refundTableHeaderId: {
-          "ui:widget": "refundTable",
-          "ui:title":
-            languageData[
-              "Contracts.Form.refundTableHeaders.refundTableHeaderId"
-            ],
-        },
-        validFrom: {
-          "ui:options": {
-            fromDate,
+function RefundTableField(
+  formData:
+    | ContractHeaderRefundTableHeaderCreateAndUpdateDto[]
+    | undefined
+    | null,
+  languageData: ContractServiceResource,
+  refundTableHeaders: AssignableRefundTableHeaders[],
+) {
+  return TableField<ContractHeaderRefundTableHeaderCreateAndUpdateDto>({
+    editable: true,
+    fillerColumn: "refundTableHeaderId",
+    data: formData || [],
+    columns:
+      tanstackTableEditableColumnsByRowData<ContractHeaderRefundTableHeaderCreateAndUpdateDto>(
+        {
+          rows: {
+            ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties,
+            refundTableHeaderId: {
+              ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties
+                .refundTableHeaderId,
+              enum: refundTableHeaders.map((x) => ({
+                value: x.id,
+                label: x.name,
+              })),
+            },
           },
+          excludeColumns: ["extraProperties"],
         },
+      ),
+    tableActions: [
+      {
+        type: "create-row",
+        actionLocation: "table",
+        cta: languageData["Rebate.Form.rebateTableDetails.add"],
+        icon: PlusCircle,
       },
-    });
-    const [selectedRefundTableHeader, setSelectedRefundTableHeader] = useState(
-      _formData.refundTableHeaderId,
-    );
-    return (
-      <div
-        className="grid w-full grid-cols-2 gap-2 rounded-md p-2"
-        key={props.idSchema.$id}
-      >
-        <div className="relative flex h-9 items-center gap-2 text-nowrap">
-          <input
-            className="accent-primary"
-            defaultChecked={defaultItem}
-            disabled={loading}
-            id={props.idSchema.$id}
-            name="setDefault"
-            onChange={(e) => {
-              setDefaultItem(e.target.checked);
-            }}
-            type="radio"
-          />
-          <Label
-            className="absolute inset-0 flex items-center pl-6"
-            htmlFor={props.idSchema.$id}
-          >
-            {languageData.IsDefault}
-          </Label>
-        </div>
-        <Sheet onOpenChange={setOpen} open={open}>
-          <SheetTrigger asChild>
-            <Button
-              className="w-full"
-              disabled={loading}
-              type="button"
-              variant="outline"
-            >
-              {hasValue ? (
-                <div>
-                  {
-                    refundTableHeaders.find(
-                      (x) => x.id === _formData.refundTableHeaderId,
-                    )?.name
-                  }
-                </div>
-              ) : (
-                languageData["Contracts.Form.refundTableHeaders.edit"]
-              )}
-            </Button>
-          </SheetTrigger>
-          <SheetContent>
-            <SchemaForm<ContractHeaderRefundTableHeaderCreateAndUpdateDto>
-              formData={_formData}
-              onChange={({ formData }) => {
-                if (!formData) return;
-                setSelectedRefundTableHeader(formData.refundTableHeaderId);
-              }}
-              onSubmit={(data) => {
-                props.onChange({ ...data.formData, isDefault: defaultItem });
-                setOpen(false);
-              }}
-              schema={props.schema}
-              uiSchema={uiSchema}
-              useDefaultSubmit={false}
-              widgets={{
-                refundTable: RefundTableWidget({
-                  loading,
-                  refundTableHeaders,
-                  languageData,
-                }),
-              }}
-            >
-              <div className="mt-2 flex w-full justify-end gap-2">
-                <Button asChild variant="outline">
-                  <Link
-                    href={getBaseLink(
-                      `settings/templates/refund-tables/${selectedRefundTableHeader}`,
-                    )}
-                  >
-                    {languageData.Edit}
-                  </Link>
-                </Button>
-                <Button>{languageData.Save}</Button>
-              </div>
-            </SchemaForm>
-          </SheetContent>
-        </Sheet>
-      </div>
-    );
-  }
-  return Field;
+    ],
+    rowActions: [
+      {
+        actionLocation: "row",
+        cta: languageData["Rebate.Form.rebateTableDetails.delete"],
+        type: "delete-row",
+      },
+    ],
+  });
 }
