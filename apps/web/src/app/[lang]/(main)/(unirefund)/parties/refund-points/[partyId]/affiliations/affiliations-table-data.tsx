@@ -15,7 +15,7 @@ import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/mole
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { Eye, KeyIcon, Plus, User2 } from "lucide-react";
+import { CheckCircle, Eye, KeyIcon, Plus, User2, XCircle } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { postSendPasswordResetCodeApi } from "src/actions/core/AccountService/post-actions";
 import {
@@ -223,6 +223,32 @@ export function affiliationsColumns(
       rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto.properties,
       config: {
         locale,
+      },
+      faceted: {
+        abpUserId: {
+          options: [
+            {
+              label: "Yes",
+              when: (value) => {
+                return Boolean(value);
+              },
+              value: "true",
+              icon: CheckCircle,
+              iconClassName: "text-green-700",
+              hideColumnValue: true,
+            },
+            {
+              label: "No",
+              when: (value) => {
+                return !value;
+              },
+              value: "false",
+              icon: XCircle,
+              iconClassName: "text-red-700",
+              hideColumnValue: true,
+            },
+          ],
+        },
       },
     },
   );
