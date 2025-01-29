@@ -75,6 +75,21 @@ export async function putMerchantOrganizationApi(
     return structuredError(error);
   }
 }
+export async function putRefundPointOrganizationApi(
+  data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 //Unupdated
 
 export async function putCrmAddressApi(
