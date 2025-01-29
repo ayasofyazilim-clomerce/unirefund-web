@@ -45,13 +45,25 @@ function TaxFreeForm({
       sourceField: "typeCode",
       type: DependencyType.HIDES,
       targetField: "parentId",
-      when: (typeCode: string) => typeCode !== "STORE",
+      when: (typeCode: string) => typeCode === "HEADQUARTER",
+    },
+    {
+      sourceField: "typeCode",
+      type: DependencyType.HIDES,
+      targetField: "taxOfficeId",
+      when: (typeCode: string) => typeCode !== "HEADQUARTER",
+    },
+    {
+      sourceField: "typeCode",
+      type: DependencyType.HIDES,
+      targetField: "taxpayerId",
+      when: (typeCode: string) => typeCode !== "HEADQUARTER",
     },
     {
       sourceField: "typeCode",
       type: DependencyType.REQUIRES,
       targetField: "parentId",
-      when: (typeCode: string) => typeCode === "STORE",
+      when: (typeCode: string) => typeCode !== "HEADQUARTER",
     },
   ];
 
@@ -97,8 +109,12 @@ function TaxFreeForm({
       formClassName="pb-40"
       formSchema={schema}
       onSubmit={(values) => {
-        if (values.typeCode === "STORE" && !values.parentId) {
+        if (values.typeCode !== "HEADQUARTER" && !values.parentId) {
           return;
+        }
+        if (values.typeCode !== "HEADQUARTER") {
+          values.taxOfficeId = null;
+          values.taxpayerId = null;
         }
         handleSubmit(values as UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto);
       }}
