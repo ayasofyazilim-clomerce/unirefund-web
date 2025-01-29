@@ -6,11 +6,8 @@ import type {
   PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
   PutApiContractServiceRefundTableHeadersByIdData,
 } from "@ayasofyazilim/saas/ContractService";
-import {
-  getContractServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import { structuredError, structuredResponse } from "@repo/utils/api";
+import { getContractServiceClient } from "src/lib";
 
 export async function putMerchantContractHeadersByIdApi(
   data: PutApiContractServiceMerchantsContractsContractHeadersByIdData,
