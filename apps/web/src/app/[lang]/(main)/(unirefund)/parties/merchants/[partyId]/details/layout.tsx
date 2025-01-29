@@ -21,12 +21,12 @@ export default async function Layout({
     <TabLayout
       tabList={[
         {
-          label: "Info",
-          href: `${baseLink}info`,
-        },
-        {
           label: languageData["Parties.Organization"],
           href: `${baseLink}organization`,
+        },
+        {
+          label: "Info",
+          href: `${baseLink}info`,
         },
         {
           label: languageData.Email,

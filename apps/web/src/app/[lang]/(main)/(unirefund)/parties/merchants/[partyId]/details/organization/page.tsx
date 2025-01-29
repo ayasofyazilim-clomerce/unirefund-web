@@ -1,24 +1,16 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
-import {
-  getMerchantByIdApi,
-  getMerchantDetailByIdApi,
-  getMerchantsApi,
-  getTaxOfficesApi,
-} from "src/actions/unirefund/CrmService/actions";
+import { getMerchantOrganizationsByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import MerchantForm from "./form";
+import OrganizationForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantsApi({}, session),
-      getMerchantByIdApi(partyId, session),
-      getTaxOfficesApi({}, session),
-      getMerchantDetailByIdApi(partyId, session),
+      getMerchantOrganizationsByIdApi(partyId, session),
     ]);
     return {
       type: "success" as const,
@@ -55,28 +47,14 @@ export default async function Page({
     );
   }
 
-  const [
-    merchantsResponse,
-    merchantDetailResponse,
-    taxOfficesResponse,
-    taxOfficeResponse,
-  ] = apiRequests.data;
-  const merchants = merchantsResponse.data;
-  const merchantDetail = merchantDetailResponse.data;
-  const taxOffices = taxOfficesResponse.data;
-  const taxOfficeId = taxOfficeResponse.data.merchant?.taxOfficeId;
-
-  const merchantList =
-    merchants.items?.filter((merchant) => merchant.id !== partyId) || [];
+  const [merchantOrganizationResponse] = apiRequests.data;
+  const organizationDetail = merchantOrganizationResponse.data;
 
   return (
-    <MerchantForm
+    <OrganizationForm
       languageData={languageData}
-      merchantDetail={merchantDetail}
-      merchantList={merchantList}
+      organizationDetail={organizationDetail[0]}
       partyId={partyId}
-      taxOfficeId={taxOfficeId || ""}
-      taxOfficeList={taxOffices.items || []}
     />
   );
 }

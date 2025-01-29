@@ -33,16 +33,17 @@ export async function getCountriesApi(
   }
 }
 export async function getAllCountriesApi(
-  data: GetApiLocationServiceCountriesData = {
-    maxResultCount: 250,
-    sorting: "name",
-  },
+  data: GetApiLocationServiceCountriesData,
   session?: Session | null,
 ) {
   try {
     const locationClient = await getLocationServiceClient(session);
     const response =
-      await locationClient.country.getApiLocationServiceCountries(data);
+      await locationClient.country.getApiLocationServiceCountries({
+        ...data,
+        maxResultCount: 250,
+        sorting: "name",
+      });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);

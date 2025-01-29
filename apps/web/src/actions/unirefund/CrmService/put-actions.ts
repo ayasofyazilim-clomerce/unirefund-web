@@ -31,7 +31,7 @@ export async function putMerchantBaseApi(
       await crmClient.merchant.putApiCrmServiceMerchantsById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function putRefundPointBaseApi(
@@ -44,7 +44,7 @@ export async function putRefundPointBaseApi(
       await crmClient.refundPoint.putApiCrmServiceRefundPointsById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function putTaxFreeBaseApi(
@@ -56,10 +56,25 @@ export async function putTaxFreeBaseApi(
     const response = await crmClient.taxFree.putApiCrmServiceTaxFreesById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 
+export async function putMerchantOrganizationApi(
+  data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 //Unupdated
 
 export async function putCrmAddressApi(
@@ -90,7 +105,7 @@ export async function putMerchantEmailApi(
       );
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function putMerchantAddressApi(
@@ -104,7 +119,7 @@ export async function putMerchantAddressApi(
       );
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function putRefundPointAddressApi(
@@ -118,7 +133,7 @@ export async function putRefundPointAddressApi(
       );
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function putMerchantTelephoneApi(
@@ -132,7 +147,7 @@ export async function putMerchantTelephoneApi(
       );
     return structuredResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function putCrmEmailAddressApi(

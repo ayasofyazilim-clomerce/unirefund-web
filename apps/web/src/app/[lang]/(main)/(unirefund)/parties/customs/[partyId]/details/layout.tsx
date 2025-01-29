@@ -15,27 +15,35 @@ export default async function Layout({
   };
 }) {
   const { partyId, lang } = params;
+  const baseLink = getBaseLink(
+    `parties/refund-points/${partyId}/details/`,
+    lang,
+  );
   const { languageData } = await getResourceData(lang);
-  const baseLink = getBaseLink(`parties/tax-offices/${partyId}/`, lang);
   return (
     <TabLayout
-      orientation="vertical"
       tabList={[
         {
-          label: "Details",
-          href: `${baseLink}details/organization`,
-          disabled: true,
+          label: "Info",
+          href: `${baseLink}info`,
         },
         {
-          label: languageData["Merchants.SubOrganization"],
-          href: `${baseLink}sub-stores`,
+          label: languageData["Parties.Organization"],
+          href: `${baseLink}organization`,
         },
         {
-          label: languageData.Affiliations,
-          href: `${baseLink}affiliations`,
+          label: languageData.Email,
+          href: `${baseLink}email`,
+        },
+        {
+          label: languageData.Telephone,
+          href: `${baseLink}phone`,
+        },
+        {
+          label: languageData.Address,
+          href: `${baseLink}address`,
         },
       ]}
-      variant="simple"
     >
       {children}
     </TabLayout>
