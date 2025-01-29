@@ -8,11 +8,8 @@ import type {
   PostApiContractServiceRefundPointsByIdContractsContractHeadersData,
   PostApiContractServiceRefundTableHeadersData,
 } from "@ayasofyazilim/saas/ContractService";
-import {
-  getContractServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import { structuredResponse, structuredError } from "@repo/utils/api";
+import { getContractServiceClient } from "src/lib";
 
 export async function postRefundTableHeadersApi(
   data: PostApiContractServiceRefundTableHeadersData,

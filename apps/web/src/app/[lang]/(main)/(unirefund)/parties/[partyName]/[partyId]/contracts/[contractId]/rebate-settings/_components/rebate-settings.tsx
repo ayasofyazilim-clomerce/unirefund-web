@@ -22,7 +22,7 @@ import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-fo
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
+import { handlePostResponse } from "@repo/utils/api";
 import { postMerchantContractHeaderRebateSettingByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 

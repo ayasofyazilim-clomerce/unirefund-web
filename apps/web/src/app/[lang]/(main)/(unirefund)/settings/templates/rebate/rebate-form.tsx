@@ -21,10 +21,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-  handlePostResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
+import { handlePostResponse, handlePutResponse } from "@repo/utils/api";
 import { postRebateTableHeadersApi } from "src/actions/unirefund/ContractService/post-actions";
 import { putRebateTableHeadersByIdApi } from "src/actions/unirefund/ContractService/put-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";

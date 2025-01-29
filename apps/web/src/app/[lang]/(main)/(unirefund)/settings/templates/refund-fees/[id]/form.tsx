@@ -17,7 +17,7 @@ import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/sch
 import { ActionList } from "@repo/ui/action-button";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
+import { handlePutResponse } from "@repo/utils/api";
 import { putRefundFeeHeadersByIdApi } from "src/actions/unirefund/ContractService/put-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 
