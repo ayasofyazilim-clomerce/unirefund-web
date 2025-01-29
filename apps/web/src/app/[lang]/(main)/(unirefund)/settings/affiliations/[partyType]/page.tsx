@@ -1,6 +1,6 @@
 "use server";
 
-import type { GetApiCrmServiceAffiliationCodesData } from "@ayasofyazilim/saas/CRMService";
+import type { UniRefund_CRMService_Enums_EntityPartyTypeCode } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
 import { getAssignableRolesByCurrentUserApi } from "src/actions/core/IdentityService/actions";
 import { getAffiliationCodeApi } from "src/actions/unirefund/CrmService/actions";
@@ -10,14 +10,26 @@ import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import AffiliationsTable from "./_components/table";
 
-async function getApiRequests(partyType: PartyNameType) {
+const entityPartyTypeCodeMap: Record<
+  Exclude<PartyNameType, "individuals">,
+  UniRefund_CRMService_Enums_EntityPartyTypeCode
+> = {
+  customs: "CUSTOMS",
+  merchants: "MERCHANT",
+  "refund-points": "REFUNDPOINT",
+  "tax-free": "TAXFREE",
+  "tax-offices": "TAXOFFICE",
+};
+
+async function getApiRequests(
+  entityPartyTypeCode: UniRefund_CRMService_Enums_EntityPartyTypeCode,
+) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
       getAffiliationCodeApi(
         {
-          entityPartyTypeCode:
-            partyType as GetApiCrmServiceAffiliationCodesData["entityPartyTypeCode"],
+          entityPartyTypeCode,
           maxResultCount: 1000,
         },
         session,
@@ -47,7 +59,7 @@ export default async function Page({
   const { lang, partyType } = params;
   const { languageData } = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests(partyType);
+  const apiRequests = await getApiRequests(entityPartyTypeCodeMap[partyType]);
 
   if (apiRequests.type === "error") {
     return (
@@ -59,9 +71,7 @@ export default async function Page({
   }
 
   const [affiliationCodesResponse] = apiRequests.data;
-
   const affiliationCodes = affiliationCodesResponse.data;
-
   const assignableRolesResponse = await getAssignableRolesByCurrentUserApi();
   if (isErrorOnRequest(assignableRolesResponse, lang)) return;
 

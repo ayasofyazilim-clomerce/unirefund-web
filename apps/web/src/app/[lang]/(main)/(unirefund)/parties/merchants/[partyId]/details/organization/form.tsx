@@ -1,7 +1,7 @@
 "use client";
 
 import type {
-  GetApiCrmServiceMerchantsByIdOrganizationsResponse,
+  UniRefund_CRMService_Organizations_OrganizationDto,
   UniRefund_CRMService_Organizations_UpdateOrganizationDto,
 } from "@ayasofyazilim/saas/CRMService";
 import { $UniRefund_CRMService_Organizations_UpdateOrganizationDto } from "@ayasofyazilim/saas/CRMService";
@@ -21,7 +21,7 @@ function OrganizationForm({
 }: {
   languageData: CRMServiceServiceResource;
   partyId: string;
-  organizationDetail: GetApiCrmServiceMerchantsByIdOrganizationsResponse[0];
+  organizationDetail: UniRefund_CRMService_Organizations_OrganizationDto;
 }) {
   const router = useRouter();
   const schema = createZodObject(
