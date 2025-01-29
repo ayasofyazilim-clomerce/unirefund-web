@@ -28,12 +28,14 @@ function MerchantForm({
   taxOfficeList,
   merchantList,
   merchantDetail,
+  taxOfficeId,
 }: {
   languageData: CRMServiceServiceResource;
   partyId: string;
   taxOfficeList: UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto[];
   merchantList: UniRefund_CRMService_Merchants_MerchantProfileDto[];
   merchantDetail: GetApiCrmServiceMerchantsByIdResponse;
+  taxOfficeId: string;
 }) {
   const router = useRouter();
   const schema = createZodObject(
@@ -46,6 +48,18 @@ function MerchantForm({
       type: DependencyType.HIDES,
       targetField: "parentId",
       when: (typeCode: string) => typeCode !== "STORE",
+    },
+    {
+      sourceField: "typeCode",
+      type: DependencyType.HIDES,
+      targetField: "taxOfficeId",
+      when: (typeCode: string) => typeCode === "STORE",
+    },
+    {
+      sourceField: "typeCode",
+      type: DependencyType.HIDES,
+      targetField: "taxpayerId",
+      when: (typeCode: string) => typeCode === "STORE",
     },
     {
       sourceField: "typeCode",
@@ -100,11 +114,15 @@ function MerchantForm({
         if (values.typeCode === "STORE" && !values.parentId) {
           return;
         }
+        if (values.typeCode === "STORE") {
+          values.taxOfficeId = null;
+          values.taxpayerId = null;
+        }
         handleSubmit(
           values as UniRefund_CRMService_Merchants_UpdateMerchantDto,
         );
       }}
-      values={merchantDetail}
+      values={{ ...merchantDetail, taxOfficeId }}
     >
       <AutoFormSubmit className="float-right">
         {languageData.Save}
