@@ -1,49 +1,47 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   $UniRefund_ContractService_Rebates_RebateSettings_RebateSettingUpSertDto as $RebateSettingUpSertDto,
+  $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeadersToRebateSettingUpSertDto as $RebateTableHeadersToRebateSettingUpSertDto,
+  $UniRefund_ContractService_Rebates_MinimumNetCommissions_MinimumNetCommissionUpSertDto as $MinimumNetCommissionUpSertDto,
   type UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderInformationDto as AssignableRebateTableHeaders,
   type UniRefund_ContractService_Rebates_RebateSettings_RebateSettingDto as RebateSettingDto,
   type UniRefund_ContractService_Rebates_RebateSettings_RebateSettingUpSertDto as RebateSettingUpSertDto,
   type UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeadersToRebateSettingUpSertDto as RebateTableHeadersToRebateSettingUpSertDto,
+  type UniRefund_ContractService_Rebates_MinimumNetCommissions_MinimumNetCommissionUpSertDto as MinimumNetCommissionUpSertDto,
 } from "@ayasofyazilim/saas/ContractService";
 import type {
   UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto as AffiliationTypeDetailDto,
-  // UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto,
+  UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
+import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import Link from "next/link";
+import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
 import { postMerchantContractHeaderRebateSettingByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { getBaseLink } from "src/utils";
-import { RebateTableWidget } from "../../../_components/contract-widgets";
 
 export function RebateSettings({
   languageData,
   rebateSettings,
   rebateTableHeaders,
-  // subMerchants,
+  subMerchants,
   individuals,
   contractId,
   // lang,
-  fromDate,
 }: {
   languageData: ContractServiceResource;
   rebateSettings: RebateSettingDto | undefined;
   rebateTableHeaders: AssignableRebateTableHeaders[];
-  // subMerchants: StoreProfileDto[];
+  subMerchants: StoreProfileDto[];
   individuals: AffiliationTypeDetailDto[];
   contractId: string;
   // lang: string;
-  fromDate?: Date | undefined;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -56,30 +54,38 @@ export function RebateSettings({
         "ui:widget": "switch",
       },
       rebateTableHeaders: {
-        items: {
-          "ui:field": "CreateRebateTableField",
-        },
+        "ui:field": "RebateTableField",
       },
       contactInformationTypeId: {
         "ui:widget": "Individuals",
       },
       minimumNetCommissions: {
-        items: {
-          "ui:field": "CreateMinimumNetCommissionField",
-        },
+        "ui:field": "MinimumNetCommissionsField",
       },
     },
   });
+
+  const rebateTableFormData = rebateSettings?.rebateTableHeaders?.map(
+    (rebateTableHeader) => ({
+      ...rebateTableHeader,
+      rebateTableHeaderId: rebateTableHeader.id,
+    }),
+  );
+
   return (
     <SchemaForm<RebateSettingUpSertDto>
       disabled={loading}
       fields={{
-        CreateRebateTableField: RebateTableHeadersItemField({
-          loading,
+        RebateTableField: RebateTableField(
+          rebateTableFormData,
           languageData,
           rebateTableHeaders,
-          fromDate,
-        }),
+        ),
+        MinimumNetCommissionsField: MinimumNetCommissionsField(
+          rebateSettings?.minimumNetCommissions,
+          languageData,
+          subMerchants,
+        ),
       }}
       formData={
         rebateSettings
@@ -127,112 +133,89 @@ export function RebateSettings({
   );
 }
 
-function RebateTableHeadersItemField({
-  languageData,
-  rebateTableHeaders,
-  loading,
-  fromDate,
-}: {
-  languageData: ContractServiceResource;
-  rebateTableHeaders: AssignableRebateTableHeaders[];
-  loading: boolean;
-  fromDate?: Date | undefined;
-}) {
-  function Field(props: FieldProps) {
-    const [open, setOpen] = useState(false);
-
-    const { schema } = props;
-    const _formData: RebateTableHeadersToRebateSettingUpSertDto =
-      props.formData as RebateTableHeadersToRebateSettingUpSertDto;
-    const hasValue: boolean = Object.keys(props.formData as object).length > 0;
-    // const [defaultItem, setDefaultItem] = useState<boolean>(
-    //   hasValue ? _formData.isDefault ?? true : props.index === 0,
-    // );
-
-    const uiSchema = createUiSchemaWithResource({
-      name: "Contracts.Form",
-      resources: languageData,
-      schema,
-      extend: {
-        refundTableHeaderId: {
-          "ui:widget": "refundTable",
-          "ui:title":
-            languageData[
-              "Contracts.Form.refundTableHeaders.refundTableHeaderId"
-            ],
+function RebateTableField(
+  formData: RebateTableHeadersToRebateSettingUpSertDto[] | undefined | null,
+  languageData: ContractServiceResource,
+  refundTableHeaders: AssignableRebateTableHeaders[],
+) {
+  return TableField<RebateTableHeadersToRebateSettingUpSertDto>({
+    editable: true,
+    fillerColumn: "rebateTableHeaderId",
+    data: formData || [],
+    columns:
+      tanstackTableEditableColumnsByRowData<RebateTableHeadersToRebateSettingUpSertDto>(
+        {
+          rows: {
+            ...$RebateTableHeadersToRebateSettingUpSertDto.properties,
+            rebateTableHeaderId: {
+              ...$RebateTableHeadersToRebateSettingUpSertDto.properties
+                .rebateTableHeaderId,
+              enum: refundTableHeaders.map((x) => ({
+                value: x.id,
+                label: x.name,
+              })),
+            },
+          },
+          excludeColumns: ["extraProperties"],
         },
-        validFrom: {
-          "ui:options": {
-            fromDate,
+      ),
+    tableActions: [
+      {
+        type: "create-row",
+        actionLocation: "table",
+        cta: languageData["Rebate.Form.rebateTableDetails.add"],
+        icon: PlusCircle,
+      },
+    ],
+    rowActions: [
+      {
+        actionLocation: "row",
+        cta: languageData.Delete,
+        type: "delete-row",
+      },
+    ],
+  });
+}
+
+function MinimumNetCommissionsField(
+  formData: MinimumNetCommissionUpSertDto[] | undefined | null,
+  languageData: ContractServiceResource,
+  subMerchants: StoreProfileDto[],
+) {
+  return TableField<MinimumNetCommissionUpSertDto>({
+    editable: true,
+    fillerColumn: "appliedOrganizationId",
+    data: formData || [],
+    columns:
+      tanstackTableEditableColumnsByRowData<MinimumNetCommissionUpSertDto>({
+        languageData,
+        rows: {
+          ...$MinimumNetCommissionUpSertDto.properties,
+          appliedOrganizationId: {
+            ...$MinimumNetCommissionUpSertDto.properties.appliedOrganizationId,
+            enum: subMerchants.map((x) => ({
+              value: x.id,
+              label: x.name,
+            })),
           },
         },
+        excludeColumns: ["extraProperties"],
+      }),
+    tableActions: [
+      {
+        type: "create-row",
+        actionLocation: "table",
+        cta: languageData["Rebate.Form.rebateTableDetails.add"],
+        icon: PlusCircle,
       },
-    });
-    const [selectedRebateTableHeader, setSelectedRebateTableHeader] = useState(
-      _formData.rebateTableHeaderId,
-    );
-    return (
-      <div className="w-full rounded-md p-2" key={props.idSchema.$id}>
-        <Sheet onOpenChange={setOpen} open={open}>
-          <SheetTrigger asChild>
-            <Button
-              className="w-full"
-              disabled={loading}
-              type="button"
-              variant="outline"
-            >
-              {hasValue ? (
-                <div>
-                  {
-                    rebateTableHeaders.find(
-                      (x) => x.id === _formData.rebateTableHeaderId,
-                    )?.name
-                  }
-                </div>
-              ) : (
-                languageData["Contracts.Form.refundTableHeaders.edit"]
-              )}
-            </Button>
-          </SheetTrigger>
-          <SheetContent>
-            <SchemaForm<RebateTableHeadersToRebateSettingUpSertDto>
-              formData={_formData}
-              onChange={({ formData }) => {
-                if (!formData) return;
-                setSelectedRebateTableHeader(formData.rebateTableHeaderId);
-              }}
-              onSubmit={({ formData }) => {
-                props.onChange(formData);
-                setOpen(false);
-              }}
-              schema={props.schema}
-              uiSchema={uiSchema}
-              useDefaultSubmit={false}
-              widgets={{
-                refundTable: RebateTableWidget({
-                  loading,
-                  rebateTableHeaders,
-                  languageData,
-                }),
-              }}
-            >
-              <div className="mt-2 flex w-full justify-end gap-2">
-                <Button asChild variant="outline">
-                  <Link
-                    href={getBaseLink(
-                      `settings/templates/rebate-tables/${selectedRebateTableHeader}`,
-                    )}
-                  >
-                    {languageData.Edit}
-                  </Link>
-                </Button>
-                <Button>{languageData.Save}</Button>
-              </div>
-            </SchemaForm>
-          </SheetContent>
-        </Sheet>
-      </div>
-    );
-  }
-  return Field;
+    ],
+    rowActions: [
+      {
+        actionLocation: "row",
+        cta: languageData.Delete,
+        type: "delete-row",
+      },
+    ],
+    columnOrder: ["appliedOrganizationId", "amount", "validFrom", "validTo"],
+  });
 }
