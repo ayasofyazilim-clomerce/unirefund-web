@@ -52,7 +52,7 @@ function subStoreColumns(
 ) {
   if (isActionGranted(["CRMService.TaxFrees.Edit"], grantedPolicies)) {
     links.name = {
-      prefix: "/parties/merchants",
+      prefix: "/parties/tax-free",
       targetAccessorKey: "id",
     };
   }

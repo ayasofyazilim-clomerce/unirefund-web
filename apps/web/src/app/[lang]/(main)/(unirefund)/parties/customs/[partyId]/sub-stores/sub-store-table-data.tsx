@@ -52,7 +52,7 @@ function subStoreColumns(
 ) {
   if (isActionGranted(["CRMService.Customs.Edit"], grantedPolicies)) {
     links.name = {
-      prefix: "/parties/merchants",
+      prefix: "/parties/customs",
       targetAccessorKey: "id",
     };
   }

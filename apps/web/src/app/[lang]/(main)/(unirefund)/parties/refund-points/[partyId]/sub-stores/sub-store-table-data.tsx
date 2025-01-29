@@ -52,7 +52,7 @@ function subStoreColumns(
 ) {
   if (isActionGranted(["CRMService.RefundPoints.Edit"], grantedPolicies)) {
     links.name = {
-      prefix: "/parties/merchants",
+      prefix: "/parties/refund-points",
       targetAccessorKey: "id",
     };
   }
