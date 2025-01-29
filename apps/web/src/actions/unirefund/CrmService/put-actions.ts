@@ -60,6 +60,21 @@ export async function putTaxFreeBaseApi(
   }
 }
 
+export async function putMerchantOrganizationApi(
+  data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.putApiCrmServiceMerchantsByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 //Unupdated
 
 export async function putCrmAddressApi(
