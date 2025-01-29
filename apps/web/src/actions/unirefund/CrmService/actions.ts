@@ -79,6 +79,21 @@ export async function getTaxOfficesApi(
     throw structuredError(error);
   }
 }
+export async function getMerchantDetailByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdDetail({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantByIdApi(id: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
@@ -134,6 +149,21 @@ export async function getCustomByIdApi(id: string, session?: Session | null) {
     const response = await crmClient.customs.getApiCrmServiceCustomsByIdDetail({
       id,
     });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getMerchantOrganizationsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.getApiCrmServiceMerchantsByIdOrganizations({
+        id,
+      });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);

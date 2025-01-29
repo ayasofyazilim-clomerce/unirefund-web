@@ -52,6 +52,7 @@ function merchantColumns(
     links.name = {
       prefix: "/parties/merchants",
       targetAccessorKey: "id",
+      suffix: "details/organization",
     };
 
     links.parentName = {

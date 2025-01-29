@@ -99,8 +99,8 @@ export function DetailsForm({
       formData={{
         ...details,
         name: details.name || "",
-        status: details.status || "Waiting",
-        entityPartyTypeCode: details.entityPartyTypeCode || "CUSTOMS",
+        status: details.status,
+        entityPartyTypeCode: details.entityPartyTypeCode,
       }}
       onSubmit={({ formData }) => {
         if (!formData) return;
