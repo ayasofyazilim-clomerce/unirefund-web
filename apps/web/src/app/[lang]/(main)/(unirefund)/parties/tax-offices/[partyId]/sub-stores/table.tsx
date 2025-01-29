@@ -16,7 +16,7 @@ function SubStoresTable({
 }) {
   const { grantedPolicies } = useGrantedPolicies();
   const router = useRouter();
-  const { lang } = useParams<{ lang: string }>();
+  const { lang, partyId } = useParams<{ lang: string; partyId: string }>();
   const columns = tableData.subStores.columns(
     lang,
     languageData,
@@ -26,6 +26,7 @@ function SubStoresTable({
     languageData,
     router,
     grantedPolicies,
+    partyId,
   );
 
   return (

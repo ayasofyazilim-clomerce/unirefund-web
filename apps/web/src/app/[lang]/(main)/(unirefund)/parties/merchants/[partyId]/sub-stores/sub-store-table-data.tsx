@@ -28,6 +28,7 @@ function subStoreTableActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
+  partyId: string,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
   if (isActionGranted(["CRMService.Merchants.Create"], grantedPolicies)) {
@@ -37,7 +38,7 @@ function subStoreTableActions(
       cta: languageData.New,
       icon: PlusCircle,
       onClick() {
-        router.push("sub-stores/new");
+        router.push(`../new?parentId=${partyId}`);
       },
     });
   }
@@ -55,7 +56,7 @@ function subStoreColumns(
       targetAccessorKey: "id",
     };
   }
-
+  //parties/${partyName}/new?parentId=${partyId}
   return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Merchants_StoreProfileDto>(
     {
       rows: $UniRefund_CRMService_Merchants_StoreProfileDto.properties,
@@ -77,6 +78,7 @@ function subStoreTable(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
+  partyId: string,
 ) {
   const table: SubStoreTable = {
     fillerColumn: "name",
@@ -85,7 +87,12 @@ function subStoreTable(
       columns: ["id"],
     },
     columnOrder: ["name", "manager"],
-    tableActions: subStoreTableActions(languageData, router, grantedPolicies),
+    tableActions: subStoreTableActions(
+      languageData,
+      router,
+      grantedPolicies,
+      partyId,
+    ),
     filters: {
       textFilters: ["name"],
       facetedFilters: {

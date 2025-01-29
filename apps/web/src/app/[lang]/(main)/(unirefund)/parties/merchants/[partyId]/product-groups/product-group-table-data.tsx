@@ -7,7 +7,10 @@ import {
   $UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto,
 } from "@ayasofyazilim/saas/CRMService";
 import type { UniRefund_SettingService_ProductGroups_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {
+  TanstackTableColumnLink,
+  TanstackTableCreationProps,
+} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
@@ -24,14 +27,30 @@ import {
   postMerchantsByIdProductGroupsApi,
 } from "src/actions/unirefund/CrmService/post-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import isActionGranted from "src/utils/page-policy/action-policy";
+import type { Policy } from "src/utils/page-policy/utils";
 
 type ProductGroupsTable =
   TanstackTableCreationProps<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>;
 
 export function productGroupsColumns(
   languageData: CRMServiceServiceResource,
+  grantedPolicies: Record<Policy, boolean>,
   locale: string,
 ) {
+  const links: Partial<
+    Record<
+      keyof UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto,
+      TanstackTableColumnLink
+    >
+  > = {};
+  if (isActionGranted(["SettingService.ProductGroups.Edit"], grantedPolicies)) {
+    links.productGroupName = {
+      prefix: "/settings/product/product-groups",
+      targetAccessorKey: "productGroupId",
+    };
+  }
+
   return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>(
     {
       rows: $UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto.properties,
@@ -39,6 +58,7 @@ export function productGroupsColumns(
         languageData,
         constantKey: "Form.Merchant.productGroup",
       },
+      links,
       config: {
         locale,
       },

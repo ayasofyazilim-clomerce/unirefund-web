@@ -28,6 +28,7 @@ function subStoreTableActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
+  partyId: string,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
   if (isActionGranted(["CRMService.TaxOffices.Create"], grantedPolicies)) {
@@ -37,7 +38,7 @@ function subStoreTableActions(
       cta: languageData.New,
       icon: PlusCircle,
       onClick() {
-        router.push("sub-stores/new");
+        router.push(`../new?parentId=${partyId}`);
       },
     });
   }
@@ -51,7 +52,7 @@ function subStoreColumns(
 ) {
   if (isActionGranted(["CRMService.TaxOffices.Edit"], grantedPolicies)) {
     links.name = {
-      prefix: "/parties/merchants",
+      prefix: "/parties/tax-offices",
       targetAccessorKey: "id",
     };
   }
@@ -77,6 +78,7 @@ function subStoreTable(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
+  partyId: string,
 ) {
   const table: SubStoreTable = {
     fillerColumn: "name",
@@ -85,7 +87,12 @@ function subStoreTable(
       columns: ["id", "organizationId", "parentId"],
     },
     columnOrder: ["name"],
-    tableActions: subStoreTableActions(languageData, router, grantedPolicies),
+    tableActions: subStoreTableActions(
+      languageData,
+      router,
+      grantedPolicies,
+      partyId,
+    ),
     filters: {
       textFilters: ["name"],
       facetedFilters: {

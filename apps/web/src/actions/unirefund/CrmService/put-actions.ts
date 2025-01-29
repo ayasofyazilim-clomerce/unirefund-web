@@ -10,6 +10,7 @@ import type {
   PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceRefundPointsByIdData,
+  PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
   PutApiCrmServiceTaxFreesByIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
@@ -116,6 +117,20 @@ export async function putMerchantEmailApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putRefundPointEmailApi(
+  data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdEmailsByEmailId(
         data,
       );
     return structuredSuccessResponse(response);

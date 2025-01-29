@@ -298,6 +298,21 @@ export async function getMerchantEmailByIdApi(
     throw structuredError(error);
   }
 }
+export async function getRefundPointEmailByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdEmails({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantPhoneByIdApi(
   id: string,
   session?: Session | null,
