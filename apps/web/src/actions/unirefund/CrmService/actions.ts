@@ -169,6 +169,24 @@ export async function getMerchantOrganizationsByIdApi(
     throw structuredError(error);
   }
 }
+export async function getRefundPointOrganizationsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdOrganizations(
+        {
+          id,
+        },
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 export async function getMerchantSubStoresByIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
   session?: Session | null,
