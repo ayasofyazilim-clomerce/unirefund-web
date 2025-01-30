@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getRebateTableHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
-import RebateForm from "../rebate-form";
+import RebateForm from "../_components/rebate-form";
 
 export default async function Page({
   params,

@@ -275,10 +275,10 @@
     "requiredPolicies": ["ContractService.RefundTableHeader"]
   },
   {
-    "key": "settings/templates/rebate",
+    "key": "settings/templates/rebate-tables",
     "displayName": "Rebate",
-    "description": "Manage rebate",
-    "href": "settings/templates/rebate",
+    "description": "Manage rebate tables",
+    "href": "settings/templates/rebate-tables",
     "icon": "settings",
     "parentNavbarItemKey": "settings/templates",
     "displayOrder": 1,
