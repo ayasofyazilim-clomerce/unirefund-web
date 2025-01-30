@@ -78,7 +78,7 @@ const rebateTableHeadersTable = (params: {
         type: "simple",
         icon: PlusCircle,
         onClick: () => {
-          params.router.push(`rebate/new`);
+          params.router.push(`rebate-tables/new`);
         },
         cta: params.languageData["Rebate.Create"],
       },
