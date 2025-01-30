@@ -70,6 +70,10 @@
   "User.Session.userName": "User Name",
   "User.Session.clientId": "Client ID",
   "User.Session.ipAddresses": "IP addresses",
+  "User.Lock": "Lock User",
+  "User.Lock.Description": "You can lock the user from here.",
+  "User.Unlock": "Unlock User",
+  "User.Unlock.Assurance": "Are you sure you want to unlock this user?",
   "Form.User.userName": "User Name",
   "Form.User.roleNames": "Roles",
   "Form.User.organizationUnitIds": "Organization Units",
@@ -102,6 +106,7 @@
   "Form.User.SetPassword.newPassword": "New Password",
   "Form.User.TwoFactor": "Two Factor",
   "Form.User.TwoFactor.twoFactorAuthenticationEnabled": "Two Factor Authentication Enabled",
+  "Form.User.Lock.lockoutEnd": "Lockout End",
 
   "Claims": "Claims",
   "ClaimType": "Claim Type",
