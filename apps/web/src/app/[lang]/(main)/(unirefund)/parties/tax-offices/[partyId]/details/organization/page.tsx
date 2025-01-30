@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
-import { getTaxFreeOrganizationsByIdApi } from "src/actions/unirefund/CrmService/actions";
+import { getTaxOfficeOrganizationsByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import OrganizationForm from "./form";
@@ -10,7 +10,7 @@ async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getTaxFreeOrganizationsByIdApi(partyId, session),
+      getTaxOfficeOrganizationsByIdApi(partyId, session),
     ]);
     return {
       type: "success" as const,
@@ -47,8 +47,8 @@ export default async function Page({
     );
   }
 
-  const [taxFreeOrganizationResponse] = apiRequests.data;
-  const organizationDetail = taxFreeOrganizationResponse.data;
+  const [taxOfficeOrganizationResponse] = apiRequests.data;
+  const organizationDetail = taxOfficeOrganizationResponse.data;
 
   return (
     <OrganizationForm
