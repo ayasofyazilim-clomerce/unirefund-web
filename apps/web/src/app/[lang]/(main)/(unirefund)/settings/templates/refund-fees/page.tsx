@@ -2,10 +2,10 @@
 
 import type { GetApiContractServiceRefundFeeHeadersData } from "@ayasofyazilim/saas/ContractService";
 import { notFound } from "next/navigation";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { getRefundFeeHeadersApi } from "../../../../../../../actions/unirefund/ContractService/action";
-import Table from "./table";
+import { getResourceData } from "@/language-data/unirefund/ContractService";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import { getRefundFeeHeadersApi } from "@/actions/unirefund/ContractService/action";
+import Table from "./_components/table";
 
 export default async function Page(props: {
   params: { lang: string };
