@@ -6,6 +6,7 @@
     "build:web": "turbo build --filter web",
     "start": "turbo start",
     "start:web": "cd apps/web && start /B pnpm run start && npx --yes wait-on http://127.0.0.1:3000",
+    "tcr": "cd apps/web && pnpm type-check:report",
     "dev:all": "turbo dev",
     "dev:apps": "turbo dev --filter web --filter public_web --filter docs",
     "dev": "turbo dev --filter web",
