@@ -1,8 +1,8 @@
 "use server";
 import { notFound } from "next/navigation";
-import { getRebateTableHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { getRebateTableHeadersByIdApi } from "@/actions/unirefund/ContractService/action";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import { getResourceData } from "@/language-data/unirefund/ContractService";
 import RebateTableHeaderUpdateForm from "./_components/form";
 
 export default async function Page({
