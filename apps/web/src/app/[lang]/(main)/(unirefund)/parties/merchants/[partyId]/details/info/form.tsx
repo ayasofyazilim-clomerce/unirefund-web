@@ -116,6 +116,7 @@ function MerchantForm({
         }
         if (values.typeCode !== "HEADQUARTER") {
           values.taxOfficeId = null;
+          values.parentId = null;
           values.taxpayerId = null;
         }
         handleSubmit(

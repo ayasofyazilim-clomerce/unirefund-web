@@ -114,6 +114,7 @@ function TaxFreeForm({
         }
         if (values.typeCode !== "HEADQUARTER") {
           values.taxOfficeId = null;
+          values.parentId = null;
           values.taxpayerId = null;
         }
         handleSubmit(values as UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto);

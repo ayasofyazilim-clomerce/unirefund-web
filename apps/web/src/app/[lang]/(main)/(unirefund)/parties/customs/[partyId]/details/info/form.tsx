@@ -4,7 +4,7 @@ import { $UniRefund_CRMService_Customss_UpdateCustomsDto } from "@ayasofyazilim/
 import type {
   UniRefund_CRMService_Customss_CustomsProfileDto,
   UniRefund_CRMService_Customss_UpdateCustomsDto,
-  type UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
+  UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {
