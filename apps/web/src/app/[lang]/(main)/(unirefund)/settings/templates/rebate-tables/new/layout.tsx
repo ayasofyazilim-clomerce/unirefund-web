@@ -18,7 +18,7 @@ export default function Layout({ children, params }: LayoutProps) {
   const pathname = usePathname();
   const languageData = getResourceDataClient(params.lang);
 
-  const path = pathname.split("templates/rebate/")[1];
+  const path = pathname.split("templates/rebate-tables/")[1];
 
   const navbarItems = [
     {
