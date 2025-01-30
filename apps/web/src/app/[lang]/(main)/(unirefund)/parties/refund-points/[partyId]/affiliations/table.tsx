@@ -5,6 +5,7 @@ import type {
 } from "@ayasofyazilim/saas/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import { useRouter } from "next/navigation";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import { tableData } from "./affiliations-table-data";
 
@@ -23,11 +24,13 @@ function Affiliations({
 }) {
   const router = useRouter();
   const columns = tableData.affiliations.columns(languageData, locale);
+  const { grantedPolicies } = useGrantedPolicies();
   const table = tableData.affiliations.table(
     languageData,
     router,
     partyId,
     affiliationCodes,
+    grantedPolicies,
   );
   return (
     <TanstackTable

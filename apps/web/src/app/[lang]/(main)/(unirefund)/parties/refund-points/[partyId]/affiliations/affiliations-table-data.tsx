@@ -10,15 +10,28 @@ import {
 import type {
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
+  TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { CheckCircle, Eye, KeyIcon, Plus, User2, XCircle } from "lucide-react";
+import {
+  CheckCircle,
+  Eye,
+  KeyIcon,
+  Plus,
+  Trash,
+  User2,
+  XCircle,
+} from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { Policy } from "@/utils/page-policy/utils";
+import isActionGranted from "@/utils/page-policy/action-policy";
+import { deleteRefundPointsByIdAffiliationsByAffiliationIdApi } from "@/actions/unirefund/CrmService/delete-actions";
 import { postSendPasswordResetCodeApi } from "src/actions/core/AccountService/post-actions";
 import {
+  handleDeleteResponse,
   handlePostResponse,
   handlePutResponse,
 } from "src/actions/core/api-utils-client";
@@ -39,17 +52,98 @@ interface FormData {
   lockoutEnd: string;
 }
 
+function affiliationsTableActions(
+  languageData: CRMServiceServiceResource,
+  router: AppRouterInstance,
+  partyId: string,
+  affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
+  grantedPolicies: Record<Policy, boolean>,
+) {
+  const actions: TanstackTableTableActionsType[] = [];
+  if (
+    isActionGranted(
+      ["CRMService.RefundPoints.CreateAffiliation"],
+      grantedPolicies,
+    )
+  ) {
+    actions.push({
+      type: "custom-dialog",
+      actionLocation: "table",
+      cta: languageData["Affiliations.New"],
+      title: languageData["Affiliations.New"],
+      icon: Plus,
+      content: (
+        <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
+          className="flex flex-col gap-4"
+          filter={{
+            type: "include",
+            sort: true,
+            keys: ["email", "affiliationCodeId"],
+          }}
+          onSubmit={({ formData }) => {
+            if (!formData) return;
+            void postAffiliationsToRefundPointApi({
+              id: partyId,
+              requestBody: {
+                ...formData,
+                entityInformationTypeCode: "INDIVIDUAL",
+              },
+            }).then((res) => {
+              handlePostResponse(res, router);
+            });
+          }}
+          schema={
+            $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
+          }
+          submitText={languageData.Save}
+          uiSchema={createUiSchemaWithResource({
+            schema:
+              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
+            resources: languageData,
+            name: "Form.RefundPoint.Affiliation",
+            extend: {
+              affiliationCodeId: {
+                "ui:widget": "affiliationCode",
+              },
+              email: {
+                "ui:widget": "email",
+              },
+            },
+          })}
+          widgets={{
+            affiliationCode:
+              CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
+                {
+                  languageData,
+                  list: affiliationCodes,
+                  selectIdentifier: "id",
+                  selectLabel: "name",
+                },
+              ),
+          }}
+        />
+      ),
+    });
+  }
+  return actions;
+}
+
 function affiliationsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   partyId: string,
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
+  grantedPolicies: Record<Policy, boolean>,
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] =
     [];
-
-  actions.push(
-    {
+  if (
+    isActionGranted(
+      ["CRMService.Individuals.CreateAbpUserAccount"],
+      grantedPolicies,
+    )
+  ) {
+    actions.push({
       type: "confirmation-dialog",
       cta: languageData["Merchants.Individual.Create.User"],
       title: languageData["Merchants.Individual.Create.User"],
@@ -66,8 +160,15 @@ function affiliationsRowActions(
           },
         );
       },
-    },
-    {
+    });
+  }
+  if (
+    isActionGranted(
+      ["CRMService.RefundPoints.CreateAffiliation"],
+      grantedPolicies,
+    )
+  ) {
+    actions.push({
       type: "custom-dialog",
       actionLocation: "row",
       cta: languageData["Affiliations.New"],
@@ -122,8 +223,10 @@ function affiliationsRowActions(
           }}
         />
       ),
-    },
-    {
+    });
+  }
+  if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
+    actions.push({
       type: "simple",
       cta: languageData["Merchants.Individual.SetPassword"],
       actionLocation: "row",
@@ -132,8 +235,10 @@ function affiliationsRowActions(
       onClick: (row) => {
         router.push(`/management/identity/users/${row.abpUserId}/set-password`);
       },
-    },
-    {
+    });
+  }
+  if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
+    actions.push({
       type: "confirmation-dialog",
       cta: languageData["Merchants.Individual.Send.Password.Code.Reset"],
       title: languageData["Merchants.Individual.Send.Password.Code.Reset"],
@@ -156,8 +261,10 @@ function affiliationsRowActions(
           handlePostResponse(res, router);
         });
       },
-    },
-    {
+    });
+  }
+  if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
+    actions.push({
       type: "custom-dialog",
       cta: languageData["Merchants.Individual.Lock.User"],
       title: languageData["Merchants.Individual.Lock.User"],
@@ -189,8 +296,10 @@ function affiliationsRowActions(
           />
         );
       },
-    },
-    {
+    });
+  }
+  if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
+    actions.push({
       type: "confirmation-dialog",
       cta: languageData["Merchants.Individual.Unlock.User"],
       title: languageData["Merchants.Individual.Unlock.User"],
@@ -205,12 +314,37 @@ function affiliationsRowActions(
           handlePostResponse(res, router);
         });
       },
-    },
-  );
+    });
+  }
+  if (
+    isActionGranted(
+      ["CRMService.RefundPoints.DeleteAffiliation"],
+      grantedPolicies,
+    )
+  ) {
+    actions.push({
+      type: "confirmation-dialog",
+      cta: languageData.Delete,
+      title: languageData.Delete,
+      actionLocation: "row",
+      confirmationText: languageData.Delete,
+      cancelText: languageData.Cancel,
+      description: languageData["Delete.Assurance"],
+      icon: Trash,
+      onConfirm: (row) => {
+        void deleteRefundPointsByIdAffiliationsByAffiliationIdApi({
+          id: partyId,
+          affiliationId: row.id || "",
+        }).then((response) => {
+          handleDeleteResponse(response, router);
+        });
+      },
+    });
+  }
   return actions;
 }
 
-export function affiliationsColumns(
+function affiliationsColumns(
   languageData: CRMServiceServiceResource,
   locale: string,
 ) {
@@ -259,6 +393,7 @@ function affiliationsTable(
   router: AppRouterInstance,
   partyId: string,
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
+  grantedPolicies: Record<Policy, boolean>,
 ): AffiliationsTable {
   const table: AffiliationsTable = {
     fillerColumn: "name",
@@ -293,71 +428,19 @@ function affiliationsTable(
         },
       },
     },
-    tableActions: [
-      {
-        type: "custom-dialog",
-        actionLocation: "table",
-        cta: languageData["Affiliations.New"],
-        title: languageData["Affiliations.New"],
-        icon: Plus,
-        content: (
-          <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
-            className="flex flex-col gap-4"
-            filter={{
-              type: "include",
-              sort: true,
-              keys: ["email", "affiliationCodeId"],
-            }}
-            onSubmit={({ formData }) => {
-              if (!formData) return;
-              void postAffiliationsToRefundPointApi({
-                id: partyId,
-                requestBody: {
-                  ...formData,
-                  entityInformationTypeCode: "INDIVIDUAL",
-                },
-              }).then((res) => {
-                handlePostResponse(res, router);
-              });
-            }}
-            schema={
-              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
-            }
-            submitText={languageData.Save}
-            uiSchema={createUiSchemaWithResource({
-              schema:
-                $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
-              resources: languageData,
-              name: "Form.RefundPoint.Affiliation",
-              extend: {
-                affiliationCodeId: {
-                  "ui:widget": "affiliationCode",
-                },
-                email: {
-                  "ui:widget": "email",
-                },
-              },
-            })}
-            widgets={{
-              affiliationCode:
-                CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
-                  {
-                    languageData,
-                    list: affiliationCodes,
-                    selectIdentifier: "id",
-                    selectLabel: "name",
-                  },
-                ),
-            }}
-          />
-        ),
-      },
-    ],
+    tableActions: affiliationsTableActions(
+      languageData,
+      router,
+      partyId,
+      affiliationCodes,
+      grantedPolicies,
+    ),
     rowActions: affiliationsRowActions(
       languageData,
       router,
       partyId,
       affiliationCodes,
+      grantedPolicies,
     ),
   };
   return table;
