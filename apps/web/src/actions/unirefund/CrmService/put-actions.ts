@@ -11,6 +11,7 @@ import type {
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceRefundPointsByIdData,
   PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
+  PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceTaxFreesByIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
@@ -180,6 +181,22 @@ export async function putMerchantTelephoneApi(
     return structuredError(error);
   }
 }
+export async function putRefundPointTelephoneApi(
+  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdTelephonesByTelephoneId(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+//unupdated
 export async function putCrmEmailAddressApi(
   partyName:
     | "merchants"
