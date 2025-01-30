@@ -215,7 +215,7 @@ export default function RolePermissions({
           </SectionLayoutContent>
         ))}
       </SectionLayout>
-      <div className="sticky bottom-0 left-0 flex w-full justify-end bg-white pb-4 pr-12 shadow-md">
+      <div className="sticky bottom-0 left-0 flex w-full justify-end bg-white pb-2 pr-12">
         <Button
           disabled={loading}
           onClick={() => {

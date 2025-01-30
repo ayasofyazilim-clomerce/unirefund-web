@@ -72,6 +72,10 @@
   "User.Session.userName": "Kullanıcı Adı",
   "User.Session.clientId": "Client ID",
   "User.Session.ipAddresses": "IP Adresleri",
+  "User.Lock": "Kullanıcıyı Kilitle",
+  "User.Lock.Description": "Kullanıcıyı buradan kilitleyebilirsiniz.",
+  "User.Unlock": "Kullanıcının Kilidini Aç",
+  "User.Unlock.Assurance": "Bu kullanıcının kilidini açmak istediğinizden emin misiniz?",
   "Form.User.userName": "Kullanıcı Adı",
   "Form.User.name": "Ad",
   "Form.User.surname": "Soyad",
@@ -104,6 +108,7 @@
   "Form.User.SetPassword.newPassword": "Yeni Şifre",
   "Form.User.TwoFactor": "İki Faktör Doğrulama",
   "Form.User.TwoFactor.twoFactorAuthenticationEnabled": "İki Faktör Doğrulama Etkin",
+  "Form.User.Lock.lockoutEnd": "Kilitleme Tarihi",
 
   "Claims": "Talepler",
   "ClaimType": "Talep Türü",
