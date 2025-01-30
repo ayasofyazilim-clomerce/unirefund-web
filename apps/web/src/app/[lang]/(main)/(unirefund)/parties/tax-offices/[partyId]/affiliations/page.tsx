@@ -1,28 +1,19 @@
 "use server";
 
+import type { GetApiCrmServiceTaxOfficesByIdAffiliationsData } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import {
   getAffiliationCodeApi,
   getTaxOfficeAffiliationByIdApi,
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import AffiliationsTable from "./table";
 
-interface SearchParamType {
-  affiliationCodeId?: number;
-  email?: string;
-  entityInformationTypeCode?: "INDIVIDUAL" | "ORGANIZATION";
-  id: string;
-  maxResultCount?: number;
-  name?: string;
-  skipCount?: number;
-  sorting?: string;
-  telephone?: string;
-}
-
-async function getApiRequests(filters: SearchParamType) {
+async function getApiRequests(
+  filters: GetApiCrmServiceTaxOfficesByIdAffiliationsData,
+) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
@@ -52,7 +43,7 @@ export default async function Page({
     partyId: string;
     lang: string;
   };
-  searchParams?: SearchParamType;
+  searchParams?: GetApiCrmServiceTaxOfficesByIdAffiliationsData;
 }) {
   const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
