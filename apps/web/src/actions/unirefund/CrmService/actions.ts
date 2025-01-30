@@ -133,9 +133,9 @@ export async function getRefundPointByIdApi(
 export async function getTaxFreeByIdApi(id: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdDetail(
-      { id },
-    );
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesById({
+      id,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -158,7 +158,7 @@ export async function getTaxOfficeByIdApi(
 export async function getCustomByIdApi(id: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.customs.getApiCrmServiceCustomsByIdDetail({
+    const response = await crmClient.customs.getApiCrmServiceCustomsById({
       id,
     });
     return structuredSuccessResponse(response);
