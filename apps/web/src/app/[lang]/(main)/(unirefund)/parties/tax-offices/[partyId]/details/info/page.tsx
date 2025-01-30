@@ -1,16 +1,20 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
-import { getTaxFreeOrganizationsByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {
+  getTaxOfficeByIdApi,
+  getTaxOfficesApi,
+} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import OrganizationForm from "./form";
+import TaxOfficeForm from "./form";
 
 async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getTaxFreeOrganizationsByIdApi(partyId, session),
+      getTaxOfficesApi({}, session),
+      getTaxOfficeByIdApi(partyId, session),
     ]);
     return {
       type: "success" as const,
@@ -24,7 +28,6 @@ async function getApiRequests({ partyId }: { partyId: string }) {
     };
   }
 }
-
 export default async function Page({
   params,
 }: {
@@ -37,7 +40,6 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({ partyId });
-
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
@@ -47,14 +49,19 @@ export default async function Page({
     );
   }
 
-  const [taxFreeOrganizationResponse] = apiRequests.data;
-  const organizationDetail = taxFreeOrganizationResponse.data;
+  const [taxOfficesResponse, taxOfficeDetailResponse] = apiRequests.data;
+  const taxOffices = taxOfficesResponse.data;
+  const taxOfficeDetail = taxOfficeDetailResponse.data;
+
+  const taxOfficeList =
+    taxOffices.items?.filter((taxOffice) => taxOffice.id !== partyId) || [];
 
   return (
-    <OrganizationForm
+    <TaxOfficeForm
       languageData={languageData}
-      organizationDetail={organizationDetail[0]}
       partyId={partyId}
+      taxOfficeDetail={taxOfficeDetail}
+      taxOfficeList={taxOfficeList}
     />
   );
 }

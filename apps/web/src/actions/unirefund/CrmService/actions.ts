@@ -228,6 +228,21 @@ export async function getTaxFreeOrganizationsByIdApi(
     throw structuredError(error);
   }
 }
+export async function getTaxOfficeOrganizationsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdOrganizations({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantSubStoresByIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
   session?: Session | null,
