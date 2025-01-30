@@ -4,7 +4,7 @@
     "plugins": [{ "name": "next" }],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../../packages/ayasofyazilim-ui/@/*"],
+      "@/*": ["../../packages/ayasofyazilim-ui/@/*", "./src/*"],
       "components/*": ["./src/components/*"]
     }
   },

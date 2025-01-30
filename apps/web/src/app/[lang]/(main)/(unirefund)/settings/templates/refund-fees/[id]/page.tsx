@@ -1,9 +1,9 @@
 "use server";
 import { notFound } from "next/navigation";
-import { getRefundFeeHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import Form from "./form";
+import { getRefundFeeHeadersByIdApi } from "@/actions/unirefund/ContractService/action";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import { getResourceData } from "@/language-data/unirefund/ContractService";
+import RefundFeeHeaderUpdateForm from "./_components/form";
 
 export default async function Page({
   params,
@@ -28,7 +28,7 @@ export default async function Page({
   const { languageData } = await getResourceData(params.lang);
   return (
     <>
-      <Form languageData={languageData} response={response.data} />
+      <RefundFeeHeaderUpdateForm formData={response.data} />
       <div className="hidden" id="page-title">
         {response.data.name}
       </div>
