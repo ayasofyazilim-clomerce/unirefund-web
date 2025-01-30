@@ -17,6 +17,8 @@ import type {
   PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceTaxFreesByIdData,
   PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData,
+  PutApiCrmServiceTaxOfficesByIdData,
+  PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
 import {
@@ -77,7 +79,19 @@ export async function putTaxFreeBaseApi(
     return structuredError(error);
   }
 }
-
+export async function putTaxOfficeBaseApi(
+  data: PutApiCrmServiceTaxOfficesByIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.putApiCrmServiceTaxOfficesById(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putMerchantOrganizationApi(
   data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   session?: Session | null,
@@ -131,6 +145,21 @@ export async function putTaxFreeOrganizationApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.taxFree.putApiCrmServiceTaxFreesByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putTaxOfficeOrganizationApi(
+  data: PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationId(
         data,
       );
     return structuredSuccessResponse(response);
