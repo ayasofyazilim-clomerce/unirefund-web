@@ -6,6 +6,7 @@ import AutoForm, {
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { telephoneSchema } from "@repo/ui/utils/table/form-schemas";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putRefundPointTelephoneApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { TelephoneUpdateDto } from "src/actions/unirefund/CrmService/types";
@@ -22,6 +23,7 @@ function TelephoneForm({
   phoneResponse: GetApiCrmServiceRefundPointsByIdTelephonesResponse;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const phoneValues = phoneResponse[0];
 
   const telephoneValues = {
@@ -34,12 +36,14 @@ function TelephoneForm({
   };
 
   function handleSubmit(formData: TelephoneUpdateDto) {
-    void putRefundPointTelephoneApi({
-      requestBody: formData,
-      id: partyId,
-      telephoneId: phoneValues.id || "",
-    }).then((response) => {
-      handlePutResponse(response, router);
+    startTransition(() => {
+      void putRefundPointTelephoneApi({
+        requestBody: formData,
+        id: partyId,
+        telephoneId: phoneValues.id || "",
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
     });
   }
   return (
@@ -69,7 +73,7 @@ function TelephoneForm({
       }}
       values={telephoneValues}
     >
-      <AutoFormSubmit className="float-right">
+      <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>
