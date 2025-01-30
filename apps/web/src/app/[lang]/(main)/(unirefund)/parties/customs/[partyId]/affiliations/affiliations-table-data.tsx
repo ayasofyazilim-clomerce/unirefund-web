@@ -43,7 +43,7 @@ import {
   postAffiliationsToCustomApi,
 } from "src/actions/unirefund/CrmService/post-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { Policy } from "../../../../../../../../utils/page-policy/utils";
+import type { Policy } from "src/utils/page-policy/utils";
 
 type AffiliationsTable =
   TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
@@ -61,7 +61,7 @@ function affiliationsTableActions(
 ) {
   const actions: TanstackTableTableActionsType[] = [];
   if (
-    isActionGranted(["CRMService.Merchants.CreateAffiliation"], grantedPolicies)
+    isActionGranted(["CRMService.Customs.CreateAffiliation"], grantedPolicies)
   ) {
     actions.push({
       type: "custom-dialog",
@@ -160,7 +160,7 @@ function affiliationsRowActions(
     });
   }
   if (
-    isActionGranted(["CRMService.Merchants.CreateAffiliation"], grantedPolicies)
+    isActionGranted(["CRMService.Customs.CreateAffiliation"], grantedPolicies)
   ) {
     actions.push({
       type: "custom-dialog",
@@ -311,7 +311,7 @@ function affiliationsRowActions(
     });
   }
   if (
-    isActionGranted(["CRMService.Merchants.DeleteAffiliation"], grantedPolicies)
+    isActionGranted(["CRMService.Customs.DeleteAffiliation"], grantedPolicies)
   ) {
     actions.push({
       type: "confirmation-dialog",
