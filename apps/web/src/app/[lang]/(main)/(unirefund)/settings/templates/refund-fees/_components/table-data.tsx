@@ -63,7 +63,6 @@ const refundFeeHeadersColumns = (
           ],
         },
       },
-      // excludeColumns: ["isActive"],
     },
   );
 
@@ -75,9 +74,9 @@ const refundFeeHeadersTable = (params: {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: ["name", "creationTime", "isActive", "lastModificationTime"],
+      columns: ["name", "creationTime", "lastModificationTime"],
     },
-    columnOrder: ["name", "isActive", "creationTime", "lastModificationTime"],
+    columnOrder: ["name", "creationTime", "lastModificationTime"],
     tableActions: [
       {
         type: "simple",
