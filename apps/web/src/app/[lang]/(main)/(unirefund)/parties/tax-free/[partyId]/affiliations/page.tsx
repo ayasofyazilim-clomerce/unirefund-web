@@ -7,6 +7,7 @@ import {
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import AffiliationsTable from "./table";
 
 interface SearchParamType {
@@ -55,6 +56,10 @@ export default async function Page({
 }) {
   const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.TaxFrees.ViewAffiliationList"],
+    lang,
+  });
 
   const apiRequests = await getApiRequests({
     ...searchParams,
