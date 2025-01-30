@@ -2,6 +2,7 @@
 
 import type {
   PutApiCrmServiceAffiliationCodesByIdData,
+  PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
   PutApiCrmServiceMerchantsByIdData,
   PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
@@ -11,8 +12,10 @@ import type {
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceRefundPointsByIdData,
   PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
+  PutApiCrmServiceRefundPointsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceTaxFreesByIdData,
+  PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
 import {
@@ -78,13 +81,43 @@ export async function putMerchantOrganizationApi(
   }
 }
 export async function putRefundPointOrganizationApi(
-  data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
+  data: PutApiCrmServiceRefundPointsByIdOrganizationsByOrganizationIdData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putCustomOrganizationApi(
+  data: PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.putApiCrmServiceCustomsByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putTaxFreeOrganizationApi(
+  data: PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdOrganizationsByOrganizationId(
         data,
       );
     return structuredSuccessResponse(response);

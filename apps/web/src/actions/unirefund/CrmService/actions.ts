@@ -186,7 +186,36 @@ export async function getRefundPointOrganizationsByIdApi(
     throw structuredError(error);
   }
 }
-
+export async function getCustomOrganizationsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdOrganizations({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxFreeOrganizationsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxFree.getApiCrmServiceTaxFreesByIdOrganizations({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantSubStoresByIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
   session?: Session | null,
