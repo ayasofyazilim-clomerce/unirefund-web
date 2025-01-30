@@ -2,6 +2,7 @@
 
 import type {
   PutApiCrmServiceAffiliationCodesByIdData,
+  PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
   PutApiCrmServiceMerchantsByIdData,
   PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
@@ -85,6 +86,21 @@ export async function putRefundPointOrganizationApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putCustomOrganizationApi(
+  data: PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.putApiCrmServiceCustomsByIdOrganizationsByOrganizationId(
         data,
       );
     return structuredSuccessResponse(response);
