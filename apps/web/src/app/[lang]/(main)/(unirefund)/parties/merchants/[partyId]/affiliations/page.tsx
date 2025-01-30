@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import {
   getAffiliationCodeApi,
   getMerchantAffiliationByIdApi,
@@ -55,6 +56,10 @@ export default async function Page({
 }) {
   const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.Merchants.ViewAffiliationList"],
+    lang,
+  });
 
   const apiRequests = await getApiRequests({
     ...searchParams,
