@@ -5,6 +5,7 @@ import AutoForm, {
   AutoFormSubmit,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putMerchantAddressApi } from "src/actions/unirefund/CrmService/put-actions";
 import type {
@@ -28,6 +29,7 @@ function AddressForm({
 }) {
   const router = useRouter();
 
+  const [isPending, startTransition] = useTransition();
   const addressData = addressResponse[0];
   const selectedFieldsDefaultValue: SelectedAddressField = {
     countryId: addressData.countryId || "",
@@ -55,12 +57,14 @@ function AddressForm({
   };
 
   function handleSubmit(formData: AddressUpdateDto) {
-    void putMerchantAddressApi({
-      requestBody: formData,
-      id: partyId,
-      addressId: addressData.id || "",
-    }).then((response) => {
-      handlePutResponse(response, router);
+    startTransition(() => {
+      void putMerchantAddressApi({
+        requestBody: formData,
+        id: partyId,
+        addressId: addressData.id || "",
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
     });
   }
 
@@ -82,7 +86,7 @@ function AddressForm({
       }}
       values={addressValues}
     >
-      <AutoFormSubmit className="float-right">
+      <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>

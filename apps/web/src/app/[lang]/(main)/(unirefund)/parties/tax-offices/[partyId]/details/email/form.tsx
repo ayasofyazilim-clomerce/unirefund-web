@@ -1,6 +1,6 @@
 "use client";
 
-import type { GetApiCrmServiceMerchantsByIdEmailsResponse } from "@ayasofyazilim/saas/CRMService";
+import type { GetApiCrmServiceTaxOfficesByIdEmailsResponse } from "@ayasofyazilim/saas/CRMService";
 import AutoForm, {
   AutoFormSubmit,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
@@ -8,7 +8,7 @@ import { emailSchema } from "@repo/ui/utils/table/form-schemas";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putMerchantEmailApi } from "src/actions/unirefund/CrmService/put-actions";
+import { putTaxOfficeEmailApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { EmailAddressUpdateDto } from "src/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 
@@ -19,15 +19,16 @@ function EmailForm({
 }: {
   languageData: CRMServiceServiceResource;
   partyId: string;
-  emailResponse: GetApiCrmServiceMerchantsByIdEmailsResponse;
+  emailResponse: GetApiCrmServiceTaxOfficesByIdEmailsResponse;
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
   const emailValues = emailResponse[0];
 
   function handleSubmit(formData: EmailAddressUpdateDto) {
     startTransition(() => {
-      void putMerchantEmailApi({
+      void putTaxOfficeEmailApi({
         requestBody: formData,
         id: partyId,
         emailId: emailValues.id || "",
