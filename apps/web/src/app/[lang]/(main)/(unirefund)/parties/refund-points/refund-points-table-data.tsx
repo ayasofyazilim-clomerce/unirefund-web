@@ -51,6 +51,7 @@ function refundPointsColumns(
     links.name = {
       prefix: "/parties/refund-points",
       targetAccessorKey: "id",
+      suffix: "details/organization",
     };
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>(
