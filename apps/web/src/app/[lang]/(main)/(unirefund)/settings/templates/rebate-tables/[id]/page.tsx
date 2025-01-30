@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getRebateTableHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
-import RebateForm from "../_components/rebate-form";
+import RebateTableHeaderUpdateForm from "./_components/form";
 
 export default async function Page({
   params,
@@ -26,12 +26,5 @@ export default async function Page({
   const details = await getRebateTableHeadersByIdApi(params.id);
   if (details.type !== "success") return notFound();
 
-  return (
-    <RebateForm
-      formData={details.data}
-      formType="update"
-      id={params.id}
-      languageData={languageData}
-    />
-  );
+  return <RebateTableHeaderUpdateForm languageData={languageData} />;
 }
