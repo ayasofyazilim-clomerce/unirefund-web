@@ -3,6 +3,7 @@
 import type {
   UniRefund_CRMService_TaxOffices_TaxOfficeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
+  UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto,
 } from "@ayasofyazilim/saas/CRMService";
 import { $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRMService";
 import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
@@ -15,8 +16,9 @@ import AutoForm, {
   CustomCombobox,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putRefundPointBaseApi } from "src/actions/unirefund/CrmService/put-actions";
+import { putTaxOfficeBaseApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 
 function TaxOfficeForm({
@@ -31,6 +33,7 @@ function TaxOfficeForm({
   taxOfficeDetail: UniRefund_CRMService_TaxOffices_TaxOfficeDto;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const schema = createZodObject(
     $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
     ["taxpayerId"],
@@ -63,13 +66,15 @@ function TaxOfficeForm({
   ];
 
   function handleSubmit(
-    formData: UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
+    formData: UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto,
   ) {
-    void putRefundPointBaseApi({
-      requestBody: formData,
-      id: partyId,
-    }).then((response) => {
-      handlePutResponse(response, router);
+    startTransition(() => {
+      void putTaxOfficeBaseApi({
+        requestBody: formData,
+        id: partyId,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
     });
   }
   return (
@@ -113,7 +118,7 @@ function TaxOfficeForm({
         //   values.taxpayerId = null;
         // }
         handleSubmit(
-          values as UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
+          values as UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto,
         );
       }}
       values={{
@@ -121,7 +126,7 @@ function TaxOfficeForm({
         typeCode: taxOfficeDetail.parentId ? "REFUNDPOINT" : "HEADQUARTER",
       }}
     >
-      <AutoFormSubmit className="float-right">
+      <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>

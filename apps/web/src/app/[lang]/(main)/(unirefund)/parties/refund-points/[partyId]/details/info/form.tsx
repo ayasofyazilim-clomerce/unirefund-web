@@ -18,6 +18,7 @@ import AutoForm, {
   DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putRefundPointBaseApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
@@ -36,6 +37,7 @@ function RefundPointForm({
   refundPointDetail: GetApiCrmServiceRefundPointsByIdResponse;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const schema = createZodObject(
     $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
     ["typeCode", "taxOfficeId", "parentId", "taxpayerId"],
@@ -70,11 +72,13 @@ function RefundPointForm({
   function handleSubmit(
     formData: UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
   ) {
-    void putRefundPointBaseApi({
-      requestBody: formData,
-      id: partyId,
-    }).then((response) => {
-      handlePutResponse(response, router);
+    startTransition(() => {
+      void putRefundPointBaseApi({
+        requestBody: formData,
+        id: partyId,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
     });
   }
   return (
@@ -126,7 +130,7 @@ function RefundPointForm({
         typeCode: refundPointDetail.parentId ? "REFUNDPOINT" : "HEADQUARTER",
       }}
     >
-      <AutoFormSubmit className="float-right">
+      <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>

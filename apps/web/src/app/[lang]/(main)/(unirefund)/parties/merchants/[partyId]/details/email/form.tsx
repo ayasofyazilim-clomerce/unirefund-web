@@ -6,6 +6,7 @@ import AutoForm, {
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { emailSchema } from "@repo/ui/utils/table/form-schemas";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putMerchantEmailApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { EmailAddressUpdateDto } from "src/actions/unirefund/CrmService/types";
@@ -21,15 +22,18 @@ function EmailForm({
   emailResponse: GetApiCrmServiceMerchantsByIdEmailsResponse;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const emailValues = emailResponse[0];
 
   function handleSubmit(formData: EmailAddressUpdateDto) {
-    void putMerchantEmailApi({
-      requestBody: formData,
-      id: partyId,
-      emailId: emailValues.id || "",
-    }).then((response) => {
-      handlePutResponse(response, router);
+    startTransition(() => {
+      void putMerchantEmailApi({
+        requestBody: formData,
+        id: partyId,
+        emailId: emailValues.id || "",
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
     });
   }
   return (
@@ -48,7 +52,7 @@ function EmailForm({
       }}
       values={emailValues}
     >
-      <AutoFormSubmit className="float-right">
+      <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>
