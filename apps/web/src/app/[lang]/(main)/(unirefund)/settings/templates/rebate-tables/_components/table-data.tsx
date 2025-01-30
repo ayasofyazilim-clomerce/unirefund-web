@@ -38,7 +38,7 @@ const rebateTableHeadersColumns = (
     },
     links: {
       name: {
-        prefix: `/settings/templates/rebate`,
+        prefix: `/settings/templates/rebate-tables`,
         targetAccessorKey: "id",
       },
     },
