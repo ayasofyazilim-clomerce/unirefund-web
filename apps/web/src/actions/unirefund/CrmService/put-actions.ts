@@ -18,6 +18,7 @@ import type {
   PutApiCrmServiceTaxFreesByIdData,
   PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceTaxOfficesByIdData,
+  PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
   PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
@@ -207,6 +208,20 @@ export async function putRefundPointEmailApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdEmailsByEmailId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putTaxOfficeEmailApi(
+  data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdEmailsByEmailId(
         data,
       );
     return structuredSuccessResponse(response);
