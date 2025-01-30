@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import {
   getAffiliationCodeApi,
   getCustomAffiliationByIdApi,
@@ -55,6 +56,10 @@ export default async function Page({
 }) {
   const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.Customs.ViewAffiliationList"],
+    lang,
+  });
 
   const apiRequests = await getApiRequests({
     ...searchParams,
