@@ -3,12 +3,18 @@
 import type {
   PostApiCrmServiceAffiliationCodesData,
   PostApiCrmServiceCustomsByIdAffiliationsData,
+  PostApiCrmServiceCustomsWithComponentsData,
+  PostApiCrmServiceIndividualsWithComponentsData,
   PostApiCrmServiceMerchantsBulkProductGroupMerchantsData,
   PostApiCrmServiceMerchantsByIdAffiliationsData,
   PostApiCrmServiceMerchantsByIdProductGroupByProductGroupIdDefaultData,
   PostApiCrmServiceMerchantsByIdProductGroupsData,
+  PostApiCrmServiceMerchantsWithComponentsData,
+  PostApiCrmServiceRefundPointsWithComponentsData,
   PostApiCrmServiceTaxFreesByIdAffiliationsData,
+  PostApiCrmServiceTaxFreesWithComponentsData,
   PostApiCrmServiceTaxOfficesByIdAffiliationsData,
+  PostApiCrmServiceTaxOfficesWithComponentsData,
 } from "@ayasofyazilim/saas/CRMService";
 import type { Session } from "@repo/utils/auth";
 import {
@@ -89,6 +95,93 @@ export async function postAffiliationsToCustomApi(
   }
 }
 
+export async function postMerchantsWithComponentsApi(
+  data: PostApiCrmServiceMerchantsWithComponentsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.merchant.postApiCrmServiceMerchantsWithComponents(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postRefundPointsWithComponentsApi(
+  data: PostApiCrmServiceRefundPointsWithComponentsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.postApiCrmServiceRefundPointsWithComponents(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postCustomsWithComponentsApi(
+  data: PostApiCrmServiceCustomsWithComponentsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.postApiCrmServiceCustomsWithComponents(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postTaxFreesWithComponentsApi(
+  data: PostApiCrmServiceTaxFreesWithComponentsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxFree.postApiCrmServiceTaxFreesWithComponents(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postTaxOfficesWithComponentsApi(
+  data: PostApiCrmServiceTaxOfficesWithComponentsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.postApiCrmServiceTaxOfficesWithComponents(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postIndividualsWithComponentsApi(
+  data: PostApiCrmServiceIndividualsWithComponentsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.postApiCrmServiceIndividualsWithComponents(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 //Unupdated
 export async function postAffiliationsToPartyApi(
   partyType:
