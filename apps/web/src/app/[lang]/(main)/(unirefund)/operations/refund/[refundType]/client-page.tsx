@@ -10,6 +10,7 @@ import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
+import { getBaseLink } from "@/utils";
 import type { TotalDataOfSelectedTagsType } from "../_components/summary-section";
 import SummarySection from "../_components/summary-section";
 import { RefundForm } from "../_components/table/form";
@@ -44,12 +45,18 @@ export default function ClientPage({
   const tabList = [
     {
       label: languageData.ExportValidated,
-      href: `export-validated?${searchParams.toString()}`,
+      href: getBaseLink(
+        `operations/refund/export-validated?${searchParams.toString()}`,
+        locale,
+      ),
       value: "export-validated",
     },
     {
       label: languageData.NeedValidation,
-      href: `need-validation?${searchParams.toString()}`,
+      href: getBaseLink(
+        `operations/refund/need-validation?${searchParams.toString()}`,
+        locale,
+      ),
       value: "need-validation",
     },
   ];
