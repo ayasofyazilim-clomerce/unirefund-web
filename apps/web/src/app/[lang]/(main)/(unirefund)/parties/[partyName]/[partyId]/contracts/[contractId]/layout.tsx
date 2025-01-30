@@ -47,26 +47,29 @@ export default async function Layout({
         />
       );
     }
-
+    const baseLink = getBaseLink(
+      `parties/${partyName}/${partyId}/contracts/${contractId}/`,
+      lang,
+    );
     return (
       <>
         <TabLayout
           tabList={[
             {
               label: languageData["Contracts.Contract"],
-              href: "contract",
+              href: `${baseLink}contract`,
             },
             {
               label: languageData["Contracts.RebateSettings"],
-              href: "rebate-settings",
+              href: `${baseLink}rebate-settings`,
             },
             {
               label: languageData["Contracts.Stores"],
-              href: "stores",
+              href: `${baseLink}stores`,
             },
             {
               label: languageData["Contracts.ContractSettings"],
-              href: "contract-settings",
+              href: `${baseLink}contract-settings`,
             },
           ]}
         >

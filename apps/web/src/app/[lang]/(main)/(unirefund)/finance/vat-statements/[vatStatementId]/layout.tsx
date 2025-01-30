@@ -1,5 +1,6 @@
 "use server";
 import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import { getBaseLink } from "@/utils";
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
 
 export default async function Layout({
@@ -10,16 +11,20 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const { languageData } = await getResourceData(params.lang);
+  const baseLink = getBaseLink(
+    `finance/vat-statements/${params.vatStatementId}/`,
+    params.lang,
+  );
   return (
     <TabLayout
       tabList={[
         {
           label: languageData["VatStatement.Information"],
-          href: "information",
+          href: `${baseLink}information`,
         },
         {
           label: languageData["VatStatement.TaxFreeTags"],
-          href: "tax-free-tags",
+          href: `${baseLink}tax-free-tags`,
         },
       ]}
     >
