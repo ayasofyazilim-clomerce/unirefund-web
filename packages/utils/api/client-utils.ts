@@ -33,7 +33,7 @@ export const handlePostResponse = <T>(
     if (typeof redirectTo === "string") {
       router.push(redirectTo);
     } else if (redirectTo) {
-      const { prefix, suffix, identifier } = redirectTo;
+      const { prefix, suffix = "", identifier } = redirectTo;
       const id = (response.data[identifier] as string).toString();
       router.push(`${prefix}/${id}/${suffix}`);
     }

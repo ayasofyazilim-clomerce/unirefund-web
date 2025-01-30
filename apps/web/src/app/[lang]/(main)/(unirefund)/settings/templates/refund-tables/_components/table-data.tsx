@@ -1,21 +1,12 @@
-import type {
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto,
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto,
-} from "@ayasofyazilim/saas/ContractService";
-import {
-  $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto,
-  $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto,
-} from "@ayasofyazilim/saas/ContractService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type { UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
+import { $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
 import type {
   TanstackTableCreationProps,
   TanstackTableLanguageDataType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { handlePostResponse } from "@repo/utils/api";
 import { CheckCircle, PlusCircle, XCircle } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { postRefundTableHeadersApi } from "src/actions/unirefund/ContractService/post-actions";
 
 type RefundTableHeaders =
   TanstackTableCreationProps<UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto>;
@@ -85,23 +76,13 @@ const refundTableHeadersTable = (params: {
     ],
     tableActions: [
       {
-        type: "autoform-dialog",
+        type: "simple",
         actionLocation: "table",
         cta: "New",
         icon: PlusCircle,
-        submitText: "Save",
-        title: "Create",
-        onSubmit(row) {
-          void postRefundTableHeadersApi({
-            requestBody:
-              row as UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto,
-          }).then((response) => {
-            handlePostResponse(response, params.router);
-          });
+        onClick: () => {
+          params.router.push("refund-tables/new");
         },
-        schema: createZodObject(
-          $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto,
-        ),
       },
     ],
   };

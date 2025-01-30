@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getRefundTableHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
-import Form from "./_components/form";
+import RefundTableHeaderUpdateForm from "./_components/form";
 
 export default async function Page({
   params,
@@ -28,7 +28,10 @@ export default async function Page({
 
   return (
     <>
-      <Form languageData={languageData} response={response.data} />
+      <RefundTableHeaderUpdateForm
+        // languageData={languageData}
+        formData={response.data}
+      />
       <div className="hidden" id="page-title">
         {response.data.name}
       </div>
