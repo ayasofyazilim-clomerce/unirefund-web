@@ -24,13 +24,13 @@ export default function Layout({ children, params }: LayoutProps) {
     {
       name: languageData["Rebate.Create"],
       id: "new",
-      link: getBaseLink("settings/templates/rebate/new", params.lang),
+      link: getBaseLink("settings/templates/rebate-tables/new", params.lang),
     },
     // {
     //   name: languageData["Rebate.Preview"],
     //   id: "new/preview",
     //   link: getBaseLink(
-    //     "settings/templates/rebate/new/preview",
+    //     "settings/templates/rebate-tables/new/preview",
     //     true,
     //     params.lang,
     //     true,
