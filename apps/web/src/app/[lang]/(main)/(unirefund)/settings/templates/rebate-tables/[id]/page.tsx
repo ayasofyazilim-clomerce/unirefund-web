@@ -26,5 +26,10 @@ export default async function Page({
   const details = await getRebateTableHeadersByIdApi(params.id);
   if (details.type !== "success") return notFound();
 
-  return <RebateTableHeaderUpdateForm languageData={languageData} />;
+  return (
+    <RebateTableHeaderUpdateForm
+      formData={details.data}
+      languageData={languageData}
+    />
+  );
 }
