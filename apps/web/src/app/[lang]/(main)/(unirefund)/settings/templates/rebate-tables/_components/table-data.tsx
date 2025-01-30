@@ -7,22 +7,7 @@ import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 
 type RebateTableHeaders = TanstackTableCreationProps<RebateTableHeaderDto>;
-const booleanOptions = {
-  options: [
-    {
-      value: "true",
-      label: "",
-      icon: CheckCircle,
-      iconClassName: "text-green-700",
-    },
-    {
-      value: "false",
-      label: "",
-      icon: XCircle,
-      iconClassName: "text-red-700",
-    },
-  ],
-};
+
 const rebateTableHeadersColumns = (
   locale: string,
   languageData: ContractServiceResource,
@@ -43,12 +28,30 @@ const rebateTableHeadersColumns = (
       },
     },
     faceted: {
-      calculateNetCommissionInsteadOfRefund: booleanOptions,
+      calculateNetCommissionInsteadOfRefund: {
+        options: [
+          {
+            when: (val) => val === true,
+            label: "",
+            value: "",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+          },
+          {
+            when: (val) => val === false,
+            label: "",
+            value: "",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+          },
+        ],
+      },
     },
     badges: {
       name: {
         values: [
           {
+            position: "after",
             label: languageData["Rebate.Form.isTemplate"] || "Template",
             conditions: [
               {
