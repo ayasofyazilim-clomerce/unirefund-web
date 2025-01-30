@@ -55,6 +55,18 @@ export async function getRefundPointsApi(
     throw structuredError(error);
   }
 }
+export async function getCustomsApi(
+  data: GetApiCrmServiceCustomsData = {},
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.customs.getApiCrmServiceCustoms(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getTaxFreesApi(
   data: GetApiCrmServiceTaxFreesData = {},
   session?: Session | null,
@@ -121,9 +133,9 @@ export async function getRefundPointByIdApi(
 export async function getTaxFreeByIdApi(id: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdDetail(
-      { id },
-    );
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesById({
+      id,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -146,7 +158,7 @@ export async function getTaxOfficeByIdApi(
 export async function getCustomByIdApi(id: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.customs.getApiCrmServiceCustomsByIdDetail({
+    const response = await crmClient.customs.getApiCrmServiceCustomsById({
       id,
     });
     return structuredSuccessResponse(response);
@@ -504,16 +516,6 @@ export async function getRefundPointDetailsByIdApi(id: string) {
   try {
     const requests = await getApiRequests();
     const response = await requests["refund-points"].getDetail(id);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getCustomsApi(data: GetApiCrmServiceCustomsData = {}) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests.customs.get(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

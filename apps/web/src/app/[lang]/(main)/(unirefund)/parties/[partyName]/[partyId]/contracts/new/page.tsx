@@ -55,25 +55,18 @@ export default async function Page({
 
     const biggestContractHeader = otherContractHeaders.data.items?.at(0);
     return (
-      <>
-        <MerchantContractHeaderForm
-          addresses={addresses.data}
-          formType="create"
-          fromDate={
-            biggestContractHeader
-              ? new Date(biggestContractHeader.validTo)
-              : undefined
-          }
-          languageData={languageData}
-          loading={false}
-          refundTableHeaders={refundTableHeaders.data}
-        />
-        <PageHeader
-          languageData={languageData}
-          params={params}
-          title={merchantDetails.data.name}
-        />
-      </>
+      <MerchantContractHeaderForm
+        addresses={addresses.data}
+        formType="create"
+        fromDate={
+          biggestContractHeader
+            ? new Date(biggestContractHeader.validTo)
+            : undefined
+        }
+        languageData={languageData}
+        loading={false}
+        refundTableHeaders={refundTableHeaders.data}
+      />
     );
   }
   const refundPointDetailsResponse =
