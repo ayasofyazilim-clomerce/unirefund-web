@@ -16,6 +16,7 @@ import type {
   PutApiCrmServiceRefundPointsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceTaxFreesByIdData,
+  PutApiCrmServiceTaxFreesByIdEmailsByEmailIdData,
   PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceTaxOfficesByIdData,
   PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
@@ -227,6 +228,18 @@ export async function putCustomEmailApi(
     return structuredError(error);
   }
 }
+export async function putTaxFreeEmailApi(
+  data: PutApiCrmServiceTaxFreesByIdEmailsByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdEmailsByEmailId(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putTaxOfficeEmailApi(
   data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
 ) {
@@ -283,6 +296,20 @@ export async function putCustomAddressApi(
     return structuredError(error);
   }
 }
+export async function putTaxFreeAddressApi(
+  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdAddressesByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putMerchantTelephoneApi(
   data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 ) {
@@ -318,6 +345,20 @@ export async function putCustomTelephoneApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.customs.putApiCrmServiceCustomsByIdTelephonesByTelephoneId(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putTaxFreeTelephoneApi(
+  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdTelephonesByTelephoneId(
         data,
       );
     return structuredResponse(response);
