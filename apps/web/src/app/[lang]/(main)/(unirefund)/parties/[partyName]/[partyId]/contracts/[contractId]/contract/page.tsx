@@ -110,7 +110,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={refundFeeHeadersResponse.message}
+        message="refundFeeHeadersResponse.message"
       />
     );
   }
@@ -133,7 +133,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={refundPointDetailsResponse.message}
+        message="refundPointDetailsResponse.message"
       />
     );
   }

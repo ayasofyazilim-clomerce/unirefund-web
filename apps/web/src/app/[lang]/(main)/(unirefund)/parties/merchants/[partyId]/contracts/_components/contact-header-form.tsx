@@ -1,14 +1,14 @@
 "use client";
 import type {
-  UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
-  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as ContractHeaderForRefundPointCreateDto,
-  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as ContractHeaderForRefundPointUpdateDto,
-  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaderRefundFeeHeaders_ContractHeaderRefundFeeHeaderCreateAndUpdateDto as ContractHeaderRefundFeeHeaderCreateAndUpdateDto,
+  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
+  UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as ContractHeaderForMerchantCreateDto,
+  UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
+  UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as ContractHeaderRefundTableHeaderCreateAndUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {
-  $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as $ContractHeaderForRefundPointCreateDto,
-  $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as $ContractHeaderForRefundPointUpdateDto,
-  $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaderRefundFeeHeaders_ContractHeaderRefundFeeHeaderCreateAndUpdateDto as $ContractHeaderRefundFeeHeaderCreateAndUpdateDto,
+  $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto,
+  $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto,
+  $UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as $ContractHeaderRefundTableHeaderCreateAndUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
 import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
@@ -19,48 +19,49 @@ import { PlusCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
-import { handlePostResponse, handlePutResponse } from "@repo/utils/api";
-import { postRefundPointContractHeadersById } from "src/actions/unirefund/ContractService/post-actions";
-import { putRefundPointContractHeadersById } from "src/actions/unirefund/ContractService/put-actions";
+import {
+  handlePostResponse,
+  handlePutResponse,
+} from "src/actions/core/api-utils-client";
+import { postMerchantContractHeadersByMerchantIdApi } from "src/actions/unirefund/ContractService/action";
+import { putMerchantContractHeadersByIdApi } from "src/actions/unirefund/ContractService/put-actions";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { MerchantAddressWidget } from "../../contract-widgets";
+import { MerchantAddressWidget, RefundTableWidget } from "./contract-widgets";
 
-type RefundPointContractHeaderFormProps = {
-  loading: boolean;
-  setLoading?: Dispatch<SetStateAction<boolean>>;
+type ContractHeaderFormProps = {
   languageData: ContractServiceResource;
   addresses: AddressTypeDto[];
-  refundFeeHeaders: AssignableRefundFeeHeaders[];
-  fromDate: Date | undefined;
-} & (
-  | RefundPointContractHeaderUpdateFormProps
-  | RefundPointContractHeaderCreateFormProps
-);
-interface RefundPointContractHeaderUpdateFormProps {
-  formType: "update";
-  contractId: string;
-  formData: ContractHeaderForRefundPointUpdateDto;
-}
-interface RefundPointContractHeaderCreateFormProps {
+  refundTableHeaders: AssignableRefundTableHeaders[];
+  loading: boolean;
+  setLoading?: Dispatch<SetStateAction<boolean>>;
+  fromDate?: Date | undefined;
+} & (CreateContractHeaderFormProps | UpdateContractHeaderFormProps);
+
+interface CreateContractHeaderFormProps {
   formType: "create";
-  formData: ContractHeaderForRefundPointCreateDto;
+}
+interface UpdateContractHeaderFormProps {
+  formType: "update";
+  formData: ContractHeaderForMerchantUpdateDto;
+  contractId: string;
 }
 
-export default function RefundPointContractHeaderForm(
-  props: RefundPointContractHeaderFormProps,
-) {
+export default function MerchantContractHeaderForm(
+  props: ContractHeaderFormProps,
+): JSX.Element {
   const {
-    formData,
-    loading,
     languageData,
     addresses,
-    refundFeeHeaders,
+    refundTableHeaders,
+    loading,
     setLoading,
     fromDate,
   } = props;
   const router = useRouter();
-  const { partyId } = useParams<{
+  const { partyId, partyName, lang } = useParams<{
     partyId: string;
+    partyName: string;
+    lang: string;
   }>();
   const [formLoading, setFormLoading] = useState(loading || false);
   function handleLoading(_loading: boolean) {
@@ -68,14 +69,18 @@ export default function RefundPointContractHeaderForm(
     setFormLoading(_loading);
   }
   const $Schema = {
-    create: $ContractHeaderForRefundPointCreateDto,
-    update: $ContractHeaderForRefundPointUpdateDto,
+    create: $ContractHeaderForMerchantCreateDto,
+    update: $ContractHeaderForMerchantUpdateDto,
   };
+
   const uiSchema = createUiSchemaWithResource({
     name: "Contracts.Form",
     resources: languageData,
     schema: $Schema[props.formType],
     extend: {
+      "ui:config": {
+        locale: lang,
+      },
       "ui:options": {
         expandable: false,
       },
@@ -93,8 +98,9 @@ export default function RefundPointContractHeaderForm(
       status: {
         "ui:className": "md:col-span-full",
       },
-      earlyRefund: {
-        "ui:widget": "switch",
+      refundTableHeaders: {
+        "ui:className": "md:col-span-full",
+        "ui:field": "RefundTableHeaders",
       },
       validFrom: {
         "ui:options": {
@@ -103,22 +109,19 @@ export default function RefundPointContractHeaderForm(
           //eğer aktif contract yoksa bugünden önce olamaz
         },
       },
-      refundFeeHeaders: {
-        "ui:className": "md:col-span-full",
-        "ui:field": "RefundFeeHeaders",
-      },
     },
   });
   return (
     <SchemaForm
+      className="grid gap-2"
       disabled={formLoading || loading}
       fields={{
-        RefundFeeHeaders: RefundFeeField(
+        RefundTableHeaders: RefundTableField(
           props.formType === "update"
-            ? props.formData.refundFeeHeaders
+            ? props.formData.refundTableHeaders
             : undefined,
           languageData,
-          refundFeeHeaders,
+          refundTableHeaders,
         ),
       }}
       filter={{
@@ -131,24 +134,25 @@ export default function RefundPointContractHeaderForm(
           "addressCommonDataId",
           "webSite",
           "status",
-          "refundFeeHeaders",
-          "refundFeeHeaders.validFrom",
-          "refundFeeHeaders.validTo",
-          "refundFeeHeaders.refundFeeHeaderId",
+          "refundTableHeaders",
+          "refundTableHeaders.isDefault",
+          "refundTableHeaders.validFrom",
+          "refundTableHeaders.validTo",
+          "refundTableHeaders.refundTableHeaderId",
         ],
       }}
-      formData={formData}
-      onSubmit={({ formData: submitData }) => {
-        if (!submitData) return;
+      formData={props.formType === "update" ? props.formData : undefined}
+      onSubmit={(data) => {
+        if (!data.formData) return;
         handleLoading(true);
         if (props.formType === "create") {
-          void postRefundPointContractHeadersById({
+          void postMerchantContractHeadersByMerchantIdApi({
             id: partyId,
-            requestBody: submitData as ContractHeaderForRefundPointCreateDto,
+            requestBody: data.formData as ContractHeaderForMerchantCreateDto,
           })
             .then((response) => {
               handlePostResponse(response, router, {
-                prefix: `/parties/refund-points/${partyId}/contracts`,
+                prefix: `/parties/${partyName}/${partyId}/contracts`,
                 suffix: "contract",
                 identifier: "id",
               });
@@ -157,9 +161,9 @@ export default function RefundPointContractHeaderForm(
               handleLoading(false);
             });
         } else {
-          void putRefundPointContractHeadersById({
+          void putMerchantContractHeadersByIdApi({
             id: props.contractId,
-            requestBody: submitData as ContractHeaderForRefundPointUpdateDto,
+            requestBody: data.formData,
           })
             .then((response) => {
               handlePutResponse(response, router);
@@ -170,39 +174,46 @@ export default function RefundPointContractHeaderForm(
         }
       }}
       schema={$Schema[props.formType]}
+      submitText={languageData["Contracts.Create.Submit"]}
       uiSchema={uiSchema}
       widgets={{
         address: MerchantAddressWidget({
-          loading: formLoading || loading,
+          loading,
           addressList: addresses,
           languageData,
         }),
+        refundTable: RefundTableWidget({
+          loading,
+          refundTableHeaders,
+          languageData,
+        }),
       }}
+      withScrollArea
     />
   );
 }
 
-function RefundFeeField(
+function RefundTableField(
   formData:
-    | ContractHeaderRefundFeeHeaderCreateAndUpdateDto[]
+    | ContractHeaderRefundTableHeaderCreateAndUpdateDto[]
     | undefined
     | null,
   languageData: ContractServiceResource,
-  refundFeeHeaders: AssignableRefundFeeHeaders[],
+  refundTableHeaders: AssignableRefundTableHeaders[],
 ) {
-  return TableField<ContractHeaderRefundFeeHeaderCreateAndUpdateDto>({
+  return TableField<ContractHeaderRefundTableHeaderCreateAndUpdateDto>({
     editable: true,
-    fillerColumn: "refundFeeHeaderId",
+    fillerColumn: "refundTableHeaderId",
     data: formData || [],
     columns:
-      tanstackTableEditableColumnsByRowData<ContractHeaderRefundFeeHeaderCreateAndUpdateDto>(
+      tanstackTableEditableColumnsByRowData<ContractHeaderRefundTableHeaderCreateAndUpdateDto>(
         {
           rows: {
-            ...$ContractHeaderRefundFeeHeaderCreateAndUpdateDto.properties,
-            refundFeeHeaderId: {
-              ...$ContractHeaderRefundFeeHeaderCreateAndUpdateDto.properties
-                .refundFeeHeaderId,
-              enum: refundFeeHeaders.map((x) => ({
+            ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties,
+            refundTableHeaderId: {
+              ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties
+                .refundTableHeaderId,
+              enum: refundTableHeaders.map((x) => ({
                 value: x.id,
                 label: x.name,
               })),
