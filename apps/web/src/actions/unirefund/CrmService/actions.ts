@@ -369,6 +369,20 @@ export async function getRefundPointEmailByIdApi(
     throw structuredError(error);
   }
 }
+export async function getCustomEmailByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.customs.getApiCrmServiceCustomsByIdEmails({
+      id,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getTaxOfficeEmailByIdApi(
   id: string,
   session?: Session | null,

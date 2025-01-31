@@ -215,6 +215,18 @@ export async function putRefundPointEmailApi(
     return structuredError(error);
   }
 }
+export async function putCustomEmailApi(
+  data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.customs.putApiCrmServiceCustomsByIdEmailsByEmailId(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putTaxOfficeEmailApi(
   data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
 ) {
