@@ -89,10 +89,10 @@ export function ContractSettings({
 
   async function handleFetch() {
     setLoading(true);
-    const contractSettingsResponse = await getContractSettings({
-      id: contractHeaderDetails.id,
-    });
-    if (contractSettingsResponse.type === "success") {
+    try {
+      const contractSettingsResponse = await getContractSettings({
+        id: contractHeaderDetails.id,
+      });
       setSettings(
         contractSettingsResponse.data.items?.map((item) => {
           return {
@@ -103,10 +103,12 @@ export function ContractSettings({
           };
         }) || [],
       );
-    } else {
-      toast.error(contractSettingsResponse.message);
+    } catch (error) {
+      const err = error as { data?: string; message?: string };
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   const RowForm = useCallback(
