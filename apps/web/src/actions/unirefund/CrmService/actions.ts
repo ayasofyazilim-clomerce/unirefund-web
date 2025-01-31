@@ -525,6 +525,21 @@ export async function getAffiliationCodesDetailsByIdApi(
     throw structuredError(error);
   }
 }
+export async function getRefundPointDetailsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdDetail({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 //Unupdated actions
 export async function getSubMerchantsByMerchantIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
@@ -551,16 +566,6 @@ export async function getAccessibleRefundPointsApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.refundPoint.getApiCrmServiceRefundPointsAccessible(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getRefundPointDetailsByIdApi(id: string) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests["refund-points"].getDetail(id);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
