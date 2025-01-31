@@ -108,6 +108,16 @@
 
   "Affiliations": "Bağlılıklar",
   "Affiliations.New": "Yeni Bağlılık",
+  "Form.Affiliation.name": "Adı",
+  "Form.Affiliation.description": "Açıklama",
+  "Form.Affiliation.roleId": "Rol",
+  "Form.Affiliation.entityPartyTypeCode": "Tüzel Kişi Tür Kodu",
+  "Form.Affiliation.entityPartyTypeCode.MERCHANT": "Mağaza",
+  "Form.Affiliation.entityPartyTypeCode.REFUNDPOINT": "Iade Noktası",
+  "Form.Affiliation.entityPartyTypeCode.CUSTOMS": "Gümrük",
+  "Form.Affiliation.entityPartyTypeCode.TAXFREE": "Tax Free",
+  "Form.Affiliation.entityPartyTypeCode.TAXOFFICE": "Vergi Ofisi",
+  "Form.Affiliation.creationTime": "Oluşturulma Zamanı",
   "ProductGroups.Assign": "Ürün Grubu Ata",
   "ProductGroups": "Ürün Grupları",
 

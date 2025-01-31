@@ -108,6 +108,16 @@
 
   "Affiliations": "Affiliations",
   "Affiliations.New": "New Affiliations",
+  "Form.Affiliation.name": "Name",
+  "Form.Affiliation.description": "Description",
+  "Form.Affiliation.roleId": "Role",
+  "Form.Affiliation.entityPartyTypeCode": "Entity Party Type Code",
+  "Form.Affiliation.entityPartyTypeCode.MERCHANT": "Merchant",
+  "Form.Affiliation.entityPartyTypeCode.REFUNDPOINT": "Refund Point",
+  "Form.Affiliation.entityPartyTypeCode.CUSTOMS": "Custom",
+  "Form.Affiliation.entityPartyTypeCode.TAXFREE": "Tax Free",
+  "Form.Affiliation.entityPartyTypeCode.TAXOFFICE": "Vergi Ofisi",
+  "Form.Affiliation.creationTime": "Creation Time",
   "ProductGroups.Assign": "Assign Product Group",
   "ProductGroups": "Product Groups",
 
