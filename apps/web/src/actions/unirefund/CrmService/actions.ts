@@ -341,6 +341,21 @@ export async function getRefundPointAddressByIdApi(
     throw structuredError(error);
   }
 }
+export async function getCustomAddressByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdAddresses({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantEmailByIdApi(
   id: string,
   session?: Session | null,
