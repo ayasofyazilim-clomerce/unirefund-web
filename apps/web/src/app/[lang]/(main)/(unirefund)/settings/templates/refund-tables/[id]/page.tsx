@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { getRefundTableHeadersByIdApi } from "src/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { getRefundTableHeadersByIdApi } from "@/actions/unirefund/ContractService/action";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import { getResourceData } from "@/language-data/unirefund/ContractService";
 import RefundTableHeaderUpdateForm from "./_components/form";
 
 export default async function Page({
