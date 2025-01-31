@@ -37,6 +37,10 @@ export default async function Layout({
           label: languageData.Affiliations,
           href: `${baseLink}affiliations`,
         },
+        {
+          label: "Contracts",
+          href: `${baseLink}contracts`,
+        },
       ]}
       variant="simple"
     >
