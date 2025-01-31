@@ -176,6 +176,23 @@ export async function getRefundTableHeadersApi(
     throw structuredError(error);
   }
 }
+
+export async function getRefundPointContractHeaderByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const client = await getContractServiceClient(session);
+    return structuredSuccessResponse(
+      await client.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersById(
+        { id },
+      ),
+    );
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 //unupdated
 export async function postMerchantContractHeadersByMerchantIdApi(
   data: PostApiContractServiceMerchantsByIdContractsContractHeadersData,
@@ -295,19 +312,6 @@ export async function getRebateTableHeadersByIdApi(id: string) {
     const client = await getContractServiceClient();
     return structuredResponse(
       await client.rebateTableHeader.getApiContractServiceRebateTableHeadersById(
-        { id },
-      ),
-    );
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getRefundPointContractHeaderByIdApi(id: string) {
-  try {
-    const client = await getContractServiceClient();
-    return structuredResponse(
-      await client.contractsRefundPoint.getApiContractServiceRefundPointsContractsContractHeadersById(
         { id },
       ),
     );
