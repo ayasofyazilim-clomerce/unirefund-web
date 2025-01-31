@@ -1,10 +1,9 @@
 "use server";
 
 import type { GetApiContractServiceRefundTableHeadersData } from "@ayasofyazilim/saas/ContractService";
-import { notFound } from "next/navigation";
+import { getRefundTableHeadersApi } from "@/actions/unirefund/ContractService/action";
 import { getResourceData } from "@/language-data/unirefund/ContractService";
 import { isUnauthorized } from "@/utils/page-policy/page-policy";
-import { getRefundTableHeadersApi } from "@/actions/unirefund/ContractService/action";
 import RefundTable from "./_components/table";
 
 export default async function Page(props: {
@@ -21,7 +20,6 @@ export default async function Page(props: {
 
   const searchParams = await props.searchParams;
   const response = await getRefundTableHeadersApi(searchParams);
-  if (response.type !== "success") return notFound();
 
   const { languageData } = await getResourceData(props.params.lang);
 
