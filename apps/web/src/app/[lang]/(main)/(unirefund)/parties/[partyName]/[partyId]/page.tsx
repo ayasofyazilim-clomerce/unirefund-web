@@ -11,10 +11,6 @@ import { notFound } from "next/navigation";
 import { getTableDataDetail } from "src/actions/api-requests";
 import { getAssignableRolesByCurrentUserApi } from "src/actions/core/IdentityService/actions";
 import {
-  getMerchantContractHeadersByMerchantIdApi,
-  getRefundPointContractHeadersByRefundPointIdApi,
-} from "src/actions/unirefund/ContractService/action";
-import {
   getAffiliationCodeApi,
   getIndividualsByIdApi,
   getMerchantsApi,
@@ -26,7 +22,6 @@ import { partyNameToEntityPartyTypeCode } from "src/actions/unirefund/CrmService
 import { getCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData as getContractsResourceData } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { dataConfigOfParties } from "../../table-data";
 import Address from "./_components/address/form";
@@ -38,7 +33,6 @@ import OrganizationForm from "./_components/organization/form";
 import PersonalSummariesForm from "./_components/personal-summaries/form";
 import ProductGroups from "./_components/product-groups/table";
 import SubCompany from "./_components/subcompanies-table/form";
-import Contracts from "./contracts/table";
 import Telephone from "./contracts/telephone/form";
 import type { GetPartiesDetailResult } from "./types";
 
@@ -118,8 +112,7 @@ export default async function Page({
 }) {
   const { lang, partyName, partyId } = params;
   const { languageData } = await getResourceData(lang);
-  const { languageData: contractsLanguageData } =
-    await getContractsResourceData(lang);
+
   const formData = dataConfigOfParties[partyName];
 
   const partyDetailResponse = await getPartyDetail(partyName, partyId);
@@ -155,17 +148,6 @@ export default async function Page({
       merchants.data.items?.filter((merchant) => merchant.id !== partyId)) ||
     [];
 
-  let contracts;
-  if (partyName === "refund-points") {
-    contracts = await getRefundPointContractHeadersByRefundPointIdApi({
-      id: partyId,
-    });
-  }
-  if (partyName === "merchants") {
-    contracts = await getMerchantContractHeadersByMerchantIdApi({
-      id: partyId,
-    });
-  }
   const taxOffices = await getTaxOfficesApi();
   const taxOfficeList = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- TODO: we need to fix this
     (taxOffices.type === "success" && taxOffices.data.items) || [];
@@ -196,9 +178,6 @@ export default async function Page({
       name: languageData.Merchants,
       id: "merchant-base",
     });
-  }
-  if (partyName === "refund-points" || partyName === "merchants") {
-    sections.push({ name: languageData.Contracts, id: "contracts" });
   }
 
   const individualsResponse = await getIndividualsByIdApi(partyName, {
@@ -329,19 +308,6 @@ export default async function Page({
             partyName={partyName}
             response={individuals}
           />
-
-          {contracts &&
-          (partyName === "merchants" || partyName === "refund-points") ? (
-            <Contracts
-              contractsData={
-                contracts.type === "success" ? contracts.data : { items: [] }
-              }
-              lang={lang}
-              languageData={{ ...languageData, ...contractsLanguageData }}
-              partyId={partyId}
-              partyName={partyName}
-            />
-          ) : null}
         </SectionLayout>
       </div>
       <div className="hidden" id="page-title">

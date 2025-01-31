@@ -24,7 +24,6 @@ export default async function Layout({
         {
           label: "Details",
           href: `${baseLink}details/organization`,
-          disabled: true,
         },
         {
           label: languageData["Merchants.SubOrganization"],
@@ -33,6 +32,10 @@ export default async function Layout({
         {
           label: languageData.Affiliations,
           href: `${baseLink}affiliations`,
+        },
+        {
+          label: "Contracts",
+          href: `${baseLink}contracts`,
         },
       ]}
       variant="simple"

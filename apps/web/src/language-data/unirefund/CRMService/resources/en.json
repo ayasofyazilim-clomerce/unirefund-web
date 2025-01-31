@@ -19,7 +19,7 @@
   "Merchants.Fetch.Success": "Merchants fetched successfully.",
   "Merchants.Fetch.Fail": "An error occurred while fetching merchants.",
 
-  "Merchants.SubOrganization": "Sub Stores",
+  "Merchants.SubOrganization": "Stores",
   "Merchants.SubOrganization.Description": "You can view sub stores related to the main store from here.",
   "Merchants.SubOrganization.New": "New Sub Store",
   "Merchants.SubOrganization.New.Description": "You can create a new sub store for the main store from here.",

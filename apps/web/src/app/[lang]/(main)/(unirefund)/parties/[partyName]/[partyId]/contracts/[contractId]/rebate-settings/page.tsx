@@ -36,7 +36,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={rebateTables.message}
+        message="rebateTables.message"
       />
     );
   }
@@ -69,11 +69,8 @@ export default async function Page({
     <RebateSettings
       contractId={contractId}
       individuals={individualsResponse.data.items || []}
-      // lang={lang}
       languageData={languageData}
-      rebateSettings={
-        rebateSettings.type === "success" ? rebateSettings.data : undefined
-      }
+      rebateSettings={rebateSettings.data}
       rebateTableHeaders={rebateTables.data.items || []}
       subMerchants={subMerchantsResponse.data.items || []}
     />
