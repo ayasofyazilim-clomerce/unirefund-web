@@ -46,7 +46,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={refundTableHeadersResponse.message}
+        message="refundTableHeadersResponse.message"
       />
     );
   }
