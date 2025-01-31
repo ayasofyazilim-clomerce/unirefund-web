@@ -204,10 +204,7 @@ export default async function Page({
   const [affiliationCodesResponse] = apiRequests.data;
 
   const assignableRolesResponse = await getAssignableRolesByCurrentUserApi();
-  const assignableRoles =
-    assignableRolesResponse.type === "success"
-      ? assignableRolesResponse.data
-      : [];
+  const assignableRoles = assignableRolesResponse.data;
 
   const affiliationCodes =
     affiliationCodesResponse.data.items?.filter((a) =>
