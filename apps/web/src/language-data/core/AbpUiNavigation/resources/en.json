@@ -81,5 +81,6 @@
   "RebateStatements": "Rebate Statements",
   "RebateStatements.Description": "You can view the rebate statements from here.",
   "MyAccount": "My Account",
-  "Affiliation": "Affiliation"
+  "Affiliation": "Affiliation",
+  "Affiliation.Description": "You can manage the affiliations from here."
 }

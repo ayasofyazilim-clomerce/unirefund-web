@@ -139,7 +139,7 @@ export default function Form({
         }}
         formData={{
           ...userDetailsData,
-          roleNames: userRoles.map((role) => role.name || ""),
+          roleNames: userRoles.map((role) => role.id || ""),
           organizationUnitIds: userOrganizationUnits.map((org) => org.id || ""),
         }}
         onSubmit={(data) => {

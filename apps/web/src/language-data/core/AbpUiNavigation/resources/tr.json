@@ -86,5 +86,6 @@
   "RebateStatements": "Komisyon Beyanları",
   "RebateStatements.Description": "Komisyon beyanlarını buradan görüntüleyebilirsiniz.",
   "MyAccount": "Hesabım",
-  "Affiliation": "Bağlılıklar"
+  "Affiliation": "Bağlılıklar",
+  "Affiliation.Description": "Bağlılıkları buradan yönetebilirsiniz."
 }
