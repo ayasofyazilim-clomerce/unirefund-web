@@ -23,9 +23,8 @@ function Affiliations({
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[];
 }) {
   const router = useRouter();
-  const columns = tableData.affiliations.columns(languageData, locale);
   const { grantedPolicies } = useGrantedPolicies();
-
+  const columns = tableData.affiliations.columns(languageData, locale);
   const table = tableData.affiliations.table(
     languageData,
     router,

@@ -1,7 +1,8 @@
 "use server";
 
+import type { GetApiCrmServiceMerchantsByIdAffiliationsData } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import {
   getAffiliationCodeApi,
   getMerchantAffiliationByIdApi,
@@ -10,19 +11,9 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "./table";
 
-interface SearchParamType {
-  affiliationCodeId?: number;
-  email?: string;
-  entityInformationTypeCode?: "INDIVIDUAL" | "ORGANIZATION";
-  id: string;
-  maxResultCount?: number;
-  name?: string;
-  skipCount?: number;
-  sorting?: string;
-  telephone?: string;
-}
-
-async function getApiRequests(filters: SearchParamType) {
+async function getApiRequests(
+  filters: GetApiCrmServiceMerchantsByIdAffiliationsData,
+) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
@@ -52,7 +43,7 @@ export default async function Page({
     partyId: string;
     lang: string;
   };
-  searchParams?: SearchParamType;
+  searchParams?: GetApiCrmServiceMerchantsByIdAffiliationsData;
 }) {
   const { lang, partyId } = params;
   const { languageData } = await getResourceData(lang);
