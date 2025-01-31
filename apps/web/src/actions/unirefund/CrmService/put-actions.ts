@@ -297,7 +297,20 @@ export async function putRefundPointTelephoneApi(
     return structuredError(error);
   }
 }
-
+export async function putCustomTelephoneApi(
+  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.customs.putApiCrmServiceCustomsByIdTelephonesByTelephoneId(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putAffiliationCodesByIdApi(
   data: PutApiCrmServiceAffiliationCodesByIdData,
   session?: Session | null,
