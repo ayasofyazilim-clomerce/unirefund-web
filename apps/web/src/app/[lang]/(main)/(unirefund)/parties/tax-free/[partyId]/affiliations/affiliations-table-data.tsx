@@ -19,9 +19,10 @@ import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-fo
 import {
   CheckCircle,
   Eye,
-  KeyIcon,
+  LockIcon,
   Plus,
   Trash,
+  UnlockIcon,
   User2,
   XCircle,
 } from "lucide-react";
@@ -97,7 +98,7 @@ function affiliationsTableActions(
             schema:
               $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
             resources: languageData,
-            name: "Form.TaxFree.Affiliation",
+            name: "Form.Parties.Affiliation",
             extend: {
               affiliationCodeId: {
                 "ui:widget": "affiliationCode",
@@ -198,7 +199,7 @@ function affiliationsRowActions(
             schema:
               $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
             resources: languageData,
-            name: "Form.TaxFree.Affiliation",
+            name: "Form.Parties.Affiliation",
             extend: {
               affiliationCodeId: {
                 "ui:widget": "affiliationCode",
@@ -264,7 +265,7 @@ function affiliationsRowActions(
       cta: languageData["Merchants.Individual.Lock.User"],
       title: languageData["Merchants.Individual.Lock.User"],
       actionLocation: "row",
-      icon: KeyIcon,
+      icon: LockIcon,
       condition: (row) => row.abpUserId !== null,
       content: (row) => {
         return (
@@ -302,7 +303,7 @@ function affiliationsRowActions(
       confirmationText: languageData.Save,
       cancelText: languageData.Cancel,
       description: languageData["Merchants.Individual.Unlock.User.Description"],
-      icon: KeyIcon,
+      icon: UnlockIcon,
       condition: (row) => row.abpUserId !== null,
       onConfirm: (row) => {
         void putUsersByIdUnlockApi(row.abpUserId || "").then((res) => {
@@ -344,7 +345,7 @@ function affiliationsColumns(
     {
       languageData: {
         languageData,
-        constantKey: "Form.TaxFree.Affiliation",
+        constantKey: "Form.Parties.Affiliation",
       },
       rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto.properties,
       config: {
