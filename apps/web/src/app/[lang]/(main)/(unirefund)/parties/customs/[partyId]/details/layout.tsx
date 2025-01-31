@@ -15,10 +15,7 @@ export default async function Layout({
   };
 }) {
   const { partyId, lang } = params;
-  const baseLink = getBaseLink(
-    `parties/refund-points/${partyId}/details/`,
-    lang,
-  );
+  const baseLink = getBaseLink(`parties/customs/${partyId}/details/`, lang);
   const { languageData } = await getResourceData(lang);
   return (
     <TabLayout
