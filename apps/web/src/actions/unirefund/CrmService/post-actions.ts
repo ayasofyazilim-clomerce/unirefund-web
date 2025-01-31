@@ -182,6 +182,20 @@ export async function postIndividualsWithComponentsApi(
     return structuredError(error);
   }
 }
+
+export async function postAffiliationCodesApi(
+  data: PostApiCrmServiceAffiliationCodesData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.affiliationCode.postApiCrmServiceAffiliationCodes(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 //Unupdated
 export async function postAffiliationsToPartyApi(
   partyType:
@@ -209,18 +223,6 @@ export async function postProductGroupsToMerchantsApi(
       await crmClient.merchant.postApiCrmServiceMerchantsBulkProductGroupMerchants(
         data,
       );
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function postAffiliationsApi(
-  data: PostApiCrmServiceAffiliationCodesData,
-) {
-  try {
-    const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.affiliationCode.postApiCrmServiceAffiliationCodes(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

@@ -510,6 +510,21 @@ export async function getAffiliationCodeApi(
   }
 }
 
+export async function getAffiliationCodesDetailsByIdApi(
+  id: number,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.affiliationCode.getApiCrmServiceAffiliationCodesById({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 //Unupdated actions
 export async function getSubMerchantsByMerchantIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
