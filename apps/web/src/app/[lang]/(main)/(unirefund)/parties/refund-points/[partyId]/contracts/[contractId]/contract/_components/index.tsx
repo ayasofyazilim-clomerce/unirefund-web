@@ -2,8 +2,8 @@
 
 import { toast } from "@/components/ui/sonner";
 import type {
-  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractHeaderDetailForRefundPointDto,
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
+  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractHeaderDetailForRefundPointDto,
 } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto } from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
@@ -18,9 +18,9 @@ import {
 } from "src/actions/core/api-utils-client";
 import { deleteRefundPointContractHeadersById } from "src/actions/unirefund/ContractService/delete-actions";
 import { postRefundPointContractHeaderValidateByHeaderId } from "src/actions/unirefund/ContractService/post-actions";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { putRefundPointContractHeadersByIdMakePassiveApis } from "src/actions/unirefund/ContractService/put-actions";
-import RefundPointContractHeaderForm from "../../../../_components/contract-header-form/refund-point";
+import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
+import RefundPointContractHeaderForm from "../../../_components/contract-header-form";
 
 export function ContractHeader({
   contractHeaderDetails,

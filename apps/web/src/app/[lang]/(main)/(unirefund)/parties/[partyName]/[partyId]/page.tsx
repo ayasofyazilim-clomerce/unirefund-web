@@ -33,7 +33,7 @@ import OrganizationForm from "./_components/organization/form";
 import PersonalSummariesForm from "./_components/personal-summaries/form";
 import ProductGroups from "./_components/product-groups/table";
 import SubCompany from "./_components/subcompanies-table/form";
-import Telephone from "./contracts/telephone/form";
+import Telephone from "./_components/telephone/form";
 import type { GetPartiesDetailResult } from "./types";
 
 interface SearchParamType {

@@ -53,7 +53,7 @@ const contractsTableColumns = ({
       name: {
         prefix: `/parties/refund-points/${partyId}/contracts`,
         targetAccessorKey: "id",
-        suffix: "/contract",
+        suffix: "contract",
       },
     },
     icons: {
