@@ -36,7 +36,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={contractSettingsResponse.message}
+        message="contractSettingsResponse.message"
       />
     );
   }
@@ -48,7 +48,7 @@ export default async function Page({
 
   return (
     <FormReadyComponent
-      active={contractStoresResponse.type !== "success"}
+      active={false}
       content={{
         icon: <FileText className="size-20 text-gray-400" />,
         title: languageData["Missing.ContractStores.Title"],
@@ -57,11 +57,7 @@ export default async function Page({
     >
       <ContractStoresTable
         contractSettings={contractSettingsResponse.data.items || []}
-        contractStores={
-          contractStoresResponse.type === "success"
-            ? contractStoresResponse.data.items || []
-            : []
-        }
+        contractStores={contractStoresResponse.data.items || []}
         languageData={languageData}
       />
     </FormReadyComponent>

@@ -43,7 +43,7 @@ export default async function Layout({
       return (
         <ErrorComponent
           languageData={languageData}
-          message={contractHeaderDetails.message}
+          message="contractHeaderDetails.message"
         />
       );
     }

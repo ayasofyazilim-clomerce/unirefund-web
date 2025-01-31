@@ -44,7 +44,7 @@ export default async function Page({
       return (
         <ErrorComponent
           languageData={languageData}
-          message={refundTableHeadersResponse.message}
+          message="refundTableHeadersResponse.message"
         />
       );
     }
@@ -58,7 +58,7 @@ export default async function Page({
       return (
         <ErrorComponent
           languageData={languageData}
-          message={otherContractHeadersResponse.message}
+          message="otherContractHeadersResponse.message"
         />
       );
     }
@@ -69,7 +69,7 @@ export default async function Page({
       return (
         <ErrorComponent
           languageData={languageData}
-          message={contractHeaderDetailsResponse.message}
+          message="contractHeaderDetailsResponse.message"
         />
       );
     }
@@ -147,7 +147,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={otherContractHeadersResponse.message}
+        message="otherContractHeadersResponse.message"
       />
     );
   }

@@ -36,7 +36,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={contractSettingsResponse.message}
+        message="contractSettingsResponse.message"
       />
     );
   }
@@ -57,7 +57,7 @@ export default async function Page({
     return (
       <ErrorComponent
         languageData={languageData}
-        message={contractHeaderDetailsResponse.message}
+        message="contractHeaderDetailsResponse.message"
       />
     );
   }
