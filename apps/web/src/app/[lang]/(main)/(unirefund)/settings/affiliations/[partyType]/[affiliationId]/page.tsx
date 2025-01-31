@@ -13,7 +13,7 @@ async function getApiRequests(affiliationId: number) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getAssignableRolesByCurrentUserApi(),
+      getAssignableRolesByCurrentUserApi(session),
       getAffiliationCodesDetailsByIdApi(affiliationId, session),
     ]);
     return {
