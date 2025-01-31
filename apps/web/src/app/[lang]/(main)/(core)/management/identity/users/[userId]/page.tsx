@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  getAssignableRolesByCurrentUserApi,
+  getAllRolesApi,
   getUserDetailsByIdApi,
   getUsersAvailableOrganizationUnitsApi,
   getUsersByIdOrganizationUnitsApi,
@@ -35,7 +35,7 @@ export default async function Page({
     );
   }
 
-  const rolesResponse = await getAssignableRolesByCurrentUserApi();
+  const rolesResponse = await getAllRolesApi();
   if (isErrorOnRequest(rolesResponse, lang, false)) {
     return (
       <ErrorComponent
@@ -81,7 +81,7 @@ export default async function Page({
       <Form
         languageData={languageData}
         organizationList={organizationResponse.data.items || []}
-        roleList={rolesResponse.data}
+        roleList={rolesResponse.data.items || []}
         userDetailsData={userDetailsResponse.data}
         userOrganizationUnits={userOrganizationResponse.data}
         userRoles={userRolesResponse.data.items || []}

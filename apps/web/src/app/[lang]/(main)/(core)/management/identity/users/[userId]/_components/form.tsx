@@ -1,7 +1,6 @@
 "use client";
 
 import type {
-  UniRefund_IdentityService_AssignableRoles_AssignableRoleDto,
   Volo_Abp_Identity_IdentityRoleDto,
   Volo_Abp_Identity_IdentityUserDto,
   Volo_Abp_Identity_OrganizationUnitDto,
@@ -13,10 +12,10 @@ import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { CustomMultiSelectWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { useGrantedPolicies } from "@repo/utils/policies";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useGrantedPolicies } from "@repo/utils/policies";
 import {
   handleDeleteResponse,
   handlePutResponse,
@@ -40,7 +39,7 @@ export default function Form({
 }: {
   languageData: IdentityServiceResource;
   userDetailsData: Volo_Abp_Identity_IdentityUserDto;
-  roleList: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto[];
+  roleList: Volo_Abp_Identity_IdentityRoleDto[];
   organizationList: Volo_Abp_Identity_OrganizationUnitLookupDto[];
   userRoles: Volo_Abp_Identity_IdentityRoleDto[];
   userOrganizationUnits: Volo_Abp_Identity_OrganizationUnitDto[];
@@ -167,8 +166,8 @@ export default function Form({
         widgets={{
           Role: CustomMultiSelectWidget({
             optionList: roleList.map((role) => ({
-              label: role.roleName || "",
-              value: role.roleName || "",
+              label: role.name || "",
+              value: role.id || "",
             })),
           }),
           OrganizationUnit: CustomMultiSelectWidget({
