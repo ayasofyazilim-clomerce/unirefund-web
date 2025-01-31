@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  getAssignableRolesByCurrentUserApi,
+  getAllRolesApi,
   getUsersAvailableOrganizationUnitsApi,
 } from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
@@ -18,7 +18,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
     lang,
   });
 
-  const rolesResponse = await getAssignableRolesByCurrentUserApi();
+  const rolesResponse = await getAllRolesApi();
   if (isErrorOnRequest(rolesResponse, lang, false)) {
     return (
       <ErrorComponent
@@ -43,7 +43,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
       <Form
         languageData={languageData}
         organizationList={organizationResponse.data.items || []}
-        roleList={rolesResponse.data}
+        roleList={rolesResponse.data.items || []}
       />
       <div className="hidden" id="page-description">
         {languageData["User.Create.Description"]}

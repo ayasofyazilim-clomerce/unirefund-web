@@ -15,14 +15,17 @@ import {
   structuredSuccessResponse,
 } from "src/lib";
 
-export async function deleteAffiliationCodeApi(id: number) {
+export async function deleteAffiliationCodesByIdApi(
+  id: number,
+  session?: Session | null,
+) {
   try {
-    const crmClient = await getCRMServiceClient();
+    const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.affiliationCode.deleteApiCrmServiceAffiliationCodesById({
         id,
       });
-    return structuredResponse(response);
+    return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }

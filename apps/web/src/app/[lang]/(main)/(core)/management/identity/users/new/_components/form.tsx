@@ -1,7 +1,7 @@
 "use client";
 
 import type {
-  UniRefund_IdentityService_AssignableRoles_AssignableRoleDto,
+  Volo_Abp_Identity_IdentityRoleDto,
   Volo_Abp_Identity_IdentityUserCreateDto,
   Volo_Abp_Identity_OrganizationUnitLookupDto,
 } from "@ayasofyazilim/saas/IdentityService";
@@ -21,7 +21,7 @@ export default function Form({
   organizationList,
 }: {
   languageData: IdentityServiceResource;
-  roleList: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto[];
+  roleList: Volo_Abp_Identity_IdentityRoleDto[];
   organizationList: Volo_Abp_Identity_OrganizationUnitLookupDto[];
 }) {
   const router = useRouter();
@@ -100,8 +100,8 @@ export default function Form({
       widgets={{
         Role: CustomMultiSelectWidget({
           optionList: roleList.map((role) => ({
-            label: role.roleName || "",
-            value: role.roleName || "",
+            label: role.name || "",
+            value: role.id || "",
           })),
         }),
         OrganizationUnit: CustomMultiSelectWidget({

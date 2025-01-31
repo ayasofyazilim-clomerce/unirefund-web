@@ -62,3 +62,11 @@ export function isErrorOnRequest<T>(
   }
   return true;
 }
+
+export function structuredSuccessResponse<T>(data: T) {
+  return {
+    type: "success" as const,
+    data,
+    message: "",
+  };
+}

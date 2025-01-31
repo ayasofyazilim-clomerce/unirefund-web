@@ -1,38 +1,126 @@
 import type { UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as AffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as $AffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
-import type { GetApiIdentityRolesAssignableRolesByCurrentUserResponse } from "@ayasofyazilim/saas/IdentityService";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {
+  $UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as $AffiliationCodeDto,
+  $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
+} from "@ayasofyazilim/saas/CRMService";
+import type {
+  GetApiIdentityRolesAssignableRolesByCurrentUserResponse,
+  UniRefund_IdentityService_AssignableRoles_AssignableRoleDto,
+} from "@ayasofyazilim/saas/IdentityService";
+import type {
+  TanstackTableColumnLink,
+  TanstackTableCreationProps,
+  TanstackTableTableActionsType,
+} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { Plus } from "lucide-react";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { PartyNameType } from "@/actions/unirefund/CrmService/types";
+import { postAffiliationCodesApi } from "@/actions/unirefund/CrmService/post-actions";
+import { handlePostResponse } from "src/actions/core/api-utils-client";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 import type { Policy } from "src/utils/page-policy/utils";
-import FormProps, { DetailsForm } from "./form";
+import { entityPartyTypeCodeMap } from "./utils";
 
 type IndividualsTable = TanstackTableCreationProps<AffiliationCodeDto>;
+const links: Partial<
+  Record<keyof AffiliationCodeDto, TanstackTableColumnLink>
+> = {};
 
-export function affiliationsColumns(
+function affiliationsTableActions(
   languageData: CRMServiceServiceResource,
-  locale: string,
+  assignableRoles: GetApiIdentityRolesAssignableRolesByCurrentUserResponse,
   grantedPolicies: Record<Policy, boolean>,
+  router: AppRouterInstance,
+  partyType: Exclude<PartyNameType, "individuals">,
 ) {
-  const trigger:
-    | {
-        expandRowTrigger?: keyof AffiliationCodeDto;
-      }
-    | undefined = isActionGranted(
-    ["CRMService.AffiliationCodes.Edit"],
-    grantedPolicies,
-  )
-    ? { expandRowTrigger: "name" }
-    : undefined;
+  const actions: TanstackTableTableActionsType[] = [];
+  if (
+    isActionGranted(["CRMService.AffiliationCodes.Create"], grantedPolicies)
+  ) {
+    actions.push({
+      type: "custom-dialog",
+      actionLocation: "table",
+      cta: languageData["Affiliations.New"],
+      title: languageData["Affiliations.New"],
+      icon: Plus,
+      content: (
+        <SchemaForm<AffiliationCodeDto>
+          className="flex flex-col gap-4"
+          filter={{
+            type: "exclude",
+            sort: true,
+            keys: ["status", "entityPartyTypeCode"],
+          }}
+          onSubmit={({ formData }) => {
+            if (!formData) return;
+            void postAffiliationCodesApi({
+              requestBody: {
+                ...formData,
+                status: "Approved",
+                entityPartyTypeCode: entityPartyTypeCodeMap[partyType],
+              },
+            }).then((res) => {
+              handlePostResponse(res, router);
+            });
+          }}
+          schema={
+            $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto
+          }
+          uiSchema={createUiSchemaWithResource({
+            schema:
+              $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
+            resources: languageData,
+            name: "Form.Affiliation",
+            extend: {
+              roleId: {
+                "ui:widget": "Role",
+              },
+            },
+          })}
+          widgets={{
+            Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>(
+              {
+                languageData,
+                list: assignableRoles.filter((role) => role.isAssignable),
+                selectIdentifier: "roleId",
+                selectLabel: "roleName",
+              },
+            ),
+          }}
+        />
+      ),
+    });
+  }
+  return actions;
+}
+
+function affiliationsColumns(
+  locale: string,
+  languageData: CRMServiceServiceResource,
+  grantedPolicies: Record<Policy, boolean>,
+  partyType: Exclude<PartyNameType, "individuals">,
+) {
+  if (isActionGranted(["CRMService.AffiliationCodes.Edit"], grantedPolicies)) {
+    links.name = {
+      prefix: partyType,
+      targetAccessorKey: "id",
+    };
+  }
   return tanstackTableCreateColumnsByRowData<AffiliationCodeDto>({
-    languageData,
+    languageData: {
+      languageData,
+      constantKey: "Form.Affiliation",
+    },
     rows: $AffiliationCodeDto.properties,
     config: {
       locale,
     },
-    ...trigger,
+    links,
   });
 }
 
@@ -40,6 +128,8 @@ function affiliationsTable(
   languageData: CRMServiceServiceResource,
   assignableRoles: GetApiIdentityRolesAssignableRolesByCurrentUserResponse,
   grantedPolicies: Record<Policy, boolean>,
+  router: AppRouterInstance,
+  partyType: Exclude<PartyNameType, "individuals">,
 ): IndividualsTable {
   const table: IndividualsTable = {
     fillerColumn: "name",
@@ -48,33 +138,13 @@ function affiliationsTable(
       type: "show",
       columns: ["name", "description", "creationTime"],
     },
-    expandedRowComponent: (row) => {
-      if (
-        isActionGranted(["CRMService.AffiliationCodes.Edit"], grantedPolicies)
-      ) {
-        return (
-          <DetailsForm
-            assignableRoles={assignableRoles}
-            details={row}
-            languageData={languageData}
-          />
-        );
-      }
-      return <div />;
-    },
-    tableActions: [
-      {
-        type: "schemaform-dialog",
-        actionLocation: "table",
-        cta: "New",
-        icon: PlusCircle,
-        title: "New Affiliation",
-        ...FormProps({
-          languageData,
-          assignableRoles,
-        }),
-      },
-    ],
+    tableActions: affiliationsTableActions(
+      languageData,
+      assignableRoles,
+      grantedPolicies,
+      router,
+      partyType,
+    ),
   };
   return table;
 }

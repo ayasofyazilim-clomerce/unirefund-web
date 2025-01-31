@@ -2,8 +2,9 @@
 import { type PagedResultDto_AffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
 import type { GetApiIdentityRolesAssignableRolesByCurrentUserResponse } from "@ayasofyazilim/saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams } from "next/navigation";
 import { useGrantedPolicies } from "@repo/utils/policies";
+import { useParams, useRouter } from "next/navigation";
+import type { PartyNameType } from "@/actions/unirefund/CrmService/types";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import { tableData } from "./affiliations-table-data";
 
@@ -16,17 +17,24 @@ function AffiliationsTable({
   response: PagedResultDto_AffiliationCodeDto;
   assignableRoles: GetApiIdentityRolesAssignableRolesByCurrentUserResponse;
 }) {
-  const { lang } = useParams<{ lang: string }>();
+  const router = useRouter();
+  const { lang, partyType } = useParams<{
+    lang: string;
+    partyType: Exclude<PartyNameType, "individuals">;
+  }>();
   const { grantedPolicies } = useGrantedPolicies();
   const columns = tableData.affiliations.columns(
-    languageData,
     lang,
+    languageData,
     grantedPolicies,
+    partyType,
   );
   const table = tableData.affiliations.table(
     languageData,
     assignableRoles,
     grantedPolicies,
+    router,
+    partyType,
   );
 
   return (

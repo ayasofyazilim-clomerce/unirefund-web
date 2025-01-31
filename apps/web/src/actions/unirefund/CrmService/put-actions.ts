@@ -286,6 +286,22 @@ export async function putRefundPointTelephoneApi(
   }
 }
 
+export async function putAffiliationCodesByIdApi(
+  data: PutApiCrmServiceAffiliationCodesByIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.affiliationCode.putApiCrmServiceAffiliationCodesById(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
 //unupdated
 export async function putCrmEmailAddressApi(
   partyName:
@@ -361,21 +377,6 @@ export async function putCrmIndividualPersonalSummaryApi(
     const requests = await getApiRequests();
     const response =
       await requests[partyName].putIndividualPersonalSummary(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function putAffiliationsApi(
-  data: PutApiCrmServiceAffiliationCodesByIdData,
-) {
-  try {
-    const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.affiliationCode.putApiCrmServiceAffiliationCodesById(
-        data,
-      );
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

@@ -13,6 +13,8 @@ import type {
   GetApiOpeniddictApplicationsData,
   GetApiOpeniddictScopesData,
 } from "@ayasofyazilim/saas/IdentityService";
+import { structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "@repo/utils/auth";
 import {
   getIdentityServiceClient,
   structuredError,
@@ -111,14 +113,16 @@ export async function getAssignableRolesApi(roleId: string) {
     return structuredError(error);
   }
 }
-export async function getAssignableRolesByCurrentUserApi() {
+export async function getAssignableRolesByCurrentUserApi(
+  session?: Session | null,
+) {
   try {
-    const client = await getIdentityServiceClient();
+    const client = await getIdentityServiceClient(session);
     const dataResponse =
       await client.role.getApiIdentityRolesAssignableRolesByCurrentUser();
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
