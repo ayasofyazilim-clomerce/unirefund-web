@@ -1,7 +1,6 @@
-import { notFound } from "next/navigation";
 import { getRebateTableHeadersApi } from "@/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import { getResourceData } from "@/language-data/unirefund/ContractService";
+import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import RebateTable from "./_components/table";
 
 export default async function Page({
@@ -19,7 +18,6 @@ export default async function Page({
 
   const { languageData } = await getResourceData(params.lang);
   const rebateTableHeadersResponse = await getRebateTableHeadersApi({});
-  if (rebateTableHeadersResponse.type !== "success") return notFound();
   return (
     <RebateTable
       lang={params.lang}
