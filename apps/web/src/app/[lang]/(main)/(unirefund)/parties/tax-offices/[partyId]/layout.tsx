@@ -23,7 +23,7 @@ export default async function Layout({
       tabList={[
         {
           label: "Details",
-          href: `${baseLink}details/organization`,
+          href: `${baseLink}details/info`,
           disabled: true,
         },
         {

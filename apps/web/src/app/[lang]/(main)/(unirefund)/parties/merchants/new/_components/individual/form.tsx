@@ -143,7 +143,11 @@ export default function MerchantIndividualForm({
       requestBody: createData,
     })
       .then((res) => {
-        handlePostResponse(res, router, "../merchants");
+        handlePostResponse(res, router, {
+          prefix: "/parties/merchants",
+          identifier: "id",
+          suffix: "details/info",
+        });
       })
       .finally(() => {
         setLoading(false);
