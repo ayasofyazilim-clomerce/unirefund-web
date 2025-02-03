@@ -310,6 +310,20 @@ export async function putTaxFreeAddressApi(
     return structuredError(error);
   }
 }
+export async function putTaxOfficeAddressApi(
+  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdAddressesByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putMerchantTelephoneApi(
   data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 ) {
@@ -359,6 +373,20 @@ export async function putTaxFreeTelephoneApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.taxFree.putApiCrmServiceTaxFreesByIdTelephonesByTelephoneId(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putTaxOfficeTelephoneApi(
+  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdTelephonesByTelephoneId(
         data,
       );
     return structuredResponse(response);
