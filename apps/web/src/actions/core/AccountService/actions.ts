@@ -48,13 +48,17 @@ export async function signUpServer({
   userName,
   email,
   password,
+  tenantId,
 }: {
   userName: string;
   email: string;
   password: string;
+  tenantId?: string;
 }) {
   try {
-    const client = await getAccountServiceClient();
+    const client = await getAccountServiceClient({
+      __tenant: tenantId || "",
+    });
 
     await client.account.postApiAccountRegister({
       requestBody: {

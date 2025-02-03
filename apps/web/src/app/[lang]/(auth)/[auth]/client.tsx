@@ -47,7 +47,7 @@ export function AuthPage({ tenantId }: { tenantId: string }): JSX.Element {
     userName: z.string().min(5),
     email: z.string().email(),
     password: z.string().min(4).max(32),
-    //tenantId: z.string(),
+    tenantId: z.string(),
   });
   //Login end
   //Register waiting for implementation
