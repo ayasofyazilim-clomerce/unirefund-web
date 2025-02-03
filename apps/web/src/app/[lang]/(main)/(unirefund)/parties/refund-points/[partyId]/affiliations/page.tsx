@@ -2,7 +2,7 @@
 
 import type { GetApiCrmServiceRefundPointsByIdAffiliationsData } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import { isUnauthorized } from "@repo/utils/policies";
 import {
   getAffiliationCodeApi,
   getRefundPointAffiliationByIdApi,

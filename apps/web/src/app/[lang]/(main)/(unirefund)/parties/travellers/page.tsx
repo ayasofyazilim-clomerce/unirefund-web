@@ -2,8 +2,8 @@
 
 import type { GetApiTravellerServiceTravellersData } from "@ayasofyazilim/saas/TravellerService";
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { getAllCountriesApi } from "../../../../../../actions/unirefund/LocationService/actions";
 import { getTravellersApi } from "../../../../../../actions/unirefund/TravellerService/actions";
 import ErrorComponent from "../../../_components/error-component";

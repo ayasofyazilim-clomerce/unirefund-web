@@ -1,9 +1,9 @@
 "use server";
 
 import type { GetApiFinanceServiceVatStatementHeadersData } from "@ayasofyazilim/saas/FinanceService";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getVatStatementHeadersApi } from "src/actions/unirefund/FinanceService/actions";
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import VatStatementTable from "./_components/table";

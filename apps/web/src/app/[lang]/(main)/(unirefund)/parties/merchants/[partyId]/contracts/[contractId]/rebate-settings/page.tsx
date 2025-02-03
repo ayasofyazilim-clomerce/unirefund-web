@@ -1,4 +1,5 @@
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersApi,
@@ -9,7 +10,6 @@ import {
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { RebateSettings } from "./_components/rebate-settings";
 
 async function getApiRequests(partyId: string, contractId: string) {

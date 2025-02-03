@@ -1,9 +1,9 @@
 "use server";
 
 import type { GetApiAuditLoggingAuditLogsData } from "@ayasofyazilim/saas/AdministrationService";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getAuditLogsApi } from "src/actions/core/AdministrationService/actions";
 import { getResourceData } from "src/language-data/core/AdministrationService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import AuditLogsTable from "./_components/table";

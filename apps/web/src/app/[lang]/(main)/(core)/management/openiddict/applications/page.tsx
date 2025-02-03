@@ -1,9 +1,9 @@
 "use server";
 
 import type { GetApiOpeniddictApplicationsData } from "@ayasofyazilim/saas/IdentityService";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getApplicationsApi } from "src/actions/core/IdentityService/actions";
 import { getResourceData } from "src/language-data/core/IdentityService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ApplicationsTable from "./_components/table";
 

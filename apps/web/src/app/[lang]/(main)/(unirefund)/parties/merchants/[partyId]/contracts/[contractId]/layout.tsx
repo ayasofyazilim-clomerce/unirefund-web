@@ -1,8 +1,8 @@
 "use server";
 import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 
 export default async function Layout({
   children,

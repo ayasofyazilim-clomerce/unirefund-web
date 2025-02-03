@@ -1,10 +1,10 @@
 "use server";
 
 import type { GetApiExportValidationServiceExportValidationData } from "@ayasofyazilim/saas/ExportValidationService";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getExportValidationApi } from "src/actions/unirefund/ExportValidationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ExportValidationService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ExportValidationTable from "./_components/table";
 

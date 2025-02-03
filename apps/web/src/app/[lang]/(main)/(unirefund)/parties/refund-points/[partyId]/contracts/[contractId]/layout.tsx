@@ -1,5 +1,5 @@
 "use server";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isUnauthorized } from "@repo/utils/policies";
 
 export default async function Layout({
   children,

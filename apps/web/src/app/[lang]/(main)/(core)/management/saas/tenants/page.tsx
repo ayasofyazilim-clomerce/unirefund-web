@@ -1,13 +1,13 @@
 "use server";
 
 import type { GetApiSaasTenantsData } from "@ayasofyazilim/saas/SaasService";
+import { isUnauthorized } from "@repo/utils/policies";
 import {
   getTenantsApi,
   getTenantsLookupEditionsApi,
 } from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/core/SaasService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import TenantsTable from "./_components/table";
 

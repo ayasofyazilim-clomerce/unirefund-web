@@ -2,7 +2,7 @@
 
 import type { UniRefund_CRMService_Enums_EntityPartyTypeCode } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getAssignableRolesByCurrentUserApi } from "src/actions/core/IdentityService/actions";
 import { getAffiliationCodeApi } from "src/actions/unirefund/CrmService/actions";
 import type { PartyNameType } from "src/actions/unirefund/CrmService/types";

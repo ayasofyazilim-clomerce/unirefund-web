@@ -1,4 +1,5 @@
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import {
   getMerchantContractHeaderByIdApi,
   // getMerchantContractHeadersByMerchantIdApi,
@@ -7,7 +8,6 @@ import {
 import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { MerchantContractHeaderUpdateForm } from "./_components/form";
 
 async function getApiRequests(partyId: string, contractId: string) {

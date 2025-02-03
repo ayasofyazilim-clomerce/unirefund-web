@@ -1,6 +1,21 @@
 import { ApiError } from "@ayasofyazilim/core-saas/AccountService";
 import { notFound, permanentRedirect, RedirectType } from "next/navigation";
 import { ApiErrorServerResponse, ServerResponse } from "./types";
+import { getAccountServiceClient } from "../auth/auth-actions";
+import { auth } from "../auth/auth";
+
+export async function getGrantedPoliciesApi() {
+  try {
+    const session = await auth();
+    const client = await getAccountServiceClient(session?.user?.access_token);
+    const response =
+      await client.abpApplicationConfiguration.getApiAbpApplicationConfiguration();
+    const grantedPolicies = response.auth?.grantedPolicies;
+    return grantedPolicies;
+  } catch (error) {
+    return undefined;
+  }
+}
 
 export function isApiError(error: unknown): error is ApiError {
   if ((error as ApiError).name === "ApiError") {

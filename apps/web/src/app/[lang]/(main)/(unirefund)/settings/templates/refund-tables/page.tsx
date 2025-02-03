@@ -1,9 +1,9 @@
 "use server";
 
 import type { GetApiContractServiceRefundTableHeadersData } from "@ayasofyazilim/saas/ContractService";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getRefundTableHeadersApi } from "@/actions/unirefund/ContractService/action";
 import { getResourceData } from "@/language-data/unirefund/ContractService";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import RefundTable from "./_components/table";
 
 export default async function Page(props: {

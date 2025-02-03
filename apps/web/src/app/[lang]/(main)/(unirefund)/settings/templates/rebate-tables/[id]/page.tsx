@@ -1,7 +1,7 @@
 "use server";
 import { notFound } from "next/navigation";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getRebateTableHeadersByIdApi } from "@/actions/unirefund/ContractService/action";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import { getResourceData } from "@/language-data/unirefund/ContractService";
 import RebateTableHeaderUpdateForm from "./_components/form";
 

@@ -1,6 +1,6 @@
 "use server";
 
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getResourceData } from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 

@@ -1,10 +1,10 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import { getVatDetailsByIdApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import Form from "./_components/form";
 
 async function getApiRequests(vatId: string) {

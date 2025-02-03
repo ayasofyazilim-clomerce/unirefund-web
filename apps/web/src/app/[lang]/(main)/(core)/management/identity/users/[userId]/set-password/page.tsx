@@ -1,9 +1,9 @@
 "use server";
 
+import { isUnauthorized } from "@repo/utils/policies";
 import { getUserDetailsByIdApi } from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/core/IdentityService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Form from "./_components/form";
 
