@@ -49,6 +49,7 @@ export default async function Page({
       searchParams.statusesFilterReconciliationStatuses?.split(",") as
         | UniRefund_RefundService_Enums_RefundReconciliationStatus[]
         | undefined,
+    sorting: "paidDate desc",
   });
 
   const { languageData } = await getResourceData(lang);
