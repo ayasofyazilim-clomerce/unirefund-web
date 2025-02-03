@@ -90,7 +90,9 @@ export default async function Page({
         refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
       }
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      fromDate={activeContract ? new Date(activeContract.validTo) : undefined}
+      fromDate={
+        activeContract?.validTo ? new Date(activeContract.validTo) : undefined
+      }
       languageData={languageData}
       refundFeeHeaders={refundFeeHeadersResponse.data}
     />
