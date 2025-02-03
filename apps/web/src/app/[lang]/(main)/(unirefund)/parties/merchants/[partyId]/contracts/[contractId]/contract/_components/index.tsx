@@ -49,7 +49,7 @@ export function ContractHeader({
         contractId={contractHeaderDetails.id}
         formData={{
           ...contractHeaderDetails,
-          status: contractHeaderDetails.status || "None",
+          status: contractHeaderDetails.status,
           refundTableHeaders: [
             ...contractHeaderDetails.refundTableHeaders.map(
               (refundTableHeader) => {

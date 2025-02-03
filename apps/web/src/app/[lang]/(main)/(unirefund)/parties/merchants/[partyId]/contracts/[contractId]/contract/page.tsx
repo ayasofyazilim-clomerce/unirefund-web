@@ -76,7 +76,9 @@ export default async function Page({
     <MerchantContractHeader
       addressList={addressListResponse.data}
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      fromDate={activeContract ? new Date(activeContract.validTo) : undefined}
+      fromDate={
+        activeContract?.validTo ? new Date(activeContract.validTo) : undefined
+      }
       languageData={languageData}
       refundTableHeaders={refundTableHeadersResponse.data}
     />

@@ -100,7 +100,7 @@ export default async function Page({
         }}
         formType="create"
         fromDate={
-          biggestContractHeader
+          biggestContractHeader?.validTo
             ? new Date(biggestContractHeader.validTo)
             : new Date()
         }
