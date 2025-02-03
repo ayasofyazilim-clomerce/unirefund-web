@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getIndividualEmailByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
@@ -34,7 +35,10 @@ export default async function Page({
 }) {
   const { partyId, lang } = params;
   const { languageData } = await getResourceData(lang);
-
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.Individuals.Edit"],
+    lang,
+  });
   const apiRequests = await getApiRequests({ partyId });
   if (apiRequests.type === "error") {
     return (

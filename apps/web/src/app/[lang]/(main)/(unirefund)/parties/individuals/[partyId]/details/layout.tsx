@@ -1,6 +1,7 @@
 "use server";
 
 import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { getBaseLink } from "src/utils";
 
@@ -15,8 +16,13 @@ export default async function Layout({
   };
 }) {
   const { partyId, lang } = params;
-  const baseLink = getBaseLink(`parties/individuals/${partyId}/details/`, lang);
   const { languageData } = await getResourceData(lang);
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.Individuals.Edit"],
+    lang,
+  });
+
+  const baseLink = getBaseLink(`parties/individuals/${partyId}/details/`, lang);
   return (
     <TabLayout
       tabList={[

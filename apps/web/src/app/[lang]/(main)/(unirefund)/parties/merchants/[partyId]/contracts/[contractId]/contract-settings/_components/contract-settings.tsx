@@ -22,6 +22,7 @@ import {
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {
   handleDeleteResponse,
   handlePostResponse,
@@ -35,7 +36,6 @@ import {
   putMerchantContractContractSettingsByIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { MerchantAddressWidget } from "../../../_components/contract-widgets";
 
 interface ContractSettingsTable {
   id: string;
@@ -345,10 +345,11 @@ function SchemaFormForContractSettings({
       uiSchema={uiSchema}
       useDefaultSubmit={false}
       widgets={{
-        address: MerchantAddressWidget({
-          loading,
-          addressList,
+        address: CustomComboboxWidget<AddressCommonDataDto>({
+          list: addressList,
           languageData,
+          selectIdentifier: "id",
+          selectLabel: "fullAddress",
         }),
       }}
       withScrollArea

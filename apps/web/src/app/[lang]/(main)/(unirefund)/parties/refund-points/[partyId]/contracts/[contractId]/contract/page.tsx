@@ -2,13 +2,13 @@ import { auth } from "@repo/utils/auth/next-auth";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   getRefundPointContractHeaderByIdApi,
-  getRefundPointContractHeadersByRefundPointIdApi,
+  // getRefundPointContractHeadersByRefundPointIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getRefundPointDetailsByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { ContractHeader as RefundPointContractHeader } from "./_components";
+import RefundPointContractHeaderUpdateForm from "./_components/form";
 
 async function getApiRequests(partyId: string, contractId: string) {
   try {
@@ -22,13 +22,13 @@ async function getApiRequests(partyId: string, contractId: string) {
       ),
       getRefundPointContractHeaderByIdApi(contractId, session),
       getRefundPointDetailsByIdApi(partyId, session),
-      getRefundPointContractHeadersByRefundPointIdApi(
-        {
-          id: partyId,
-          isDraft: false,
-        },
-        session,
-      ),
+      // getRefundPointContractHeadersByRefundPointIdApi(
+      //   {
+      //     id: partyId,
+      //     isDraft: false,
+      //   },
+      //   session,
+      // ),
     ]);
     return {
       type: "success" as const,
@@ -73,7 +73,7 @@ export default async function Page({
     refundFeeHeadersResponse,
     contractHeaderDetailsResponse,
     refundPointDetailsResponse,
-    otherContractHeadersResponse,
+    // otherContractHeadersResponse,
   ] = apiRequests.data;
 
   const refundPointDetailsSummary =
@@ -81,18 +81,14 @@ export default async function Page({
       ?.at(0)
       ?.organizations?.at(0);
 
-  const contractHeaders = otherContractHeadersResponse.data.items;
-  const activeContract = contractHeaders?.find((i) => i.isActive === true);
+  // const contractHeaders = otherContractHeadersResponse.data.items;
 
   return (
-    <RefundPointContractHeader
+    <RefundPointContractHeaderUpdateForm
       addressList={
         refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
       }
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      fromDate={
-        activeContract?.validTo ? new Date(activeContract.validTo) : undefined
-      }
       languageData={languageData}
       refundFeeHeaders={refundFeeHeadersResponse.data}
     />

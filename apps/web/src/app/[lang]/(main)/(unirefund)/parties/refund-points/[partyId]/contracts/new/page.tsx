@@ -1,7 +1,7 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
-  getRefundPointContractHeadersByRefundPointIdApi,
+  // getRefundPointContractHeadersByRefundPointIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getRefundPointDetailsByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
@@ -9,7 +9,8 @@ import type { ContractServiceResource } from "src/language-data/unirefund/Contra
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import RefundPointContractHeaderForm from "../_components/contract-header-form";
+// import RefundPointContractHeaderForm from "../_components/contract-header-form";
+import RefundPointContractHeaderCreateForm from "./_components/form";
 
 async function getApiRequests(partyId: string) {
   try {
@@ -23,13 +24,13 @@ async function getApiRequests(partyId: string) {
         },
         session,
       ),
-      getRefundPointContractHeadersByRefundPointIdApi(
-        {
-          id: partyId,
-          sorting: "validTo desc",
-        },
-        session,
-      ),
+      // getRefundPointContractHeadersByRefundPointIdApi(
+      //   {
+      //     id: partyId,
+      //     sorting: "validTo desc",
+      //   },
+      //   session,
+      // ),
     ]);
     return {
       type: "success" as const,
@@ -71,41 +72,22 @@ export default async function Page({
   const [
     refundPointDetailsResponse,
     refundFeeHeadersResponse,
-    otherContractHeaders,
+    // otherContractHeaders,
   ] = apiRequests.data;
 
   const refundPointDetailsSummary =
     refundPointDetailsResponse.data.entityInformations
       ?.at(0)
       ?.organizations?.at(0);
-  const biggestContractHeader = otherContractHeaders.data.items?.at(0);
+  // const biggestContractHeader = otherContractHeaders.data.items?.at(0);
 
   return (
     <>
-      <RefundPointContractHeaderForm
-        addresses={
+      <RefundPointContractHeaderCreateForm
+        addressList={
           refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
         }
-        formData={{
-          validFrom: new Date().toISOString(),
-          validTo: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1),
-          ).toISOString(),
-          refundFeeHeaders: [],
-          addressCommonDataId:
-            refundPointDetailsSummary?.contactInformations
-              ?.at(0)
-              ?.addresses?.at(0)?.id || "00000000-0000-0000-0000-000000000000",
-          merchantClassification: "Low",
-        }}
-        formType="create"
-        fromDate={
-          biggestContractHeader?.validTo
-            ? new Date(biggestContractHeader.validTo)
-            : new Date()
-        }
         languageData={languageData}
-        loading={false}
         refundFeeHeaders={refundFeeHeadersResponse.data}
       />
       <PageHeader
