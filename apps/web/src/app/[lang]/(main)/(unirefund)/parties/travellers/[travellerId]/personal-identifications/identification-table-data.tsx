@@ -38,7 +38,9 @@ function identificationsTableActions(
       cta: languageData["Travellers.New.Identification"],
       icon: PlusCircle,
       onClick() {
-        router.push(`${travellerId}/identification/new`);
+        router.push(
+          `/parties/travellers/${travellerId}/personal-identifications/new`,
+        );
       },
     });
   }
