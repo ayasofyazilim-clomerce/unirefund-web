@@ -52,10 +52,40 @@ const rebateTableHeadersColumns = (
         values: [
           {
             position: "after",
-            label: languageData["Rebate.Form.isTemplate"] || "Template",
+            label: "Active",
+            conditions: [
+              {
+                conditionAccessorKey: "isActive",
+                when: (value) => value === true,
+              },
+            ],
+          },
+          {
+            position: "after",
+            label: "Assigned",
+            conditions: [
+              {
+                conditionAccessorKey: "isAssigned",
+                when: (value) => value === true,
+              },
+            ],
+          },
+          {
+            position: "after",
+            label: "Template",
             conditions: [
               {
                 conditionAccessorKey: "isTemplate",
+                when: (value) => value === true,
+              },
+            ],
+          },
+          {
+            position: "after",
+            label: "Customized",
+            conditions: [
+              {
+                conditionAccessorKey: "isCustomizedOverTemplate",
                 when: (value) => value === true,
               },
             ],
