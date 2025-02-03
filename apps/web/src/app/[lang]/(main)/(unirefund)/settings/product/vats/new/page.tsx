@@ -6,11 +6,12 @@ import Form from "./_components/form";
 
 export default async function Page({ params }: { params: { lang: string } }) {
   const { lang } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.Vats.Add"],
     lang,
   });
-  const { languageData } = await getResourceData(lang);
+
   return (
     <>
       <Form languageData={languageData} />
