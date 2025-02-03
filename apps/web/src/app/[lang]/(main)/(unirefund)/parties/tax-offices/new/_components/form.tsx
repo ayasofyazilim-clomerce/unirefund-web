@@ -117,7 +117,11 @@ export default function TaxOfficeOrganizationForm({
       requestBody: createData,
     })
       .then((res) => {
-        handlePostResponse(res, router, "../tax-offices");
+        handlePostResponse(res, router, {
+          prefix: "/parties/tax-offices",
+          identifier: "id",
+          suffix: "details/info",
+        });
       })
       .finally(() => {
         setLoading(false);

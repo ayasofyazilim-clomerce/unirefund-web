@@ -28,7 +28,6 @@ export default async function Layout({
           label: languageData["Parties.Organization"],
           href: `${baseLink}organization`,
         },
-
         {
           label: languageData.Email,
           href: `${baseLink}email`,

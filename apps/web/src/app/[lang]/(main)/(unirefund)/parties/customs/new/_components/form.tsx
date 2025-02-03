@@ -116,7 +116,11 @@ export default function CustomsOrganizationForm({
       requestBody: createData,
     })
       .then((res) => {
-        handlePostResponse(res, router, "../customs");
+        handlePostResponse(res, router, {
+          prefix: "/parties/customs",
+          identifier: "id",
+          suffix: "details/info",
+        });
       })
       .finally(() => {
         setLoading(false);
