@@ -65,7 +65,10 @@ export default function RefundFeeHeaderCreateForm({
         void postRefundFeeHeadersApi({
           requestBody: formData,
         }).then((response) => {
-          handlePostResponse(response, router);
+          handlePostResponse(response, router, {
+            prefix: "./",
+            identifier: "id",
+          });
         });
       }}
       schema={$RefundFeeHeaderCreateDto}
