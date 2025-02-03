@@ -52,16 +52,6 @@ const rebateTableHeadersColumns = (
         values: [
           {
             position: "before",
-            label: "Active",
-            conditions: [
-              {
-                conditionAccessorKey: "isActive",
-                when: (value) => value === true,
-              },
-            ],
-          },
-          {
-            position: "before",
             label: "Assigned",
             conditions: [
               {

@@ -33,20 +33,20 @@ const refundTableHeadersColumns = (
           values: [
             {
               position: "before",
-              label: "Active",
+              label: "Default",
               conditions: [
                 {
-                  conditionAccessorKey: "isActive",
+                  conditionAccessorKey: "isDefault",
                   when: (value) => value === true,
                 },
               ],
             },
             {
               position: "before",
-              label: "Assigned",
+              label: "Bundling",
               conditions: [
                 {
-                  conditionAccessorKey: "isAssigned",
+                  conditionAccessorKey: "isBundling",
                   when: (value) => value === true,
                 },
               ],
@@ -57,6 +57,16 @@ const refundTableHeadersColumns = (
               conditions: [
                 {
                   conditionAccessorKey: "isTemplate",
+                  when: (value) => value === true,
+                },
+              ],
+            },
+            {
+              position: "before",
+              label: "Assigned",
+              conditions: [
+                {
+                  conditionAccessorKey: "isAssigned",
                   when: (value) => value === true,
                 },
               ],
