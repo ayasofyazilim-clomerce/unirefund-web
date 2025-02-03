@@ -80,6 +80,7 @@ export default function CustomsOrganizationForm({
     const createData: UniRefund_CRMService_Customss_CreateCustomsDto = {
       parentId,
       taxpayerId: formData.taxpayerId,
+      typeCode: parentId ? "CUSTOMS" : "HEADQUARTER",
       entityInformationTypes: [
         {
           organizations: [
