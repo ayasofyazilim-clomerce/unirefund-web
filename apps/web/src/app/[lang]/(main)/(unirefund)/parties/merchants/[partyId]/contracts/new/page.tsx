@@ -76,7 +76,7 @@ export default async function Page({
       addresses={addressListResponse.data}
       formType="create"
       fromDate={
-        biggestContractHeader
+        biggestContractHeader?.validTo
           ? new Date(biggestContractHeader.validTo)
           : undefined
       }
