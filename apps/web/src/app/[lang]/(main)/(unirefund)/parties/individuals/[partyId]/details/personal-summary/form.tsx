@@ -8,7 +8,7 @@ import { $UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto } from
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTransition } from "react";
 import { handlePutResponse } from "src/actions/core/api-utils-client";
 import { putIndividualPersonalSummaryApi } from "src/actions/unirefund/CrmService/put-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
@@ -23,7 +23,7 @@ function PersonalSummaryForm({
   individualPersonalSummaryData: UniRefund_CRMService_PersonalSummaries_PersonalSummaryDto[];
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
@@ -34,22 +34,19 @@ function PersonalSummaryForm({
   return (
     <SchemaForm<UniRefund_CRMService_PersonalSummaries_PersonalSummaryDto>
       className="flex flex-col gap-4 p-4"
-      disabled={loading}
+      disabled={isPending}
       formData={individualPersonalSummaryData[0]}
       onSubmit={({ formData }) => {
-        setLoading(true);
-        void putIndividualPersonalSummaryApi({
-          requestBody:
-            formData as UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
-          id: partyId,
-          personalSummaryId: individualPersonalSummaryData[0].id || "",
-        })
-          .then((response) => {
+        startTransition(() => {
+          void putIndividualPersonalSummaryApi({
+            requestBody:
+              formData as UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
+            id: partyId,
+            personalSummaryId: individualPersonalSummaryData[0].id || "",
+          }).then((response) => {
             handlePutResponse(response, router);
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto}
       submitText={languageData["Edit.Save"]}

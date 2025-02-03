@@ -103,8 +103,10 @@
   "TaxOffices.Edit.Fail": "Vergi ofisi güncellenirken bir hata oluştu.",
 
   "Individuals": "Bireyler",
+  "Individual": "Birey",
   "Individuals.New": "Yeni Birey",
   "Individual.Details": "Detaylar",
+  "Individual.Edit.Description": "Birey detaylarını buradan güncelleyebilirsiniz.",
   "Form.Individual.name": "Adı",
   "Form.Individual.personalSummaries": "Kişisel Özetler",
   "Form.Individual.salutation": "Hitap",

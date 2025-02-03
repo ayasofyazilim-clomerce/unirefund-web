@@ -103,9 +103,11 @@
   "TaxOffices.Edit.Fail": "An error occurred while updating the tax office.",
 
   "Individuals": "Individuals",
+  "Individual": "Individual",
   "Individuals.New": "New Individual",
   "Individual.Details": "Details",
   "Form.Individual.name": "Name",
+  "Individual.Edit.Description": "You can update the details of the individual from here.",
   "Form.Individual.personalSummaries": "Personal Summary",
   "Form.Individual.salutation": "Salutation",
   "Form.Individual.firstName": "First Name",
