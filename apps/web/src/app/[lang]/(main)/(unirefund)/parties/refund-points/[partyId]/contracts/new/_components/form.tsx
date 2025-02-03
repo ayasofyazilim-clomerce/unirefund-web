@@ -11,7 +11,7 @@ import { handlePostResponse } from "@repo/utils/api";
 import { useParams, useRouter } from "next/navigation";
 import { useTransition } from "react";
 import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { postRefundPointContractHeadersById } from "@/actions/unirefund/ContractService/post-actions";
+import { postRefundPointContractHeadersByIdApi } from "@/actions/unirefund/ContractService/post-actions";
 import { RefundFeeHeadersField } from "../../_components/refund-fee-headers-field";
 
 export default function RefundPointContractHeaderCreateForm({
@@ -71,7 +71,7 @@ export default function RefundPointContractHeaderCreateForm({
       onSubmit={({ formData }) => {
         if (!formData) return;
         startTransition(() => {
-          void postRefundPointContractHeadersById({
+          void postRefundPointContractHeadersByIdApi({
             id: partyId,
             requestBody: formData,
           }).then((response) => {

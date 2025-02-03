@@ -4,9 +4,9 @@ import { toast } from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractHeaderDetailForRefundPointDto,
-  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as ContractHeaderForRefundPointCreateDto,
+  UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as ContractHeaderForRefundPointUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as $ContractHeaderForRefundPointCreateDto } from "@ayasofyazilim/saas/ContractService";
+import { $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as $ContractHeaderForRefundPointUpdateDto } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
 import {
   ActionButton,
@@ -25,11 +25,11 @@ import { useParams, useRouter } from "next/navigation";
 import type { TransitionStartFunction } from "react";
 import { useTransition } from "react";
 import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { putRefundPointContractHeadersByIdMakePassiveApis } from "@/actions/unirefund/ContractService/put-actions";
 import {
-  postRefundPointContractHeadersById,
-  postRefundPointContractHeaderValidateByHeaderId,
-} from "@/actions/unirefund/ContractService/post-actions";
+  putRefundPointContractHeadersById,
+  putRefundPointContractHeadersByIdMakePassiveApis,
+} from "@/actions/unirefund/ContractService/put-actions";
+import { postRefundPointContractHeaderValidateByHeaderIdApi } from "@/actions/unirefund/ContractService/post-actions";
 import { deleteRefundPointContractHeadersById } from "@/actions/unirefund/ContractService/delete-actions";
 import { RefundFeeHeadersField } from "../../../_components/refund-fee-headers-field";
 
@@ -45,8 +45,9 @@ export default function RefundPointContractHeaderUpdateForm({
   contractHeaderDetails: ContractHeaderDetailForRefundPointDto;
 }) {
   const router = useRouter();
-  const { partyId } = useParams<{
+  const { partyId, contractId } = useParams<{
     partyId: string;
+    contractId: string;
   }>();
   const [isPending, startTransition] = useTransition();
   const uiSchema = {
@@ -80,7 +81,7 @@ export default function RefundPointContractHeaderUpdateForm({
         languageData={languageData}
         startTransition={startTransition}
       />
-      <SchemaForm<ContractHeaderForRefundPointCreateDto>
+      <SchemaForm<ContractHeaderForRefundPointUpdateDto>
         disabled={isPending}
         fields={{
           RefundFeeHeadersField: RefundFeeHeadersField(
@@ -101,8 +102,8 @@ export default function RefundPointContractHeaderUpdateForm({
         onSubmit={({ formData: editedFormData }) => {
           if (!editedFormData) return;
           startTransition(() => {
-            void postRefundPointContractHeadersById({
-              id: partyId,
+            void putRefundPointContractHeadersById({
+              id: contractId,
               requestBody: editedFormData,
             }).then((response) => {
               handlePostResponse(response, router, {
@@ -113,7 +114,7 @@ export default function RefundPointContractHeaderUpdateForm({
             });
           });
         }}
-        schema={$ContractHeaderForRefundPointCreateDto}
+        schema={$ContractHeaderForRefundPointUpdateDto}
         uiSchema={uiSchema}
         widgets={{
           address: CustomComboboxWidget<AddressTypeDto>({
@@ -147,7 +148,7 @@ function ContractActions({
         loading={isPending}
         onClick={() => {
           startTransition(() => {
-            void postRefundPointContractHeaderValidateByHeaderId(
+            void postRefundPointContractHeaderValidateByHeaderIdApi(
               contractDetails.id,
             ).then((response) => {
               if (response.type === "success" && response.data) {
