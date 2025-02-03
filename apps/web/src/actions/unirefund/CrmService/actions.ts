@@ -356,6 +356,21 @@ export async function getTaxFreeAddressByIdApi(
     throw structuredError(error);
   }
 }
+export async function getTaxOfficeAddressByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAddresses({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getCustomAddressByIdApi(
   id: string,
   session?: Session | null,
@@ -495,6 +510,21 @@ export async function getTaxFreePhoneByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.taxFree.getApiCrmServiceTaxFreesByIdTelephones({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxOfficePhoneByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdTelephones({
         id,
       });
     return structuredSuccessResponse(response);

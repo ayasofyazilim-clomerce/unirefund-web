@@ -50,6 +50,7 @@ function taxFreeColumns(
     links.name = {
       prefix: "/parties/tax-free",
       targetAccessorKey: "id",
+      suffix: "details/organization",
     };
   }
 
