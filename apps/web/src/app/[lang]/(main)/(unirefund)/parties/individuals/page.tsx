@@ -2,9 +2,9 @@
 
 import type { GetApiCrmServiceIndividualsData } from "@ayasofyazilim/saas/CRMService";
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getIndividualsApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import ErrorComponent from "../../../_components/error-component";
 import IndividualsTable from "./table";
 

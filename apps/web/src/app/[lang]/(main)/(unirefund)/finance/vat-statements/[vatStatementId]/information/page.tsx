@@ -1,8 +1,8 @@
 "use server";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getVatStatementHeadersByIdApi } from "src/actions/unirefund/FinanceService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/FinanceService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import VatStatementInformation from "./_components/vat-statement-information";
 

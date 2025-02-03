@@ -2,10 +2,10 @@
 
 import type { GetApiSettingServiceProductGroupData } from "@ayasofyazilim/saas/SettingService";
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import ProductGroupsTable from "./_components/table";
 
 async function getApiRequests(

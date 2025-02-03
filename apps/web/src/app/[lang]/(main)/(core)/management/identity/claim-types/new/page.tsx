@@ -1,7 +1,7 @@
 "use server";
 
+import { isUnauthorized } from "@repo/utils/policies";
 import { getResourceData } from "src/language-data/core/IdentityService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import Form from "./_components/form";
 
 export default async function Page({ params }: { params: { lang: string } }) {

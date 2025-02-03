@@ -1,4 +1,5 @@
 import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   // getRefundPointContractHeadersByRefundPointIdApi,
@@ -8,7 +9,6 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 // import RefundPointContractHeaderForm from "../_components/contract-header-form";
 import RefundPointContractHeaderCreateForm from "./_components/form";
 

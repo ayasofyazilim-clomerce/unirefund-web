@@ -1,6 +1,6 @@
+import { isUnauthorized } from "@repo/utils/policies";
 import { getRebateTableHeadersApi } from "@/actions/unirefund/ContractService/action";
 import { getResourceData } from "@/language-data/unirefund/ContractService";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
 import RebateTable from "./_components/table";
 
 export default async function Page({

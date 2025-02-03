@@ -1,16 +1,15 @@
 "use server";
 import { permanentRedirect, RedirectType } from "next/navigation";
 import { Policy } from "./types";
-
+import { getGrantedPoliciesApi } from "../api/action";
 export async function isUnauthorized({
   requiredPolicies,
   lang,
-  grantedPolicies,
 }: {
   requiredPolicies: Policy[];
   lang: string;
-  grantedPolicies?: Record<Policy, boolean> | undefined;
 }) {
+  const grantedPolicies = await getGrantedPoliciesApi();
   const missingPolicies = requiredPolicies.filter(
     (policy) => !grantedPolicies?.[policy],
   );

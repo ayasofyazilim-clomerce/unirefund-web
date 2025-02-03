@@ -1,10 +1,10 @@
 "use server";
 
 import type { GetApiIdentityClaimTypesData } from "@ayasofyazilim/saas/IdentityService";
+import { isUnauthorized } from "@repo/utils/policies";
 import { getClaimTypesApi } from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/core/IdentityService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ClaimTypesTable from "./_components/table";
 

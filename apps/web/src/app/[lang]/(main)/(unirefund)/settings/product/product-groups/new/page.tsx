@@ -5,10 +5,10 @@ import { FormReadyComponent } from "@repo/ui/form-ready";
 import { auth } from "@repo/utils/auth/next-auth";
 import { FileText } from "lucide-react";
 import Link from "next/link";
+import { isUnauthorized } from "@repo/utils/policies";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import { getVatsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
-import { isUnauthorized } from "src/utils/page-policy/page-policy";
 import Form from "./_components/form";
 
 async function getApiRequests() {
