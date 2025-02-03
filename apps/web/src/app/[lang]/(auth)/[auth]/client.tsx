@@ -102,6 +102,7 @@ export function AuthPage({ tenantId }: { tenantId: string }): JSX.Element {
         formSchema: registerFormSchema,
         registerFunction: signUpServer,
         loginPath: "login",
+        defaultValues: { tenantId },
       };
       break;
     case "reset-password": {

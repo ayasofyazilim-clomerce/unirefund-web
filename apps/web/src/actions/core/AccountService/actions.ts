@@ -61,7 +61,7 @@ export async function signUpServer({
         userName,
         emailAddress: email,
         password,
-        appName: process.env.APP_NAME || "",
+        appName: process.env.CLIENT_ID || "",
       },
     });
     return {
