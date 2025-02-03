@@ -103,8 +103,9 @@ const rebateTableHeadersTable = (params: {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: ["name", "calculateNetCommissionInsteadOfRefund"],
+      columns: ["name", "creationTime", "lastModificationTime"],
     },
+    columnOrder: ["name", "creationTime", "lastModificationTime"],
     tableActions: [
       {
         actionLocation: "table",

@@ -42,6 +42,16 @@ const refundFeeHeadersColumns = (
             },
             {
               position: "after",
+              label: "Assigned",
+              conditions: [
+                {
+                  conditionAccessorKey: "isAssigned",
+                  when: (value) => value === true,
+                },
+              ],
+            },
+            {
+              position: "after",
               label: "Template",
               conditions: [
                 {
