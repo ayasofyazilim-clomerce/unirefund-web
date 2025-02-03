@@ -1,30 +1,63 @@
 "use server";
 
-import { FormReadyComponent } from "@repo/ui/form-ready";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { auth } from "@repo/utils/auth/next-auth";
 import { FileText } from "lucide-react";
+import Link from "next/link";
+import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import { getVatsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Form from "./_components/form";
+
+async function getApiRequests() {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getVatsApi(
+        {
+          maxResultCount: 1000,
+        },
+        session,
+      ),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({ params }: { params: { lang: string } }) {
   const { lang } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.ProductGroups.Add"],
     lang,
   });
-  const vatsResponse = await getVatsApi({
-    maxResultCount: 1000,
-  });
-  if (isErrorOnRequest(vatsResponse, lang)) return;
-  const { languageData } = await getResourceData(lang);
+
+  const apiRequests = await getApiRequests();
+  if (apiRequests.type === "error") {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={apiRequests.message || "Unknown error occurred"}
+      />
+    );
+  }
+  const [vatResponse] = apiRequests.data;
+
   return (
     <>
       <FormReadyComponent
-        active={vatsResponse.data.items?.length === 0}
+        active={vatResponse.data.items?.length === 0}
         content={{
           icon: <FileText className="size-20 text-gray-400" />,
           title: languageData["Missing.Vat.Title"],
@@ -38,7 +71,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
       >
         <Form
           languageData={languageData}
-          vatList={vatsResponse.data.items || []}
+          vatList={vatResponse.data.items || []}
         />
       </FormReadyComponent>
       <div className="hidden" id="page-description">
