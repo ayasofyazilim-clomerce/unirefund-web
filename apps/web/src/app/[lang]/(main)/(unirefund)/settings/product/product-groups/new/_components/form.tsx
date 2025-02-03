@@ -13,7 +13,6 @@ import { useState } from "react";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
 import { postProductGroupApi } from "src/actions/unirefund/SettingService/post-actions";
 import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
-import { getBaseLink } from "src/utils";
 
 export default function Form({
   languageData,
@@ -28,6 +27,7 @@ export default function Form({
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_SettingService_ProductGroups_CreateProductGroupDto,
     resources: languageData,
+    name: "Form.ProductGroup",
     extend: {
       active: {
         "ui:widget": "switch",
@@ -61,15 +61,13 @@ export default function Form({
           "food",
         ],
       }}
-      onSubmit={(data) => {
+      onSubmit={({ formData }) => {
         setLoading(true);
-        const formData = data.formData;
         void postProductGroupApi({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            router.push(getBaseLink(`/settings/product/product-groups`));
+            handlePostResponse(res, router, "../product-groups");
           })
           .finally(() => {
             setLoading(false);
