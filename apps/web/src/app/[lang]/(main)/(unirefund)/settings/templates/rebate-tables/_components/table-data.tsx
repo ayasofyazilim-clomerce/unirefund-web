@@ -51,11 +51,31 @@ const rebateTableHeadersColumns = (
       name: {
         values: [
           {
-            position: "after",
-            label: languageData["Rebate.Form.isTemplate"] || "Template",
+            position: "before",
+            label: "Assigned",
+            conditions: [
+              {
+                conditionAccessorKey: "isAssigned",
+                when: (value) => value === true,
+              },
+            ],
+          },
+          {
+            position: "before",
+            label: "Template",
             conditions: [
               {
                 conditionAccessorKey: "isTemplate",
+                when: (value) => value === true,
+              },
+            ],
+          },
+          {
+            position: "before",
+            label: "Customized",
+            conditions: [
+              {
+                conditionAccessorKey: "isCustomizedOverTemplate",
                 when: (value) => value === true,
               },
             ],
@@ -73,8 +93,9 @@ const rebateTableHeadersTable = (params: {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: ["name", "calculateNetCommissionInsteadOfRefund"],
+      columns: ["name", "creationTime", "lastModificationTime"],
     },
+    columnOrder: ["name", "creationTime", "lastModificationTime"],
     tableActions: [
       {
         actionLocation: "table",

@@ -30,7 +30,6 @@ export async function deleteAffiliationCodesByIdApi(
     return structuredError(error);
   }
 }
-
 export async function deleteMerchantsByIdAffiliationsByAffiliationIdApi(
   data: DeleteApiCrmServiceMerchantsByIdAffiliationsByAffiliationIdData,
   session?: Session | null,
@@ -46,7 +45,6 @@ export async function deleteMerchantsByIdAffiliationsByAffiliationIdApi(
     return structuredError(error);
   }
 }
-
 export async function deleteRefundPointsByIdAffiliationsByAffiliationIdApi(
   data: DeleteApiCrmServiceRefundPointsByIdAffiliationsByAffiliationIdData,
   session?: Session | null,
@@ -62,7 +60,6 @@ export async function deleteRefundPointsByIdAffiliationsByAffiliationIdApi(
     return structuredError(error);
   }
 }
-
 export async function deleteCustomsByIdAffiliationsByAffiliationIdApi(
   data: DeleteApiCrmServiceCustomsByIdAffiliationsByAffiliationIdData,
   session?: Session | null,
@@ -78,7 +75,6 @@ export async function deleteCustomsByIdAffiliationsByAffiliationIdApi(
     return structuredError(error);
   }
 }
-
 export async function deleteTaxFreesByIdAffiliationsByAffiliationIdApi(
   data: DeleteApiCrmServiceTaxFreesByIdAffiliationsByAffiliationIdData,
   session?: Session | null,
@@ -94,7 +90,6 @@ export async function deleteTaxFreesByIdAffiliationsByAffiliationIdApi(
     return structuredError(error);
   }
 }
-
 export async function deleteTaxOfficesByIdAffiliationsByAffiliationIdApi(
   data: DeleteApiCrmServiceTaxOfficesByIdAffiliationsByAffiliationIdData,
   session?: Session | null,
@@ -110,12 +105,25 @@ export async function deleteTaxOfficesByIdAffiliationsByAffiliationIdApi(
     return structuredError(error);
   }
 }
-
-export async function deleteMerchantsByIdProductGroupsApi(
-  data: DeleteApiCrmServiceMerchantsByIdProductGroupsData,
+export async function deleteIndividualsByIdApi(
+  id: string,
+  session?: Session | null,
 ) {
   try {
-    const crmClient = await getCRMServiceClient();
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.deleteApiCrmServiceIndividualsById({ id });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function deleteMerchantsByIdProductGroupsApi(
+  data: DeleteApiCrmServiceMerchantsByIdProductGroupsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.merchant.deleteApiCrmServiceMerchantsByIdProductGroups(
         data,

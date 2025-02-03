@@ -1,21 +1,35 @@
 "use server";
 
 import type { GetApiCrmServiceIndividualsData } from "@ayasofyazilim/saas/CRMService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getIndividualsApi } from "src/actions/unirefund/CrmService/actions";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import IndividualsTable from "./table";
 
-interface SearchParamType {
-  ids?: string;
-  name?: string;
-  maxResultCount?: number;
-  skipCount?: number;
-  sorting?: string;
-  typeCode?: string;
-  entityPartyTypeCode?: string;
+async function getApiRequests(searchParams: GetApiCrmServiceIndividualsData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getIndividualsApi(
+        {
+          ...searchParams,
+        },
+        session,
+      ),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
 }
 
 export default async function Page({
@@ -23,27 +37,25 @@ export default async function Page({
   searchParams,
 }: {
   params: { lang: string };
-  searchParams?: SearchParamType;
+  searchParams: GetApiCrmServiceIndividualsData;
 }) {
   const { lang } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
-    requiredPolicies: ["CRMService.Merchants"],
+    requiredPolicies: ["CRMService.Individuals"],
     lang,
   });
-  const { languageData } = await getResourceData(lang);
-  const individualResponse = await getIndividualsApi({
-    ...searchParams,
-    typeCodes: searchParams?.typeCode?.split(",") || [],
-  } as GetApiCrmServiceIndividualsData);
 
-  if (isErrorOnRequest(individualResponse, lang, false)) {
+  const apiRequests = await getApiRequests(searchParams);
+  if (apiRequests.type === "error") {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={individualResponse.message}
+        message={apiRequests.message || "Unknown error occurred"}
       />
     );
   }
+  const [individualResponse] = apiRequests.data;
 
   return (
     <IndividualsTable
