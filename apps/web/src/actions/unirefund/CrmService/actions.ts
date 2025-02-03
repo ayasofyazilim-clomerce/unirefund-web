@@ -91,6 +91,19 @@ export async function getTaxOfficesApi(
     throw structuredError(error);
   }
 }
+export async function getIndividualsApi(
+  data: GetApiCrmServiceIndividualsData = {},
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.getApiCrmServiceIndividuals(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantDetailByIdApi(
   id: string,
   session?: Session | null,
@@ -243,6 +256,38 @@ export async function getTaxOfficeOrganizationsByIdApi(
     throw structuredError(error);
   }
 }
+export async function getIndividualNameByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.getApiCrmServiceIndividualsByIdName({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getIndividualPersonalSummaryByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.getApiCrmServiceIndividualsByIdPersonalSummaries(
+        {
+          id,
+        },
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantSubStoresByIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
   session?: Session | null,
@@ -312,7 +357,6 @@ export async function getCustomSubStoresByIdApi(
     throw structuredError(error);
   }
 }
-
 export async function getMerchantAddressByIdApi(
   id: string,
   session?: Session | null,
@@ -334,6 +378,21 @@ export async function getRefundPointAddressByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAddresses({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getCustomAddressByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.customs.getApiCrmServiceCustomsByIdAddresses({
         id,
       });
     return structuredSuccessResponse(response);
@@ -371,14 +430,14 @@ export async function getTaxOfficeAddressByIdApi(
     throw structuredError(error);
   }
 }
-export async function getCustomAddressByIdApi(
+export async function getIndividualAddressByIdApi(
   id: string,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
     const response =
-      await crmClient.customs.getApiCrmServiceCustomsByIdAddresses({
+      await crmClient.individual.getApiCrmServiceIndividualsByIdAddresses({
         id,
       });
     return structuredSuccessResponse(response);
@@ -459,6 +518,21 @@ export async function getTaxOfficeEmailByIdApi(
     throw structuredError(error);
   }
 }
+export async function getIndividualEmailByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.getApiCrmServiceIndividualsByIdEmails({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getMerchantPhoneByIdApi(
   id: string,
   session?: Session | null,
@@ -525,6 +599,21 @@ export async function getTaxOfficePhoneByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response =
       await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdTelephones({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getIndividualPhoneByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.getApiCrmServiceIndividualsByIdTelephones({
         id,
       });
     return structuredSuccessResponse(response);
@@ -629,7 +718,6 @@ export async function getAffiliationCodeApi(
     throw structuredError(error);
   }
 }
-
 export async function getAffiliationCodesDetailsByIdApi(
   id: number,
   session?: Session | null,
@@ -704,17 +792,6 @@ export async function getAdressesApi(id: string, partyName: "merchants") {
   }
 }
 
-export async function getIndividualsApi(
-  data: GetApiCrmServiceIndividualsData = {},
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests.individuals.get(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
 export async function getIndividualsByIdApi(
   partyName:
     | "merchants"

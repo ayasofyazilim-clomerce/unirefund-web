@@ -4,6 +4,11 @@ import type {
   PutApiCrmServiceAffiliationCodesByIdData,
   PutApiCrmServiceCustomsByIdData,
   PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData,
+  PutApiCrmServiceIndividualsByIdAddressByAddressIdData,
+  PutApiCrmServiceIndividualsByIdEmailByEmailIdData,
+  PutApiCrmServiceIndividualsByIdNameData,
+  PutApiCrmServiceIndividualsByIdPersonalSummaryByPersonalSummaryIdData,
+  PutApiCrmServiceIndividualsByIdTelephoneByTelephoneIdData,
   PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
   PutApiCrmServiceMerchantsByIdData,
   PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
@@ -169,6 +174,34 @@ export async function putTaxOfficeOrganizationApi(
     return structuredError(error);
   }
 }
+export async function putIndividualNameApi(
+  data: PutApiCrmServiceIndividualsByIdNameData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.putApiCrmServiceIndividualsByIdName(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putIndividualPersonalSummaryApi(
+  data: PutApiCrmServiceIndividualsByIdPersonalSummaryByPersonalSummaryIdData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.individual.putApiCrmServiceIndividualsByIdPersonalSummaryByPersonalSummaryId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 //Unupdated
 
 export async function putCrmAddressApi(
@@ -254,6 +287,20 @@ export async function putTaxOfficeEmailApi(
     return structuredError(error);
   }
 }
+export async function putIndividualEmailApi(
+  data: PutApiCrmServiceIndividualsByIdEmailByEmailIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.individual.putApiCrmServiceIndividualsByIdEmailByEmailId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putMerchantAddressApi(
   data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
 ) {
@@ -324,6 +371,20 @@ export async function putTaxOfficeAddressApi(
     return structuredError(error);
   }
 }
+export async function putIndividualAddressApi(
+  data: PutApiCrmServiceIndividualsByIdAddressByAddressIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.individual.putApiCrmServiceIndividualsByIdAddressByAddressId(
+        data,
+      );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putMerchantTelephoneApi(
   data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 ) {
@@ -387,6 +448,20 @@ export async function putTaxOfficeTelephoneApi(
     const crmClient = await getCRMServiceClient();
     const response =
       await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdTelephonesByTelephoneId(
+        data,
+      );
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putIndividualTelephoneApi(
+  data: PutApiCrmServiceIndividualsByIdTelephoneByTelephoneIdData,
+) {
+  try {
+    const crmClient = await getCRMServiceClient();
+    const response =
+      await crmClient.individual.putApiCrmServiceIndividualsByIdTelephoneByTelephoneId(
         data,
       );
     return structuredResponse(response);
