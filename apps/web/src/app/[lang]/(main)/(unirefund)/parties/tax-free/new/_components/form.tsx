@@ -132,7 +132,11 @@ export default function TaxFreeOrganizationForm({
       requestBody: createData,
     })
       .then((res) => {
-        handlePostResponse(res, router, "../tax-free");
+        handlePostResponse(res, router, {
+          prefix: "/parties/tax-free",
+          identifier: "id",
+          suffix: "details/info",
+        });
       })
       .finally(() => {
         setLoading(false);

@@ -102,7 +102,11 @@ export default function IndividualForm({
       requestBody: createData,
     })
       .then((res) => {
-        handlePostResponse(res, router, "../individuals");
+        handlePostResponse(res, router, {
+          prefix: "/parties/individuals",
+          identifier: "id",
+          suffix: "details/name",
+        });
       })
       .finally(() => {
         setLoading(false);

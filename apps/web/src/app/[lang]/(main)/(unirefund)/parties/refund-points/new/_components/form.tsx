@@ -138,7 +138,11 @@ export default function RefundPointOrganizationForm({
       requestBody: createData,
     })
       .then((res) => {
-        handlePostResponse(res, router, "../refund-points");
+        handlePostResponse(res, router, {
+          prefix: "/parties/refund-points",
+          identifier: "id",
+          suffix: "details/info",
+        });
       })
       .finally(() => {
         setLoading(false);

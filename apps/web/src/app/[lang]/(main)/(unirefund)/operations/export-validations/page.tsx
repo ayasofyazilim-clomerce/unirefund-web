@@ -21,7 +21,10 @@ export default async function Page({
     requiredPolicies: ["ExportValidationService.ExportValidations"],
     lang,
   });
-  const exportValidationResponse = await getExportValidationApi(searchParams);
+  const exportValidationResponse = await getExportValidationApi({
+    ...searchParams,
+    sorting: "exportDate desc",
+  });
   if (isErrorOnRequest(exportValidationResponse, lang, false)) {
     return (
       <ErrorComponent

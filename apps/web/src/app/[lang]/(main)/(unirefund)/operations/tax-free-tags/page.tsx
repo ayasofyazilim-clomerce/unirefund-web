@@ -82,6 +82,7 @@ function initParams(searchParams: SearchParamType) {
     tagData.exportStartDate = ranges[spExportDate].startDate.toISOString();
     tagData.exportEndDate = ranges[spExportDate].endDate.toISOString();
   }
+  tagData.sorting = "issueDate desc";
   return tagData;
 }
 
