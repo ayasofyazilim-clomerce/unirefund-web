@@ -52,7 +52,7 @@ function identificationsColumns(
 ) {
   if (isActionGranted(["TravellerService.Travellers.Edit"], grantedPolicies)) {
     links.travelDocumentNumber = {
-      prefix: `${travellerId}/identification/`,
+      prefix: `/parties/travellers/${travellerId}/personal-identifications`,
       targetAccessorKey: "id",
     };
   }

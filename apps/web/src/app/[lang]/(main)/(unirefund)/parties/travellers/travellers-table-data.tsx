@@ -53,6 +53,7 @@ function travellersColumns(
     links.fullName = {
       prefix: "/parties/travellers",
       targetAccessorKey: "id",
+      suffix: "personal-identifications",
     };
   }
 

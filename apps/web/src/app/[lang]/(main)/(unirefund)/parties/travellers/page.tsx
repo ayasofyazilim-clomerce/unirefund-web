@@ -1,13 +1,33 @@
 "use server";
 
 import type { GetApiTravellerServiceTravellersData } from "@ayasofyazilim/saas/TravellerService";
+import { auth } from "@repo/utils/auth/next-auth";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import { getCountriesApi } from "../../../../../../actions/unirefund/LocationService/actions";
+import { getAllCountriesApi } from "../../../../../../actions/unirefund/LocationService/actions";
 import { getTravellersApi } from "../../../../../../actions/unirefund/TravellerService/actions";
 import ErrorComponent from "../../../_components/error-component";
 import TravellersTable from "./table";
+
+async function getApiRequests(filter: GetApiTravellerServiceTravellersData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getTravellersApi(filter, session),
+      getAllCountriesApi({}, session),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -29,29 +49,22 @@ export default async function Page({
 
   const { languageData } = await getResourceData(lang);
 
-  const travellerResponse = await getTravellersApi({
+  const apiRequests = await getApiRequests({
     ...searchParams,
     nationalities: searchParams.nationalities?.split(",") || [],
     residences: searchParams.residences?.split(",") || [],
   });
-  if (isErrorOnRequest(travellerResponse, lang, false)) {
+
+  if (apiRequests.type === "error") {
     return (
       <ErrorComponent
         languageData={languageData}
-        message={travellerResponse.message}
+        message={apiRequests.message || "Unknown error occurred"}
       />
     );
   }
 
-  const countriesResponse = await getCountriesApi();
-  if (isErrorOnRequest(countriesResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={countriesResponse.message}
-      />
-    );
-  }
+  const [travellerResponse, countriesResponse] = apiRequests.data;
 
   return (
     <TravellersTable
