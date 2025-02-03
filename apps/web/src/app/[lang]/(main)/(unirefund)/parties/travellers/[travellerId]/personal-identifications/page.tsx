@@ -4,8 +4,8 @@ import { auth } from "@repo/utils/auth/next-auth";
 import { getTravellersDetailsApi } from "@/actions/unirefund/TravellerService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
-import Table from "./table";
 import { isUnauthorized } from "@/utils/page-policy/page-policy";
+import Table from "./table";
 
 async function getApiRequests(travellerId: string) {
   try {
