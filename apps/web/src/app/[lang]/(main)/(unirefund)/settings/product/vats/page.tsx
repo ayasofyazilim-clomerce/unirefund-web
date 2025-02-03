@@ -1,11 +1,29 @@
 "use server";
 
 import type { GetApiSettingServiceVatData } from "@ayasofyazilim/saas/SettingService";
+import { auth } from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import { getVatsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import VatsTable from "./_components/table";
+
+async function getApiRequests(searchParams: GetApiSettingServiceVatData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([getVatsApi(searchParams, session)]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -15,10 +33,19 @@ export default async function Page({
   searchParams: GetApiSettingServiceVatData;
 }) {
   const { lang } = params;
-  await isUnauthorized({ requiredPolicies: ["SettingService.Vats"], lang });
-  const vatsResponse = await getVatsApi(searchParams);
-  if (isErrorOnRequest(vatsResponse, lang)) return;
   const { languageData } = await getResourceData(lang);
+  await isUnauthorized({ requiredPolicies: ["SettingService.Vats"], lang });
 
-  return <VatsTable languageData={languageData} response={vatsResponse.data} />;
+  const apiRequests = await getApiRequests(searchParams);
+  if (apiRequests.type === "error") {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={apiRequests.message || "Unknown error occurred"}
+      />
+    );
+  }
+  const [vatResponse] = apiRequests.data;
+
+  return <VatsTable languageData={languageData} response={vatResponse.data} />;
 }

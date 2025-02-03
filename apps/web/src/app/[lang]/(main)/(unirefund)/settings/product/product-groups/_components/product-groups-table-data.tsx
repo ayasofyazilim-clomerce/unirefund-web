@@ -6,14 +6,11 @@ import {
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
-  TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { CheckCircle, Plus, Trash, XCircle } from "lucide-react";
+import { CheckCircle, Plus, XCircle } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { handleDeleteResponse } from "src/actions/core/api-utils-client";
-import { deleteproductGroupByIdApi } from "src/actions/unirefund/SettingService/delete-actions";
 import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 import type { Policy } from "src/utils/page-policy/utils";
@@ -47,34 +44,7 @@ function productGroupsTableActions(
   }
   return actions;
 }
-function productGroupsRowActions(
-  languageData: SettingServiceResource,
-  router: AppRouterInstance,
-  grantedPolicies: Record<Policy, boolean>,
-) {
-  const actions: TanstackTableRowActionsType<UniRefund_SettingService_ProductGroups_ProductGroupDto>[] =
-    [];
-  if (
-    isActionGranted(["SettingService.ProductGroups.Delete"], grantedPolicies)
-  ) {
-    actions.push({
-      type: "confirmation-dialog",
-      cta: languageData.Delete,
-      title: languageData["ProductGroup.Delete"],
-      actionLocation: "row",
-      confirmationText: languageData.Delete,
-      cancelText: languageData.Cancel,
-      description: languageData["Delete.Assurance"],
-      icon: Trash,
-      onConfirm: (row) => {
-        void deleteproductGroupByIdApi(row.id || "").then((response) => {
-          handleDeleteResponse(response, router);
-        });
-      },
-    });
-  }
-  return actions;
-}
+
 const productGroupsColumns = (
   locale: string,
   languageData: SettingServiceResource,
@@ -91,7 +61,7 @@ const productGroupsColumns = (
       rows: $UniRefund_SettingService_ProductGroups_ProductGroupDto.properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.ProductGroup",
       },
       config: {
         locale,
@@ -108,7 +78,7 @@ const productGroupsColumns = (
                   conditionAccessorKey: "food",
                 },
               ],
-              label: languageData["Form.food"],
+              label: languageData["Form.ProductGroup.food"],
             },
           ],
         },
@@ -117,16 +87,24 @@ const productGroupsColumns = (
         active: {
           options: [
             {
+              label: "Yes",
+              when: (value) => {
+                return Boolean(value);
+              },
               value: "true",
-              label: "",
               icon: CheckCircle,
               iconClassName: "text-green-700",
+              hideColumnValue: true,
             },
             {
+              label: "No",
+              when: (value) => {
+                return !value;
+              },
               value: "false",
-              label: "",
               icon: XCircle,
               iconClassName: "text-red-700",
+              hideColumnValue: true,
             },
           ],
         },
@@ -134,7 +112,7 @@ const productGroupsColumns = (
           options:
             $UniRefund_SettingService_ProductGroups_CompanyTypeCode.enum.map(
               (x) => ({
-                label: languageData[`Form.companyType.${x}`],
+                label: languageData[`Form.ProductGroup.companyType.${x}`],
                 value: x,
               }),
             ),
@@ -157,10 +135,10 @@ function productGroupsTable(
     },
     columnOrder: [
       "name",
+      "vatPercent",
       "articleCode",
       "unitCode",
       "companyType",
-      "vatPercent",
       "active",
     ],
     tableActions: productGroupsTableActions(
@@ -168,7 +146,6 @@ function productGroupsTable(
       router,
       grantedPolicies,
     ),
-    rowActions: productGroupsRowActions(languageData, router, grantedPolicies),
   };
   return table;
 }

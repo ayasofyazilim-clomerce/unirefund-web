@@ -1,13 +1,39 @@
 "use server";
 
+import { auth } from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {
   getproductGroupDetailsByIdApi,
   getVatsApi,
 } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import Form from "./_components/form";
+
+async function getApiRequests(productGroupId: string) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getproductGroupDetailsByIdApi(productGroupId, session),
+      getVatsApi(
+        {
+          maxResultCount: 1000,
+        },
+        session,
+      ),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -15,18 +41,23 @@ export default async function Page({
   params: { lang: string; productGroupId: string };
 }) {
   const { lang, productGroupId } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.ProductGroups.Edit"],
     lang,
   });
-  const productGroupDetailsResponse =
-    await getproductGroupDetailsByIdApi(productGroupId);
-  if (isErrorOnRequest(productGroupDetailsResponse, lang)) return;
-  const vatsResponse = await getVatsApi({
-    maxResultCount: 1000,
-  });
-  if (isErrorOnRequest(vatsResponse, lang)) return;
-  const { languageData } = await getResourceData(lang);
+
+  const apiRequests = await getApiRequests(productGroupId);
+  if (apiRequests.type === "error") {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={apiRequests.message || "Unknown error occurred"}
+      />
+    );
+  }
+  const [productGroupDetailsResponse, vatsResponse] = apiRequests.data;
+
   return (
     <>
       <Form
@@ -34,6 +65,9 @@ export default async function Page({
         response={productGroupDetailsResponse.data}
         vatList={vatsResponse.data.items || []}
       />
+      <div className="hidden" id="page-title">
+        {`${languageData.ProductGroup} (${productGroupDetailsResponse.data.name})`}
+      </div>
       <div className="hidden" id="page-description">
         {languageData["ProductGroups.Edit.Description"]}
       </div>
