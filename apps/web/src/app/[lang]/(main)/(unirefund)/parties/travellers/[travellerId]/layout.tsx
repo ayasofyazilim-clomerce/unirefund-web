@@ -27,7 +27,7 @@ export default async function Layout({
         },
         {
           label: languageData["Travellers.Personal.Preferences"],
-          href: `${baseLink}personal-preferences`,
+          href: `${baseLink}personal-prefences`,
         },
         {
           label: languageData["Travellers.Personal.Summary"],
