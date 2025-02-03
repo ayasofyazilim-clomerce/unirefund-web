@@ -3,14 +3,11 @@ import { $UniRefund_SettingService_Vats_VatDto } from "@ayasofyazilim/saas/Setti
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
-  TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { CheckCircle, Plus, Trash, XCircle } from "lucide-react";
+import { CheckCircle, Plus, XCircle } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { handleDeleteResponse } from "src/actions/core/api-utils-client";
-import { deleteVatByIdApi } from "src/actions/unirefund/SettingService/delete-actions";
 import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 import type { Policy } from "src/utils/page-policy/utils";
@@ -42,33 +39,6 @@ function vatsTableActions(
   return actions;
 }
 
-function vatsRowActions(
-  languageData: SettingServiceResource,
-  router: AppRouterInstance,
-  grantedPolicies: Record<Policy, boolean>,
-) {
-  const actions: TanstackTableRowActionsType<UniRefund_SettingService_Vats_VatDto>[] =
-    [];
-  if (isActionGranted(["SettingService.Vats.Delete"], grantedPolicies)) {
-    actions.push({
-      type: "confirmation-dialog",
-      cta: languageData.Delete,
-      title: languageData["Vat.Delete"],
-      actionLocation: "row",
-      confirmationText: languageData.Delete,
-      cancelText: languageData.Cancel,
-      description: languageData["Delete.Assurance"],
-      icon: Trash,
-      onConfirm: (row) => {
-        void deleteVatByIdApi(row.id || "").then((response) => {
-          handleDeleteResponse(response, router);
-        });
-      },
-    });
-  }
-  return actions;
-}
-
 const vatsColumns = (
   locale: string,
   languageData: SettingServiceResource,
@@ -85,7 +55,7 @@ const vatsColumns = (
       rows: $UniRefund_SettingService_Vats_VatDto.properties,
       languageData: {
         languageData,
-        constantKey: "Form",
+        constantKey: "Form.Vat",
       },
       config: {
         locale,
@@ -95,16 +65,24 @@ const vatsColumns = (
         active: {
           options: [
             {
+              label: "Yes",
+              when: (value) => {
+                return Boolean(value);
+              },
               value: "true",
-              label: "",
               icon: CheckCircle,
               iconClassName: "text-green-700",
+              hideColumnValue: true,
             },
             {
+              label: "No",
+              when: (value) => {
+                return !value;
+              },
               value: "false",
-              label: "",
               icon: XCircle,
               iconClassName: "text-red-700",
+              hideColumnValue: true,
             },
           ],
         },
@@ -125,7 +103,6 @@ function vatsTable(
       columns: ["id"],
     },
     tableActions: vatsTableActions(languageData, router, grantedPolicies),
-    rowActions: vatsRowActions(languageData, router, grantedPolicies),
   };
   return table;
 }

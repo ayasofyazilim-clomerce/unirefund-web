@@ -9,7 +9,6 @@ import { useState } from "react";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
 import { postVatApi } from "src/actions/unirefund/SettingService/post-actions";
 import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
-import { getBaseLink } from "src/utils";
 
 export default function Form({
   languageData,
@@ -22,6 +21,7 @@ export default function Form({
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_SettingService_Vats_CreateVatDto,
     resources: languageData,
+    name: "Form.Vat",
     extend: {
       active: {
         "ui:widget": "switch",
@@ -39,8 +39,7 @@ export default function Form({
           requestBody: formData,
         })
           .then((res) => {
-            handlePostResponse(res, router);
-            router.push(getBaseLink(`/settings/product/vats`));
+            handlePostResponse(res, router, "../vats");
           })
           .finally(() => {
             setLoading(false);
