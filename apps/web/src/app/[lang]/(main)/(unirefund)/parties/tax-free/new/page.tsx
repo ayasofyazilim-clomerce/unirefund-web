@@ -1,11 +1,16 @@
 "use server";
 
+import { Button } from "@/components/ui/button";
+import { FormReadyComponent } from "@repo/ui/form-ready";
 import { auth } from "@repo/utils/auth/next-auth";
 import { isUnauthorized } from "@repo/utils/policies";
+import { FileText } from "lucide-react";
+import Link from "next/link";
+import { getBaseLink } from "@/utils";
 import { getTaxOfficesApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { getAllCountriesApi } from "../../../../../../../actions/unirefund/LocationService/actions";
+import { getAllCountriesApi } from "@/actions/unirefund/LocationService/actions";
 import TaxFreeOrganizationForm from "./_components/form";
 
 async function getApiRequests() {
@@ -60,10 +65,26 @@ export default async function Page({
   const [taxOfficeResponse, countriesResponse] = apiRequests.data;
 
   return (
-    <TaxFreeOrganizationForm
-      countryList={countriesResponse.data.items || []}
-      languageData={languageData}
-      taxOfficeList={taxOfficeResponse.data.items || []}
-    />
+    <FormReadyComponent
+      active={taxOfficeResponse.data.totalCount === 0}
+      content={{
+        icon: <FileText className="size-20 text-gray-400" />,
+        title: languageData["Missing.TaxOffices.Title"],
+        message: languageData["Missing.TaxOffices.Message"],
+        action: (
+          <Button asChild className="text-blue-500" variant="link">
+            <Link href={getBaseLink("parties/tax-offices/new", lang)}>
+              {languageData.New}
+            </Link>
+          </Button>
+        ),
+      }}
+    >
+      <TaxFreeOrganizationForm
+        countryList={countriesResponse.data.items || []}
+        languageData={languageData}
+        taxOfficeList={taxOfficeResponse.data.items || []}
+      />
+    </FormReadyComponent>
   );
 }

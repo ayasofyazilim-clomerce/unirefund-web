@@ -46,7 +46,7 @@ export function BreadcrumbDropdown({
           <ChevronDown className="ml-1 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start">
+      <DropdownMenuContent align="start" style={{ zIndex: 1000 }}>
         {item.subNavbarItems?.map((subItem) => {
           const subSubItems = navbarItems.filter(
             (i) => i.href && i.parentNavbarItemKey === subItem.key,
