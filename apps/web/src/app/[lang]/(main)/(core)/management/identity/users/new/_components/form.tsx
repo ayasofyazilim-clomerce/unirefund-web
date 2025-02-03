@@ -101,7 +101,7 @@ export default function Form({
         Role: CustomMultiSelectWidget({
           optionList: roleList.map((role) => ({
             label: role.name || "",
-            value: role.id || "",
+            value: role.name || "",
           })),
         }),
         OrganizationUnit: CustomMultiSelectWidget({
