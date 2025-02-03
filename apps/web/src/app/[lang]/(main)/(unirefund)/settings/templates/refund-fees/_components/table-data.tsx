@@ -31,7 +31,7 @@ const refundFeeHeadersColumns = (
         name: {
           values: [
             {
-              position: "after",
+              position: "before",
               label: "Active",
               conditions: [
                 {
@@ -41,7 +41,17 @@ const refundFeeHeadersColumns = (
               ],
             },
             {
-              position: "after",
+              position: "before",
+              label: "Assigned",
+              conditions: [
+                {
+                  conditionAccessorKey: "isAssigned",
+                  when: (value) => value === true,
+                },
+              ],
+            },
+            {
+              position: "before",
               label: "Template",
               conditions: [
                 {
@@ -51,7 +61,7 @@ const refundFeeHeadersColumns = (
               ],
             },
             {
-              position: "after",
+              position: "before",
               label: "Customized",
               conditions: [
                 {

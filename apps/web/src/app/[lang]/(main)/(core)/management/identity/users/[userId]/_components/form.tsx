@@ -139,7 +139,7 @@ export default function Form({
         }}
         formData={{
           ...userDetailsData,
-          roleNames: userRoles.map((role) => role.id || ""),
+          roleNames: userRoles.map((role) => role.name || ""),
           organizationUnitIds: userOrganizationUnits.map((org) => org.id || ""),
         }}
         onSubmit={(data) => {
@@ -167,7 +167,7 @@ export default function Form({
           Role: CustomMultiSelectWidget({
             optionList: roleList.map((role) => ({
               label: role.name || "",
-              value: role.id || "",
+              value: role.name || "",
             })),
           }),
           OrganizationUnit: CustomMultiSelectWidget({
