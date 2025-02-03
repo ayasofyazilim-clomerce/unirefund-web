@@ -1,14 +1,14 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import {
   getMerchantContractHeaderByIdApi,
-  getMerchantContractHeadersByMerchantIdApi,
+  // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { ContractHeader as MerchantContractHeader } from "./_components";
+import { MerchantContractHeaderUpdateForm } from "./_components/form";
 
 async function getApiRequests(partyId: string, contractId: string) {
   try {
@@ -17,10 +17,10 @@ async function getApiRequests(partyId: string, contractId: string) {
       getRefundTableHeadersAssignablesByMerchantIdApi({
         merchantId: partyId,
       }),
-      getMerchantContractHeadersByMerchantIdApi({
-        id: partyId,
-        isDraft: false,
-      }),
+      // getMerchantContractHeadersByMerchantIdApi({
+      //   id: partyId,
+      //   isDraft: false,
+      // }),
       getMerchantContractHeaderByIdApi(contractId),
       getMerchantAddressByIdApi(partyId, session),
     ]);
@@ -64,21 +64,18 @@ export default async function Page({
   }
   const [
     refundTableHeadersResponse,
-    otherContractHeadersResponse,
+    // otherContractHeadersResponse,
     contractHeaderDetailsResponse,
     addressListResponse,
   ] = apiRequests.data;
 
-  const contractHeaders = otherContractHeadersResponse.data.items;
-  const activeContract = contractHeaders?.find((i) => i.isActive === true);
+  // const contractHeaders = otherContractHeadersResponse.data.items;
+  // const activeContract = contractHeaders?.find((i) => i.isActive === true);
 
   return (
-    <MerchantContractHeader
+    <MerchantContractHeaderUpdateForm
       addressList={addressListResponse.data}
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      fromDate={
-        activeContract?.validTo ? new Date(activeContract.validTo) : undefined
-      }
       languageData={languageData}
       refundTableHeaders={refundTableHeadersResponse.data}
     />

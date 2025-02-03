@@ -1,26 +1,26 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import {
-  getMerchantContractHeadersByMerchantIdApi,
+  // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import MerchantContractHeaderForm from "../_components/contact-header-form";
+import MerchantContractHeaderCreateForm from "./components/form";
 
 async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
       getMerchantAddressByIdApi(partyId, session),
-      getMerchantContractHeadersByMerchantIdApi(
-        {
-          id: partyId,
-          isDraft: false,
-        },
-        session,
-      ),
+      // getMerchantContractHeadersByMerchantIdApi(
+      //   {
+      //     id: partyId,
+      //     isDraft: false,
+      //   },
+      //   session,
+      // ),
       getRefundTableHeadersAssignablesByMerchantIdApi(
         {
           merchantId: partyId,
@@ -66,22 +66,15 @@ export default async function Page({
   }
   const [
     addressListResponse,
-    otherContractHeadersResponse,
+    // otherContractHeadersResponse,
     refundTableHeadersResponse,
   ] = apiRequests.data;
 
-  const biggestContractHeader = otherContractHeadersResponse.data.items?.at(0);
+  // const biggestContractHeader = otherContractHeadersResponse.data.items?.at(0);
   return (
-    <MerchantContractHeaderForm
-      addresses={addressListResponse.data}
-      formType="create"
-      fromDate={
-        biggestContractHeader?.validTo
-          ? new Date(biggestContractHeader.validTo)
-          : undefined
-      }
+    <MerchantContractHeaderCreateForm
+      addressList={addressListResponse.data}
       languageData={languageData}
-      loading={false}
       refundTableHeaders={refundTableHeadersResponse.data}
     />
   );
