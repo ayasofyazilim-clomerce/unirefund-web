@@ -79,9 +79,8 @@ export default function Form({
         className="flex flex-col gap-4"
         disabled={loading}
         formData={response}
-        onSubmit={(data) => {
+        onSubmit={({ formData }) => {
           setLoading(true);
-          const formData = data.formData;
           void putVatApi({
             id: response.id || "",
             requestBody: formData,

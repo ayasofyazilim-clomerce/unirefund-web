@@ -32,9 +32,8 @@ export default function Form({
     <SchemaForm<UniRefund_SettingService_Vats_CreateVatDto>
       className="flex flex-col gap-4"
       disabled={loading}
-      onSubmit={(data) => {
+      onSubmit={({ formData }) => {
         setLoading(true);
-        const formData = data.formData;
         void postVatApi({
           requestBody: formData,
         })
