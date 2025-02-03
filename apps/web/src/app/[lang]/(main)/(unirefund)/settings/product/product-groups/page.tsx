@@ -1,11 +1,33 @@
 "use server";
 
 import type { GetApiSettingServiceProductGroupData } from "@ayasofyazilim/saas/SettingService";
+import { auth } from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
 import { getResourceData } from "src/language-data/unirefund/SettingService";
 import { isUnauthorized } from "src/utils/page-policy/page-policy";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
 import ProductGroupsTable from "./_components/table";
+
+async function getApiRequests(
+  searchParams: GetApiSettingServiceProductGroupData,
+) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([
+      getProductGroupsApi(searchParams, session),
+    ]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as { data?: string; message?: string };
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -15,13 +37,22 @@ export default async function Page({
   searchParams: GetApiSettingServiceProductGroupData;
 }) {
   const { lang } = params;
+  const { languageData } = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.ProductGroups"],
     lang,
   });
-  const productGroupsResponse = await getProductGroupsApi(searchParams);
-  if (isErrorOnRequest(productGroupsResponse, lang)) return;
-  const { languageData } = await getResourceData(lang);
+
+  const apiRequests = await getApiRequests(searchParams);
+  if (apiRequests.type === "error") {
+    return (
+      <ErrorComponent
+        languageData={languageData}
+        message={apiRequests.message || "Unknown error occurred"}
+      />
+    );
+  }
+  const [productGroupsResponse] = apiRequests.data;
 
   return (
     <ProductGroupsTable
