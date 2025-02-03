@@ -1,6 +1,7 @@
 "use server";
 
 import type {
+  PostApiContractServiceMerchantsByIdContractsContractHeadersData,
   PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
   PostApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsData,
   PostApiContractServiceRebateTableHeadersData,
@@ -83,6 +84,21 @@ export async function postMerchantContractHeaderValidateByHeaderIdApi(
   }
 }
 
+export async function postMerchantContractHeadersByMerchantIdApi(
+  data: PostApiContractServiceMerchantsByIdContractsContractHeadersData,
+) {
+  try {
+    const client = await getContractServiceClient();
+    return structuredResponse(
+      await client.contractsMerchant.postApiContractServiceMerchantsByIdContractsContractHeaders(
+        data,
+      ),
+    );
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
 export async function postMerchantContractHeaderContractStoresByHeaderIdApi(
   data: PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
 ) {
@@ -112,7 +128,7 @@ export async function postMerchantContractHeadersContractStoresByHeaderIdApi(
   }
 }
 
-export async function postRefundPointContractHeadersById(
+export async function postRefundPointContractHeadersByIdApi(
   data: PostApiContractServiceRefundPointsByIdContractsContractHeadersData,
 ) {
   try {
@@ -126,7 +142,7 @@ export async function postRefundPointContractHeadersById(
     return structuredError(error);
   }
 }
-export async function postRefundPointContractHeaderValidateByHeaderId(
+export async function postRefundPointContractHeaderValidateByHeaderIdApi(
   id: string,
 ) {
   try {
