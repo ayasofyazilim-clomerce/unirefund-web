@@ -5,7 +5,7 @@ import { getTravellersDetailsApi } from "@/actions/unirefund/TravellerService/ac
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TravellerService";
 import { isUnauthorized } from "@/utils/page-policy/page-policy";
-import Table from "./table";
+import Form from "./form";
 
 async function getApiRequests(travellerId: string) {
   try {
@@ -54,9 +54,10 @@ export default async function Page({
   const [travellerDataResponse] = apiRequests.data;
 
   return (
-    <Table
+    <Form
       languageData={languageData}
-      response={travellerDataResponse.data.personalIdentifications}
+      travellerData={travellerDataResponse.data}
+      travellerId={travellerId}
     />
   );
 }

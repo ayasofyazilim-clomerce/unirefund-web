@@ -1,17 +1,18 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
-import { getTravellersDetailsApi } from "@/actions/unirefund/TravellerService/actions";
+import { getIndividualAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
+import { getAllCountriesApi } from "src/actions/unirefund/LocationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/TravellerService";
-import { isUnauthorized } from "@/utils/page-policy/page-policy";
-import Table from "./table";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
+import AddressForm from "./form";
 
-async function getApiRequests(travellerId: string) {
+async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getTravellersDetailsApi(travellerId, session),
+      getIndividualAddressByIdApi(partyId, session),
+      getAllCountriesApi({}, session),
     ]);
     return {
       type: "success" as const,
@@ -29,19 +30,14 @@ export default async function Page({
   params,
 }: {
   params: {
-    travellerId: string;
+    partyId: string;
     lang: string;
   };
 }) {
-  const { lang, travellerId } = params;
-  await isUnauthorized({
-    requiredPolicies: ["TravellerService.Travellers.Edit"],
-    lang,
-  });
+  const { partyId, lang } = params;
   const { languageData } = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests(travellerId);
-
+  const apiRequests = await getApiRequests({ partyId });
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
@@ -51,12 +47,14 @@ export default async function Page({
     );
   }
 
-  const [travellerDataResponse] = apiRequests.data;
+  const [addressResponse, countriesResponse] = apiRequests.data;
 
   return (
-    <Table
+    <AddressForm
+      addressResponse={addressResponse.data}
+      countryList={countriesResponse.data.items || []}
       languageData={languageData}
-      response={travellerDataResponse.data.personalIdentifications}
+      partyId={partyId}
     />
   );
 }
