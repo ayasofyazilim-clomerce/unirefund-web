@@ -32,7 +32,7 @@ const refundTableHeadersColumns = (
         name: {
           values: [
             {
-              position: "after",
+              position: "before",
               label: "Active",
               conditions: [
                 {
@@ -42,7 +42,7 @@ const refundTableHeadersColumns = (
               ],
             },
             {
-              position: "after",
+              position: "before",
               label: "Assigned",
               conditions: [
                 {
@@ -52,7 +52,7 @@ const refundTableHeadersColumns = (
               ],
             },
             {
-              position: "after",
+              position: "before",
               label: "Template",
               conditions: [
                 {
@@ -62,7 +62,7 @@ const refundTableHeadersColumns = (
               ],
             },
             {
-              position: "after",
+              position: "before",
               label: "Customized",
               conditions: [
                 {

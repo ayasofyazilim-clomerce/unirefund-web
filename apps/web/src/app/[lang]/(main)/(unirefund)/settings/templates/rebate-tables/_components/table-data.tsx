@@ -51,7 +51,7 @@ const rebateTableHeadersColumns = (
       name: {
         values: [
           {
-            position: "after",
+            position: "before",
             label: "Active",
             conditions: [
               {
@@ -61,7 +61,7 @@ const rebateTableHeadersColumns = (
             ],
           },
           {
-            position: "after",
+            position: "before",
             label: "Assigned",
             conditions: [
               {
@@ -71,7 +71,7 @@ const rebateTableHeadersColumns = (
             ],
           },
           {
-            position: "after",
+            position: "before",
             label: "Template",
             conditions: [
               {
@@ -81,7 +81,7 @@ const rebateTableHeadersColumns = (
             ],
           },
           {
-            position: "after",
+            position: "before",
             label: "Customized",
             conditions: [
               {
