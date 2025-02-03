@@ -9,8 +9,8 @@ import type {
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import { PlusCircle } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import isActionGranted from "src/utils/page-policy/action-policy";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import isActionGranted from "src/utils/page-policy/action-policy";
 import type { Policy } from "src/utils/page-policy/utils";
 
 const affiliationTypes = [
@@ -65,8 +65,9 @@ function individualColumns(
 ) {
   if (isActionGranted(["CRMService.Individuals.Edit"], grantedPolicies)) {
     links.name = {
-      prefix: "/parties/individuals",
+      prefix: "individuals",
       targetAccessorKey: "id",
+      suffix: "details/name",
     };
   }
 
@@ -81,7 +82,7 @@ function individualColumns(
       config: {
         locale,
       },
-      // links: links,
+      links,
     },
   );
 }

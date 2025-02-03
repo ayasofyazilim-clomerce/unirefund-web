@@ -1,9 +1,9 @@
 "use client";
 
-import type { GetApiCrmServiceIndividualsResponse } from "@ayasofyazilim/saas/CRMService";
+import type { PagedResultDto_IndividualProfileDto } from "@ayasofyazilim/saas/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams, useRouter } from "next/navigation";
 import { useGrantedPolicies } from "@repo/utils/policies";
+import { useParams, useRouter } from "next/navigation";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 import { tableData } from "./individuals-table-data";
 
@@ -11,7 +11,7 @@ function IndividualsTable({
   response,
   languageData,
 }: {
-  response: GetApiCrmServiceIndividualsResponse;
+  response: PagedResultDto_IndividualProfileDto;
   languageData: CRMServiceServiceResource;
 }) {
   const { grantedPolicies } = useGrantedPolicies();
