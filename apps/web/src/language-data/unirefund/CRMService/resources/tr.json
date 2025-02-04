@@ -7,22 +7,19 @@
   "Missing.Affiliation.Message": "Sistemde bağlılık yok. Devam etmek için lütfen bir tane oluşturun.",
 
   "Merchants": "Mağazalar",
+  "Merchant": "Mağaza",
   "Merchants.Description": "Mağazaları buradan görüntüleyebilirsiniz.",
   "Merchant.Select": "Mağaza seç",
-
   "Merchants.New": "Yeni Mağaza",
   "Merchants.New.Description": "Buradan yeni mağaza oluşturabilirsiniz.",
   "Merchants.New.Success": "Mağaza başarıyla oluşturuldu.",
   "Merchants.New.Fail": "Mağaza oluşturulurken bir hata oluştu.",
-
   "Merchants.Edit": "Mağazayı Düzenle",
   "Merchants.Edit.Description": "Mağazanın detaylarını buradan güncelleyebilirsiniz.",
   "Merchants.Edit.Success": "Mağaza başarıyla güncellendi.",
   "Merchants.Edit.Fail": "Mağaza güncellenirken bir hata oluştu.",
-
   "Merchants.Fetch.Success": "Mağazalar basarıyla getirildi.",
   "Merchants.Fetch.Fail": "Mağazalar getirilirken bir hata oluştu.",
-
   "Merchants.SubOrganization": "Mağazalar",
   "Merchants.SubOrganization.Description": "Buradan mağazaya bağlı alt mağazaları görüntüleyebilirsiniz.",
   "Merchants.SubOrganization.New": "Yeni Alt Mağaza",
@@ -55,52 +52,47 @@
   "Form.Parties.Affiliation.abpUserId": "Abp Kullanıcı Hesabı",
 
   "RefundPoints": "İade Noktaları",
+  "RefundPoint": "İade Noktası",
   "RefundPoints.Description": "İade noktalarını buradan görüntüleyebilirsiniz.",
-
   "RefundPoints.New": "Yeni İade Noktası",
   "RefundPoints.New.Description": "Buradan yeni bir iade noktası oluşturabilirsiniz.",
   "RefundPoints.New.Success": "İade noktası başarıyla oluşturuldu.",
   "RefundPoints.New.Fail": "İade noktası oluşturulurken bir hata oluştu.",
-
   "RefundPoints.Edit": "İade Noktasını Düzenle",
   "RefundPoints.Edit.Description": "İade noktasının detaylarını buradan güncelleyebilirsiniz.",
   "RefundPoints.Edit.Success": "İade noktası başarıyla güncellendi.",
   "RefundPoints.Edit.Fail": "İade noktası güncellenirken bir hata oluştu.",
 
-  "TaxFree": "Tax Free",
-  "TaxFree.Description": "Tax Free hizmetlerini buradan görüntüleyebilirsiniz.",
-
-  "TaxFree.New": "Yeni Tax Free",
-  "TaxFree.New.Description": "Buradan yeni bir Tax Free hizmeti oluşturabilirsiniz.",
-  "TaxFree.New.Success": "Tax Free hizmeti başarıyla oluşturuldu.",
-  "TaxFree.New.Fail": "Tax Free hizmeti oluşturulurken bir hata oluştu.",
-
-  "TaxFree.Edit": "Tax Free'yi Düzenle",
-  "TaxFree.Edit.Description": "Tax Free hizmetinin detaylarını buradan güncelleyebilirsiniz.",
-  "TaxFree.Edit.Success": "Tax Free hizmeti başarıyla güncellendi.",
-  "TaxFree.Edit.Fail": "Tax Free hizmeti güncellenirken bir hata oluştu.",
-
   "Customs": "Gümrükler",
+  "Custom": "Gümrük",
   "Customs.Description": "Gümrük bilgilerini buradan görüntüleyebilirsiniz.",
-
   "Customs.New": "Yeni Gümrük",
   "Customs.New.Description": "Buradan yeni bir gümrük kaydı oluşturabilirsiniz.",
   "Customs.New.Success": "Gümrük kaydı başarıyla oluşturuldu.",
   "Customs.New.Fail": "Gümrük kaydı oluşturulurken bir hata oluştu.",
-
   "Customs.Edit": "Gümrüğü Düzenle",
   "Customs.Edit.Description": "Gümrük detaylarını buradan güncelleyebilirsiniz.",
   "Customs.Edit.Success": "Gümrük başarıyla güncellendi.",
   "Customs.Edit.Fail": "Gümrük güncellenirken bir hata oluştu.",
 
-  "TaxOffices": "Vergi Ofisleri",
-  "TaxOffices.Description": "Vergi ofislerini buradan görüntüleyebilirsiniz.",
+  "TaxFree": "Tax Free",
+  "TaxFree.Description": "Tax Free hizmetlerini buradan görüntüleyebilirsiniz.",
+  "TaxFree.New": "Yeni Tax Free",
+  "TaxFree.New.Description": "Buradan yeni bir Tax Free hizmeti oluşturabilirsiniz.",
+  "TaxFree.New.Success": "Tax Free hizmeti başarıyla oluşturuldu.",
+  "TaxFree.New.Fail": "Tax Free hizmeti oluşturulurken bir hata oluştu.",
+  "TaxFree.Edit": "Tax Free'yi Düzenle",
+  "TaxFree.Edit.Description": "Tax Free hizmetinin detaylarını buradan güncelleyebilirsiniz.",
+  "TaxFree.Edit.Success": "Tax Free hizmeti başarıyla güncellendi.",
+  "TaxFree.Edit.Fail": "Tax Free hizmeti güncellenirken bir hata oluştu.",
 
+  "TaxOffices": "Vergi Ofisleri",
+  "TaxOffice": "Vergi Ofisi",
+  "TaxOffices.Description": "Vergi ofislerini buradan görüntüleyebilirsiniz.",
   "TaxOffices.New": "Yeni Vergi Ofisi",
   "TaxOffices.New.Description": "Buradan yeni bir vergi ofisi kaydı oluşturabilirsiniz.",
   "TaxOffices.New.Success": "Vergi ofisi başarıyla oluşturuldu.",
   "TaxOffices.New.Fail": "Vergi ofisi oluşturulurken bir hata oluştu.",
-
   "TaxOffices.Edit": "Vergi Ofisini Düzenle",
   "TaxOffices.Edit.Description": "Vergi ofisinin detaylarını buradan güncelleyebilirsiniz.",
   "TaxOffices.Edit.Success": "Vergi ofisi başarıyla güncellendi.",
