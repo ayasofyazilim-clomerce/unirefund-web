@@ -61,7 +61,7 @@ export default function RefundPointContractHeaderCreateForm({
         validFrom: new Date().toLocaleDateString("en"),
         refundFeeHeaders: [
           {
-            refundFeeHeaderId: refundFeeHeaders[0].id,
+            refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
             validFrom: new Date().toLocaleDateString("en"),
           },
         ],

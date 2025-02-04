@@ -61,7 +61,7 @@ export default function MerchantContractHeaderCreateForm({
         validFrom: new Date().toLocaleDateString("en"),
         refundTableHeaders: [
           {
-            refundTableHeaderId: refundTableHeaders[0].id,
+            refundTableHeaderId: refundTableHeaders[0]?.id || "",
             validFrom: new Date().toLocaleDateString("en"),
           },
         ],

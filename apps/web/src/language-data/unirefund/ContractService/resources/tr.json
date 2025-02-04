@@ -1,6 +1,11 @@
 {
   "Missing.ContractStores.Title": "Eksik alt mağaza",
   "Missing.ContractStores.Message": "Lütfen merkeze en az bir mağaza ekleyin.",
+  "Missing.RefundTableHeaders.Title": "Eksik iade tablosu",
+  "Missing.RefundTableHeaders.Message": "Bu merkezde iade tablosu atanmamış. Lütfen devam etmek için bir iade tablosu oluşturun.",
+  "Missing.RefundFeeHeaders.Title": "Eksik iade ücreti tablosu",
+  "Missing.RefundFeeHeaders.Message": "Bu iade noktasında iade ücreti atanmamış. Lütfen devam etmek için bir iade ücreti tablosu oluşturun.",
+
   "Contracts.Contract": "Sözleşme",
   "Contracts.RebateSettings": "Komisyon ayarları",
   "Contracts.Stores": "Mağazalar",
