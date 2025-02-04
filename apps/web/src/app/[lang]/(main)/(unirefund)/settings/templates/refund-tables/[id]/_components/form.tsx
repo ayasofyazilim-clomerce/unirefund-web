@@ -38,7 +38,11 @@ export default function RefundTableHeaderUpdateForm({
   return (
     <SchemaForm<RefundTableHeaderUpdateDto>
       fields={{
-        RefundTableDetailsField: RefundTableDetailsField(),
+        RefundTableDetailsField: RefundTableDetailsField(
+          formData.refundTableDetails !== null
+            ? formData.refundTableDetails
+            : [],
+        ),
       }}
       formData={formData}
       onSubmit={({ formData: editedFormData }) => {
