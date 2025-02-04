@@ -91,7 +91,7 @@ function exportValidationsTable(languageData: ExportValidationServiceResource) {
       ],
     },
     filters: {
-      textFilters: ["referenceId"],
+      textFilters: ["referenceId", "tagNumbers"],
       dateFilters: [
         {
           label: languageData["Form.ExportValidation.exportDate.StartEnd"],
