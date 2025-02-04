@@ -16,7 +16,6 @@ export function RefundTableDetailsField(
   ],
 ) {
   return TableField<RefundTableDetailCreateDto>({
-    fillerColumn: "isLoyalty",
     editable: true,
     data,
     columns: tanstackTableEditableColumnsByRowData<RefundTableDetailCreateDto>({

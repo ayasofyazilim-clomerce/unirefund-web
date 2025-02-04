@@ -7,22 +7,19 @@
   "Missing.Affiliation.Message": "There is no affilation in the system. Please create one to continue.",
 
   "Merchants": "Merchants",
+  "Merchant": "Merchant",
   "Merchants.Description": "You can view stores from here.",
   "Merchant.Select": "Select Merchant",
-
   "Merchants.New": "New Merchant",
   "Merchants.New.Description": "You can create a new store from here.",
   "Merchants.New.Success": "Store created successfully.",
   "Merchants.New.Fail": "An error occurred while creating the store.",
-
   "Merchants.Edit": "Edit Merchant",
-  "Merchants.Edit.Description": "You can update the store's details from here.",
+  "Merchants.Edit.Description": "You can update the details of the merchant from here.",
   "Merchants.Edit.Success": "Store updated successfully.",
   "Merchants.Edit.Fail": "An error occurred while updating the store.",
-
   "Merchants.Fetch.Success": "Merchants fetched successfully.",
   "Merchants.Fetch.Fail": "An error occurred while fetching merchants.",
-
   "Merchants.SubOrganization": "Stores",
   "Merchants.SubOrganization.Description": "You can view sub stores related to the main store from here.",
   "Merchants.SubOrganization.New": "New Sub Store",
@@ -55,52 +52,47 @@
   "Form.Parties.Affiliation.abpUserId": "Abp User Account",
 
   "RefundPoints": "Refund Points",
+  "RefundPoint": "Refund Point",
   "RefundPoints.Description": "You can view refund points from here.",
-
   "RefundPoints.New": "New Refund Point",
   "RefundPoints.New.Description": "You can create a new refund point from here.",
   "RefundPoints.New.Success": "Refund point created successfully.",
   "RefundPoints.New.Fail": "An error occurred while creating the refund point.",
-
   "RefundPoints.Edit": "Edit Refund Point",
-  "RefundPoints.Edit.Description": "You can update the refund point's details from here.",
+  "RefundPoints.Edit.Description": "You can update the details of the refund point from here.",
   "RefundPoints.Edit.Success": "Refund point updated successfully.",
   "RefundPoints.Edit.Fail": "An error occurred while updating the refund point.",
 
   "TaxFree": "Tax Free",
   "TaxFree.Description": "You can view Tax Free services from here.",
-
   "TaxFree.New": "New Tax Free",
   "TaxFree.New.Description": "You can create a new Tax Free service from here.",
   "TaxFree.New.Success": "Tax Free service created successfully.",
   "TaxFree.New.Fail": "An error occurred while creating the Tax Free service.",
-
   "TaxFree.Edit": "Edit Tax Free",
-  "TaxFree.Edit.Description": "You can update the details of the Tax Free service from here.",
+  "TaxFree.Edit.Description": "You can update the details of the Tax Free from here.",
   "TaxFree.Edit.Success": "Tax Free service updated successfully.",
   "TaxFree.Edit.Fail": "An error occurred while updating the Tax Free service.",
 
   "Customs": "Customs",
+  "Custom": "Custom",
   "Customs.Description": "You can view customs information from here.",
-
   "Customs.New": "New Custom",
   "Customs.New.Description": "You can create a new customs record from here.",
   "Customs.New.Success": "Customs record created successfully.",
   "Customs.New.Fail": "An error occurred while creating the customs record.",
-
   "Customs.Edit": "Edit Custom",
-  "Customs.Edit.Description": "You can update customs details from here.",
+  "Customs.Edit.Description": "You can update the details of the customs from here.",
   "Customs.Edit.Success": "Customs updated successfully.",
   "Customs.Edit.Fail": "An error occurred while updating customs.",
 
   "TaxOffices": "Tax Offices",
+  "TaxOffice": "Tax Office",
   "TaxOffices.Description": "You can view tax offices from here.",
-
   "TaxOffices.New": "New Tax Office",
   "TaxOffices.New.Description": "You can create a new tax office record from here.",
   "TaxOffices.New.Success": "Tax office created successfully.",
   "TaxOffices.New.Fail": "An error occurred while creating the tax office.",
-
   "TaxOffices.Edit": "Edit Tax Office",
   "TaxOffices.Edit.Description": "You can update the details of the tax office from here.",
   "TaxOffices.Edit.Success": "Tax office updated successfully.",
