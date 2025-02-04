@@ -120,7 +120,7 @@ async function getTenantData(accessToken: string) {
       tenantName: activeSession.tenantName,
     });
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
@@ -129,25 +129,29 @@ export async function getUserData(
   refresh_token: string,
   expiration_date: number,
 ) {
-  let tenantData = { tenantId: "", tenantName: "" };
-  if (process.env.FETCH_TENANT) {
-    const tenantDataResponse = await getTenantData(access_token);
-    if (tenantDataResponse.type === "success") {
-      tenantData = tenantDataResponse.data;
+  try {
+    let tenantData = { tenantId: "", tenantName: "" };
+    if (process.env.FETCH_TENANT) {
+      const tenantDataResponse = await getTenantData(access_token);
+      if (tenantDataResponse.type === "success") {
+        tenantData = tenantDataResponse.data;
+      }
     }
-  }
-  const decoded_jwt = JSON.parse(
-    Buffer.from(access_token.split(".")[1], "base64").toString(),
-  );
-  return {
-    access_token,
-    refresh_token,
-    expiration_date,
-    userName: decoded_jwt.unique_name,
-    name: decoded_jwt.given_name,
-    surname: "",
+    const decoded_jwt = JSON.parse(
+      Buffer.from(access_token.split(".")[1], "base64").toString(),
+    );
+    return {
+      access_token,
+      refresh_token,
+      expiration_date,
+      userName: decoded_jwt.unique_name,
+      name: decoded_jwt.given_name,
+      surname: "",
 
-    ...tenantData,
-    ...decoded_jwt,
-  };
+      ...tenantData,
+      ...decoded_jwt,
+    };
+  } catch (error) {
+    throw error;
+  }
 }
