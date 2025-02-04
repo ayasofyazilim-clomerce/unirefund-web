@@ -146,6 +146,9 @@ export default function CustomsOrganizationForm({
         },
         taxpayerId: {
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          inputProps: {
+            required: true,
+          },
         },
         telephone: {
           className: "lg:col-span-2 border p-4 rounded-md",
