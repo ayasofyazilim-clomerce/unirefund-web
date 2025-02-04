@@ -14,6 +14,7 @@ import type {
 import AutoForm, {
   AutoFormSubmit,
   CustomCombobox,
+  DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -36,33 +37,28 @@ function TaxOfficeForm({
   const [isPending, startTransition] = useTransition();
   const schema = createZodObject(
     $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
-    ["taxpayerId"],
+    ["typeCode", "parentId", "taxpayerId"],
   );
   const dependencies: DependenciesType = [
-    // {
-    //   sourceField: "typeCode",
-    //   type: DependencyType.HIDES,
-    //   targetField: "parentId",
-    //   when: (typeCode: string) => typeCode === "HEADQUARTER",
-    // },
-    // {
-    //   sourceField: "typeCode",
-    //   type: DependencyType.HIDES,
-    //   targetField: "taxOfficeId",
-    //   when: (typeCode: string) => typeCode !== "HEADQUARTER",
-    // },
-    // {
-    //   sourceField: "typeCode",
-    //   type: DependencyType.HIDES,
-    //   targetField: "taxpayerId",
-    //   when: (typeCode: string) => typeCode !== "HEADQUARTER",
-    // },
-    // {
-    //   sourceField: "typeCode",
-    //   type: DependencyType.REQUIRES,
-    //   targetField: "parentId",
-    //   when: (typeCode: string) => typeCode !== "HEADQUARTER",
-    // },
+    {
+      sourceField: "typeCode",
+      type: DependencyType.HIDES,
+      targetField: "parentId",
+      when: (typeCode: string) => typeCode === "HEADQUARTER",
+    },
+
+    {
+      sourceField: "typeCode",
+      type: DependencyType.HIDES,
+      targetField: "taxpayerId",
+      when: (typeCode: string) => typeCode !== "HEADQUARTER",
+    },
+    {
+      sourceField: "typeCode",
+      type: DependencyType.REQUIRES,
+      targetField: "parentId",
+      when: (typeCode: string) => typeCode !== "HEADQUARTER",
+    },
   ];
 
   function handleSubmit(
@@ -109,21 +105,20 @@ function TaxOfficeForm({
       formClassName="pb-40"
       formSchema={schema}
       onSubmit={(values) => {
-        // if (values.typeCode !== "HEADQUARTER" && !values.parentId) {
-        //   return;
-        // }
-        // if (values.typeCode !== "HEADQUARTER") {
-        //   values.taxOfficeId = null;
-        //   values.parentId = null;
-        //   values.taxpayerId = null;
-        // }
+        if (values.typeCode !== "HEADQUARTER") {
+          if (!values.parentId) return;
+          // values.taxOfficeId = null;
+          values.taxpayerId = null;
+        } else {
+          values.parentId = null;
+        }
         handleSubmit(
           values as UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto,
         );
       }}
       values={{
         ...taxOfficeDetail,
-        typeCode: taxOfficeDetail.parentId ? "REFUNDPOINT" : "HEADQUARTER",
+        typeCode: taxOfficeDetail.parentId ? "TAXOFFICE" : "HEADQUARTER",
       }}
     >
       <AutoFormSubmit className="float-right" disabled={isPending}>
