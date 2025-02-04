@@ -80,6 +80,7 @@ export default function TaxOfficeOrganizationForm({
     const createData: UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
       parentId,
       taxpayerId: formData.taxpayerId,
+      typeCode: parentId ? "TAXOFFICE" : "HEADQUARTER",
       entityInformationTypes: [
         {
           organizations: [

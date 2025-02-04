@@ -54,6 +54,7 @@ function subStoreColumns(
     links.name = {
       prefix: "/parties/refund-points",
       targetAccessorKey: "id",
+      suffix: "details/info",
     };
   }
 

@@ -54,6 +54,7 @@ function subStoreColumns(
     links.name = {
       prefix: "/parties/tax-free",
       targetAccessorKey: "id",
+      suffix: "details/info",
     };
   }
 

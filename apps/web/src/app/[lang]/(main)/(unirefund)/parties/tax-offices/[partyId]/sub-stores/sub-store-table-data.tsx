@@ -54,6 +54,7 @@ function subStoreColumns(
     links.name = {
       prefix: "/parties/tax-offices",
       targetAccessorKey: "id",
+      suffix: "details/info",
     };
   }
 
