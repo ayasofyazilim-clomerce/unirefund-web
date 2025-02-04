@@ -148,6 +148,9 @@ export default function TaxFreeOrganizationForm({
       className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
       fieldConfig={{
         taxOfficeId: {
+          inputProps: {
+            required: !parentId,
+          },
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
           renderer: (props: AutoFormInputComponentProps) => {
             return (
@@ -178,6 +181,9 @@ export default function TaxFreeOrganizationForm({
         },
         taxpayerId: {
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          inputProps: {
+            required: !parentId,
+          },
         },
         telephone: {
           className: parentId ? "lg:col-span-2 border p-4 rounded-md" : "",
