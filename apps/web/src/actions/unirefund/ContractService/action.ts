@@ -120,7 +120,7 @@ export async function getMerchantContractHeaderRebateSettingsByHeaderIdApi(
 ) {
   try {
     const requests = await getContractServiceClient(session);
-    return structuredSuccessResponse(
+    return structuredResponse(
       await requests.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdRebateSettings(
         {
           id,
@@ -128,7 +128,7 @@ export async function getMerchantContractHeaderRebateSettingsByHeaderIdApi(
       ),
     );
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function getRebateTableHeadersApi(

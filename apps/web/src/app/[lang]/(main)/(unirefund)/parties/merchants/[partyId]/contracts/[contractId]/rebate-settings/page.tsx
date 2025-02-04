@@ -12,11 +12,10 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { RebateSettings } from "./_components/rebate-settings";
 
-async function getApiRequests(partyId: string, contractId: string) {
+async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantContractHeaderRebateSettingsByHeaderIdApi(contractId, session),
       getRebateTableHeadersApi({}, session),
       getMerchantSubStoresByIdApi(
         {
@@ -60,7 +59,7 @@ export default async function Page({
   });
 
   const { languageData } = await getResourceData(lang);
-  const apiRequests = await getApiRequests(partyId, contractId);
+  const apiRequests = await getApiRequests(partyId);
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
@@ -69,19 +68,20 @@ export default async function Page({
       />
     );
   }
-  const [
-    rebateSettingsResponse,
-    rebateTablesResponse,
-    subMerchantsResponse,
-    individualsResponse,
-  ] = apiRequests.data;
-
+  const [rebateTablesResponse, subMerchantsResponse, individualsResponse] =
+    apiRequests.data;
+  const rebateSettingsResponse =
+    await getMerchantContractHeaderRebateSettingsByHeaderIdApi(contractId);
   return (
     <RebateSettings
       contractId={contractId}
       individuals={individualsResponse.data.items || []}
       languageData={languageData}
-      rebateSettings={rebateSettingsResponse.data}
+      rebateSettings={
+        rebateSettingsResponse.type === "success"
+          ? rebateSettingsResponse.data
+          : undefined
+      }
       rebateTableHeaders={rebateTablesResponse.data.items || []}
       subMerchants={subMerchantsResponse.data.items || []}
     />
