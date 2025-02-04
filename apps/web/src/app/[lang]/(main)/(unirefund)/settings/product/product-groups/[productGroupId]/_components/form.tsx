@@ -2,6 +2,7 @@
 
 import type {
   UniRefund_SettingService_ProductGroups_ProductGroupDto,
+  UniRefund_SettingService_ProductGroups_UpdateProductGroupDto,
   UniRefund_SettingService_Vats_VatDto,
 } from "@ayasofyazilim/saas/SettingService";
 import { $UniRefund_SettingService_ProductGroups_UpdateProductGroupDto } from "@ayasofyazilim/saas/SettingService";
@@ -94,7 +95,7 @@ export default function Form({
           />
         )}
       </ActionList>
-      <SchemaForm
+      <SchemaForm<UniRefund_SettingService_ProductGroups_ProductGroupDto>
         className="flex flex-col gap-4"
         disabled={loading}
         filter={{
@@ -115,7 +116,8 @@ export default function Form({
           setLoading(true);
           void putProductGroupApi({
             id: response.id || "",
-            requestBody: formData,
+            requestBody:
+              formData as UniRefund_SettingService_ProductGroups_UpdateProductGroupDto,
           })
             .then((res) => {
               handlePutResponse(res, router, "../product-groups");
