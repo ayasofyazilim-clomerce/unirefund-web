@@ -1,15 +1,17 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import { isUnauthorized } from "@repo/utils/policies";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   // getRefundPointContractHeadersByRefundPointIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import { getRefundPointDetailsByIdApi } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { getBaseLink } from "src/utils";
-// import RefundPointContractHeaderForm from "../_components/contract-header-form";
 import RefundPointContractHeaderCreateForm from "./_components/form";
 
 async function getApiRequests(partyId: string) {
@@ -82,7 +84,23 @@ export default async function Page({
   // const biggestContractHeader = otherContractHeaders.data.items?.at(0);
 
   return (
-    <>
+    <FormReadyComponent
+      active={refundFeeHeadersResponse.data.length < 1}
+      content={{
+        icon: <FileText className="size-20 text-gray-400" />,
+        title: languageData["Missing.RefundFeeHeaders.Title"],
+        message: languageData["Missing.RefundFeeHeaders.Message"],
+        action: (
+          <Button asChild className="text-blue-500" variant="link">
+            <Link
+              href={getBaseLink("settings/templates/refund-fees/new", lang)}
+            >
+              {languageData.New}
+            </Link>
+          </Button>
+        ),
+      }}
+    >
       <RefundPointContractHeaderCreateForm
         addressList={
           refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
@@ -90,35 +108,6 @@ export default async function Page({
         languageData={languageData}
         refundFeeHeaders={refundFeeHeadersResponse.data}
       />
-      <PageHeader
-        languageData={languageData}
-        params={params}
-        title={refundPointDetailsSummary?.name || ""}
-      />
-    </>
-  );
-}
-
-function PageHeader({
-  params,
-  title,
-  languageData,
-}: {
-  params: { partyId: string };
-  title: string;
-  languageData: ContractServiceResource;
-}) {
-  return (
-    <>
-      <div className="hidden" id="page-title">
-        {languageData["Contracts.Create.Title"]} - {title}
-      </div>
-      <div className="hidden" id="page-description">
-        {languageData["Contracts.Create.Description"]}
-      </div>
-      <div className="hidden" id="page-back-link">
-        {getBaseLink(`/parties/refund-points/${params.partyId}`)}
-      </div>
-    </>
+    </FormReadyComponent>
   );
 }

@@ -3,6 +3,9 @@
   "Missing.ContractStores.Message": "Please add at least one store to the headquarter.",
   "Missing.RefundTableHeaders.Title": "Missing refund table headers",
   "Missing.RefundTableHeaders.Message": "There is no assignable refund table header to this merchant. Please create one to continue.",
+  "Missing.RefundFeeHeaders.Title": "Missing refund fee headers",
+  "Missing.RefundFeeHeaders.Message": "There is no assignable refund fee header to this refund point. Please create one to continue.",
+
   "Contracts.Contract": "Contract",
   "Contracts.RebateSettings": "Rebate settings",
   "Contracts.Stores": "Stores",

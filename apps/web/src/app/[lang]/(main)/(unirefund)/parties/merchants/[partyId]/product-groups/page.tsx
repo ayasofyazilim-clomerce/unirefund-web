@@ -1,16 +1,16 @@
 "use server";
 
 import { auth } from "@repo/utils/auth/next-auth";
-import { getMerchantsByIdProductGroupApi } from "src/actions/unirefund/CrmService/actions";
-import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
-import ProductGroups from "./table";
 import { FormReadyComponent } from "@repo/ui/form-ready";
 import { FileText } from "lucide-react";
 import Link from "next/link";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
+import { getMerchantsByIdProductGroupApi } from "src/actions/unirefund/CrmService/actions";
+import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
 import { getBaseLink } from "@/utils";
+import ProductGroups from "./table";
 
 async function getApiRequests(partyId: string) {
   try {
@@ -74,7 +74,7 @@ export default async function Page({
             <Link
               href={getBaseLink("settings/product/product-groups/new", lang)}
             >
-              {languageData["New"]}
+              {languageData.New}
             </Link>
           </Button>
         ),
