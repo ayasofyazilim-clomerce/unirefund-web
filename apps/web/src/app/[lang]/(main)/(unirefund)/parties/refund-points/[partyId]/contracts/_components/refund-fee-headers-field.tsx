@@ -11,7 +11,7 @@ export function RefundFeeHeadersField(
   refundFeeHeaders: AssignableRefundFeeHeaders[],
   data: ContractHeaderRefundFeeHeaderCreateAndUpdateDto[] = [
     {
-      validFrom: new Date().toLocaleDateString("en"),
+      validFrom: new Date().toISOString(),
       refundFeeHeaderId: "",
       isDefault: false,
     },

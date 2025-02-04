@@ -49,7 +49,8 @@ export default async function Layout({
     );
   }
   const [refundPointDetailsResponse] = apiRequests.data;
-
+  const isHeadquarter =
+    refundPointDetailsResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
       <TabLayout
@@ -70,6 +71,7 @@ export default async function Layout({
           {
             label: "Contracts",
             href: `${baseLink}contracts`,
+            disabled: !isHeadquarter,
           },
         ]}
         variant="simple"

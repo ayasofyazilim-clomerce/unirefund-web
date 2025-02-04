@@ -55,14 +55,20 @@ export default function RefundPointContractHeaderCreateForm({
     <SchemaForm<ContractHeaderForRefundPointCreateDto>
       disabled={isPending}
       fields={{
-        RefundFeeHeadersField: RefundFeeHeadersField(refundFeeHeaders),
+        RefundFeeHeadersField: RefundFeeHeadersField(refundFeeHeaders, [
+          {
+            validFrom: new Date().toISOString(),
+            refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
+            isDefault: true,
+          },
+        ]),
       }}
       formData={{
-        validFrom: new Date().toLocaleDateString("en"),
+        validFrom: new Date().toISOString(),
         refundFeeHeaders: [
           {
             refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
-            validFrom: new Date().toLocaleDateString("en"),
+            validFrom: new Date().toISOString(),
           },
         ],
         merchantClassification: "Satisfactory",
