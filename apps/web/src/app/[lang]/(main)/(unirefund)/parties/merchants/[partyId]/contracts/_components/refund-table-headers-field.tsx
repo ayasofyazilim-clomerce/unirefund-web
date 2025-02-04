@@ -11,7 +11,7 @@ export function RefundTableHeadersField(
   refundTableHeaders: AssignableRefundTableHeaders[],
   data: ContractHeaderRefundTableHeaderCreateAndUpdateDto[] = [
     {
-      validFrom: new Date().toLocaleDateString("en"),
+      validFrom: new Date().toISOString(),
       refundTableHeaderId: "",
       isDefault: false,
     },

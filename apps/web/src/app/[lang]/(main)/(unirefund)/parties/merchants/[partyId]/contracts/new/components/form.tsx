@@ -58,11 +58,11 @@ export default function MerchantContractHeaderCreateForm({
         RefundTableHeadersField: RefundTableHeadersField(refundTableHeaders),
       }}
       formData={{
-        validFrom: new Date().toLocaleDateString("en"),
+        validFrom: new Date().toISOString(),
         refundTableHeaders: [
           {
             refundTableHeaderId: refundTableHeaders[0]?.id || "",
-            validFrom: new Date().toLocaleDateString("en"),
+            validFrom: new Date().toISOString(),
           },
         ],
         merchantClassification: "Satisfactory",

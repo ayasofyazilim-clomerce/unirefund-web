@@ -50,7 +50,8 @@ export default async function Layout({
     );
   }
   const [merchantDetailsResponse] = apiRequests.data;
-
+  const isHeadquarter =
+    merchantDetailsResponse.data.merchant?.typeCode === "HEADQUARTER";
   return (
     <>
       <TabLayout
@@ -75,6 +76,7 @@ export default async function Layout({
           {
             label: "Contracts",
             href: `${baseLink}contracts`,
+            disabled: !isHeadquarter,
           },
         ]}
         variant="simple"
