@@ -1,12 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto as ContractSettingCreateUpdateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
-  PagedResultDto_ContractSettingDto,
 } from "@ayasofyazilim/saas/ContractService";
 import { $UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto as $ContractSettingCreateUpdateDto } from "@ayasofyazilim/saas/ContractService";
 import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto } from "@ayasofyazilim/saas/LocationService";
@@ -19,10 +17,10 @@ import {
   bulkCreateUiSchema,
   createUiSchemaWithResource,
 } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {
   handleDeleteResponse,
   handlePostResponse,
@@ -65,23 +63,22 @@ export function ContractSettings({
   lang,
 }: {
   languageData: ContractServiceResource;
-  contractSettings: PagedResultDto_ContractSettingDto;
+  contractSettings: ContractSettingDto[];
   contractHeaderDetails: ContractHeaderDetailForMerchantDto;
   addressList: AddressCommonDataDto[];
   lang: string;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { items } = contractSettings;
   const [settings, setSettings] = useState<ContractSettingsTable[]>(
-    items?.map((item) => {
+    contractSettings.map((item) => {
       return {
         id: item.id,
         name: item.name,
         isDefault: item.isDefault,
         details: item,
       };
-    }) || [],
+    }),
   );
   const [tempSettings, setTempSettings] = useState<
     ContractSettingsTable | undefined
@@ -89,10 +86,10 @@ export function ContractSettings({
 
   async function handleFetch() {
     setLoading(true);
-    try {
-      const contractSettingsResponse = await getContractSettings({
-        id: contractHeaderDetails.id,
-      });
+    const contractSettingsResponse = await getContractSettings({
+      id: contractHeaderDetails.id,
+    });
+    if (contractSettingsResponse.type === "success") {
       setSettings(
         contractSettingsResponse.data.items?.map((item) => {
           return {
@@ -103,11 +100,8 @@ export function ContractSettings({
           };
         }) || [],
       );
-    } catch (error) {
-      const err = error as { data?: string; message?: string };
-      toast.error(err.message);
-    } finally {
-      setLoading(false);
+    } else {
+      setSettings([]);
     }
   }
 
