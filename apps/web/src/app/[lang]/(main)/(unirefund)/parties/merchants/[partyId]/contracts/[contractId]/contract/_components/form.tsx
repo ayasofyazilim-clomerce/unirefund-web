@@ -69,7 +69,7 @@ export function MerchantContractHeaderUpdateForm({
     },
     refundTableHeaders: {
       "ui:className": "md:col-span-full",
-      "ui:field": "RefundTableHeaders",
+      "ui:field": "RefundTableHeadersField",
     },
     validFrom: {
       "ui:options": {},
@@ -86,19 +86,22 @@ export function MerchantContractHeaderUpdateForm({
       <SchemaForm<ContractHeaderForMerchantUpdateDto>
         disabled={isPending}
         fields={{
-          RefundTableHeadersField: RefundTableHeadersField(refundTableHeaders),
+          RefundTableHeadersField: RefundTableHeadersField(
+            refundTableHeaders,
+            contractHeaderDetails.refundTableHeaders.map((x) => ({
+              ...x,
+              refundTableHeaderId: x.id,
+            })),
+          ),
         }}
         formData={{
-          validFrom: new Date().toLocaleDateString("en"),
-          refundTableHeaders: [
-            {
-              refundTableHeaderId: refundTableHeaders[0].id,
-              validFrom: new Date().toLocaleDateString("en"),
-            },
-          ],
-          merchantClassification: "Satisfactory",
-          status: "None",
-          addressCommonDataId: addressList[0].id,
+          ...contractHeaderDetails,
+          refundTableHeaders: {
+            ...contractHeaderDetails.refundTableHeaders.map((x) => ({
+              ...x,
+              refundTableHeaderId: x.id,
+            })),
+          },
         }}
         onSubmit={({ formData: editedFormData }) => {
           if (!editedFormData) return;
