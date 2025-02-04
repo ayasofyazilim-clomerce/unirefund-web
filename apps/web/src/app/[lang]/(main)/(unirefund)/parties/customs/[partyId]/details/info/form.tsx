@@ -124,7 +124,7 @@ function CustomForm({
       }}
       values={{
         ...customDetail,
-        typeCode: customDetail.parentId ? "REFUNDPOINT" : "HEADQUARTER",
+        typeCode: customDetail.parentId ? "CUSTOMS" : "HEADQUARTER",
       }}
     >
       <AutoFormSubmit className="float-right" disabled={isPending}>
