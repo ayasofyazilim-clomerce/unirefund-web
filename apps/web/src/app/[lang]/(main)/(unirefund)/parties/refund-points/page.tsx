@@ -13,6 +13,7 @@ interface SearchParamType {
   skipCount?: number;
   sorting?: string;
   name?: string;
+  typeCode?: string;
 }
 
 async function getApiRequests(filters: GetApiCrmServiceRefundPointsData) {
@@ -48,6 +49,7 @@ export default async function Page({
   const { languageData } = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
+    typeCodes: searchParams?.typeCode?.split(",") || [],
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
