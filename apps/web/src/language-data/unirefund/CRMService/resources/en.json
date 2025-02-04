@@ -3,6 +3,8 @@
   "Missing.TaxOffices.Message": "There is no tax office in the system. Please create one to continue.",
   "Missing.ProductGroup.Title": "Missing Product Group",
   "Missing.ProductGroup.Message": "There is no product group in the system. Please create one to continue.",
+  "Missing.Affiliation.Title": "Missing Affiliation",
+  "Missing.Affiliation.Message": "There is no affilation in the system. Please create one to continue.",
 
   "Merchants": "Merchants",
   "Merchants.Description": "You can view stores from here.",

@@ -50,7 +50,7 @@ function taxOfficesColumns(
     links.name = {
       prefix: "/parties/tax-offices",
       targetAccessorKey: "id",
-      suffix: "details/organization",
+      suffix: "details/info",
     };
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>(

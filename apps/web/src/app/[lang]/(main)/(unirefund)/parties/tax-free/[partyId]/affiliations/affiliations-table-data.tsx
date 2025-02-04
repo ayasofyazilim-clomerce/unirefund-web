@@ -19,6 +19,7 @@ import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-fo
 import {
   CheckCircle,
   Eye,
+  FileText,
   LockIcon,
   Plus,
   Trash,
@@ -27,6 +28,9 @@ import {
   XCircle,
 } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import type { Policy } from "@/utils/page-policy/utils";
 import isActionGranted from "@/utils/page-policy/action-policy";
 import { deleteTaxFreesByIdAffiliationsByAffiliationIdApi } from "@/actions/unirefund/CrmService/delete-actions";
@@ -45,6 +49,7 @@ import {
   postAffiliationsToTaxFreeApi,
 } from "src/actions/unirefund/CrmService/post-actions";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import { getBaseLink } from "@/utils";
 
 type AffiliationsTable =
   TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
@@ -71,55 +76,71 @@ function affiliationsTableActions(
       title: languageData["Affiliations.New"],
       icon: Plus,
       content: (
-        <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
-          className="flex flex-col gap-4"
-          filter={{
-            type: "include",
-            sort: true,
-            keys: ["email", "affiliationCodeId"],
+        <FormReadyComponent
+          active={affiliationCodes.length === 0}
+          content={{
+            icon: <FileText className="size-20 text-gray-400" />,
+            title: languageData["Missing.Affiliation.Title"],
+            message: languageData["Missing.Affiliation.Message"],
+            action: (
+              <Button asChild className="text-blue-500" variant="link">
+                <Link href={getBaseLink("settings/affiliations/tax-free")}>
+                  {languageData.New}
+                </Link>
+              </Button>
+            ),
           }}
-          onSubmit={({ formData }) => {
-            if (!formData) return;
-            void postAffiliationsToTaxFreeApi({
-              id: partyId,
-              requestBody: {
-                ...formData,
-                entityInformationTypeCode: "INDIVIDUAL",
-              },
-            }).then((res) => {
-              handlePostResponse(res, router);
-            });
-          }}
-          schema={
-            $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
-          }
-          submitText={languageData.Save}
-          uiSchema={createUiSchemaWithResource({
-            schema:
-              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
-            resources: languageData,
-            name: "Form.Parties.Affiliation",
-            extend: {
-              affiliationCodeId: {
-                "ui:widget": "affiliationCode",
-              },
-              email: {
-                "ui:widget": "email",
-              },
-            },
-          })}
-          widgets={{
-            affiliationCode:
-              CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
-                {
-                  languageData,
-                  list: affiliationCodes,
-                  selectIdentifier: "id",
-                  selectLabel: "name",
+        >
+          <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
+            className="flex flex-col gap-4"
+            filter={{
+              type: "include",
+              sort: true,
+              keys: ["email", "affiliationCodeId"],
+            }}
+            onSubmit={({ formData }) => {
+              if (!formData) return;
+              void postAffiliationsToTaxFreeApi({
+                id: partyId,
+                requestBody: {
+                  ...formData,
+                  entityInformationTypeCode: "INDIVIDUAL",
                 },
-              ),
-          }}
-        />
+              }).then((res) => {
+                handlePostResponse(res, router);
+              });
+            }}
+            schema={
+              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
+            }
+            submitText={languageData.Save}
+            uiSchema={createUiSchemaWithResource({
+              schema:
+                $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
+              resources: languageData,
+              name: "Form.Parties.Affiliation",
+              extend: {
+                affiliationCodeId: {
+                  "ui:widget": "affiliationCode",
+                },
+                email: {
+                  "ui:widget": "email",
+                },
+              },
+            })}
+            widgets={{
+              affiliationCode:
+                CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
+                  {
+                    languageData,
+                    list: affiliationCodes,
+                    selectIdentifier: "id",
+                    selectLabel: "name",
+                  },
+                ),
+            }}
+          />
+        </FormReadyComponent>
       ),
     });
   }
