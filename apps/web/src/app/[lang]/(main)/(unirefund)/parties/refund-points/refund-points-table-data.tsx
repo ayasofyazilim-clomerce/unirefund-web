@@ -6,7 +6,7 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
+import { Building2, PlusCircle, Store } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import isActionGranted from "src/utils/page-policy/action-policy";
 import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
@@ -86,6 +86,23 @@ function refundPointsTable(
     columnOrder: ["name"],
     filters: {
       textFilters: ["name"],
+      facetedFilters: {
+        typeCode: {
+          title: languageData["Parties.Type"],
+          options: [
+            {
+              label: "Headquarter",
+              value: "HEADQUARTER",
+              icon: Building2,
+            },
+            {
+              label: "Refund Point",
+              value: "REFUNDPOINT",
+              icon: Store,
+            },
+          ],
+        },
+      },
     },
   };
   return table;
