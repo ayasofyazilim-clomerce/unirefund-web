@@ -11,6 +11,11 @@ import {
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { RebateSettings } from "./_components/rebate-settings";
+import { Button } from "@/components/ui/button";
+import { getBaseLink } from "@/utils";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText } from "lucide-react";
+import Link from "next/link";
 
 async function getApiRequests(partyId: string) {
   try {
@@ -73,17 +78,38 @@ export default async function Page({
   const rebateSettingsResponse =
     await getMerchantContractHeaderRebateSettingsByHeaderIdApi(contractId);
   return (
-    <RebateSettings
-      contractId={contractId}
-      individuals={individualsResponse.data.items || []}
-      languageData={languageData}
-      rebateSettings={
-        rebateSettingsResponse.type === "success"
-          ? rebateSettingsResponse.data
-          : undefined
+    <FormReadyComponent
+      active={
+        !rebateTablesResponse.data.items ||
+        rebateTablesResponse.data.items.length < 1
       }
-      rebateTableHeaders={rebateTablesResponse.data.items || []}
-      subMerchants={subMerchantsResponse.data.items || []}
-    />
+      content={{
+        icon: <FileText className="size-20 text-gray-400" />,
+        title: languageData["Missing.RebateTableHeaders.Title"],
+        message: languageData["Missing.RebateTableHeaders.Message"],
+        action: (
+          <Button asChild className="text-blue-500" variant="link">
+            <Link
+              href={getBaseLink("settings/templates/rebate-tables/new", lang)}
+            >
+              {languageData.New}
+            </Link>
+          </Button>
+        ),
+      }}
+    >
+      <RebateSettings
+        contractId={contractId}
+        individuals={individualsResponse.data.items || []}
+        languageData={languageData}
+        rebateSettings={
+          rebateSettingsResponse.type === "success"
+            ? rebateSettingsResponse.data
+            : undefined
+        }
+        rebateTableHeaders={rebateTablesResponse.data.items || []}
+        subMerchants={subMerchantsResponse.data.items || []}
+      />
+    </FormReadyComponent>
   );
 }
