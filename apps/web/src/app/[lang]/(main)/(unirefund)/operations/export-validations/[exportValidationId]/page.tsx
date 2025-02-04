@@ -35,7 +35,7 @@ export default async function Page({
         languageData={languageData}
       />
       <div className="hidden" id="page-title">
-        {`${languageData.ExportValidation} (${exportValidationDetailsResponse.data.referenceId})`}
+        {`${languageData.ExportValidation} (${exportValidationDetailsResponse.data.tagNumber})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["ExportValidation.Update.Description"]}

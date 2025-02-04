@@ -9,6 +9,8 @@
 
   "Form.ExportValidation.tagId": "Etiket Adı",
   "Form.ExportValidation.customsId": "Gümrük Adı",
+  "Form.ExportValidation.customsName": "Gümrük Adı",
+  "Form.ExportValidation.tagNumber": "Etiket Numarası",
   "Form.ExportValidation.referenceId": "Referans Adı",
   "Form.ExportValidation.exportDate": "İhracat Tarihi",
   "Form.ExportValidation.exportDate.StartEnd": "Ihracat Tarihi (Başlangıc - Bitis)",
