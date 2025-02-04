@@ -54,6 +54,7 @@ function subStoreColumns(
     links.name = {
       prefix: "/parties/merchants",
       targetAccessorKey: "id",
+      suffix: "details/info",
     };
   }
   //parties/${partyName}/new?parentId=${partyId}

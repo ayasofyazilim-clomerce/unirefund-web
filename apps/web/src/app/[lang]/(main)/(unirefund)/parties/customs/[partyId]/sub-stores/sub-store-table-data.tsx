@@ -54,6 +54,7 @@ function subStoreColumns(
     links.name = {
       prefix: "/parties/customs",
       targetAccessorKey: "id",
+      suffix: "details/info",
     };
   }
 
