@@ -161,20 +161,6 @@ const usersColumns = (
       targetAccessorKey: "id",
     };
   }
-  const facetedStyles = [
-    {
-      value: "true",
-      label: "",
-      icon: CheckCircle,
-      iconClassName: "text-green-700",
-    },
-    {
-      value: "false",
-      label: "",
-      icon: XCircle,
-      iconClassName: "text-red-700",
-    },
-  ];
   return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentityUserDto>(
     {
       rows: $Volo_Abp_Identity_IdentityUserDto.properties,
@@ -230,10 +216,52 @@ const usersColumns = (
       },
       faceted: {
         isActive: {
-          options: facetedStyles,
+          options: [
+            {
+              label: "Yes",
+              when: (value) => {
+                return Boolean(value);
+              },
+              value: "true",
+              icon: CheckCircle,
+              iconClassName: "text-green-700",
+              hideColumnValue: true,
+            },
+            {
+              label: "No",
+              when: (value) => {
+                return !value;
+              },
+              value: "false",
+              icon: XCircle,
+              iconClassName: "text-red-700",
+              hideColumnValue: true,
+            },
+          ],
         },
         lockoutEnabled: {
-          options: facetedStyles,
+          options: [
+            {
+              label: "Yes",
+              when: (value) => {
+                return Boolean(value);
+              },
+              value: "true",
+              icon: CheckCircle,
+              iconClassName: "text-green-700",
+              hideColumnValue: true,
+            },
+            {
+              label: "No",
+              when: (value) => {
+                return !value;
+              },
+              value: "false",
+              icon: XCircle,
+              iconClassName: "text-red-700",
+              hideColumnValue: true,
+            },
+          ],
         },
       },
     },
