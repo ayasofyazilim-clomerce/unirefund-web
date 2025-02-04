@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import type { UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as AffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
 import {
   $UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as $AffiliationCodeDto,
@@ -16,8 +17,11 @@ import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/mole
 import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { Plus } from "lucide-react";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText, Plus } from "lucide-react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import Link from "next/link";
+import { getBaseLink } from "@/utils";
 import type { PartyNameType } from "@/actions/unirefund/CrmService/types";
 import { postAffiliationCodesApi } from "@/actions/unirefund/CrmService/post-actions";
 import { handlePostResponse } from "src/actions/core/api-utils-client";
@@ -49,50 +53,73 @@ function affiliationsTableActions(
       title: languageData["Affiliations.New"],
       icon: Plus,
       content: (
-        <SchemaForm<AffiliationCodeDto>
-          className="flex flex-col gap-4"
-          filter={{
-            type: "exclude",
-            sort: true,
-            keys: ["status", "entityPartyTypeCode"],
-          }}
-          onSubmit={({ formData }) => {
-            if (!formData) return;
-            void postAffiliationCodesApi({
-              requestBody: {
-                ...formData,
-                status: "Approved",
-                entityPartyTypeCode: entityPartyTypeCodeMap[partyType],
-              },
-            }).then((res) => {
-              handlePostResponse(res, router);
-            });
-          }}
-          schema={
-            $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto
-          }
-          uiSchema={createUiSchemaWithResource({
-            schema:
-              $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
-            resources: languageData,
-            name: "Form.Affiliation",
-            extend: {
-              roleId: {
-                "ui:widget": "Role",
-              },
-            },
-          })}
-          widgets={{
-            Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>(
-              {
-                languageData,
-                list: assignableRoles.filter((role) => role.isAssignable),
-                selectIdentifier: "roleId",
-                selectLabel: "roleName",
-              },
+        <FormReadyComponent
+          active={assignableRoles.length === 0}
+          content={{
+            icon: <FileText className="size-20 text-gray-400" />,
+            title: languageData["Missing.Affiliation.Title"],
+            message: languageData["Missing.Affiliation.Message"],
+            action: (
+              <Button asChild className="text-blue-500" variant="link">
+                <Link href={getBaseLink("settings/affiliations/customs")}>
+                  {languageData.New}
+                </Link>
+              </Button>
             ),
           }}
-        />
+        >
+          <SchemaForm<AffiliationCodeDto>
+            className="flex flex-col gap-4"
+            filter={{
+              type: "exclude",
+              sort: true,
+              keys: ["status", "entityPartyTypeCode"],
+            }}
+            onSubmit={({ formData }) => {
+              if (!formData) return;
+              void postAffiliationCodesApi({
+                requestBody: {
+                  ...formData,
+                  status: "Approved",
+                  entityPartyTypeCode: entityPartyTypeCodeMap[partyType],
+                },
+              }).then((res) => {
+                handlePostResponse(res, router, {
+                  prefix: `./${partyType}`,
+                  identifier: "id",
+                  suffix: "",
+                });
+              });
+            }}
+            schema={
+              $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto
+            }
+            uiSchema={createUiSchemaWithResource({
+              schema:
+                $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
+              resources: languageData,
+              name: "Form.Affiliation",
+              extend: {
+                roleId: {
+                  "ui:widget": "Role",
+                },
+              },
+            })}
+            widgets={{
+              Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>(
+                {
+                  languageData,
+                  list: assignableRoles,
+                  disabledItems: assignableRoles
+                    .filter((role) => !role.isAssignable)
+                    .map((role) => role.roleId),
+                  selectIdentifier: "roleId",
+                  selectLabel: "roleName",
+                },
+              ),
+            }}
+          />
+        </FormReadyComponent>
       ),
     });
   }

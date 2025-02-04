@@ -50,7 +50,7 @@ function customsColumns(
     links.name = {
       prefix: "/parties/customs",
       targetAccessorKey: "id",
-      suffix: "details/organization",
+      suffix: "details/info",
     };
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Customss_CustomsProfileDto>(

@@ -15,7 +15,12 @@ async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantsApi({}, session),
+      getMerchantsApi(
+        {
+          typeCodes: ["HEADQUARTER"],
+        },
+        session,
+      ),
       getMerchantByIdApi(partyId, session),
       getTaxOfficesApi({}, session),
       getMerchantDetailByIdApi(partyId, session),

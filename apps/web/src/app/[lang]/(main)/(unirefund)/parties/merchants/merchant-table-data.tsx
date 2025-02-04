@@ -52,12 +52,13 @@ function merchantColumns(
     links.name = {
       prefix: "/parties/merchants",
       targetAccessorKey: "id",
-      suffix: "details/organization",
+      suffix: "details/info",
     };
 
     links.parentName = {
       prefix: "/parties/merchants",
       targetAccessorKey: "parentId",
+      suffix: "details/info",
     };
   }
 
