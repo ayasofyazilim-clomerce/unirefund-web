@@ -31,7 +31,7 @@ export default function Form({
     resources: languageData,
     name: "Form.ExportValidation",
     extend: {
-      exportLocationId: {
+      customsId: {
         "ui:widget": "CustomWidget",
       },
     },
@@ -44,7 +44,7 @@ export default function Form({
         type: "include",
         sort: true,
         keys: [
-          "exportLocationId",
+          "customsId",
           "referenceId",
           "exportDate",
           "responseCode",
