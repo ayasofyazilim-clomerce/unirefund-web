@@ -1,5 +1,9 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import { isUnauthorized } from "@repo/utils/policies";
+import { Button } from "@/components/ui/button";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText } from "lucide-react";
+import Link from "next/link";
 import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersApi,
@@ -10,12 +14,8 @@ import {
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { RebateSettings } from "./_components/rebate-settings";
-import { Button } from "@/components/ui/button";
 import { getBaseLink } from "@/utils";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { FileText } from "lucide-react";
-import Link from "next/link";
+import { RebateSettings } from "./_components/rebate-settings";
 
 async function getApiRequests(partyId: string) {
   try {
