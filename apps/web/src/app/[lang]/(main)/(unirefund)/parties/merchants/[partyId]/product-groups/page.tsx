@@ -6,6 +6,11 @@ import { getProductGroupsApi } from "src/actions/unirefund/SettingService/action
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/CRMService";
 import ProductGroups from "./table";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText } from "lucide-react";
+import Link from "next/link";
+import Button from "@repo/ayasofyazilim-ui/molecules/button";
+import { getBaseLink } from "@/utils";
 
 async function getApiRequests(partyId: string) {
   try {
@@ -55,10 +60,31 @@ export default async function Page({
 
   const [productGroupsResponse, productGroupListResponse] = apiRequests.data;
   return (
-    <ProductGroups
-      languageData={languageData}
-      productGroupList={productGroupListResponse.data.items || []}
-      response={productGroupsResponse.data}
-    />
+    <FormReadyComponent
+      active={
+        !productGroupListResponse.data.items ||
+        productGroupListResponse.data.items.length < 1
+      }
+      content={{
+        icon: <FileText className="size-20 text-gray-400" />,
+        title: languageData["Missing.ProductGroup.Title"],
+        message: languageData["Missing.ProductGroup.Message"],
+        action: (
+          <Button asChild className="text-blue-500" variant="link">
+            <Link
+              href={getBaseLink("settings/product/product-groups/new", lang)}
+            >
+              {languageData["New"]}
+            </Link>
+          </Button>
+        ),
+      }}
+    >
+      <ProductGroups
+        languageData={languageData}
+        productGroupList={productGroupListResponse.data.items || []}
+        response={productGroupsResponse.data}
+      />
+    </FormReadyComponent>
   );
 }
