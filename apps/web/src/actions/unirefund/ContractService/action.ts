@@ -79,9 +79,9 @@ export async function getMerchantContractHeadersContractStoresByHeaderIdApi(
       await client.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdContractStores(
         data,
       );
-    return structuredSuccessResponse(response);
+    return structuredResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function getMerchantContractHeaderByIdApi(
@@ -105,13 +105,13 @@ export async function getMerchantContractHeaderContractSettingsByHeaderIdApi(
 ) {
   try {
     const client = await getContractServiceClient(session);
-    return structuredSuccessResponse(
+    return structuredResponse(
       await client.contractsMerchant.getApiContractServiceMerchantsContractsContractHeadersByIdContractSettings(
         data,
       ),
     );
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 export async function getMerchantContractHeaderRebateSettingsByHeaderIdApi(

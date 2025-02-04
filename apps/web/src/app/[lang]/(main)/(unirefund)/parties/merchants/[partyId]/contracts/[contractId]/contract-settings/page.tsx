@@ -1,5 +1,6 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import { isUnauthorized } from "@repo/utils/policies";
+import type { Session } from "@repo/utils/auth";
 import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
@@ -9,16 +10,13 @@ import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { ContractSettings } from "./_components/contract-settings";
 
-async function getApiRequests(partyId: string, contractId: string) {
+async function getApiRequests(
+  session: Session | null,
+  partyId: string,
+  contractId: string,
+) {
   try {
-    const session = await auth();
     const apiRequests = await Promise.all([
-      getMerchantContractHeaderContractSettingsByHeaderIdApi(
-        {
-          id: contractId,
-        },
-        session,
-      ),
       getMerchantContractHeaderByIdApi(contractId, session),
       getMerchantAddressByIdApi(partyId, session),
     ]);
@@ -50,8 +48,9 @@ export default async function Page({
   });
 
   const { languageData } = await getResourceData(lang);
+  const session = await auth();
 
-  const apiRequests = await getApiRequests(partyId, contractId);
+  const apiRequests = await getApiRequests(session, partyId, contractId);
   if (apiRequests.type === "error") {
     return (
       <ErrorComponent
@@ -60,17 +59,20 @@ export default async function Page({
       />
     );
   }
-  const [
-    contractSettingsResponse,
-    contractHeaderDetailsResponse,
-    addressListResponse,
-  ] = apiRequests.data;
-
+  const [contractHeaderDetailsResponse, addressListResponse] = apiRequests.data;
+  const contractSettingsResponse =
+    await getMerchantContractHeaderContractSettingsByHeaderIdApi({
+      id: contractId,
+    });
   return (
     <ContractSettings
       addressList={addressListResponse.data}
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      contractSettings={contractSettingsResponse.data}
+      contractSettings={
+        contractSettingsResponse.type === "success"
+          ? contractSettingsResponse.data.items || []
+          : []
+      }
       lang={lang}
       languageData={languageData}
     />

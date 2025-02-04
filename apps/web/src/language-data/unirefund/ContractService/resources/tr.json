@@ -1,6 +1,8 @@
 {
   "Missing.ContractStores.Title": "Eksik alt mağaza",
   "Missing.ContractStores.Message": "Lütfen merkeze en az bir mağaza ekleyin.",
+  "Missing.ContractSettings.Title": "Eksik sözleşme ayarı",
+  "Missing.ContractSettings.Message": "Lütfen en az bir sözleşme ayarı ekleyin.",
   "Missing.RefundTableHeaders.Title": "Eksik iade tablosu",
   "Missing.RefundTableHeaders.Message": "Bu merkezde iade tablosu atanmamış. Lütfen devam etmek için bir iade tablosu oluşturun.",
   "Missing.RebateTableHeaders.Title": "Eksik komisyon tablosu",

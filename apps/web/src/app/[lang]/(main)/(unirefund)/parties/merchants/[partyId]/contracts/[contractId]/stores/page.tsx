@@ -6,39 +6,8 @@ import {
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
   getMerchantContractHeadersContractStoresByHeaderIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/ContractService";
 import { ContractStoresTable } from "./_components/table";
-
-async function getApiRequests(contractId: string) {
-  try {
-    const session = await auth();
-    const apiRequests = await Promise.all([
-      getMerchantContractHeaderContractSettingsByHeaderIdApi(
-        {
-          id: contractId,
-        },
-        session,
-      ),
-      await getMerchantContractHeadersContractStoresByHeaderIdApi(
-        {
-          id: contractId,
-        },
-        session,
-      ),
-    ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
-  } catch (error) {
-    const err = error as { data?: string; message?: string };
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
-  }
-}
 
 export default async function Page({
   params,
@@ -55,31 +24,55 @@ export default async function Page({
     ],
     lang,
   });
-
+  const session = await auth();
   const { languageData } = await getResourceData(lang);
-  const apiRequests = await getApiRequests(contractId);
-  if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
+  const contractStoresResponse =
+    await getMerchantContractHeadersContractStoresByHeaderIdApi(
+      {
+        id: contractId,
+      },
+      session,
     );
-  }
-  const [contractSettingsResponse, contractStoresResponse] = apiRequests.data;
+  const contractSettingsResponse =
+    await getMerchantContractHeaderContractSettingsByHeaderIdApi(
+      {
+        id: contractId,
+      },
+      session,
+    );
+  const hasSetting =
+    contractSettingsResponse.type !== "success" ||
+    !contractSettingsResponse.data.items ||
+    contractSettingsResponse.data.items.length < 1;
 
+  const hasStore =
+    contractStoresResponse.type !== "success" ||
+    !contractStoresResponse.data.items ||
+    contractStoresResponse.data.items.length < 1;
   return (
     <FormReadyComponent
-      active={false}
+      active={hasSetting || hasStore}
       content={{
         icon: <FileText className="size-20 text-gray-400" />,
-        title: languageData["Missing.ContractStores.Title"],
-        message: languageData["Missing.ContractStores.Message"],
+        title: hasSetting
+          ? languageData["Missing.ContractSettings.Title"]
+          : languageData["Missing.ContractStores.Title"],
+        message: hasSetting
+          ? languageData["Missing.ContractSettings.Message"]
+          : languageData["Missing.ContractStores.Message"],
       }}
     >
       <ContractStoresTable
-        contractSettings={contractSettingsResponse.data.items || []}
-        contractStores={contractStoresResponse.data.items || []}
+        contractSettings={
+          contractSettingsResponse.type === "success"
+            ? contractSettingsResponse.data.items || []
+            : []
+        }
+        contractStores={
+          contractStoresResponse.type === "success"
+            ? contractStoresResponse.data.items || []
+            : []
+        }
         languageData={languageData}
       />
     </FormReadyComponent>
