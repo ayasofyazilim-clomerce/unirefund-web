@@ -1,6 +1,5 @@
 "use client";
 import { toast } from "@/components/ui/sonner";
-import { ApiError } from "@ayasofyazilim/core-saas/AccountService";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ServerResponse } from "./types";
 
@@ -67,10 +66,3 @@ export const handleGetResponseError = (response: {
     toast.error(response.message);
   }
 };
-
-export function isApiError(error: unknown): error is ApiError {
-  if ((error as ApiError).name === "ApiError") {
-    return true;
-  }
-  return error instanceof ApiError;
-}

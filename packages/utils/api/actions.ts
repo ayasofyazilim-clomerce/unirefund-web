@@ -1,6 +1,6 @@
 import { notFound, permanentRedirect, RedirectType } from "next/navigation";
-import { isApiError } from "./client-utils";
 import { ApiErrorServerResponse, ServerResponse } from "./types";
+import { ApiError } from "@ayasofyazilim/core-saas/AccountService";
 
 export function structuredError(error: unknown): ApiErrorServerResponse {
   if (isApiError(error)) {
@@ -62,4 +62,10 @@ export function structuredSuccessResponse<T>(data: T) {
     data,
     message: "",
   };
+}
+export function isApiError(error: unknown): error is ApiError {
+  if ((error as ApiError).name === "ApiError") {
+    return true;
+  }
+  return error instanceof ApiError;
 }
