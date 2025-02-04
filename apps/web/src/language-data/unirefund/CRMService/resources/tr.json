@@ -1,6 +1,8 @@
 {
   "Missing.TaxOffices.Title": "Eksik Vergi Dairesi",
   "Missing.TaxOffices.Message": "Sistemde vergi dairesi yok. Lütfen devam etmek için bir vergi dairesi oluşturun.",
+  "Missing.ProductGroup.Title": "Eksik Ürün Grubu",
+  "Missing.ProductGroup.Message": "Sistemde ürün grubu yok. Lütfen devam etmek için bir ürün grubu oluşturun.",
 
   "Merchants": "Mağazalar",
   "Merchants.Description": "Mağazaları buradan görüntüleyebilirsiniz.",

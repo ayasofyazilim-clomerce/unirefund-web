@@ -1,12 +1,17 @@
 import { auth } from "@repo/utils/auth/next-auth";
 import { isUnauthorized } from "@repo/utils/policies";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { FileText } from "lucide-react";
+import Link from "next/link";
+import Button from "@repo/ayasofyazilim-ui/molecules/button";
+import { getResourceData } from "src/language-data/unirefund/ContractService";
+import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
+import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
 import {
   // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
+import { getBaseLink } from "@/utils";
 import MerchantContractHeaderCreateForm from "./components/form";
 
 async function getApiRequests(partyId: string) {
@@ -72,10 +77,28 @@ export default async function Page({
 
   // const biggestContractHeader = otherContractHeadersResponse.data.items?.at(0);
   return (
-    <MerchantContractHeaderCreateForm
-      addressList={addressListResponse.data}
-      languageData={languageData}
-      refundTableHeaders={refundTableHeadersResponse.data}
-    />
+    <FormReadyComponent
+      active={refundTableHeadersResponse.data.length < 1}
+      content={{
+        icon: <FileText className="size-20 text-gray-400" />,
+        title: languageData["Missing.RefundTableHeaders.Title"],
+        message: languageData["Missing.RefundTableHeaders.Message"],
+        action: (
+          <Button asChild className="text-blue-500" variant="link">
+            <Link
+              href={getBaseLink("settings/templates/refund-tables/new", lang)}
+            >
+              {languageData.New}
+            </Link>
+          </Button>
+        ),
+      }}
+    >
+      <MerchantContractHeaderCreateForm
+        addressList={addressListResponse.data}
+        languageData={languageData}
+        refundTableHeaders={refundTableHeadersResponse.data}
+      />
+    </FormReadyComponent>
   );
 }
