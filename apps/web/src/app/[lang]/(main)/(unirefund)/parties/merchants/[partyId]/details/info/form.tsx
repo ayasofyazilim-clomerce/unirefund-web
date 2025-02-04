@@ -115,13 +115,12 @@ function MerchantForm({
       formClassName="pb-40"
       formSchema={schema}
       onSubmit={(values) => {
-        if (values.typeCode !== "HEADQUARTER" && !values.parentId) {
-          return;
-        }
         if (values.typeCode !== "HEADQUARTER") {
+          if (!values.parentId) return;
           values.taxOfficeId = null;
-          values.parentId = null;
           values.taxpayerId = null;
+        } else {
+          values.parentId = null;
         }
         handleSubmit(
           values as UniRefund_CRMService_Merchants_UpdateMerchantDto,

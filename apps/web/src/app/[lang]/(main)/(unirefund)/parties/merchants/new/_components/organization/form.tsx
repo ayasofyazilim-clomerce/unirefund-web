@@ -151,6 +151,9 @@ export default function MerchantOrganizationForm({
       fieldConfig={{
         taxOfficeId: {
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          inputProps: {
+            required: !parentId,
+          },
           renderer: (props: AutoFormInputComponentProps) => {
             return (
               <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
@@ -176,9 +179,15 @@ export default function MerchantOrganizationForm({
         },
         taxpayerId: {
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          inputProps: {
+            required: !parentId,
+          },
         },
         customerNumber: {
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          inputProps: {
+            required: Boolean(parentId),
+          },
         },
         telephone: {
           containerClassName: "lg:col-span-2 border p-4 rounded-md",
