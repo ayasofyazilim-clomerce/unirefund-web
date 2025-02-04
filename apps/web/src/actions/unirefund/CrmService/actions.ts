@@ -748,6 +748,51 @@ export async function getRefundPointDetailsByIdApi(
     throw structuredError(error);
   }
 }
+export async function getCustomDetailsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.customs.getApiCrmServiceCustomsByIdDetail({
+      id,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxFreeDetailsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdDetail(
+      {
+        id,
+      },
+    );
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getTaxOfficeDetailsByIdApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response =
+      await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdDetail({
+        id,
+      });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 //Unupdated actions
 export async function getSubMerchantsByMerchantIdApi(
   data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
