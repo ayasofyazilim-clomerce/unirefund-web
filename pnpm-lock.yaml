@@ -40,8 +40,8 @@ importers:
         specifier: ^0.30.0
         version: 0.30.0
       '@ayasofyazilim/saas':
-        specifier: 0.0.130
-        version: 0.0.130(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.131
+        version: 0.0.131(magicast@0.3.5)(openapi-types@12.1.3)
       '@formatjs/intl-localematcher':
         specifier: ^0.5.4
         version: 0.5.4
@@ -865,8 +865,8 @@ packages:
   '@ayasofyazilim/saas@0.0.129':
     resolution: {integrity: sha512-XSFEtsAGdJdc9qhmUCr1WI/da/Wzm14rvSMumJl/Dr0Ckr1bQGeuKAPm/FMFw7Mi0D6fo3MlVxA/pHBXJ1J4XA==}
 
-  '@ayasofyazilim/saas@0.0.130':
-    resolution: {integrity: sha512-DfuXSa3+9RroroKUIjRbF3sCM3TjBszaNM9kAfUYZooM+VTOCfJL0qWi77kKWbHzRdJ2qdbgToTagmxu141EzQ==}
+  '@ayasofyazilim/saas@0.0.131':
+    resolution: {integrity: sha512-Ds1ihqLn+AR1bllg6rLmIOXlJbd8pjviABMgZlznxaLrcrUhEPi2WGhT97KwYdrfK8XhI1/05Ntj1QBc0URtSA==}
 
   '@ayasofyazilim/sdk_generator@0.0.13':
     resolution: {integrity: sha512-Iof0t+ZKdIEJS2ddm2HBqSMncalBNyKsYYlMq1tkH8vQHgtG7kZMPy2YTRHP6WlH/CKcHC3R5ulOf8xmC2H3UA==}
@@ -10446,7 +10446,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/saas@0.0.130(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.131(magicast@0.3.5)(openapi-types@12.1.3)':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.1.0

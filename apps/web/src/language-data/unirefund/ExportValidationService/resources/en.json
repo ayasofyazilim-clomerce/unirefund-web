@@ -8,7 +8,7 @@
   "Tag.Select": "Select Tag",
 
   "Form.ExportValidation.tagId": "Tag Name",
-  "Form.ExportValidation.exportLocationId": "Custom Name",
+  "Form.ExportValidation.customsId": "Custom Name",
   "Form.ExportValidation.referenceId": "Reference Name",
   "Form.ExportValidation.exportDate": "Export Date",
   "Form.ExportValidation.exportDate.StartEnd": "Export Date (start - End)",
