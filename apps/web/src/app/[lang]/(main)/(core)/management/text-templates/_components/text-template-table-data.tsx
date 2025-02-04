@@ -54,16 +54,24 @@ const textTemplateColumns = (
         isInlineLocalized: {
           options: [
             {
+              label: "Yes",
+              when: (value) => {
+                return Boolean(value);
+              },
               value: "true",
-              label: "",
               icon: CheckCircle,
               iconClassName: "text-green-700",
+              hideColumnValue: true,
             },
             {
+              label: "No",
+              when: (value) => {
+                return !value;
+              },
               value: "false",
-              label: "",
               icon: XCircle,
               iconClassName: "text-red-700",
+              hideColumnValue: true,
             },
           ],
         },
