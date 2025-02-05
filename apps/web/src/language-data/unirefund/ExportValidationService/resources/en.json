@@ -9,6 +9,8 @@
 
   "Form.ExportValidation.tagId": "Tag Name",
   "Form.ExportValidation.customsId": "Custom Name",
+  "Form.ExportValidation.customsName": "Custom Name",
+  "Form.ExportValidation.tagNumber": "Tag Number",
   "Form.ExportValidation.referenceId": "Reference Name",
   "Form.ExportValidation.exportDate": "Export Date",
   "Form.ExportValidation.exportDate.StartEnd": "Export Date (start - End)",
