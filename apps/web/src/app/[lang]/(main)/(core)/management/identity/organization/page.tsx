@@ -1,10 +1,10 @@
 "use server";
 
 import type {GetApiIdentityRolesData, GetApiIdentityUsersData} from "@ayasofyazilim/saas/IdentityService";
+import {isUnauthorized} from "@repo/utils/policies";
 import {getAllOrganizationUnitsApi, getRolesApi, getUsersApi} from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/IdentityService";
-import {isUnauthorized} from "src/utils/page-policy/page-policy";
 import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import OrganizationComponent from "./organization";
 
