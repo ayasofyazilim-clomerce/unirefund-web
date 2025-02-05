@@ -20,7 +20,7 @@ export default function TravellerDocumentForm({
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
-  const tagId = searchParams.get("tagIds") || "";
+  const tagIds = searchParams.get("tagIds") || "";
   const travellerDocumentNo = searchParams.get("travellerDocumentNumber") || "";
   const refundPointId =
     accessibleRefundPoints.find(
@@ -29,7 +29,7 @@ export default function TravellerDocumentForm({
 
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] =
     useState(travellerDocumentNo);
-  const [tagIdInput, setTagIdInput] = useState(tagId);
+  const [tagIdInput, setTagIdInput] = useState(tagIds);
   const [refundPointIdInput, setRefundPointIdInput] = useState<
     UniRefund_CRMService_RefundPoints_RefundPointProfileDto | null | undefined
   >(accessibleRefundPoints.find((i) => i.id === refundPointId) || null);
@@ -37,9 +37,18 @@ export default function TravellerDocumentForm({
 
   function searchForTraveller() {
     startTransition(() => {
-      router.replace(
-        `${pathName}?travellerDocumentNumber=${travellerDocumentNoInput}&tagIds=${tagIdInput}&refundPointId=${refundPointIdInput?.id}`,
-      );
+      const newSearchParams = new URLSearchParams();
+
+      const params = {
+        travellerDocumentNumber: travellerDocumentNoInput,
+        tagIds: tagIdInput,
+        refundPointId: refundPointIdInput?.id,
+      };
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value) newSearchParams.set(key, value);
+      });
+      router.push(`${pathName}?${newSearchParams.toString()}`);
     });
   }
 
@@ -96,7 +105,7 @@ export default function TravellerDocumentForm({
           !refundPointIdInput?.id ||
           (travellerDocumentNo === travellerDocumentNoInput &&
             refundPointId === refundPointIdInput.id &&
-            tagId === tagIdInput)
+            tagIds === tagIdInput)
         }
         onClick={searchForTraveller}
         type="submit"
