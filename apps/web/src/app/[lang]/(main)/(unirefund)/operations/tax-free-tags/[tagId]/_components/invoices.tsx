@@ -22,7 +22,7 @@ export default function Invoices({
   languageData: TagServiceResource;
 }) {
   return tagDetail.invoices?.map((invoice) => (
-    <div className="flex flex-col gap-4" key={invoice.id || ""}>
+    <div className="flex flex-col gap-4 overflow-auto" key={invoice.id || ""}>
       {invoice.invoiceLines?.map((line) => (
         <div
           className="grid grid-cols-3 items-center gap-4"

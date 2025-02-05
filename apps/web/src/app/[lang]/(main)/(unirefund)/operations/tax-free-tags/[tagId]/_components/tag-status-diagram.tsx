@@ -20,10 +20,10 @@ function ValidStatus({
 }) {
   return (
     <Card className="rounded-none">
-      <CardHeader className="text-primary-800 flex flex-row space-y-0 pb-0 text-lg font-semibold">
-        <div className="grid grid-cols-6 gap-x-2 gap-y-1">
+      <CardHeader className="text-primary-800 flex flex-row space-y-0 px-6 pb-0 pt-3 text-lg font-semibold">
+        <div className="grid w-full grid-cols-6 gap-x-2 gap-y-1">
           <div className="col-span-full">
-            <div className={date ? "" : "text-muted-foreground"}>
+            <div className={date ? "mb-2" : "text-muted-foreground mb-2"}>
               {link ? (
                 <a
                   className="flex flex-row items-center text-blue-700"
@@ -100,7 +100,7 @@ export default function TagStatusDiagram({
       {tagVatStatementHeader?.id ? (
         <ValidStatus
           date={dateToString(tagVatStatementHeader.vatStatementDate, "tr")}
-          link={`/operations/vat-statements/${tagVatStatementHeader.id}`}
+          link={`/finance/vat-statements/${tagVatStatementHeader.id}/information`}
           message={[
             `Invoice Number: ${tagVatStatementHeader.invoiceNumber}`,
             `Merchant Name: ${tagVatStatementHeader.merchantName}`,
