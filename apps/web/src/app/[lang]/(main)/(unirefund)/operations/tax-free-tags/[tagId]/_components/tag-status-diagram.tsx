@@ -4,7 +4,7 @@ import type { GetApiTagServiceTagByIdDetailResponse } from "@ayasofyazilim/saas/
 import { ClockIcon, SquareArrowOutUpRight } from "lucide-react";
 import type { UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto } from "@ayasofyazilim/saas/RefundService";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import { dateToString } from "../utils";
+import { dateToString } from "../../../_components/utils";
 import TagActions from "./tag-actions";
 
 function ValidStatus({

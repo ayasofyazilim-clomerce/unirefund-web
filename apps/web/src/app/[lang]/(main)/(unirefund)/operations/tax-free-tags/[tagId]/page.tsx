@@ -13,11 +13,11 @@ import { getTagByIdApi } from "src/actions/unirefund/TagService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import { getResourceData } from "src/language-data/unirefund/TagService";
 import { getBaseLink } from "src/utils";
+import { dateToString, getStatusColor } from "../../_components/utils";
 import Invoices from "./_components/invoices";
 import TagCardList, { TagCard } from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
 import TotalsEarnings from "./_components/totals-earnings";
-import { dateToString, getStatusColor } from "./utils";
 
 async function getApiRequests(tagId: string) {
   try {
@@ -130,8 +130,9 @@ export default async function Page({
               {
                 name: languageData.FullName,
                 value: `${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`,
-                link:
-                  getBaseLink("parties/travellers/") + tagDetail.traveller?.id,
+                link: getBaseLink(
+                  `parties/travellers/${tagDetail.traveller?.id}/personal-identifications`,
+                ),
               },
               {
                 name: languageData.TravellerDocumentNo,
@@ -154,8 +155,9 @@ export default async function Page({
               {
                 name: languageData.StoreName,
                 value: tagDetail.merchant?.name || "",
-                link:
-                  getBaseLink("parties/merchants/") + tagDetail.merchant?.id,
+                link: getBaseLink(
+                  `parties/merchants/${tagDetail.merchant?.id}/details/info`,
+                ),
               },
               {
                 name: languageData.Address,

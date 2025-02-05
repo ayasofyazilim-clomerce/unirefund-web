@@ -34,7 +34,7 @@ const exportValidationsColumns = (
       grantedPolicies,
     )
   ) {
-    links.referenceId = {
+    links.tagNumber = {
       prefix: "export-validations",
       targetAccessorKey: "id",
     };
@@ -75,8 +75,8 @@ const exportValidationsColumns = (
 };
 function exportValidationsTable(languageData: ExportValidationServiceResource) {
   const table: ExportValidationsTable = {
-    fillerColumn: "referenceId",
-    pinColumns: ["referenceId"],
+    fillerColumn: "tagNumber",
+    pinColumns: ["tagNumber"],
     columnVisibility: {
       type: "show",
       columns: [
