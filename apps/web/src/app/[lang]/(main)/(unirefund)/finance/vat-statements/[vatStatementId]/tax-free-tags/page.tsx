@@ -1,39 +1,26 @@
 "use server";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getVatStatementHeadersByIdApi } from "src/actions/unirefund/FinanceService/actions";
-import { getResourceData } from "src/language-data/unirefund/FinanceService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
+import {getResourceData} from "src/language-data/unirefund/FinanceService";
+import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import TaxFreeTagTable from "./_components/table";
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; vatStatementId: string };
-}) {
-  const { lang, vatStatementId } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {lang: string; vatStatementId: string}}) {
+  const {lang, vatStatementId} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["FinanceService.VATStatementHeaders.View"],
     lang,
   });
-  const vatStatementHeadersByIdResponse =
-    await getVatStatementHeadersByIdApi(vatStatementId);
+  const vatStatementHeadersByIdResponse = await getVatStatementHeadersByIdApi(vatStatementId);
   if (isErrorOnRequest(vatStatementHeadersByIdResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={vatStatementHeadersByIdResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={vatStatementHeadersByIdResponse.message} />;
   }
 
   return (
     <>
-      <TaxFreeTagTable
-        languageData={languageData}
-        taxFreeTagsData={vatStatementHeadersByIdResponse.data}
-      />
+      <TaxFreeTagTable languageData={languageData} taxFreeTagsData={vatStatementHeadersByIdResponse.data} />
       <div className="hidden" id="page-description">
         {languageData["VatStatement.TaxFreeTags.Description"]}
       </div>

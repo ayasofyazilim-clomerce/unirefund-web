@@ -1,8 +1,8 @@
 "use server";
 
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { getResourceData } from "src/language-data/core/AdministrationService";
-import { getBaseLink } from "src/utils";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {getResourceData} from "src/language-data/core/AdministrationService";
+import {getBaseLink} from "src/utils";
 
 export default async function Layout({
   children,
@@ -13,8 +13,8 @@ export default async function Layout({
     lang: string;
   };
 }) {
-  const { lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {lang} = params;
+  const {languageData} = await getResourceData(lang);
   const baseLink = getBaseLink("management/audit-logs/", lang);
 
   return (
@@ -28,8 +28,7 @@ export default async function Layout({
           label: languageData["AuditLog.EntityChanges"],
           href: `${baseLink}entity-changes`,
         },
-      ]}
-    >
+      ]}>
       {children}
     </TabLayout>
   );

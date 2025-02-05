@@ -1,17 +1,15 @@
 "use client";
 
-import type { GetApiCrmServiceIndividualsByIdTelephonesResponse } from "@ayasofyazilim/saas/CRMService";
-import AutoForm, {
-  AutoFormSubmit,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { telephoneSchema } from "@repo/ui/utils/table/form-schemas";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putIndividualTelephoneApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { TelephoneUpdateDto } from "src/actions/unirefund/CrmService/types";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
+import type {GetApiCrmServiceIndividualsByIdTelephonesResponse} from "@ayasofyazilim/saas/CRMService";
+import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {telephoneSchema} from "@repo/ui/utils/table/form-schemas";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putIndividualTelephoneApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {TelephoneUpdateDto} from "src/actions/unirefund/CrmService/types";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
 
 function TelephoneForm({
   languageData,
@@ -27,10 +25,7 @@ function TelephoneForm({
   const phoneValues = phoneResponse[0];
 
   const telephoneValues = {
-    localNumber:
-      (phoneValues.ituCountryCode || "+90") +
-      (phoneValues.areaCode || "") +
-      (phoneValues.localNumber || ""),
+    localNumber: (phoneValues.ituCountryCode || "+90") + (phoneValues.areaCode || "") + (phoneValues.localNumber || ""),
     primaryFlag: phoneValues.primaryFlag,
     typeCode: phoneValues.typeCode,
   };
@@ -72,8 +67,7 @@ function TelephoneForm({
         handleSubmit(formData);
       }}
       stickyChildren
-      values={telephoneValues}
-    >
+      values={telephoneValues}>
       <AutoFormSubmit className="float-right mr-6" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>

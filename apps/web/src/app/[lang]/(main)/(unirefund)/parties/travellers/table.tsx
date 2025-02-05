@@ -1,12 +1,12 @@
 "use client";
 
-import type { PagedResultDto_TravellerListProfileDto } from "@ayasofyazilim/saas/TravellerService";
+import type {PagedResultDto_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams, useRouter } from "next/navigation";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
-import type { CountryDto } from "../../../../../../actions/unirefund/LocationService/types";
-import { tableData } from "./travellers-table-data";
+import {useParams, useRouter} from "next/navigation";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import type {CountryDto} from "../../../../../../actions/unirefund/LocationService/types";
+import {tableData} from "./travellers-table-data";
 
 function TravellersTable({
   response,
@@ -17,29 +17,13 @@ function TravellersTable({
   languageData: TravellerServiceResource;
   countryList: CountryDto[];
 }) {
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
-  const { lang } = useParams<{ lang: string }>();
-  const columns = tableData.travellers.columns(
-    lang,
-    languageData,
-    grantedPolicies,
-  );
-  const table = tableData.travellers.table(
-    languageData,
-    router,
-    countryList,
-    grantedPolicies,
-  );
+  const {lang} = useParams<{lang: string}>();
+  const columns = tableData.travellers.columns(lang, languageData, grantedPolicies);
+  const table = tableData.travellers.table(languageData, router, countryList, grantedPolicies);
 
-  return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={response.items || []}
-      rowCount={response.totalCount}
-    />
-  );
+  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
 }
 
 export default TravellersTable;

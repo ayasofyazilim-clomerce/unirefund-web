@@ -1,14 +1,14 @@
 "use server";
 
-import { Button } from "@/components/ui/button";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { auth } from "@repo/utils/auth/next-auth";
-import { FileText } from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {auth} from "@repo/utils/auth/next-auth";
+import {FileText} from "lucide-react";
 import Link from "next/link";
-import { isUnauthorized } from "@repo/utils/policies";
+import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
-import { getVatsApi } from "src/actions/unirefund/SettingService/actions";
-import { getResourceData } from "src/language-data/unirefund/SettingService";
+import {getVatsApi} from "src/actions/unirefund/SettingService/actions";
+import {getResourceData} from "src/language-data/unirefund/SettingService";
 import Form from "./_components/form";
 
 async function getApiRequests() {
@@ -27,7 +27,7 @@ async function getApiRequests() {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -35,9 +35,9 @@ async function getApiRequests() {
   }
 }
 
-export default async function Page({ params }: { params: { lang: string } }) {
-  const { lang } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {lang: string}}) {
+  const {lang} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.ProductGroups.Add"],
     lang,
@@ -45,12 +45,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
 
   const apiRequests = await getApiRequests();
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [vatResponse] = apiRequests.data;
 
@@ -67,12 +62,8 @@ export default async function Page({ params }: { params: { lang: string } }) {
               <Link href="../vats/new">{languageData["Vat.New"]}</Link>
             </Button>
           ),
-        }}
-      >
-        <Form
-          languageData={languageData}
-          vatList={vatResponse.data.items || []}
-        />
+        }}>
+        <Form languageData={languageData} vatList={vatResponse.data.items || []} />
       </FormReadyComponent>
       <div className="hidden" id="page-description">
         {languageData["ProductGroups.Create.Description"]}

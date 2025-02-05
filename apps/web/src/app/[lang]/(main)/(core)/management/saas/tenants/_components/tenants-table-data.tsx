@@ -2,26 +2,23 @@ import type {
   Volo_Saas_Host_Dtos_EditionLookupDto,
   Volo_Saas_Host_Dtos_SaasTenantDto,
 } from "@ayasofyazilim/saas/SaasService";
-import { $Volo_Saas_Host_Dtos_SaasTenantDto } from "@ayasofyazilim/saas/SaasService";
+import {$Volo_Saas_Host_Dtos_SaasTenantDto} from "@ayasofyazilim/saas/SaasService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { Eye, Plus } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { SaasServiceResource } from "src/language-data/core/SaasService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {Eye, Plus} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {SaasServiceResource} from "src/language-data/core/SaasService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type TenantsTable =
-  TanstackTableCreationProps<Volo_Saas_Host_Dtos_SaasTenantDto>;
+type TenantsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_SaasTenantDto>;
 
-const links: Partial<
-  Record<keyof Volo_Saas_Host_Dtos_SaasTenantDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof Volo_Saas_Host_Dtos_SaasTenantDto, TanstackTableColumnLink>> = {};
 
 function tenantsTableActions(
   languageData: SaasServiceResource,
@@ -47,8 +44,7 @@ function tenantsRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_SaasTenantDto>[] =
-    [];
+  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_SaasTenantDto>[] = [];
   if (isActionGranted(["Saas.Tenants.SetPassword"], grantedPolicies)) {
     actions.push({
       type: "simple",
@@ -73,58 +69,56 @@ const tenantsColumns = (
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<Volo_Saas_Host_Dtos_SaasTenantDto>(
-    {
-      rows: $Volo_Saas_Host_Dtos_SaasTenantDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.Tenant",
-      },
-      config: {
-        locale,
-      },
-      links,
-      badges: {
-        name: {
-          values: [
-            {
-              position: "after",
-              label: languageData["Form.Tenant.active"],
-              badgeClassName: "text-green-700 bg-green-100 border-green-500",
-              conditions: [
-                {
-                  when: (value) => value === 0,
-                  conditionAccessorKey: "activationState",
-                },
-              ],
-            },
-            {
-              position: "after",
-              label: languageData["Form.Tenant.activeWithLimitedTime"],
-              badgeClassName: "text-orange-700 bg-orange-100 border-orange-500",
-              conditions: [
-                {
-                  when: (value) => value === 1,
-                  conditionAccessorKey: "activationState",
-                },
-              ],
-            },
-            {
-              position: "after",
-              label: languageData["Form.Tenant.passive"],
-              badgeClassName: "text-red-700 bg-red-100 border-red-500",
-              conditions: [
-                {
-                  when: (value) => value === 2,
-                  conditionAccessorKey: "activationState",
-                },
-              ],
-            },
-          ],
-        },
+  return tanstackTableCreateColumnsByRowData<Volo_Saas_Host_Dtos_SaasTenantDto>({
+    rows: $Volo_Saas_Host_Dtos_SaasTenantDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.Tenant",
+    },
+    config: {
+      locale,
+    },
+    links,
+    badges: {
+      name: {
+        values: [
+          {
+            position: "after",
+            label: languageData["Form.Tenant.active"],
+            badgeClassName: "text-green-700 bg-green-100 border-green-500",
+            conditions: [
+              {
+                when: (value) => value === 0,
+                conditionAccessorKey: "activationState",
+              },
+            ],
+          },
+          {
+            position: "after",
+            label: languageData["Form.Tenant.activeWithLimitedTime"],
+            badgeClassName: "text-orange-700 bg-orange-100 border-orange-500",
+            conditions: [
+              {
+                when: (value) => value === 1,
+                conditionAccessorKey: "activationState",
+              },
+            ],
+          },
+          {
+            position: "after",
+            label: languageData["Form.Tenant.passive"],
+            badgeClassName: "text-red-700 bg-red-100 border-red-500",
+            conditions: [
+              {
+                when: (value) => value === 2,
+                conditionAccessorKey: "activationState",
+              },
+            ],
+          },
+        ],
       },
     },
-  );
+  });
 };
 function tenantsTable(
   languageData: SaasServiceResource,
@@ -137,19 +131,9 @@ function tenantsTable(
     pinColumns: ["name"],
     columnVisibility: {
       type: "show",
-      columns: [
-        "name",
-        "editionName",
-        "editionEndDateUtc",
-        "activationEndDate",
-      ],
+      columns: ["name", "editionName", "editionEndDateUtc", "activationEndDate"],
     },
-    columnOrder: [
-      "name",
-      "editionName",
-      "editionEndDateUtc",
-      "activationEndDate",
-    ],
+    columnOrder: ["name", "editionName", "editionEndDateUtc", "activationEndDate"],
     filters: {
       textFilters: ["filter"],
       dateFilters: [

@@ -5,36 +5,22 @@ import type {
   PostApiFinanceServiceVatStatementHeadersData,
   PostApiFinanceServiceVatStatementHeadersFormDraftData,
 } from "@ayasofyazilim/saas/FinanceService";
-import {
-  getFinanceServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getFinanceServiceClient, structuredError, structuredResponse} from "src/lib";
 
-export async function postVatStatementHeadersFormDraftApi(
-  data: PostApiFinanceServiceVatStatementHeadersFormDraftData,
-) {
+export async function postVatStatementHeadersFormDraftApi(data: PostApiFinanceServiceVatStatementHeadersFormDraftData) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersFormDraft(
-        data,
-      );
+    const dataResponse = await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersFormDraft(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function postVatStatementHeaderApi(
-  data: PostApiFinanceServiceVatStatementHeadersData,
-) {
+export async function postVatStatementHeaderApi(data: PostApiFinanceServiceVatStatementHeadersData) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.vatStatementHeader.postApiFinanceServiceVatStatementHeaders(
-        data,
-      );
+    const dataResponse = await client.vatStatementHeader.postApiFinanceServiceVatStatementHeaders(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -46,25 +32,17 @@ export async function postRebateStatementHeadersFormDraftApi(
 ) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeadersFormDraft(
-        data,
-      );
+    const dataResponse = await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeadersFormDraft(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function postRebateStatementHeadersApi(
-  data: PostApiFinanceServiceRebateStatementHeadersData,
-) {
+export async function postRebateStatementHeadersApi(data: PostApiFinanceServiceRebateStatementHeadersData) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeaders(
-        data,
-      );
+    const dataResponse = await client.rebateStatementHeader.postApiFinanceServiceRebateStatementHeaders(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

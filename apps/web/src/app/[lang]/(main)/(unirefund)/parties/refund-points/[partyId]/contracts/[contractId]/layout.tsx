@@ -1,5 +1,5 @@
 "use server";
-import { isUnauthorized } from "@repo/utils/policies";
+import {isUnauthorized} from "@repo/utils/policies";
 
 export default async function Layout({
   children,
@@ -12,7 +12,7 @@ export default async function Layout({
     partyId: string;
   };
 }) {
-  const { lang } = params;
+  const {lang} = params;
 
   await isUnauthorized({
     requiredPolicies: [

@@ -1,10 +1,6 @@
 "use server";
-import type { GetApiRefundServiceRefundsData } from "@ayasofyazilim/saas/RefundService";
-import {
-  getRefundServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import type {GetApiRefundServiceRefundsData} from "@ayasofyazilim/saas/RefundService";
+import {getRefundServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function getRefundApi(data: GetApiRefundServiceRefundsData = {}) {
   try {

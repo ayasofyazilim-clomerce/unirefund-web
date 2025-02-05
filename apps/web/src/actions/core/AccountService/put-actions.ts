@@ -1,15 +1,9 @@
 "use server";
 
-import type { PutApiAccountMyProfileData } from "@ayasofyazilim/saas/AccountService";
-import {
-  getAccountServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import type {PutApiAccountMyProfileData} from "@ayasofyazilim/saas/AccountService";
+import {getAccountServiceClient, structuredError, structuredResponse} from "src/lib";
 
-export async function putPersonalInfomationApi(
-  data: PutApiAccountMyProfileData,
-) {
+export async function putPersonalInfomationApi(data: PutApiAccountMyProfileData) {
   try {
     const client = await getAccountServiceClient();
     const dataResponse = await client.profile.putApiAccountMyProfile(data);

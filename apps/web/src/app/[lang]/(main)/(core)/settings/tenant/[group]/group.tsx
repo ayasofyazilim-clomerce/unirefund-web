@@ -4,21 +4,15 @@ import type {
   UniRefund_AdministrationService_CountrySettings_CountrySettingDto as CountrySettingDto,
   UniRefund_AdministrationService_Items_GroupItemDto as GroupItemDto,
 } from "@ayasofyazilim/saas/AdministrationService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {
-  AutoFormSubmit,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { notFound, useParams, useRouter } from "next/navigation";
-import { putCountrySettingsApi } from "src/actions/core/AdministrationService/put-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
-import {
-  createDependencies,
-  createFieldConfig,
-  createSchema,
-} from "./_components/utils";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {notFound, useParams, useRouter} from "next/navigation";
+import {putCountrySettingsApi} from "src/actions/core/AdministrationService/put-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
+import {createDependencies, createFieldConfig, createSchema} from "./_components/utils";
 
 export default function TenantSettingsPage({
   list,
@@ -28,16 +22,12 @@ export default function TenantSettingsPage({
   languageData: AdministrationServiceResource;
 }) {
   const router = useRouter();
-  const { group } = useParams<{ group: string }>();
-  const activeGroup =
-    list.groups.find((x) => x.key === group) || list.groups.at(0);
+  const {group} = useParams<{group: string}>();
+  const activeGroup = list.groups.find((x) => x.key === group) || list.groups.at(0);
   if (!activeGroup) return notFound();
 
   const schema = createSchema(activeGroup);
-  const formSchema = createZodObject(
-    schema,
-    activeGroup.items?.map((item: GroupItemDto) => item.key) || [],
-  );
+  const formSchema = createZodObject(schema, activeGroup.items?.map((item: GroupItemDto) => item.key) || []);
   const fieldConfig = createFieldConfig(activeGroup, languageData);
   const dependencies = createDependencies(activeGroup);
   const tabList = createTabListFromList(list, languageData);
@@ -58,14 +48,11 @@ export default function TenantSettingsPage({
             }),
           };
 
-          void putCountrySettingsApi(
-            manupulatedData as SetCountrySettingsByListDto,
-          ).then((response) => {
+          void putCountrySettingsApi(manupulatedData as SetCountrySettingsByListDto).then((response) => {
             handlePutResponse(response, router);
           });
         }}
-        stickyChildren
-      >
+        stickyChildren>
         <AutoFormSubmit className="float-right" />
       </AutoForm>
     </TabLayout>
@@ -78,9 +65,7 @@ function createTabListFromList(
 ) {
   return list.groups.map((item) => {
     return {
-      label:
-        languageData[item.displayName as keyof typeof languageData] ||
-        item.displayName,
+      label: languageData[item.displayName as keyof typeof languageData] || item.displayName,
       href: item.key,
     };
   });

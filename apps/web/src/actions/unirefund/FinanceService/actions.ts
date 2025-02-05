@@ -3,21 +3,12 @@ import type {
   GetApiFinanceServiceRebateStatementHeadersData,
   GetApiFinanceServiceVatStatementHeadersData,
 } from "@ayasofyazilim/saas/FinanceService";
-import {
-  getFinanceServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getFinanceServiceClient, structuredError, structuredResponse} from "src/lib";
 
-export async function getVatStatementHeadersApi(
-  data: GetApiFinanceServiceVatStatementHeadersData,
-) {
+export async function getVatStatementHeadersApi(data: GetApiFinanceServiceVatStatementHeadersData) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.vatStatementHeader.getApiFinanceServiceVatStatementHeaders(
-        data,
-      );
+    const dataResponse = await client.vatStatementHeader.getApiFinanceServiceVatStatementHeaders(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -27,25 +18,17 @@ export async function getVatStatementHeadersApi(
 export async function getVatStatementHeadersByIdApi(id: string) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById(
-        { id },
-      );
+    const dataResponse = await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById({id});
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function getRebateStatementHeadersApi(
-  data: GetApiFinanceServiceRebateStatementHeadersData,
-) {
+export async function getRebateStatementHeadersApi(data: GetApiFinanceServiceRebateStatementHeadersData) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeaders(
-        data,
-      );
+    const dataResponse = await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeaders(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -55,10 +38,7 @@ export async function getRebateStatementHeadersApi(
 export async function getRebateStatementHeadersByIdApi(id: string) {
   try {
     const client = await getFinanceServiceClient();
-    const dataResponse =
-      await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeadersById(
-        { id },
-      );
+    const dataResponse = await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeadersById({id});
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

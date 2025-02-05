@@ -1,10 +1,10 @@
 "use client";
 
-import type { GetApiTagServiceTagResponse } from "@ayasofyazilim/saas/TagService";
+import type {GetApiTagServiceTagResponse} from "@ayasofyazilim/saas/TagService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams } from "next/navigation";
-import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import { tableData } from "./tax-free-tags-table-data";
+import {useParams} from "next/navigation";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import {tableData} from "./tax-free-tags-table-data";
 
 function TaxFreeTagsTable({
   response,
@@ -13,18 +13,11 @@ function TaxFreeTagsTable({
   response: GetApiTagServiceTagResponse;
   languageData: TagServiceResource;
 }) {
-  const { lang } = useParams<{ lang: string }>();
+  const {lang} = useParams<{lang: string}>();
   const columns = tableData.taxFreeTags.columns(lang, languageData);
   const table = tableData.taxFreeTags.table();
 
-  return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={response.items || []}
-      rowCount={response.totalCount}
-    />
-  );
+  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
 }
 
 export default TaxFreeTagsTable;

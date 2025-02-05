@@ -1,11 +1,9 @@
 // tailwind config is required for editor support
 
 import sharedConfig from "@repo/tailwind-config";
-import type { Config } from "tailwindcss";
+import type {Config} from "tailwindcss";
 const svgToDataUri = require("mini-svg-data-uri");
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+const {default: flattenColorPalette} = require("tailwindcss/lib/util/flattenColorPalette");
 require("dotenv").config();
 
 const config: Config = {
@@ -66,12 +64,12 @@ const config: Config = {
 
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: {height: "0"},
+          to: {height: "var(--radix-accordion-content-height)"},
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: {height: "var(--radix-accordion-content-height)"},
+          to: {height: "0"},
         },
         moveHorizontal: {
           "0%": {
@@ -132,7 +130,7 @@ const config: Config = {
     require("@tailwindcss/typography"),
     addVariablesForColors,
     setColorFromEnvironment,
-    function ({ matchUtilities, theme }: any) {
+    function ({matchUtilities, theme}: any) {
       matchUtilities(
         {
           "bg-grid": (value: any) => ({
@@ -159,24 +157,21 @@ const config: Config = {
     },
   ],
 };
-function addVariablesForColors({ addBase, theme }: any) {
+function addVariablesForColors({addBase, theme}: any) {
   let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
-  );
+  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
 
   addBase({
     ":root": newVars,
   });
 }
 
-function setColorFromEnvironment({ addBase }: { addBase: Function }) {
+function setColorFromEnvironment({addBase}: {addBase: Function}) {
   require("dotenv").config();
 
   addBase({
     ":root": {
-      "--primary-app-color":
-        process.env.NEXT_PUBLIC_PRIMARY_COLOR || "240 100% 50%",
+      "--primary-app-color": process.env.NEXT_PUBLIC_PRIMARY_COLOR || "240 100% 50%",
     },
   });
 }

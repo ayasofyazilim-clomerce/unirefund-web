@@ -1,4 +1,4 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import {Card, CardContent, CardTitle} from "@/components/ui/card";
 
 export function TagSummary({
   title,

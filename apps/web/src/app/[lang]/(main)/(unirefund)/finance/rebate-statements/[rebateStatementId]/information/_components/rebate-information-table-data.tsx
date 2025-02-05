@@ -1,13 +1,13 @@
-import type { UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto } from "@ayasofyazilim/saas/FinanceService";
-import { $UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto } from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto} from "@ayasofyazilim/saas/FinanceService";
+import {$UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto} from "@ayasofyazilim/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type RebateStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto>;
@@ -23,12 +23,7 @@ const rebateInformationColumns = (
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
-  if (
-    isActionGranted(
-      ["FinanceService.RebateStatementHeaders.View"],
-      grantedPolicies,
-    )
-  ) {
+  if (isActionGranted(["FinanceService.RebateStatementHeaders.View"], grantedPolicies)) {
     links.invoiceNumber = {
       prefix: `/finance/vat-statements/`,
       targetAccessorKey: "vatStatementHeaderId",

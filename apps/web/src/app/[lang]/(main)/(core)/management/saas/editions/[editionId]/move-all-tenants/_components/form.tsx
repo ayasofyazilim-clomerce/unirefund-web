@@ -1,14 +1,14 @@
 "use client";
 
-import type { Volo_Saas_Host_Dtos_EditionDto } from "@ayasofyazilim/saas/SaasService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putEditionsByIdMoveAllTenantsApi } from "src/actions/core/SaasService/put-actions";
-import type { SaasServiceResource } from "src/language-data/core/SaasService";
+import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putEditionsByIdMoveAllTenantsApi} from "src/actions/core/SaasService/put-actions";
+import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 interface EditionParams {
   editionId: string;
@@ -34,7 +34,7 @@ export default function Form({
   editionList: Volo_Saas_Host_Dtos_EditionDto[];
 }) {
   const router = useRouter();
-  const { editionId } = useParams<{ editionId: string }>();
+  const {editionId} = useParams<{editionId: string}>();
   const [loading, setLoading] = useState(false);
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_UpdateMoveAllTenantsDto,

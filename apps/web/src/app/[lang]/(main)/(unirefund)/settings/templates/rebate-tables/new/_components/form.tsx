@@ -1,18 +1,18 @@
 "use client";
 
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type { UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as RebateTableHeaderCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { handlePostResponse } from "@repo/utils/api";
-import { DependencyType } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { postRebateTableHeadersApi } from "@/actions/unirefund/ContractService/post-actions";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { RebateTableDetailsField } from "../../_components/rebate-table-details-field";
-import { ProcessingFeeDetailsField } from "../../_components/processing-fee-details";
+import {useTransition} from "react";
+import {useRouter} from "next/navigation";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import type {UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as RebateTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {handlePostResponse} from "@repo/utils/api";
+import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {postRebateTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {RebateTableDetailsField} from "../../_components/rebate-table-details-field";
+import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
 
 export default function RebateTableHeaderCreateForm({
   languageData,
@@ -69,16 +69,14 @@ export default function RebateTableHeaderCreateForm({
         calculateNetCommissionInsteadOfRefund: false,
         isTemplate: true,
       }}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         startTransition(() => {
-          void postRebateTableHeadersApi({ requestBody: formData }).then(
-            (response) => {
-              handlePostResponse(response, router, {
-                identifier: "id",
-                prefix: "./",
-              });
-            },
-          );
+          void postRebateTableHeadersApi({requestBody: formData}).then((response) => {
+            handlePostResponse(response, router, {
+              identifier: "id",
+              prefix: "./",
+            });
+          });
         });
       }}
       schema={$RebateTableHeaderCreateDto}

@@ -1,20 +1,16 @@
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { auth } from "@repo/utils/auth/next-auth";
-import { FileText } from "lucide-react";
-import { isUnauthorized } from "@repo/utils/policies";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {auth} from "@repo/utils/auth/next-auth";
+import {FileText} from "lucide-react";
+import {isUnauthorized} from "@repo/utils/policies";
 import {
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
   getMerchantContractHeadersContractStoresByHeaderIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { ContractStoresTable } from "./_components/table";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
+import {ContractStoresTable} from "./_components/table";
 
-export default async function Page({
-  params,
-}: {
-  params: { contractId: string; lang: string };
-}) {
-  const { contractId, lang } = params;
+export default async function Page({params}: {params: {contractId: string; lang: string}}) {
+  const {contractId, lang} = params;
   await isUnauthorized({
     requiredPolicies: [
       "ContractService.ContractStore",
@@ -25,21 +21,19 @@ export default async function Page({
     lang,
   });
   const session = await auth();
-  const { languageData } = await getResourceData(lang);
-  const contractStoresResponse =
-    await getMerchantContractHeadersContractStoresByHeaderIdApi(
-      {
-        id: contractId,
-      },
-      session,
-    );
-  const contractSettingsResponse =
-    await getMerchantContractHeaderContractSettingsByHeaderIdApi(
-      {
-        id: contractId,
-      },
-      session,
-    );
+  const {languageData} = await getResourceData(lang);
+  const contractStoresResponse = await getMerchantContractHeadersContractStoresByHeaderIdApi(
+    {
+      id: contractId,
+    },
+    session,
+  );
+  const contractSettingsResponse = await getMerchantContractHeaderContractSettingsByHeaderIdApi(
+    {
+      id: contractId,
+    },
+    session,
+  );
   const hasSetting =
     contractSettingsResponse.type !== "success" ||
     !contractSettingsResponse.data.items ||
@@ -60,19 +54,10 @@ export default async function Page({
         message: hasSetting
           ? languageData["Missing.ContractSettings.Message"]
           : languageData["Missing.ContractStores.Message"],
-      }}
-    >
+      }}>
       <ContractStoresTable
-        contractSettings={
-          contractSettingsResponse.type === "success"
-            ? contractSettingsResponse.data.items || []
-            : []
-        }
-        contractStores={
-          contractStoresResponse.type === "success"
-            ? contractStoresResponse.data.items || []
-            : []
-        }
+        contractSettings={contractSettingsResponse.type === "success" ? contractSettingsResponse.data.items || [] : []}
+        contractStores={contractStoresResponse.type === "success" ? contractStoresResponse.data.items || [] : []}
         languageData={languageData}
       />
     </FormReadyComponent>

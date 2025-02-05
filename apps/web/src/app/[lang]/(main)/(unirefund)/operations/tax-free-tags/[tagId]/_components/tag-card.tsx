@@ -1,8 +1,8 @@
 "use client";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import {Card, CardHeader, CardTitle} from "@/components/ui/card";
+import {cn} from "@/lib/utils";
 import Link from "next/link";
-import { Fragment } from "react";
+import {Fragment} from "react";
 
 function TagCardList({
   title,
@@ -12,7 +12,7 @@ function TagCardList({
 }: {
   title: string;
   icon: string | React.ReactNode;
-  rows: { name: string; value: string; link?: string; className?: string }[];
+  rows: {name: string; value: string; link?: string; className?: string}[];
   className?: string;
 }) {
   return (
@@ -34,9 +34,7 @@ function TagCardList({
                 </div>
               </div>
               <div className="col-span-4">
-                <div className={`${row.className} text-sm font-semibold`}>
-                  {valueElement}
-                </div>
+                <div className={`${row.className} text-sm font-semibold`}>{valueElement}</div>
               </div>
             </Fragment>
           );

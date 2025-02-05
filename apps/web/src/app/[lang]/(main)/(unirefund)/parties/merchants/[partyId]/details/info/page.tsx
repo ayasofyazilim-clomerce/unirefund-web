@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@repo/utils/auth/next-auth";
+import {auth} from "@repo/utils/auth/next-auth";
 import {
   getMerchantByIdApi,
   getMerchantDetailByIdApi,
@@ -8,10 +8,10 @@ import {
   getTaxOfficesApi,
 } from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
 import MerchantForm from "./form";
 
-async function getApiRequests({ partyId }: { partyId: string }) {
+async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
@@ -30,7 +30,7 @@ async function getApiRequests({ partyId }: { partyId: string }) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -46,33 +46,22 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const { partyId, lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {partyId, lang} = params;
+  const {languageData} = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests({ partyId });
+  const apiRequests = await getApiRequests({partyId});
 
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
-  const [
-    merchantsResponse,
-    merchantDetailResponse,
-    taxOfficesResponse,
-    taxOfficeResponse,
-  ] = apiRequests.data;
+  const [merchantsResponse, merchantDetailResponse, taxOfficesResponse, taxOfficeResponse] = apiRequests.data;
   const merchants = merchantsResponse.data;
   const merchantDetail = merchantDetailResponse.data;
   const taxOffices = taxOfficesResponse.data;
   const taxOfficeId = taxOfficeResponse.data.merchant?.taxOfficeId;
 
-  const merchantList =
-    merchants.items?.filter((merchant) => merchant.id !== partyId) || [];
+  const merchantList = merchants.items?.filter((merchant) => merchant.id !== partyId) || [];
 
   return (
     <MerchantForm

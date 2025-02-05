@@ -1,12 +1,12 @@
-import type { GetApiTagServiceTagData } from "@ayasofyazilim/saas/TagService";
+import type {GetApiTagServiceTagData} from "@ayasofyazilim/saas/TagService";
 import {
   $UniRefund_TagService_Tags_Enums_RefundType,
   $UniRefund_TagService_Tags_TagStatusType,
 } from "@ayasofyazilim/saas/TagService";
-import type { ColumnFilter } from "@repo/ayasofyazilim-ui/molecules/tables/types";
+import type {ColumnFilter} from "@repo/ayasofyazilim-ui/molecules/tables/types";
 
 export type FilterType = Partial<keyof GetApiTagServiceTagData>;
-export type DetailedFilter = ColumnFilter & { name: FilterType };
+export type DetailedFilter = ColumnFilter & {name: FilterType};
 export type TypedFilter = Partial<Record<FilterType, DetailedFilter>>;
 
 export const typedCommonFilter: TypedFilter = {
@@ -102,8 +102,8 @@ export const typedCommonFilter: TypedFilter = {
     type: "select",
     value: "",
     options: [
-      { label: "Ascending", value: "asc" },
-      { label: "Descending", value: "desc" },
+      {label: "Ascending", value: "asc"},
+      {label: "Descending", value: "desc"},
     ],
     placeholder: "Select Sorting",
   },

@@ -1,9 +1,9 @@
 "use client";
 
-import type { PagedResultDto_RefundListItem } from "@ayasofyazilim/saas/RefundService";
+import type {PagedResultDto_RefundListItem} from "@ayasofyazilim/saas/RefundService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import { tableData } from "./refunds-table-data";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import {tableData} from "./refunds-table-data";
 
 function RefundsTable({
   locale,
@@ -17,14 +17,7 @@ function RefundsTable({
   const columns = tableData.refunds.columns(locale, languageData);
   const table = tableData.refunds.table(languageData);
 
-  return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={response.items || []}
-      rowCount={response.totalCount}
-    />
-  );
+  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
 }
 
 export default RefundsTable;

@@ -4,14 +4,14 @@ import type {
   UniRefund_ExportValidationService_ExportValidations_ExportValidationDto,
   UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto,
 } from "@ayasofyazilim/saas/ExportValidationService";
-import { $UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto } from "@ayasofyazilim/saas/ExportValidationService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putExportValidationApi } from "src/actions/unirefund/ExportValidationService/put-actions";
-import type { ExportValidationServiceResource } from "src/language-data/unirefund/ExportValidationService";
+import {$UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto} from "@ayasofyazilim/saas/ExportValidationService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putExportValidationApi} from "src/actions/unirefund/ExportValidationService/put-actions";
+import type {ExportValidationServiceResource} from "src/language-data/unirefund/ExportValidationService";
 
 export default function Form({
   languageData,
@@ -24,8 +24,7 @@ export default function Form({
   const [loading, setLoading] = useState(false);
 
   const uiSchema = createUiSchemaWithResource({
-    schema:
-      $UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto,
+    schema: $UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto,
     resources: languageData,
     name: "Form.ExportValidation",
     extend: {
@@ -39,14 +38,7 @@ export default function Form({
       filter={{
         type: "include",
         sort: true,
-        keys: [
-          "referenceId",
-          "exportDate",
-          "status",
-          "stampType",
-          "initialValidationResult",
-          "finalValidationResult",
-        ],
+        keys: ["referenceId", "exportDate", "status", "stampType", "initialValidationResult", "finalValidationResult"],
       }}
       formData={exportValidationData}
       onSubmit={(data) => {
@@ -63,9 +55,7 @@ export default function Form({
             setLoading(false);
           });
       }}
-      schema={
-        $UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto
-      }
+      schema={$UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto}
       submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
     />

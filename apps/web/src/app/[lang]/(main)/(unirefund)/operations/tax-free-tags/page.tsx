@@ -5,19 +5,16 @@ import type {
   UniRefund_TagService_Tags_Enums_RefundType,
   UniRefund_TagService_Tags_TagStatusType,
 } from "@ayasofyazilim/saas/TagService";
-import type { FilterComponentSearchItem } from "@repo/ayasofyazilim-ui/molecules/filter-component";
-import { CreditCard, DollarSign, Tags } from "lucide-react";
-import { isUnauthorized } from "@repo/utils/policies";
-import {
-  getTagsApi,
-  getTagSummaryApi,
-} from "src/actions/unirefund/TagService/actions";
-import { getResourceData } from "src/language-data/unirefund/TagService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
-import { getDateRanges } from "src/utils/utils-date";
-import { localizeCurrency } from "src/utils/utils-number";
+import type {FilterComponentSearchItem} from "@repo/ayasofyazilim-ui/molecules/filter-component";
+import {CreditCard, DollarSign, Tags} from "lucide-react";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getTagsApi, getTagSummaryApi} from "src/actions/unirefund/TagService/actions";
+import {getResourceData} from "src/language-data/unirefund/TagService";
+import {isErrorOnRequest} from "src/utils/page-policy/utils";
+import {getDateRanges} from "src/utils/utils-date";
+import {localizeCurrency} from "src/utils/utils-number";
 import ErrorComponent from "../../../_components/error-component";
-import { TagSummary } from "../_components/tag-summary";
+import {TagSummary} from "../_components/tag-summary";
 import Filter from "./_components/filter";
 import TaxFreeTagsTable from "./_components/table";
 import TaxFreeTagsSearchForm from "./_components/tax-free-tags-search-form";
@@ -40,7 +37,7 @@ interface SearchParamType {
 }
 
 function initParams(searchParams: SearchParamType) {
-  const { ranges } = getDateRanges();
+  const {ranges} = getDateRanges();
   const {
     merchantIds: spMerchantIds,
     statuses: spStatuses,
@@ -51,22 +48,14 @@ function initParams(searchParams: SearchParamType) {
     paidDate: spPaidDate,
   } = searchParams;
 
-  const merchantIdsParsed = JSON.parse(
-    spMerchantIds || "[]",
-  ) as FilterComponentSearchItem[];
-  const merchantIds = merchantIdsParsed.map(
-    (i: FilterComponentSearchItem) => i.id,
-  );
+  const merchantIdsParsed = JSON.parse(spMerchantIds || "[]") as FilterComponentSearchItem[];
+  const merchantIds = merchantIdsParsed.map((i: FilterComponentSearchItem) => i.id);
 
   const tagData: GetApiTagServiceTagData = {
     ...searchParams,
     merchantIds,
-    statuses: spStatuses?.split(
-      ",",
-    ) as UniRefund_TagService_Tags_TagStatusType[],
-    refundTypes: spRefundTypes?.split(
-      ",",
-    ) as UniRefund_TagService_Tags_Enums_RefundType[],
+    statuses: spStatuses?.split(",") as UniRefund_TagService_Tags_TagStatusType[],
+    refundTypes: spRefundTypes?.split(",") as UniRefund_TagService_Tags_Enums_RefundType[],
     travellerIds: spTravellerIds?.split(","),
   };
 
@@ -86,40 +75,24 @@ function initParams(searchParams: SearchParamType) {
   return tagData;
 }
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { lang: string };
-  searchParams: SearchParamType;
-}) {
-  const { lang } = params;
+export default async function Page({params, searchParams}: {params: {lang: string}; searchParams: SearchParamType}) {
+  const {lang} = params;
   await isUnauthorized({
     requiredPolicies: ["TagService.Tags"],
     lang,
   });
 
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
 
   const tagData = initParams(searchParams);
   const tagsResponse = await getTagsApi(tagData);
   if (isErrorOnRequest(tagsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={tagsResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={tagsResponse.message} />;
   }
 
   const tagSummaryResponse = await getTagSummaryApi(tagData);
   if (isErrorOnRequest(tagSummaryResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={tagSummaryResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={tagSummaryResponse.message} />;
   }
 
   const currencyFormatter = localizeCurrency(lang);
@@ -135,18 +108,12 @@ export default async function Page({
         <TagSummary
           icon={<DollarSign className="size-4" />}
           title={languageData.Sales}
-          value={currencyFormatter(
-            summary.totalSalesAmount || 0,
-            summary.currency || "TRY",
-          )}
+          value={currencyFormatter(summary.totalSalesAmount || 0, summary.currency || "TRY")}
         />
         <TagSummary
           icon={<CreditCard className="size-4" />}
           title={languageData.Refunds}
-          value={currencyFormatter(
-            summary.totalRefundAmount || 0,
-            summary.currency || "TRY",
-          )}
+          value={currencyFormatter(summary.totalRefundAmount || 0, summary.currency || "TRY")}
         />
       </div>
       <div className="grid grid-cols-12 gap-4">
@@ -155,10 +122,7 @@ export default async function Page({
         </div>
         <div className="col-span-8 flex flex-col gap-3">
           <TaxFreeTagsSearchForm languageData={languageData} />
-          <TaxFreeTagsTable
-            languageData={languageData}
-            response={tagsResponse.data}
-          />
+          <TaxFreeTagsTable languageData={languageData} response={tagsResponse.data} />
         </div>
       </div>
     </div>

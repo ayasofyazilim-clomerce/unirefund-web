@@ -1,26 +1,20 @@
-import type { UniRefund_CRMService_TaxFrees_TaxFreeProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_TaxFrees_TaxFreeProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_TaxFrees_TaxFreeProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_TaxFrees_TaxFreeProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type TaxFreeTable =
-  TanstackTableCreationProps<UniRefund_CRMService_TaxFrees_TaxFreeProfileDto>;
+type TaxFreeTable = TanstackTableCreationProps<UniRefund_CRMService_TaxFrees_TaxFreeProfileDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_CRMService_TaxFrees_TaxFreeProfileDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_CRMService_TaxFrees_TaxFreeProfileDto, TanstackTableColumnLink>> = {};
 
 function taxFreeTableActions(
   languageData: CRMServiceServiceResource,
@@ -54,20 +48,18 @@ function taxFreeColumns(
     };
   }
 
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_TaxFrees_TaxFreeProfileDto>(
-    {
-      rows: $UniRefund_CRMService_TaxFrees_TaxFreeProfileDto.properties,
-      languageData: {
-        name: languageData.Name,
-        parentName: languageData["Parties.ParentOrganization"],
-      },
-      config: {
-        locale,
-      },
-      links,
-      faceted: {},
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_TaxFrees_TaxFreeProfileDto>({
+    rows: $UniRefund_CRMService_TaxFrees_TaxFreeProfileDto.properties,
+    languageData: {
+      name: languageData.Name,
+      parentName: languageData["Parties.ParentOrganization"],
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+    faceted: {},
+  });
 }
 function taxFreeTable(
   languageData: CRMServiceServiceResource,

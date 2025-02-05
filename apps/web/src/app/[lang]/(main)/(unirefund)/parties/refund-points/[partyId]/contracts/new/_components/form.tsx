@@ -3,16 +3,16 @@ import type {
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as ContractHeaderForRefundPointCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as $ContractHeaderForRefundPointCreateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { handlePostResponse } from "@repo/utils/api";
-import { useParams, useRouter } from "next/navigation";
-import { useTransition } from "react";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { postRefundPointContractHeadersByIdApi } from "@/actions/unirefund/ContractService/post-actions";
-import { RefundFeeHeadersField } from "../../_components/refund-fee-headers-field";
+import {$UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointCreateDto as $ContractHeaderForRefundPointCreateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handlePostResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import {useTransition} from "react";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {postRefundPointContractHeadersByIdApi} from "@/actions/unirefund/ContractService/post-actions";
+import {RefundFeeHeadersField} from "../../_components/refund-fee-headers-field";
 
 export default function RefundPointContractHeaderCreateForm({
   addressList,
@@ -24,7 +24,7 @@ export default function RefundPointContractHeaderCreateForm({
   refundFeeHeaders: AssignableRefundFeeHeaders[];
 }) {
   const router = useRouter();
-  const { partyId } = useParams<{
+  const {partyId} = useParams<{
     partyId: string;
   }>();
   const [isPending, startTransition] = useTransition();
@@ -74,7 +74,7 @@ export default function RefundPointContractHeaderCreateForm({
         merchantClassification: "Satisfactory",
         addressCommonDataId: addressList[0].id,
       }}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         if (!formData) return;
         startTransition(() => {
           void postRefundPointContractHeadersByIdApi({

@@ -1,4 +1,4 @@
-import type { UniRefund_SettingService_ProductGroups_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
+import type {UniRefund_SettingService_ProductGroups_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import {
   $UniRefund_SettingService_ProductGroups_CompanyTypeCode,
   $UniRefund_SettingService_ProductGroups_ProductGroupDto,
@@ -8,22 +8,17 @@ import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { CheckCircle, Plus, XCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {CheckCircle, Plus, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type ProductGroupsTable =
-  TanstackTableCreationProps<UniRefund_SettingService_ProductGroups_ProductGroupDto>;
+type ProductGroupsTable = TanstackTableCreationProps<UniRefund_SettingService_ProductGroups_ProductGroupDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_SettingService_ProductGroups_ProductGroupDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_SettingService_ProductGroups_ProductGroupDto, TanstackTableColumnLink>> =
+  {};
 
 function productGroupsTableActions(
   languageData: SettingServiceResource,
@@ -56,70 +51,65 @@ const productGroupsColumns = (
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_ProductGroups_ProductGroupDto>(
-    {
-      rows: $UniRefund_SettingService_ProductGroups_ProductGroupDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.ProductGroup",
-      },
-      config: {
-        locale,
-      },
-      links,
-      badges: {
-        name: {
-          values: [
-            {
-              position: "after",
-              conditions: [
-                {
-                  when: (value) => value === true,
-                  conditionAccessorKey: "food",
-                },
-              ],
-              label: languageData["Form.ProductGroup.food"],
-            },
-          ],
-        },
-      },
-      faceted: {
-        active: {
-          options: [
-            {
-              label: "Yes",
-              when: (value) => {
-                return Boolean(value);
+  return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
+    rows: $UniRefund_SettingService_ProductGroups_ProductGroupDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.ProductGroup",
+    },
+    config: {
+      locale,
+    },
+    links,
+    badges: {
+      name: {
+        values: [
+          {
+            position: "after",
+            conditions: [
+              {
+                when: (value) => value === true,
+                conditionAccessorKey: "food",
               },
-              value: "true",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-              hideColumnValue: true,
-            },
-            {
-              label: "No",
-              when: (value) => {
-                return !value;
-              },
-              value: "false",
-              icon: XCircle,
-              iconClassName: "text-red-700",
-              hideColumnValue: true,
-            },
-          ],
-        },
-        companyType: {
-          options:
-            $UniRefund_SettingService_ProductGroups_CompanyTypeCode.enum.map(
-              (x) => ({
-                label: languageData[`Form.ProductGroup.companyType.${x}`],
-                value: x,
-              }),
-            ),
-        },
+            ],
+            label: languageData["Form.ProductGroup.food"],
+          },
+        ],
       },
     },
-  );
+    faceted: {
+      active: {
+        options: [
+          {
+            label: "Yes",
+            when: (value) => {
+              return Boolean(value);
+            },
+            value: "true",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+            hideColumnValue: true,
+          },
+          {
+            label: "No",
+            when: (value) => {
+              return !value;
+            },
+            value: "false",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+            hideColumnValue: true,
+          },
+        ],
+      },
+      companyType: {
+        options: $UniRefund_SettingService_ProductGroups_CompanyTypeCode.enum.map((x) => ({
+          label: languageData[`Form.ProductGroup.companyType.${x}`],
+          value: x,
+        })),
+      },
+    },
+  });
 };
 
 function productGroupsTable(
@@ -133,19 +123,8 @@ function productGroupsTable(
       type: "hide",
       columns: ["id", "food", "vatId"],
     },
-    columnOrder: [
-      "name",
-      "vatPercent",
-      "articleCode",
-      "unitCode",
-      "companyType",
-      "active",
-    ],
-    tableActions: productGroupsTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-    ),
+    columnOrder: ["name", "vatPercent", "articleCode", "unitCode", "companyType", "active"],
+    tableActions: productGroupsTableActions(languageData, router, grantedPolicies),
   };
   return table;
 }

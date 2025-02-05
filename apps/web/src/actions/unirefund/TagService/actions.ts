@@ -5,13 +5,8 @@ import type {
   GetApiTagServiceTagSummaryData,
   GetApiTagServiceTagTagsRefundData,
 } from "@ayasofyazilim/saas/TagService";
-import {
-  getTagServiceClient,
-  structuredError,
-  structuredResponse,
-  structuredSuccessResponse,
-} from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import {getTagServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
+import {getApiRequests} from "../../api-requests";
 
 export async function getTagsApi(data: GetApiTagServiceTagData = {}) {
   try {
@@ -23,9 +18,7 @@ export async function getTagsApi(data: GetApiTagServiceTagData = {}) {
   }
 }
 
-export async function getTagSummaryApi(
-  data: GetApiTagServiceTagSummaryData = {},
-) {
+export async function getTagSummaryApi(data: GetApiTagServiceTagSummaryData = {}) {
   try {
     const client = await getTagServiceClient();
     const response = await client.tag.getApiTagServiceTagSummary(data);
@@ -45,9 +38,7 @@ export async function getTagByIdApi(data: GetApiTagServiceTagByIdDetailData) {
   }
 }
 
-export async function getRefundableTagsApi(
-  data: GetApiTagServiceTagTagsRefundData,
-) {
+export async function getRefundableTagsApi(data: GetApiTagServiceTagTagsRefundData) {
   try {
     const client = await getTagServiceClient();
     const response = await client.tag.getApiTagServiceTagTagsRefund(data);

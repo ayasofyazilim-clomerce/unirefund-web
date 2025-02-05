@@ -1,22 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
 import type {
   Volo_Abp_PermissionManagement_PermissionGroupDto as PermissionGroup,
   Volo_Abp_PermissionManagement_UpdatePermissionDto as UpdatePermissionDto,
   Volo_Abp_PermissionManagement_GetPermissionListResultDto,
   Volo_Abp_PermissionManagement_PermissionGrantInfoDto,
 } from "@ayasofyazilim/saas/AdministrationService";
-import {
-  SectionLayout,
-  SectionLayoutContent,
-} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import { putPermissionsApi } from "src/actions/core/AdministrationService/put-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {SectionLayout, SectionLayoutContent} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
+import {useRouter} from "next/navigation";
+import {useCallback, useState} from "react";
+import {putPermissionsApi} from "src/actions/core/AdministrationService/put-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function ApplicationPermissions({
   languageData,
@@ -27,27 +24,19 @@ export default function ApplicationPermissions({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [permissionsData, setPermissionsData] = useState<PermissionGroup[]>(
-    applicationPermissionsData.groups || [],
-  );
+  const [permissionsData, setPermissionsData] = useState<PermissionGroup[]>(applicationPermissionsData.groups || []);
   const [updatedPermissionsData] = useState<UpdatePermissionDto[]>([]);
 
   const permissionChange = (permissionName: string, isGranted: boolean) => {
-    const existingIndex = updatedPermissionsData.findIndex(
-      (p) => p.name === permissionName,
-    );
+    const existingIndex = updatedPermissionsData.findIndex((p) => p.name === permissionName);
     if (existingIndex >= 0) {
       updatedPermissionsData[existingIndex].isGranted = isGranted;
     } else {
-      updatedPermissionsData.push({ name: permissionName, isGranted });
+      updatedPermissionsData.push({name: permissionName, isGranted});
     }
   };
 
-  const toggleChildren = (
-    group: PermissionGroup,
-    parentName: string,
-    newGrant: boolean,
-  ) => {
+  const toggleChildren = (group: PermissionGroup, parentName: string, newGrant: boolean) => {
     group.permissions?.forEach((child) => {
       if (child.parentName === parentName) {
         permissionChange(child.name || "", newGrant);
@@ -66,9 +55,7 @@ export default function ApplicationPermissions({
 
     while (currentParentName) {
       const parentNameForIteration = currentParentName;
-      const parentPermission = group.permissions?.find(
-        (p) => p.name === parentNameForIteration,
-      );
+      const parentPermission = group.permissions?.find((p) => p.name === parentNameForIteration);
 
       if (!parentPermission) {
         currentParentName = null;
@@ -80,8 +67,7 @@ export default function ApplicationPermissions({
         parentPermission.isGranted = true;
       } else {
         const hasOtherGrantedChildren = group.permissions?.some(
-          (sibling) =>
-            sibling.parentName === parentNameForIteration && sibling.isGranted,
+          (sibling) => sibling.parentName === parentNameForIteration && sibling.isGranted,
         );
 
         if (!hasOtherGrantedChildren) {
@@ -107,17 +93,17 @@ export default function ApplicationPermissions({
               if (!newGrant) {
                 toggleChildren(group, permissionName, false);
               }
-              return { ...permission, isGranted: newGrant };
+              return {...permission, isGranted: newGrant};
             }
             if (!newGrant) {
               toggleChildren(group, permissionName, false);
             }
             toggleParents(group, permission, newGrant);
-            return { ...permission, isGranted: newGrant };
+            return {...permission, isGranted: newGrant};
           }
           return permission;
         });
-        return { ...group, permissions: updatedPermissionsList };
+        return {...group, permissions: updatedPermissionsList};
       });
 
       setPermissionsData(updatedPermissions);
@@ -131,9 +117,9 @@ export default function ApplicationPermissions({
         if (group.name !== groupName) return group;
         const updatedPermissions = group.permissions?.map((permission) => {
           permissionChange(permission.name || "", isGranted);
-          return { ...permission, isGranted };
+          return {...permission, isGranted};
         });
-        return { ...group, permissions: updatedPermissions };
+        return {...group, permissions: updatedPermissions};
       }),
     );
   };
@@ -144,7 +130,7 @@ export default function ApplicationPermissions({
         ...group,
         permissions: group.permissions?.map((permission) => {
           permissionChange(permission.name || "", isGranted);
-          return { ...permission, isGranted };
+          return {...permission, isGranted};
         }),
       })),
     );
@@ -155,9 +141,7 @@ export default function ApplicationPermissions({
       const group = permissionsData.find((g) => g.name === groupName);
       if (!group) return null;
 
-      const permissions = group.permissions?.filter(
-        (p) => p.parentName === parentName,
-      );
+      const permissions = group.permissions?.filter((p) => p.parentName === parentName);
 
       return (
         <div className={parentName ? "ml-8" : ""}>
@@ -176,8 +160,7 @@ export default function ApplicationPermissions({
                   ? permission.grantedProviders?.map((provider) => (
                       <span
                         className="ml-2 rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600"
-                        key={`${provider.providerName}-${provider.providerKey}`}
-                      >
+                        key={`${provider.providerName}-${provider.providerKey}`}>
                         {`${provider.providerName}: ${provider.providerKey}`}
                       </span>
                     ))
@@ -196,9 +179,7 @@ export default function ApplicationPermissions({
     <div className="relative flex h-screen flex-col pb-56">
       <div className="mt-2 flex items-center gap-2 pb-2">
         <Checkbox
-          checked={permissionsData.every((group) =>
-            group.permissions?.every((p) => p.isGranted),
-          )}
+          checked={permissionsData.every((group) => group.permissions?.every((p) => p.isGranted))}
           onCheckedChange={(checked) => {
             toggleAllPermissions(checked === true);
           }}
@@ -211,8 +192,7 @@ export default function ApplicationPermissions({
           name: `${group.displayName} (${group.permissions?.filter((p) => p.isGranted).length})`,
           id: group.name || "",
         }))}
-        vertical
-      >
+        vertical>
         {permissionsData.map((group) => (
           <SectionLayoutContent key={group.name} sectionId={group.name || ""}>
             <div className="flex items-center gap-2">
@@ -237,7 +217,7 @@ export default function ApplicationPermissions({
             void putPermissionsApi({
               providerKey: applicationPermissionsData.entityDisplayName || "",
               providerName: "C",
-              requestBody: { permissions: updatedPermissionsData },
+              requestBody: {permissions: updatedPermissionsData},
             })
               .then((res) => {
                 handlePutResponse(res, router, "..");
@@ -245,8 +225,7 @@ export default function ApplicationPermissions({
               .finally(() => {
                 setLoading(false);
               });
-          }}
-        >
+          }}>
           {languageData["Edit.Save"]}
         </Button>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import { toast } from "@/components/ui/sonner";
+import {toast} from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreCreateAndUpdateDto as ContractStoreCreateAndUpdateDto,
@@ -7,11 +7,11 @@ import type {
 } from "@ayasofyazilim/saas/ContractService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { postMerchantContractHeaderContractStoresByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { tableData } from "./table-data";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {postMerchantContractHeaderContractStoresByHeaderIdApi} from "src/actions/unirefund/ContractService/post-actions";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {tableData} from "./table-data";
 
 export function ContractStoresTable({
   languageData,
@@ -24,7 +24,7 @@ export function ContractStoresTable({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { lang, contractId } = useParams<{
+  const {lang, contractId} = useParams<{
     lang: string;
     contractId: string;
   }>();
@@ -34,9 +34,7 @@ export function ContractStoresTable({
     contractSettings,
   });
   const table = tableData.table();
-  const [updatedData, setUpdatedData] = useState<ContractStoreDetailedDto[]>(
-    [],
-  );
+  const [updatedData, setUpdatedData] = useState<ContractStoreDetailedDto[]>([]);
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <TanstackTable
@@ -55,15 +53,13 @@ export function ContractStoresTable({
         confirmProps={{
           children: languageData.Save,
           onConfirm: () => {
-            const mappedData: ContractStoreCreateAndUpdateDto[] =
-              updatedData.map((item) => {
-                return {
-                  contractSettingId: item.contractSettingId || "",
-                  receiptType: item.receiptType,
-                  contractTypeIdentifiersSubId:
-                    item.contractTypeIdentifiersSubId,
-                };
-              });
+            const mappedData: ContractStoreCreateAndUpdateDto[] = updatedData.map((item) => {
+              return {
+                contractSettingId: item.contractSettingId || "",
+                receiptType: item.receiptType,
+                contractTypeIdentifiersSubId: item.contractTypeIdentifiersSubId,
+              };
+            });
             setLoading(true);
             void postMerchantContractHeaderContractStoresByHeaderIdApi({
               id: contractId,
@@ -77,10 +73,7 @@ export function ContractStoresTable({
                   router.refresh();
                   setUpdatedData([]);
                 } else {
-                  toast.error(
-                    response.message ||
-                      languageData["Contracts.Stores.Save.Fail"],
-                  );
+                  toast.error(response.message || languageData["Contracts.Stores.Save.Fail"]);
                 }
               })
               .finally(() => {

@@ -1,28 +1,13 @@
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import { auth } from "@repo/utils/auth/next-auth";
+import {match as matchLocale} from "@formatjs/intl-localematcher";
+import {auth} from "@repo/utils/auth/next-auth";
 import Negotiator from "negotiator";
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import type { NextAuthRequest } from "node_modules/next-auth/lib";
+import type {NextRequest} from "next/server";
+import {NextResponse} from "next/server";
+import type {NextAuthRequest} from "node_modules/next-auth/lib";
 
 export const i18n = {
   defaultLocale: "en",
-  locales: [
-    "de-de",
-    "en",
-    "es",
-    "fi",
-    "fr",
-    "hi",
-    "it",
-    "sk",
-    "sl",
-    "tr",
-    "ru",
-    "ar",
-    "zh-hans",
-    "zh-hant",
-  ],
+  locales: ["de-de", "en", "es", "fi", "fr", "hi", "it", "sk", "sl", "tr", "ru", "ar", "zh-hans", "zh-hant"],
 };
 
 const publicURLs = ["404", "500", "api", "public"];
@@ -31,9 +16,7 @@ function getLocaleFromBrowser(request: NextRequest) {
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
   const locales = i18n.locales;
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-    locales,
-  );
+  const languages = new Negotiator({headers: negotiatorHeaders}).languages(locales);
   return matchLocale(languages, locales, i18n.defaultLocale);
 }
 function getLocaleFromCookies(request: NextRequest) {
@@ -60,29 +43,20 @@ function localeFromPathname(request: NextRequest) {
 }
 
 function getLocale(request: NextRequest) {
-  return (
-    localeFromPathname(request) ||
-    getLocaleFromCookies(request) ||
-    getLocaleFromBrowser(request)
-  );
+  return localeFromPathname(request) || getLocaleFromCookies(request) || getLocaleFromBrowser(request);
 }
 
 export const middleware = auth((request: NextAuthRequest) => {
   const hostURL = `http://${request.headers.get("host")}`;
 
   function isUserAuthorized(req: NextAuthRequest) {
-    return Boolean(
-      req.auth?.user?.access_token &&
-        (req.auth.user.userName || req.auth.user.email),
-    );
+    return Boolean(req.auth?.user?.access_token && (req.auth.user.userName || req.auth.user.email));
   }
   function isPathHasLocale(path: string) {
     return i18n.locales.includes(path.split("/")[1]);
   }
   function redirectToLogin(locale: string, req: NextRequest) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/login?redirect=${req.nextUrl.pathname}`, hostURL),
-    );
+    return NextResponse.redirect(new URL(`/${locale}/login?redirect=${req.nextUrl.pathname}`, hostURL));
   }
 
   function redirectToRoot(locale: string) {
@@ -116,10 +90,8 @@ export const middleware = auth((request: NextAuthRequest) => {
     // console.error(
     //   `(No locale provided type 1) Wrong redirection to pathName:${pathName}`
     // );
-    const { search } = request.nextUrl;
-    return NextResponse.redirect(
-      new URL(`/${locale}${request.nextUrl.pathname}${search}`, hostURL),
-    );
+    const {search} = request.nextUrl;
+    return NextResponse.redirect(new URL(`/${locale}${request.nextUrl.pathname}${search}`, hostURL));
   }
 
   // If the user is not authorized and the path is public, continue
@@ -131,9 +103,7 @@ export const middleware = auth((request: NextAuthRequest) => {
     // console.error(
     //   `(No locale provided type 2) Wrong redirection to pathName:${pathName}`
     // );
-    return NextResponse.redirect(
-      new URL(`/${locale}${request.nextUrl.pathname}`, hostURL),
-    );
+    return NextResponse.redirect(new URL(`/${locale}${request.nextUrl.pathname}`, hostURL));
   }
 
   // If the user is not authorized and the path is authorized specific, redirect to login

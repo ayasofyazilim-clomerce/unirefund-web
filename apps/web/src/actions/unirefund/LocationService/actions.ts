@@ -8,14 +8,9 @@ import type {
   GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
 } from "@ayasofyazilim/saas/LocationService";
-import type { Session } from "@repo/utils/auth";
-import {
-  getLocationServiceClient,
-  structuredError,
-  structuredResponse,
-  structuredSuccessResponse,
-} from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import type {Session} from "@repo/utils/auth";
+import {getLocationServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
+import {getApiRequests} from "../../api-requests";
 
 export async function getCountriesApi(
   data: GetApiLocationServiceCountriesData = {
@@ -32,26 +27,20 @@ export async function getCountriesApi(
     return structuredError(error);
   }
 }
-export async function getAllCountriesApi(
-  data: GetApiLocationServiceCountriesData,
-  session?: Session | null,
-) {
+export async function getAllCountriesApi(data: GetApiLocationServiceCountriesData, session?: Session | null) {
   try {
     const locationClient = await getLocationServiceClient(session);
-    const response =
-      await locationClient.country.getApiLocationServiceCountries({
-        ...data,
-        maxResultCount: 250,
-        sorting: "name",
-      });
+    const response = await locationClient.country.getApiLocationServiceCountries({
+      ...data,
+      maxResultCount: 250,
+      sorting: "name",
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
   }
 }
-export async function getRegionsByCountryIdApi(
-  data: GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
-) {
+export async function getRegionsByCountryIdApi(data: GetApiLocationServiceRegionsGetListByCountryByCountryIdData) {
   try {
     const requests = await getApiRequests();
     const response = await requests.locations.getRegionsByCountryId(data);
@@ -66,8 +55,7 @@ export async function getDefaultRegionsByCountryIdApi(
 ) {
   try {
     const requests = await getApiRequests();
-    const response =
-      await requests.locations.getDefaultRegionsByCountryId(data);
+    const response = await requests.locations.getDefaultRegionsByCountryId(data);
 
     return structuredResponse(response);
   } catch (error) {
@@ -75,9 +63,7 @@ export async function getDefaultRegionsByCountryIdApi(
   }
 }
 
-export async function getCitiesByRegionId(
-  data: GetApiLocationServiceCitiesGetListByRegionByRegionIdData,
-) {
+export async function getCitiesByRegionId(data: GetApiLocationServiceCitiesGetListByRegionByRegionIdData) {
   try {
     const requests = await getApiRequests();
     const response = await requests.locations.getCitiesByRegionId(data);
@@ -95,9 +81,7 @@ export async function getCitiesApi(data: GetApiLocationServiceCitiesData = {}) {
     return structuredError(error);
   }
 }
-export async function getDistrictsByCityIdApi(
-  data: GetApiLocationServiceDistrictsGetListByCityByCityIdData,
-) {
+export async function getDistrictsByCityIdApi(data: GetApiLocationServiceDistrictsGetListByCityByCityIdData) {
   try {
     const requests = await getApiRequests();
     const response = await requests.locations.getDistrictsByCityId(data);
@@ -111,8 +95,7 @@ export async function getNeighborhoodsByDistrictIdApi(
 ) {
   try {
     const requests = await getApiRequests();
-    const response =
-      await requests.locations.getNeighborhoodsByDistrictId(data);
+    const response = await requests.locations.getNeighborhoodsByDistrictId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

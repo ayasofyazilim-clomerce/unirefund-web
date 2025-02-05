@@ -1,22 +1,18 @@
 "use client";
 
-import type { Volo_Abp_Identity_IdentityUserUpdatePasswordInput } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_Identity_IdentityUserUpdatePasswordInput } from "@ayasofyazilim/saas/IdentityService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putUsersByIdChangePasswordApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import type {Volo_Abp_Identity_IdentityUserUpdatePasswordInput} from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityUserUpdatePasswordInput} from "@ayasofyazilim/saas/IdentityService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putUsersByIdChangePasswordApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
-export default function Form({
-  languageData,
-}: {
-  languageData: IdentityServiceResource;
-}) {
+export default function Form({languageData}: {languageData: IdentityServiceResource}) {
   const router = useRouter();
-  const { userId } = useParams<{ userId: string }>();
+  const {userId} = useParams<{userId: string}>();
   const [loading, setLoading] = useState(false);
 
   const uiSchema = createUiSchemaWithResource({

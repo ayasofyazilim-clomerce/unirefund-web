@@ -1,23 +1,21 @@
 "use server";
 
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { auth } from "@repo/utils/auth/next-auth";
-import { getMerchantOrganizationsByIdApi } from "@/actions/unirefund/CrmService/actions";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { getBaseLink } from "src/utils";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {auth} from "@repo/utils/auth/next-auth";
+import {getMerchantOrganizationsByIdApi} from "@/actions/unirefund/CrmService/actions";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
+import {getBaseLink} from "src/utils";
 
-async function getApiRequests({ partyId }: { partyId: string }) {
+async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getMerchantOrganizationsByIdApi(partyId, session),
-    ]);
+    const apiRequests = await Promise.all([getMerchantOrganizationsByIdApi(partyId, session)]);
     return {
       type: "success" as const,
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -35,15 +33,14 @@ export default async function Layout({
     lang: string;
   };
 }) {
-  const { partyId, lang } = params;
+  const {partyId, lang} = params;
 
-  const apiRequests = await getApiRequests({ partyId });
+  const apiRequests = await getApiRequests({partyId});
 
-  const isOrganization =
-    apiRequests.type !== "error" && apiRequests.data[0].data.length > 0;
+  const isOrganization = apiRequests.type !== "error" && apiRequests.data[0].data.length > 0;
 
   const baseLink = getBaseLink(`parties/merchants/${partyId}/details/`, lang);
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
   return (
     <TabLayout
       tabList={[
@@ -68,8 +65,7 @@ export default async function Layout({
           label: languageData.Address,
           href: `${baseLink}address`,
         },
-      ]}
-    >
+      ]}>
       {children}
     </TabLayout>
   );

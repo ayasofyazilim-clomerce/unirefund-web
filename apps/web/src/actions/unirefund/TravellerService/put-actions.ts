@@ -4,21 +4,14 @@ import type {
   PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
   PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
 } from "@ayasofyazilim/saas/TravellerService";
-import {
-  getTravellersServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getTravellersServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function putTravellerPersonalIdentificationApi(
   data: PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,
 ) {
   try {
     const client = await getTravellersServiceClient();
-    const response =
-      await client.traveller.putApiTravellerServiceTravellersByIdUpdatePersonalIdentification(
-        data,
-      );
+    const response = await client.traveller.putApiTravellerServiceTravellersByIdUpdatePersonalIdentification(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -30,10 +23,7 @@ export async function putTravellerPersonalPreferenceApi(
 ) {
   try {
     const client = await getTravellersServiceClient();
-    const response =
-      await client.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalPreference(
-        data,
-      );
+    const response = await client.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalPreference(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -45,10 +35,7 @@ export async function putTravellerPersonalSummaryApi(
 ) {
   try {
     const client = await getTravellersServiceClient();
-    const response =
-      await client.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalSummary(
-        data,
-      );
+    const response = await client.traveller.putApiTravellerServiceTravellersByIdUpsertPersonalSummary(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

@@ -1,23 +1,21 @@
-import type { Volo_Saas_Host_Dtos_EditionDto } from "@ayasofyazilim/saas/SaasService";
-import { $Volo_Saas_Host_Dtos_EditionDto } from "@ayasofyazilim/saas/SaasService";
+import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
+import {$Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { Plus, User2Icon } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { SaasServiceResource } from "src/language-data/core/SaasService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {Plus, User2Icon} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {SaasServiceResource} from "src/language-data/core/SaasService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type EditionsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_EditionDto>;
 
-const links: Partial<
-  Record<keyof Volo_Saas_Host_Dtos_EditionDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof Volo_Saas_Host_Dtos_EditionDto, TanstackTableColumnLink>> = {};
 
 function editionsTableActions(
   languageData: SaasServiceResource,
@@ -43,8 +41,7 @@ function editionsRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_EditionDto>[] =
-    [];
+  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_EditionDto>[] = [];
   if (isActionGranted(["Saas.Editions.Update"], grantedPolicies)) {
     actions.push({
       type: "simple",

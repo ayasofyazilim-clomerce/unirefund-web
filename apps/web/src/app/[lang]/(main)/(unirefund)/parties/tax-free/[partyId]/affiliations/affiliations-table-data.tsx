@@ -12,47 +12,29 @@ import type {
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {
-  CheckCircle,
-  Eye,
-  FileText,
-  LockIcon,
-  Plus,
-  Trash,
-  UnlockIcon,
-  User2,
-  XCircle,
-} from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { Button } from "@/components/ui/button";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {CheckCircle, Eye, FileText, LockIcon, Plus, Trash, UnlockIcon, User2, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import type { Policy } from "@/utils/page-policy/utils";
+import type {Policy} from "@/utils/page-policy/utils";
 import isActionGranted from "@/utils/page-policy/action-policy";
-import { deleteTaxFreesByIdAffiliationsByAffiliationIdApi } from "@/actions/unirefund/CrmService/delete-actions";
-import { postSendPasswordResetCodeApi } from "src/actions/core/AccountService/post-actions";
-import {
-  handleDeleteResponse,
-  handlePostResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
-import {
-  putUsersByIdLockByLockoutEndApi,
-  putUsersByIdUnlockApi,
-} from "src/actions/core/IdentityService/put-actions";
+import {deleteTaxFreesByIdAffiliationsByAffiliationIdApi} from "@/actions/unirefund/CrmService/delete-actions";
+import {postSendPasswordResetCodeApi} from "src/actions/core/AccountService/post-actions";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
 import {
   postAbpUserAccountByIndividualIdApi,
   postAffiliationsToTaxFreeApi,
 } from "src/actions/unirefund/CrmService/post-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { getBaseLink } from "@/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {getBaseLink} from "@/utils";
 
-type AffiliationsTable =
-  TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
+type AffiliationsTable = TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
 
 interface FormData {
   lockoutEnd: string;
@@ -66,9 +48,7 @@ function affiliationsTableActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (
-    isActionGranted(["CRMService.TaxFrees.CreateAffiliation"], grantedPolicies)
-  ) {
+  if (isActionGranted(["CRMService.TaxFrees.CreateAffiliation"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",
       actionLocation: "table",
@@ -84,13 +64,10 @@ function affiliationsTableActions(
             message: languageData["Missing.Affiliation.Message"],
             action: (
               <Button asChild className="text-blue-500" variant="link">
-                <Link href={getBaseLink("settings/affiliations/tax-free")}>
-                  {languageData.New}
-                </Link>
+                <Link href={getBaseLink("settings/affiliations/tax-free")}>{languageData.New}</Link>
               </Button>
             ),
-          }}
-        >
+          }}>
           <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
             className="flex flex-col gap-4"
             filter={{
@@ -98,7 +75,7 @@ function affiliationsTableActions(
               sort: true,
               keys: ["email", "affiliationCodeId"],
             }}
-            onSubmit={({ formData }) => {
+            onSubmit={({formData}) => {
               if (!formData) return;
               void postAffiliationsToTaxFreeApi({
                 id: partyId,
@@ -110,13 +87,10 @@ function affiliationsTableActions(
                 handlePostResponse(res, router);
               });
             }}
-            schema={
-              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
-            }
+            schema={$UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto}
             submitText={languageData.Save}
             uiSchema={createUiSchemaWithResource({
-              schema:
-                $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
+              schema: $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
               resources: languageData,
               name: "Form.Parties.Affiliation",
               extend: {
@@ -129,15 +103,12 @@ function affiliationsTableActions(
               },
             })}
             widgets={{
-              affiliationCode:
-                CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
-                  {
-                    languageData,
-                    list: affiliationCodes,
-                    selectIdentifier: "id",
-                    selectLabel: "name",
-                  },
-                ),
+              affiliationCode: CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>({
+                languageData,
+                list: affiliationCodes,
+                selectIdentifier: "id",
+                selectLabel: "name",
+              }),
             }}
           />
         </FormReadyComponent>
@@ -154,15 +125,9 @@ function affiliationsRowActions(
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
   grantedPolicies: Record<Policy, boolean>,
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
-  const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] =
-    [];
+  const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] = [];
 
-  if (
-    isActionGranted(
-      ["CRMService.Individuals.CreateAbpUserAccount"],
-      grantedPolicies,
-    )
-  ) {
+  if (isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies)) {
     actions.push({
       type: "confirmation-dialog",
       cta: languageData["Merchants.Individual.Create.User"],
@@ -174,17 +139,13 @@ function affiliationsRowActions(
       condition: (row) => row.abpUserId === null,
       icon: User2,
       onConfirm: (row) => {
-        void postAbpUserAccountByIndividualIdApi(row.partyId || "").then(
-          (res) => {
-            handlePostResponse(res, router);
-          },
-        );
+        void postAbpUserAccountByIndividualIdApi(row.partyId || "").then((res) => {
+          handlePostResponse(res, router);
+        });
       },
     });
   }
-  if (
-    isActionGranted(["CRMService.TaxFrees.CreateAffiliation"], grantedPolicies)
-  ) {
+  if (isActionGranted(["CRMService.TaxFrees.CreateAffiliation"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",
       actionLocation: "row",
@@ -199,7 +160,7 @@ function affiliationsRowActions(
             sort: true,
             keys: ["affiliationCodeId"],
           }}
-          onSubmit={({ formData }) => {
+          onSubmit={({formData}) => {
             if (!formData) return;
             void postAffiliationsToTaxFreeApi({
               id: partyId,
@@ -212,13 +173,10 @@ function affiliationsRowActions(
               handlePostResponse(res, router);
             });
           }}
-          schema={
-            $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto
-          }
+          schema={$UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto}
           submitText={languageData.Save}
           uiSchema={createUiSchemaWithResource({
-            schema:
-              $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
+            schema: $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
             resources: languageData,
             name: "Form.Parties.Affiliation",
             extend: {
@@ -228,15 +186,12 @@ function affiliationsRowActions(
             },
           })}
           widgets={{
-            affiliationCode:
-              CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>(
-                {
-                  languageData,
-                  list: affiliationCodes,
-                  selectIdentifier: "id",
-                  selectLabel: "name",
-                },
-              ),
+            affiliationCode: CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>({
+              languageData,
+              list: affiliationCodes,
+              selectIdentifier: "id",
+              selectLabel: "name",
+            }),
           }}
         />
       ),
@@ -262,10 +217,7 @@ function affiliationsRowActions(
       actionLocation: "row",
       confirmationText: languageData.Save,
       cancelText: languageData.Cancel,
-      description:
-        languageData[
-          "Merchants.Individual.Send.Password.Code.Reset.Description"
-        ],
+      description: languageData["Merchants.Individual.Send.Password.Code.Reset.Description"],
       icon: Eye,
       condition: (row) => row.abpUserId !== null,
       onConfirm: (row) => {
@@ -291,7 +243,7 @@ function affiliationsRowActions(
       content: (row) => {
         return (
           <SchemaForm<FormData>
-            onSubmit={({ formData }) => {
+            onSubmit={({formData}) => {
               if (!formData) return;
               void putUsersByIdLockByLockoutEndApi({
                 id: row.abpUserId || "",
@@ -333,9 +285,7 @@ function affiliationsRowActions(
       },
     });
   }
-  if (
-    isActionGranted(["CRMService.TaxFrees.DeleteAffiliation"], grantedPolicies)
-  ) {
+  if (isActionGranted(["CRMService.TaxFrees.DeleteAffiliation"], grantedPolicies)) {
     actions.push({
       type: "confirmation-dialog",
       cta: languageData.Delete,
@@ -358,48 +308,43 @@ function affiliationsRowActions(
   return actions;
 }
 
-function affiliationsColumns(
-  languageData: CRMServiceServiceResource,
-  locale: string,
-) {
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>(
-    {
-      languageData: {
-        languageData,
-        constantKey: "Form.Parties.Affiliation",
-      },
-      rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto.properties,
-      config: {
-        locale,
-      },
-      faceted: {
-        abpUserId: {
-          options: [
-            {
-              label: "Yes",
-              when: (value) => {
-                return Boolean(value);
-              },
-              value: "true",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-              hideColumnValue: true,
+function affiliationsColumns(languageData: CRMServiceServiceResource, locale: string) {
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>({
+    languageData: {
+      languageData,
+      constantKey: "Form.Parties.Affiliation",
+    },
+    rows: $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto.properties,
+    config: {
+      locale,
+    },
+    faceted: {
+      abpUserId: {
+        options: [
+          {
+            label: "Yes",
+            when: (value) => {
+              return Boolean(value);
             },
-            {
-              label: "No",
-              when: (value) => {
-                return !value;
-              },
-              value: "false",
-              icon: XCircle,
-              iconClassName: "text-red-700",
-              hideColumnValue: true,
+            value: "true",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+            hideColumnValue: true,
+          },
+          {
+            label: "No",
+            when: (value) => {
+              return !value;
             },
-          ],
-        },
+            value: "false",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+            hideColumnValue: true,
+          },
+        ],
       },
     },
-  );
+  });
 }
 
 function affiliationsTable(
@@ -413,49 +358,23 @@ function affiliationsTable(
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: [
-        "name",
-        "codeName",
-        "email",
-        "telephone",
-        "entityInformationTypeCode",
-        "abpUserId",
-      ],
+      columns: ["name", "codeName", "email", "telephone", "entityInformationTypeCode", "abpUserId"],
     },
-    columnOrder: [
-      "name",
-      "codeName",
-      "email",
-      "telephone",
-      "entityInformationTypeCode",
-      "abpUserId",
-    ],
+    columnOrder: ["name", "codeName", "email", "telephone", "entityInformationTypeCode", "abpUserId"],
     filters: {
       textFilters: ["name", "email", "telephone"],
       facetedFilters: {
         entityInformationTypeCode: {
           options: [
-            { label: "INDIVIDUAL", value: "INDIVIDUAL" },
-            { label: "ORGANIZATION", value: "ORGANIZATION" },
+            {label: "INDIVIDUAL", value: "INDIVIDUAL"},
+            {label: "ORGANIZATION", value: "ORGANIZATION"},
           ],
           title: languageData["Parties.Type"],
         },
       },
     },
-    tableActions: affiliationsTableActions(
-      languageData,
-      router,
-      partyId,
-      affiliationCodes,
-      grantedPolicies,
-    ),
-    rowActions: affiliationsRowActions(
-      languageData,
-      router,
-      partyId,
-      affiliationCodes,
-      grantedPolicies,
-    ),
+    tableActions: affiliationsTableActions(languageData, router, partyId, affiliationCodes, grantedPolicies),
+    rowActions: affiliationsRowActions(languageData, router, partyId, affiliationCodes, grantedPolicies),
   };
   return table;
 }

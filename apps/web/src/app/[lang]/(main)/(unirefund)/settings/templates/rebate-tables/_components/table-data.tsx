@@ -1,17 +1,14 @@
-import type { UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as RebateTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as $RebateTableHeaderDto } from "@ayasofyazilim/saas/ContractService";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { CheckCircle, PlusCircle, XCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
+import type {UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as RebateTableHeaderDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as $RebateTableHeaderDto} from "@ayasofyazilim/saas/ContractService";
+import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {CheckCircle, PlusCircle, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 type RebateTableHeaders = TanstackTableCreationProps<RebateTableHeaderDto>;
 
-const rebateTableHeadersColumns = (
-  locale: string,
-  languageData: ContractServiceResource,
-) =>
+const rebateTableHeadersColumns = (locale: string, languageData: ContractServiceResource) =>
   tanstackTableCreateColumnsByRowData<RebateTableHeaderDto>({
     rows: $RebateTableHeaderDto.properties,
     languageData: {
@@ -85,10 +82,7 @@ const rebateTableHeadersColumns = (
     },
   });
 
-const rebateTableHeadersTable = (params: {
-  languageData: ContractServiceResource;
-  router: AppRouterInstance;
-}) => {
+const rebateTableHeadersTable = (params: {languageData: ContractServiceResource; router: AppRouterInstance}) => {
   const table: RebateTableHeaders = {
     fillerColumn: "name",
     columnVisibility: {

@@ -1,26 +1,18 @@
 "use client";
 
-import type { UniRefund_CRMService_Individuals_CreateIndividualDto } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {
-  AutoFormSubmit,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postIndividualsWithComponentsApi } from "src/actions/unirefund/CrmService/post-actions";
-import type {
-  CountryDto,
-  SelectedAddressField,
-} from "src/actions/unirefund/LocationService/types";
-import { useAddressHook } from "src/actions/unirefund/LocationService/use-address-hook.tsx";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
-import type { CreateIndividualSchema } from "./data";
-import {
-  $UniRefund_CRMService_Individuals_CreateIndividualFormDto,
-  individualFormSubPositions,
-} from "./data";
+import type {UniRefund_CRMService_Individuals_CreateIndividualDto} from "@ayasofyazilim/saas/CRMService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postIndividualsWithComponentsApi} from "src/actions/unirefund/CrmService/post-actions";
+import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
+import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
+import type {CreateIndividualSchema} from "./data";
+import {$UniRefund_CRMService_Individuals_CreateIndividualFormDto, individualFormSubPositions} from "./data";
 
 export default function IndividualForm({
   countryList,
@@ -40,12 +32,7 @@ export default function IndividualForm({
     districtId: "",
   };
 
-  const {
-    selectedFields,
-    addressFieldsToShow,
-    addressSchemaFieldConfig,
-    onAddressValueChanged,
-  } = useAddressHook({
+  const {selectedFields, addressFieldsToShow, addressSchemaFieldConfig, onAddressValueChanged} = useAddressHook({
     countryList,
     selectedFieldsDefaultValue,
     fieldsToHideInAddressSchema: [],
@@ -54,16 +41,9 @@ export default function IndividualForm({
 
   const $createIndividualSchema = createZodObject(
     $UniRefund_CRMService_Individuals_CreateIndividualFormDto,
-    [
-      "name",
-      "personalSummaries",
-      "address",
-      "createAbpUserAccount",
-      "telephone",
-      "email",
-    ],
+    ["name", "personalSummaries", "address", "createAbpUserAccount", "telephone", "email"],
     undefined,
-    { ...individualFormSubPositions, address: addressFieldsToShow },
+    {...individualFormSubPositions, address: addressFieldsToShow},
   );
 
   function handleSaveIndividual(formData: CreateIndividualSchema) {
@@ -72,7 +52,7 @@ export default function IndividualForm({
       return;
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
-    formData.telephone = { ...formData.telephone, ...phoneData };
+    formData.telephone = {...formData.telephone, ...phoneData};
     const createData: UniRefund_CRMService_Individuals_CreateIndividualDto = {
       name: formData.name,
       personalSummaries: [formData.personalSummaries],
@@ -86,7 +66,7 @@ export default function IndividualForm({
               typeCode: "OFFICE",
             },
           ],
-          emails: [{ ...formData.email, primaryFlag: true, typeCode: "WORK" }],
+          emails: [{...formData.email, primaryFlag: true, typeCode: "WORK"}],
           addresses: [
             {
               ...formData.address,
@@ -128,7 +108,7 @@ export default function IndividualForm({
             },
           },
         },
-        address: { ...addressSchemaFieldConfig, className: "row-span-1" },
+        address: {...addressSchemaFieldConfig, className: "row-span-1"},
         telephone: {
           localNumber: {
             fieldType: "phone",
@@ -148,8 +128,7 @@ export default function IndividualForm({
         onAddressValueChanged(values);
       }}
       stickyChildren
-      stickyChildrenClassName="sticky px-6"
-    >
+      stickyChildrenClassName="sticky px-6">
       <AutoFormSubmit className="float-right" disabled={loading}>
         {languageData.Save}
       </AutoFormSubmit>

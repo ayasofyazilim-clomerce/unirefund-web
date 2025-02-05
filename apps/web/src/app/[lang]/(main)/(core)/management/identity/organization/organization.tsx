@@ -1,16 +1,9 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { toast } from "@/components/ui/sonner";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import {Button} from "@/components/ui/button";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {DropdownMenuItem} from "@/components/ui/dropdown-menu";
+import {toast} from "@/components/ui/sonner";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import type {
   PagedResultDto_IdentityRoleDto,
   PagedResultDto_IdentityUserDto,
@@ -23,24 +16,17 @@ import {
   $Volo_Abp_Identity_OrganizationUnitCreateDto,
   $Volo_Abp_Identity_OrganizationUnitUpdateDto,
 } from "@ayasofyazilim/saas/IdentityService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type { TableActionCustomDialog } from "@repo/ayasofyazilim-ui/molecules/dialog";
-import {
-  default as AutoformDialog,
-  default as CustomTableActionDialog,
-} from "@repo/ayasofyazilim-ui/molecules/dialog";
-import { TreeView } from "@repo/ayasofyazilim-ui/molecules/tree-view";
-import { SectionNavbarBase } from "@repo/ayasofyazilim-ui/templates/section-layout";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import type { TreeViewElement } from "node_modules/@repo/ayasofyazilim-ui/src/molecules/tree-view/tree-view-api";
-import { useEffect, useState } from "react";
-import { z } from "zod";
-import {
-  handleDeleteResponse,
-  handlePostResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {TableActionCustomDialog} from "@repo/ayasofyazilim-ui/molecules/dialog";
+import {default as AutoformDialog, default as CustomTableActionDialog} from "@repo/ayasofyazilim-ui/molecules/dialog";
+import {TreeView} from "@repo/ayasofyazilim-ui/molecules/tree-view";
+import {SectionNavbarBase} from "@repo/ayasofyazilim-ui/templates/section-layout";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import type {TreeViewElement} from "node_modules/@repo/ayasofyazilim-ui/src/molecules/tree-view/tree-view-api";
+import {useEffect, useState} from "react";
+import {z} from "zod";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import {
   getOrganizationUnitsByIdMembersApi,
   getOrganizationUnitsByIdRolesApi,
@@ -50,19 +36,16 @@ import {
   deleteOrganizationUnitsByIdMembersByMemberIdApi,
   deleteOrganizationUnitsByIdRolesByRoleIdApi,
 } from "src/actions/core/IdentityService/delete-actions";
-import { postOrganizationUnitsApi } from "src/actions/core/IdentityService/post-actions";
+import {postOrganizationUnitsApi} from "src/actions/core/IdentityService/post-actions";
 import {
   putOrganizationUnitsByIdApi,
   putOrganizationUnitsByIdMoveAllUsersApi,
 } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import OrganizationRolesTable from "./_components/roles/table";
 import OrganizationUsersTable from "./_components/users/table";
 
-function getChildrens(
-  parentId: string,
-  data: Volo_Abp_Identity_OrganizationUnitWithDetailsDto[],
-) {
+function getChildrens(parentId: string, data: Volo_Abp_Identity_OrganizationUnitWithDetailsDto[]) {
   const childrens: TreeViewElement[] = [];
   data
     .filter((i) => i.parentId === parentId)
@@ -91,8 +74,7 @@ export default function OrganizationComponent({
   roleList: PagedResultDto_IdentityRoleDto;
 }) {
   const initializeOrganizationTree = () => {
-    const parentUnits =
-      organizationUnitList.items?.filter((i) => !i.parentId) || [];
+    const parentUnits = organizationUnitList.items?.filter((i) => !i.parentId) || [];
     return parentUnits.map((parent) => ({
       id: parent.id || "",
       name: parent.displayName || "",
@@ -103,27 +85,17 @@ export default function OrganizationComponent({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [selectedUnitId, setSelectedUnitId] = useState<string | undefined>();
-  const [triggerData, setTriggerData] = useState<
-    Record<string, string> | undefined
-  >(undefined);
-  const [organizationUnits, setOrganizationUnits] = useState<
-    Volo_Abp_Identity_OrganizationUnitWithDetailsDto[]
-  >(organizationUnitList.items || []);
-  const [action, setAction] = useState<TableActionCustomDialog | undefined>(
-    undefined,
+  const [triggerData, setTriggerData] = useState<Record<string, string> | undefined>(undefined);
+  const [organizationUnits, setOrganizationUnits] = useState<Volo_Abp_Identity_OrganizationUnitWithDetailsDto[]>(
+    organizationUnitList.items || [],
   );
-  const [unitUsers, setUnitUsers] = useState<
-    Volo_Abp_Identity_IdentityUserDto[]
-  >([]);
-  const [unitRoles, setUnitRoles] = useState<
-    Volo_Abp_Identity_IdentityRoleDto[]
-  >([]);
+  const [action, setAction] = useState<TableActionCustomDialog | undefined>(undefined);
+  const [unitUsers, setUnitUsers] = useState<Volo_Abp_Identity_IdentityUserDto[]>([]);
+  const [unitRoles, setUnitRoles] = useState<Volo_Abp_Identity_IdentityRoleDto[]>([]);
   const [activeTab, setActiveTab] = useState("Users");
   const [openUsersDialog, setOpenUsersDialog] = useState(false);
   const [openRolesDialog, setOpenRolesDialog] = useState(false);
-  const organizationName = organizationUnits.find(
-    (i) => i.id === selectedUnitId,
-  )?.displayName;
+  const organizationName = organizationUnits.find((i) => i.id === selectedUnitId)?.displayName;
 
   function getUnitUsers() {
     void getOrganizationUnitsByIdMembersApi({
@@ -151,9 +123,7 @@ export default function OrganizationComponent({
   }, [selectedUnitId]);
 
   const handleAddUnit = (parentUnitId: string | null) => {
-    const selectedUnit = parentUnitId
-      ? organizationUnits.find((i) => i.id === parentUnitId)
-      : null;
+    const selectedUnit = parentUnitId ? organizationUnits.find((i) => i.id === parentUnitId) : null;
     setAction({
       type: "Dialog",
       componentType: "Autoform",
@@ -162,17 +132,14 @@ export default function OrganizationComponent({
         ? `${languageData["Organization.Parent"]}: ${selectedUnit.displayName}`
         : languageData["Organization.New.Description"],
       autoFormArgs: {
-        formSchema: createZodObject(
-          $Volo_Abp_Identity_OrganizationUnitCreateDto,
-          ["displayName"],
-        ),
+        formSchema: createZodObject($Volo_Abp_Identity_OrganizationUnitCreateDto, ["displayName"]),
         fieldConfig: {
           all: {
             withoutBorder: true,
           },
         },
       },
-      callback: (e: { displayName: string }, _triggerData) => {
+      callback: (e: {displayName: string}, _triggerData) => {
         void postOrganizationUnitsApi({
           requestBody: {
             displayName: e.displayName,
@@ -188,7 +155,7 @@ export default function OrganizationComponent({
         });
       },
     });
-    setTriggerData({ id: parentUnitId || "" });
+    setTriggerData({id: parentUnitId || ""});
     setOpen(true);
   };
 
@@ -199,17 +166,14 @@ export default function OrganizationComponent({
       cta: languageData["Organization.Edit"],
       description: languageData["Organization.Edit.Description"],
       autoFormArgs: {
-        formSchema: createZodObject(
-          $Volo_Abp_Identity_OrganizationUnitUpdateDto,
-          ["displayName"],
-        ),
+        formSchema: createZodObject($Volo_Abp_Identity_OrganizationUnitUpdateDto, ["displayName"]),
         fieldConfig: {
           all: {
             withoutBorder: true,
           },
         },
       },
-      callback: (e: { displayName: string }, _triggerData) => {
+      callback: (e: {displayName: string}, _triggerData) => {
         void putOrganizationUnitsByIdApi({
           id: selectedUnitId || "",
           requestBody: {
@@ -246,9 +210,7 @@ export default function OrganizationComponent({
     void deleteOrganizationUnitsApi(unitId || "").then((res) => {
       handleDeleteResponse(res, router);
       if (res.type === "success") {
-        const updatedUnits = organizationUnits.filter(
-          (unit) => unit.id !== unitId,
-        );
+        const updatedUnits = organizationUnits.filter((unit) => unit.id !== unitId);
         setOrganizationUnits(updatedUnits);
         setSelectedUnitId(undefined);
       }
@@ -260,9 +222,7 @@ export default function OrganizationComponent({
       toast.warning(languageData["Organization.User.Empty"]);
       return;
     }
-    const availableUnits = organizationUnits.filter(
-      (u) => u.id !== selectedUnitId,
-    );
+    const availableUnits = organizationUnits.filter((u) => u.id !== selectedUnitId);
     const unitOptions = availableUnits.map((unit) => {
       const parentUnit = organizationUnits.find((u) => u.id === unit.parentId);
       return {
@@ -280,8 +240,7 @@ export default function OrganizationComponent({
     const DynamicEnum = z.enum([
       placeholder,
       ...unitOptions.map(
-        (u) =>
-          `${u.displayName} ${u.parentName ? `${languageData["Organization.Parent"]}: ${u.parentName}` : ""}`,
+        (u) => `${u.displayName} ${u.parentName ? `${languageData["Organization.Parent"]}: ${u.parentName}` : ""}`,
       ),
     ]);
     setTriggerData({
@@ -298,20 +257,14 @@ export default function OrganizationComponent({
           targetUnit: DynamicEnum.default(placeholder),
         }),
         fieldConfig: {
-          all: { withoutBorder: true },
+          all: {withoutBorder: true},
         },
       },
-      callback: (
-        e: { targetUnit: string; displayName: string },
-        _triggerData,
-      ) => {
+      callback: (e: {targetUnit: string; displayName: string}, _triggerData) => {
         const _selectedUnit = unitOptions.find(
           (u) =>
-            `${u.displayName} ${
-              u.parentName
-                ? `${languageData["Organization.Parent"]}: ${u.parentName}`
-                : ""
-            }` === e.targetUnit,
+            `${u.displayName} ${u.parentName ? `${languageData["Organization.Parent"]}: ${u.parentName}` : ""}` ===
+            e.targetUnit,
         );
         if (!_selectedUnit) {
           toast.warning(languageData["Organization.Select.Fail"]);
@@ -379,8 +332,7 @@ export default function OrganizationComponent({
                   setSelectedUnitId(undefined);
                   setTriggerData({});
                   handleAddUnit(null);
-                }}
-              >
+                }}>
                 {languageData["Organization.Add.Root.Unit"]}
               </Button>
             </div>
@@ -394,29 +346,25 @@ export default function OrganizationComponent({
                     <DropdownMenuItem
                       onClick={() => {
                         handleEditUnit();
-                      }}
-                    >
+                      }}>
                       {languageData.Edit}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => {
                         handleAddUnit(selectedUnitId || "");
-                      }}
-                    >
+                      }}>
                       {languageData["Organization.Add.Sub.Unit"]}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => {
                         handleMoveAllUsers();
-                      }}
-                    >
+                      }}>
                       {languageData["Organization.Move.Users"]}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => {
                         handleDeleteUnit(selectedUnitId || "");
-                      }}
-                    >
+                      }}>
                       {languageData.Delete}
                     </DropdownMenuItem>
                   </>
@@ -440,8 +388,8 @@ export default function OrganizationComponent({
                 setActiveTab(newActiveSection);
               }}
               sections={[
-                { id: "Users", name: "Users" },
-                { id: "Roles", name: "Roles" },
+                {id: "Users", name: "Users"},
+                {id: "Roles", name: "Roles"},
               ]}
               showContentInSamePage
             />
@@ -454,8 +402,7 @@ export default function OrganizationComponent({
                         className="bg-primary rounded px-4 py-2 text-white"
                         onClick={() => {
                           setOpenUsersDialog(true);
-                        }}
-                      >
+                        }}>
                         {languageData["Organization.Add.Users"]}
                       </Button>
                     ) : (
@@ -463,8 +410,7 @@ export default function OrganizationComponent({
                         className="bg-primary rounded px-4 py-2 text-white"
                         onClick={() => {
                           setOpenRolesDialog(true);
-                        }}
-                      >
+                        }}>
                         {languageData["Organization.Add.Roles"]}
                       </Button>
                     )}
@@ -475,17 +421,11 @@ export default function OrganizationComponent({
                     <TableRow>
                       {activeTab === "Users" ? (
                         <>
-                          <TableHead>
-                            {languageData["Form.Organization.User.Name"]}
-                          </TableHead>
-                          <TableHead>
-                            {languageData["Form.Organization.User.Email"]}
-                          </TableHead>
+                          <TableHead>{languageData["Form.Organization.User.Name"]}</TableHead>
+                          <TableHead>{languageData["Form.Organization.User.Email"]}</TableHead>
                         </>
                       ) : (
-                        <TableHead>
-                          {languageData["Form.Organization.Role.Name"]}
-                        </TableHead>
+                        <TableHead>{languageData["Form.Organization.Role.Name"]}</TableHead>
                       )}
                       <TableHead className="text-right" />
                     </TableRow>
@@ -501,8 +441,7 @@ export default function OrganizationComponent({
                                 onClick={() => {
                                   handleDeleteUser(user.id || "");
                                 }}
-                                variant="link"
-                              >
+                                variant="link">
                                 <Trash2 className="h-4 w-4" />
                               </Button>
                             </TableCell>
@@ -510,13 +449,7 @@ export default function OrganizationComponent({
                         ))
                       : activeTab === "Users" && (
                           <TableRow>
-                            <TableCell>
-                              {
-                                languageData[
-                                  "Organization.User.Empty.Description"
-                                ]
-                              }
-                            </TableCell>
+                            <TableCell>{languageData["Organization.User.Empty.Description"]}</TableCell>
                           </TableRow>
                         )}
                     {activeTab === "Roles" && unitRoles.length > 0
@@ -528,8 +461,7 @@ export default function OrganizationComponent({
                                 onClick={() => {
                                   handleDeleteRole(role.id || "");
                                 }}
-                                variant="link"
-                              >
+                                variant="link">
                                 <Trash2 className="h-4 w-4" />
                               </Button>
                             </TableCell>
@@ -537,20 +469,13 @@ export default function OrganizationComponent({
                         ))
                       : activeTab === "Roles" && (
                           <TableRow>
-                            <TableCell>
-                              {
-                                languageData[
-                                  "Organization.Role.Empty.Description"
-                                ]
-                              }
-                            </TableCell>
+                            <TableCell>{languageData["Organization.Role.Empty.Description"]}</TableCell>
                           </TableRow>
                         )}
                   </TableBody>
                 </Table>
                 <p className="mt-10 text-sm">
-                  {activeTab === "Users" ? unitUsers.length : unitRoles.length}{" "}
-                  {languageData["Organization.Count"]}
+                  {activeTab === "Users" ? unitUsers.length : unitRoles.length} {languageData["Organization.Count"]}
                 </p>
               </div>
             ) : (
@@ -561,12 +486,7 @@ export default function OrganizationComponent({
       </div>
       {open
         ? action !== undefined && (
-            <AutoformDialog
-              action={action}
-              onOpenChange={setOpen}
-              open={open}
-              triggerData={triggerData}
-            />
+            <AutoformDialog action={action} onOpenChange={setOpen} open={open} triggerData={triggerData} />
           )
         : null}
       {openUsersDialog ? (

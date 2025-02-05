@@ -4,9 +4,9 @@ import type {
   UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto,
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Customss_CreateCustomsDto } from "@ayasofyazilim/saas/CRMService";
-import { ContactFormSubPositions } from "@repo/ui/utils/table/form-schemas";
-import { PhoneNumberUtil } from "google-libphonenumber";
+import {$UniRefund_CRMService_Customss_CreateCustomsDto} from "@ayasofyazilim/saas/CRMService";
+import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
+import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateCustomOrganizationSchema {
   taxpayerId: string;
@@ -43,29 +43,23 @@ export const $UniRefund_CRMService_Customs_CreateCustomsOrganizationFormDto = {
   required: $UniRefund_CRMService_Customss_CreateCustomsDto.required,
   properties: {
     organization:
-      $UniRefund_CRMService_Customss_CreateCustomsDto.properties
-        .entityInformationTypes.items.properties.organizations.items,
-    taxpayerId:
-      $UniRefund_CRMService_Customss_CreateCustomsDto.properties.taxpayerId,
+      $UniRefund_CRMService_Customss_CreateCustomsDto.properties.entityInformationTypes.items.properties.organizations
+        .items,
+    taxpayerId: $UniRefund_CRMService_Customss_CreateCustomsDto.properties.taxpayerId,
     telephone: {
-      ...$UniRefund_CRMService_Customss_CreateCustomsDto.properties
-        .entityInformationTypes.items.properties.organizations.items.properties
-        .contactInformations.items.properties.telephones.items,
+      ...$UniRefund_CRMService_Customss_CreateCustomsDto.properties.entityInformationTypes.items.properties
+        .organizations.items.properties.contactInformations.items.properties.telephones.items,
       properties: {
-        ...$UniRefund_CRMService_Customss_CreateCustomsDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.telephones.items
-          .properties.localNumber,
+        ...$UniRefund_CRMService_Customss_CreateCustomsDto.properties.entityInformationTypes.items.properties
+          .organizations.items.properties.contactInformations.items.properties.telephones.items.properties.localNumber,
         localNumber,
       },
     },
     address:
-      $UniRefund_CRMService_Customss_CreateCustomsDto.properties
-        .entityInformationTypes.items.properties.organizations.items.properties
-        .contactInformations.items.properties.addresses.items,
+      $UniRefund_CRMService_Customss_CreateCustomsDto.properties.entityInformationTypes.items.properties.organizations
+        .items.properties.contactInformations.items.properties.addresses.items,
     email:
-      $UniRefund_CRMService_Customss_CreateCustomsDto.properties
-        .entityInformationTypes.items.properties.organizations.items.properties
-        .contactInformations.items.properties.emails.items,
+      $UniRefund_CRMService_Customss_CreateCustomsDto.properties.entityInformationTypes.items.properties.organizations
+        .items.properties.contactInformations.items.properties.emails.items,
   },
 };

@@ -3,19 +3,15 @@ import type {
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto as RefundFeeHeaderDto,
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderUpdateDto as RefundFeeHeaderUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderUpdateDto as $RefundFeeHeaderUpdateDto } from "@ayasofyazilim/saas/ContractService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { handlePutResponse } from "@repo/utils/api";
-import { useParams, useRouter } from "next/navigation";
-import { putRefundFeeHeadersByIdApi } from "@/actions/unirefund/ContractService/put-actions";
-import { RefundFeeDetailsField } from "../../_components/refund-fee-details-field";
+import {$UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderUpdateDto as $RefundFeeHeaderUpdateDto} from "@ayasofyazilim/saas/ContractService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {handlePutResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import {putRefundFeeHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
 
-export default function RefundFeeHeaderUpdateForm({
-  formData,
-}: {
-  formData: RefundFeeHeaderDto;
-}) {
-  const { id: refundFeeHeaderId } = useParams<{ id: string }>();
+export default function RefundFeeHeaderUpdateForm({formData}: {formData: RefundFeeHeaderDto}) {
+  const {id: refundFeeHeaderId} = useParams<{id: string}>();
   const router = useRouter();
   const uiSchema = {
     "ui:className": "md:grid md:grid-cols-2",
@@ -36,7 +32,7 @@ export default function RefundFeeHeaderUpdateForm({
         ),
       }}
       formData={formData}
-      onSubmit={({ formData: editedFormData }) => {
+      onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;
         void putRefundFeeHeadersByIdApi({
           id: refundFeeHeaderId,

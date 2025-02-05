@@ -4,11 +4,7 @@ import type {
   GetApiSaasTenantsData,
   PutApiSaasTenantsByIdSetPasswordData,
 } from "@ayasofyazilim/saas/SaasService";
-import {
-  getSaasServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getSaasServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function getEditionsApi(data: GetApiSaasEditionsData) {
   try {
@@ -55,20 +51,17 @@ export async function getTenantsApi(data: GetApiSaasTenantsData) {
 export async function getTenantDetailsByIdApi(id: string) {
   try {
     const client = await getSaasServiceClient();
-    const dataResponse = await client.tenant.getApiSaasTenantsById({ id });
+    const dataResponse = await client.tenant.getApiSaasTenantsById({id});
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putTenantsByIdChangePasswordApi(
-  data: PutApiSaasTenantsByIdSetPasswordData,
-) {
+export async function putTenantsByIdChangePasswordApi(data: PutApiSaasTenantsByIdSetPasswordData) {
   try {
     const client = await getSaasServiceClient();
-    const dataResponse =
-      await client.tenant.putApiSaasTenantsByIdSetPassword(data);
+    const dataResponse = await client.tenant.putApiSaasTenantsByIdSetPassword(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

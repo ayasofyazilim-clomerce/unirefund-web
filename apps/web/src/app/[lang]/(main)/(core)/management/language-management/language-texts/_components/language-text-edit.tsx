@@ -1,13 +1,13 @@
 "use client";
-import type { Volo_Abp_LanguageManagement_Dto_LanguageTextDto } from "@ayasofyazilim/saas/AdministrationService";
-import { $Volo_Abp_LanguageManagement_Dto_LanguageTextDto } from "@ayasofyazilim/saas/AdministrationService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { putLanguageTextsByResourceNameByCultureNameByNameApi } from "src/actions/core/AdministrationService/put-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageTextDto} from "@ayasofyazilim/saas/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_LanguageTextDto} from "@ayasofyazilim/saas/AdministrationService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {putLanguageTextsByResourceNameByCultureNameByNameApi} from "src/actions/core/AdministrationService/put-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function LanguageTextsEdit({
   languageData,
@@ -52,7 +52,7 @@ export default function LanguageTextsEdit({
         keys: ["name", "baseValue", "value"],
       }}
       formData={languageTextData}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         setLoading(true);
         if (!formData) return;
         void putLanguageTextsByResourceNameByCultureNameByNameApi({

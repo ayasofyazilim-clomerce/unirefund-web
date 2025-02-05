@@ -4,9 +4,9 @@ import type {
   UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto,
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto } from "@ayasofyazilim/saas/CRMService";
-import { ContactFormSubPositions } from "@repo/ui/utils/table/form-schemas";
-import { PhoneNumberUtil } from "google-libphonenumber";
+import {$UniRefund_CRMService_TaxFrees_CreateTaxFreeDto} from "@ayasofyazilim/saas/CRMService";
+import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
+import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateTaxFreeOrganizationSchema {
   taxpayerId: string;
@@ -39,37 +39,29 @@ export const localNumber = {
   },
 };
 
-export const $UniRefund_CRMService_TaxFrees_CreateTaxFreesOrganizationFormDto =
-  {
-    type: "object",
-    required: $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.required,
-    properties: {
-      organization:
-        $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties
-          .entityInformationTypes.items.properties.organizations.items,
-      taxpayerId:
-        $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.taxpayerId,
-      taxOfficeId:
-        $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.taxOfficeId,
-      telephone: {
-        ...$UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.telephones.items,
-        properties: {
-          ...$UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties
-            .entityInformationTypes.items.properties.organizations.items
-            .properties.contactInformations.items.properties.telephones.items
-            .properties.localNumber,
-          localNumber,
-        },
+export const $UniRefund_CRMService_TaxFrees_CreateTaxFreesOrganizationFormDto = {
+  type: "object",
+  required: $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.required,
+  properties: {
+    organization:
+      $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.entityInformationTypes.items.properties.organizations
+        .items,
+    taxpayerId: $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.taxpayerId,
+    taxOfficeId: $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.taxOfficeId,
+    telephone: {
+      ...$UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.entityInformationTypes.items.properties
+        .organizations.items.properties.contactInformations.items.properties.telephones.items,
+      properties: {
+        ...$UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.entityInformationTypes.items.properties
+          .organizations.items.properties.contactInformations.items.properties.telephones.items.properties.localNumber,
+        localNumber,
       },
-      address:
-        $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.addresses.items,
-      email:
-        $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.emails.items,
     },
-  };
+    address:
+      $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.entityInformationTypes.items.properties.organizations
+        .items.properties.contactInformations.items.properties.addresses.items,
+    email:
+      $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto.properties.entityInformationTypes.items.properties.organizations
+        .items.properties.contactInformations.items.properties.emails.items,
+  },
+};

@@ -4,9 +4,9 @@ import type {
   UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto,
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_RefundPoints_CreateRefundPointDto } from "@ayasofyazilim/saas/CRMService";
-import { ContactFormSubPositions } from "@repo/ui/utils/table/form-schemas";
-import { PhoneNumberUtil } from "google-libphonenumber";
+import {$UniRefund_CRMService_RefundPoints_CreateRefundPointDto} from "@ayasofyazilim/saas/CRMService";
+import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
+import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateRefundPointOrganizationSchema {
   taxpayerId: string;
@@ -39,39 +39,29 @@ export const localNumber = {
   },
 };
 
-export const $UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationFormDto =
-  {
-    type: "object",
-    required: $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.required,
-    properties: {
-      organization:
-        $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-          .entityInformationTypes.items.properties.organizations.items,
-      taxpayerId:
-        $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-          .taxpayerId,
-      taxOfficeId:
-        $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-          .taxOfficeId,
-      telephone: {
-        ...$UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.telephones.items,
-        properties: {
-          ...$UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-            .entityInformationTypes.items.properties.organizations.items
-            .properties.contactInformations.items.properties.telephones.items
-            .properties.localNumber,
-          localNumber,
-        },
+export const $UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationFormDto = {
+  type: "object",
+  required: $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.required,
+  properties: {
+    organization:
+      $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.entityInformationTypes.items.properties
+        .organizations.items,
+    taxpayerId: $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.taxpayerId,
+    taxOfficeId: $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.taxOfficeId,
+    telephone: {
+      ...$UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.entityInformationTypes.items.properties
+        .organizations.items.properties.contactInformations.items.properties.telephones.items,
+      properties: {
+        ...$UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.entityInformationTypes.items.properties
+          .organizations.items.properties.contactInformations.items.properties.telephones.items.properties.localNumber,
+        localNumber,
       },
-      address:
-        $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.addresses.items,
-      email:
-        $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.emails.items,
     },
-  };
+    address:
+      $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.entityInformationTypes.items.properties
+        .organizations.items.properties.contactInformations.items.properties.addresses.items,
+    email:
+      $UniRefund_CRMService_RefundPoints_CreateRefundPointDto.properties.entityInformationTypes.items.properties
+        .organizations.items.properties.contactInformations.items.properties.emails.items,
+  },
+};

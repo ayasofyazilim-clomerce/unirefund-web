@@ -1,10 +1,6 @@
 "use server";
 
-import {
-  getSettingServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getSettingServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function deleteVatByIdApi(id: string) {
   try {
@@ -20,10 +16,9 @@ export async function deleteVatByIdApi(id: string) {
 export async function deleteproductGroupByIdApi(id: string) {
   try {
     const client = await getSettingServiceClient();
-    const dataResponse =
-      await client.productGroup.deleteApiSettingServiceProductGroupById({
-        id,
-      });
+    const dataResponse = await client.productGroup.deleteApiSettingServiceProductGroupById({
+      id,
+    });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

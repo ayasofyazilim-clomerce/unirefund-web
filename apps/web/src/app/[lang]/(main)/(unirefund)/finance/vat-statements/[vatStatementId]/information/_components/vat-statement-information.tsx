@@ -1,6 +1,6 @@
-import { Card, CardHeader } from "@/components/ui/card";
-import type { UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto } from "@ayasofyazilim/saas/FinanceService";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import {Card, CardHeader} from "@/components/ui/card";
+import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 
 interface SummaryListType {
   title?: string;
@@ -10,7 +10,7 @@ interface SummaryListType {
   }[];
 }
 
-function SummaryList({ summaryList }: { summaryList: SummaryListType }) {
+function SummaryList({summaryList}: {summaryList: SummaryListType}) {
   return (
     <div className="mt-2 flex w-1/3 flex-col">
       <div className="mb-9 text-3xl font-medium">{summaryList.title}</div>

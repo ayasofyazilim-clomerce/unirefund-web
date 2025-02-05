@@ -1,20 +1,16 @@
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
-import type { Session } from "@repo/utils/auth";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import type {Session} from "@repo/utils/auth";
 import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {getMerchantAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { ContractSettings } from "./_components/contract-settings";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
+import {ContractSettings} from "./_components/contract-settings";
 
-async function getApiRequests(
-  session: Session | null,
-  partyId: string,
-  contractId: string,
-) {
+async function getApiRequests(session: Session | null, partyId: string, contractId: string) {
   try {
     const apiRequests = await Promise.all([
       getMerchantContractHeaderByIdApi(contractId, session),
@@ -25,7 +21,7 @@ async function getApiRequests(
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -41,38 +37,28 @@ export default async function Page({
     contractId: string;
   };
 }) {
-  const { lang, contractId, partyId } = params;
+  const {lang, contractId, partyId} = params;
   await isUnauthorized({
     requiredPolicies: ["ContractService.ContractSetting.Edit"],
     lang,
   });
 
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
   const session = await auth();
 
   const apiRequests = await getApiRequests(session, partyId, contractId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [contractHeaderDetailsResponse, addressListResponse] = apiRequests.data;
-  const contractSettingsResponse =
-    await getMerchantContractHeaderContractSettingsByHeaderIdApi({
-      id: contractId,
-    });
+  const contractSettingsResponse = await getMerchantContractHeaderContractSettingsByHeaderIdApi({
+    id: contractId,
+  });
   return (
     <ContractSettings
       addressList={addressListResponse.data}
       contractHeaderDetails={contractHeaderDetailsResponse.data}
-      contractSettings={
-        contractSettingsResponse.type === "success"
-          ? contractSettingsResponse.data.items || []
-          : []
-      }
+      contractSettings={contractSettingsResponse.type === "success" ? contractSettingsResponse.data.items || [] : []}
       lang={lang}
       languageData={languageData}
     />

@@ -1,13 +1,11 @@
 "use client";
 
-import type { UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRMService";
-import SelectTabs, {
-  SelectTabsContent,
-} from "@repo/ayasofyazilim-ui/molecules/select-tabs";
-import { Building2, User } from "lucide-react";
-import { useState } from "react";
-import type { CountryDto } from "src/actions/unirefund/LocationService/types";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import type {UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto} from "@ayasofyazilim/saas/CRMService";
+import SelectTabs, {SelectTabsContent} from "@repo/ayasofyazilim-ui/molecules/select-tabs";
+import {Building2, User} from "lucide-react";
+import {useState} from "react";
+import type {CountryDto} from "src/actions/unirefund/LocationService/types";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import MerchantOrganizationForm from "./_components/organization/form";
 import MerchantIndividualForm from "./_components/individual/form";
 
@@ -30,8 +28,7 @@ export default function PageClientSide({
           onValueChange={(value) => {
             setActiveTab(value as TabSection);
           }}
-          value={activeTab}
-        >
+          value={activeTab}>
           <SelectTabsContent value="Organization">
             <div className="flex flex-row items-center gap-1">
               <Building2 />
@@ -47,17 +44,9 @@ export default function PageClientSide({
         </SelectTabs>
       </div>
       {activeTab === "Organization" ? (
-        <MerchantOrganizationForm
-          countryList={countryList}
-          languageData={languageData}
-          taxOfficeList={taxOfficeList}
-        />
+        <MerchantOrganizationForm countryList={countryList} languageData={languageData} taxOfficeList={taxOfficeList} />
       ) : (
-        <MerchantIndividualForm
-          countryList={countryList}
-          languageData={languageData}
-          taxOfficeList={taxOfficeList}
-        />
+        <MerchantIndividualForm countryList={countryList} languageData={languageData} taxOfficeList={taxOfficeList} />
       )}
     </>
   );

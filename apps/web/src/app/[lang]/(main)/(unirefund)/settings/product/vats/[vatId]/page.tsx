@@ -1,24 +1,22 @@
 "use server";
 
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
-import { getVatDetailsByIdApi } from "src/actions/unirefund/SettingService/actions";
-import { getResourceData } from "src/language-data/unirefund/SettingService";
+import {getVatDetailsByIdApi} from "src/actions/unirefund/SettingService/actions";
+import {getResourceData} from "src/language-data/unirefund/SettingService";
 import Form from "./_components/form";
 
 async function getApiRequests(vatId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getVatDetailsByIdApi(vatId, session),
-    ]);
+    const apiRequests = await Promise.all([getVatDetailsByIdApi(vatId, session)]);
     return {
       type: "success" as const,
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -26,13 +24,9 @@ async function getApiRequests(vatId: string) {
   }
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; vatId: string };
-}) {
-  const { lang, vatId } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {lang: string; vatId: string}}) {
+  const {lang, vatId} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.Vats.Edit"],
     lang,
@@ -40,12 +34,7 @@ export default async function Page({
 
   const apiRequests = await getApiRequests(vatId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [vatDetailsResponse] = apiRequests.data;
 

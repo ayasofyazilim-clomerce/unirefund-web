@@ -1,18 +1,18 @@
 "use client";
 
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { useParams, useRouter } from "next/navigation";
-import { useTransition } from "react";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {useParams, useRouter} from "next/navigation";
+import {useTransition} from "react";
 import type {
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto,
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as RebateTableHeaderUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto } from "@ayasofyazilim/saas/ContractService";
-import { handlePutResponse } from "@repo/utils/api";
-import { putRebateTableHeadersByIdApi } from "@/actions/unirefund/ContractService/put-actions";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { ProcessingFeeDetailsField } from "../../_components/processing-fee-details";
-import { RebateTableDetailsField } from "../../_components/rebate-table-details-field";
+import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto} from "@ayasofyazilim/saas/ContractService";
+import {handlePutResponse} from "@repo/utils/api";
+import {putRebateTableHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
+import {RebateTableDetailsField} from "../../_components/rebate-table-details-field";
 
 export default function RebateTableHeaderUpdateForm({
   languageData,
@@ -21,7 +21,7 @@ export default function RebateTableHeaderUpdateForm({
   languageData: ContractServiceResource;
   formData: RebateTableHeaderDto;
 }) {
-  const { id: rebateTableHeaderId } = useParams<{ id: string }>();
+  const {id: rebateTableHeaderId} = useParams<{id: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const uiSchema = {
@@ -49,18 +49,14 @@ export default function RebateTableHeaderUpdateForm({
       disabled={isPending}
       fields={{
         RebateTableDetailsField: RebateTableDetailsField(
-          formData.rebateTableDetails !== null
-            ? formData.rebateTableDetails
-            : [],
+          formData.rebateTableDetails !== null ? formData.rebateTableDetails : [],
         ),
         ProcessingFeeDetailsField: ProcessingFeeDetailsField(
-          formData.processingFeeDetails !== null
-            ? formData.processingFeeDetails
-            : [],
+          formData.processingFeeDetails !== null ? formData.processingFeeDetails : [],
         ),
       }}
       formData={formData}
-      onSubmit={({ formData: editedFormData }) => {
+      onSubmit={({formData: editedFormData}) => {
         startTransition(() => {
           void putRebateTableHeadersByIdApi({
             id: rebateTableHeaderId,

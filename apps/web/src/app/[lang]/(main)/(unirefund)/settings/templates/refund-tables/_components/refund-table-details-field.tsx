@@ -1,8 +1,8 @@
-import type { UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailCreateDto as RefundTableDetailCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailCreateDto as $RefundTableDetailCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
-import { PlusCircle } from "lucide-react";
+import type {UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailCreateDto as RefundTableDetailCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailCreateDto as $RefundTableDetailCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
+import {PlusCircle} from "lucide-react";
 
 export function RefundTableDetailsField(
   data: RefundTableDetailCreateDto[] = [

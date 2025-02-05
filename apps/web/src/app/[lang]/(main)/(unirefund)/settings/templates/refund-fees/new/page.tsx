@@ -1,9 +1,9 @@
 "use server";
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getRefundPointsApi } from "@/actions/unirefund/CrmService/actions";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getRefundPointsApi} from "@/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "@/language-data/unirefund/ContractService";
+import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundFeeHeaderCreateForm from "./_components/form";
 
 async function getApiRequests() {
@@ -15,37 +15,27 @@ async function getApiRequests() {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
     };
   }
 }
-export default async function Page({ params }: { params: { lang: string } }) {
-  const { lang } = params;
+export default async function Page({params}: {params: {lang: string}}) {
+  const {lang} = params;
   await isUnauthorized({
     requiredPolicies: ["CRMService.RefundPoints"],
     lang,
   });
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests();
 
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
   const [refundPointResponse] = apiRequests.data;
 
-  return (
-    <RefundFeeHeaderCreateForm
-      languageData={languageData}
-      refundPoints={refundPointResponse.data.items || []}
-    />
-  );
+  return <RefundFeeHeaderCreateForm languageData={languageData} refundPoints={refundPointResponse.data.items || []} />;
 }

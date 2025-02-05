@@ -1,11 +1,11 @@
 "use client";
-import { Card, CardHeader } from "@/components/ui/card";
-import type { UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto } from "@ayasofyazilim/saas/FinanceService";
+import {Card, CardHeader} from "@/components/ui/card";
+import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams } from "next/navigation";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
-import { tableData } from "./rebate-information-table-data";
+import {useParams} from "next/navigation";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
+import {tableData} from "./rebate-information-table-data";
 
 interface SummaryListType {
   title?: string;
@@ -15,7 +15,7 @@ interface SummaryListType {
   }[];
 }
 
-function SummaryList({ summaryList }: { summaryList: SummaryListType }) {
+function SummaryList({summaryList}: {summaryList: SummaryListType}) {
   return (
     <div className="mt-2 flex w-1/3 flex-col">
       {summaryList.rows.map((row) => (
@@ -35,14 +35,10 @@ export default function RebateStatementInformation({
   rebateStatementData: UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto;
   languageData: FinanceServiceResource;
 }) {
-  const { grantedPolicies } = useGrantedPolicies();
-  const { lang } = useParams<{ lang: string }>();
+  const {grantedPolicies} = useGrantedPolicies();
+  const {lang} = useParams<{lang: string}>();
 
-  const columns = tableData.rebateInformation.columns(
-    lang,
-    languageData,
-    grantedPolicies,
-  );
+  const columns = tableData.rebateInformation.columns(lang, languageData, grantedPolicies);
   const table = tableData.rebateInformation.table();
 
   const firstColumn: SummaryListType = {

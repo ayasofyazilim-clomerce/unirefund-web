@@ -5,9 +5,9 @@ import type {
   UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto,
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Individuals_CreateIndividualDto } from "@ayasofyazilim/saas/CRMService";
-import { ContactFormSubPositions } from "@repo/ui/utils/table/form-schemas";
-import { PhoneNumberUtil } from "google-libphonenumber";
+import {$UniRefund_CRMService_Individuals_CreateIndividualDto} from "@ayasofyazilim/saas/CRMService";
+import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
+import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateIndividualSchema {
   createAbpUserAccount: boolean;
@@ -19,14 +19,7 @@ export interface CreateIndividualSchema {
 }
 
 export const individualFormSubPositions = {
-  name: [
-    "salutation",
-    "firstName",
-    "lastName",
-    "suffix",
-    "mailingName",
-    "officialName",
-  ],
+  name: ["salutation", "firstName", "lastName", "suffix", "mailingName", "officialName"],
   personalSummaries: [
     "date",
     "birthDate",
@@ -59,26 +52,22 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualFormDto = {
   type: "object",
   properties: {
     name: $UniRefund_CRMService_Individuals_CreateIndividualDto.properties.name,
-    personalSummaries:
-      $UniRefund_CRMService_Individuals_CreateIndividualDto.properties
-        .personalSummaries.items,
+    personalSummaries: $UniRefund_CRMService_Individuals_CreateIndividualDto.properties.personalSummaries.items,
     telephone: {
-      ...$UniRefund_CRMService_Individuals_CreateIndividualDto.properties
-        .contactInformations.items.properties.telephones.items,
+      ...$UniRefund_CRMService_Individuals_CreateIndividualDto.properties.contactInformations.items.properties
+        .telephones.items,
       properties: {
-        ...$UniRefund_CRMService_Individuals_CreateIndividualDto.properties
-          .contactInformations.items.properties.telephones.items.properties,
+        ...$UniRefund_CRMService_Individuals_CreateIndividualDto.properties.contactInformations.items.properties
+          .telephones.items.properties,
         localNumber,
       },
     },
     address:
-      $UniRefund_CRMService_Individuals_CreateIndividualDto.properties
-        .contactInformations.items.properties.addresses.items,
+      $UniRefund_CRMService_Individuals_CreateIndividualDto.properties.contactInformations.items.properties.addresses
+        .items,
     email:
-      $UniRefund_CRMService_Individuals_CreateIndividualDto.properties
-        .contactInformations.items.properties.emails.items,
-    createAbpUserAccount:
-      $UniRefund_CRMService_Individuals_CreateIndividualDto.properties
-        .createAbpUserAccount,
+      $UniRefund_CRMService_Individuals_CreateIndividualDto.properties.contactInformations.items.properties.emails
+        .items,
+    createAbpUserAccount: $UniRefund_CRMService_Individuals_CreateIndividualDto.properties.createAbpUserAccount,
   },
 };

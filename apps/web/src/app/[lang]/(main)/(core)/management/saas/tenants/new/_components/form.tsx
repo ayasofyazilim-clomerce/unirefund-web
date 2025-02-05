@@ -3,31 +3,28 @@ import type {
   Volo_Saas_Host_Dtos_EditionDto,
   Volo_Saas_Host_Dtos_SaasTenantCreateDto,
 } from "@ayasofyazilim/saas/SaasService";
-import { $Volo_Saas_Host_Dtos_SaasTenantCreateDto } from "@ayasofyazilim/saas/SaasService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {$Volo_Saas_Host_Dtos_SaasTenantCreateDto} from "@ayasofyazilim/saas/SaasService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {
   AutoFormSubmit,
   createFieldConfigWithResource,
   CustomCombobox,
   DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postTenantApi } from "src/actions/core/SaasService/post-actions";
-import type { SaasServiceResource } from "src/language-data/core/SaasService";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postTenantApi} from "src/actions/core/SaasService/post-actions";
+import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
-const tenantCreateSchema = createZodObject(
-  $Volo_Saas_Host_Dtos_SaasTenantCreateDto,
-  [
-    "name",
-    "editionId",
-    "adminEmailAddress",
-    "adminPassword",
-    "activationState",
-    "activationEndDate",
-  ],
-);
+const tenantCreateSchema = createZodObject($Volo_Saas_Host_Dtos_SaasTenantCreateDto, [
+  "name",
+  "editionId",
+  "adminEmailAddress",
+  "adminPassword",
+  "activationState",
+  "activationEndDate",
+]);
 
 export default function Page({
   languageData,
@@ -69,12 +66,12 @@ export default function Page({
         containerClassName: "gap-2",
         renderer: (props) => {
           const options = [
-            { value: 0, label: languageData["Form.Tenant.active"] },
+            {value: 0, label: languageData["Form.Tenant.active"]},
             {
               value: 1,
               label: languageData["Form.Tenant.activeWithLimitedTime"],
             },
-            { value: 2, label: languageData["Form.Tenant.passive"] },
+            {value: 2, label: languageData["Form.Tenant.passive"]},
           ];
           return (
             <CustomCombobox
@@ -115,8 +112,7 @@ export default function Page({
             setLoading(false);
           });
       }}
-      stickyChildren
-    >
+      stickyChildren>
       <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
         {languageData.Save}
       </AutoFormSubmit>

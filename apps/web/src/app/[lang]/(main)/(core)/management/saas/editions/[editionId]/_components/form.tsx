@@ -1,22 +1,19 @@
 "use client";
 
-import type { Volo_Saas_Host_Dtos_EditionDto } from "@ayasofyazilim/saas/SaasService";
-import { $Volo_Saas_Host_Dtos_EditionUpdateDto } from "@ayasofyazilim/saas/SaasService";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
+import {$Volo_Saas_Host_Dtos_EditionUpdateDto} from "@ayasofyazilim/saas/SaasService";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import {
-  handleDeleteResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
-import { deleteEditionByIdApi } from "src/actions/core/SaasService/delete-actions";
-import { putEditionApi } from "src/actions/core/SaasService/put-actions";
-import type { SaasServiceResource } from "src/language-data/core/SaasService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {deleteEditionByIdApi} from "src/actions/core/SaasService/delete-actions";
+import {putEditionApi} from "src/actions/core/SaasService/put-actions";
+import type {SaasServiceResource} from "src/language-data/core/SaasService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({
@@ -28,7 +25,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Saas_Host_Dtos_EditionUpdateDto,

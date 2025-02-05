@@ -1,3 +1,3 @@
-import { handlers } from "@repo/utils/auth/next-auth";
+import {handlers} from "@repo/utils/auth/next-auth";
 
-export const { GET, POST } = handlers;
+export const {GET, POST} = handlers;

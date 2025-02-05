@@ -1,24 +1,14 @@
 "use client";
-import { $UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressDto } from "@ayasofyazilim/saas/LocationService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type { AutoFormInputComponentProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import {
-  createFieldConfigWithResource,
-  CustomCombobox,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { CustomCombobox as SchemaFormCustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import type { Dispatch, SetStateAction } from "react";
-import type { AppLanguageDataResourceType } from "src/language-data/unirefund/language-data";
-import type {
-  CityDto,
-  CountryDto,
-  DistrictDto,
-  NeighborhoodDto,
-  RegionDto,
-  SelectedAddressField,
-} from "./types";
-import { getCity, getDistrict, getNeighborhood, getRegion } from "./utils";
+import {$UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressDto} from "@ayasofyazilim/saas/LocationService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {createFieldConfigWithResource, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import type {WidgetProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {CustomCombobox as SchemaFormCustomCombobox} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type {Dispatch, SetStateAction} from "react";
+import type {AppLanguageDataResourceType} from "src/language-data/unirefund/language-data";
+import type {CityDto, CountryDto, DistrictDto, NeighborhoodDto, RegionDto, SelectedAddressField} from "./types";
+import {getCity, getDistrict, getNeighborhood, getRegion} from "./utils";
 
 const AddressFormFields: AddressFormFieldsType[] = [
   "countryId",
@@ -145,11 +135,7 @@ export function handleOnAddressValueChange({
     [key in AddressFormFieldsType]: string;
   };
 
-  if (
-    setRegionList &&
-    val.countryId &&
-    val.countryId !== selectedFields.countryId
-  ) {
+  if (setRegionList && val.countryId && val.countryId !== selectedFields.countryId) {
     setRegionList(undefined);
     setCityList(undefined);
     setDistrictList(undefined);
@@ -172,23 +158,23 @@ export function handleOnAddressValueChange({
           ...current,
           regionId: response,
         }));
-        void getCity({ regionId: response, setCityList, languageData });
+        void getCity({regionId: response, setCityList, languageData});
       }
     });
   } else if (selectedFields.regionId && !regionList) {
-    void getCity({ regionId: val.regionId, setCityList, languageData });
+    void getCity({regionId: val.regionId, setCityList, languageData});
   } else if (val.regionId && selectedFields.regionId === "" && regionList) {
     setSelectedFields((current) => ({
       ...current,
       regionId: val.regionId,
     }));
-    void getCity({ regionId: val.regionId, setCityList, languageData });
+    void getCity({regionId: val.regionId, setCityList, languageData});
   } else if (val.cityId && val.cityId !== selectedFields.cityId) {
     setSelectedFields((current) => ({
       ...current,
       cityId: val.cityId,
     }));
-    void getDistrict({ cityId: val.cityId, setDistrictList, languageData });
+    void getDistrict({cityId: val.cityId, setDistrictList, languageData});
   } else if (val.districtId && val.districtId !== selectedFields.districtId) {
     setSelectedFields((current) => ({
       ...current,
@@ -199,10 +185,7 @@ export function handleOnAddressValueChange({
       setNeighborhoodList,
       languageData,
     });
-  } else if (
-    val.neighborhoodId &&
-    val.neighborhoodId !== selectedFields.neighborhoodId
-  ) {
+  } else if (val.neighborhoodId && val.neighborhoodId !== selectedFields.neighborhoodId) {
     setSelectedFields((current) => ({
       ...current,
       neighborhoodId: val.neighborhoodId,
@@ -296,5 +279,5 @@ export function getAddressSettingsForSchemaForm(params: {
       "ui:title": params.languageData["Form.address.regionId"],
     },
   };
-  return { widgets, uiSchema };
+  return {widgets, uiSchema};
 }

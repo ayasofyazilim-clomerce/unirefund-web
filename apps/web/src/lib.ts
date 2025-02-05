@@ -1,20 +1,20 @@
-import type { ApiError } from "@ayasofyazilim/saas/AccountService";
-import { AccountServiceClient } from "@ayasofyazilim/saas/AccountService";
-import { AdministrationServiceClient } from "@ayasofyazilim/saas/AdministrationService";
-import { CRMServiceClient } from "@ayasofyazilim/saas/CRMService";
-import { IdentityServiceClient } from "@ayasofyazilim/saas/IdentityService";
-import { SaasServiceClient } from "@ayasofyazilim/saas/SaasService";
-import { SettingServiceClient } from "@ayasofyazilim/saas/SettingService";
-import { ContractServiceClient } from "@ayasofyazilim/saas/ContractService";
-import { TravellerServiceClient } from "@ayasofyazilim/saas/TravellerService";
-import { TagServiceClient } from "@ayasofyazilim/saas/TagService";
-import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
-import { ExportValidationServiceClient } from "@ayasofyazilim/saas/ExportValidationService";
-import { FinanceServiceClient } from "@ayasofyazilim/saas/FinanceService";
-import { RefundServiceClient } from "@ayasofyazilim/saas/RefundService";
-import type { Session } from "@repo/utils/auth";
-import { auth } from "@repo/utils/auth/next-auth";
-import { isApiError } from "./app/api/util";
+import type {ApiError} from "@ayasofyazilim/saas/AccountService";
+import {AccountServiceClient} from "@ayasofyazilim/saas/AccountService";
+import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationService";
+import {CRMServiceClient} from "@ayasofyazilim/saas/CRMService";
+import {IdentityServiceClient} from "@ayasofyazilim/saas/IdentityService";
+import {SaasServiceClient} from "@ayasofyazilim/saas/SaasService";
+import {SettingServiceClient} from "@ayasofyazilim/saas/SettingService";
+import {ContractServiceClient} from "@ayasofyazilim/saas/ContractService";
+import {TravellerServiceClient} from "@ayasofyazilim/saas/TravellerService";
+import {TagServiceClient} from "@ayasofyazilim/saas/TagService";
+import {LocationServiceClient} from "@ayasofyazilim/saas/LocationService";
+import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
+import {FinanceServiceClient} from "@ayasofyazilim/saas/FinanceService";
+import {RefundServiceClient} from "@ayasofyazilim/saas/RefundService";
+import type {Session} from "@repo/utils/auth";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isApiError} from "./app/api/util";
 
 const HEADERS = {
   "X-Requested-With": "XMLHttpRequest",
@@ -30,16 +30,13 @@ export async function getIdentityServiceClient(session?: Session | null) {
   });
 }
 
-export async function getAccountServiceClient(
-  customHeaders?: Record<string, string>,
-  session?: Session | null,
-) {
+export async function getAccountServiceClient(customHeaders?: Record<string, string>, session?: Session | null) {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
   return new AccountServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
-    HEADERS: { ...HEADERS, ...customHeaders },
+    HEADERS: {...HEADERS, ...customHeaders},
   });
 }
 
@@ -53,9 +50,7 @@ export async function getSaasServiceClient(session?: Session | null) {
   });
 }
 
-export async function getSettingServiceClient(
-  session?: Session | null,
-): Promise<SettingServiceClient> {
+export async function getSettingServiceClient(session?: Session | null): Promise<SettingServiceClient> {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
   return new SettingServiceClient({
@@ -65,9 +60,7 @@ export async function getSettingServiceClient(
   });
 }
 
-export async function getContractServiceClient(
-  session?: Session | null,
-): Promise<ContractServiceClient> {
+export async function getContractServiceClient(session?: Session | null): Promise<ContractServiceClient> {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
   return new ContractServiceClient({
@@ -87,9 +80,7 @@ export async function getAdministrationServiceClient(session?: Session | null) {
   });
 }
 
-export async function getCRMServiceClient(
-  session?: Session | null,
-): Promise<CRMServiceClient> {
+export async function getCRMServiceClient(session?: Session | null): Promise<CRMServiceClient> {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
   return new CRMServiceClient({
@@ -129,9 +120,7 @@ export async function getLocationServiceClient(session?: Session | null) {
   });
 }
 
-export async function getExportValidationServiceClient(
-  session?: Session | null,
-) {
+export async function getExportValidationServiceClient(session?: Session | null) {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
   return new ExportValidationServiceClient({
@@ -161,11 +150,9 @@ export async function getRefundServiceClient(session?: Session | null) {
   });
 }
 
-export type ServerResponse<T = undefined> = BaseServerResponse &
-  (ErrorTypes | SuccessServerResponse<T>);
+export type ServerResponse<T = undefined> = BaseServerResponse & (ErrorTypes | SuccessServerResponse<T>);
 
-export type ErrorTypes = BaseServerResponse &
-  (ErrorServerResponse | ApiErrorServerResponse);
+export type ErrorTypes = BaseServerResponse & (ErrorServerResponse | ApiErrorServerResponse);
 
 export interface BaseServerResponse {
   status: number;
@@ -189,7 +176,7 @@ export function structuredError(error: unknown): ErrorTypes {
   if (isApiError(error)) {
     const body = error.body as
       | {
-          error: { message?: string; details?: string };
+          error: {message?: string; details?: string};
         }
       | undefined;
     const errorDetails = body?.error || {};
@@ -197,11 +184,7 @@ export function structuredError(error: unknown): ErrorTypes {
       type: "api-error",
       data: errorDetails.message || error.statusText || "Something went wrong",
       status: error.status,
-      message:
-        errorDetails.details ||
-        errorDetails.message ||
-        error.statusText ||
-        "Something went wrong",
+      message: errorDetails.details || errorDetails.message || error.statusText || "Something went wrong",
     };
   }
   return {

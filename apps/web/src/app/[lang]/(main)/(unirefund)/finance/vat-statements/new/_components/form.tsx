@@ -1,20 +1,20 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/sonner";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {Button} from "@/components/ui/button";
+import {toast} from "@/components/ui/sonner";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import type {
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto,
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto as VATStatementHeaderCreateDto,
 } from "@ayasofyazilim/saas/FinanceService";
-import { $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto as $VATStatementHeaderCreateDto } from "@ayasofyazilim/saas/FinanceService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import type { UniRefund_CRMService_Merchants_MerchantProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import {$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto as $VATStatementHeaderCreateDto} from "@ayasofyazilim/saas/FinanceService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type {UniRefund_CRMService_Merchants_MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {
   postVatStatementHeaderApi,
   postVatStatementHeadersFormDraftApi,
@@ -39,10 +39,7 @@ export default function VatStatementForm({
       },
     },
   });
-  const [vatStatementData] =
-    useState<
-      UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto[]
-    >();
+  const [vatStatementData] = useState<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto[]>();
   const [_formData, set_FormData] = useState<VATStatementHeaderCreateDto>();
   const [activeTab, setActiveTab] = useState("Form");
   const [loading, setLoading] = useState(false);
@@ -51,9 +48,7 @@ export default function VatStatementForm({
     <Tabs defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="Form">{languageData["Button.Form"]}</TabsTrigger>
-        <TabsTrigger value="Preview">
-          {languageData["Button.Preview"]}
-        </TabsTrigger>
+        <TabsTrigger value="Preview">{languageData["Button.Preview"]}</TabsTrigger>
       </TabsList>
       <TabsContent value="Form">
         <SchemaForm<VATStatementHeaderCreateDto>
@@ -79,17 +74,13 @@ export default function VatStatementForm({
           uiSchema={uiSchema}
           useDefaultSubmit={false}
           widgets={{
-            Merchant:
-              CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantProfileDto>(
-                {
-                  languageData,
-                  list: merchantList,
-                  selectIdentifier: "id",
-                  selectLabel: "name",
-                },
-              ),
-          }}
-        >
+            Merchant: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantProfileDto>({
+              languageData,
+              list: merchantList,
+              selectIdentifier: "id",
+              selectLabel: "name",
+            }),
+          }}>
           <div className="flex w-full justify-end gap-4 pt-8">
             <Button
               disabled={loading}
@@ -111,8 +102,7 @@ export default function VatStatementForm({
                   });
               }}
               type="button"
-              variant="outline"
-            >
+              variant="outline">
               {languageData["Button.PreviewData"]}
             </Button>
             <Button disabled={loading} type="submit">
@@ -125,11 +115,7 @@ export default function VatStatementForm({
         {!loading && vatStatementData?.length ? (
           <div className="flex w-full flex-col gap-4">
             {vatStatementData.map((item) => (
-              <VatStatementInformation
-                VatStatementData={item}
-                key={item.id}
-                languageData={languageData}
-              />
+              <VatStatementInformation VatStatementData={item} key={item.id} languageData={languageData} />
             ))}
           </div>
         ) : (

@@ -1,23 +1,20 @@
-import type { Volo_Abp_Identity_ClaimTypeDto } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_Identity_ClaimTypeDto } from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_Identity_ClaimTypeDto} from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_Identity_ClaimTypeDto} from "@ayasofyazilim/saas/IdentityService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { Plus } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {Plus} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type ClaimTypesTable =
-  TanstackTableCreationProps<Volo_Abp_Identity_ClaimTypeDto>;
+type ClaimTypesTable = TanstackTableCreationProps<Volo_Abp_Identity_ClaimTypeDto>;
 
-const links: Partial<
-  Record<keyof Volo_Abp_Identity_ClaimTypeDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof Volo_Abp_Identity_ClaimTypeDto, TanstackTableColumnLink>> = {};
 
 function claimTypesTableActions(
   languageData: IdentityServiceResource,

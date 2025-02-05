@@ -1,9 +1,9 @@
 "use client";
-import type { PagedResultDto_RebateTableHeaderListDto } from "@ayasofyazilim/saas/ContractService";
+import type {PagedResultDto_RebateTableHeaderListDto} from "@ayasofyazilim/saas/ContractService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useRouter } from "next/navigation";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { tableData } from "./table-data";
+import {useRouter} from "next/navigation";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {tableData} from "./table-data";
 
 export default function RebateTable({
   languageData,
@@ -16,7 +16,7 @@ export default function RebateTable({
 }) {
   const router = useRouter();
   const columns = tableData.rebateTableHeaders.columns(lang, languageData);
-  const table = tableData.rebateTableHeaders.table({ languageData, router });
+  const table = tableData.rebateTableHeaders.table({languageData, router});
 
   return (
     <TanstackTable

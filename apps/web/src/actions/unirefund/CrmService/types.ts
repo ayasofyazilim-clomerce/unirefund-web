@@ -8,26 +8,14 @@ import type {
   UniRefund_CRMService_TelephoneTypes_UpdateTelephoneTypeDto,
 } from "@ayasofyazilim/saas/CRMService";
 
-export type EmailAddressUpdateDto =
-  UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto;
-export type TelephoneUpdateDto =
-  UniRefund_CRMService_TelephoneTypes_UpdateTelephoneTypeDto;
-export type IndividualPersonalSummariesUpdateDto =
-  UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto;
-export type IndividualNameUpdateDto =
-  UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto;
-export type OrganizationUpdateDto =
-  UniRefund_CRMService_Organizations_UpdateOrganizationDto;
-export type AffiliationsPostDto =
-  UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto;
+export type EmailAddressUpdateDto = UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto;
+export type TelephoneUpdateDto = UniRefund_CRMService_TelephoneTypes_UpdateTelephoneTypeDto;
+export type IndividualPersonalSummariesUpdateDto = UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto;
+export type IndividualNameUpdateDto = UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto;
+export type OrganizationUpdateDto = UniRefund_CRMService_Organizations_UpdateOrganizationDto;
+export type AffiliationsPostDto = UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto;
 
-export type PartyNameType =
-  | "merchants"
-  | "refund-points"
-  | "customs"
-  | "tax-free"
-  | "tax-offices"
-  | "individuals";
+export type PartyNameType = "merchants" | "refund-points" | "customs" | "tax-free" | "tax-offices" | "individuals";
 
 export const partyNameToEntityPartyTypeCode: Record<
   Exclude<PartyNameType, "individuals">,

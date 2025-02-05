@@ -1,26 +1,21 @@
-import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_RefundPoints_RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { Building2, PlusCircle, Store } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {Building2, PlusCircle, Store} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type RefundPointsTable =
-  TanstackTableCreationProps<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>;
+type RefundPointsTable = TanstackTableCreationProps<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_CRMService_RefundPoints_RefundPointProfileDto, TanstackTableColumnLink>> =
+  {};
 
 function refundPointsTableActions(
   languageData: CRMServiceServiceResource,
@@ -54,18 +49,16 @@ function refundPointsColumns(
       suffix: "details/info",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>(
-    {
-      rows: $UniRefund_CRMService_RefundPoints_RefundPointProfileDto.properties,
-      languageData: {
-        name: languageData.Name,
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>({
+    rows: $UniRefund_CRMService_RefundPoints_RefundPointProfileDto.properties,
+    languageData: {
+      name: languageData.Name,
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 function refundPointsTable(
   languageData: CRMServiceServiceResource,
@@ -78,11 +71,7 @@ function refundPointsTable(
       type: "hide",
       columns: ["id", "organizationId", "parentId", "taxOfficeId"],
     },
-    tableActions: refundPointsTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-    ),
+    tableActions: refundPointsTableActions(languageData, router, grantedPolicies),
     columnOrder: ["name"],
     filters: {
       textFilters: ["name"],

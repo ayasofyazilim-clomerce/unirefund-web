@@ -1,17 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
-import type { TagServiceResource } from "src/language-data/unirefund/TagService";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useState, useTransition} from "react";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 
-export default function TaxFreeTagsSearchForm({
-  languageData,
-}: {
-  languageData: TagServiceResource;
-}) {
+export default function TaxFreeTagsSearchForm({languageData}: {languageData: TagServiceResource}) {
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -20,11 +16,9 @@ export default function TaxFreeTagsSearchForm({
   const travellerFullName = searchParams.get("travellerFullName") || "";
   const travellerDocumentNo = searchParams.get("travellerDocumentNumber") || "";
 
-  const [travellerDocumentNoInput, setTravellerDocumentNoInput] =
-    useState(travellerDocumentNo);
+  const [travellerDocumentNoInput, setTravellerDocumentNoInput] = useState(travellerDocumentNo);
   const [tagNumberInput, setTagNumberInput] = useState(tagNumber);
-  const [travellerFullNameInput, setTravellerFullNameInput] =
-    useState(travellerFullName);
+  const [travellerFullNameInput, setTravellerFullNameInput] = useState(travellerFullName);
   const [isPending, startTransition] = useTransition();
 
   function searchForTag() {
@@ -43,12 +37,9 @@ export default function TaxFreeTagsSearchForm({
       className="flex items-end gap-4"
       onSubmit={(e) => {
         e.preventDefault();
-      }}
-    >
+      }}>
       <div className="grid max-w-lg items-center gap-1.5">
-        <Label htmlFor="traveller-document-no">
-          {languageData.TravellerDocumentNo}
-        </Label>
+        <Label htmlFor="traveller-document-no">{languageData.TravellerDocumentNo}</Label>
         <Input
           disabled={isPending}
           id="traveller-document-no"
@@ -60,9 +51,7 @@ export default function TaxFreeTagsSearchForm({
         />
       </div>
       <div className="grid max-w-lg items-center gap-1.5">
-        <Label htmlFor="traveller-document-no">
-          {languageData.TravellerFullName}
-        </Label>
+        <Label htmlFor="traveller-document-no">{languageData.TravellerFullName}</Label>
         <Input
           disabled={isPending}
           id="traveller-full-name"
@@ -95,8 +84,7 @@ export default function TaxFreeTagsSearchForm({
             travellerFullName === travellerFullNameInput)
         }
         onClick={searchForTag}
-        type="submit"
-      >
+        type="submit">
         {isPending ? languageData.Searching : languageData.Search}
       </Button>
     </form>

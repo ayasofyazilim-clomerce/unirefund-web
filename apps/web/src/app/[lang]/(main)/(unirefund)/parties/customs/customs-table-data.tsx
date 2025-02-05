@@ -1,26 +1,20 @@
-import type { UniRefund_CRMService_Customss_CustomsProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Customss_CustomsProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Customss_CustomsProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_Customss_CustomsProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type CustomsTable =
-  TanstackTableCreationProps<UniRefund_CRMService_Customss_CustomsProfileDto>;
+type CustomsTable = TanstackTableCreationProps<UniRefund_CRMService_Customss_CustomsProfileDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_CRMService_Customss_CustomsProfileDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_CRMService_Customss_CustomsProfileDto, TanstackTableColumnLink>> = {};
 
 function customsTableActions(
   languageData: CRMServiceServiceResource,
@@ -53,18 +47,16 @@ function customsColumns(
       suffix: "details/info",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Customss_CustomsProfileDto>(
-    {
-      rows: $UniRefund_CRMService_Customss_CustomsProfileDto.properties,
-      languageData: {
-        name: languageData.Name,
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Customss_CustomsProfileDto>({
+    rows: $UniRefund_CRMService_Customss_CustomsProfileDto.properties,
+    languageData: {
+      name: languageData.Name,
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 function customsTable(
   languageData: CRMServiceServiceResource,

@@ -1,21 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access -- TODO: we need to fix this*/
 "use client";
-import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@repo/ayasofyazilim-ui/atoms/card";
-import { AreaChart } from "@repo/ayasofyazilim-ui/molecules/area-chart";
-import { BarChart } from "@repo/ayasofyazilim-ui/molecules/bar-chart";
-import { BarList } from "@repo/ayasofyazilim-ui/molecules/bar-list";
-import { CategoryBar } from "@repo/ayasofyazilim-ui/molecules/category-bar";
-import { LineChart } from "@repo/ayasofyazilim-ui/molecules/line-chart";
+import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import {Card, CardContent, CardHeader} from "@repo/ayasofyazilim-ui/atoms/card";
+import {AreaChart} from "@repo/ayasofyazilim-ui/molecules/area-chart";
+import {BarChart} from "@repo/ayasofyazilim-ui/molecules/bar-chart";
+import {BarList} from "@repo/ayasofyazilim-ui/molecules/bar-list";
+import {CategoryBar} from "@repo/ayasofyazilim-ui/molecules/category-bar";
+import {LineChart} from "@repo/ayasofyazilim-ui/molecules/line-chart";
 import ScrollArea from "@repo/ayasofyazilim-ui/molecules/scroll-area";
 import DataTable from "@repo/ayasofyazilim-ui/molecules/tables";
-import { SortableLayout } from "@repo/ui/sortable-layout";
-import { Grid2X2, SaveAll } from "lucide-react";
-import { useState } from "react";
+import {SortableLayout} from "@repo/ui/sortable-layout";
+import {Grid2X2, SaveAll} from "lucide-react";
+import {useState} from "react";
 
 const issuingNationalities = [
   {
@@ -195,8 +191,7 @@ const top5Chains = [
     sales: `${Intl.NumberFormat("tr").format(12793641609).toString()}₺`,
     vat: `${Intl.NumberFormat("tr").format(158076342).toString()}₺`,
     atv: `${Intl.NumberFormat("tr").format(3155029).toString()}₺`,
-    result:
-      "Doğuş Perakende Satış Giyim ve Aksesuar Dış Ticaret Anonim Şirketi",
+    result: "Doğuş Perakende Satış Giyim ve Aksesuar Dış Ticaret Anonim Şirketi",
   },
   {
     id: "5kma53ae",
@@ -241,8 +236,7 @@ const top5Stores = [
     sis: `${Intl.NumberFormat("tr").format(17478068881).toString()}₺`,
     vat: `${Intl.NumberFormat("tr").format(2891490255).toString()}₺`,
     atv: `${Intl.NumberFormat("tr").format(43155726).toString()}₺`,
-    result:
-      "Doğuş Perakende Satış Giyim ve Aksesuar Dış Ticaret Anonim Şirketi",
+    result: "Doğuş Perakende Satış Giyim ve Aksesuar Dış Ticaret Anonim Şirketi",
   },
   {
     id: "5kma53ae",
@@ -400,7 +394,7 @@ export default function Charts() {
   function getLatestList(list: typeof DashboardJson.items) {
     setListOrder(
       list.map((item, index: number) => {
-        return { ...item, order: index + 1 };
+        return {...item, order: index + 1};
       }),
     );
   }
@@ -427,9 +421,7 @@ export default function Charts() {
                   {item.type === "barChart" && <BarChartHero item={item} />}
                   {item.type === "areaChart" && <AreaChartHero item={item} />}
                   {item.type === "barList" && <BarListHero item={item} />}
-                  {item.type === "categoryBar" && (
-                    <CategoryBarHero item={item} />
-                  )}
+                  {item.type === "categoryBar" && <CategoryBarHero item={item} />}
                   {item.type === "lineChart" && <LineChartHero item={item} />}
                   {item.type === "component" && item.component}
                 </CardContent>
@@ -438,16 +430,8 @@ export default function Charts() {
           }}
         />
         <div className="sticky top-0 flex h-16 w-full items-center border-b bg-white px-4">
-          <Button
-            className="h-8 w-8 bg-white p-0 text-slate-900 shadow"
-            onClick={handleEditMode}
-            variant="secondary"
-          >
-            {sortableEditMode ? (
-              <SaveAll className="w-4" />
-            ) : (
-              <Grid2X2 className="w-4" />
-            )}
+          <Button className="h-8 w-8 bg-white p-0 text-slate-900 shadow" onClick={handleEditMode} variant="secondary">
+            {sortableEditMode ? <SaveAll className="w-4" /> : <Grid2X2 className="w-4" />}
           </Button>
         </div>
       </div>
@@ -455,20 +439,18 @@ export default function Charts() {
   );
 }
 
-function AreaChartHero({ item }: any) {
+function AreaChartHero({item}: any) {
   return (
     <AreaChart
       categories={["SolarPanels", "Inverters"]}
       className="h-80"
       data={item.data}
       index="date"
-      valueFormatter={(number: number) =>
-        `$${Intl.NumberFormat("us").format(number).toString()}`
-      }
+      valueFormatter={(number: number) => `$${Intl.NumberFormat("us").format(number).toString()}`}
     />
   );
 }
-function BarChartHero({ item }: any) {
+function BarChartHero({item}: any) {
   return (
     <BarChart
       categories={item.categories}
@@ -476,35 +458,31 @@ function BarChartHero({ item }: any) {
       colors={["emerald"]}
       data={item.data}
       index={item.index}
-      valueFormatter={(number: number) =>
-        Intl.NumberFormat("us").format(number).toString()
-      }
+      valueFormatter={(number: number) => Intl.NumberFormat("us").format(number).toString()}
     />
   );
 }
-function BarListHero({ item }: any) {
+function BarListHero({item}: any) {
   return <BarList data={item.data} />;
 }
-function CategoryBarHero({ item }: any) {
+function CategoryBarHero({item}: any) {
   return (
     <CategoryBar
       className="mx-auto w-full p-4"
       colors={["pink", "amber", "emerald"]}
-      marker={{ value: 99, tooltip: "68", showAnimation: true }}
+      marker={{value: 99, tooltip: "68", showAnimation: true}}
       values={item.data}
     />
   );
 }
-function LineChartHero({ item }: any) {
+function LineChartHero({item}: any) {
   return (
     <LineChart
       categories={["SolarPanels", "Inverters"]}
       className="h-80"
       data={item.data}
       index="date"
-      valueFormatter={(number: number) =>
-        `$${Intl.NumberFormat("us").format(number).toString()}`
-      }
+      valueFormatter={(number: number) => `$${Intl.NumberFormat("us").format(number).toString()}`}
       xAxisLabel="Month"
       yAxisLabel="Spend Category"
     />

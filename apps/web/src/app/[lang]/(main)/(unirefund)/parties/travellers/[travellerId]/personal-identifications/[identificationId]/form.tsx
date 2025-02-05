@@ -4,19 +4,19 @@ import type {
   UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto,
   UniRefund_TravellerService_Travellers_TravellerDetailProfileDto,
 } from "@ayasofyazilim/saas/TravellerService";
-import { $UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto } from "@ayasofyazilim/saas/TravellerService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {$UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {
   AutoFormSubmit,
   createFieldConfigWithResource,
   CustomCombobox,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { CountryDto } from "src/actions/unirefund/LocationService/types";
-import { putTravellerPersonalIdentificationApi } from "src/actions/unirefund/TravellerService/put-actions";
-import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {CountryDto} from "src/actions/unirefund/LocationService/types";
+import {putTravellerPersonalIdentificationApi} from "src/actions/unirefund/TravellerService/put-actions";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
 const updateTravellerIdentificationSchema = createZodObject(
   $UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto,
@@ -55,7 +55,7 @@ export default function Form({
     startTransition(() => {
       void putTravellerPersonalIdentificationApi({
         id: travellerId,
-        requestBody: { ...data, id: identificationId },
+        requestBody: {...data, id: identificationId},
       }).then((response) => {
         handlePutResponse(response, router);
       });
@@ -63,8 +63,7 @@ export default function Form({
   }
 
   const translatedForm = createFieldConfigWithResource({
-    schema:
-      $UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto,
+    schema: $UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto,
     resources: languageData,
     name: "Form.personalIdentification",
     extend: {
@@ -110,10 +109,7 @@ export default function Form({
           values as UniRefund_TravellerService_PersonalIdentificationCommonDatas_UpdatePersonalIdentificationDto,
         );
       }}
-      values={travellerData.personalIdentifications.find(
-        (identification) => identification.id === identificationId,
-      )}
-    >
+      values={travellerData.personalIdentifications.find((identification) => identification.id === identificationId)}>
       <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>

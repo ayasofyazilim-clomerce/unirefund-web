@@ -1,10 +1,10 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import type { GetApiFinanceServiceVatStatementHeadersByIdResponse } from "@ayasofyazilim/saas/FinanceService";
-import type { GetApiTagServiceTagByIdDetailResponse } from "@ayasofyazilim/saas/TagService";
-import { ClockIcon, SquareArrowOutUpRight } from "lucide-react";
-import type { UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto } from "@ayasofyazilim/saas/RefundService";
-import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import { dateToString } from "../../../_components/utils";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import type {GetApiFinanceServiceVatStatementHeadersByIdResponse} from "@ayasofyazilim/saas/FinanceService";
+import type {GetApiTagServiceTagByIdDetailResponse} from "@ayasofyazilim/saas/TagService";
+import {ClockIcon, SquareArrowOutUpRight} from "lucide-react";
+import type {UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto} from "@ayasofyazilim/saas/RefundService";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import {dateToString} from "../../../_components/utils";
 import TagActions from "./tag-actions";
 
 function ValidStatus({
@@ -25,10 +25,7 @@ function ValidStatus({
           <div className="col-span-full">
             <div className={date ? "mb-2" : "text-muted-foreground mb-2"}>
               {link ? (
-                <a
-                  className="flex flex-row items-center text-blue-700"
-                  href={link}
-                >
+                <a className="flex flex-row items-center text-blue-700" href={link}>
                   <SquareArrowOutUpRight className="mr-2 h-4 w-4" />
                   {title}
                 </a>
@@ -110,11 +107,7 @@ export default function TagStatusDiagram({
       ) : (
         <ValidStatus title="Vat Statement" />
       )}
-      <TagActions
-        languageData={languageData}
-        refundPoint
-        tagDetail={tagDetail}
-      />
+      <TagActions languageData={languageData} refundPoint tagDetail={tagDetail} />
     </div>
   );
 }

@@ -1,23 +1,20 @@
-import type { UniRefund_SettingService_Vats_VatDto } from "@ayasofyazilim/saas/SettingService";
-import { $UniRefund_SettingService_Vats_VatDto } from "@ayasofyazilim/saas/SettingService";
+import type {UniRefund_SettingService_Vats_VatDto} from "@ayasofyazilim/saas/SettingService";
+import {$UniRefund_SettingService_Vats_VatDto} from "@ayasofyazilim/saas/SettingService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { CheckCircle, Plus, XCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {CheckCircle, Plus, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type VatsTable =
-  TanstackTableCreationProps<UniRefund_SettingService_Vats_VatDto>;
+type VatsTable = TanstackTableCreationProps<UniRefund_SettingService_Vats_VatDto>;
 
-const links: Partial<
-  Record<keyof UniRefund_SettingService_Vats_VatDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof UniRefund_SettingService_Vats_VatDto, TanstackTableColumnLink>> = {};
 
 function vatsTableActions(
   languageData: SettingServiceResource,
@@ -50,45 +47,43 @@ const vatsColumns = (
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_Vats_VatDto>(
-    {
-      rows: $UniRefund_SettingService_Vats_VatDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.Vat",
-      },
-      config: {
-        locale,
-      },
-      links,
-      faceted: {
-        active: {
-          options: [
-            {
-              label: "Yes",
-              when: (value) => {
-                return Boolean(value);
-              },
-              value: "true",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-              hideColumnValue: true,
+  return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_Vats_VatDto>({
+    rows: $UniRefund_SettingService_Vats_VatDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.Vat",
+    },
+    config: {
+      locale,
+    },
+    links,
+    faceted: {
+      active: {
+        options: [
+          {
+            label: "Yes",
+            when: (value) => {
+              return Boolean(value);
             },
-            {
-              label: "No",
-              when: (value) => {
-                return !value;
-              },
-              value: "false",
-              icon: XCircle,
-              iconClassName: "text-red-700",
-              hideColumnValue: true,
+            value: "true",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+            hideColumnValue: true,
+          },
+          {
+            label: "No",
+            when: (value) => {
+              return !value;
             },
-          ],
-        },
+            value: "false",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+            hideColumnValue: true,
+          },
+        ],
       },
     },
-  );
+  });
 };
 
 function vatsTable(

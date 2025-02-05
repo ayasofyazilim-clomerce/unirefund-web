@@ -1,12 +1,12 @@
-import type { Volo_Abp_Identity_IdentityRoleDto } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_Identity_IdentityRoleDto } from "@ayasofyazilim/saas/IdentityService";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SaveIcon } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putOrganizationUnitsByIdRolesApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SaveIcon} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putOrganizationUnitsByIdRolesApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 type RolesTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityRoleDto>;
 const rolesColumns = (
@@ -14,27 +14,21 @@ const rolesColumns = (
   languageData: IdentityServiceResource,
   unitRoles: Volo_Abp_Identity_IdentityRoleDto[],
 ) => {
-  return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentityRoleDto>(
-    {
-      rows: $Volo_Abp_Identity_IdentityRoleDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.Role",
-      },
-      config: {
-        locale,
-      },
-      selectableRows: true,
-      disabledRowIds: unitRoles.map((role) => role.id || ""),
+  return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentityRoleDto>({
+    rows: $Volo_Abp_Identity_IdentityRoleDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.Role",
     },
-  );
+    config: {
+      locale,
+    },
+    selectableRows: true,
+    disabledRowIds: unitRoles.map((role) => role.id || ""),
+  });
 };
 
-function rolesTable(
-  languageData: IdentityServiceResource,
-  selectedUnitId: string,
-  router: AppRouterInstance,
-) {
+function rolesTable(languageData: IdentityServiceResource, selectedUnitId: string, router: AppRouterInstance) {
   const table: RolesTable = {
     fillerColumn: "name",
     columnVisibility: {

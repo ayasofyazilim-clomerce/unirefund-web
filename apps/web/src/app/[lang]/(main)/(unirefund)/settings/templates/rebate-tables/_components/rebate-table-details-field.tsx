@@ -1,8 +1,8 @@
-import type { UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as RebateTableDetailCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as $RebateTableDetailCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
-import { PlusCircle } from "lucide-react";
+import type {UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as RebateTableDetailCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto as $RebateTableDetailCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
+import {PlusCircle} from "lucide-react";
 
 export function RebateTableDetailsField(
   data: RebateTableDetailCreateDto[] = [
@@ -23,25 +23,21 @@ export function RebateTableDetailsField(
         ...$RebateTableDetailCreateDto.properties,
         variableFee: {
           ...$RebateTableDetailCreateDto.properties.variableFee,
-          enum: $RebateTableDetailCreateDto.properties.variableFee.enum.map(
-            (item) => {
-              return {
-                value: item,
-                label: item,
-              };
-            },
-          ),
+          enum: $RebateTableDetailCreateDto.properties.variableFee.enum.map((item) => {
+            return {
+              value: item,
+              label: item,
+            };
+          }),
         },
         refundMethod: {
           ...$RebateTableDetailCreateDto.properties.refundMethod,
-          enum: $RebateTableDetailCreateDto.properties.refundMethod.enum.map(
-            (item) => {
-              return {
-                value: item,
-                label: item,
-              };
-            },
-          ),
+          enum: $RebateTableDetailCreateDto.properties.refundMethod.enum.map((item) => {
+            return {
+              value: item,
+              label: item,
+            };
+          }),
         },
       },
       excludeColumns: ["extraProperties"],

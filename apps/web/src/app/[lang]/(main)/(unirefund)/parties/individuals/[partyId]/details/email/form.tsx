@@ -1,16 +1,14 @@
 "use client";
 
-import type { GetApiCrmServiceIndividualsByIdEmailsResponse } from "@ayasofyazilim/saas/CRMService";
-import AutoForm, {
-  AutoFormSubmit,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { emailSchema } from "@repo/ui/utils/table/form-schemas";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putIndividualEmailApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { EmailAddressUpdateDto } from "src/actions/unirefund/CrmService/types";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import type {GetApiCrmServiceIndividualsByIdEmailsResponse} from "@ayasofyazilim/saas/CRMService";
+import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {emailSchema} from "@repo/ui/utils/table/form-schemas";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putIndividualEmailApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {EmailAddressUpdateDto} from "src/actions/unirefund/CrmService/types";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function EmailForm({
   languageData,
@@ -51,8 +49,7 @@ function EmailForm({
         handleSubmit(values as EmailAddressUpdateDto);
       }}
       stickyChildren
-      values={emailValues}
-    >
+      values={emailValues}>
       <AutoFormSubmit className="float-right mr-6" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>

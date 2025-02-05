@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -10,9 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
-import type { TagServiceResource } from "src/language-data/unirefund/TagService";
+import {Separator} from "@/components/ui/separator";
+import type {UniRefund_TagService_Tags_TagDetailDto} from "@ayasofyazilim/saas/TagService";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 
 export default function Invoices({
   tagDetail,
@@ -24,19 +24,11 @@ export default function Invoices({
   return tagDetail.invoices?.map((invoice) => (
     <div className="flex flex-col gap-4 overflow-auto" key={invoice.id || ""}>
       {invoice.invoiceLines?.map((line) => (
-        <div
-          className="grid grid-cols-3 items-center gap-4"
-          key={line.id || ""}
-        >
+        <div className="grid grid-cols-3 items-center gap-4" key={line.id || ""}>
           <div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="factura-no">{languageData.FacturaNo}</Label>
-              <Input
-                disabled
-                name="factura-no"
-                placeholder={languageData.FacturaNo}
-                value={invoice.number || ""}
-              />
+              <Input disabled name="factura-no" placeholder={languageData.FacturaNo} value={invoice.number || ""} />
             </div>
           </div>
           <div />
@@ -56,10 +48,7 @@ export default function Invoices({
                 <SelectGroup>
                   <SelectLabel>Product Groups</SelectLabel>
                   {tagDetail.merchant?.productGroups?.map((productGroup) => (
-                    <SelectItem
-                      key={productGroup.id || ""}
-                      value={productGroup.id || ""}
-                    >
+                    <SelectItem key={productGroup.id || ""} value={productGroup.id || ""}>
                       {productGroup.description || ""}
                     </SelectItem>
                   ))}
@@ -70,12 +59,7 @@ export default function Invoices({
           <div className="col-span-2">
             <div className="ml-auto grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="factura-no">{languageData.Amount}</Label>
-              <Input
-                disabled
-                placeholder={languageData.Amount}
-                type="amount"
-                value={line.amount}
-              />
+              <Input disabled placeholder={languageData.Amount} type="amount" value={line.amount} />
             </div>
           </div>
 

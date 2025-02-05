@@ -4,16 +4,14 @@ import type {
   UniRefund_CRMService_Organizations_OrganizationDto,
   UniRefund_CRMService_Organizations_UpdateOrganizationDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Organizations_UpdateOrganizationDto } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {
-  AutoFormSubmit,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putCustomOrganizationApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {$UniRefund_CRMService_Organizations_UpdateOrganizationDto} from "@ayasofyazilim/saas/CRMService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putCustomOrganizationApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function OrganizationForm({
   languageData,
@@ -26,14 +24,12 @@ function OrganizationForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const schema = createZodObject(
-    $UniRefund_CRMService_Organizations_UpdateOrganizationDto,
-    ["name", "legalStatusCode"],
-  );
+  const schema = createZodObject($UniRefund_CRMService_Organizations_UpdateOrganizationDto, [
+    "name",
+    "legalStatusCode",
+  ]);
 
-  function handleSubmit(
-    formData: UniRefund_CRMService_Organizations_UpdateOrganizationDto,
-  ) {
+  function handleSubmit(formData: UniRefund_CRMService_Organizations_UpdateOrganizationDto) {
     startTransition(() => {
       void putCustomOrganizationApi({
         requestBody: formData,
@@ -49,12 +45,9 @@ function OrganizationForm({
       formClassName="pb-40"
       formSchema={schema}
       onSubmit={(values) => {
-        handleSubmit(
-          values as UniRefund_CRMService_Organizations_UpdateOrganizationDto,
-        );
+        handleSubmit(values as UniRefund_CRMService_Organizations_UpdateOrganizationDto);
       }}
-      values={organizationDetail}
-    >
+      values={organizationDetail}>
       <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>

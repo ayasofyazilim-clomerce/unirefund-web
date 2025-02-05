@@ -2,10 +2,10 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as ContractStoreDetailedDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto } from "@ayasofyazilim/saas/ContractService";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto} from "@ayasofyazilim/saas/ContractService";
+import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 const contractStoresTableColumns = ({
   languageData,
@@ -30,14 +30,12 @@ const contractStoresTableColumns = ({
       },
       receiptType: {
         type: "enum",
-        enum: $ContractStoreDetailedDto.properties.receiptType.enum.map(
-          (item) => {
-            return {
-              label: languageData[`Contracts.Stores.receiptType.${item}`],
-              value: item,
-            };
-          },
-        ),
+        enum: $ContractStoreDetailedDto.properties.receiptType.enum.map((item) => {
+          return {
+            label: languageData[`Contracts.Stores.receiptType.${item}`],
+            value: item,
+          };
+        }),
       },
     },
     classNames: {
@@ -73,13 +71,7 @@ const contractsTable = () => {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: [
-        "name",
-        "fullAddress",
-        "manager",
-        "contractSettingId",
-        "receiptType",
-      ],
+      columns: ["name", "fullAddress", "manager", "contractSettingId", "receiptType"],
     },
   };
   return table;

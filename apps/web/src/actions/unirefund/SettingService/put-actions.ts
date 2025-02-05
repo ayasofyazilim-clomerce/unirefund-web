@@ -4,11 +4,7 @@ import type {
   PutApiSettingServiceProductGroupByIdData,
   PutApiSettingServiceVatByIdData,
 } from "@ayasofyazilim/saas/SettingService";
-import {
-  getSettingServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getSettingServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function putVatApi(data: PutApiSettingServiceVatByIdData) {
   try {
@@ -19,13 +15,10 @@ export async function putVatApi(data: PutApiSettingServiceVatByIdData) {
     return structuredError(error);
   }
 }
-export async function putProductGroupApi(
-  data: PutApiSettingServiceProductGroupByIdData,
-) {
+export async function putProductGroupApi(data: PutApiSettingServiceProductGroupByIdData) {
   try {
     const client = await getSettingServiceClient();
-    const dataResponse =
-      await client.productGroup.putApiSettingServiceProductGroupById(data);
+    const dataResponse = await client.productGroup.putApiSettingServiceProductGroupById(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

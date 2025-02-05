@@ -1,42 +1,32 @@
 "use server";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
-import { auth } from "@repo/utils/auth/next-auth";
-import { LogOut } from "lucide-react";
-import type { Policy } from "@repo/utils/policies";
-import { signOutServer } from "@repo/utils/auth";
+import {auth} from "@repo/utils/auth/next-auth";
+import {LogOut} from "lucide-react";
+import type {Policy} from "@repo/utils/policies";
+import {signOutServer} from "@repo/utils/auth";
 import unirefund from "public/unirefund.png";
-import { getGrantedPoliciesApi } from "src/actions/core/AccountService/actions";
-import { getResourceData } from "src/language-data/core/AbpUiNavigation";
-import { getBaseLink } from "src/utils";
-import { getNavbarFromDB } from "../../../utils/navbar/navbar-data";
-import { getProfileMenuFromDB } from "../../../utils/navbar/navbar-profile-data";
+import {getGrantedPoliciesApi} from "src/actions/core/AccountService/actions";
+import {getResourceData} from "src/language-data/core/AbpUiNavigation";
+import {getBaseLink} from "src/utils";
+import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
+import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
 
 interface LayoutProps {
-  params: { lang: string };
+  params: {lang: string};
   children: JSX.Element;
 }
 const appName = process.env.APPLICATION_NAME || "UNIREFUND";
-export default async function Layout({ children, params }: LayoutProps) {
-  const { lang } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Layout({children, params}: LayoutProps) {
+  const {lang} = params;
+  const {languageData} = await getResourceData(lang);
   const session = await auth();
-  const grantedPolicies = (await getGrantedPoliciesApi()) as Record<
-    Policy,
-    boolean
-  >;
+  const grantedPolicies = (await getGrantedPoliciesApi()) as Record<Policy, boolean>;
   const baseURL = getBaseLink("", lang);
-  const navbarFromDB = await getNavbarFromDB(
-    lang,
-    languageData,
-    grantedPolicies,
-  );
+  const navbarFromDB = await getNavbarFromDB(lang, languageData, grantedPolicies);
   const profileMenuProps = getProfileMenuFromDB(languageData);
-  profileMenuProps.info.name =
-    session?.user?.name ?? profileMenuProps.info.name;
-  profileMenuProps.info.email =
-    session?.user?.email ?? profileMenuProps.info.email;
-  profileMenuProps.info.image =
-    "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
+  profileMenuProps.info.name = session?.user?.name ?? profileMenuProps.info.name;
+  profileMenuProps.info.email = session?.user?.email ?? profileMenuProps.info.email;
+  profileMenuProps.info.image = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   profileMenuProps.menu.secondary = [
     {
@@ -59,9 +49,7 @@ export default async function Layout({ children, params }: LayoutProps) {
         profileMenu={profileMenuProps}
         tenantData={session?.user}
       />
-      <div className="flex h-full flex-col overflow-hidden px-4">
-        {children}
-      </div>
+      <div className="flex h-full flex-col overflow-hidden px-4">{children}</div>
     </div>
   );
 }

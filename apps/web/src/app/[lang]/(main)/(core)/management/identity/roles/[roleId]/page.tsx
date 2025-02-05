@@ -1,19 +1,15 @@
 "use server";
 
-import { isUnauthorized } from "@repo/utils/policies";
-import { getRoleDetailsByIdApi } from "src/actions/core/IdentityService/actions";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getRoleDetailsByIdApi} from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/core/IdentityService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import {getResourceData} from "src/language-data/core/IdentityService";
+import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import Form from "./_components/form";
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; roleId: string };
-}) {
-  const { lang, roleId } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {lang: string; roleId: string}}) {
+  const {lang, roleId} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["AbpIdentity.Roles.Update"],
     lang,
@@ -21,12 +17,7 @@ export default async function Page({
 
   const roleDetailsResponse = await getRoleDetailsByIdApi(roleId);
   if (isErrorOnRequest(roleDetailsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={roleDetailsResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={roleDetailsResponse.message} />;
   }
 
   return (

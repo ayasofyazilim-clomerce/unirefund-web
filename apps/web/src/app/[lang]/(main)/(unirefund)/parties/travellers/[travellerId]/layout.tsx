@@ -1,24 +1,22 @@
 "use server";
 
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { auth } from "@repo/utils/auth/next-auth";
-import { getTravellersDetailsApi } from "@/actions/unirefund/TravellerService/actions";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {auth} from "@repo/utils/auth/next-auth";
+import {getTravellersDetailsApi} from "@/actions/unirefund/TravellerService/actions";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/TravellerService";
-import { getBaseLink } from "src/utils";
+import {getResourceData} from "src/language-data/unirefund/TravellerService";
+import {getBaseLink} from "src/utils";
 
 async function getApiRequests(travellerId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getTravellersDetailsApi(travellerId, session),
-    ]);
+    const apiRequests = await Promise.all([getTravellersDetailsApi(travellerId, session)]);
     return {
       type: "success" as const,
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -35,17 +33,12 @@ export default async function Layout({
     lang: string;
   };
 }) {
-  const { travellerId, lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {travellerId, lang} = params;
+  const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests(travellerId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [travellerDataResponse] = apiRequests.data;
   const baseLink = getBaseLink(`parties/travellers/${travellerId}/`, lang);
@@ -67,8 +60,7 @@ export default async function Layout({
             href: `${baseLink}personal-summary`,
           },
         ]}
-        variant="simple"
-      >
+        variant="simple">
         {children}
       </TabLayout>
       <div className="hidden" id="page-title">

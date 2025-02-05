@@ -1,17 +1,17 @@
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {FileText} from "lucide-react";
+import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   // getRefundPointContractHeadersByRefundPointIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getRefundPointDetailsByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {getRefundPointDetailsByIdApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { getBaseLink } from "src/utils";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
+import {getBaseLink} from "src/utils";
 import RefundPointContractHeaderCreateForm from "./_components/form";
 
 async function getApiRequests(partyId: string) {
@@ -39,7 +39,7 @@ async function getApiRequests(partyId: string) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -55,21 +55,16 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const { partyId, lang } = params;
+  const {partyId, lang} = params;
   await isUnauthorized({
     requiredPolicies: ["ContractService.ContractHeaderForMerchant.Create"],
     lang,
   });
 
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests(partyId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [
     refundPointDetailsResponse,
@@ -77,10 +72,7 @@ export default async function Page({
     // otherContractHeaders,
   ] = apiRequests.data;
 
-  const refundPointDetailsSummary =
-    refundPointDetailsResponse.data.entityInformations
-      ?.at(0)
-      ?.organizations?.at(0);
+  const refundPointDetailsSummary = refundPointDetailsResponse.data.entityInformations?.at(0)?.organizations?.at(0);
   // const biggestContractHeader = otherContractHeaders.data.items?.at(0);
 
   return (
@@ -92,19 +84,12 @@ export default async function Page({
         message: languageData["Missing.RefundFeeHeaders.Message"],
         action: (
           <Button asChild className="text-blue-500" variant="link">
-            <Link
-              href={getBaseLink("settings/templates/refund-fees/new", lang)}
-            >
-              {languageData.New}
-            </Link>
+            <Link href={getBaseLink("settings/templates/refund-fees/new", lang)}>{languageData.New}</Link>
           </Button>
         ),
-      }}
-    >
+      }}>
       <RefundPointContractHeaderCreateForm
-        addressList={
-          refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
-        }
+        addressList={refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []}
         languageData={languageData}
         refundFeeHeaders={refundFeeHeadersResponse.data}
       />
