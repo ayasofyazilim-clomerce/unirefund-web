@@ -190,7 +190,7 @@
     "key": "management/audit-logs",
     "displayName": "AuditLogs",
     "description": "View and analyze audit logs.",
-    "href": "management/audit-logs",
+    "href": "management/audit-logs/audit-logs",
     "icon": "log",
     "parentNavbarItemKey": "management",
     "displayOrder": 1,

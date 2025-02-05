@@ -1,6 +1,7 @@
 "use server";
 import type {
   GetApiAuditLoggingAuditLogsData,
+  GetApiAuditLoggingAuditLogsEntityChangesData,
   GetApiLanguageManagementLanguagesData,
   GetApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
   GetApiLanguageManagementLanguageTextsData,
@@ -57,6 +58,19 @@ export async function getAuditLogsApi(data: GetApiAuditLoggingAuditLogsData) {
     const client = await getAdministrationServiceClient();
     const dataResponse =
       await client.auditLogs.getApiAuditLoggingAuditLogs(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getAuditLogsEntityChangesApi(
+  data: GetApiAuditLoggingAuditLogsEntityChangesData,
+) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse =
+      await client.auditLogs.getApiAuditLoggingAuditLogsEntityChanges(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

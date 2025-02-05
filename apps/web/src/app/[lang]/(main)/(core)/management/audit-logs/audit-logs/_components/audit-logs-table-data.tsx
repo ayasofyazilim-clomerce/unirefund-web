@@ -3,19 +3,13 @@ import {
   $System_Net_HttpStatusCode,
   $Volo_Abp_AuditLogging_AuditLogDto,
 } from "@ayasofyazilim/saas/AdministrationService";
-import type {
-  TanstackTableColumnLink,
-  TanstackTableCreationProps,
-} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
 
 type AuditLogsTable =
   TanstackTableCreationProps<Volo_Abp_AuditLogging_AuditLogDto>;
 
-const links: Partial<
-  Record<keyof Volo_Abp_AuditLogging_AuditLogDto, TanstackTableColumnLink>
-> = {};
 const badgeClassNames = {
   200: "text-green-500 bg-green-100 border-green-500",
   204: "text-green-500 bg-green-100 border-green-500",
@@ -39,12 +33,11 @@ const auditLogsColumns = (
       rows: $Volo_Abp_AuditLogging_AuditLogDto.properties,
       languageData: {
         languageData,
-        constantKey: "Form.AuditLog",
+        constantKey: "Form.AuditLog.AuditLogs",
       },
       config: {
         locale,
       },
-      links,
       badges: {
         url: {
           values: Object.keys(badgeClassNames).map((key) => ({
@@ -91,14 +84,14 @@ function auditLogsTable(languageData: AdministrationServiceResource) {
       ],
       facetedFilters: {
         httpStatusCode: {
-          title: languageData["Form.AuditLog.httpStatusCode"],
+          title: languageData["Form.AuditLog.AuditLogs.httpStatusCode"],
           options: $System_Net_HttpStatusCode.enum.map((statusCode) => ({
             value: statusCode,
             label: statusCode,
           })),
         },
         httpMethod: {
-          title: languageData["Form.AuditLog.httpMethod"],
+          title: languageData["Form.AuditLog.AuditLogs.httpMethod"],
           options: [
             { value: "GET", label: "GET" },
             { value: "POST", label: "POST" },
@@ -111,7 +104,7 @@ function auditLogsTable(languageData: AdministrationServiceResource) {
           ],
         },
         hasException: {
-          title: languageData["Form.AuditLog.hasException"],
+          title: languageData["Form.AuditLog.AuditLogs.hasException"],
           options: [
             { value: "true", label: "True" },
             { value: "false", label: "False" },
