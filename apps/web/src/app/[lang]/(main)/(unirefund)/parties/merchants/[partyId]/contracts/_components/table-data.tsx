@@ -1,13 +1,13 @@
-import { toast } from "@/components/ui/sonner";
-import type { UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractsForMerchantDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as $ContractsForMerchantDto } from "@ayasofyazilim/saas/ContractService";
-import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
-import type { TanstackTableCreationProps } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData as columnsByData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { getBaseLink } from "src/utils";
+import {toast} from "@/components/ui/sonner";
+import type {UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractsForMerchantDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as $ContractsForMerchantDto} from "@ayasofyazilim/saas/ContractService";
+import {OpenInNewWindowIcon} from "@radix-ui/react-icons";
+import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData as columnsByData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {getBaseLink} from "src/utils";
 
 const contractsTableColumns = ({
   languageData,
@@ -20,7 +20,7 @@ const contractsTableColumns = ({
 }) => {
   return columnsByData<ContractsForMerchantDto>({
     rows: $ContractsForMerchantDto.properties,
-    config: { locale: lang },
+    config: {locale: lang},
     languageData: {
       constantKey: "Contracts",
       languageData,
@@ -70,7 +70,7 @@ const contractsTable = (props: {
   partyId: string;
   router: AppRouterInstance;
 }) => {
-  const { languageData, partyId, router } = props;
+  const {languageData, partyId, router} = props;
   const table: TanstackTableCreationProps<ContractsForMerchantDto> = {
     fillerColumn: "name",
     columnVisibility: {
@@ -83,9 +83,7 @@ const contractsTable = (props: {
         actionLocation: "table",
         cta: languageData["Contracts.New"],
         onClick: () => {
-          router.push(
-            getBaseLink(`/parties/merchants/${partyId}/contracts/new/`),
-          );
+          router.push(getBaseLink(`/parties/merchants/${partyId}/contracts/new/`));
         },
       },
       {

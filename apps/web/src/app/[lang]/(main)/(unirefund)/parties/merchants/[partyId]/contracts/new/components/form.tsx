@@ -3,16 +3,16 @@ import type {
   UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as ContractHeaderForMerchantCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { handlePostResponse } from "@repo/utils/api";
-import { useParams, useRouter } from "next/navigation";
-import { useTransition } from "react";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { postMerchantContractHeadersByMerchantIdApi } from "@/actions/unirefund/ContractService/post-actions";
-import { RefundTableHeadersField } from "../../_components/refund-table-headers-field";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handlePostResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import {useTransition} from "react";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {postMerchantContractHeadersByMerchantIdApi} from "@/actions/unirefund/ContractService/post-actions";
+import {RefundTableHeadersField} from "../../_components/refund-table-headers-field";
 
 export default function MerchantContractHeaderCreateForm({
   addressList,
@@ -24,7 +24,7 @@ export default function MerchantContractHeaderCreateForm({
   refundTableHeaders: AssignableRefundTableHeaders[];
 }) {
   const router = useRouter();
-  const { partyId } = useParams<{
+  const {partyId} = useParams<{
     partyId: string;
   }>();
   const [isPending, startTransition] = useTransition();
@@ -68,7 +68,7 @@ export default function MerchantContractHeaderCreateForm({
         merchantClassification: "Satisfactory",
         addressCommonDataId: addressList[0].id,
       }}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         if (!formData) return;
         startTransition(() => {
           void postMerchantContractHeadersByMerchantIdApi({

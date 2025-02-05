@@ -1,4 +1,4 @@
-import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto } from "@ayasofyazilim/saas/LocationService";
+import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto} from "@ayasofyazilim/saas/LocationService";
 import type {
   UniRefund_CRMService_Customss_CreateCustomsOrganizationDto,
   UniRefund_CRMService_EmailCommonDatas_CreateEmailCommonDataWithComponentsDto,
@@ -23,9 +23,9 @@ import {
   $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as CreateTaxFreeSchema,
   $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto as CreateTaxOfficeSchema,
 } from "@ayasofyazilim/saas/CRMService";
-import { ContactFormSubPositions } from "@repo/ui/utils/table/form-schemas";
-import { PhoneNumberUtil } from "google-libphonenumber";
-import type { PartiesCreateType } from "./types";
+import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
+import {PhoneNumberUtil} from "google-libphonenumber";
+import type {PartiesCreateType} from "./types";
 
 export interface CreatePartiesDto {
   taxOfficeId: string;
@@ -47,8 +47,7 @@ export type CreateMerchantFormData = CreatePartiesDto & {
 export type CreateRefundPointFormData = CreatePartiesDto & {
   organization: UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationDto;
 };
-const CommonOrganizationFields: (keyof UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto)[] =
-  ["name"];
+const CommonOrganizationFields: (keyof UniRefund_CRMService_Merchants_CreateMerchantOrgnaizationDto)[] = ["name"];
 export const MerchantsFormSubPositions = {
   organization: [...CommonOrganizationFields, "legalStatusCode"],
   ...ContactFormSubPositions,
@@ -98,27 +97,22 @@ function createScheme(schema: PartiesCreateType) {
         type: "string",
       },
       taxpayerId: schema.properties.taxpayerId,
-      organization:
-        schema.properties.entityInformationTypes.items.properties.organizations
-          .items,
+      organization: schema.properties.entityInformationTypes.items.properties.organizations.items,
       telephone: {
-        ...schema.properties.entityInformationTypes.items.properties
-          .organizations.items.properties.contactInformations.items.properties
-          .telephones.items,
+        ...schema.properties.entityInformationTypes.items.properties.organizations.items.properties.contactInformations
+          .items.properties.telephones.items,
         properties: {
-          ...schema.properties.entityInformationTypes.items.properties
-            .organizations.items.properties.contactInformations.items.properties
-            .telephones.items.properties,
+          ...schema.properties.entityInformationTypes.items.properties.organizations.items.properties
+            .contactInformations.items.properties.telephones.items.properties,
           localNumber,
         },
       },
       address:
-        schema.properties.entityInformationTypes.items.properties.organizations
-          .items.properties.contactInformations.items.properties.addresses
-          .items,
+        schema.properties.entityInformationTypes.items.properties.organizations.items.properties.contactInformations
+          .items.properties.addresses.items,
       email:
-        schema.properties.entityInformationTypes.items.properties.organizations
-          .items.properties.contactInformations.items.properties.emails.items,
+        schema.properties.entityInformationTypes.items.properties.organizations.items.properties.contactInformations
+          .items.properties.emails.items,
     },
   };
 }
@@ -150,26 +144,13 @@ export const dataConfigOfParties = {
     ],
     createFormSchema: {
       schema: createScheme(CreateMerchantSchema),
-      formPositions: [
-        "organization",
-        "address",
-        "telephone",
-        "email",
-        "taxpayerId",
-        "taxOfficeId",
-      ],
+      formPositions: ["organization", "address", "telephone", "email", "taxpayerId", "taxOfficeId"],
 
       formSubPositions: MerchantsFormSubPositions,
       convertors: {},
     },
     tableSchema: {
-      excludeList: [
-        "id",
-        "organizationId",
-        "individualId",
-        "parentCompanyId",
-        "entityInformationTypeCodeName",
-      ],
+      excludeList: ["id", "organizationId", "individualId", "parentCompanyId", "entityInformationTypeCodeName"],
       schema: $UniRefund_CRMService_Merchants_MerchantProfileDto,
     },
   },
@@ -180,24 +161,12 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateRefundPointSchema),
-      formPositions: [
-        "organization",
-        "address",
-        "telephone",
-        "email",
-        "taxpayerId",
-        "taxOfficeId",
-      ],
+      formPositions: ["organization", "address", "telephone", "email", "taxpayerId", "taxOfficeId"],
       formSubPositions: RefundPointsFormSubPositions,
       convertors: {},
     },
     tableSchema: {
-      excludeList: [
-        "id",
-        "organizationId",
-        "individualId",
-        "entityInformationTypeCodeValue",
-      ],
+      excludeList: ["id", "organizationId", "individualId", "entityInformationTypeCodeValue"],
       schema: $UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
     },
   },
@@ -208,13 +177,7 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateCustomsSchema),
-      formPositions: [
-        "organization",
-        "telephone",
-        "address",
-        "email",
-        "taxpayerId",
-      ],
+      formPositions: ["organization", "telephone", "address", "email", "taxpayerId"],
       formSubPositions: CustomsFormSubPositions,
       convertors: {},
     },
@@ -230,13 +193,7 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateTaxFreeSchema),
-      formPositions: [
-        "organization",
-        "address",
-        "telephone",
-        "email",
-        "taxpayerId",
-      ],
+      formPositions: ["organization", "address", "telephone", "email", "taxpayerId"],
       formSubPositions: TaxFreeFormSubPositions,
       convertors: {},
     },
@@ -252,13 +209,7 @@ export const dataConfigOfParties = {
     detailedFilters: [],
     createFormSchema: {
       schema: createScheme(CreateTaxOfficeSchema),
-      formPositions: [
-        "organization",
-        "telephone",
-        "address",
-        "email",
-        "taxpayerId",
-      ],
+      formPositions: ["organization", "telephone", "address", "email", "taxpayerId"],
       formSubPositions: TaxOfficesFormSubPositions,
       convertors: {},
     },

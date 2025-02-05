@@ -1,24 +1,22 @@
 "use server";
 
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getIndividualPhoneByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getIndividualPhoneByIdApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
 import TelephoneForm from "./form";
 
-async function getApiRequests({ partyId }: { partyId: string }) {
+async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getIndividualPhoneByIdApi(partyId, session),
-    ]);
+    const apiRequests = await Promise.all([getIndividualPhoneByIdApi(partyId, session)]);
     return {
       type: "success" as const,
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -33,29 +31,18 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const { partyId, lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {partyId, lang} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["CRMService.Individuals.Edit"],
     lang,
   });
-  const apiRequests = await getApiRequests({ partyId });
+  const apiRequests = await getApiRequests({partyId});
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
   const [phoneResponse] = apiRequests.data;
 
-  return (
-    <TelephoneForm
-      languageData={languageData}
-      partyId={partyId}
-      phoneResponse={phoneResponse.data}
-    />
-  );
+  return <TelephoneForm languageData={languageData} partyId={partyId} phoneResponse={phoneResponse.data} />;
 }

@@ -1,15 +1,8 @@
-import { useState, useEffect } from "react";
-import type { AppLanguageDataResourceType } from "src/language-data/unirefund/language-data";
-import type {
-  CityDto,
-  CountryDto,
-  DistrictDto,
-  NeighborhoodDto,
-  RegionDto,
-  SelectedAddressField,
-} from "./types";
-import { getAddressList } from "./utils";
-import type { AddressFormFieldsType } from "./schemas";
+import {useState, useEffect} from "react";
+import type {AppLanguageDataResourceType} from "src/language-data/unirefund/language-data";
+import type {CityDto, CountryDto, DistrictDto, NeighborhoodDto, RegionDto, SelectedAddressField} from "./types";
+import {getAddressList} from "./utils";
+import type {AddressFormFieldsType} from "./schemas";
 import {
   getAddressFieldConfig,
   getAddressSchema,
@@ -29,19 +22,11 @@ export function useAddressHook({
   fieldsToHideInAddressSchema: AddressFormFieldsType[];
   languageData: AppLanguageDataResourceType;
 }) {
-  const [selectedFields, setSelectedFields] = useState<SelectedAddressField>(
-    selectedFieldsDefaultValue,
-  );
+  const [selectedFields, setSelectedFields] = useState<SelectedAddressField>(selectedFieldsDefaultValue);
   const [cityList, setCityList] = useState<CityDto[] | undefined>(undefined);
-  const [districtList, setDistrictList] = useState<DistrictDto[] | undefined>(
-    undefined,
-  );
-  const [neighborhoodList, setNeighborhoodList] = useState<
-    NeighborhoodDto[] | undefined
-  >(undefined);
-  const [regionList, setRegionList] = useState<RegionDto[] | undefined>(
-    undefined,
-  );
+  const [districtList, setDistrictList] = useState<DistrictDto[] | undefined>(undefined);
+  const [neighborhoodList, setNeighborhoodList] = useState<NeighborhoodDto[] | undefined>(undefined);
+  const [regionList, setRegionList] = useState<RegionDto[] | undefined>(undefined);
 
   if (!regionList || regionList.length === 0) {
     fieldsToHideInAddressSchema.push("regionId");
@@ -81,9 +66,7 @@ export function useAddressHook({
     });
   }, []);
 
-  function onAddressValueChanged(
-    val: Record<string, string> | Record<string, Record<string, string>>,
-  ) {
+  function onAddressValueChanged(val: Record<string, string> | Record<string, Record<string, string>>) {
     let values: Record<string, string>;
     if ("address" in val) {
       values = val.address as Record<string, string>;

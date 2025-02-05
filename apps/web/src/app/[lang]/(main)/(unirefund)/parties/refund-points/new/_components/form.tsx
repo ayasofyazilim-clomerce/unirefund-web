@@ -4,24 +4,18 @@ import type {
   UniRefund_CRMService_RefundPoints_CreateRefundPointDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type { AutoFormInputComponentProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import AutoForm, {
-  AutoFormSubmit,
-  CustomCombobox,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postRefundPointsWithComponentsApi } from "src/actions/unirefund/CrmService/post-actions";
-import type {
-  CountryDto,
-  SelectedAddressField,
-} from "src/actions/unirefund/LocationService/types";
-import { useAddressHook } from "src/actions/unirefund/LocationService/use-address-hook.tsx";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
-import type { CreateRefundPointOrganizationSchema } from "./data";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import AutoForm, {AutoFormSubmit, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postRefundPointsWithComponentsApi} from "src/actions/unirefund/CrmService/post-actions";
+import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
+import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
+import type {CreateRefundPointOrganizationSchema} from "./data";
 import {
   $UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationFormDto,
   refundPointOrganizationFormSubPositions,
@@ -49,12 +43,7 @@ export default function RefundPointOrganizationForm({
     districtId: "",
   };
 
-  const {
-    selectedFields,
-    addressFieldsToShow,
-    addressSchemaFieldConfig,
-    onAddressValueChanged,
-  } = useAddressHook({
+  const {selectedFields, addressFieldsToShow, addressSchemaFieldConfig, onAddressValueChanged} = useAddressHook({
     countryList,
     selectedFieldsDefaultValue,
     fieldsToHideInAddressSchema: [],
@@ -63,14 +52,7 @@ export default function RefundPointOrganizationForm({
 
   const $createRefundPointOrganizationHeadquarterSchema = createZodObject(
     $UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationFormDto,
-    [
-      "organization",
-      "address",
-      "taxpayerId",
-      "taxOfficeId",
-      "telephone",
-      "email",
-    ],
+    ["organization", "address", "taxpayerId", "taxOfficeId", "telephone", "email"],
     undefined,
     {
       ...refundPointOrganizationFormSubPositions,
@@ -88,15 +70,13 @@ export default function RefundPointOrganizationForm({
     },
   );
 
-  function handleSaveRefundPointOrganization(
-    formData: CreateRefundPointOrganizationSchema,
-  ) {
+  function handleSaveRefundPointOrganization(formData: CreateRefundPointOrganizationSchema) {
     const isValid = isPhoneValid(formData.telephone.localNumber);
     if (!isValid) {
       return;
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
-    formData.telephone = { ...formData.telephone, ...phoneData };
+    formData.telephone = {...formData.telephone, ...phoneData};
     const createData: UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
       parentId,
       taxpayerId: formData.taxpayerId,
@@ -115,9 +95,7 @@ export default function RefundPointOrganizationForm({
                       typeCode: "OFFICE",
                     },
                   ],
-                  emails: [
-                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
-                  ],
+                  emails: [{...formData.email, primaryFlag: true, typeCode: "WORK"}],
                   addresses: [
                     {
                       ...formData.address,
@@ -198,22 +176,17 @@ export default function RefundPointOrganizationForm({
         },
       }}
       formSchema={
-        parentId
-          ? $createRefundPointOrganizationStoreSchema
-          : $createRefundPointOrganizationHeadquarterSchema
+        parentId ? $createRefundPointOrganizationStoreSchema : $createRefundPointOrganizationHeadquarterSchema
       }
       onSubmit={(formData) => {
         setLoading(true);
-        handleSaveRefundPointOrganization(
-          formData as CreateRefundPointOrganizationSchema,
-        );
+        handleSaveRefundPointOrganization(formData as CreateRefundPointOrganizationSchema);
       }}
       onValuesChange={(values) => {
         onAddressValueChanged(values);
       }}
       stickyChildren
-      stickyChildrenClassName="sticky px-6"
-    >
+      stickyChildrenClassName="sticky px-6">
       <AutoFormSubmit className="float-right" disabled={loading}>
         {languageData.Save}
       </AutoFormSubmit>

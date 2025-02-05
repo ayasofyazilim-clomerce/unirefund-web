@@ -19,20 +19,15 @@ import type {
   UniRefund_CRMService_TaxOffices_TaxOfficeDto,
 } from "@ayasofyazilim/saas/CRMService";
 
-export type CreateMerchantDTO =
-  UniRefund_CRMService_Merchants_CreateMerchantDto;
+export type CreateMerchantDTO = UniRefund_CRMService_Merchants_CreateMerchantDto;
 export type CreateCustomsDTO = UniRefund_CRMService_Customss_CreateCustomsDto;
-export type CreateRefundPointDTO =
-  UniRefund_CRMService_RefundPoints_CreateRefundPointDto;
+export type CreateRefundPointDTO = UniRefund_CRMService_RefundPoints_CreateRefundPointDto;
 export type CreateTaxFreeDTO = UniRefund_CRMService_TaxFrees_CreateTaxFreeDto;
-export type CreateTaxOfficeDTO =
-  UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto;
-export type CreateIndividualDTO =
-  UniRefund_CRMService_Individuals_CreateIndividualDto;
+export type CreateTaxOfficeDTO = UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto;
+export type CreateIndividualDTO = UniRefund_CRMService_Individuals_CreateIndividualDto;
 
 export type GetMerchantDTO = UniRefund_CRMService_Merchants_MerchantDto;
-export type GetRefundPointDTO =
-  UniRefund_CRMService_RefundPoints_RefundPointDto;
+export type GetRefundPointDTO = UniRefund_CRMService_RefundPoints_RefundPointDto;
 export type GetCustomsDTO = UniRefund_CRMService_Customss_CustomsDto;
 export type GetTaxFreeDTO = UniRefund_CRMService_TaxFrees_TaxFreeDto;
 export type GetTaxOfficeDTO = UniRefund_CRMService_TaxOffices_TaxOfficeDto;

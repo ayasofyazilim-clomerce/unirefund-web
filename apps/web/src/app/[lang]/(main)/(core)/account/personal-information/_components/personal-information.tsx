@@ -1,16 +1,13 @@
 "use client";
-import type {
-  Volo_Abp_Account_ProfileDto,
-  Volo_Abp_Account_UpdateProfileDto,
-} from "@ayasofyazilim/saas/AccountService";
-import { $Volo_Abp_Account_UpdateProfileDto } from "@ayasofyazilim/saas/AccountService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { putPersonalInfomationApi } from "src/actions/core/AccountService/put-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { AccountServiceResource } from "src/language-data/core/AccountService";
+import type {Volo_Abp_Account_ProfileDto, Volo_Abp_Account_UpdateProfileDto} from "@ayasofyazilim/saas/AccountService";
+import {$Volo_Abp_Account_UpdateProfileDto} from "@ayasofyazilim/saas/AccountService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {putPersonalInfomationApi} from "src/actions/core/AccountService/put-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 export default function PersonalInformation({
   languageData,

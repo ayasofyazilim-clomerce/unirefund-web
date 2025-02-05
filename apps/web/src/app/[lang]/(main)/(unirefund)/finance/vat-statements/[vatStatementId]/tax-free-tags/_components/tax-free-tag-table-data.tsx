@@ -1,22 +1,19 @@
-import type { UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto } from "@ayasofyazilim/saas/FinanceService";
-import { $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto } from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto} from "@ayasofyazilim/saas/FinanceService";
+import {$UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto} from "@ayasofyazilim/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type TaxFreeTagTable =
   TanstackTableCreationProps<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto>;
 
 const links: Partial<
-  Record<
-    keyof UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto,
-    TanstackTableColumnLink
-  >
+  Record<keyof UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto, TanstackTableColumnLink>
 > = {};
 
 function taxFreeTagColumns(
@@ -24,30 +21,23 @@ function taxFreeTagColumns(
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  if (
-    isActionGranted(
-      ["FinanceService.VATStatementHeaders.View"],
-      grantedPolicies,
-    )
-  ) {
+  if (isActionGranted(["FinanceService.VATStatementHeaders.View"], grantedPolicies)) {
     links.tagNumber = {
       prefix: `/operations/tax-free-tags`,
       targetAccessorKey: "tagId",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto>(
-    {
-      rows: $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.VatStatement",
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto>({
+    rows: $UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.VatStatement",
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 
 function taxFreeTagTable() {

@@ -4,24 +4,18 @@ import type {
   UniRefund_CRMService_TaxFrees_CreateTaxFreeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type { AutoFormInputComponentProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import AutoForm, {
-  AutoFormSubmit,
-  CustomCombobox,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postTaxFreesWithComponentsApi } from "src/actions/unirefund/CrmService/post-actions";
-import type {
-  CountryDto,
-  SelectedAddressField,
-} from "src/actions/unirefund/LocationService/types";
-import { useAddressHook } from "src/actions/unirefund/LocationService/use-address-hook.tsx";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
-import type { CreateTaxFreeOrganizationSchema } from "./data";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import AutoForm, {AutoFormSubmit, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postTaxFreesWithComponentsApi} from "src/actions/unirefund/CrmService/post-actions";
+import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
+import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
+import type {CreateTaxFreeOrganizationSchema} from "./data";
 import {
   $UniRefund_CRMService_TaxFrees_CreateTaxFreesOrganizationFormDto,
   taxFreeOrganizationFormSubPositions,
@@ -49,12 +43,7 @@ export default function TaxFreeOrganizationForm({
     districtId: "",
   };
 
-  const {
-    selectedFields,
-    addressFieldsToShow,
-    addressSchemaFieldConfig,
-    onAddressValueChanged,
-  } = useAddressHook({
+  const {selectedFields, addressFieldsToShow, addressSchemaFieldConfig, onAddressValueChanged} = useAddressHook({
     countryList,
     selectedFieldsDefaultValue,
     fieldsToHideInAddressSchema: [],
@@ -63,34 +52,25 @@ export default function TaxFreeOrganizationForm({
 
   const $createTaxFreeOrganizationHeadquarterSchema = createZodObject(
     $UniRefund_CRMService_TaxFrees_CreateTaxFreesOrganizationFormDto,
-    [
-      "organization",
-      "address",
-      "taxpayerId",
-      "taxOfficeId",
-      "telephone",
-      "email",
-    ],
+    ["organization", "address", "taxpayerId", "taxOfficeId", "telephone", "email"],
     undefined,
-    { ...taxFreeOrganizationFormSubPositions, address: addressFieldsToShow },
+    {...taxFreeOrganizationFormSubPositions, address: addressFieldsToShow},
   );
 
   const $createTaxFreeOrganizationStoreSchema = createZodObject(
     $UniRefund_CRMService_TaxFrees_CreateTaxFreesOrganizationFormDto,
     ["organization", "address", "telephone", "email"],
     undefined,
-    { ...taxFreeOrganizationFormSubPositions, address: addressFieldsToShow },
+    {...taxFreeOrganizationFormSubPositions, address: addressFieldsToShow},
   );
 
-  function handleSaveTaxFreeOrganization(
-    formData: CreateTaxFreeOrganizationSchema,
-  ) {
+  function handleSaveTaxFreeOrganization(formData: CreateTaxFreeOrganizationSchema) {
     const isValid = isPhoneValid(formData.telephone.localNumber);
     if (!isValid) {
       return;
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
-    formData.telephone = { ...formData.telephone, ...phoneData };
+    formData.telephone = {...formData.telephone, ...phoneData};
     const createData: UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
       parentId,
       taxpayerId: formData.taxpayerId,
@@ -109,9 +89,7 @@ export default function TaxFreeOrganizationForm({
                       typeCode: "OFFICE",
                     },
                   ],
-                  emails: [
-                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
-                  ],
+                  emails: [{...formData.email, primaryFlag: true, typeCode: "WORK"}],
                   addresses: [
                     {
                       ...formData.address,
@@ -197,23 +175,16 @@ export default function TaxFreeOrganizationForm({
           },
         },
       }}
-      formSchema={
-        parentId
-          ? $createTaxFreeOrganizationStoreSchema
-          : $createTaxFreeOrganizationHeadquarterSchema
-      }
+      formSchema={parentId ? $createTaxFreeOrganizationStoreSchema : $createTaxFreeOrganizationHeadquarterSchema}
       onSubmit={(formData) => {
         setLoading(true);
-        handleSaveTaxFreeOrganization(
-          formData as CreateTaxFreeOrganizationSchema,
-        );
+        handleSaveTaxFreeOrganization(formData as CreateTaxFreeOrganizationSchema);
       }}
       onValuesChange={(values) => {
         onAddressValueChanged(values);
       }}
       stickyChildren
-      stickyChildrenClassName="sticky px-6"
-    >
+      stickyChildrenClassName="sticky px-6">
       <AutoFormSubmit className="float-right" disabled={loading}>
         {languageData.Save}
       </AutoFormSubmit>

@@ -1,14 +1,14 @@
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import {
   getMerchantContractHeaderByIdApi,
   // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getMerchantAddressByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {getMerchantAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { MerchantContractHeaderUpdateForm } from "./_components/form";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
+import {MerchantContractHeaderUpdateForm} from "./_components/form";
 
 async function getApiRequests(partyId: string, contractId: string) {
   try {
@@ -29,7 +29,7 @@ async function getApiRequests(partyId: string, contractId: string) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -46,8 +46,8 @@ export default async function Page({
     contractId: string;
   };
 }) {
-  const { lang, partyId, contractId } = params;
-  const { languageData } = await getResourceData(lang);
+  const {lang, partyId, contractId} = params;
+  const {languageData} = await getResourceData(lang);
 
   await isUnauthorized({
     requiredPolicies: ["ContractService.ContractHeaderForMerchant.Edit"],
@@ -55,12 +55,7 @@ export default async function Page({
   });
   const apiRequests = await getApiRequests(partyId, contractId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [
     refundTableHeadersResponse,

@@ -1,32 +1,26 @@
 "use server";
 
-import type { GetApiTagServiceTagTagsRefundData } from "@ayasofyazilim/saas/TagService";
-import { redirect } from "next/navigation";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getAccessibleRefundPointsApi } from "src/actions/unirefund/CrmService/actions";
-import { getRefundableTagsApi } from "src/actions/unirefund/TagService/actions";
-import { getResourceData } from "src/language-data/unirefund/TagService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import type {GetApiTagServiceTagTagsRefundData} from "@ayasofyazilim/saas/TagService";
+import {redirect} from "next/navigation";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getAccessibleRefundPointsApi} from "src/actions/unirefund/CrmService/actions";
+import {getRefundableTagsApi} from "src/actions/unirefund/TagService/actions";
+import {getResourceData} from "src/language-data/unirefund/TagService";
+import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import TravellerDocumentForm from "../_components/traveller-document-form";
 import ClientPage from "./client-page";
-import { isUnauthorizedRefundPoint } from "./utils";
+import {isUnauthorizedRefundPoint} from "./utils";
 
 export default async function Page({
   params,
   searchParams,
 }: {
-  params: { lang: string; refundType: "export-validated" | "need-validation" };
-  searchParams?: Partial<Omit<GetApiTagServiceTagTagsRefundData, "tagIds">> &
-    Partial<{ tagIds: string }>;
+  params: {lang: string; refundType: "export-validated" | "need-validation"};
+  searchParams?: Partial<Omit<GetApiTagServiceTagTagsRefundData, "tagIds">> & Partial<{tagIds: string}>;
 }) {
-  const { lang, refundType } = params;
-  const {
-    travellerDocumentNumber,
-    refundPointId,
-    refundType: refundMethod,
-    tagIds,
-  } = searchParams || {};
+  const {lang, refundType} = params;
+  const {travellerDocumentNumber, refundPointId, refundType: refundMethod, tagIds} = searchParams || {};
 
   await isUnauthorized({
     requiredPolicies: [
@@ -38,20 +32,14 @@ export default async function Page({
     lang,
   });
 
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
 
   const accessibleRefundPointsResponse = await getAccessibleRefundPointsApi();
   if (isErrorOnRequest(accessibleRefundPointsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={accessibleRefundPointsResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={accessibleRefundPointsResponse.message} />;
   }
 
-  const accessibleRefundPoints =
-    accessibleRefundPointsResponse.data.items || [];
+  const accessibleRefundPoints = accessibleRefundPointsResponse.data.items || [];
 
   if (isUnauthorizedRefundPoint(refundPointId, accessibleRefundPoints)) {
     return redirect(`/${lang}/unauthorized`);
@@ -70,12 +58,7 @@ export default async function Page({
   }
 
   if (!travellerDocumentNumber || !refundPointId) {
-    return (
-      <TravellerDocumentForm
-        accessibleRefundPoints={accessibleRefundPoints}
-        languageData={languageData}
-      />
-    );
+    return <TravellerDocumentForm accessibleRefundPoints={accessibleRefundPoints} languageData={languageData} />;
   }
 
   const refundableTagsResponse = await getRefundableTagsApi({

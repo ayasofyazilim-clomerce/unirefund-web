@@ -4,11 +4,7 @@ import type {
   DeleteApiIdentityOrganizationUnitsByIdMembersByMemberIdData,
   DeleteApiIdentityOrganizationUnitsByIdRolesByRoleIdData,
 } from "@ayasofyazilim/saas/IdentityService";
-import {
-  getIdentityServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getIdentityServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function deleteUserSessionsApi(id: string) {
   try {
@@ -61,11 +57,9 @@ export async function deleteUserSessionsByIdApi(id: string) {
 export async function deleteClaimTypeByIdApi(id: string) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse = await client.claimType.deleteApiIdentityClaimTypesById(
-      {
-        id,
-      },
-    );
+    const dataResponse = await client.claimType.deleteApiIdentityClaimTypesById({
+      id,
+    });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -87,10 +81,9 @@ export async function deleteScopeByIdApi(id: string) {
 export async function deleteApplicationByIdApi(id: string) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.applications.deleteApiOpeniddictApplications({
-        id,
-      });
+    const dataResponse = await client.applications.deleteApiOpeniddictApplications({
+      id,
+    });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -100,10 +93,9 @@ export async function deleteApplicationByIdApi(id: string) {
 export async function deleteOrganizationUnitsApi(id: string) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.deleteApiIdentityOrganizationUnits({
-        id,
-      });
+    const dataResponse = await client.organizationUnit.deleteApiIdentityOrganizationUnits({
+      id,
+    });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -115,10 +107,7 @@ export async function deleteOrganizationUnitsByIdMembersByMemberIdApi(
 ) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.deleteApiIdentityOrganizationUnitsByIdMembersByMemberId(
-        data,
-      );
+    const dataResponse = await client.organizationUnit.deleteApiIdentityOrganizationUnitsByIdMembersByMemberId(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -130,10 +119,7 @@ export async function deleteOrganizationUnitsByIdRolesByRoleIdApi(
 ) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.deleteApiIdentityOrganizationUnitsByIdRolesByRoleId(
-        data,
-      );
+    const dataResponse = await client.organizationUnit.deleteApiIdentityOrganizationUnitsByIdRolesByRoleId(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

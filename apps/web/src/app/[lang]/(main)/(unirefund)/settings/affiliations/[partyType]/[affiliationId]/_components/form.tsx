@@ -1,27 +1,24 @@
 "use client";
 
-import type { UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as AffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_AffiliationCodes_UpdateAffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
-import type { UniRefund_IdentityService_AssignableRoles_AssignableRoleDto } from "@ayasofyazilim/saas/IdentityService";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import type {UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as AffiliationCodeDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_AffiliationCodes_UpdateAffiliationCodeDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_IdentityService_AssignableRoles_AssignableRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import type { CRMServiceServiceResource } from "@/language-data/unirefund/CRMService";
-import { putAffiliationCodesByIdApi } from "@/actions/unirefund/CrmService/put-actions";
-import { deleteAffiliationCodesByIdApi } from "@/actions/unirefund/CrmService/delete-actions";
-import {
-  handleDeleteResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {putAffiliationCodesByIdApi} from "@/actions/unirefund/CrmService/put-actions";
+import {deleteAffiliationCodesByIdApi} from "@/actions/unirefund/CrmService/delete-actions";
+import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { PartyNameType } from "@/actions/unirefund/CrmService/types";
-import { entityPartyTypeCodeMap } from "../../_components/utils";
+import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
+import {entityPartyTypeCodeMap} from "../../_components/utils";
 
 export default function Form({
   languageData,
@@ -38,7 +35,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_CRMService_AffiliationCodes_UpdateAffiliationCodeDto,
@@ -53,10 +50,7 @@ export default function Form({
   return (
     <div className="flex flex-col gap-4 overflow-auto">
       <ActionList>
-        {isActionGranted(
-          ["CRMService.AffiliationCodes.Delete"],
-          grantedPolicies,
-        ) && (
+        {isActionGranted(["CRMService.AffiliationCodes.Delete"], grantedPolicies) && (
           <ConfirmDialog
             closeProps={{
               children: languageData.Cancel,
@@ -99,7 +93,7 @@ export default function Form({
           keys: ["status", "entityPartyTypeCode"],
         }}
         formData={affiliationCodesDetails}
-        onSubmit={({ formData }) => {
+        onSubmit={({formData}) => {
           setLoading(true);
           if (!formData) return;
           void putAffiliationCodesByIdApi({
@@ -121,14 +115,12 @@ export default function Form({
         submitText={languageData["Edit.Save"]}
         uiSchema={uiSchema}
         widgets={{
-          Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>(
-            {
-              languageData,
-              list: assignableRolesData.filter((role) => role.isAssignable),
-              selectIdentifier: "roleId",
-              selectLabel: "roleName",
-            },
-          ),
+          Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>({
+            languageData,
+            list: assignableRolesData.filter((role) => role.isAssignable),
+            selectIdentifier: "roleId",
+            selectLabel: "roleName",
+          }),
         }}
       />
     </div>

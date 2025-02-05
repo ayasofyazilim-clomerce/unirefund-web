@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import type { UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as AffiliationCodeDto } from "@ayasofyazilim/saas/CRMService";
+import {Button} from "@/components/ui/button";
+import type {UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as AffiliationCodeDto} from "@ayasofyazilim/saas/CRMService";
 import {
   $UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto as $AffiliationCodeDto,
   $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
@@ -13,27 +13,25 @@ import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { FileText, Plus } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {FileText, Plus} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
-import { getBaseLink } from "@/utils";
-import type { PartyNameType } from "@/actions/unirefund/CrmService/types";
-import { postAffiliationCodesApi } from "@/actions/unirefund/CrmService/post-actions";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {getBaseLink} from "@/utils";
+import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
+import {postAffiliationCodesApi} from "@/actions/unirefund/CrmService/post-actions";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
-import { entityPartyTypeCodeMap } from "./utils";
+import type {Policy} from "src/utils/page-policy/utils";
+import {entityPartyTypeCodeMap} from "./utils";
 
 type IndividualsTable = TanstackTableCreationProps<AffiliationCodeDto>;
-const links: Partial<
-  Record<keyof AffiliationCodeDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof AffiliationCodeDto, TanstackTableColumnLink>> = {};
 
 function affiliationsTableActions(
   languageData: CRMServiceServiceResource,
@@ -43,9 +41,7 @@ function affiliationsTableActions(
   partyType: Exclude<PartyNameType, "individuals">,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (
-    isActionGranted(["CRMService.AffiliationCodes.Create"], grantedPolicies)
-  ) {
+  if (isActionGranted(["CRMService.AffiliationCodes.Create"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",
       actionLocation: "table",
@@ -61,13 +57,10 @@ function affiliationsTableActions(
             message: languageData["Missing.Affiliation.Message"],
             action: (
               <Button asChild className="text-blue-500" variant="link">
-                <Link href={getBaseLink("settings/affiliations/customs")}>
-                  {languageData.New}
-                </Link>
+                <Link href={getBaseLink("settings/affiliations/customs")}>{languageData.New}</Link>
               </Button>
             ),
-          }}
-        >
+          }}>
           <SchemaForm<AffiliationCodeDto>
             className="flex flex-col gap-4"
             filter={{
@@ -75,7 +68,7 @@ function affiliationsTableActions(
               sort: true,
               keys: ["status", "entityPartyTypeCode"],
             }}
-            onSubmit={({ formData }) => {
+            onSubmit={({formData}) => {
               if (!formData) return;
               void postAffiliationCodesApi({
                 requestBody: {
@@ -91,12 +84,9 @@ function affiliationsTableActions(
                 });
               });
             }}
-            schema={
-              $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto
-            }
+            schema={$UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto}
             uiSchema={createUiSchemaWithResource({
-              schema:
-                $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
+              schema: $UniRefund_CRMService_AffiliationCodes_CreateAffiliationCodeDto,
               resources: languageData,
               name: "Form.Affiliation",
               extend: {
@@ -106,17 +96,13 @@ function affiliationsTableActions(
               },
             })}
             widgets={{
-              Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>(
-                {
-                  languageData,
-                  list: assignableRoles,
-                  disabledItems: assignableRoles
-                    .filter((role) => !role.isAssignable)
-                    .map((role) => role.roleId),
-                  selectIdentifier: "roleId",
-                  selectLabel: "roleName",
-                },
-              ),
+              Role: CustomComboboxWidget<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>({
+                languageData,
+                list: assignableRoles,
+                disabledItems: assignableRoles.filter((role) => !role.isAssignable).map((role) => role.roleId),
+                selectIdentifier: "roleId",
+                selectLabel: "roleName",
+              }),
             }}
           />
         </FormReadyComponent>
@@ -165,13 +151,7 @@ function affiliationsTable(
       type: "show",
       columns: ["name", "description", "creationTime"],
     },
-    tableActions: affiliationsTableActions(
-      languageData,
-      assignableRoles,
-      grantedPolicies,
-      router,
-      partyType,
-    ),
+    tableActions: affiliationsTableActions(languageData, assignableRoles, grantedPolicies, router, partyType),
   };
   return table;
 }

@@ -1,8 +1,8 @@
-import type { UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailCreateDto as RefundFeeDetailCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailCreateDto as $RefundFeeDetailCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
-import { PlusCircle } from "lucide-react";
+import type {UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailCreateDto as RefundFeeDetailCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailCreateDto as $RefundFeeDetailCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
+import {PlusCircle} from "lucide-react";
 
 export function RefundFeeDetailsField(
   data: RefundFeeDetailCreateDto[] = [
@@ -31,25 +31,21 @@ export function RefundFeeDetailsField(
         ...$RefundFeeDetailCreateDto.properties,
         feeType: {
           ...$RefundFeeDetailCreateDto.properties.feeType,
-          enum: $RefundFeeDetailCreateDto.properties.feeType.enum.map(
-            (item) => {
-              return {
-                value: item,
-                label: item,
-              };
-            },
-          ),
+          enum: $RefundFeeDetailCreateDto.properties.feeType.enum.map((item) => {
+            return {
+              value: item,
+              label: item,
+            };
+          }),
         },
         refundMethod: {
           ...$RefundFeeDetailCreateDto.properties.refundMethod,
-          enum: $RefundFeeDetailCreateDto.properties.refundMethod.enum.map(
-            (item) => {
-              return {
-                value: item,
-                label: item,
-              };
-            },
-          ),
+          enum: $RefundFeeDetailCreateDto.properties.refundMethod.enum.map((item) => {
+            return {
+              value: item,
+              label: item,
+            };
+          }),
         },
       },
       excludeColumns: ["extraProperties"],

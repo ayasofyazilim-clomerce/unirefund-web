@@ -1,4 +1,4 @@
-import type { UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto } from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto} from "@ayasofyazilim/saas/FinanceService";
 import {
   $PagedResultDto_VATStatementHeaderForListDto,
   $UniRefund_FinanceService_Enums_PaymentStatus,
@@ -9,33 +9,25 @@ import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusIcon } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusIcon} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type VatStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>;
 
 const links: Partial<
-  Record<
-    keyof UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto,
-    TanstackTableColumnLink
-  >
+  Record<keyof UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto, TanstackTableColumnLink>
 > = {};
 const vatStatementsColumns = (
   locale: string,
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
-  if (
-    isActionGranted(
-      ["FinanceService.RebateStatementHeaders.View"],
-      grantedPolicies,
-    )
-  ) {
+  if (isActionGranted(["FinanceService.RebateStatementHeaders.View"], grantedPolicies)) {
     links.merchantName = {
       prefix: "vat-statements",
       targetAccessorKey: "id",
@@ -44,8 +36,7 @@ const vatStatementsColumns = (
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>(
     {
-      rows: $PagedResultDto_VATStatementHeaderForListDto.properties.items.items
-        .properties,
+      rows: $PagedResultDto_VATStatementHeaderForListDto.properties.items.items.properties,
       languageData: {
         languageData,
         constantKey: "Form.VatStatement",
@@ -56,37 +47,32 @@ const vatStatementsColumns = (
       links,
       badges: {
         merchantName: {
-          values: $UniRefund_FinanceService_Enums_PaymentStatus.enum.map(
-            (status) => {
-              const badgeClasses = {
-                Paid: "text-green-500 bg-green-100 border-green-500",
-                NotPaid: "text-red-500 bg-red-100 border-red-500",
-                PartlyPaid: "text-orange-500 bg-orange-100 border-orange-500",
-                OverPaid: "text-green-800 bg-orange-100 border-green-500",
-              };
-              return {
-                label:
-                  languageData[`Form.VatStatement.paymentStatus.${status}`],
-                badgeClassName: badgeClasses[status],
-                conditions: [
-                  {
-                    conditionAccessorKey: "paymentStatus",
-                    when: (value) => value === status,
-                  },
-                ],
-              };
-            },
-          ),
+          values: $UniRefund_FinanceService_Enums_PaymentStatus.enum.map((status) => {
+            const badgeClasses = {
+              Paid: "text-green-500 bg-green-100 border-green-500",
+              NotPaid: "text-red-500 bg-red-100 border-red-500",
+              PartlyPaid: "text-orange-500 bg-orange-100 border-orange-500",
+              OverPaid: "text-green-800 bg-orange-100 border-green-500",
+            };
+            return {
+              label: languageData[`Form.VatStatement.paymentStatus.${status}`],
+              badgeClassName: badgeClasses[status],
+              conditions: [
+                {
+                  conditionAccessorKey: "paymentStatus",
+                  when: (value) => value === status,
+                },
+              ],
+            };
+          }),
         },
       },
       faceted: {
         status: {
-          options: $UniRefund_FinanceService_Enums_VATStatementStatus.enum.map(
-            (x) => ({
-              label: languageData[`Form.VatStatement.status.${x}`],
-              value: x,
-            }),
-          ),
+          options: $UniRefund_FinanceService_Enums_VATStatementStatus.enum.map((x) => ({
+            label: languageData[`Form.VatStatement.status.${x}`],
+            value: x,
+          })),
         },
       },
     },
@@ -99,12 +85,7 @@ function vatStatementTableActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (
-    isActionGranted(
-      ["FinanceService.VATStatementHeaders.Create"],
-      grantedPolicies,
-    )
-  ) {
+  if (isActionGranted(["FinanceService.VATStatementHeaders.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
       cta: languageData["VatStatement.New"],
@@ -124,11 +105,7 @@ function vatStatementsTable(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const table: VatStatementsTable = {
-    tableActions: vatStatementTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-    ),
+    tableActions: vatStatementTableActions(languageData, router, grantedPolicies),
     fillerColumn: "merchantName",
     columnVisibility: {
       type: "hide",

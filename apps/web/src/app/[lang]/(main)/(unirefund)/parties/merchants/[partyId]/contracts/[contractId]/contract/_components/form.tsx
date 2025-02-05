@@ -1,33 +1,30 @@
 "use client";
 
-import { toast } from "@/components/ui/sonner";
+import {toast} from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { ActionButton, ActionList } from "@repo/ui/action-button";
-import { CheckCircle, CircleX, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import type { TransitionStartFunction } from "react";
-import { useTransition } from "react";
-import {
-  handleDeleteResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
-import { deleteMerchantContractHeaderByIdApi } from "src/actions/unirefund/ContractService/delete-actions";
-import { postMerchantContractHeaderValidateByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {ActionButton, ActionList} from "@repo/ui/action-button";
+import {CheckCircle, CircleX, Trash} from "lucide-react";
+import {useParams, useRouter} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
+import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {deleteMerchantContractHeaderByIdApi} from "src/actions/unirefund/ContractService/delete-actions";
+import {postMerchantContractHeaderValidateByHeaderIdApi} from "src/actions/unirefund/ContractService/post-actions";
 import {
   putMerchantContractHeadersByIdApi,
   putMerchantsContractHeadersByIdMakePassiveApi,
 } from "src/actions/unirefund/ContractService/put-actions";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
-import { RefundTableHeadersField } from "../../../_components/refund-table-headers-field";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {RefundTableHeadersField} from "../../../_components/refund-table-headers-field";
 
 export function MerchantContractHeaderUpdateForm({
   contractHeaderDetails,
@@ -41,7 +38,7 @@ export function MerchantContractHeaderUpdateForm({
   languageData: ContractServiceResource;
 }) {
   const router = useRouter();
-  const { lang, contractId } = useParams<{
+  const {lang, contractId} = useParams<{
     lang: string;
     contractId: string;
   }>();
@@ -103,7 +100,7 @@ export function MerchantContractHeaderUpdateForm({
             })),
           },
         }}
-        onSubmit={({ formData: editedFormData }) => {
+        onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
           startTransition(() => {
             void putMerchantContractHeadersByIdApi({
@@ -148,13 +145,9 @@ function ContractActions({
         loading={isPending}
         onClick={() => {
           startTransition(() => {
-            void postMerchantContractHeaderValidateByHeaderIdApi(
-              contractDetails.id,
-            ).then((response) => {
+            void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
               if (response.type === "success" && response.data) {
-                toast.success(
-                  languageData["Contracts.Actions.Validate.Success"],
-                );
+                toast.success(languageData["Contracts.Actions.Validate.Success"]);
               } else {
                 toast.error(response.message);
               }
@@ -171,25 +164,16 @@ function ContractActions({
             closeAfterConfirm: true,
             onConfirm: () => {
               startTransition(() => {
-                void putMerchantsContractHeadersByIdMakePassiveApi(
-                  contractDetails.id,
-                ).then((response) => {
+                void putMerchantsContractHeadersByIdMakePassiveApi(contractDetails.id).then((response) => {
                   handlePutResponse(response, router, "../../");
                 });
               });
             },
           }}
-          description={
-            languageData["Contracts.Actions.MakePassive.Description"]
-          }
+          description={languageData["Contracts.Actions.MakePassive.Description"]}
           title={languageData["Contracts.Actions.MakePassive.Title"]}
-          type="without-trigger"
-        >
-          <ActionButton
-            icon={CircleX}
-            loading={isPending}
-            text={languageData["Contracts.Actions.MakePassive"]}
-          />
+          type="without-trigger">
+          <ActionButton icon={CircleX} loading={isPending} text={languageData["Contracts.Actions.MakePassive"]} />
         </ConfirmDialog>
       )}
       <ConfirmDialog
@@ -199,23 +183,16 @@ function ContractActions({
           closeAfterConfirm: true,
           onConfirm: () => {
             startTransition(() => {
-              void deleteMerchantContractHeaderByIdApi(contractDetails.id).then(
-                (response) => {
-                  handleDeleteResponse(response, router, "../../");
-                },
-              );
+              void deleteMerchantContractHeaderByIdApi(contractDetails.id).then((response) => {
+                handleDeleteResponse(response, router, "../../");
+              });
             });
           },
         }}
         description={languageData["Contracts.Actions.Delete.Description"]}
         title={languageData["Contracts.Actions.Delete.Title"]}
-        type="without-trigger"
-      >
-        <ActionButton
-          icon={Trash}
-          loading={isPending}
-          text={languageData["Contracts.Actions.Delete"]}
-        />
+        type="without-trigger">
+        <ActionButton icon={Trash} loading={isPending} text={languageData["Contracts.Actions.Delete"]} />
       </ConfirmDialog>
     </ActionList>
   );

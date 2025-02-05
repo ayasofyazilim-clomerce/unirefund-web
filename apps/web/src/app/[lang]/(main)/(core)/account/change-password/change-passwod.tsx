@@ -1,16 +1,13 @@
 "use client";
-import type { Volo_Abp_Account_ChangePasswordInput } from "@ayasofyazilim/saas/AccountService";
-import { $Volo_Abp_Account_ChangePasswordInput } from "@ayasofyazilim/saas/AccountService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {
-  createUiSchemaWithResource,
-  customPasswordValidate,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { postPasswordChangeApi } from "src/actions/core/AccountService/post-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { AccountServiceResource } from "src/language-data/core/AccountService";
+import type {Volo_Abp_Account_ChangePasswordInput} from "@ayasofyazilim/saas/AccountService";
+import {$Volo_Abp_Account_ChangePasswordInput} from "@ayasofyazilim/saas/AccountService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource, customPasswordValidate} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {postPasswordChangeApi} from "src/actions/core/AccountService/post-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 type PasswordForm = Volo_Abp_Account_ChangePasswordInput & {
   confirmNewPassword: string;
@@ -28,11 +25,7 @@ const $passwordSchema = {
     },
   },
 };
-export default function ChangePassword({
-  languageData,
-}: {
-  languageData: AccountServiceResource;
-}) {
+export default function ChangePassword({languageData}: {languageData: AccountServiceResource}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

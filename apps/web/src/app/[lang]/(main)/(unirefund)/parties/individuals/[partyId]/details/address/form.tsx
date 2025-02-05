@@ -1,20 +1,14 @@
 "use client";
 
-import type { GetApiCrmServiceIndividualsByIdAddressesResponse } from "@ayasofyazilim/saas/CRMService";
-import AutoForm, {
-  AutoFormSubmit,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putIndividualAddressApi } from "src/actions/unirefund/CrmService/put-actions";
-import type {
-  AddressUpdateDto,
-  CountryDto,
-  SelectedAddressField,
-} from "src/actions/unirefund/LocationService/types";
-import { useAddressHook } from "src/actions/unirefund/LocationService/use-address-hook.tsx";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import type {GetApiCrmServiceIndividualsByIdAddressesResponse} from "@ayasofyazilim/saas/CRMService";
+import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putIndividualAddressApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {AddressUpdateDto, CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
+import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function AddressForm({
   languageData,
@@ -39,12 +33,7 @@ function AddressForm({
     neighborhoodId: addressData.neighborhoodId || "",
   };
 
-  const {
-    addressSchema,
-    selectedFields,
-    addressSchemaFieldConfig,
-    onAddressValueChanged,
-  } = useAddressHook({
+  const {addressSchema, selectedFields, addressSchemaFieldConfig, onAddressValueChanged} = useAddressHook({
     countryList,
     selectedFieldsDefaultValue,
     fieldsToHideInAddressSchema: [],
@@ -85,8 +74,7 @@ function AddressForm({
         onAddressValueChanged(values);
       }}
       stickyChildren
-      values={addressValues}
-    >
+      values={addressValues}>
       <AutoFormSubmit className="float-right mr-6" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>

@@ -4,14 +4,14 @@ import type {
   UniRefund_CRMService_PersonalSummaries_PersonalSummaryDto,
   UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto } from "@ayasofyazilim/saas/CRMService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putIndividualPersonalSummaryApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {$UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto} from "@ayasofyazilim/saas/CRMService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putIndividualPersonalSummaryApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function PersonalSummaryForm({
   languageData,
@@ -36,11 +36,10 @@ function PersonalSummaryForm({
       className="flex flex-col gap-4 p-4"
       disabled={isPending}
       formData={individualPersonalSummaryData[0]}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         startTransition(() => {
           void putIndividualPersonalSummaryApi({
-            requestBody:
-              formData as UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
+            requestBody: formData as UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
             id: partyId,
             personalSummaryId: individualPersonalSummaryData[0].id || "",
           }).then((response) => {

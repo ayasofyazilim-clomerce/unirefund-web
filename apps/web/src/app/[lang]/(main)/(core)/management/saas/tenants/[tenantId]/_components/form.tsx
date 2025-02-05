@@ -4,9 +4,9 @@ import type {
   Volo_Saas_Host_Dtos_SaasTenantDto,
   Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
 } from "@ayasofyazilim/saas/SaasService";
-import { $Volo_Saas_Host_Dtos_SaasTenantUpdateDto } from "@ayasofyazilim/saas/SaasService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import {$Volo_Saas_Host_Dtos_SaasTenantUpdateDto} from "@ayasofyazilim/saas/SaasService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import AutoForm, {
   AutoFormSubmit,
@@ -14,23 +14,22 @@ import AutoForm, {
   CustomCombobox,
   DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import {
-  handleDeleteResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
-import { deleteTenantByIdApi } from "src/actions/core/SaasService/delete-actions";
-import { putTenantApi } from "src/actions/core/SaasService/put-actions";
-import type { SaasServiceResource } from "src/language-data/core/SaasService";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {deleteTenantByIdApi} from "src/actions/core/SaasService/delete-actions";
+import {putTenantApi} from "src/actions/core/SaasService/put-actions";
+import type {SaasServiceResource} from "src/language-data/core/SaasService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
-const tenantEditSchema = createZodObject(
-  $Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
-  ["name", "editionId", "activationState", "activationEndDate"],
-);
+const tenantEditSchema = createZodObject($Volo_Saas_Host_Dtos_SaasTenantUpdateDto, [
+  "name",
+  "editionId",
+  "activationState",
+  "activationEndDate",
+]);
 
 export default function Page({
   languageData,
@@ -43,7 +42,7 @@ export default function Page({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const translatedForm = createFieldConfigWithResource({
     schema: $Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
@@ -67,12 +66,12 @@ export default function Page({
         containerClassName: "gap-2",
         renderer: (props) => {
           const options = [
-            { value: 0, label: languageData["Form.Tenant.active"] },
+            {value: 0, label: languageData["Form.Tenant.active"]},
             {
               value: 1,
               label: languageData["Form.Tenant.activeWithLimitedTime"],
             },
-            { value: 2, label: languageData["Form.Tenant.passive"] },
+            {value: 2, label: languageData["Form.Tenant.passive"]},
           ];
           return (
             <CustomCombobox
@@ -154,8 +153,7 @@ export default function Page({
         values={{
           ...tenantDetailsData,
           activationState: tenantDetailsData.activationState?.toString(),
-        }}
-      >
+        }}>
         <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
           {languageData["Edit.Save"]}
         </AutoFormSubmit>

@@ -1,11 +1,11 @@
 "use client";
 
-import type { PagedResultDto_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
+import type {PagedResultDto_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import { useParams, useRouter } from "next/navigation";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
-import { tableData } from "./product-groups-table-data";
+import {useParams, useRouter} from "next/navigation";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
+import {tableData} from "./product-groups-table-data";
 
 function ProductGroupsTable({
   response,
@@ -15,26 +15,11 @@ function ProductGroupsTable({
   languageData: SettingServiceResource;
 }) {
   const router = useRouter();
-  const { lang } = useParams<{ lang: string }>();
-  const { grantedPolicies } = useGrantedPolicies();
-  const columns = tableData.productGroups.columns(
-    lang,
-    languageData,
-    grantedPolicies,
-  );
-  const table = tableData.productGroups.table(
-    languageData,
-    router,
-    grantedPolicies,
-  );
+  const {lang} = useParams<{lang: string}>();
+  const {grantedPolicies} = useGrantedPolicies();
+  const columns = tableData.productGroups.columns(lang, languageData, grantedPolicies);
+  const table = tableData.productGroups.table(languageData, router, grantedPolicies);
 
-  return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={response.items || []}
-      rowCount={response.totalCount}
-    />
-  );
+  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
 }
 export default ProductGroupsTable;

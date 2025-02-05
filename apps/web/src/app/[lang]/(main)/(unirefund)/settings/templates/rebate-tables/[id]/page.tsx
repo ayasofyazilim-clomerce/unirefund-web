@@ -1,15 +1,11 @@
 "use server";
-import { notFound } from "next/navigation";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getRebateTableHeadersByIdApi } from "@/actions/unirefund/ContractService/action";
-import { getResourceData } from "@/language-data/unirefund/ContractService";
+import {notFound} from "next/navigation";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getRebateTableHeadersByIdApi} from "@/actions/unirefund/ContractService/action";
+import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RebateTableHeaderUpdateForm from "./_components/form";
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; type: string; id: string };
-}) {
+export default async function Page({params}: {params: {lang: string; type: string; id: string}}) {
   await isUnauthorized({
     requiredPolicies: [
       "ContractService.RebateTableDetail.Create",
@@ -22,14 +18,9 @@ export default async function Page({
     lang: params.lang,
   });
 
-  const { languageData } = await getResourceData(params.lang);
+  const {languageData} = await getResourceData(params.lang);
   const details = await getRebateTableHeadersByIdApi(params.id);
   if (details.type !== "success") return notFound();
 
-  return (
-    <RebateTableHeaderUpdateForm
-      formData={details.data}
-      languageData={languageData}
-    />
-  );
+  return <RebateTableHeaderUpdateForm formData={details.data} languageData={languageData} />;
 }

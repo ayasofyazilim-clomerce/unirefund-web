@@ -1,28 +1,22 @@
 "use client";
 
-import type { UniRefund_CRMService_Merchants_StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Merchants_StoreProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Merchants_StoreProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_Merchants_StoreProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { Building2, PlusCircle, Store } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {Building2, PlusCircle, Store} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type SubStoreTable =
-  TanstackTableCreationProps<UniRefund_CRMService_Merchants_StoreProfileDto>;
+type SubStoreTable = TanstackTableCreationProps<UniRefund_CRMService_Merchants_StoreProfileDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_CRMService_Merchants_StoreProfileDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_CRMService_Merchants_StoreProfileDto, TanstackTableColumnLink>> = {};
 
 function subStoreTableActions(
   languageData: CRMServiceServiceResource,
@@ -58,21 +52,19 @@ function subStoreColumns(
     };
   }
   //parties/${partyName}/new?parentId=${partyId}
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Merchants_StoreProfileDto>(
-    {
-      rows: $UniRefund_CRMService_Merchants_StoreProfileDto.properties,
-      languageData: {
-        name: languageData.Name,
-        parentName: languageData["Parties.ParentOrganization"],
-        typeCode: languageData["Parties.Type"],
-        entityInformationTypeCode: languageData["Parties.FormationType"],
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Merchants_StoreProfileDto>({
+    rows: $UniRefund_CRMService_Merchants_StoreProfileDto.properties,
+    languageData: {
+      name: languageData.Name,
+      parentName: languageData["Parties.ParentOrganization"],
+      typeCode: languageData["Parties.Type"],
+      entityInformationTypeCode: languageData["Parties.FormationType"],
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 
 function subStoreTable(
@@ -88,12 +80,7 @@ function subStoreTable(
       columns: ["id"],
     },
     columnOrder: ["name", "manager"],
-    tableActions: subStoreTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-      partyId,
-    ),
+    tableActions: subStoreTableActions(languageData, router, grantedPolicies, partyId),
     filters: {
       textFilters: ["name"],
       facetedFilters: {

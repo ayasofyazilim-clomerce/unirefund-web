@@ -1,8 +1,8 @@
 "use client";
-import { FileLock2 } from "lucide-react";
+import {FileLock2} from "lucide-react";
 import Link from "next/link";
 
-export default function Page({ params }: { params: { lang: string } }) {
+export default function Page({params}: {params: {lang: string}}) {
   return (
     <section className="flex h-full bg-white">
       <div className="m-auto max-w-screen-md px-4 py-8 text-center lg:px-12 lg:py-16">
@@ -11,14 +11,12 @@ export default function Page({ params }: { params: { lang: string } }) {
           Something went wrong!
         </h1>
         <p className="font-light text-gray-500 md:text-lg xl:text-xl">
-          Sorry, the page you are trying to access either does not exist or you
-          are not authorized to view it. If you think this is a mistake, please
-          contact your manager.
+          Sorry, the page you are trying to access either does not exist or you are not authorized to view it. If you
+          think this is a mistake, please contact your manager.
         </p>
         <Link
           className="inline-flex items-center rounded-lg px-5 py-2.5 text-center text-sm font-medium text-blue-500 focus:outline-none focus:ring-4"
-          href={`/${params.lang}/home`}
-        >
+          href={`/${params.lang}/home`}>
           Go Home
         </Link>
       </div>

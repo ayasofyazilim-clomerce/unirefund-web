@@ -1,4 +1,4 @@
-import { getLocalizationResources } from "src/utils";
+import {getLocalizationResources} from "src/utils";
 import en from "./resources/en.json";
 import tr from "./resources/tr.json";
 

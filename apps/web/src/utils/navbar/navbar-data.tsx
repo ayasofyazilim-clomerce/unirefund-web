@@ -1,6 +1,6 @@
 "use server";
-import type { NavbarItemsFromDB } from "@repo/ui/theme/types";
-import type { AbpUiNavigationResource } from "src/language-data/core/AbpUiNavigation";
+import type {NavbarItemsFromDB} from "@repo/ui/theme/types";
+import type {AbpUiNavigationResource} from "src/language-data/core/AbpUiNavigation";
 import coreNavItems from "./core-navbar-items.json";
 import projectNavItems from "./project-navbar-items.json";
 
@@ -12,32 +12,21 @@ function buildItemHref(prefix: string, item: NavbarItemsFromDB) {
 }
 
 function buildParentKey(prefix: string, item: NavbarItemsFromDB) {
-  return item.parentNavbarItemKey === "/"
-    ? prefix
-    : `${prefix}/${item.parentNavbarItemKey}`;
+  return item.parentNavbarItemKey === "/" ? prefix : `${prefix}/${item.parentNavbarItemKey}`;
 }
 
 function buildItemKey(prefix: string, item: NavbarItemsFromDB) {
   return item.key && item.key !== "/" ? `${prefix}/${item.key}` : prefix;
 }
 
-function getDescription(
-  item: NavbarItemsFromDB,
-  languageData: AbpUiNavigationResource,
-) {
-  const descriptionKey =
-    `${item.displayName}.Description` as keyof typeof languageData;
+function getDescription(item: NavbarItemsFromDB, languageData: AbpUiNavigationResource) {
+  const descriptionKey = `${item.displayName}.Description` as keyof typeof languageData;
   return languageData[descriptionKey] || "No description";
 }
 
-function processPolicies(
-  item: NavbarItemsFromDB,
-  grantedPolicies: Record<string, boolean> | undefined,
-) {
+function processPolicies(item: NavbarItemsFromDB, grantedPolicies: Record<string, boolean> | undefined) {
   if (item.requiredPolicies) {
-    const missingPolicies = item.requiredPolicies.filter(
-      (policy) => !grantedPolicies?.[policy],
-    );
+    const missingPolicies = item.requiredPolicies.filter((policy) => !grantedPolicies?.[policy]);
     if (missingPolicies.length > 0) {
       item.hidden = true;
     }
@@ -59,24 +48,17 @@ function processNavbarItems(
 
     item.description = getDescription(item, languageData);
 
-    item.displayName =
-      languageData[item.displayName as keyof typeof languageData] ||
-      `**${item.displayName}`;
+    item.displayName = languageData[item.displayName as keyof typeof languageData] || `**${item.displayName}`;
 
     return item;
   });
 }
 
-function checkForChildLink(
-  item: NavbarItemsFromDB,
-  filteredItems: NavbarItemsFromDB[],
-): string | null {
+function checkForChildLink(item: NavbarItemsFromDB, filteredItems: NavbarItemsFromDB[]): string | null {
   if (item.href) {
     return item.href;
   }
-  const isVisibleChild = filteredItems.find(
-    (i) => i.parentNavbarItemKey === item.key,
-  );
+  const isVisibleChild = filteredItems.find((i) => i.parentNavbarItemKey === item.key);
 
   if (!isVisibleChild) {
     item.hidden = true;
@@ -103,16 +85,9 @@ export async function getNavbarFromDB(
   grantedPolicies: Record<string, boolean> | undefined,
 ) {
   await Promise.resolve();
-  const navbarDataFromDB: NavbarItemsFromDB[] = JSON.parse(
-    JSON.stringify(dbData.APP),
-  ) as NavbarItemsFromDB[];
+  const navbarDataFromDB: NavbarItemsFromDB[] = JSON.parse(JSON.stringify(dbData.APP)) as NavbarItemsFromDB[];
 
-  const processedItems = processNavbarItems(
-    navbarDataFromDB,
-    prefix,
-    grantedPolicies,
-    languageData,
-  );
+  const processedItems = processNavbarItems(navbarDataFromDB, prefix, grantedPolicies, languageData);
 
   const filteredItems = processedItems.filter((item) => !item.hidden);
 

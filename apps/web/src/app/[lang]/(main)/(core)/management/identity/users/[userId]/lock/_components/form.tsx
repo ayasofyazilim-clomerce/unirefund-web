@@ -1,12 +1,12 @@
 "use client";
 
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putUsersByIdLockByLockoutEndApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putUsersByIdLockByLockoutEndApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 interface FormData {
   lockoutEnd: string;
@@ -24,13 +24,9 @@ const $lockSchema = {
   },
 };
 
-export default function Form({
-  languageData,
-}: {
-  languageData: IdentityServiceResource;
-}) {
+export default function Form({languageData}: {languageData: IdentityServiceResource}) {
   const router = useRouter();
-  const { userId } = useParams<{ userId: string }>();
+  const {userId} = useParams<{userId: string}>();
   const [loading, setLoading] = useState(false);
 
   const lockUiSchema = createUiSchemaWithResource({
@@ -43,7 +39,7 @@ export default function Form({
     <SchemaForm<FormData>
       className="flex flex-col gap-4"
       disabled={loading}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         setLoading(true);
         if (!formData) return;
         void putUsersByIdLockByLockoutEndApi({

@@ -1,43 +1,24 @@
 "use client";
-import type { UniRefund_CRMService_Individuals_IndividualProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Individuals_IndividualProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_Individuals_IndividualProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-const affiliationTypes = [
-  "COFOUNDER",
-  "PARTNER",
-  "ABPUSER",
-  "SUBCOMPANY",
-  "ACCOUNTMANAGER",
-  "Franchise",
-];
+const affiliationTypes = ["COFOUNDER", "PARTNER", "ABPUSER", "SUBCOMPANY", "ACCOUNTMANAGER", "Franchise"];
 
-const entityPartyTypeCode = [
-  "CUSTOMS",
-  "MERCHANT",
-  "REFUNDPOINT",
-  "TAXFREE",
-  "TAXOFFICE",
-];
-type IndividualTable =
-  TanstackTableCreationProps<UniRefund_CRMService_Individuals_IndividualProfileDto>;
+const entityPartyTypeCode = ["CUSTOMS", "MERCHANT", "REFUNDPOINT", "TAXFREE", "TAXOFFICE"];
+type IndividualTable = TanstackTableCreationProps<UniRefund_CRMService_Individuals_IndividualProfileDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_CRMService_Individuals_IndividualProfileDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_CRMService_Individuals_IndividualProfileDto, TanstackTableColumnLink>> = {};
 function individualsTableActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
@@ -71,20 +52,18 @@ function individualColumns(
     };
   }
 
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Individuals_IndividualProfileDto>(
-    {
-      rows: $UniRefund_CRMService_Individuals_IndividualProfileDto.properties,
-      languageData: {
-        name: languageData.Name,
-        affiliationCode: languageData.Role,
-        affiliationParentTypeCode: languageData["Parties.FormationType"],
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_Individuals_IndividualProfileDto>({
+    rows: $UniRefund_CRMService_Individuals_IndividualProfileDto.properties,
+    languageData: {
+      name: languageData.Name,
+      affiliationCode: languageData.Role,
+      affiliationParentTypeCode: languageData["Parties.FormationType"],
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 function individualTable(
   languageData: CRMServiceServiceResource,
@@ -98,21 +77,17 @@ function individualTable(
       columns: ["id", "affiliationId", "affiliationCode"],
     },
     columnOrder: ["name"],
-    tableActions: individualsTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-    ),
+    tableActions: individualsTableActions(languageData, router, grantedPolicies),
     filters: {
       textFilters: ["name", "email", "telephone"],
       facetedFilters: {
         affiliationType: {
           title: "Type",
-          options: affiliationTypes.map((x) => ({ label: x, value: x })),
+          options: affiliationTypes.map((x) => ({label: x, value: x})),
         },
         entityPartyTypeCode: {
           title: "Entity Type",
-          options: entityPartyTypeCode.map((x) => ({ label: x, value: x })),
+          options: entityPartyTypeCode.map((x) => ({label: x, value: x})),
         },
       },
     },

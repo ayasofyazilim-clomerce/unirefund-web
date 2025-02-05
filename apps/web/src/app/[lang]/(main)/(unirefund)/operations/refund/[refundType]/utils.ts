@@ -1,13 +1,9 @@
-import type { UniRefund_CRMService_RefundPoints_RefundPointProfileDto } from "@ayasofyazilim/saas/CRMService";
-import type { UniRefund_TagService_Tags_TagListItemDto } from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_TagService_Tags_TagListItemDto} from "@ayasofyazilim/saas/TagService";
 
-export function getTotals(
-  totalType: string,
-  selectedRows: UniRefund_TagService_Tags_TagListItemDto[],
-) {
+export function getTotals(totalType: string, selectedRows: UniRefund_TagService_Tags_TagListItemDto[]) {
   const total = selectedRows.reduce(
-    (acc, row) =>
-      acc + (row.totals?.find((t) => t.totalType === totalType)?.amount || 0),
+    (acc, row) => acc + (row.totals?.find((t) => t.totalType === totalType)?.amount || 0),
     0,
   );
 

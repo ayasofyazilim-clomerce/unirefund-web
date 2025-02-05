@@ -27,45 +27,29 @@ import type {
   PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
   PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
 } from "@ayasofyazilim/saas/CRMService";
-import type { Session } from "@repo/utils/auth";
-import {
-  getCRMServiceClient,
-  structuredError,
-  structuredResponse,
-  structuredSuccessResponse,
-} from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import type {Session} from "@repo/utils/auth";
+import {getCRMServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
+import {getApiRequests} from "../../api-requests";
 
-export async function putMerchantBaseApi(
-  data: PutApiCrmServiceMerchantsByIdData,
-  session?: Session | null,
-) {
+export async function putMerchantBaseApi(data: PutApiCrmServiceMerchantsByIdData, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.merchant.putApiCrmServiceMerchantsById(data);
+    const response = await crmClient.merchant.putApiCrmServiceMerchantsById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putRefundPointBaseApi(
-  data: PutApiCrmServiceRefundPointsByIdData,
-  session?: Session | null,
-) {
+export async function putRefundPointBaseApi(data: PutApiCrmServiceRefundPointsByIdData, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.refundPoint.putApiCrmServiceRefundPointsById(data);
+    const response = await crmClient.refundPoint.putApiCrmServiceRefundPointsById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putCustomBaseApi(
-  data: PutApiCrmServiceCustomsByIdData,
-  session?: Session | null,
-) {
+export async function putCustomBaseApi(data: PutApiCrmServiceCustomsByIdData, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.customs.putApiCrmServiceCustomsById(data);
@@ -74,10 +58,7 @@ export async function putCustomBaseApi(
     return structuredError(error);
   }
 }
-export async function putTaxFreeBaseApi(
-  data: PutApiCrmServiceTaxFreesByIdData,
-  session?: Session | null,
-) {
+export async function putTaxFreeBaseApi(data: PutApiCrmServiceTaxFreesByIdData, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.taxFree.putApiCrmServiceTaxFreesById(data);
@@ -86,14 +67,10 @@ export async function putTaxFreeBaseApi(
     return structuredError(error);
   }
 }
-export async function putTaxOfficeBaseApi(
-  data: PutApiCrmServiceTaxOfficesByIdData,
-  session?: Session | null,
-) {
+export async function putTaxOfficeBaseApi(data: PutApiCrmServiceTaxOfficesByIdData, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.taxOffice.putApiCrmServiceTaxOfficesById(data);
+    const response = await crmClient.taxOffice.putApiCrmServiceTaxOfficesById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -105,10 +82,7 @@ export async function putMerchantOrganizationApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.merchant.putApiCrmServiceMerchantsByIdOrganizationsByOrganizationId(
-        data,
-      );
+    const response = await crmClient.merchant.putApiCrmServiceMerchantsByIdOrganizationsByOrganizationId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -120,10 +94,7 @@ export async function putRefundPointOrganizationApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(
-        data,
-      );
+    const response = await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -135,10 +106,7 @@ export async function putCustomOrganizationApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.customs.putApiCrmServiceCustomsByIdOrganizationsByOrganizationId(
-        data,
-      );
+    const response = await crmClient.customs.putApiCrmServiceCustomsByIdOrganizationsByOrganizationId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -150,10 +118,7 @@ export async function putTaxFreeOrganizationApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdOrganizationsByOrganizationId(
-        data,
-      );
+    const response = await crmClient.taxFree.putApiCrmServiceTaxFreesByIdOrganizationsByOrganizationId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -165,23 +130,16 @@ export async function putTaxOfficeOrganizationApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationId(
-        data,
-      );
+    const response = await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putIndividualNameApi(
-  data: PutApiCrmServiceIndividualsByIdNameData,
-  session?: Session | null,
-) {
+export async function putIndividualNameApi(data: PutApiCrmServiceIndividualsByIdNameData, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.individual.putApiCrmServiceIndividualsByIdName(data);
+    const response = await crmClient.individual.putApiCrmServiceIndividualsByIdName(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -193,10 +151,7 @@ export async function putIndividualPersonalSummaryApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.individual.putApiCrmServiceIndividualsByIdPersonalSummaryByPersonalSummaryId(
-        data,
-      );
+    const response = await crmClient.individual.putApiCrmServiceIndividualsByIdPersonalSummaryByPersonalSummaryId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -205,12 +160,7 @@ export async function putIndividualPersonalSummaryApi(
 //Unupdated
 
 export async function putCrmAddressApi(
-  partyName:
-    | "merchants"
-    | "refund-points"
-    | "customs"
-    | "tax-offices"
-    | "tax-free",
+  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
   data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
 ) {
   try {
@@ -221,249 +171,163 @@ export async function putCrmAddressApi(
     return structuredError(error);
   }
 }
-export async function putMerchantEmailApi(
-  data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
-) {
+export async function putMerchantEmailApi(data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(
-        data,
-      );
+    const response = await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putRefundPointEmailApi(
-  data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
-) {
+export async function putRefundPointEmailApi(data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdEmailsByEmailId(
-        data,
-      );
+    const response = await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdEmailsByEmailId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putCustomEmailApi(
-  data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
-) {
+export async function putCustomEmailApi(data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.customs.putApiCrmServiceCustomsByIdEmailsByEmailId(data);
+    const response = await crmClient.customs.putApiCrmServiceCustomsByIdEmailsByEmailId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putTaxFreeEmailApi(
-  data: PutApiCrmServiceTaxFreesByIdEmailsByEmailIdData,
-) {
+export async function putTaxFreeEmailApi(data: PutApiCrmServiceTaxFreesByIdEmailsByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdEmailsByEmailId(data);
+    const response = await crmClient.taxFree.putApiCrmServiceTaxFreesByIdEmailsByEmailId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putTaxOfficeEmailApi(
-  data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
-) {
+export async function putTaxOfficeEmailApi(data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdEmailsByEmailId(
-        data,
-      );
+    const response = await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdEmailsByEmailId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putIndividualEmailApi(
-  data: PutApiCrmServiceIndividualsByIdEmailByEmailIdData,
-) {
+export async function putIndividualEmailApi(data: PutApiCrmServiceIndividualsByIdEmailByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.individual.putApiCrmServiceIndividualsByIdEmailByEmailId(
-        data,
-      );
+    const response = await crmClient.individual.putApiCrmServiceIndividualsByIdEmailByEmailId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putMerchantAddressApi(
-  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-) {
+export async function putMerchantAddressApi(data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.merchant.putApiCrmServiceMerchantsByIdAddressesByAddressId(
-        data,
-      );
+    const response = await crmClient.merchant.putApiCrmServiceMerchantsByIdAddressesByAddressId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putRefundPointAddressApi(
-  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-) {
+export async function putRefundPointAddressApi(data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdAddressesByAddressId(
-        data,
-      );
+    const response = await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdAddressesByAddressId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putCustomAddressApi(
-  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-) {
+export async function putCustomAddressApi(data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.customs.putApiCrmServiceCustomsByIdAddressesByAddressId(
-        data,
-      );
+    const response = await crmClient.customs.putApiCrmServiceCustomsByIdAddressesByAddressId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putTaxFreeAddressApi(
-  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-) {
+export async function putTaxFreeAddressApi(data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdAddressesByAddressId(
-        data,
-      );
+    const response = await crmClient.taxFree.putApiCrmServiceTaxFreesByIdAddressesByAddressId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putTaxOfficeAddressApi(
-  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-) {
+export async function putTaxOfficeAddressApi(data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdAddressesByAddressId(
-        data,
-      );
+    const response = await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdAddressesByAddressId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putIndividualAddressApi(
-  data: PutApiCrmServiceIndividualsByIdAddressByAddressIdData,
-) {
+export async function putIndividualAddressApi(data: PutApiCrmServiceIndividualsByIdAddressByAddressIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.individual.putApiCrmServiceIndividualsByIdAddressByAddressId(
-        data,
-      );
+    const response = await crmClient.individual.putApiCrmServiceIndividualsByIdAddressByAddressId(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putMerchantTelephoneApi(
-  data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
-) {
+export async function putMerchantTelephoneApi(data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.merchant.putApiCrmServiceMerchantsByIdTelephonesByTelephoneId(
-        data,
-      );
+    const response = await crmClient.merchant.putApiCrmServiceMerchantsByIdTelephonesByTelephoneId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putRefundPointTelephoneApi(
-  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
-) {
+export async function putRefundPointTelephoneApi(data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdTelephonesByTelephoneId(
-        data,
-      );
+    const response = await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdTelephonesByTelephoneId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putCustomTelephoneApi(
-  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
-) {
+export async function putCustomTelephoneApi(data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.customs.putApiCrmServiceCustomsByIdTelephonesByTelephoneId(
-        data,
-      );
+    const response = await crmClient.customs.putApiCrmServiceCustomsByIdTelephonesByTelephoneId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putTaxFreeTelephoneApi(
-  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
-) {
+export async function putTaxFreeTelephoneApi(data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.taxFree.putApiCrmServiceTaxFreesByIdTelephonesByTelephoneId(
-        data,
-      );
+    const response = await crmClient.taxFree.putApiCrmServiceTaxFreesByIdTelephonesByTelephoneId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putTaxOfficeTelephoneApi(
-  data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
-) {
+export async function putTaxOfficeTelephoneApi(data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdTelephonesByTelephoneId(
-        data,
-      );
+    const response = await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdTelephonesByTelephoneId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function putIndividualTelephoneApi(
-  data: PutApiCrmServiceIndividualsByIdTelephoneByTelephoneIdData,
-) {
+export async function putIndividualTelephoneApi(data: PutApiCrmServiceIndividualsByIdTelephoneByTelephoneIdData) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response =
-      await crmClient.individual.putApiCrmServiceIndividualsByIdTelephoneByTelephoneId(
-        data,
-      );
+    const response = await crmClient.individual.putApiCrmServiceIndividualsByIdTelephoneByTelephoneId(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -475,10 +339,7 @@ export async function putAffiliationCodesByIdApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response =
-      await crmClient.affiliationCode.putApiCrmServiceAffiliationCodesById(
-        data,
-      );
+    const response = await crmClient.affiliationCode.putApiCrmServiceAffiliationCodesById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -487,12 +348,7 @@ export async function putAffiliationCodesByIdApi(
 
 //unupdated
 export async function putCrmEmailAddressApi(
-  partyName:
-    | "merchants"
-    | "refund-points"
-    | "customs"
-    | "tax-offices"
-    | "tax-free",
+  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
   data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
 ) {
   try {
@@ -504,12 +360,7 @@ export async function putCrmEmailAddressApi(
   }
 }
 export async function putCrmTelephoneApi(
-  partyName:
-    | "merchants"
-    | "refund-points"
-    | "customs"
-    | "tax-offices"
-    | "tax-free",
+  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
   data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
 ) {
   try {
@@ -522,12 +373,7 @@ export async function putCrmTelephoneApi(
 }
 
 export async function putCrmOrganizationApi(
-  partyName:
-    | "merchants"
-    | "refund-points"
-    | "customs"
-    | "tax-offices"
-    | "tax-free",
+  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
   data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
 ) {
   try {
@@ -558,8 +404,7 @@ export async function putCrmIndividualPersonalSummaryApi(
 ) {
   try {
     const requests = await getApiRequests();
-    const response =
-      await requests[partyName].putIndividualPersonalSummary(data);
+    const response = await requests[partyName].putIndividualPersonalSummary(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

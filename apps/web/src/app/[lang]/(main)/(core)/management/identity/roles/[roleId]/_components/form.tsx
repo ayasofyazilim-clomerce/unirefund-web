@@ -1,22 +1,19 @@
 "use client";
 
-import type { Volo_Abp_Identity_IdentityRoleDto } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_Identity_IdentityRoleUpdateDto } from "@ayasofyazilim/saas/IdentityService";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityRoleUpdateDto} from "@ayasofyazilim/saas/IdentityService";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import {
-  handleDeleteResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
-import { deleteRoleByIdApi } from "src/actions/core/IdentityService/delete-actions";
-import { putRoleApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {deleteRoleByIdApi} from "src/actions/core/IdentityService/delete-actions";
+import {putRoleApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({
@@ -28,7 +25,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_IdentityRoleUpdateDto,
@@ -93,7 +90,7 @@ export default function Form({
           const formData = data.formData;
           void putRoleApi({
             id: response.id || "",
-            requestBody: { ...formData, name: formData?.name || "" },
+            requestBody: {...formData, name: formData?.name || ""},
           })
             .then((res) => {
               handlePutResponse(res, router, "../roles");

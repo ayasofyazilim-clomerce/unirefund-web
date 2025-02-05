@@ -4,15 +4,15 @@ import type {
   Volo_Abp_LanguageManagement_Dto_CreateLanguageDto,
   Volo_Abp_LanguageManagement_Dto_CultureInfoDto,
 } from "@ayasofyazilim/saas/AdministrationService";
-import { $Volo_Abp_LanguageManagement_Dto_CreateLanguageDto } from "@ayasofyazilim/saas/AdministrationService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { postLanguageApi } from "src/actions/core/AdministrationService/post-actions";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_CreateLanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {postLanguageApi} from "src/actions/core/AdministrationService/post-actions";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function Form({
   languageData,
@@ -66,13 +66,12 @@ export default function Form({
       submitText={languageData.Save}
       uiSchema={uiSchema}
       widgets={{
-        CountryWidget:
-          CustomComboboxWidget<Volo_Abp_LanguageManagement_Dto_CultureInfoDto>({
-            languageData,
-            list: cultureList,
-            selectIdentifier: "name",
-            selectLabel: "displayName",
-          }),
+        CountryWidget: CustomComboboxWidget<Volo_Abp_LanguageManagement_Dto_CultureInfoDto>({
+          languageData,
+          list: cultureList,
+          selectIdentifier: "name",
+          selectLabel: "displayName",
+        }),
       }}
     />
   );

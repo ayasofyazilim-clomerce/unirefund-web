@@ -4,14 +4,14 @@ import type {
   UniRefund_CRMService_NameCommonDatas_NameCommonDataDto,
   UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto } from "@ayasofyazilim/saas/CRMService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putIndividualNameApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {$UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto} from "@ayasofyazilim/saas/CRMService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putIndividualNameApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function NameForm({
   languageData,
@@ -36,11 +36,10 @@ function NameForm({
       className="flex flex-col gap-4 p-4"
       disabled={isPending}
       formData={individualNameData}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         startTransition(() => {
           void putIndividualNameApi({
-            requestBody:
-              formData as UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto,
+            requestBody: formData as UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto,
             id: partyId,
           }).then((response) => {
             handlePutResponse(response, router);

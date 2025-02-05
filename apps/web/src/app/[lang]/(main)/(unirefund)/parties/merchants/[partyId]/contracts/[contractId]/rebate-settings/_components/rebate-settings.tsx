@@ -14,17 +14,17 @@ import type {
   UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto as AffiliationTypeDetailDto,
   UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { PlusCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "@repo/utils/api";
-import { postMerchantContractHeaderRebateSettingByHeaderIdApi } from "src/actions/unirefund/ContractService/post-actions";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
+import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {PlusCircle} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "@repo/utils/api";
+import {postMerchantContractHeaderRebateSettingByHeaderIdApi} from "src/actions/unirefund/ContractService/post-actions";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 export function RebateSettings({
   languageData,
@@ -63,22 +63,16 @@ export function RebateSettings({
     },
   });
 
-  const rebateTableFormData = rebateSettings?.rebateTableHeaders?.map(
-    (rebateTableHeader) => ({
-      ...rebateTableHeader,
-      rebateTableHeaderId: rebateTableHeader.id,
-    }),
-  );
+  const rebateTableFormData = rebateSettings?.rebateTableHeaders?.map((rebateTableHeader) => ({
+    ...rebateTableHeader,
+    rebateTableHeaderId: rebateTableHeader.id,
+  }));
 
   return (
     <SchemaForm<RebateSettingUpSertDto>
       disabled={loading}
       fields={{
-        RebateTableField: RebateTableField(
-          rebateTableFormData,
-          languageData,
-          rebateTableHeaders,
-        ),
+        RebateTableField: RebateTableField(rebateTableFormData, languageData, rebateTableHeaders),
         MinimumNetCommissionsField: MinimumNetCommissionsField(
           rebateSettings?.minimumNetCommissions,
           languageData,
@@ -89,12 +83,10 @@ export function RebateSettings({
         rebateSettings
           ? {
               ...rebateSettings,
-              rebateTableHeaders: rebateSettings.rebateTableHeaders?.map(
-                (rebateTableHeader) => ({
-                  ...rebateTableHeader,
-                  rebateTableHeaderId: rebateTableHeader.id,
-                }),
-              ),
+              rebateTableHeaders: rebateSettings.rebateTableHeaders?.map((rebateTableHeader) => ({
+                ...rebateTableHeader,
+                rebateTableHeaderId: rebateTableHeader.id,
+              })),
             }
           : undefined
       }
@@ -140,23 +132,19 @@ function RebateTableField(
     editable: true,
     fillerColumn: "rebateTableHeaderId",
     data: formData || [],
-    columns:
-      tanstackTableEditableColumnsByRowData<RebateTableHeadersToRebateSettingUpSertDto>(
-        {
-          rows: {
-            ...$RebateTableHeadersToRebateSettingUpSertDto.properties,
-            rebateTableHeaderId: {
-              ...$RebateTableHeadersToRebateSettingUpSertDto.properties
-                .rebateTableHeaderId,
-              enum: refundTableHeaders.map((x) => ({
-                value: x.id,
-                label: x.name,
-              })),
-            },
-          },
-          excludeColumns: ["extraProperties"],
+    columns: tanstackTableEditableColumnsByRowData<RebateTableHeadersToRebateSettingUpSertDto>({
+      rows: {
+        ...$RebateTableHeadersToRebateSettingUpSertDto.properties,
+        rebateTableHeaderId: {
+          ...$RebateTableHeadersToRebateSettingUpSertDto.properties.rebateTableHeaderId,
+          enum: refundTableHeaders.map((x) => ({
+            value: x.id,
+            label: x.name,
+          })),
         },
-      ),
+      },
+      excludeColumns: ["extraProperties"],
+    }),
     tableActions: [
       {
         type: "create-row",
@@ -184,21 +172,20 @@ function MinimumNetCommissionsField(
     editable: true,
     fillerColumn: "appliedOrganizationId",
     data: formData || [],
-    columns:
-      tanstackTableEditableColumnsByRowData<MinimumNetCommissionUpSertDto>({
-        languageData,
-        rows: {
-          ...$MinimumNetCommissionUpSertDto.properties,
-          appliedOrganizationId: {
-            ...$MinimumNetCommissionUpSertDto.properties.appliedOrganizationId,
-            enum: subMerchants.map((x) => ({
-              value: x.id,
-              label: x.name,
-            })),
-          },
+    columns: tanstackTableEditableColumnsByRowData<MinimumNetCommissionUpSertDto>({
+      languageData,
+      rows: {
+        ...$MinimumNetCommissionUpSertDto.properties,
+        appliedOrganizationId: {
+          ...$MinimumNetCommissionUpSertDto.properties.appliedOrganizationId,
+          enum: subMerchants.map((x) => ({
+            value: x.id,
+            label: x.name,
+          })),
         },
-        excludeColumns: ["extraProperties"],
-      }),
+      },
+      excludeColumns: ["extraProperties"],
+    }),
     tableActions: [
       {
         type: "create-row",

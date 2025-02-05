@@ -1,19 +1,19 @@
 "use client";
 
-import type { UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto } from "@ayasofyazilim/saas/TravellerService";
-import { $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto } from "@ayasofyazilim/saas/TravellerService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {
   AutoFormSubmit,
   createFieldConfigWithResource,
   CustomCombobox,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import type { CountryDto } from "src/actions/unirefund/LocationService/types";
-import { postTravellerIdentificationApi } from "src/actions/unirefund/TravellerService/post-actions";
-import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import type {CountryDto} from "src/actions/unirefund/LocationService/types";
+import {postTravellerIdentificationApi} from "src/actions/unirefund/TravellerService/post-actions";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
 const createTravellerIdentificationSchema = createZodObject(
   $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
@@ -56,8 +56,7 @@ export default function Form({
   }
 
   const translatedForm = createFieldConfigWithResource({
-    schema:
-      $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
+    schema: $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
     resources: languageData,
     name: "Form.personalIdentification",
     extend: {
@@ -101,8 +100,7 @@ export default function Form({
         postTravellerIdentification(
           values as UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
         );
-      }}
-    >
+      }}>
       <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>

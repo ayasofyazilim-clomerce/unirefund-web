@@ -1,10 +1,10 @@
 "use server";
 
-import type { GetApiCrmServiceMerchantsData } from "@ayasofyazilim/saas/CRMService";
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getMerchantsApi } from "src/actions/unirefund/CrmService/actions";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
+import type {GetApiCrmServiceMerchantsData} from "@ayasofyazilim/saas/CRMService";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getMerchantsApi} from "src/actions/unirefund/CrmService/actions";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
 import ErrorComponent from "../../../_components/error-component";
 import MerchantsTable from "./table";
 
@@ -26,7 +26,7 @@ async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -34,19 +34,13 @@ async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
   }
 }
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { lang: string };
-  searchParams?: SearchParamType;
-}) {
-  const { lang } = params;
+export default async function Page({params, searchParams}: {params: {lang: string}; searchParams?: SearchParamType}) {
+  const {lang} = params;
   await isUnauthorized({
     requiredPolicies: ["CRMService.Merchants"],
     lang,
   });
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
     typeCodes: searchParams?.typeCode?.split(",") || [],
@@ -56,20 +50,10 @@ export default async function Page({
   } as GetApiCrmServiceMerchantsData);
 
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
   const [merchantResponse] = apiRequests.data;
 
-  return (
-    <MerchantsTable
-      languageData={languageData}
-      response={merchantResponse.data}
-    />
-  );
+  return <MerchantsTable languageData={languageData} response={merchantResponse.data} />;
 }

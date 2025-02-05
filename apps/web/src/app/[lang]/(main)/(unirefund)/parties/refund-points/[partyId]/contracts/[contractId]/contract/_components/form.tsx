@@ -1,37 +1,30 @@
 "use client";
 
-import { toast } from "@/components/ui/sonner";
+import {toast} from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderInformationDto as AssignableRefundFeeHeaders,
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractHeaderDetailForRefundPointDto,
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as ContractHeaderForRefundPointUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as $ContractHeaderForRefundPointUpdateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto } from "@ayasofyazilim/saas/LocationService";
-import {
-  ActionButton,
-  ActionList,
-} from "@repo/ayasofyazilim-ui/molecules/action-button";
+import {$UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as $ContractHeaderForRefundPointUpdateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
+import {ActionButton, ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {
-  handleDeleteResponse,
-  handlePostResponse,
-  handlePutResponse,
-} from "@repo/utils/api";
-import { CheckCircle, CircleX, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import type { TransitionStartFunction } from "react";
-import { useTransition } from "react";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {CheckCircle, CircleX, Trash} from "lucide-react";
+import {useParams, useRouter} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {
   putRefundPointContractHeadersById,
   putRefundPointContractHeadersByIdMakePassiveApis,
 } from "@/actions/unirefund/ContractService/put-actions";
-import { postRefundPointContractHeaderValidateByHeaderIdApi } from "@/actions/unirefund/ContractService/post-actions";
-import { deleteRefundPointContractHeadersById } from "@/actions/unirefund/ContractService/delete-actions";
-import { RefundFeeHeadersField } from "../../../_components/refund-fee-headers-field";
+import {postRefundPointContractHeaderValidateByHeaderIdApi} from "@/actions/unirefund/ContractService/post-actions";
+import {deleteRefundPointContractHeadersById} from "@/actions/unirefund/ContractService/delete-actions";
+import {RefundFeeHeadersField} from "../../../_components/refund-fee-headers-field";
 
 export default function RefundPointContractHeaderUpdateForm({
   addressList,
@@ -45,7 +38,7 @@ export default function RefundPointContractHeaderUpdateForm({
   contractHeaderDetails: ContractHeaderDetailForRefundPointDto;
 }) {
   const router = useRouter();
-  const { partyId, contractId } = useParams<{
+  const {partyId, contractId} = useParams<{
     partyId: string;
     contractId: string;
   }>();
@@ -99,7 +92,7 @@ export default function RefundPointContractHeaderUpdateForm({
             ...x,
           })),
         }}
-        onSubmit={({ formData: editedFormData }) => {
+        onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
           startTransition(() => {
             void putRefundPointContractHeadersById({
@@ -148,13 +141,9 @@ function ContractActions({
         loading={isPending}
         onClick={() => {
           startTransition(() => {
-            void postRefundPointContractHeaderValidateByHeaderIdApi(
-              contractDetails.id,
-            ).then((response) => {
+            void postRefundPointContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
               if (response.type === "success" && response.data) {
-                toast.success(
-                  languageData["Contracts.Actions.Validate.Success"],
-                );
+                toast.success(languageData["Contracts.Actions.Validate.Success"]);
               } else {
                 toast.error(response.message);
               }
@@ -171,25 +160,16 @@ function ContractActions({
             closeAfterConfirm: true,
             onConfirm: () => {
               startTransition(() => {
-                void putRefundPointContractHeadersByIdMakePassiveApis(
-                  contractDetails.id,
-                ).then((response) => {
+                void putRefundPointContractHeadersByIdMakePassiveApis(contractDetails.id).then((response) => {
                   handlePutResponse(response, router, "../../");
                 });
               });
             },
           }}
-          description={
-            languageData["Contracts.Actions.MakePassive.Description"]
-          }
+          description={languageData["Contracts.Actions.MakePassive.Description"]}
           title={languageData["Contracts.Actions.MakePassive.Title"]}
-          type="without-trigger"
-        >
-          <ActionButton
-            icon={CircleX}
-            loading={isPending}
-            text={languageData["Contracts.Actions.MakePassive"]}
-          />
+          type="without-trigger">
+          <ActionButton icon={CircleX} loading={isPending} text={languageData["Contracts.Actions.MakePassive"]} />
         </ConfirmDialog>
       )}
       <ConfirmDialog
@@ -199,9 +179,7 @@ function ContractActions({
           closeAfterConfirm: true,
           onConfirm: () => {
             startTransition(() => {
-              void deleteRefundPointContractHeadersById(
-                contractDetails.id,
-              ).then((response) => {
+              void deleteRefundPointContractHeadersById(contractDetails.id).then((response) => {
                 handleDeleteResponse(response, router, "../../");
               });
             });
@@ -209,13 +187,8 @@ function ContractActions({
         }}
         description={languageData["Contracts.Actions.Delete.Description"]}
         title={languageData["Contracts.Actions.Delete.Title"]}
-        type="without-trigger"
-      >
-        <ActionButton
-          icon={Trash}
-          loading={isPending}
-          text={languageData["Contracts.Actions.Delete"]}
-        />
+        type="without-trigger">
+        <ActionButton icon={Trash} loading={isPending} text={languageData["Contracts.Actions.Delete"]} />
       </ConfirmDialog>
     </ActionList>
   );

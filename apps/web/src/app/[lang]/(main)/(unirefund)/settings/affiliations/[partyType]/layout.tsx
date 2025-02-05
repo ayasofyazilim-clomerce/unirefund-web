@@ -1,16 +1,16 @@
 "use server";
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { getBaseLink } from "@/utils";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {getBaseLink} from "@/utils";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
 
 export default async function Layout({
   children,
   params,
 }: {
-  params: { lang: string; partyType: string };
+  params: {lang: string; partyType: string};
   children: React.ReactNode;
 }) {
-  const { languageData } = await getResourceData(params.lang);
+  const {languageData} = await getResourceData(params.lang);
   const baseLink = getBaseLink(`settings/affiliations/`, params.lang);
   return (
     <TabLayout
@@ -35,8 +35,7 @@ export default async function Layout({
           label: languageData.TaxOffices,
           href: `${baseLink}tax-offices`,
         },
-      ]}
-    >
+      ]}>
       {children}
     </TabLayout>
   );

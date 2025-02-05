@@ -3,19 +3,12 @@ import type {
   PostApiTravellerServiceTravellersByIdCreatePersonalIdentificationData,
   PostApiTravellerServiceTravellersData,
 } from "@ayasofyazilim/saas/TravellerService";
-import {
-  getTravellersServiceClient,
-  structuredError,
-  structuredResponse,
-} from "../../../lib";
+import {getTravellersServiceClient, structuredError, structuredResponse} from "../../../lib";
 
-export async function postTravellerApi(
-  data: PostApiTravellerServiceTravellersData,
-) {
+export async function postTravellerApi(data: PostApiTravellerServiceTravellersData) {
   try {
     const client = await getTravellersServiceClient();
-    const response =
-      await client.traveller.postApiTravellerServiceTravellers(data);
+    const response = await client.traveller.postApiTravellerServiceTravellers(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -27,10 +20,7 @@ export async function postTravellerIdentificationApi(
 ) {
   try {
     const client = await getTravellersServiceClient();
-    const response =
-      await client.traveller.postApiTravellerServiceTravellersByIdCreatePersonalIdentification(
-        data,
-      );
+    const response = await client.traveller.postApiTravellerServiceTravellersByIdCreatePersonalIdentification(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

@@ -5,22 +5,22 @@ import type {
   UniRefund_SettingService_ProductGroups_UpdateProductGroupDto,
   UniRefund_SettingService_Vats_VatDto,
 } from "@ayasofyazilim/saas/SettingService";
-import { $UniRefund_SettingService_ProductGroups_UpdateProductGroupDto } from "@ayasofyazilim/saas/SettingService";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import {$UniRefund_SettingService_ProductGroups_UpdateProductGroupDto} from "@ayasofyazilim/saas/SettingService";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { handleDeleteResponse } from "@repo/utils/api";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handleDeleteResponse} from "@repo/utils/api";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
 import isActionGranted from "@/utils/page-policy/action-policy";
-import { deleteproductGroupByIdApi } from "@/actions/unirefund/SettingService/delete-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putProductGroupApi } from "src/actions/unirefund/SettingService/put-actions";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
+import {deleteproductGroupByIdApi} from "@/actions/unirefund/SettingService/delete-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putProductGroupApi} from "src/actions/unirefund/SettingService/put-actions";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({
   languageData,
@@ -33,7 +33,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_SettingService_ProductGroups_UpdateProductGroupDto,
@@ -58,10 +58,7 @@ export default function Form({
   return (
     <div className="flex flex-col gap-4 overflow-auto">
       <ActionList>
-        {isActionGranted(
-          ["SettingService.ProductGroups.Delete"],
-          grantedPolicies,
-        ) && (
+        {isActionGranted(["SettingService.ProductGroups.Delete"], grantedPolicies) && (
           <ConfirmDialog
             closeProps={{
               children: languageData.Cancel,
@@ -101,23 +98,14 @@ export default function Form({
         filter={{
           type: "include",
           sort: true,
-          keys: [
-            "name",
-            "articleCode",
-            "unitCode",
-            "companyType",
-            "vatId",
-            "active",
-            "food",
-          ],
+          keys: ["name", "articleCode", "unitCode", "companyType", "vatId", "active", "food"],
         }}
         formData={response}
-        onSubmit={({ formData }) => {
+        onSubmit={({formData}) => {
           setLoading(true);
           void putProductGroupApi({
             id: response.id || "",
-            requestBody:
-              formData as UniRefund_SettingService_ProductGroups_UpdateProductGroupDto,
+            requestBody: formData as UniRefund_SettingService_ProductGroups_UpdateProductGroupDto,
           })
             .then((res) => {
               handlePutResponse(res, router, "../product-groups");
@@ -130,14 +118,12 @@ export default function Form({
         submitText={languageData["Edit.Save"]}
         uiSchema={uiSchema}
         widgets={{
-          VatWidget: CustomComboboxWidget<UniRefund_SettingService_Vats_VatDto>(
-            {
-              languageData,
-              list: vatList,
-              selectIdentifier: "id",
-              selectLabel: "percent",
-            },
-          ),
+          VatWidget: CustomComboboxWidget<UniRefund_SettingService_Vats_VatDto>({
+            languageData,
+            list: vatList,
+            selectIdentifier: "id",
+            selectLabel: "percent",
+          }),
         }}
       />
     </div>

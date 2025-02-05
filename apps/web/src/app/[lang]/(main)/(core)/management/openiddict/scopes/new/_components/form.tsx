@@ -1,20 +1,16 @@
 "use client";
 
-import type { Volo_Abp_OpenIddict_Scopes_Dtos_CreateScopeInput } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_OpenIddict_Scopes_Dtos_CreateScopeInput } from "@ayasofyazilim/saas/IdentityService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postScopeApi } from "src/actions/core/IdentityService/post-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import type {Volo_Abp_OpenIddict_Scopes_Dtos_CreateScopeInput} from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_OpenIddict_Scopes_Dtos_CreateScopeInput} from "@ayasofyazilim/saas/IdentityService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postScopeApi} from "src/actions/core/IdentityService/post-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
-export default function Form({
-  languageData,
-}: {
-  languageData: IdentityServiceResource;
-}) {
+export default function Form({languageData}: {languageData: IdentityServiceResource}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

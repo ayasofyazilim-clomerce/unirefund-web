@@ -4,9 +4,9 @@ import type {
   UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto,
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Merchants_CreateMerchantDto } from "@ayasofyazilim/saas/CRMService";
-import { ContactFormSubPositions } from "@repo/ui/utils/table/form-schemas";
-import { PhoneNumberUtil } from "google-libphonenumber";
+import {$UniRefund_CRMService_Merchants_CreateMerchantDto} from "@ayasofyazilim/saas/CRMService";
+import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
+import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateMerchantOrganizationSchema {
   taxpayerId: string;
@@ -40,41 +40,30 @@ export const localNumber = {
   },
 };
 
-export const $UniRefund_CRMService_Merchants_CreateMerchantOrganizationFormDto =
-  {
-    type: "object",
-    required: $UniRefund_CRMService_Merchants_CreateMerchantDto.required,
-    properties: {
-      organization:
-        $UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-          .entityInformationTypes.items.properties.organizations.items,
-      taxpayerId:
-        $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.taxpayerId,
-      customerNumber:
-        $UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-          .customerNumber,
-      taxOfficeId:
-        $UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-          .taxOfficeId,
-      telephone: {
-        ...$UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.telephones.items,
-        properties: {
-          ...$UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-            .entityInformationTypes.items.properties.organizations.items
-            .properties.contactInformations.items.properties.telephones.items
-            .properties.localNumber,
-          localNumber,
-        },
+export const $UniRefund_CRMService_Merchants_CreateMerchantOrganizationFormDto = {
+  type: "object",
+  required: $UniRefund_CRMService_Merchants_CreateMerchantDto.required,
+  properties: {
+    organization:
+      $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.entityInformationTypes.items.properties.organizations
+        .items,
+    taxpayerId: $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.taxpayerId,
+    customerNumber: $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.customerNumber,
+    taxOfficeId: $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.taxOfficeId,
+    telephone: {
+      ...$UniRefund_CRMService_Merchants_CreateMerchantDto.properties.entityInformationTypes.items.properties
+        .organizations.items.properties.contactInformations.items.properties.telephones.items,
+      properties: {
+        ...$UniRefund_CRMService_Merchants_CreateMerchantDto.properties.entityInformationTypes.items.properties
+          .organizations.items.properties.contactInformations.items.properties.telephones.items.properties.localNumber,
+        localNumber,
       },
-      address:
-        $UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.addresses.items,
-      email:
-        $UniRefund_CRMService_Merchants_CreateMerchantDto.properties
-          .entityInformationTypes.items.properties.organizations.items
-          .properties.contactInformations.items.properties.emails.items,
     },
-  };
+    address:
+      $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.entityInformationTypes.items.properties.organizations
+        .items.properties.contactInformations.items.properties.addresses.items,
+    email:
+      $UniRefund_CRMService_Merchants_CreateMerchantDto.properties.entityInformationTypes.items.properties.organizations
+        .items.properties.contactInformations.items.properties.emails.items,
+  },
+};

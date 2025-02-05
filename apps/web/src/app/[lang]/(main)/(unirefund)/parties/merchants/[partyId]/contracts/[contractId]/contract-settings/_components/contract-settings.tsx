@@ -1,31 +1,24 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import {Button} from "@/components/ui/button";
+import {cn} from "@/lib/utils";
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto as ContractSettingCreateUpdateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto as $ContractSettingCreateUpdateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto } from "@ayasofyazilim/saas/LocationService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto as $ContractSettingCreateUpdateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto} from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type { TanstackTableTableActionsType } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {
-  bulkCreateUiSchema,
-  createUiSchemaWithResource,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useRouter } from "next/navigation";
-import type { Dispatch, SetStateAction } from "react";
-import { useCallback, useState } from "react";
-import {
-  handleDeleteResponse,
-  handlePostResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {bulkCreateUiSchema, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useRouter} from "next/navigation";
+import type {Dispatch, SetStateAction} from "react";
+import {useCallback, useState} from "react";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import {
   deleteMerchantContractContractSettingsByIdApi,
   getMerchantContractHeaderContractSettingsByHeaderIdApi as getContractSettings,
@@ -33,7 +26,7 @@ import {
   putMerchantContractContractHeaderSetDefaultContractSettingByHeaderIdApi,
   putMerchantContractContractSettingsByIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import type { ContractServiceResource } from "src/language-data/unirefund/ContractService";
+import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 interface ContractSettingsTable {
   id: string;
@@ -80,9 +73,7 @@ export function ContractSettings({
       };
     }),
   );
-  const [tempSettings, setTempSettings] = useState<
-    ContractSettingsTable | undefined
-  >();
+  const [tempSettings, setTempSettings] = useState<ContractSettingsTable | undefined>();
 
   async function handleFetch() {
     setLoading(true);
@@ -112,8 +103,7 @@ export function ContractSettings({
           addressList={addressList}
           formData={{
             ...row.details,
-            invoicingAddressCommonDataId:
-              row.details?.invoicingAddressCommonData.id,
+            invoicingAddressCommonDataId: row.details?.invoicingAddressCommonData.id,
           }}
           handleFetch={handleFetch}
           languageData={languageData}
@@ -134,12 +124,10 @@ export function ContractSettings({
         disabled={loading}
         onClick={() => {
           setLoading(true);
-          void putMerchantContractContractHeaderSetDefaultContractSettingByHeaderIdApi(
-            {
-              id: contractHeaderDetails.id,
-              requestBody: { contractSettingId: row.id },
-            },
-          )
+          void putMerchantContractContractHeaderSetDefaultContractSettingByHeaderIdApi({
+            id: contractHeaderDetails.id,
+            requestBody: {contractSettingId: row.id},
+          })
             .then((res) => {
               handlePutResponse(res, router);
             })
@@ -150,8 +138,7 @@ export function ContractSettings({
             });
         }}
         size="sm"
-        variant="outline"
-      >
+        variant="outline">
         {languageData["Contracts.Settings.Form.setIsDefault"]}
       </Button>
     );
@@ -185,19 +172,18 @@ export function ContractSettings({
     expandRowTrigger: "name",
   });
 
-  const tableActions: TanstackTableTableActionsType[] | undefined =
-    !tempSettings
-      ? [
-          {
-            actionLocation: "table",
-            cta: languageData["Contracts.Settings.Form.Add"],
-            type: "simple",
-            onClick: () => {
-              setTempSettings({ name: "New", id: "$temp" });
-            },
+  const tableActions: TanstackTableTableActionsType[] | undefined = !tempSettings
+    ? [
+        {
+          actionLocation: "table",
+          cta: languageData["Contracts.Settings.Form.Add"],
+          type: "simple",
+          onClick: () => {
+            setTempSettings({name: "New", id: "$temp"});
           },
-        ]
-      : undefined;
+        },
+      ]
+    : undefined;
   if (settings.length > 0) {
     return (
       <TanstackTable
@@ -267,16 +253,13 @@ function SchemaFormForContractSettings({
     extend: {
       ...bulkCreateUiSchema<ContractSettingCreateUpdateDto>({
         elements: switchFields,
-        config: { "ui:widget": "switch" },
+        config: {"ui:widget": "switch"},
       }),
       invoicingAddressCommonDataId: {
         "ui:className": "md:col-span-2",
         "ui:widget": "address",
       },
-      "ui:className": cn(
-        "md:grid md:grid-cols-2 md:gap-2",
-        type === "edit" && "p-4",
-      ),
+      "ui:className": cn("md:grid md:grid-cols-2 md:gap-2", type === "edit" && "p-4"),
       isDefault: {
         "ui:widget": "switch",
         "ui:className": "hidden",
@@ -346,8 +329,7 @@ function SchemaFormForContractSettings({
           selectLabel: "fullAddress",
         }),
       }}
-      withScrollArea
-    >
+      withScrollArea>
       <div className="sticky bottom-0 z-50 flex justify-end gap-2 bg-white py-4">
         <DeleteDialog
           handleFetch={handleFetch}
@@ -357,9 +339,7 @@ function SchemaFormForContractSettings({
           submitId={type === "temp" ? "$temp" : submitId}
         />
         <Button type="submit">
-          {type === "edit"
-            ? languageData["Contracts.Edit.Submit"]
-            : languageData["Contracts.Create.Submit"]}
+          {type === "edit" ? languageData["Contracts.Edit.Submit"] : languageData["Contracts.Create.Submit"]}
         </Button>
       </div>
     </SchemaForm>

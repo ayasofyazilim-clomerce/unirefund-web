@@ -1,7 +1,7 @@
 "use server";
-import type { PutApiSaasEditionsByIdMoveAllTenantsData } from "@ayasofyazilim/saas/SaasService";
-import { structuredError, structuredResponse } from "src/lib";
-import { getApiRequests } from "../../api-requests";
+import type {PutApiSaasEditionsByIdMoveAllTenantsData} from "@ayasofyazilim/saas/SaasService";
+import {structuredError, structuredResponse} from "src/lib";
+import {getApiRequests} from "../../api-requests";
 
 export async function getAllEditionsApi() {
   try {
@@ -13,9 +13,7 @@ export async function getAllEditionsApi() {
   }
 }
 
-export async function moveAllTenantsApi(
-  data: PutApiSaasEditionsByIdMoveAllTenantsData,
-) {
+export async function moveAllTenantsApi(data: PutApiSaasEditionsByIdMoveAllTenantsData) {
   try {
     const requests = await getApiRequests();
     const dataResponse = await requests.editions.moveAllTenants(data);

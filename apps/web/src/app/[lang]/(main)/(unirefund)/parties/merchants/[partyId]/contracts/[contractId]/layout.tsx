@@ -1,8 +1,8 @@
 "use server";
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { isUnauthorized } from "@repo/utils/policies";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
-import { getBaseLink } from "src/utils";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
+import {getBaseLink} from "src/utils";
 
 export default async function Layout({
   children,
@@ -15,8 +15,8 @@ export default async function Layout({
     partyId: string;
   };
 }) {
-  const { lang, contractId, partyId } = params;
-  const { languageData } = await getResourceData(lang);
+  const {lang, contractId, partyId} = params;
+  const {languageData} = await getResourceData(lang);
 
   await isUnauthorized({
     requiredPolicies: [
@@ -27,10 +27,7 @@ export default async function Layout({
     ],
     lang,
   });
-  const baseLink = getBaseLink(
-    `parties/merchants/${partyId}/contracts/${contractId}/`,
-    lang,
-  );
+  const baseLink = getBaseLink(`parties/merchants/${partyId}/contracts/${contractId}/`, lang);
   return (
     <TabLayout
       tabList={[
@@ -50,8 +47,7 @@ export default async function Layout({
           label: languageData["Contracts.ContractSettings"],
           href: `${baseLink}contract-settings`,
         },
-      ]}
-    >
+      ]}>
       {children}
     </TabLayout>
   );

@@ -6,22 +6,15 @@ import type {
   UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type {
-  AutoFormInputComponentProps,
-  DependenciesType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import AutoForm, {
-  AutoFormSubmit,
-  CustomCombobox,
-  DependencyType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putTaxFreeBaseApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {$UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto} from "@ayasofyazilim/saas/CRMService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps, DependenciesType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import AutoForm, {AutoFormSubmit, CustomCombobox, DependencyType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putTaxFreeBaseApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function TaxFreeForm({
   languageData,
@@ -38,10 +31,12 @@ function TaxFreeForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const schema = createZodObject(
-    $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto,
-    ["typeCode", "taxOfficeId", "parentId", "taxpayerId"],
-  );
+  const schema = createZodObject($UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto, [
+    "typeCode",
+    "taxOfficeId",
+    "parentId",
+    "taxpayerId",
+  ]);
   const dependencies: DependenciesType = [
     {
       sourceField: "typeCode",
@@ -69,9 +64,7 @@ function TaxFreeForm({
     },
   ];
 
-  function handleSubmit(
-    formData: UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto,
-  ) {
+  function handleSubmit(formData: UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto) {
     startTransition(() => {
       void putTaxFreeBaseApi({
         requestBody: formData,
@@ -122,8 +115,7 @@ function TaxFreeForm({
         }
         handleSubmit(values as UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto);
       }}
-      values={taxFreeDetail}
-    >
+      values={taxFreeDetail}>
       <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>

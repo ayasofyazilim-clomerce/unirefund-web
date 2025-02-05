@@ -1,24 +1,22 @@
 "use server";
 
-import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import { auth } from "@repo/utils/auth/next-auth";
-import { getRefundPointDetailsByIdApi } from "@/actions/unirefund/CrmService/actions";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {auth} from "@repo/utils/auth/next-auth";
+import {getRefundPointDetailsByIdApi} from "@/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { getBaseLink } from "src/utils";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
+import {getBaseLink} from "src/utils";
 
-async function getApiRequests({ partyId }: { partyId: string }) {
+async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getRefundPointDetailsByIdApi(partyId, session),
-    ]);
+    const apiRequests = await Promise.all([getRefundPointDetailsByIdApi(partyId, session)]);
     return {
       type: "success" as const,
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -35,22 +33,16 @@ export default async function Layout({
     lang: string;
   };
 }) {
-  const { partyId, lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {partyId, lang} = params;
+  const {languageData} = await getResourceData(lang);
   const baseLink = getBaseLink(`parties/refund-points/${partyId}/`, lang);
 
-  const apiRequests = await getApiRequests({ partyId });
+  const apiRequests = await getApiRequests({partyId});
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [refundPointDetailsResponse] = apiRequests.data;
-  const isHeadquarter =
-    refundPointDetailsResponse.data.typeCode === "HEADQUARTER";
+  const isHeadquarter = refundPointDetailsResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
       <TabLayout
@@ -74,8 +66,7 @@ export default async function Layout({
             disabled: !isHeadquarter,
           },
         ]}
-        variant="simple"
-      >
+        variant="simple">
         {children}
       </TabLayout>
       <div className="hidden" id="page-title">

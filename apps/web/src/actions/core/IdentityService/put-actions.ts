@@ -19,41 +19,29 @@ import type {
   PutApiOpeniddictApplicationsByIdTokenLifetimeData,
   PutApiOpeniddictScopesByIdData,
 } from "@ayasofyazilim/saas/IdentityService";
-import {
-  getIdentityServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getIdentityServiceClient, structuredError, structuredResponse} from "src/lib";
 
-export async function putUsersByIdTwoFactorByEnabledApi(
-  data: PutApiIdentityUsersByIdTwoFactorByEnabledData,
-) {
+export async function putUsersByIdTwoFactorByEnabledApi(data: PutApiIdentityUsersByIdTwoFactorByEnabledData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.user.putApiIdentityUsersByIdTwoFactorByEnabled(data);
+    const dataResponse = await client.user.putApiIdentityUsersByIdTwoFactorByEnabled(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putAssignableRolesApi(
-  data: PutApiIdentityAssignableRolesData,
-) {
+export async function putAssignableRolesApi(data: PutApiIdentityAssignableRolesData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.assignableRole.putApiIdentityAssignableRoles(data);
+    const dataResponse = await client.assignableRole.putApiIdentityAssignableRoles(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putUserClaimsByIdApi(
-  data: PutApiIdentityUsersByIdClaimsData,
-) {
+export async function putUserClaimsByIdApi(data: PutApiIdentityUsersByIdClaimsData) {
   try {
     const client = await getIdentityServiceClient();
     const response = await client.user.putApiIdentityUsersByIdClaims(data);
@@ -63,9 +51,7 @@ export async function putUserClaimsByIdApi(
   }
 }
 
-export async function putRoleClaimsByIdApi(
-  body: PutApiIdentityRolesByIdClaimsData,
-) {
+export async function putRoleClaimsByIdApi(body: PutApiIdentityRolesByIdClaimsData) {
   try {
     const client = await getIdentityServiceClient();
     const response = await client.role.putApiIdentityRolesByIdClaims(body);
@@ -75,13 +61,10 @@ export async function putRoleClaimsByIdApi(
   }
 }
 
-export async function putRolesByIdMoveAllUsersApi(
-  data: PutApiIdentityRolesByIdMoveAllUsersData,
-) {
+export async function putRolesByIdMoveAllUsersApi(data: PutApiIdentityRolesByIdMoveAllUsersData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.role.putApiIdentityRolesByIdMoveAllUsers(data);
+    const dataResponse = await client.role.putApiIdentityRolesByIdMoveAllUsers(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -108,13 +91,10 @@ export async function putUserApi(data: PutApiIdentityUsersByIdData) {
   }
 }
 
-export async function putUsersByIdChangePasswordApi(
-  data: PutApiIdentityUsersByIdChangePasswordData,
-) {
+export async function putUsersByIdChangePasswordApi(data: PutApiIdentityUsersByIdChangePasswordData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.user.putApiIdentityUsersByIdChangePassword(data);
+    const dataResponse = await client.user.putApiIdentityUsersByIdChangePassword(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -124,8 +104,7 @@ export async function putUsersByIdChangePasswordApi(
 export async function putClaimTypeApi(data: PutApiIdentityClaimTypesByIdData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.claimType.putApiIdentityClaimTypesById(data);
+    const dataResponse = await client.claimType.putApiIdentityClaimTypesById(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -142,41 +121,30 @@ export async function putScopeApi(data: PutApiOpeniddictScopesByIdData) {
   }
 }
 
-export async function putApplicationApi(
-  data: PutApiOpeniddictApplicationsByIdData,
-) {
+export async function putApplicationApi(data: PutApiOpeniddictApplicationsByIdData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.applications.putApiOpeniddictApplicationsById(data);
+    const dataResponse = await client.applications.putApiOpeniddictApplicationsById(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putApplicationsByIdTokenLifetimeApi(
-  data: PutApiOpeniddictApplicationsByIdTokenLifetimeData,
-) {
+export async function putApplicationsByIdTokenLifetimeApi(data: PutApiOpeniddictApplicationsByIdTokenLifetimeData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.applications.putApiOpeniddictApplicationsByIdTokenLifetime(
-        data,
-      );
+    const dataResponse = await client.applications.putApiOpeniddictApplicationsByIdTokenLifetime(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putUsersByIdLockByLockoutEndApi(
-  data: PutApiIdentityUsersByIdLockByLockoutEndData,
-) {
+export async function putUsersByIdLockByLockoutEndApi(data: PutApiIdentityUsersByIdLockByLockoutEndData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.user.putApiIdentityUsersByIdLockByLockoutEnd(data);
+    const dataResponse = await client.user.putApiIdentityUsersByIdLockByLockoutEnd(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -195,43 +163,30 @@ export async function putUsersByIdUnlockApi(id: string) {
   }
 }
 
-export async function putOrganizationUnitsByIdApi(
-  data: PutApiIdentityOrganizationUnitsByIdData,
-) {
+export async function putOrganizationUnitsByIdApi(data: PutApiIdentityOrganizationUnitsByIdData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.putApiIdentityOrganizationUnitsById(data);
+    const dataResponse = await client.organizationUnit.putApiIdentityOrganizationUnitsById(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putOrganizationUnitsByIdMembersApi(
-  data: PutApiIdentityOrganizationUnitsByIdMembersData,
-) {
+export async function putOrganizationUnitsByIdMembersApi(data: PutApiIdentityOrganizationUnitsByIdMembersData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMembers(
-        data,
-      );
+    const dataResponse = await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMembers(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putOrganizationUnitsByIdMoveApi(
-  data: PutApiIdentityOrganizationUnitsByIdMoveData,
-) {
+export async function putOrganizationUnitsByIdMoveApi(data: PutApiIdentityOrganizationUnitsByIdMoveData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMove(
-        data,
-      );
+    const dataResponse = await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMove(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
@@ -243,25 +198,17 @@ export async function putOrganizationUnitsByIdMoveAllUsersApi(
 ) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMoveAllUsers(
-        data,
-      );
+    const dataResponse = await client.organizationUnit.putApiIdentityOrganizationUnitsByIdMoveAllUsers(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function putOrganizationUnitsByIdRolesApi(
-  data: PutApiIdentityOrganizationUnitsByIdRolesData,
-) {
+export async function putOrganizationUnitsByIdRolesApi(data: PutApiIdentityOrganizationUnitsByIdRolesData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.putApiIdentityOrganizationUnitsByIdRoles(
-        data,
-      );
+    const dataResponse = await client.organizationUnit.putApiIdentityOrganizationUnitsByIdRoles(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

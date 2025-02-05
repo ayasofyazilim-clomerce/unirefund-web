@@ -1,6 +1,6 @@
 "use server";
 
-import { isUnauthorized } from "@repo/utils/policies";
+import {isUnauthorized} from "@repo/utils/policies";
 import {
   getAllRolesApi,
   getUserDetailsByIdApi,
@@ -9,17 +9,13 @@ import {
   getUsersByIdRolesApi,
 } from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/core/IdentityService";
-import { isErrorOnRequest } from "src/utils/page-policy/utils";
+import {getResourceData} from "src/language-data/core/IdentityService";
+import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import Form from "./_components/form";
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; userId: string };
-}) {
-  const { lang, userId } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {lang: string; userId: string}}) {
+  const {lang, userId} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["AbpIdentity.Users.Update"],
     lang,
@@ -27,53 +23,27 @@ export default async function Page({
 
   const userDetailsResponse = await getUserDetailsByIdApi(userId);
   if (isErrorOnRequest(userDetailsResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={userDetailsResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={userDetailsResponse.message} />;
   }
 
   const rolesResponse = await getAllRolesApi();
   if (isErrorOnRequest(rolesResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={rolesResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={rolesResponse.message} />;
   }
 
   const organizationResponse = await getUsersAvailableOrganizationUnitsApi();
   if (isErrorOnRequest(organizationResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={organizationResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={organizationResponse.message} />;
   }
 
   const userRolesResponse = await getUsersByIdRolesApi(userId);
   if (isErrorOnRequest(userRolesResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={userRolesResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={userRolesResponse.message} />;
   }
 
-  const userOrganizationResponse =
-    await getUsersByIdOrganizationUnitsApi(userId);
+  const userOrganizationResponse = await getUsersByIdOrganizationUnitsApi(userId);
   if (isErrorOnRequest(userOrganizationResponse, lang, false)) {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={userOrganizationResponse.message}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={userOrganizationResponse.message} />;
   }
 
   return (

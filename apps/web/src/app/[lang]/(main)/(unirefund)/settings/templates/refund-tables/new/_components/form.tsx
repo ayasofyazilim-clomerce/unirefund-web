@@ -1,16 +1,16 @@
 "use client";
-import { useRouter } from "next/navigation";
-import type { UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto as RefundTableHeaderCreateDto } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto as $RefundTableHeaderCreateDto } from "@ayasofyazilim/saas/ContractService";
-import type { UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { handlePostResponse } from "@repo/utils/api";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { DependencyType } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { useState } from "react";
-import { postRefundTableHeadersApi } from "@/actions/unirefund/ContractService/post-actions";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { RefundTableDetailsField } from "../../_components/refund-table-details-field";
+import {useRouter} from "next/navigation";
+import type {UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto as RefundTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto as $RefundTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {handlePostResponse} from "@repo/utils/api";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {useState} from "react";
+import {postRefundTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
 
 export default function RefundTableHeaderCreateForm({
   languageData,
@@ -23,7 +23,7 @@ export default function RefundTableHeaderCreateForm({
   const [loading, setLoading] = useState(false);
   const uiSchema = {
     "ui:className": "md:grid md:grid-cols-2",
-    name: { "ui:className": "" },
+    name: {"ui:className": ""},
     isTemplate: {
       "ui:widget": "switch",
       "ui:className": "border px-2 rounded-md h-max self-end",
@@ -69,9 +69,9 @@ export default function RefundTableHeaderCreateForm({
         isBundling: false,
         isTemplate: true,
       }}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         setLoading(true);
-        void postRefundTableHeadersApi({ requestBody: formData })
+        void postRefundTableHeadersApi({requestBody: formData})
           .then((response) => {
             handlePostResponse(response, router, {
               identifier: "id",

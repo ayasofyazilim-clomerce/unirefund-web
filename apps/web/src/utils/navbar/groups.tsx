@@ -1,4 +1,4 @@
-import type { NavbarItemsFromDB } from "@repo/ui/theme/types";
+import type {NavbarItemsFromDB} from "@repo/ui/theme/types";
 
 export const management: NavbarItemsFromDB[] = [
   {

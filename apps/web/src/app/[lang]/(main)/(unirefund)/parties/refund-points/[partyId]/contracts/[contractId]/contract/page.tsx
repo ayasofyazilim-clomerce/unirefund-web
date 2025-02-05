@@ -1,13 +1,13 @@
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   getRefundPointContractHeaderByIdApi,
   // getRefundPointContractHeadersByRefundPointIdApi,
 } from "src/actions/unirefund/ContractService/action";
-import { getRefundPointDetailsByIdApi } from "src/actions/unirefund/CrmService/actions";
+import {getRefundPointDetailsByIdApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
 import RefundPointContractHeaderUpdateForm from "./_components/form";
 
 async function getApiRequests(partyId: string, contractId: string) {
@@ -35,7 +35,7 @@ async function getApiRequests(partyId: string, contractId: string) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -52,8 +52,8 @@ export default async function Page({
     contractId: string;
   };
 }) {
-  const { lang, partyId, contractId } = params;
-  const { languageData } = await getResourceData(lang);
+  const {lang, partyId, contractId} = params;
+  const {languageData} = await getResourceData(lang);
 
   await isUnauthorized({
     requiredPolicies: ["ContractService.ContractHeaderForRefundPoint.Edit"],
@@ -62,12 +62,7 @@ export default async function Page({
 
   const apiRequests = await getApiRequests(partyId, contractId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [
     refundFeeHeadersResponse,
@@ -76,18 +71,13 @@ export default async function Page({
     // otherContractHeadersResponse,
   ] = apiRequests.data;
 
-  const refundPointDetailsSummary =
-    refundPointDetailsResponse.data.entityInformations
-      ?.at(0)
-      ?.organizations?.at(0);
+  const refundPointDetailsSummary = refundPointDetailsResponse.data.entityInformations?.at(0)?.organizations?.at(0);
 
   // const contractHeaders = otherContractHeadersResponse.data.items;
 
   return (
     <RefundPointContractHeaderUpdateForm
-      addressList={
-        refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []
-      }
+      addressList={refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []}
       contractHeaderDetails={contractHeaderDetailsResponse.data}
       languageData={languageData}
       refundFeeHeaders={refundFeeHeadersResponse.data}

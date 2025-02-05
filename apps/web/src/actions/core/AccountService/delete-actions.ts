@@ -1,10 +1,6 @@
 "use server";
 
-import {
-  getAccountServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getAccountServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function deleteSessionsByIdApi(id: string) {
   try {

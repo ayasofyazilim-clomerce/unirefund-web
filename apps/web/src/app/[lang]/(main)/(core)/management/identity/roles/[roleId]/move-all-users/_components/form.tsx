@@ -1,14 +1,14 @@
 "use client";
 
-import type { Volo_Abp_Identity_IdentityRoleDto } from "@ayasofyazilim/saas/IdentityService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putRolesByIdMoveAllUsersApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putRolesByIdMoveAllUsersApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 interface RoleParams {
   roleId: string;
@@ -34,7 +34,7 @@ export default function Form({
   roleList: Volo_Abp_Identity_IdentityRoleDto[];
 }) {
   const router = useRouter();
-  const { roleId } = useParams<{ roleId: string }>();
+  const {roleId} = useParams<{roleId: string}>();
   const [loading, setLoading] = useState(false);
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_UpdateMoveAllUsersDto,

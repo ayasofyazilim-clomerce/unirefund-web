@@ -1,26 +1,20 @@
-import type { UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto } from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type TaxOfficesTable =
-  TanstackTableCreationProps<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>;
+type TaxOfficesTable = TanstackTableCreationProps<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>;
 
-const links: Partial<
-  Record<
-    keyof UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto, TanstackTableColumnLink>> = {};
 
 function taxOfficesTableActions(
   languageData: CRMServiceServiceResource,
@@ -53,19 +47,17 @@ function taxOfficesColumns(
       suffix: "details/info",
     };
   }
-  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>(
-    {
-      rows: $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto.properties,
-      languageData: {
-        name: languageData.Name,
-      },
-      config: {
-        locale,
-      },
-      links,
-      faceted: {},
+  return tanstackTableCreateColumnsByRowData<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>({
+    rows: $UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto.properties,
+    languageData: {
+      name: languageData.Name,
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+    faceted: {},
+  });
 }
 
 function taxOfficesTable(

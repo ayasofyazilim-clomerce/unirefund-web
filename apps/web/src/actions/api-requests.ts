@@ -60,14 +60,14 @@ import type {
   GetApiLocationServiceRegionsGetDefaultRegionIdByCountryIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
 } from "@ayasofyazilim/saas/LocationService";
-import type { GetApiRefundServiceRefundsData } from "@ayasofyazilim/saas/RefundService";
+import type {GetApiRefundServiceRefundsData} from "@ayasofyazilim/saas/RefundService";
 import type {
   PutApiSaasEditionsByIdMoveAllTenantsData,
   PutApiSaasTenantsByIdSetPasswordData,
 } from "@ayasofyazilim/saas/SaasService";
-import type { GetApiTagServiceTagData } from "@ayasofyazilim/saas/TagService";
-import type { FilterColumnResult } from "@repo/ayasofyazilim-ui/molecules/tables/types";
-import { auth } from "@repo/utils/auth/next-auth";
+import type {GetApiTagServiceTagData} from "@ayasofyazilim/saas/TagService";
+import type {FilterColumnResult} from "@repo/ayasofyazilim-ui/molecules/tables/types";
+import {auth} from "@repo/utils/auth/next-auth";
 import {
   getAdministrationServiceClient,
   getCRMServiceClient,
@@ -83,12 +83,7 @@ import {
 export type ApiRequestTypes = keyof Awaited<ReturnType<typeof getApiRequests>>;
 export type GetTableDataTypes = Exclude<
   ApiRequestTypes,
-  | "locations"
-  | "editions"
-  | "applications"
-  | "tenants"
-  | "templates"
-  | "permissions"
+  "locations" | "editions" | "applications" | "tenants" | "templates" | "permissions"
 >;
 export type DeleteTableDataTypes = Exclude<
   ApiRequestTypes,
@@ -131,74 +126,37 @@ export async function getApiRequests() {
   const administrationClient = await getAdministrationServiceClient(session);
   const tableRequests = {
     merchants: {
-      getDetail: async (id: string) =>
-        await crmClient.merchant.getApiCrmServiceMerchantsByIdDetail({ id }),
-      get: async (data: GetApiCrmServiceMerchantsData) =>
-        await crmClient.merchant.getApiCrmServiceMerchants(data),
-      getById: async (id: string) =>
-        await crmClient.merchant.getApiCrmServiceMerchantsById({ id }),
-      getSubCompanies: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
-        await crmClient.merchant.getApiCrmServiceMerchantsByIdSubMerchants(
-          data,
-        ),
-      getIndivuals: async (
-        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
-      ) =>
-        await crmClient.merchant.getApiCrmServiceMerchantsByIdAffiliations(
-          data,
-        ),
-      deleteRow: async (id: string) =>
-        await crmClient.merchant.deleteApiCrmServiceMerchantsByIdWithComponents(
-          { id },
-        ),
+      getDetail: async (id: string) => await crmClient.merchant.getApiCrmServiceMerchantsByIdDetail({id}),
+      get: async (data: GetApiCrmServiceMerchantsData) => await crmClient.merchant.getApiCrmServiceMerchants(data),
+      getById: async (id: string) => await crmClient.merchant.getApiCrmServiceMerchantsById({id}),
+      getSubCompanies: async (data: {id: string; maxResultCount: number; skipCount: number}) =>
+        await crmClient.merchant.getApiCrmServiceMerchantsByIdSubMerchants(data),
+      getIndivuals: async (data: GetApiCrmServiceMerchantsByIdAffiliationsData) =>
+        await crmClient.merchant.getApiCrmServiceMerchantsByIdAffiliations(data),
+      deleteRow: async (id: string) => await crmClient.merchant.deleteApiCrmServiceMerchantsByIdWithComponents({id}),
 
-      getAdresses: async (data: { id: string }) =>
-        await crmClient.merchant.getApiCrmServiceMerchantsByIdAddresses(data),
+      getAdresses: async (data: {id: string}) => await crmClient.merchant.getApiCrmServiceMerchantsByIdAddresses(data),
       putMerchantBase: async (data: PutApiCrmServiceMerchantsByIdData) => {
         return await crmClient.merchant.putApiCrmServiceMerchantsById({
           requestBody: data.requestBody,
           id: data.id,
         });
       },
-      putAddress: async (
-        data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-      ) => {
-        return await crmClient.merchant.putApiCrmServiceMerchantsByIdAddressesByAddressId(
-          data,
-        );
+      putAddress: async (data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) => {
+        return await crmClient.merchant.putApiCrmServiceMerchantsByIdAddressesByAddressId(data);
       },
 
-      putEmailAddress: async (
-        data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
-      ) => {
-        return await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(
-          data,
-        );
+      putEmailAddress: async (data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData) => {
+        return await crmClient.merchant.putApiCrmServiceMerchantsByIdEmailsByEmailId(data);
       },
-      putTelephone: async (
-        data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
-      ) => {
-        return await crmClient.merchant.putApiCrmServiceMerchantsByIdTelephonesByTelephoneId(
-          data,
-        );
+      putTelephone: async (data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData) => {
+        return await crmClient.merchant.putApiCrmServiceMerchantsByIdTelephonesByTelephoneId(data);
       },
-      putOrganization: async (
-        data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
-      ) => {
-        return await crmClient.merchant.putApiCrmServiceMerchantsByIdOrganizationsByOrganizationId(
-          data,
-        );
+      putOrganization: async (data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData) => {
+        return await crmClient.merchant.putApiCrmServiceMerchantsByIdOrganizationsByOrganizationId(data);
       },
-      putIndividualName: async (
-        data: PutApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameIdData,
-      ) => {
-        return await crmClient.merchant.putApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameId(
-          data,
-        );
+      putIndividualName: async (data: PutApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameIdData) => {
+        return await crmClient.merchant.putApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameId(data);
       },
       putIndividualPersonalSummary: async (
         data: PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
@@ -207,12 +165,8 @@ export async function getApiRequests() {
           data,
         );
       },
-      postAffiliations: async (
-        data: PostApiCrmServiceMerchantsByIdAffiliationsData,
-      ) => {
-        return await crmClient.merchant.postApiCrmServiceMerchantsByIdAffiliations(
-          data,
-        );
+      postAffiliations: async (data: PostApiCrmServiceMerchantsByIdAffiliationsData) => {
+        return await crmClient.merchant.postApiCrmServiceMerchantsByIdAffiliations(data);
       },
     },
     "refund-points": {
@@ -222,308 +176,161 @@ export async function getApiRequests() {
         }),
       get: async (data: GetApiCrmServiceRefundPointsData) =>
         await crmClient.refundPoint.getApiCrmServiceRefundPoints(data),
-      getSubCompanies: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
-        await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdSubRefundPoints(
-          data,
-        ),
-      getIndivuals: async (
-        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
-      ) =>
-        await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAffiliations(
-          data,
-        ),
+      getSubCompanies: async (data: {id: string; maxResultCount: number; skipCount: number}) =>
+        await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdSubRefundPoints(data),
+      getIndivuals: async (data: GetApiCrmServiceMerchantsByIdAffiliationsData) =>
+        await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAffiliations(data),
       deleteRow: async (id: string) =>
-        await crmClient.refundPoint.deleteApiCrmServiceRefundPointsByIdWithComponents(
-          {
-            id,
-          },
-        ),
-      putAddress: async (
-        data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-      ) => {
-        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdAddressesByAddressId(
-          data,
-        );
+        await crmClient.refundPoint.deleteApiCrmServiceRefundPointsByIdWithComponents({
+          id,
+        }),
+      putAddress: async (data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) => {
+        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdAddressesByAddressId(data);
       },
-      putEmailAddress: async (
-        data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData,
-      ) => {
-        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdEmailsByEmailId(
-          data,
-        );
+      putEmailAddress: async (data: PutApiCrmServiceRefundPointsByIdEmailsByEmailIdData) => {
+        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdEmailsByEmailId(data);
       },
-      putTelephone: async (
-        data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData,
-      ) => {
-        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdTelephonesByTelephoneId(
-          data,
-        );
+      putTelephone: async (data: PutApiCrmServiceRefundPointsByIdTelephonesByTelephoneIdData) => {
+        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdTelephonesByTelephoneId(data);
       },
-      putOrganization: async (
-        data: PutApiCrmServiceRefundPointsByIdOrganizationsByOrganizationIdData,
-      ) => {
-        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(
-          data,
-        );
+      putOrganization: async (data: PutApiCrmServiceRefundPointsByIdOrganizationsByOrganizationIdData) => {
+        return await crmClient.refundPoint.putApiCrmServiceRefundPointsByIdOrganizationsByOrganizationId(data);
       },
-      postAffiliations: async (
-        data: PostApiCrmServiceRefundPointsByIdAffiliationsData,
-      ) => {
-        return await crmClient.refundPoint.postApiCrmServiceRefundPointsByIdAffiliations(
-          data,
-        );
+      postAffiliations: async (data: PostApiCrmServiceRefundPointsByIdAffiliationsData) => {
+        return await crmClient.refundPoint.postApiCrmServiceRefundPointsByIdAffiliations(data);
       },
     },
     customs: {
-      getDetail: async (id: string) =>
-        await crmClient.customs.getApiCrmServiceCustomsByIdDetail({ id }),
-      get: async (data: GetApiCrmServiceCustomsData) =>
-        await crmClient.customs.getApiCrmServiceCustoms(data),
-      getSubCompanies: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) => await crmClient.customs.getApiCrmServiceCustomsByIdSubCustoms(data),
-      getIndivuals: async (
-        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
-      ) =>
+      getDetail: async (id: string) => await crmClient.customs.getApiCrmServiceCustomsByIdDetail({id}),
+      get: async (data: GetApiCrmServiceCustomsData) => await crmClient.customs.getApiCrmServiceCustoms(data),
+      getSubCompanies: async (data: {id: string; maxResultCount: number; skipCount: number}) =>
+        await crmClient.customs.getApiCrmServiceCustomsByIdSubCustoms(data),
+      getIndivuals: async (data: GetApiCrmServiceMerchantsByIdAffiliationsData) =>
         await crmClient.customs.getApiCrmServiceCustomsByIdAffiliations(data),
       deleteRow: async (id: string) =>
         await crmClient.customs.deleteApiCrmServiceCustomsByIdWithComponents({
           id,
         }),
-      putAddress: async (
-        data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-      ) => {
-        return await crmClient.customs.putApiCrmServiceCustomsByIdAddressesByAddressId(
-          data,
-        );
+      putAddress: async (data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) => {
+        return await crmClient.customs.putApiCrmServiceCustomsByIdAddressesByAddressId(data);
       },
-      putEmailAddress: async (
-        data: PutApiCrmServiceCustomsByIdEmailsByEmailIdData,
-      ) => {
-        return await crmClient.customs.putApiCrmServiceCustomsByIdEmailsByEmailId(
-          data,
-        );
+      putEmailAddress: async (data: PutApiCrmServiceCustomsByIdEmailsByEmailIdData) => {
+        return await crmClient.customs.putApiCrmServiceCustomsByIdEmailsByEmailId(data);
       },
-      putTelephone: async (
-        data: PutApiCrmServiceCustomsByIdTelephonesByTelephoneIdData,
-      ) => {
-        return await crmClient.customs.putApiCrmServiceCustomsByIdTelephonesByTelephoneId(
-          data,
-        );
+      putTelephone: async (data: PutApiCrmServiceCustomsByIdTelephonesByTelephoneIdData) => {
+        return await crmClient.customs.putApiCrmServiceCustomsByIdTelephonesByTelephoneId(data);
       },
-      putOrganization: async (
-        data: PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData,
-      ) => {
-        return await crmClient.customs.putApiCrmServiceCustomsByIdOrganizationsByOrganizationId(
-          data,
-        );
+      putOrganization: async (data: PutApiCrmServiceCustomsByIdOrganizationsByOrganizationIdData) => {
+        return await crmClient.customs.putApiCrmServiceCustomsByIdOrganizationsByOrganizationId(data);
       },
-      postAffiliations: async (
-        data: PostApiCrmServiceCustomsByIdAffiliationsData,
-      ) => {
-        return await crmClient.customs.postApiCrmServiceCustomsByIdAffiliations(
-          data,
-        );
+      postAffiliations: async (data: PostApiCrmServiceCustomsByIdAffiliationsData) => {
+        return await crmClient.customs.postApiCrmServiceCustomsByIdAffiliations(data);
       },
     },
     "tax-free": {
-      getDetail: async (id: string) =>
-        await crmClient.taxFree.getApiCrmServiceTaxFreesByIdDetail({ id }),
-      get: async (data: GetApiCrmServiceTaxFreesData) =>
-        await crmClient.taxFree.getApiCrmServiceTaxFrees(data),
-      getSubCompanies: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
+      getDetail: async (id: string) => await crmClient.taxFree.getApiCrmServiceTaxFreesByIdDetail({id}),
+      get: async (data: GetApiCrmServiceTaxFreesData) => await crmClient.taxFree.getApiCrmServiceTaxFrees(data),
+      getSubCompanies: async (data: {id: string; maxResultCount: number; skipCount: number}) =>
         await crmClient.taxFree.getApiCrmServiceTaxFreesByIdSubTaxFree(data),
-      getIndivuals: async (
-        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
-      ) =>
+      getIndivuals: async (data: GetApiCrmServiceMerchantsByIdAffiliationsData) =>
         await crmClient.taxFree.getApiCrmServiceTaxFreesByIdAffiliations(data),
 
       deleteRow: async (id: string) =>
         await crmClient.taxFree.deleteApiCrmServiceTaxFreesByIdWithComponents({
           id,
         }),
-      putAddress: async (
-        data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-      ) => {
-        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdAddressesByAddressId(
-          data,
-        );
+      putAddress: async (data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) => {
+        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdAddressesByAddressId(data);
       },
-      putEmailAddress: async (
-        data: PutApiCrmServiceTaxFreesByIdEmailsByEmailIdData,
-      ) => {
-        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdEmailsByEmailId(
-          data,
-        );
+      putEmailAddress: async (data: PutApiCrmServiceTaxFreesByIdEmailsByEmailIdData) => {
+        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdEmailsByEmailId(data);
       },
-      putTelephone: async (
-        data: PutApiCrmServiceTaxFreesByIdTelephonesByTelephoneIdData,
-      ) => {
-        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdTelephonesByTelephoneId(
-          data,
-        );
+      putTelephone: async (data: PutApiCrmServiceTaxFreesByIdTelephonesByTelephoneIdData) => {
+        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdTelephonesByTelephoneId(data);
       },
-      putOrganization: async (
-        data: PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData,
-      ) => {
-        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdOrganizationsByOrganizationId(
-          data,
-        );
+      putOrganization: async (data: PutApiCrmServiceTaxFreesByIdOrganizationsByOrganizationIdData) => {
+        return await crmClient.taxFree.putApiCrmServiceTaxFreesByIdOrganizationsByOrganizationId(data);
       },
-      postAffiliations: async (
-        data: PostApiCrmServiceTaxFreesByIdAffiliationsData,
-      ) => {
-        return await crmClient.taxFree.postApiCrmServiceTaxFreesByIdAffiliations(
-          data,
-        );
+      postAffiliations: async (data: PostApiCrmServiceTaxFreesByIdAffiliationsData) => {
+        return await crmClient.taxFree.postApiCrmServiceTaxFreesByIdAffiliations(data);
       },
     },
     "tax-offices": {
-      getDetail: async (id: string) =>
-        await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdDetail({ id }),
+      getDetail: async (id: string) => await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdDetail({id}),
       get: async (data: GetApiCrmServiceTaxOfficesData = {}) =>
         await crmClient.taxOffice.getApiCrmServiceTaxOffices(data),
-      getSubCompanies: async (data: {
-        id: string;
-        maxResultCount: number;
-        skipCount: number;
-      }) =>
-        await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdSubTaxOffices(
-          data,
-        ),
-      getIndivuals: async (
-        data: GetApiCrmServiceMerchantsByIdAffiliationsData,
-      ) =>
-        await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAffiliations(
-          data,
-        ),
+      getSubCompanies: async (data: {id: string; maxResultCount: number; skipCount: number}) =>
+        await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdSubTaxOffices(data),
+      getIndivuals: async (data: GetApiCrmServiceMerchantsByIdAffiliationsData) =>
+        await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAffiliations(data),
       deleteRow: async (id: string) =>
-        await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByIdWithComponents(
-          {
-            id,
-          },
-        ),
-      putAddress: async (
-        data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-      ) => {
-        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdAddressesByAddressId(
-          data,
-        );
+        await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByIdWithComponents({
+          id,
+        }),
+      putAddress: async (data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData) => {
+        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdAddressesByAddressId(data);
       },
-      putEmailAddress: async (
-        data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
-      ) => {
-        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdEmailsByEmailId(
-          data,
-        );
+      putEmailAddress: async (data: PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData) => {
+        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdEmailsByEmailId(data);
       },
-      putTelephone: async (
-        data: PutApiCrmServiceTaxFreesByIdTelephonesByTelephoneIdData,
-      ) => {
-        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdTelephonesByTelephoneId(
-          data,
-        );
+      putTelephone: async (data: PutApiCrmServiceTaxFreesByIdTelephonesByTelephoneIdData) => {
+        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdTelephonesByTelephoneId(data);
       },
-      putOrganization: async (
-        data: PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
-      ) => {
-        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationId(
-          data,
-        );
+      putOrganization: async (data: PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData) => {
+        return await crmClient.taxOffice.putApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationId(data);
       },
-      postAffiliations: async (
-        data: PostApiCrmServiceTaxOfficesByIdAffiliationsData,
-      ) => {
-        return await crmClient.taxOffice.postApiCrmServiceTaxOfficesByIdAffiliations(
-          data,
-        );
+      postAffiliations: async (data: PostApiCrmServiceTaxOfficesByIdAffiliationsData) => {
+        return await crmClient.taxOffice.postApiCrmServiceTaxOfficesByIdAffiliations(data);
       },
     },
     individuals: {
-      getDetail: async (id: string) =>
-        await crmClient.individual.getApiCrmServiceIndividualsById({ id }),
+      getDetail: async (id: string) => await crmClient.individual.getApiCrmServiceIndividualsById({id}),
       get: async (data: GetApiCrmServiceIndividualsData) =>
         await crmClient.individual.getApiCrmServiceIndividuals(data),
       deleteRow: async (id: string) =>
-        await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByIdWithComponents(
-          {
-            id,
-          },
-        ),
-      getAffiliationCode: async () =>
-        await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes(),
+        await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByIdWithComponents({
+          id,
+        }),
+      getAffiliationCode: async () => await crmClient.affiliationCode.getApiCrmServiceAffiliationCodes(),
     },
     locations: {
       getCountries: async (data: GetApiLocationServiceCountriesData) =>
         await locationClient.country.getApiLocationServiceCountries(data),
-      getRegionsByCountryId: async (
-        data: GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
-      ) =>
-        await locationClient.region.getApiLocationServiceRegionsGetListByCountryByCountryId(
-          data,
-        ),
-      getDefaultRegionsByCountryId: async (
-        data: GetApiLocationServiceRegionsGetDefaultRegionIdByCountryIdData,
-      ) =>
-        await locationClient.region.getApiLocationServiceRegionsGetDefaultRegionIdByCountryId(
-          data,
-        ),
-      getCitiesByRegionId: async (
-        data: GetApiLocationServiceCitiesGetListByRegionByRegionIdData,
-      ) =>
-        await locationClient.city.getApiLocationServiceCitiesGetListByRegionByRegionId(
-          data,
-        ),
+      getRegionsByCountryId: async (data: GetApiLocationServiceRegionsGetListByCountryByCountryIdData) =>
+        await locationClient.region.getApiLocationServiceRegionsGetListByCountryByCountryId(data),
+      getDefaultRegionsByCountryId: async (data: GetApiLocationServiceRegionsGetDefaultRegionIdByCountryIdData) =>
+        await locationClient.region.getApiLocationServiceRegionsGetDefaultRegionIdByCountryId(data),
+      getCitiesByRegionId: async (data: GetApiLocationServiceCitiesGetListByRegionByRegionIdData) =>
+        await locationClient.city.getApiLocationServiceCitiesGetListByRegionByRegionId(data),
 
       getCities: async (
         data: GetApiLocationServiceCitiesData, //this should be removed when the forms updated
       ) => await locationClient.city.getApiLocationServiceCities(data),
       getDistrictsByCityId: async (
         data: GetApiLocationServiceDistrictsGetListByCityByCityIdData, //this should be removed when the forms updated
-      ) =>
-        await locationClient.district.getApiLocationServiceDistrictsGetListByCityByCityId(
-          data,
-        ),
+      ) => await locationClient.district.getApiLocationServiceDistrictsGetListByCityByCityId(data),
       getNeighborhoodsByDistrictId: async (
         data: GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData, //this should be removed when the forms updated
-      ) =>
-        await locationClient.neighborhood.getApiLocationServiceNeighborhoodsGetListByDistrictByDistrictId(
-          data,
-        ),
+      ) => await locationClient.neighborhood.getApiLocationServiceNeighborhoodsGetListByDistrictByDistrictId(data),
     },
     refund: {
-      get: async (data: GetApiRefundServiceRefundsData) =>
-        await refundClient.refund.getApiRefundServiceRefunds(data),
+      get: async (data: GetApiRefundServiceRefundsData) => await refundClient.refund.getApiRefundServiceRefunds(data),
     },
     claims: {
-      get: async (data: GetApiIdentityClaimTypesData) =>
-        await identityClient.claimType.getApiIdentityClaimTypes(data),
+      get: async (data: GetApiIdentityClaimTypesData) => await identityClient.claimType.getApiIdentityClaimTypes(data),
     },
     roles: {
-      get: async (data: GetApiIdentityRolesData) =>
-        await identityClient.role.getApiIdentityRoles(data),
+      get: async (data: GetApiIdentityRolesData) => await identityClient.role.getApiIdentityRoles(data),
       getRoleClaims: async (data: GetApiIdentityRolesByIdClaimsData) =>
         await identityClient.role.getApiIdentityRolesByIdClaims(data),
       putRoleClaims: async (data: PutApiIdentityRolesByIdClaimsData) =>
         await identityClient.role.putApiIdentityRolesByIdClaims(data),
-      getAllRoles: async () =>
-        await identityClient.role.getApiIdentityRolesAll(),
+      getAllRoles: async () => await identityClient.role.getApiIdentityRolesAll(),
       MoveAllUsers: async (data: PutApiIdentityRolesByIdMoveAllUsersData) =>
         await identityClient.role.putApiIdentityRolesByIdMoveAllUsers(data),
     },
     users: {
-      get: async (data: GetApiIdentityUsersData) =>
-        await identityClient.user.getApiIdentityUsers(data),
+      get: async (data: GetApiIdentityUsersData) => await identityClient.user.getApiIdentityUsers(data),
       getUserClaims: async (data: GetApiIdentityUsersByIdClaimsData) =>
         await identityClient.user.getApiIdentityUsersByIdClaims(data),
       getTwoFactorEnable: async (id: string) =>
@@ -536,20 +343,13 @@ export async function getApiRequests() {
         }),
       putUserClaims: async (data: PutApiIdentityUsersByIdClaimsData) =>
         await identityClient.user.putApiIdentityUsersByIdClaims(data),
-      putChangePassword: async (
-        data: PutApiIdentityUsersByIdChangePasswordData,
-      ) =>
+      putChangePassword: async (data: PutApiIdentityUsersByIdChangePasswordData) =>
         await identityClient.user.putApiIdentityUsersByIdChangePassword(data),
-      putTwoFactorEnable: async (
-        data: PutApiIdentityUsersByIdTwoFactorByEnabledData,
-      ) =>
-        await identityClient.user.putApiIdentityUsersByIdTwoFactorByEnabled(
-          data,
-        ),
+      putTwoFactorEnable: async (data: PutApiIdentityUsersByIdTwoFactorByEnabledData) =>
+        await identityClient.user.putApiIdentityUsersByIdTwoFactorByEnabled(data),
     },
     sessions: {
-      get: async (data: GetApiIdentitySessionsData) =>
-        await identityClient.sessions.getApiIdentitySessions(data),
+      get: async (data: GetApiIdentitySessionsData) => await identityClient.sessions.getApiIdentitySessions(data),
       deleteRow: async (id: string) =>
         await identityClient.sessions.deleteApiIdentitySessionsById({
           id,
@@ -557,41 +357,27 @@ export async function getApiRequests() {
     },
     permissions: {
       getPermissions: async (data: GetApiPermissionManagementPermissionsData) =>
-        await administrationClient.permissions.getApiPermissionManagementPermissions(
-          data,
-        ),
+        await administrationClient.permissions.getApiPermissionManagementPermissions(data),
       putPermissions: async (data: PutApiPermissionManagementPermissionsData) =>
-        await administrationClient.permissions.putApiPermissionManagementPermissions(
-          data,
-        ),
+        await administrationClient.permissions.putApiPermissionManagementPermissions(data),
     },
     tenants: {
       putSetPassword: async (data: PutApiSaasTenantsByIdSetPasswordData) =>
         await saasClient.tenant.putApiSaasTenantsByIdSetPassword(data),
     },
     editions: {
-      getAllEditions: async () =>
-        await saasClient.edition.getApiSaasEditionsAll(),
+      getAllEditions: async () => await saasClient.edition.getApiSaasEditionsAll(),
       moveAllTenants: async (data: PutApiSaasEditionsByIdMoveAllTenantsData) =>
         await saasClient.edition.putApiSaasEditionsByIdMoveAllTenants(data),
     },
     tags: {
-      get: async (data: GetApiTagServiceTagData) =>
-        await tagClient.tag.getApiTagServiceTag(data),
+      get: async (data: GetApiTagServiceTagData) => await tagClient.tag.getApiTagServiceTag(data),
     },
     applications: {
-      getTokenLifetime: async (
-        data: GetApiOpeniddictApplicationsByIdTokenLifetimeData,
-      ) =>
-        await identityClient.applications.getApiOpeniddictApplicationsByIdTokenLifetime(
-          data,
-        ),
-      putTokenLifetime: async (
-        data: PutApiOpeniddictApplicationsByIdTokenLifetimeData,
-      ) =>
-        await identityClient.applications.putApiOpeniddictApplicationsByIdTokenLifetime(
-          data,
-        ),
+      getTokenLifetime: async (data: GetApiOpeniddictApplicationsByIdTokenLifetimeData) =>
+        await identityClient.applications.getApiOpeniddictApplicationsByIdTokenLifetime(data),
+      putTokenLifetime: async (data: PutApiOpeniddictApplicationsByIdTokenLifetimeData) =>
+        await identityClient.applications.putApiOpeniddictApplicationsByIdTokenLifetime(data),
     },
   };
   return tableRequests;
@@ -623,10 +409,7 @@ export async function deleteTableRow(type: DeleteTableDataTypes, id: string) {
     return structuredError(error);
   }
 }
-export async function getTableDataDetail(
-  type: GetDetailTableDataTypes,
-  id: string,
-) {
+export async function getTableDataDetail(type: GetDetailTableDataTypes, id: string) {
   try {
     const requests = await getApiRequests();
     const data = await requests[type].getDetail(id);

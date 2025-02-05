@@ -1,8 +1,8 @@
 "use client";
 
-import { toast } from "@/components/ui/sonner";
-import type { Dispatch, SetStateAction } from "react";
-import type { AppLanguageDataResourceType } from "src/language-data/unirefund/language-data";
+import {toast} from "@/components/ui/sonner";
+import type {Dispatch, SetStateAction} from "react";
+import type {AppLanguageDataResourceType} from "src/language-data/unirefund/language-data";
 import {
   getCitiesByRegionId,
   getDefaultRegionsByCountryIdApi,
@@ -10,13 +10,7 @@ import {
   getNeighborhoodsByDistrictIdApi,
   getRegionsByCountryIdApi,
 } from "./actions";
-import type {
-  CityDto,
-  CountryDto,
-  DistrictDto,
-  NeighborhoodDto,
-  RegionDto,
-} from "./types";
+import type {CityDto, CountryDto, DistrictDto, NeighborhoodDto, RegionDto} from "./types";
 
 export async function getRegion({
   countryList,
@@ -29,9 +23,7 @@ export async function getRegion({
   setRegionList: Dispatch<SetStateAction<RegionDto[] | undefined>>;
   languageData: AppLanguageDataResourceType;
 }) {
-  const selectedCountry = countryList.find(
-    (country) => country.id === countryId,
-  );
+  const selectedCountry = countryList.find((country) => country.id === countryId);
   if (selectedCountry?.hasRegion) {
     const regions = await getRegionsByCountryIdApi({
       countryId,
@@ -64,7 +56,7 @@ export async function getCity({
   setCityList: Dispatch<SetStateAction<CityDto[] | undefined>>;
   languageData: AppLanguageDataResourceType;
 }) {
-  const cities = await getCitiesByRegionId({ regionId });
+  const cities = await getCitiesByRegionId({regionId});
   if (cities.type === "success") {
     setCityList(cities.data);
     return;
@@ -81,7 +73,7 @@ export async function getDistrict({
   setDistrictList: Dispatch<SetStateAction<DistrictDto[] | undefined>>;
   languageData: AppLanguageDataResourceType;
 }) {
-  const districts = await getDistrictsByCityIdApi({ cityId });
+  const districts = await getDistrictsByCityIdApi({cityId});
   if (districts.type === "success") {
     setDistrictList(districts.data);
     return;
@@ -98,7 +90,7 @@ export async function getNeighborhood({
   setNeighborhoodList: Dispatch<SetStateAction<NeighborhoodDto[] | undefined>>;
   languageData: AppLanguageDataResourceType;
 }) {
-  const neighborhoods = await getNeighborhoodsByDistrictIdApi({ districtId });
+  const neighborhoods = await getNeighborhoodsByDistrictIdApi({districtId});
   if (neighborhoods.type === "success") {
     setNeighborhoodList(neighborhoods.data);
     return;
@@ -138,10 +130,10 @@ export function getAddressList({
     });
   }
   if (regionId) {
-    void getCity({ regionId, setCityList, languageData });
+    void getCity({regionId, setCityList, languageData});
   }
   if (cityId) {
-    void getDistrict({ cityId, setDistrictList, languageData });
+    void getDistrict({cityId, setDistrictList, languageData});
   }
   if (districtId) {
     void getNeighborhood({

@@ -1,29 +1,23 @@
-import type { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@ayasofyazilim/saas/AdministrationService";
-import { $Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@ayasofyazilim/saas/AdministrationService";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { CheckCircle, Languages, Plus, XCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { putLanguagesByIdSetAsDefaultApi } from "src/actions/core/AdministrationService/put-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {CheckCircle, Languages, Plus, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {putLanguagesByIdSetAsDefaultApi} from "src/actions/core/AdministrationService/put-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type LanguagesTable =
-  TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageDto>;
+type LanguagesTable = TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageDto>;
 
-const links: Partial<
-  Record<
-    keyof Volo_Abp_LanguageManagement_Dto_LanguageDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof Volo_Abp_LanguageManagement_Dto_LanguageDto, TanstackTableColumnLink>> = {};
 
 function languagesTableActions(
   languageData: AdministrationServiceResource,
@@ -31,9 +25,7 @@ function languagesTableActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (
-    isActionGranted(["LanguageManagement.Languages.Create"], grantedPolicies)
-  ) {
+  if (isActionGranted(["LanguageManagement.Languages.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
       actionLocation: "table",
@@ -51,14 +43,8 @@ function languagesRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Abp_LanguageManagement_Dto_LanguageDto>[] =
-    [];
-  if (
-    isActionGranted(
-      ["LanguageManagement.Languages.ChangeDefault"],
-      grantedPolicies,
-    )
-  ) {
+  const actions: TanstackTableRowActionsType<Volo_Abp_LanguageManagement_Dto_LanguageDto>[] = [];
+  if (isActionGranted(["LanguageManagement.Languages.ChangeDefault"], grantedPolicies)) {
     actions.push({
       type: "confirmation-dialog",
       cta: languageData["Language.Default.Language"],
@@ -88,62 +74,60 @@ const languagesColumns = (
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<Volo_Abp_LanguageManagement_Dto_LanguageDto>(
-    {
-      rows: $Volo_Abp_LanguageManagement_Dto_LanguageDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.Language",
-      },
-      config: {
-        locale,
-      },
-      links,
-      badges: {
-        displayName: {
-          values: [
-            {
-              position: "after",
-              label: languageData["Form.Language.isDefaultLanguage"],
-              badgeClassName: "text-green-700 bg-green-100 border-green-500",
-              conditions: [
-                {
-                  when: (value) => value === true,
-                  conditionAccessorKey: "isDefaultLanguage",
-                },
-              ],
-            },
-          ],
-        },
-      },
-      faceted: {
-        isEnabled: {
-          options: [
-            {
-              label: "Yes",
-              when: (value) => {
-                return Boolean(value);
+  return tanstackTableCreateColumnsByRowData<Volo_Abp_LanguageManagement_Dto_LanguageDto>({
+    rows: $Volo_Abp_LanguageManagement_Dto_LanguageDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.Language",
+    },
+    config: {
+      locale,
+    },
+    links,
+    badges: {
+      displayName: {
+        values: [
+          {
+            position: "after",
+            label: languageData["Form.Language.isDefaultLanguage"],
+            badgeClassName: "text-green-700 bg-green-100 border-green-500",
+            conditions: [
+              {
+                when: (value) => value === true,
+                conditionAccessorKey: "isDefaultLanguage",
               },
-              value: "true",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-              hideColumnValue: true,
-            },
-            {
-              label: "No",
-              when: (value) => {
-                return !value;
-              },
-              value: "false",
-              icon: XCircle,
-              iconClassName: "text-red-700",
-              hideColumnValue: true,
-            },
-          ],
-        },
+            ],
+          },
+        ],
       },
     },
-  );
+    faceted: {
+      isEnabled: {
+        options: [
+          {
+            label: "Yes",
+            when: (value) => {
+              return Boolean(value);
+            },
+            value: "true",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+            hideColumnValue: true,
+          },
+          {
+            label: "No",
+            when: (value) => {
+              return !value;
+            },
+            value: "false",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+            hideColumnValue: true,
+          },
+        ],
+      },
+    },
+  });
 };
 function languagesTable(
   languageData: AdministrationServiceResource,

@@ -1,25 +1,25 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { toast } from "@/components/ui/sonner";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { UniRefund_CRMService_Merchants_MerchantProfileDto } from "@ayasofyazilim/saas/CRMService";
+import {Button} from "@/components/ui/button";
+import {ScrollArea} from "@/components/ui/scroll-area";
+import {toast} from "@/components/ui/sonner";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import type {UniRefund_CRMService_Merchants_MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto as RebateStatementHeaderCreateDto,
   UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto,
 } from "@ayasofyazilim/saas/FinanceService";
-import { $UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto as $RebateStatementHeaderCreateDto } from "@ayasofyazilim/saas/FinanceService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
+import {$UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto as $RebateStatementHeaderCreateDto} from "@ayasofyazilim/saas/FinanceService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
 import {
   postRebateStatementHeadersApi,
   postRebateStatementHeadersFormDraftApi,
 } from "src/actions/unirefund/FinanceService/post-actions";
-import type { FinanceServiceResource } from "src/language-data/unirefund/FinanceService";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import RebateStatementInformation from "../../[rebateStatementId]/information/_components/rebate-statement-information";
 
 export default function RebateStatementForm({
@@ -41,9 +41,7 @@ export default function RebateStatementForm({
     },
   });
   const [rebateStatementData] =
-    useState<
-      UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto[]
-    >();
+    useState<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto[]>();
   const [_formData, set_FormData] = useState<RebateStatementHeaderCreateDto>();
   const [activeTab, setActiveTab] = useState("Form");
   const [loading, setLoading] = useState(false);
@@ -53,9 +51,7 @@ export default function RebateStatementForm({
       <Tabs defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="Form">{languageData["Button.Form"]}</TabsTrigger>
-          <TabsTrigger value="Preview">
-            {languageData["Button.Preview"]}
-          </TabsTrigger>
+          <TabsTrigger value="Preview">{languageData["Button.Preview"]}</TabsTrigger>
         </TabsList>
         <TabsContent value="Form">
           <SchemaForm<RebateStatementHeaderCreateDto>
@@ -67,7 +63,7 @@ export default function RebateStatementForm({
             onSubmit={(e) => {
               if (!e.formData) return;
               setLoading(true);
-              void postRebateStatementHeadersApi({ requestBody: e.formData })
+              void postRebateStatementHeadersApi({requestBody: e.formData})
                 .then((res) => {
                   handlePostResponse(res, router);
                 })
@@ -79,17 +75,13 @@ export default function RebateStatementForm({
             uiSchema={uiSchema}
             useDefaultSubmit={false}
             widgets={{
-              Merchant:
-                CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantProfileDto>(
-                  {
-                    languageData,
-                    list: merchantList,
-                    selectIdentifier: "id",
-                    selectLabel: "name",
-                  },
-                ),
-            }}
-          >
+              Merchant: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantProfileDto>({
+                languageData,
+                list: merchantList,
+                selectIdentifier: "id",
+                selectLabel: "name",
+              }),
+            }}>
             <div className="flex w-full justify-end gap-4 pt-8">
               <Button
                 disabled={loading}
@@ -111,8 +103,7 @@ export default function RebateStatementForm({
                     });
                 }}
                 type="button"
-                variant="outline"
-              >
+                variant="outline">
                 {languageData["Button.PreviewData"]}
               </Button>
               <Button disabled={loading} type="submit">
@@ -126,11 +117,7 @@ export default function RebateStatementForm({
           {!loading && rebateStatementData?.length ? (
             <div className="flex w-full flex-col gap-4">
               {rebateStatementData.map((item) => (
-                <RebateStatementInformation
-                  key={item.id}
-                  languageData={languageData}
-                  rebateStatementData={item}
-                />
+                <RebateStatementInformation key={item.id} languageData={languageData} rebateStatementData={item} />
               ))}
             </div>
           ) : (

@@ -2,10 +2,10 @@ import type {
   UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as ContractHeaderRefundTableHeaderCreateAndUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
-import { $UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as $ContractHeaderRefundTableHeaderCreateAndUpdateDto } from "@ayasofyazilim/saas/ContractService";
-import { tanstackTableEditableColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { TableField } from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
-import { PlusCircle } from "lucide-react";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTableHeaders_ContractHeaderRefundTableHeaderCreateAndUpdateDto as $ContractHeaderRefundTableHeaderCreateAndUpdateDto} from "@ayasofyazilim/saas/ContractService";
+import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
+import {PlusCircle} from "lucide-react";
 
 export function RefundTableHeadersField(
   refundTableHeaders: AssignableRefundTableHeaders[],
@@ -21,23 +21,19 @@ export function RefundTableHeadersField(
     fillerColumn: "refundTableHeaderId",
     editable: true,
     data,
-    columns:
-      tanstackTableEditableColumnsByRowData<ContractHeaderRefundTableHeaderCreateAndUpdateDto>(
-        {
-          rows: {
-            ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties,
-            refundTableHeaderId: {
-              ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties
-                .refundTableHeaderId,
-              enum: refundTableHeaders.map((x) => ({
-                label: x.name,
-                value: x.id,
-              })),
-            },
-          },
-          excludeColumns: ["extraProperties"],
+    columns: tanstackTableEditableColumnsByRowData<ContractHeaderRefundTableHeaderCreateAndUpdateDto>({
+      rows: {
+        ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties,
+        refundTableHeaderId: {
+          ...$ContractHeaderRefundTableHeaderCreateAndUpdateDto.properties.refundTableHeaderId,
+          enum: refundTableHeaders.map((x) => ({
+            label: x.name,
+            value: x.id,
+          })),
         },
-      ),
+      },
+      excludeColumns: ["extraProperties"],
+    }),
     tableActions: [
       {
         type: "create-row",

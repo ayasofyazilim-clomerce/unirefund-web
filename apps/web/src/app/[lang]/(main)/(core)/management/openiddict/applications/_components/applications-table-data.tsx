@@ -1,27 +1,21 @@
-import type { Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto } from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto} from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto} from "@ayasofyazilim/saas/IdentityService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { Plus, ShieldCheck, ToyBrick } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {Plus, ShieldCheck, ToyBrick} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
-type ApplicationsTable =
-  TanstackTableCreationProps<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>;
+type ApplicationsTable = TanstackTableCreationProps<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>;
 
-const links: Partial<
-  Record<
-    keyof Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto,
-    TanstackTableColumnLink
-  >
-> = {};
+const links: Partial<Record<keyof Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto, TanstackTableColumnLink>> = {};
 
 function applicationsTableActions(
   languageData: IdentityServiceResource,
@@ -48,14 +42,8 @@ function tenantsRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>[] =
-    [];
-  if (
-    isActionGranted(
-      ["OpenIddictPro.Application.ManagePermissions"],
-      grantedPolicies,
-    )
-  ) {
+  const actions: TanstackTableRowActionsType<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>[] = [];
+  if (isActionGranted(["OpenIddictPro.Application.ManagePermissions"], grantedPolicies)) {
     actions.push({
       type: "simple",
       actionLocation: "row",
@@ -91,19 +79,17 @@ const applicationsColumns = (
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>(
-    {
-      rows: $Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.Application",
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>({
+    rows: $Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.Application",
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 };
 
 function applicationsTable(
@@ -121,11 +107,7 @@ function applicationsTable(
     filters: {
       textFilters: ["filter"],
     },
-    tableActions: applicationsTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-    ),
+    tableActions: applicationsTableActions(languageData, router, grantedPolicies),
     rowActions: tenantsRowActions(languageData, router, grantedPolicies),
   };
   return table;

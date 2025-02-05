@@ -1,13 +1,10 @@
 "use server";
 
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
-import {
-  getproductGroupDetailsByIdApi,
-  getVatsApi,
-} from "src/actions/unirefund/SettingService/actions";
-import { getResourceData } from "src/language-data/unirefund/SettingService";
+import {getproductGroupDetailsByIdApi, getVatsApi} from "src/actions/unirefund/SettingService/actions";
+import {getResourceData} from "src/language-data/unirefund/SettingService";
 import Form from "./_components/form";
 
 async function getApiRequests(productGroupId: string) {
@@ -27,7 +24,7 @@ async function getApiRequests(productGroupId: string) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -35,13 +32,9 @@ async function getApiRequests(productGroupId: string) {
   }
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { lang: string; productGroupId: string };
-}) {
-  const { lang, productGroupId } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {lang: string; productGroupId: string}}) {
+  const {lang, productGroupId} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["SettingService.ProductGroups.Edit"],
     lang,
@@ -49,12 +42,7 @@ export default async function Page({
 
   const apiRequests = await getApiRequests(productGroupId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [productGroupDetailsResponse, vatsResponse] = apiRequests.data;
 

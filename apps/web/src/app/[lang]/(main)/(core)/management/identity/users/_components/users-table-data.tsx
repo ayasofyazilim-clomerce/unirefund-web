@@ -3,14 +3,14 @@ import type {
   Volo_Abp_Identity_IdentityUserDto,
   Volo_Abp_Identity_OrganizationUnitLookupDto,
 } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_Identity_IdentityUserDto } from "@ayasofyazilim/saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityUserDto} from "@ayasofyazilim/saas/IdentityService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {
   CheckCircle,
   Eye,
@@ -23,18 +23,16 @@ import {
   UnlockIcon,
   XCircle,
 } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putUsersByIdUnlockApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type UsersTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityUserDto>;
 
-const links: Partial<
-  Record<keyof Volo_Abp_Identity_IdentityUserDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof Volo_Abp_Identity_IdentityUserDto, TanstackTableColumnLink>> = {};
 function usersTableActions(
   languageData: IdentityServiceResource,
   router: AppRouterInstance,
@@ -59,11 +57,8 @@ function usersRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Abp_Identity_IdentityUserDto>[] =
-    [];
-  if (
-    isActionGranted(["AbpIdentity.Users.ManagePermissions"], grantedPolicies)
-  ) {
+  const actions: TanstackTableRowActionsType<Volo_Abp_Identity_IdentityUserDto>[] = [];
+  if (isActionGranted(["AbpIdentity.Users.ManagePermissions"], grantedPolicies)) {
     actions.push({
       type: "simple",
       actionLocation: "row",
@@ -161,111 +156,106 @@ const usersColumns = (
       targetAccessorKey: "id",
     };
   }
-  return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentityUserDto>(
-    {
-      rows: $Volo_Abp_Identity_IdentityUserDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.User",
-      },
-      config: {
-        locale,
-      },
-      links,
-      badges: {
-        userName: {
-          values: [
-            {
-              position: "after",
-              label: languageData["Form.User.emailConfirmed"],
-              badgeClassName: "text-green-500 bg-green-100 border-green-500",
-              conditions: [
-                {
-                  when: (value) => value === true,
-                  conditionAccessorKey: "emailConfirmed",
-                },
-              ],
-            },
-            {
-              position: "after",
-              label: languageData["Form.User.twoFactorEnabled"],
-              badgeClassName: "text-green-500 bg-green-100 border-green-500",
-              conditions: [
-                {
-                  when: (value) => value === true,
-                  conditionAccessorKey: "twoFactorEnabled",
-                },
-              ],
-            },
-          ],
-        },
-      },
-      custom: {
-        userName: {
-          content: (row) => {
-            return (
-              <>
-                {row.userName}{" "}
-                {row.isLockedOut ? (
-                  <LockIcon className="h-4 w-4 text-red-500" />
-                ) : null}
-              </>
-            );
+  return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentityUserDto>({
+    rows: $Volo_Abp_Identity_IdentityUserDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.User",
+    },
+    config: {
+      locale,
+    },
+    links,
+    badges: {
+      userName: {
+        values: [
+          {
+            position: "after",
+            label: languageData["Form.User.emailConfirmed"],
+            badgeClassName: "text-green-500 bg-green-100 border-green-500",
+            conditions: [
+              {
+                when: (value) => value === true,
+                conditionAccessorKey: "emailConfirmed",
+              },
+            ],
           },
-        },
+          {
+            position: "after",
+            label: languageData["Form.User.twoFactorEnabled"],
+            badgeClassName: "text-green-500 bg-green-100 border-green-500",
+            conditions: [
+              {
+                when: (value) => value === true,
+                conditionAccessorKey: "twoFactorEnabled",
+              },
+            ],
+          },
+        ],
       },
-      faceted: {
-        isActive: {
-          options: [
-            {
-              label: "Yes",
-              when: (value) => {
-                return Boolean(value);
-              },
-              value: "true",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-              hideColumnValue: true,
-            },
-            {
-              label: "No",
-              when: (value) => {
-                return !value;
-              },
-              value: "false",
-              icon: XCircle,
-              iconClassName: "text-red-700",
-              hideColumnValue: true,
-            },
-          ],
-        },
-        lockoutEnabled: {
-          options: [
-            {
-              label: "Yes",
-              when: (value) => {
-                return Boolean(value);
-              },
-              value: "true",
-              icon: CheckCircle,
-              iconClassName: "text-green-700",
-              hideColumnValue: true,
-            },
-            {
-              label: "No",
-              when: (value) => {
-                return !value;
-              },
-              value: "false",
-              icon: XCircle,
-              iconClassName: "text-red-700",
-              hideColumnValue: true,
-            },
-          ],
+    },
+    custom: {
+      userName: {
+        content: (row) => {
+          return (
+            <>
+              {row.userName} {row.isLockedOut ? <LockIcon className="h-4 w-4 text-red-500" /> : null}
+            </>
+          );
         },
       },
     },
-  );
+    faceted: {
+      isActive: {
+        options: [
+          {
+            label: "Yes",
+            when: (value) => {
+              return Boolean(value);
+            },
+            value: "true",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+            hideColumnValue: true,
+          },
+          {
+            label: "No",
+            when: (value) => {
+              return !value;
+            },
+            value: "false",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+            hideColumnValue: true,
+          },
+        ],
+      },
+      lockoutEnabled: {
+        options: [
+          {
+            label: "Yes",
+            when: (value) => {
+              return Boolean(value);
+            },
+            value: "true",
+            icon: CheckCircle,
+            iconClassName: "text-green-700",
+            hideColumnValue: true,
+          },
+          {
+            label: "No",
+            when: (value) => {
+              return !value;
+            },
+            value: "false",
+            icon: XCircle,
+            iconClassName: "text-red-700",
+            hideColumnValue: true,
+          },
+        ],
+      },
+    },
+  });
 };
 
 function usersTable(
@@ -318,14 +308,7 @@ function usersTable(
       "lastModificationTime",
     ],
     filters: {
-      textFilters: [
-        "filter",
-        "userName",
-        "name",
-        "surname",
-        "emailAddress",
-        "phoneNumber",
-      ],
+      textFilters: ["filter", "userName", "name", "surname", "emailAddress", "phoneNumber"],
       dateFilters: [
         {
           label: languageData["Form.User.creationTime"],

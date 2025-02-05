@@ -6,29 +6,26 @@ import {
   $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto,
   $UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto,
 } from "@ayasofyazilim/saas/CRMService";
-import type { UniRefund_SettingService_ProductGroups_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
+import type {UniRefund_SettingService_ProductGroups_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { CheckCircle, Plus, Star, Trash, XCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {
-  handleDeleteResponse,
-  handlePostResponse,
-} from "src/actions/core/api-utils-client";
-import { deleteMerchantsByIdProductGroupsApi } from "src/actions/unirefund/CrmService/delete-actions";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {CheckCircle, Plus, Star, Trash, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handleDeleteResponse, handlePostResponse} from "src/actions/core/api-utils-client";
+import {deleteMerchantsByIdProductGroupsApi} from "src/actions/unirefund/CrmService/delete-actions";
 import {
   postMerchantsByIdProductGroupByProductGroupIdDefaultApi,
   postMerchantsByIdProductGroupsApi,
 } from "src/actions/unirefund/CrmService/post-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type ProductGroupsTable =
   TanstackTableCreationProps<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>;
@@ -123,7 +120,7 @@ function productGroupsTable(
         icon: Plus,
         content: (
           <SchemaForm<UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto>
-            onSubmit={({ formData }) => {
+            onSubmit={({formData}) => {
               if (!formData) return;
               void postMerchantsByIdProductGroupsApi({
                 id: partId,
@@ -132,13 +129,10 @@ function productGroupsTable(
                 handlePostResponse(res, router);
               });
             }}
-            schema={
-              $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto
-            }
+            schema={$UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto}
             submitText={languageData.Save}
             uiSchema={createUiSchemaWithResource({
-              schema:
-                $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto,
+              schema: $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto,
               resources: languageData,
               name: "Form.Merchant.productGroup",
               extend: {
@@ -151,15 +145,12 @@ function productGroupsTable(
               },
             })}
             widgets={{
-              productGroup:
-                CustomComboboxWidget<UniRefund_SettingService_ProductGroups_ProductGroupDto>(
-                  {
-                    languageData,
-                    list: productGroupsList,
-                    selectIdentifier: "id",
-                    selectLabel: "name",
-                  },
-                ),
+              productGroup: CustomComboboxWidget<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
+                languageData,
+                list: productGroupsList,
+                selectIdentifier: "id",
+                selectLabel: "name",
+              }),
             }}
           />
         ),

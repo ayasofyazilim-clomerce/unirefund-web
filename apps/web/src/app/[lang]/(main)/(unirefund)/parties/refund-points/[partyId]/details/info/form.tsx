@@ -1,27 +1,20 @@
 "use client";
 
-import { $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto } from "@ayasofyazilim/saas/CRMService";
+import {$UniRefund_CRMService_RefundPoints_UpdateRefundPointDto} from "@ayasofyazilim/saas/CRMService";
 import type {
   UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
   GetApiCrmServiceRefundPointsByIdResponse,
   UniRefund_CRMService_RefundPoints_RefundPointProfileDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type {
-  AutoFormInputComponentProps,
-  DependenciesType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import AutoForm, {
-  AutoFormSubmit,
-  CustomCombobox,
-  DependencyType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putRefundPointBaseApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps, DependenciesType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import AutoForm, {AutoFormSubmit, CustomCombobox, DependencyType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putRefundPointBaseApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function RefundPointForm({
   languageData,
@@ -38,10 +31,12 @@ function RefundPointForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const schema = createZodObject(
-    $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
-    ["typeCode", "taxOfficeId", "parentId", "taxpayerId"],
-  );
+  const schema = createZodObject($UniRefund_CRMService_RefundPoints_UpdateRefundPointDto, [
+    "typeCode",
+    "taxOfficeId",
+    "parentId",
+    "taxpayerId",
+  ]);
   const dependencies: DependenciesType = [
     {
       sourceField: "typeCode",
@@ -69,9 +64,7 @@ function RefundPointForm({
     },
   ];
 
-  function handleSubmit(
-    formData: UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
-  ) {
+  function handleSubmit(formData: UniRefund_CRMService_RefundPoints_UpdateRefundPointDto) {
     startTransition(() => {
       void putRefundPointBaseApi({
         requestBody: formData,
@@ -120,15 +113,12 @@ function RefundPointForm({
         } else {
           values.parentId = null;
         }
-        handleSubmit(
-          values as UniRefund_CRMService_RefundPoints_UpdateRefundPointDto,
-        );
+        handleSubmit(values as UniRefund_CRMService_RefundPoints_UpdateRefundPointDto);
       }}
       values={{
         ...refundPointDetail,
         typeCode: refundPointDetail.parentId ? "REFUNDPOINT" : "HEADQUARTER",
-      }}
-    >
+      }}>
       <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>

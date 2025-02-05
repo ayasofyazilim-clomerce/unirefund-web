@@ -3,17 +3,10 @@ import type {
   GetApiSettingServiceProductGroupData,
   GetApiSettingServiceVatData,
 } from "@ayasofyazilim/saas/SettingService";
-import type { Session } from "@repo/utils/auth";
-import {
-  getSettingServiceClient,
-  structuredError,
-  structuredSuccessResponse,
-} from "src/lib";
+import type {Session} from "@repo/utils/auth";
+import {getSettingServiceClient, structuredError, structuredSuccessResponse} from "src/lib";
 
-export async function getVatsApi(
-  data: GetApiSettingServiceVatData,
-  session?: Session | null,
-) {
+export async function getVatsApi(data: GetApiSettingServiceVatData, session?: Session | null) {
   try {
     const client = await getSettingServiceClient(session);
     const dataResponse = await client.vat.getApiSettingServiceVat(data);
@@ -23,24 +16,17 @@ export async function getVatsApi(
   }
 }
 
-export async function getProductGroupsApi(
-  data: GetApiSettingServiceProductGroupData,
-  session?: Session | null,
-) {
+export async function getProductGroupsApi(data: GetApiSettingServiceProductGroupData, session?: Session | null) {
   try {
     const client = await getSettingServiceClient(session);
-    const dataResponse =
-      await client.productGroup.getApiSettingServiceProductGroup(data);
+    const dataResponse = await client.productGroup.getApiSettingServiceProductGroup(data);
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);
   }
 }
 
-export async function getVatDetailsByIdApi(
-  id: string,
-  session?: Session | null,
-) {
+export async function getVatDetailsByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getSettingServiceClient(session);
     const dataResponse = await client.vat.getApiSettingServiceVatById({
@@ -52,16 +38,12 @@ export async function getVatDetailsByIdApi(
   }
 }
 
-export async function getproductGroupDetailsByIdApi(
-  id: string,
-  session?: Session | null,
-) {
+export async function getproductGroupDetailsByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getSettingServiceClient(session);
-    const dataResponse =
-      await client.productGroup.getApiSettingServiceProductGroupById({
-        id,
-      });
+    const dataResponse = await client.productGroup.getApiSettingServiceProductGroupById({
+      id,
+    });
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);

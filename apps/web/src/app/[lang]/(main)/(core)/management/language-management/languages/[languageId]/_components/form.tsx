@@ -4,22 +4,19 @@ import type {
   Volo_Abp_LanguageManagement_Dto_LanguageDto,
   Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto,
 } from "@ayasofyazilim/saas/AdministrationService";
-import { $Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto } from "@ayasofyazilim/saas/AdministrationService";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import {$Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import { deleteLanguageByIdApi } from "src/actions/core/AdministrationService/delete-actions";
-import { putLanguageApi } from "src/actions/core/AdministrationService/put-actions";
-import {
-  handleDeleteResponse,
-  handlePutResponse,
-} from "src/actions/core/api-utils-client";
-import type { AdministrationServiceResource } from "src/language-data/core/AdministrationService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {deleteLanguageByIdApi} from "src/actions/core/AdministrationService/delete-actions";
+import {putLanguageApi} from "src/actions/core/AdministrationService/put-actions";
+import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({
@@ -31,7 +28,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto,
@@ -46,10 +43,7 @@ export default function Form({
   return (
     <div className="flex flex-col gap-4 overflow-auto">
       <ActionList>
-        {isActionGranted(
-          ["LanguageManagement.Languages.Delete"],
-          grantedPolicies,
-        ) && (
+        {isActionGranted(["LanguageManagement.Languages.Delete"], grantedPolicies) && (
           <ConfirmDialog
             closeProps={{
               children: languageData.Cancel,

@@ -4,15 +4,15 @@ import type {
   UniRefund_SettingService_ProductGroups_CreateProductGroupDto,
   UniRefund_SettingService_Vats_VatDto,
 } from "@ayasofyazilim/saas/SettingService";
-import { $UniRefund_SettingService_ProductGroups_CreateProductGroupDto } from "@ayasofyazilim/saas/SettingService";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postProductGroupApi } from "src/actions/unirefund/SettingService/post-actions";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
+import {$UniRefund_SettingService_ProductGroups_CreateProductGroupDto} from "@ayasofyazilim/saas/SettingService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postProductGroupApi} from "src/actions/unirefund/SettingService/post-actions";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({
   languageData,
@@ -51,17 +51,9 @@ export default function Form({
       filter={{
         type: "include",
         sort: true,
-        keys: [
-          "name",
-          "articleCode",
-          "unitCode",
-          "companyType",
-          "vatId",
-          "active",
-          "food",
-        ],
+        keys: ["name", "articleCode", "unitCode", "companyType", "vatId", "active", "food"],
       }}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         setLoading(true);
         void postProductGroupApi({
           requestBody: formData,

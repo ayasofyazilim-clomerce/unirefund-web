@@ -1,10 +1,10 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
-import { PencilRuler } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import { TagCard } from "./tag-card";
+import {Button} from "@/components/ui/button";
+import type {UniRefund_TagService_Tags_TagDetailDto} from "@ayasofyazilim/saas/TagService";
+import {PencilRuler} from "lucide-react";
+import {useParams, useRouter} from "next/navigation";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import {TagCard} from "./tag-card";
 
 export default function TagActions({
   tagDetail,
@@ -16,7 +16,7 @@ export default function TagActions({
   refundPoint: boolean;
 }) {
   const router = useRouter();
-  const { tagId } = useParams<{ tagId: string }>();
+  const {tagId} = useParams<{tagId: string}>();
   const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
 
   const status = tagDetail.status;
@@ -30,8 +30,7 @@ export default function TagActions({
             onClick={() => {
               router.push(`/operations/export-validations/${tagId}/new`);
             }}
-            variant="default"
-          >
+            variant="default">
             {languageData.ExportValidation}
           </Button>
         )}
@@ -42,8 +41,7 @@ export default function TagActions({
                 `/operations/refund/need-validation?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
               );
             }}
-            variant="default"
-          >
+            variant="default">
             {languageData.EarlyRefund}
           </Button>
         ) : null}
@@ -54,8 +52,7 @@ export default function TagActions({
                 `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
               );
             }}
-            variant="default"
-          >
+            variant="default">
             {languageData.Refund}
           </Button>
         ) : null}

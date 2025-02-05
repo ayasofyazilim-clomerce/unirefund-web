@@ -4,9 +4,9 @@ import type {
   Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
   Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto,
 } from "@ayasofyazilim/saas/IdentityService";
-import { $Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput } from "@ayasofyazilim/saas/IdentityService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import { MultiSelect } from "@repo/ayasofyazilim-ui/molecules/multi-select";
+import {$Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput} from "@ayasofyazilim/saas/IdentityService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {MultiSelect} from "@repo/ayasofyazilim-ui/molecules/multi-select";
 import AutoForm, {
   AutoFormSubmit,
   createFieldConfigWithResource,
@@ -14,37 +14,34 @@ import AutoForm, {
   CustomCombobox,
   DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postApplicationApi } from "src/actions/core/IdentityService/post-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postApplicationApi} from "src/actions/core/IdentityService/post-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
-const applicationCreateSchema = createZodObject(
-  $Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
-  [
-    "applicationType",
-    "clientId",
-    "displayName",
-    "clientUri",
-    "logoUri",
-    "clientType",
-    "clientSecret",
-    "allowAuthorizationCodeFlow",
-    "allowImplicitFlow",
-    "allowHybridFlow",
-    "allowPasswordFlow",
-    "allowClientCredentialsFlow",
-    "allowRefreshTokenFlow",
-    "allowDeviceEndpoint",
-    "consentType",
-    "extensionGrantTypes",
-    "scopes",
-    "redirectUris",
-    "allowLogoutEndpoint",
-    "postLogoutRedirectUris",
-  ],
-);
+const applicationCreateSchema = createZodObject($Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput, [
+  "applicationType",
+  "clientId",
+  "displayName",
+  "clientUri",
+  "logoUri",
+  "clientType",
+  "clientSecret",
+  "allowAuthorizationCodeFlow",
+  "allowImplicitFlow",
+  "allowHybridFlow",
+  "allowPasswordFlow",
+  "allowClientCredentialsFlow",
+  "allowRefreshTokenFlow",
+  "allowDeviceEndpoint",
+  "consentType",
+  "extensionGrantTypes",
+  "scopes",
+  "redirectUris",
+  "allowLogoutEndpoint",
+  "postLogoutRedirectUris",
+]);
 export default function Form({
   languageData,
   scopeList,
@@ -92,9 +89,7 @@ export default function Form({
       redirectUris: {
         renderer: (props) => (
           <div className="my-1">
-            <label className="text-bold mb-0.5 block text-sm ">
-              {languageData["Form.Application.redirectUris"]}
-            </label>
+            <label className="text-bold mb-0.5 block text-sm ">{languageData["Form.Application.redirectUris"]}</label>
             <textarea
               className="w-full rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
               onChange={(e) => {
@@ -122,9 +117,7 @@ export default function Form({
       scopes: {
         renderer: (props) => (
           <div className="my-2">
-            <label className="text-bold mb-0.5 block text-sm ">
-              {languageData["Form.Application.scopes"]}
-            </label>
+            <label className="text-bold mb-0.5 block text-sm ">{languageData["Form.Application.scopes"]}</label>
             <MultiSelect
               onValueChange={(e) => {
                 props.field.onChange(e);
@@ -189,23 +182,19 @@ export default function Form({
           const options = [
             {
               value: "explicit",
-              label:
-                languageData["Form.Application.consentType.explicitConsent"],
+              label: languageData["Form.Application.consentType.explicitConsent"],
             },
             {
               value: "external",
-              label:
-                languageData["Form.Application.consentType.externalConsent"],
+              label: languageData["Form.Application.consentType.externalConsent"],
             },
             {
               value: "implicit",
-              label:
-                languageData["Form.Application.consentType.implicitConsent"],
+              label: languageData["Form.Application.consentType.implicitConsent"],
             },
             {
               value: "systematic",
-              label:
-                languageData["Form.Application.consentType.systematicConsent"],
+              label: languageData["Form.Application.consentType.systematicConsent"],
             },
           ];
           return (
@@ -256,8 +245,7 @@ export default function Form({
       onSubmit={(data) => {
         setLoading(true);
         void postApplicationApi({
-          requestBody:
-            data as Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
+          requestBody: data as Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
         })
           .then((res) => {
             handlePostResponse(res, router, "../applications");
@@ -266,8 +254,7 @@ export default function Form({
             setLoading(false);
           });
       }}
-      stickyChildren
-    >
+      stickyChildren>
       <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
         {languageData.Save}
       </AutoFormSubmit>

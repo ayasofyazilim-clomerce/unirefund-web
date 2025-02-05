@@ -4,24 +4,18 @@ import type {
   UniRefund_CRMService_Merchants_CreateMerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type { AutoFormInputComponentProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import AutoForm, {
-  AutoFormSubmit,
-  CustomCombobox,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { handlePostResponse } from "src/actions/core/api-utils-client";
-import { postMerchantsWithComponentsApi } from "src/actions/unirefund/CrmService/post-actions";
-import type {
-  CountryDto,
-  SelectedAddressField,
-} from "src/actions/unirefund/LocationService/types";
-import { useAddressHook } from "src/actions/unirefund/LocationService/use-address-hook.tsx";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
-import { isPhoneValid, splitPhone } from "src/utils/utils-phone";
-import type { CreateMerchantIndividualSchema } from "./data";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import AutoForm, {AutoFormSubmit, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useState} from "react";
+import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {postMerchantsWithComponentsApi} from "src/actions/unirefund/CrmService/post-actions";
+import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
+import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
+import type {CreateMerchantIndividualSchema} from "./data";
 import {
   $UniRefund_CRMService_Merchants_CreateMerchantIndividualFormDto,
   merchantIndividualFormSubPositions,
@@ -49,12 +43,7 @@ export default function MerchantIndividualForm({
     districtId: "",
   };
 
-  const {
-    selectedFields,
-    addressFieldsToShow,
-    addressSchemaFieldConfig,
-    onAddressValueChanged,
-  } = useAddressHook({
+  const {selectedFields, addressFieldsToShow, addressSchemaFieldConfig, onAddressValueChanged} = useAddressHook({
     countryList,
     selectedFieldsDefaultValue,
     fieldsToHideInAddressSchema: [],
@@ -63,43 +52,25 @@ export default function MerchantIndividualForm({
 
   const $createMerchantIndividualHeadquarterSchema = createZodObject(
     $UniRefund_CRMService_Merchants_CreateMerchantIndividualFormDto,
-    [
-      "name",
-      "personalSummaries",
-      "address",
-      "customerNumber",
-      "taxpayerId",
-      "taxOfficeId",
-      "telephone",
-      "email",
-    ],
+    ["name", "personalSummaries", "address", "customerNumber", "taxpayerId", "taxOfficeId", "telephone", "email"],
     undefined,
-    { ...merchantIndividualFormSubPositions, address: addressFieldsToShow },
+    {...merchantIndividualFormSubPositions, address: addressFieldsToShow},
   );
 
   const $createMerchantIndividualStoreSchema = createZodObject(
     $UniRefund_CRMService_Merchants_CreateMerchantIndividualFormDto,
-    [
-      "name",
-      "personalSummaries",
-      "address",
-      "customerNumber",
-      "telephone",
-      "email",
-    ],
+    ["name", "personalSummaries", "address", "customerNumber", "telephone", "email"],
     undefined,
-    { ...merchantIndividualFormSubPositions, address: addressFieldsToShow },
+    {...merchantIndividualFormSubPositions, address: addressFieldsToShow},
   );
 
-  function handleSaveMerchantIndividual(
-    formData: CreateMerchantIndividualSchema,
-  ) {
+  function handleSaveMerchantIndividual(formData: CreateMerchantIndividualSchema) {
     const isValid = isPhoneValid(formData.telephone.localNumber);
     if (!isValid) {
       return;
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
-    formData.telephone = { ...formData.telephone, ...phoneData };
+    formData.telephone = {...formData.telephone, ...phoneData};
     const createData: UniRefund_CRMService_Merchants_CreateMerchantDto = {
       parentId,
       typeCode: parentId ? "STORE" : "HEADQUARTER",
@@ -121,9 +92,7 @@ export default function MerchantIndividualForm({
                       typeCode: "OFFICE",
                     },
                   ],
-                  emails: [
-                    { ...formData.email, primaryFlag: true, typeCode: "WORK" },
-                  ],
+                  emails: [{...formData.email, primaryFlag: true, typeCode: "WORK"}],
                   addresses: [
                     {
                       ...formData.address,
@@ -201,23 +170,16 @@ export default function MerchantIndividualForm({
           },
         },
       }}
-      formSchema={
-        parentId
-          ? $createMerchantIndividualStoreSchema
-          : $createMerchantIndividualHeadquarterSchema
-      }
+      formSchema={parentId ? $createMerchantIndividualStoreSchema : $createMerchantIndividualHeadquarterSchema}
       onSubmit={(formData) => {
         setLoading(true);
-        handleSaveMerchantIndividual(
-          formData as CreateMerchantIndividualSchema,
-        );
+        handleSaveMerchantIndividual(formData as CreateMerchantIndividualSchema);
       }}
       onValuesChange={(values) => {
         onAddressValueChanged(values);
       }}
       stickyChildren
-      stickyChildrenClassName="sticky px-6"
-    >
+      stickyChildrenClassName="sticky px-6">
       <AutoFormSubmit className="float-right" disabled={loading}>
         {languageData.Save}
       </AutoFormSubmit>

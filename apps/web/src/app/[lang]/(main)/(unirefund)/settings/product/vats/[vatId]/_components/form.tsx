@@ -1,21 +1,21 @@
 "use client";
 
-import type { UniRefund_SettingService_Vats_VatDto } from "@ayasofyazilim/saas/SettingService";
-import { $UniRefund_SettingService_Vats_UpdateVatDto } from "@ayasofyazilim/saas/SettingService";
-import { ActionList } from "@repo/ayasofyazilim-ui/molecules/action-button";
+import type {UniRefund_SettingService_Vats_VatDto} from "@ayasofyazilim/saas/SettingService";
+import {$UniRefund_SettingService_Vats_UpdateVatDto} from "@ayasofyazilim/saas/SettingService";
+import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { handleDeleteResponse } from "@repo/utils/api";
-import { useGrantedPolicies } from "@repo/utils/policies";
-import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {handleDeleteResponse} from "@repo/utils/api";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
 import isActionGranted from "@/utils/page-policy/action-policy";
-import { deleteVatByIdApi } from "@/actions/unirefund/SettingService/delete-actions";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putVatApi } from "src/actions/unirefund/SettingService/put-actions";
-import type { SettingServiceResource } from "src/language-data/unirefund/SettingService";
+import {deleteVatByIdApi} from "@/actions/unirefund/SettingService/delete-actions";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putVatApi} from "src/actions/unirefund/SettingService/put-actions";
+import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({
   languageData,
@@ -26,7 +26,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { grantedPolicies } = useGrantedPolicies();
+  const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_SettingService_Vats_UpdateVatDto,
@@ -79,7 +79,7 @@ export default function Form({
         className="flex flex-col gap-4"
         disabled={loading}
         formData={response}
-        onSubmit={({ formData }) => {
+        onSubmit={({formData}) => {
           setLoading(true);
           void putVatApi({
             id: response.id || "",

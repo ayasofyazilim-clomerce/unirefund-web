@@ -8,11 +8,7 @@ import type {
   PostApiOpeniddictApplicationsData,
   PostApiOpeniddictScopesData,
 } from "@ayasofyazilim/saas/IdentityService";
-import {
-  getIdentityServiceClient,
-  structuredError,
-  structuredResponse,
-} from "src/lib";
+import {getIdentityServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function postRoleApi(data: PostApiIdentityRolesData) {
   try {
@@ -54,26 +50,20 @@ export async function postScopeApi(data: PostApiOpeniddictScopesData) {
   }
 }
 
-export async function postApplicationApi(
-  data: PostApiOpeniddictApplicationsData,
-) {
+export async function postApplicationApi(data: PostApiOpeniddictApplicationsData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.applications.postApiOpeniddictApplications(data);
+    const dataResponse = await client.applications.postApiOpeniddictApplications(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-export async function postOrganizationUnitsApi(
-  data: PostApiIdentityOrganizationUnitsData,
-) {
+export async function postOrganizationUnitsApi(data: PostApiIdentityOrganizationUnitsData) {
   try {
     const client = await getIdentityServiceClient();
-    const dataResponse =
-      await client.organizationUnit.postApiIdentityOrganizationUnits(data);
+    const dataResponse = await client.organizationUnit.postApiIdentityOrganizationUnits(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

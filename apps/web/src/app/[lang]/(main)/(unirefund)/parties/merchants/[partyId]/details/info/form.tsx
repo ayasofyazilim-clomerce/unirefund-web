@@ -6,22 +6,15 @@ import type {
   UniRefund_CRMService_Merchants_UpdateMerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
-import { $UniRefund_CRMService_Merchants_UpdateMerchantDto } from "@ayasofyazilim/saas/CRMService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type {
-  AutoFormInputComponentProps,
-  DependenciesType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import AutoForm, {
-  AutoFormSubmit,
-  CustomCombobox,
-  DependencyType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putMerchantBaseApi } from "src/actions/unirefund/CrmService/put-actions";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {$UniRefund_CRMService_Merchants_UpdateMerchantDto} from "@ayasofyazilim/saas/CRMService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps, DependenciesType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import AutoForm, {AutoFormSubmit, CustomCombobox, DependencyType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putMerchantBaseApi} from "src/actions/unirefund/CrmService/put-actions";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function MerchantForm({
   languageData,
@@ -40,10 +33,12 @@ function MerchantForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const schema = createZodObject(
-    $UniRefund_CRMService_Merchants_UpdateMerchantDto,
-    ["typeCode", "taxOfficeId", "parentId", "taxpayerId"],
-  );
+  const schema = createZodObject($UniRefund_CRMService_Merchants_UpdateMerchantDto, [
+    "typeCode",
+    "taxOfficeId",
+    "parentId",
+    "taxpayerId",
+  ]);
   const dependencies: DependenciesType = [
     {
       sourceField: "typeCode",
@@ -71,9 +66,7 @@ function MerchantForm({
     },
   ];
 
-  function handleSubmit(
-    formData: UniRefund_CRMService_Merchants_UpdateMerchantDto,
-  ) {
+  function handleSubmit(formData: UniRefund_CRMService_Merchants_UpdateMerchantDto) {
     startTransition(() => {
       void putMerchantBaseApi({
         requestBody: formData,
@@ -122,12 +115,9 @@ function MerchantForm({
         } else {
           values.parentId = null;
         }
-        handleSubmit(
-          values as UniRefund_CRMService_Merchants_UpdateMerchantDto,
-        );
+        handleSubmit(values as UniRefund_CRMService_Merchants_UpdateMerchantDto);
       }}
-      values={{ ...merchantDetail, taxOfficeId }}
-    >
+      values={{...merchantDetail, taxOfficeId}}>
       <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>

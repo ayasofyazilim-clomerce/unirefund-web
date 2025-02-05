@@ -1,34 +1,26 @@
 "use server";
 
-import type { GetApiCrmServiceTaxOfficesByIdAffiliationsData } from "@ayasofyazilim/saas/CRMService";
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
-import {
-  getAffiliationCodeApi,
-  getTaxOfficeAffiliationByIdApi,
-} from "src/actions/unirefund/CrmService/actions";
+import type {GetApiCrmServiceTaxOfficesByIdAffiliationsData} from "@ayasofyazilim/saas/CRMService";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getAffiliationCodeApi, getTaxOfficeAffiliationByIdApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "./table";
 
-async function getApiRequests(
-  filters: GetApiCrmServiceTaxOfficesByIdAffiliationsData,
-) {
+async function getApiRequests(filters: GetApiCrmServiceTaxOfficesByIdAffiliationsData) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
       getTaxOfficeAffiliationByIdApi(filters, session),
-      getAffiliationCodeApi(
-        { entityPartyTypeCode: "TAXOFFICE", maxResultCount: 1000 },
-        session,
-      ),
+      getAffiliationCodeApi({entityPartyTypeCode: "TAXOFFICE", maxResultCount: 1000}, session),
     ]);
     return {
       type: "success" as const,
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -45,8 +37,8 @@ export default async function Page({
   };
   searchParams?: GetApiCrmServiceTaxOfficesByIdAffiliationsData;
 }) {
-  const { lang, partyId } = params;
-  const { languageData } = await getResourceData(lang);
+  const {lang, partyId} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["CRMService.TaxOffices.ViewAffiliationList"],
     lang,
@@ -58,12 +50,7 @@ export default async function Page({
   });
 
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
   const [subStoresResponse, affiliationCodesResponse] = apiRequests.data;

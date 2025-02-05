@@ -1,11 +1,10 @@
 "use client";
 
-import type { Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto } from "@ayasofyazilim/saas/AccountService";
-import { createContext, useContext } from "react";
-import type { ResourceResult } from "src/utils";
+import type {Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto} from "@ayasofyazilim/saas/AccountService";
+import {createContext, useContext} from "react";
+import type {ResourceResult} from "src/utils";
 
-type ResourceDto =
-  Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto;
+type ResourceDto = Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto;
 type ResourcesProps = Record<string, ResourceDto> | ResourceResult;
 interface LocaleProviderProps {
   resources: ResourcesProps;
@@ -27,19 +26,11 @@ export const useLocale = () => {
   return useContext(LocaleContext);
 };
 
-export function LocaleProvider({
-  children,
-  lang,
-  resources,
-}: LocaleProviderProps) {
+export function LocaleProvider({children, lang, resources}: LocaleProviderProps) {
   function changeLocale(cultureName: string) {
     if (!cultureName) return;
     location.href = `${cultureName}/${location.pathname.split("/").slice(2).join("/")}`;
   }
-  const providerValue = { resources, cultureName: lang, changeLocale };
-  return (
-    <LocaleContext.Provider value={providerValue}>
-      {children}
-    </LocaleContext.Provider>
-  );
+  const providerValue = {resources, cultureName: lang, changeLocale};
+  return <LocaleContext.Provider value={providerValue}>{children}</LocaleContext.Provider>;
 }

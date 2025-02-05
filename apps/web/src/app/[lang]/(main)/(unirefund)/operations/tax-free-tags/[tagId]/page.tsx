@@ -1,36 +1,28 @@
 "use server";
 
-import type { UniRefund_SettingService_ProductGroups_ProductGroupDto } from "@ayasofyazilim/saas/SettingService";
+import type {UniRefund_SettingService_ProductGroups_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { auth } from "@repo/utils/auth/next-auth";
-import {
-  FileIcon,
-  FileText,
-  HandCoins,
-  Plane,
-  ReceiptText,
-  Scale,
-  Store,
-} from "lucide-react";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {auth} from "@repo/utils/auth/next-auth";
+import {FileIcon, FileText, HandCoins, Plane, ReceiptText, Scale, Store} from "lucide-react";
 import Link from "next/link";
-import { getVatStatementHeadersByIdApi } from "src/actions/unirefund/FinanceService/actions";
-import { getRefundDetailByIdApi } from "src/actions/unirefund/RefundService/actions";
-import { getProductGroupsApi } from "src/actions/unirefund/SettingService/actions";
-import { getTagByIdApi } from "src/actions/unirefund/TagService/actions";
+import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
+import {getRefundDetailByIdApi} from "src/actions/unirefund/RefundService/actions";
+import {getProductGroupsApi} from "src/actions/unirefund/SettingService/actions";
+import {getTagByIdApi} from "src/actions/unirefund/TagService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
-import { getResourceData } from "src/language-data/unirefund/TagService";
-import { getBaseLink } from "src/utils";
-import { dateToString, getStatusColor } from "../../_components/utils";
+import {getResourceData} from "src/language-data/unirefund/TagService";
+import {getBaseLink} from "src/utils";
+import {dateToString, getStatusColor} from "../../_components/utils";
 import Invoices from "./_components/invoices";
-import TagCardList, { TagCard } from "./_components/tag-card";
+import TagCardList, {TagCard} from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
 
 async function getApiRequests(tagId: string) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      await getTagByIdApi({ id: tagId }),
+      await getTagByIdApi({id: tagId}),
       await getProductGroupsApi(
         {
           maxResultCount: 1000,
@@ -43,7 +35,7 @@ async function getApiRequests(tagId: string) {
       data: apiRequests,
     };
   } catch (error) {
-    const err = error as { data?: string; message?: string };
+    const err = error as {data?: string; message?: string};
     return {
       type: "error" as const,
       message: err.message,
@@ -51,22 +43,13 @@ async function getApiRequests(tagId: string) {
   }
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { tagId: string; lang: string };
-}) {
-  const { tagId, lang } = params;
-  const { languageData } = await getResourceData(lang);
+export default async function Page({params}: {params: {tagId: string; lang: string}}) {
+  const {tagId, lang} = params;
+  const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests(tagId);
   if (apiRequests.type === "error") {
-    return (
-      <ErrorComponent
-        languageData={languageData}
-        message={apiRequests.message || "Unknown error occurred"}
-      />
-    );
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
   const [tagDetailResponse, productGroupsResponse] = apiRequests.data;
@@ -79,17 +62,10 @@ export default async function Page({
     ? await getVatStatementHeadersByIdApi(tagDetail.vatStatementHeaderId)
     : null;
   const tagVatStatementHeader =
-    tagVatStatementHeadersResponse?.type === "success"
-      ? tagVatStatementHeadersResponse.data
-      : null;
+    tagVatStatementHeadersResponse?.type === "success" ? tagVatStatementHeadersResponse.data : null;
 
-  const tagRefundDetailResponse = tagDetail.refundId
-    ? await getRefundDetailByIdApi(tagDetail.refundId)
-    : null;
-  const tagRefundDetail =
-    tagRefundDetailResponse?.type === "success"
-      ? tagRefundDetailResponse.data
-      : null;
+  const tagRefundDetailResponse = tagDetail.refundId ? await getRefundDetailByIdApi(tagDetail.refundId) : null;
+  const tagRefundDetail = tagRefundDetailResponse?.type === "success" ? tagRefundDetailResponse.data : null;
   return (
     <FormReadyComponent
       active={productGroups.length === 0}
@@ -99,13 +75,10 @@ export default async function Page({
         message: languageData["Missing.ProductGroups.Message"],
         action: (
           <Button asChild className="text-blue-500" variant="link">
-            <Link href={getBaseLink("settings/product/product-groups", lang)}>
-              {languageData.New}
-            </Link>
+            <Link href={getBaseLink("settings/product/product-groups", lang)}>{languageData.New}</Link>
           </Button>
         ),
-      }}
-    >
+      }}>
       <div className="mb-3 grid h-full grid-cols-4 gap-3 pb-3">
         <div className="col-span-3 grid h-full grid-cols-6 gap-3 overflow-hidden">
           <TagCardList
@@ -137,9 +110,7 @@ export default async function Page({
               {
                 name: languageData.FullName,
                 value: `${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`,
-                link: getBaseLink(
-                  `parties/travellers/${tagDetail.traveller?.id}/personal-identifications`,
-                ),
+                link: getBaseLink(`parties/travellers/${tagDetail.traveller?.id}/personal-identifications`),
               },
               {
                 name: languageData.DocumentNo,
@@ -162,9 +133,7 @@ export default async function Page({
               {
                 name: languageData.StoreName,
                 value: tagDetail.merchant?.name || "",
-                link: getBaseLink(
-                  `parties/merchants/${tagDetail.merchant?.id}/details/info`,
-                ),
+                link: getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details/info`),
               },
               {
                 name: languageData.Address,
@@ -172,10 +141,7 @@ export default async function Page({
               },
               {
                 name: languageData.ProductGroups,
-                value:
-                  tagDetail.merchant?.productGroups
-                    ?.map((p) => p.description)
-                    .join(", ") || "",
+                value: tagDetail.merchant?.productGroups?.map((p) => p.description).join(", ") || "",
               },
             ]}
             title={languageData.MerchantDetails}

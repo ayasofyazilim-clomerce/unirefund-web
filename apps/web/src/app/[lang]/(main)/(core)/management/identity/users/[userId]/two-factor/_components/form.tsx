@@ -1,12 +1,12 @@
 "use client";
 
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { handlePutResponse } from "src/actions/core/api-utils-client";
-import { putUsersByIdTwoFactorByEnabledApi } from "src/actions/core/IdentityService/put-actions";
-import type { IdentityServiceResource } from "src/language-data/core/IdentityService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useParams, useRouter} from "next/navigation";
+import {useState} from "react";
+import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {putUsersByIdTwoFactorByEnabledApi} from "src/actions/core/IdentityService/put-actions";
+import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 const $userTwoFactorSchema = {
   type: "object",
@@ -18,15 +18,9 @@ const $userTwoFactorSchema = {
   },
 };
 
-export default function Form({
-  languageData,
-  response,
-}: {
-  languageData: IdentityServiceResource;
-  response: boolean;
-}) {
+export default function Form({languageData, response}: {languageData: IdentityServiceResource; response: boolean}) {
   const router = useRouter();
-  const { userId } = useParams<{ userId: string }>();
+  const {userId} = useParams<{userId: string}>();
   const [loading, setLoading] = useState(false);
 
   const uiSchema = createUiSchemaWithResource({
@@ -44,7 +38,7 @@ export default function Form({
     <SchemaForm
       className="flex flex-col gap-4"
       disabled={loading}
-      formData={{ twoFactorAuthenticationEnabled: response }}
+      formData={{twoFactorAuthenticationEnabled: response}}
       onSubmit={(data) => {
         setLoading(true);
         const formData = data.formData;

@@ -1,26 +1,22 @@
-import type { UniRefund_TravellerService_Travellers_TravellerListProfileDto } from "@ayasofyazilim/saas/TravellerService";
-import { $UniRefund_TravellerService_Travellers_TravellerListProfileDto } from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_Travellers_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_Travellers_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
-import type { Policy } from "src/utils/page-policy/utils";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import type {Policy} from "src/utils/page-policy/utils";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { CountryDto } from "../../../../../../actions/unirefund/LocationService/types";
+import type {CountryDto} from "../../../../../../actions/unirefund/LocationService/types";
 
-type TravellersTable =
-  TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListProfileDto>;
+type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListProfileDto>;
 
 const links: Partial<
-  Record<
-    keyof UniRefund_TravellerService_Travellers_TravellerListProfileDto,
-    TanstackTableColumnLink
-  >
+  Record<keyof UniRefund_TravellerService_Travellers_TravellerListProfileDto, TanstackTableColumnLink>
 > = {};
 
 function travellersTableActions(
@@ -29,9 +25,7 @@ function travellersTableActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (
-    isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)
-  ) {
+  if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
       actionLocation: "table",
@@ -57,19 +51,17 @@ function travellersColumns(
     };
   }
 
-  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_Travellers_TravellerListProfileDto>(
-    {
-      rows: $UniRefund_TravellerService_Travellers_TravellerListProfileDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.personalIdentification",
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_Travellers_TravellerListProfileDto>({
+    rows: $UniRefund_TravellerService_Travellers_TravellerListProfileDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.personalIdentification",
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 
 export function travellersTable(
@@ -82,13 +74,7 @@ export function travellersTable(
     fillerColumn: "fullName",
     columnVisibility: {
       type: "hide",
-      columns: [
-        "id",
-        "hasUserAccount",
-        "nationalityCountryCode2",
-        "residenceCountryCode2",
-        "userAccountId",
-      ],
+      columns: ["id", "hasUserAccount", "nationalityCountryCode2", "residenceCountryCode2", "userAccountId"],
     },
     tableActions: travellersTableActions(languageData, router, grantedPolicies),
     columnOrder: [
@@ -123,8 +109,8 @@ export function travellersTable(
         showExpired: {
           title: languageData["Travellers.ShowExpired"],
           options: [
-            { label: languageData.Yes, value: "true" },
-            { label: languageData.No, value: "false" },
+            {label: languageData.Yes, value: "true"},
+            {label: languageData.No, value: "false"},
           ],
         },
       },

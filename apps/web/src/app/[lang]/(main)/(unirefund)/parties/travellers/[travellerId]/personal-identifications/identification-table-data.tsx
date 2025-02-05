@@ -1,16 +1,16 @@
-import type { UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto } from "@ayasofyazilim/saas/TravellerService";
-import { $UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto } from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto} from "@ayasofyazilim/saas/TravellerService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { PlusCircle } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import isActionGranted from "src/utils/page-policy/action-policy";
-import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
-import type { Policy } from "src/utils/page-policy/utils";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import type {Policy} from "src/utils/page-policy/utils";
 
 type IdentificationsTable =
   TanstackTableCreationProps<UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto>;
@@ -29,18 +29,14 @@ function identificationsTableActions(
   travellerId: string,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (
-    isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)
-  ) {
+  if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
       actionLocation: "table",
       cta: languageData["Travellers.New.Identification"],
       icon: PlusCircle,
       onClick() {
-        router.push(
-          `/parties/travellers/${travellerId}/personal-identifications/new`,
-        );
+        router.push(`/parties/travellers/${travellerId}/personal-identifications/new`);
       },
     });
   }
@@ -84,19 +80,9 @@ export function identificationsTable(
     fillerColumn: "travelDocumentNumber",
     columnVisibility: {
       type: "hide",
-      columns: [
-        "id",
-        "nationalityCountryCode2",
-        "residenceCountryCode2",
-        "fullName",
-      ],
+      columns: ["id", "nationalityCountryCode2", "residenceCountryCode2", "fullName"],
     },
-    tableActions: identificationsTableActions(
-      languageData,
-      router,
-      grantedPolicies,
-      travellerId,
-    ),
+    tableActions: identificationsTableActions(languageData, router, grantedPolicies, travellerId),
     columnOrder: [
       "travelDocumentNumber",
       "firstName",
