@@ -41,6 +41,7 @@
   "RefundMethod": "Refund Method",
   "Location": "Location",
   "TravellerDocumentNo": "Traveller Document No",
+  "DocumentNo": "Document No",
   "CountryOfResidence": "Country Of Residence",
   "Nationality": "Nationality",
   "ProductGroups": "Product Groups",

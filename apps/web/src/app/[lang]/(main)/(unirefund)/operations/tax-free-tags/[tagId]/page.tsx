@@ -4,7 +4,15 @@ import type { UniRefund_SettingService_ProductGroups_ProductGroupDto } from "@ay
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import { FormReadyComponent } from "@repo/ui/form-ready";
 import { auth } from "@repo/utils/auth/next-auth";
-import { FileIcon, FileText, Plane, ReceiptText, Store } from "lucide-react";
+import {
+  FileIcon,
+  FileText,
+  HandCoins,
+  Plane,
+  ReceiptText,
+  Scale,
+  Store,
+} from "lucide-react";
 import Link from "next/link";
 import { getVatStatementHeadersByIdApi } from "src/actions/unirefund/FinanceService/actions";
 import { getRefundDetailByIdApi } from "src/actions/unirefund/RefundService/actions";
@@ -17,7 +25,6 @@ import { dateToString, getStatusColor } from "../../_components/utils";
 import Invoices from "./_components/invoices";
 import TagCardList, { TagCard } from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
-import TotalsEarnings from "./_components/totals-earnings";
 
 async function getApiRequests(tagId: string) {
   try {
@@ -99,10 +106,10 @@ export default async function Page({
         ),
       }}
     >
-      <div className="mb-3 grid grid-cols-4 gap-3 overflow-auto pt-3">
-        <div className="col-span-3 grid grid-cols-3 gap-3">
+      <div className="mb-3 grid h-full grid-cols-4 gap-3 pb-3">
+        <div className="col-span-3 grid h-full grid-cols-6 gap-3 overflow-hidden">
           <TagCardList
-            icon={<FileIcon />}
+            icon={<FileIcon className="size-5" />}
             rows={[
               {
                 name: languageData.TaxFreeTagID,
@@ -125,7 +132,7 @@ export default async function Page({
             title={languageData.TagSummary}
           />
           <TagCardList
-            icon={<Plane />}
+            icon={<Plane className="size-5" />}
             rows={[
               {
                 name: languageData.FullName,
@@ -135,7 +142,7 @@ export default async function Page({
                 ),
               },
               {
-                name: languageData.TravellerDocumentNo,
+                name: languageData.DocumentNo,
                 value: tagDetail.traveller?.travelDocumentNumber || "",
               },
               {
@@ -150,7 +157,7 @@ export default async function Page({
             title={languageData.TravellerDetails}
           />
           <TagCardList
-            icon={<Store />}
+            icon={<Store className="size-5" />}
             rows={[
               {
                 name: languageData.StoreName,
@@ -173,18 +180,34 @@ export default async function Page({
             ]}
             title={languageData.MerchantDetails}
           />
-          <div className="col-span-full">
-            <TagCard icon={<ReceiptText />} title="Invoices">
+          <div className="col-span-full h-full overflow-hidden">
+            <TagCard icon={<ReceiptText className="size-5" />} title="Invoices">
               <Invoices languageData={languageData} tagDetail={tagDetail} />
             </TagCard>
           </div>
-          <div className="col-span-full">
-            <TagCard icon={<ReceiptText />} title="Summary">
-              <TotalsEarnings
-                languageData={languageData}
-                tagDetail={tagDetail}
-              />
-            </TagCard>
+          <div className="col-span-3 h-full">
+            <TagCardList
+              icon={<Scale className="size-5" />}
+              rows={
+                tagDetail.totals?.map((total) => ({
+                  name: languageData[total.totalType],
+                  value: `${total.amount} ${total.currency}`,
+                })) || []
+              }
+              title="Totals"
+            />
+          </div>
+          <div className="col-span-3">
+            <TagCardList
+              icon={<HandCoins className="size-5" />}
+              rows={
+                tagDetail.earnings?.map((earning) => ({
+                  name: languageData[earning.earningType],
+                  value: `${earning.amount} ${earning.currency}`,
+                })) || []
+              }
+              title="Earnings"
+            />
           </div>
         </div>
 
