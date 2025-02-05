@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import type { UniRefund_TagService_Tags_TagDetailDto } from "@ayasofyazilim/saas/TagService";
 import { FileIcon } from "lucide-react";
 import type { TagServiceResource } from "src/language-data/unirefund/TagService";
-import { dateToString, getStatusColor } from "../utils";
+import { getStatusColor, dateToString } from "../../../_components/utils";
 
 function TagSummary({
   tagDetail,
