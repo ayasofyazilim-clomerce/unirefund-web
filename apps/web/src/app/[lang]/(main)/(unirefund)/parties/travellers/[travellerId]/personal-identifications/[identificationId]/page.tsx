@@ -69,7 +69,10 @@ export default async function Page({
         {languageData["Travellers.Identifications.Edit.Description"]}
       </div>
       <div className="hidden" id="page-back-link">
-        {getBaseLink(`/parties/travellers/${travellerId}`)}
+        {getBaseLink(
+          `/parties/travellers/${travellerId}/personal-identifications`,
+          lang,
+        )}
       </div>
     </>
   );
