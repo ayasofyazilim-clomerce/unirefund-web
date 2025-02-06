@@ -18,14 +18,14 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback, useState} from "react";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {getMerchantContractHeaderContractSettingsByHeaderIdApi as getContractSettings} from "@/actions/unirefund/ContractService/action";
 import {
-  deleteMerchantContractContractSettingsByIdApi,
-  getMerchantContractHeaderContractSettingsByHeaderIdApi as getContractSettings,
-  postMerchantContractHeaderContractSettingsByHeaderIdApi,
   putMerchantContractContractHeaderSetDefaultContractSettingByHeaderIdApi,
   putMerchantContractContractSettingsByIdApi,
-} from "src/actions/unirefund/ContractService/action";
+} from "@/actions/unirefund/ContractService/put-actions";
+import {postMerchantContractHeaderContractSettingsByHeaderIdApi} from "@/actions/unirefund/ContractService/post-actions";
+import {deleteMerchantContractContractSettingsByIdApi} from "@/actions/unirefund/ContractService/delete-actions";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 interface ContractSettingsTable {
@@ -309,7 +309,7 @@ function SchemaFormForContractSettings({
             requestBody: data.formData as ContractSettingCreateUpdateDto,
           })
             .then((response) => {
-              handlePostResponse(response, router);
+              handlePutResponse(response, router);
             })
             .finally(() => {
               void handleFetch().then(() => {

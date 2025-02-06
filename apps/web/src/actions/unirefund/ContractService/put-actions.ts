@@ -1,6 +1,8 @@
 "use server";
 import type {
   PutApiContractServiceMerchantsContractsContractHeadersByIdData,
+  PutApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSettingData,
+  PutApiContractServiceMerchantsContractsContractSettingsByIdData,
   PutApiContractServiceRebateTableHeadersByIdData,
   PutApiContractServiceRefundFeeHeadersByIdData,
   PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
@@ -79,6 +81,30 @@ export async function putRebateTableHeadersByIdApi(data: PutApiContractServiceRe
   try {
     const client = await getContractServiceClient();
     const response = await client.rebateTableHeader.putApiContractServiceRebateTableHeadersById(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putMerchantContractContractHeaderSetDefaultContractSettingByHeaderIdApi(
+  data: PutApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSettingData,
+) {
+  try {
+    const client = await getContractServiceClient();
+    const response =
+      await client.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSetting(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function putMerchantContractContractSettingsByIdApi(
+  data: PutApiContractServiceMerchantsContractsContractSettingsByIdData,
+) {
+  try {
+    const client = await getContractServiceClient();
+    const response = await client.contractsMerchant.putApiContractServiceMerchantsContractsContractSettingsById(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

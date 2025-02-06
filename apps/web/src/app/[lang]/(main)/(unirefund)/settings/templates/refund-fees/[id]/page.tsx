@@ -1,11 +1,12 @@
 "use server";
-import {notFound} from "next/navigation";
 import {isUnauthorized} from "@repo/utils/policies";
+import {notFound} from "next/navigation";
 import {getRefundFeeHeadersByIdApi} from "@/actions/unirefund/ContractService/action";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundFeeHeaderUpdateForm from "./_components/form";
 
 export default async function Page({params}: {params: {lang: string; id: string}}) {
+  const {id} = params;
   await isUnauthorized({
     requiredPolicies: [
       "ContractService.RefundFeeDetail.Create",
@@ -18,7 +19,7 @@ export default async function Page({params}: {params: {lang: string; id: string}
     lang: params.lang,
   });
 
-  const response = await getRefundFeeHeadersByIdApi({id: params.id});
+  const response = await getRefundFeeHeadersByIdApi(id);
   if (response.type !== "success") return notFound();
 
   const {languageData} = await getResourceData(params.lang);
