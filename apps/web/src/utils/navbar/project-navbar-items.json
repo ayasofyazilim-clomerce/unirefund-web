@@ -225,12 +225,32 @@
     "requiredPolicies": ["SettingService.Vats"]
   },
   {
+    "key": "settings/product/vats/new",
+    "displayName": "New",
+    "description": "Add new vat.",
+    "href": "settings/product/vats/new",
+    "icon": "new",
+    "parentNavbarItemKey": "settings/product/vats",
+    "displayOrder": 1,
+    "requiredPolicies": ["SettingService.Vats"]
+  },
+  {
     "key": "settings/product/product-groups",
     "displayName": "ProductGroup",
     "description": "Manage product groups and categories.",
     "href": "settings/product/product-groups",
     "icon": "product",
     "parentNavbarItemKey": "settings/product",
+    "displayOrder": 1,
+    "requiredPolicies": ["SettingService.ProductGroupVats"]
+  },
+  {
+    "key": "settings/product/product-groups/new",
+    "displayName": "New",
+    "description": "Add new product group.",
+    "href": "settings/product/product-groups/new",
+    "icon": "new",
+    "parentNavbarItemKey": "settings/product/product-groups",
     "displayOrder": 1,
     "requiredPolicies": ["SettingService.ProductGroupVats"]
   },
@@ -265,6 +285,16 @@
     "requiredPolicies": ["ContractService.RefundFeeHeader"]
   },
   {
+    "key": "settings/templates/refund-fees/new",
+    "displayName": "New",
+    "description": "Add new refund fee.",
+    "href": "settings/templates/refund-fees/new",
+    "icon": "new",
+    "parentNavbarItemKey": "settings/templates/refund-fees",
+    "displayOrder": 1,
+    "requiredPolicies": ["ContractService.RefundFeeHeader"]
+  },
+  {
     "key": "settings/templates/refund-tables",
     "displayName": "RefundTables",
     "description": "Manage refund tables",
@@ -275,12 +305,32 @@
     "requiredPolicies": ["ContractService.RefundTableHeader"]
   },
   {
+    "key": "settings/templates/refund-tables/new",
+    "displayName": "New",
+    "description": "Add new refund table.",
+    "href": "settings/templates/refund-tables/new",
+    "icon": "new",
+    "parentNavbarItemKey": "settings/templates/refund-tables",
+    "displayOrder": 1,
+    "requiredPolicies": ["ContractService.RefundTableHeader"]
+  },
+  {
     "key": "settings/templates/rebate-tables",
     "displayName": "Rebate",
     "description": "Manage rebate tables",
     "href": "settings/templates/rebate-tables",
     "icon": "settings",
     "parentNavbarItemKey": "settings/templates",
+    "displayOrder": 1,
+    "requiredPolicies": ["ContractService.RebateSetting"]
+  },
+  {
+    "key": "settings/templates/rebate-tables/new",
+    "displayName": "New",
+    "description": "Add new rebate table.",
+    "href": "settings/templates/rebate-tables/new",
+    "icon": "new",
+    "parentNavbarItemKey": "settings/templates/rebate-tables",
     "displayOrder": 1,
     "requiredPolicies": ["ContractService.RebateSetting"]
   },
@@ -314,6 +364,16 @@
     "requiredPolicies": ["CRMService.Merchants"]
   },
   {
+    "key": "parties/merchants/new",
+    "displayName": "New",
+    "description": "Add new merchant.",
+    "href": "parties/merchants/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/merchants",
+    "displayOrder": 1,
+    "requiredPolicies": ["CRMService.Merchants.Create"]
+  },
+  {
     "key": "parties/refund-points",
     "displayName": "RefundPoints",
     "description": "Manage refund points and settings.",
@@ -322,6 +382,16 @@
     "parentNavbarItemKey": "parties",
     "displayOrder": 1,
     "requiredPolicies": ["CRMService.RefundPoints"]
+  },
+  {
+    "key": "parties/refund-points/new",
+    "displayName": "New",
+    "description": "Add new refund point.",
+    "href": "parties/refund-points/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/refund-points",
+    "displayOrder": 1,
+    "requiredPolicies": ["CRMService.RefundPoints.Create"]
   },
   {
     "key": "parties/customs",
@@ -334,6 +404,16 @@
     "requiredPolicies": ["CRMService.Customs"]
   },
   {
+    "key": "parties/customs/new",
+    "displayName": "New",
+    "description": "Add new custom.",
+    "href": "parties/customs/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/customs",
+    "displayOrder": 1,
+    "requiredPolicies": ["CRMService.Customs.Create"]
+  },
+  {
     "key": "parties/tax-free",
     "displayName": "TaxFree",
     "description": "Manage tax-free settings and exemptions.",
@@ -342,6 +422,16 @@
     "parentNavbarItemKey": "parties",
     "displayOrder": 1,
     "requiredPolicies": ["CRMService.TaxFrees"]
+  },
+  {
+    "key": "parties/tax-free/new",
+    "displayName": "New",
+    "description": "Add new tax free.",
+    "href": "parties/tax-free/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/tax-free",
+    "displayOrder": 1,
+    "requiredPolicies": ["CRMService.TaxFrees.Create"]
   },
   {
     "key": "parties/tax-offices",
@@ -354,6 +444,16 @@
     "requiredPolicies": ["CRMService.TaxOffices"]
   },
   {
+    "key": "parties/tax-offices/new",
+    "displayName": "New",
+    "description": "Add new tax office.",
+    "href": "parties/tax-offices/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/tax-offices",
+    "displayOrder": 1,
+    "requiredPolicies": ["CRMService.TaxOffices.Create"]
+  },
+  {
     "key": "parties/individuals",
     "displayName": "Individuals",
     "description": "Manage individuals.",
@@ -364,12 +464,32 @@
     "requiredPolicies": ["CRMService.Individuals"]
   },
   {
+    "key": "parties/individuals/new",
+    "displayName": "New",
+    "description": "Add new individual.",
+    "href": "parties/individuals/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/individuals",
+    "displayOrder": 1,
+    "requiredPolicies": ["CRMService.Individuals"]
+  },
+  {
     "key": "parties/travellers",
     "displayName": "Traveller",
     "description": "Manage traveller-related settings.",
     "href": "parties/travellers",
     "icon": "plane",
     "parentNavbarItemKey": "parties",
+    "displayOrder": 1,
+    "requiredPolicies": ["TravellerService.Travellers"]
+  },
+  {
+    "key": "parties/travellers/new",
+    "displayName": "New",
+    "description": "Add new traveller.",
+    "href": "parties/travellers/new",
+    "icon": "new",
+    "parentNavbarItemKey": "parties/travellers",
     "displayOrder": 1,
     "requiredPolicies": ["TravellerService.Travellers"]
   },
@@ -448,12 +568,32 @@
     "requiredPolicies": ["FinanceService.VATStatementHeader"]
   },
   {
+    "key": "finance/vat-statements/new",
+    "displayName": "New",
+    "description": "Add new vat statement.",
+    "href": "finance/vat-statements/new",
+    "icon": "new",
+    "parentNavbarItemKey": "finance/vat-statements",
+    "displayOrder": 1,
+    "requiredPolicies": ["FinanceService.VATStatementHeader"]
+  },
+  {
     "key": "finance/rebate-statements",
     "displayName": "RebateStatements",
     "description": "Manage Rebate Statement settings.",
     "href": "finance/rebate-statements",
     "icon": "log",
     "parentNavbarItemKey": "finance",
+    "displayOrder": 1,
+    "requiredPolicies": ["FinanceService.RebateStatementHeaders"]
+  },
+  {
+    "key": "finance/rebate-statements/new",
+    "displayName": "New",
+    "description": "Add new rebate statement.",
+    "href": "finance/rebate-statements/new",
+    "icon": "new",
+    "parentNavbarItemKey": "finance/rebate-statements",
     "displayOrder": 1,
     "requiredPolicies": ["FinanceService.RebateStatementHeaders"]
   }
