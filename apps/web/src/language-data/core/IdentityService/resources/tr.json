@@ -241,6 +241,8 @@
   "Form.Organization.Role.Name": "Rol Adı",
 
   "Permissions": "İzinler",
+  "Search.Groups": "Gruplar Ara...",
+  "Search.Permissions": "İzinler Ara...",
   "Permissions.Description": "İzinleri buradan yönetebilirsiniz.",
   "Select.All": "Hepsini Seç",
   "Grant.All.Permissions": "Tüm İzinleri Ver",
