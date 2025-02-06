@@ -32,18 +32,18 @@ async function getApiRequests() {
 }
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["FinanceService.RebateStatementHeaders.Create"],
     lang,
   });
-  const {languageData} = await getResourceData(lang);
-  const apiRequests = await getApiRequests();
 
+  const apiRequests = await getApiRequests();
   if (apiRequests.type === "error") {
     return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
-
   const [merchantListResponse] = apiRequests.data;
+
   return (
     <>
       <RebateStatementForm languageData={languageData} merchantList={merchantListResponse.data.items || []} />

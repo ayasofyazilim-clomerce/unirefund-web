@@ -1,23 +1,41 @@
 "use server";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getRebateStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import RebateStatementInformation from "./_components/rebate-statement-information";
+
+async function getApiRequests(rebateStatementId: string) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([getRebateStatementHeadersByIdApi(rebateStatementId, session)]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as {data?: string; message?: string};
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({params}: {params: {lang: string; rebateStatementId: string}}) {
   const {lang, rebateStatementId} = params;
   const {languageData} = await getResourceData(lang);
-
   await isUnauthorized({
     requiredPolicies: ["FinanceService.RebateStatementHeaders.View"],
     lang,
   });
-  const rebateStatementHeadersByIdResponse = await getRebateStatementHeadersByIdApi(rebateStatementId);
-  if (isErrorOnRequest(rebateStatementHeadersByIdResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={rebateStatementHeadersByIdResponse.message} />;
+
+  const apiRequests = await getApiRequests(rebateStatementId);
+  if (apiRequests.type === "error") {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
+  const [rebateStatementHeadersByIdResponse] = apiRequests.data;
 
   return (
     <>

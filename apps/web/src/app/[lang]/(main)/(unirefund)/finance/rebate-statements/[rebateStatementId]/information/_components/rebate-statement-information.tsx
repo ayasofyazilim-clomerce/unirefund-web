@@ -2,8 +2,9 @@
 import {Card, CardHeader} from "@/components/ui/card";
 import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {useParams} from "next/navigation";
+import {dateToString} from "@/app/[lang]/(main)/(unirefund)/operations/_components/utils";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {tableData} from "./rebate-information-table-data";
 
@@ -19,9 +20,9 @@ function SummaryList({summaryList}: {summaryList: SummaryListType}) {
   return (
     <div className="mt-2 flex w-1/3 flex-col">
       {summaryList.rows.map((row) => (
-        <div className="flex flex-row gap-2" key={row.title}>
-          <div className="text-gray-500">{row.title}:</div>
-          {row.content}
+        <div className=" mb-2 flex flex-row gap-2 " key={row.title}>
+          <div>{row.title}:</div>
+          <div className="font-semibold">{row.content || "-"}</div>
         </div>
       ))}
     </div>
@@ -49,8 +50,16 @@ export default function RebateStatementInformation({
         content: rebateStatementData.merchantName,
       },
       {
+        title: languageData["RebateStatement.Status"],
+        content: rebateStatementData.status,
+      },
+      {
         title: languageData["RebateStatement.Total"],
         content: rebateStatementData.total.toString(),
+      },
+      {
+        title: languageData["RebateStatement.CustomerNumber"],
+        content: rebateStatementData.customerNumber || "",
       },
     ],
   };
@@ -61,25 +70,9 @@ export default function RebateStatementInformation({
         content: rebateStatementData.number,
       },
       {
-        title: languageData["RebateStatement.Status"],
-        content: rebateStatementData.status,
-      },
-    ],
-  };
-  const thirdColumn: SummaryListType = {
-    rows: [
-      {
-        title: languageData["RebateStatement.CustomerNumber"],
-        content: rebateStatementData.customerNumber || "",
-      },
-      {
         title: languageData["RebateStatement.RebateStatementDate"],
-        content: rebateStatementData.rebateStatementDate || "",
+        content: dateToString(rebateStatementData.rebateStatementDate, "tr"),
       },
-    ],
-  };
-  const fourthColumn: SummaryListType = {
-    rows: [
       {
         title: languageData["RebateStatement.Period"],
         content: rebateStatementData.period,
@@ -88,21 +81,21 @@ export default function RebateStatementInformation({
   };
 
   return (
-    <Card className="p flex-1 rounded-none">
-      <CardHeader className="py-4">
-        <div className="flex flex-row gap-8">
-          <SummaryList summaryList={firstColumn} />
-          <SummaryList summaryList={secondColumn} />
-          <SummaryList summaryList={thirdColumn} />
-          <SummaryList summaryList={fourthColumn} />
-        </div>
-      </CardHeader>
-      <TanstackTable
-        {...table}
-        columns={columns}
-        data={rebateStatementData.rebateStatementStoreDetails || []}
-        rowCount={rebateStatementData.rebateStatementStoreDetails?.length || 0}
-      />
-    </Card>
+    <div className="max-h-[500px] w-full overflow-y-auto pt-4">
+      <Card className="flex-1  rounded-none p-4">
+        <CardHeader className="py-4">
+          <div className="flex flex-row justify-between gap-6">
+            <SummaryList summaryList={firstColumn} />
+            <SummaryList summaryList={secondColumn} />
+          </div>
+        </CardHeader>
+        <TanstackTable
+          {...table}
+          columns={columns}
+          data={rebateStatementData.rebateStatementStoreDetails || []}
+          rowCount={1}
+        />
+      </Card>
+    </div>
   );
 }
