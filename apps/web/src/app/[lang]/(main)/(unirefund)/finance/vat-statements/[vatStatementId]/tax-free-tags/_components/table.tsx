@@ -2,8 +2,8 @@
 
 import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {useParams} from "next/navigation";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {tableData} from "./tax-free-tag-table-data";
 
@@ -21,12 +21,7 @@ function TaxFreeTagTable({
   const table = tableData.TaxFreeTag.table();
 
   return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={taxFreeTagsData.vatStatementTagDetails || []}
-      rowCount={taxFreeTagsData.vatStatementTagDetails?.length || 0}
-    />
+    <TanstackTable {...table} columns={columns} data={taxFreeTagsData.vatStatementTagDetails || []} rowCount={1} />
   );
 }
 

@@ -10,8 +10,10 @@ export default async function Layout({
   params: {lang: string; vatStatementId: string};
   children: React.ReactNode;
 }) {
-  const {languageData} = await getResourceData(params.lang);
-  const baseLink = getBaseLink(`finance/vat-statements/${params.vatStatementId}/`, params.lang);
+  const {lang, vatStatementId} = params;
+  const {languageData} = await getResourceData(lang);
+  const baseLink = getBaseLink(`finance/vat-statements/${vatStatementId}/`, lang);
+
   return (
     <TabLayout
       tabList={[
