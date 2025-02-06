@@ -1,13 +1,9 @@
 "use client";
 
-import { IdCardIcon } from "@radix-ui/react-icons";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import { ISection } from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
-import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import {IdCardIcon} from "@radix-ui/react-icons";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import {ISection} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
+import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {
   BookA,
   Box,
@@ -31,6 +27,7 @@ import {
   Lock,
   Percent,
   Plane,
+  PlusCircle,
   Scan,
   ScanBarcode,
   ScanLine,
@@ -65,7 +62,7 @@ export default function Navbar({
   navigation: BreadcrumbItemType[];
   sectionLayoutItems: ISection[];
   activeSectionLayoutItem: string;
-  tenantData?: { tenantId: string; tenantName: string };
+  tenantData?: {tenantId: string; tenantName: string};
 }) {
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
@@ -84,14 +81,11 @@ export default function Navbar({
                       } else {
                         alert(tenantData.tenantId);
                       }
-                    }}
-                  >
+                    }}>
                     □ {tenantData.tenantName}
                   </button>
                 </TooltipTrigger>
-                <TooltipContent className="bg-black">
-                  Click to copy tenant id.
-                </TooltipContent>
+                <TooltipContent className="bg-black">Click to copy tenant id.</TooltipContent>
               </Tooltip>
             )}
           </div>
@@ -104,10 +98,7 @@ export default function Navbar({
         </div>
       </nav>
       <div className="border-y border-gray-200 bg-white py-1">
-        <BreadcrumbNavigation
-          navigation={navigation}
-          navbarItems={navbarItems}
-        />
+        <BreadcrumbNavigation navigation={navigation} navbarItems={navbarItems} />
       </div>
       {/* <SectionLayoutNavbar
         sections={sectionLayoutItems}
@@ -189,4 +180,5 @@ export const icons = {
   operation: <Handshake className="mr-1 size-4 text-gray-600" />,
   table: <Table className="mr-1 size-4 text-gray-600" />,
   template: <LayoutTemplate className="mr-1 size-4 text-gray-600" />,
+  new: <PlusCircle className="mr-1 size-4 text-gray-600" />,
 };
