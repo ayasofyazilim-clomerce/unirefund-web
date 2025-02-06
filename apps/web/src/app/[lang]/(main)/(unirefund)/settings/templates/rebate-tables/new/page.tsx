@@ -3,12 +3,16 @@ import {isUnauthorized} from "@repo/utils/policies";
 import {getMerchantsApi} from "@/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
+import {getRebateTableHeadersApi} from "@/actions/unirefund/ContractService/action";
 import RebateTableHeaderCreateForm from "./_components/form";
 
 async function getApiRequests() {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getMerchantsApi({typeCodes: ["HEADQUARTER"]}, session)]);
+    const apiRequests = await Promise.all([
+      getMerchantsApi({typeCodes: ["HEADQUARTER"]}, session),
+      getRebateTableHeadersApi({}, session),
+    ]);
     return {
       type: "success" as const,
       data: apiRequests,
@@ -24,7 +28,11 @@ async function getApiRequests() {
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;
   await isUnauthorized({
-    requiredPolicies: ["CRMService.Merchants"],
+    requiredPolicies: [
+      "CRMService.Merchants",
+      "ContractService.RebateTableHeader.ViewList",
+      "ContractService.RebateTableHeader.Create",
+    ],
     lang,
   });
   const {languageData} = await getResourceData(lang);
@@ -34,6 +42,18 @@ export default async function Page({params}: {params: {lang: string}}) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
-  const [merchantsResponse] = apiRequests.data;
-  return <RebateTableHeaderCreateForm languageData={languageData} merchants={merchantsResponse.data.items || []} />;
+  const [merchantsResponse, rebateTablesResponse] = apiRequests.data;
+
+  return (
+    <RebateTableHeaderCreateForm
+      defaultFormData={{
+        name: "",
+        calculateNetCommissionInsteadOfRefund: false,
+        isTemplate: true,
+      }}
+      languageData={languageData}
+      merchants={merchantsResponse.data.items || []}
+      rebateTables={rebateTablesResponse.data.items || []}
+    />
+  );
 }
