@@ -161,7 +161,7 @@ function ContractActions({
             onConfirm: () => {
               startTransition(() => {
                 void putRefundPointContractHeadersByIdMakePassiveApis(contractDetails.id).then((response) => {
-                  handlePutResponse(response, router, "../../");
+                  handlePutResponse(response, router, "../");
                 });
               });
             },
@@ -180,7 +180,7 @@ function ContractActions({
           onConfirm: () => {
             startTransition(() => {
               void deleteRefundPointContractHeadersById(contractDetails.id).then((response) => {
-                handleDeleteResponse(response, router, "../../");
+                handleDeleteResponse(response, router, "../");
               });
             });
           },
