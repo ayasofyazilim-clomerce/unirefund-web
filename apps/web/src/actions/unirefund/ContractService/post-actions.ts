@@ -2,6 +2,7 @@
 
 import type {
   PostApiContractServiceMerchantsByIdContractsContractHeadersData,
+  PostApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
   PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
   PostApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsData,
   PostApiContractServiceRebateTableHeadersData,
@@ -9,7 +10,7 @@ import type {
   PostApiContractServiceRefundPointsByIdContractsContractHeadersData,
   PostApiContractServiceRefundTableHeadersData,
 } from "@ayasofyazilim/saas/ContractService";
-import {structuredResponse, structuredError} from "@repo/utils/api";
+import {structuredError, structuredResponse} from "@repo/utils/api";
 import {getContractServiceClient} from "src/lib";
 
 export async function postRefundTableHeadersApi(data: PostApiContractServiceRefundTableHeadersData) {
@@ -97,6 +98,18 @@ export async function postMerchantContractHeadersContractStoresByHeaderIdApi(
     const client = await getContractServiceClient();
     const response =
       await client.contractsMerchant.postApiContractServiceMerchantsContractsContractHeadersByIdContractStores(data);
+    return structuredResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function postMerchantContractHeaderContractSettingsByHeaderIdApi(
+  data: PostApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
+) {
+  try {
+    const client = await getContractServiceClient();
+    const response =
+      await client.contractsMerchant.postApiContractServiceMerchantsContractsContractHeadersByIdContractSettings(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
