@@ -5,6 +5,7 @@ import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundTableHeaderUpdateForm from "./_components/form";
 
 export default async function Page({params}: {params: {lang: string; id: string}}) {
+  const {id} = params;
   await isUnauthorized({
     requiredPolicies: [
       "ContractService.RefundTableDetail.Create",
@@ -17,7 +18,7 @@ export default async function Page({params}: {params: {lang: string; id: string}
     lang: params.lang,
   });
 
-  const response = await getRefundTableHeadersByIdApi({id: params.id});
+  const response = await getRefundTableHeadersByIdApi(id);
   if (response.type !== "success") return notFound();
 
   const {languageData} = await getResourceData(params.lang);
