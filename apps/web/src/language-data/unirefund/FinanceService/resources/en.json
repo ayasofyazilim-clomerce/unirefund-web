@@ -19,7 +19,7 @@
   "VatStatement.CustomerNumber": "Customer Number",
   "VatStatement.ReferenceNumber": "Reference Number",
   "VatStatement.YourReference": "Your Reference",
-  "VatStatement.Preview.NoData": "There is currently no preview data. Please try again later.",
+  "VatStatement.Preview.NoData": "To view the preview data, please fill out the form and then click the preview data button.",
   "VATStatement.Create.Description": "You can create a new VAT statement from here.",
   "VatStatement.Information.Description": "You can view the basic information of the vat statement from here.",
   "VatStatement.TaxFreeTags.Description": "You can view the tax free tags of the vat statement from here.",
