@@ -3,44 +3,51 @@ import type {
   GetApiFinanceServiceRebateStatementHeadersData,
   GetApiFinanceServiceVatStatementHeadersData,
 } from "@ayasofyazilim/saas/FinanceService";
-import {getFinanceServiceClient, structuredError, structuredResponse} from "src/lib";
+import type {Session} from "@repo/utils/auth";
+import {getFinanceServiceClient, structuredError, structuredSuccessResponse} from "src/lib";
 
-export async function getVatStatementHeadersApi(data: GetApiFinanceServiceVatStatementHeadersData) {
+export async function getVatStatementHeadersApi(
+  data: GetApiFinanceServiceVatStatementHeadersData,
+  session?: Session | null,
+) {
   try {
-    const client = await getFinanceServiceClient();
+    const client = await getFinanceServiceClient(session);
     const dataResponse = await client.vatStatementHeader.getApiFinanceServiceVatStatementHeaders(data);
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
-export async function getVatStatementHeadersByIdApi(id: string) {
+export async function getVatStatementHeadersByIdApi(id: string, session?: Session | null) {
   try {
-    const client = await getFinanceServiceClient();
+    const client = await getFinanceServiceClient(session);
     const dataResponse = await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById({id});
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
-export async function getRebateStatementHeadersApi(data: GetApiFinanceServiceRebateStatementHeadersData) {
+export async function getRebateStatementHeadersApi(
+  data: GetApiFinanceServiceRebateStatementHeadersData,
+  session?: Session | null,
+) {
   try {
-    const client = await getFinanceServiceClient();
+    const client = await getFinanceServiceClient(session);
     const dataResponse = await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeaders(data);
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
-export async function getRebateStatementHeadersByIdApi(id: string) {
+export async function getRebateStatementHeadersByIdApi(id: string, session?: Session | null) {
   try {
-    const client = await getFinanceServiceClient();
+    const client = await getFinanceServiceClient(session);
     const dataResponse = await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeadersById({id});
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
