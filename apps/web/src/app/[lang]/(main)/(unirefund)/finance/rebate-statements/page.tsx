@@ -1,13 +1,29 @@
 "use server";
 
 import type {GetApiFinanceServiceRebateStatementHeadersData} from "@ayasofyazilim/saas/FinanceService";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getRebateStatementHeadersApi} from "src/actions/unirefund/FinanceService/actions";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import RebateStatementTable from "./_components/table";
 
+async function getApiRequests(searchParams: GetApiFinanceServiceRebateStatementHeadersData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([getRebateStatementHeadersApi(searchParams, session)]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as {data?: string; message?: string};
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 export default async function Page({
   params,
   searchParams,
@@ -23,11 +39,12 @@ export default async function Page({
     requiredPolicies: ["FinanceService.RebateStatementHeaders"],
     lang,
   });
-  const rebateStatementHeadersResponse = await getRebateStatementHeadersApi(searchParams);
 
-  if (isErrorOnRequest(rebateStatementHeadersResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={rebateStatementHeadersResponse.message} />;
+  const apiRequests = await getApiRequests(searchParams);
+  if (apiRequests.type === "error") {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
+  const [rebateStatementHeadersResponse] = apiRequests.data;
 
   return (
     <RebateStatementTable languageData={languageData} locale={lang} response={rebateStatementHeadersResponse.data} />

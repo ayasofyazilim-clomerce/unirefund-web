@@ -19,7 +19,7 @@
   "VatStatement.CustomerNumber": "Müşteri Numarası",
   "VatStatement.ReferenceNumber": "Referans Numarası",
   "VatStatement.YourReference": "Sizin Referansınız",
-  "VatStatement.Preview.NoData": "Şu anda önizleme verileri yok. Lütfen daha sonra tekrar deneyiniz.",
+  "VatStatement.Preview.NoData": "Önizleme verisini görmek için lütfen formu doldurduktan sonra Verileri Önizle butonuna tıklayınız.",
   "VATStatement.Create.Description": "Buradan Yeni KDV Beyanı oluşturabilirsiniz.",
   "VatStatement.Information.Description": "KDV beyannamesinin temel bilgilerini buradan görüntüleyebilirsiniz.",
   "VatStatement.TaxFreeTags.Description": "KDV beyannamesinin vergiden muaf etiketlerini buradan görüntüleyebilirsiniz.",

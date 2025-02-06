@@ -1,5 +1,6 @@
 import {Card, CardHeader} from "@/components/ui/card";
 import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
+import {dateToString} from "@/app/[lang]/(main)/(unirefund)/operations/_components/utils";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 
 interface SummaryListType {
@@ -13,11 +14,11 @@ interface SummaryListType {
 function SummaryList({summaryList}: {summaryList: SummaryListType}) {
   return (
     <div className="mt-2 flex w-1/3 flex-col">
-      <div className="mb-9 text-3xl font-medium">{summaryList.title}</div>
+      {summaryList.title ? <div className="mb-4 text-5xl font-medium">{summaryList.title}</div> : null}
       {summaryList.rows.map((row) => (
-        <div className="flex flex-row gap-5" key={row.title}>
-          <div className="text-gray-500">{row.title}:</div>
-          {row.content}
+        <div className="mb-2 flex flex-row gap-2" key={row.title}>
+          <div>{row.title}:</div>
+          <div className="font-semibold">{row.content || "-"}</div>
         </div>
       ))}
     </div>
@@ -39,10 +40,6 @@ export default function VatStatementInformation({
         content: VatStatementData.merchantName,
       },
       {
-        title: languageData["VatStatement.Status"],
-        content: VatStatementData.status,
-      },
-      {
         title: languageData["VatStatement.Total"],
         content: VatStatementData.total.toString(),
       },
@@ -52,6 +49,7 @@ export default function VatStatementInformation({
       },
     ],
   };
+
   const secondColumn: SummaryListType = {
     rows: [
       {
@@ -60,11 +58,11 @@ export default function VatStatementInformation({
       },
       {
         title: languageData["VatStatement.VatStatementDate"],
-        content: VatStatementData.vatStatementDate,
+        content: dateToString(VatStatementData.vatStatementDate, "tr"),
       },
       {
         title: languageData["VatStatement.ReferenceDateBegin"],
-        content: VatStatementData.referenceDateBegin,
+        content: dateToString(VatStatementData.referenceDateBegin, "tr"),
       },
       {
         title: languageData["VatStatement.TermOfPayment"],
@@ -76,32 +74,34 @@ export default function VatStatementInformation({
       },
     ],
   };
+
   const thirdColumn: SummaryListType = {
     rows: [
       {
         title: languageData["VatStatement.CustomerNumber"],
-        content: VatStatementData.customerNumber || "",
+        content: VatStatementData.customerNumber || "-",
       },
       {
         title: languageData["VatStatement.DueDate"],
-        content: VatStatementData.dueDate,
+        content: dateToString(VatStatementData.dueDate, "tr"),
       },
       {
         title: languageData["VatStatement.ReferenceDateEnd"],
-        content: VatStatementData.referenceDateEnd,
+        content: dateToString(VatStatementData.referenceDateEnd, "tr"),
       },
       {
         title: languageData["VatStatement.ReferenceNumber"],
-        content: VatStatementData.referenceNumber || "",
+        content: VatStatementData.referenceNumber || "-",
       },
       {
         title: languageData["VatStatement.YourReference"],
-        content: VatStatementData.yourReference || "",
+        content: VatStatementData.yourReference || "-",
       },
     ],
   };
+
   return (
-    <Card className="flex-1 rounded-none">
+    <Card className="flex-1 rounded-none p-4 shadow-md">
       <CardHeader className="py-4">
         <div className="flex flex-row gap-4">
           <SummaryList summaryList={firstColumn} />

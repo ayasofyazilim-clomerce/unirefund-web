@@ -2,24 +2,25 @@
 import {Button} from "@/components/ui/button";
 import {toast} from "@/components/ui/sonner";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import type {UniRefund_CRMService_Merchants_MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
 import type {
+  UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto,
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto,
-  UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto as VATStatementHeaderCreateDto,
 } from "@ayasofyazilim/saas/FinanceService";
-import {$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto as $VATStatementHeaderCreateDto} from "@ayasofyazilim/saas/FinanceService";
+import {$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto} from "@ayasofyazilim/saas/FinanceService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import type {UniRefund_CRMService_Merchants_MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {useRouter} from "next/navigation";
+import {useState, useTransition} from "react";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
-import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {
   postVatStatementHeaderApi,
   postVatStatementHeadersFormDraftApi,
 } from "src/actions/unirefund/FinanceService/post-actions";
+import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import VatStatementInformation from "../../[vatStatementId]/information/_components/vat-statement-information";
+import TaxFreeTagTable from "../../[vatStatementId]/tax-free-tags/_components/table";
 
 export default function VatStatementForm({
   languageData,
@@ -29,20 +30,24 @@ export default function VatStatementForm({
   merchantList: UniRefund_CRMService_Merchants_MerchantProfileDto[];
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [activeTab, setActiveTab] = useState("Form");
+  const [_formData, set_FormData] =
+    useState<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto>();
+  const [vatStatementData, setVatStatementData] =
+    useState<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto[]>();
+
   const uiSchema = createUiSchemaWithResource({
-    schema: $VATStatementHeaderCreateDto,
+    schema: $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto,
     resources: languageData,
     name: "Form.VatStatement",
     extend: {
       merchantId: {
         "ui:widget": "Merchant",
       },
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
     },
   });
-  const [vatStatementData] = useState<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto[]>();
-  const [_formData, set_FormData] = useState<VATStatementHeaderCreateDto>();
-  const [activeTab, setActiveTab] = useState("Form");
-  const [loading, setLoading] = useState(false);
 
   return (
     <Tabs defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
@@ -51,26 +56,30 @@ export default function VatStatementForm({
         <TabsTrigger value="Preview">{languageData["Button.Preview"]}</TabsTrigger>
       </TabsList>
       <TabsContent value="Form">
-        <SchemaForm<VATStatementHeaderCreateDto>
-          disabled={loading}
-          formData={_formData}
+        <SchemaForm<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto>
+          disabled={isPending}
+          formData={
+            _formData || {
+              merchantId: "",
+              year: new Date().getFullYear(),
+              month: new Date().getMonth() + 1,
+              vatStatementDate: new Date().toISOString(),
+            }
+          }
           onChange={(e) => {
             set_FormData(e.formData);
           }}
-          onSubmit={(e) => {
-            if (!e.formData) return;
-            setLoading(true);
-            void postVatStatementHeaderApi({
-              requestBody: e.formData,
-            })
-              .then((res) => {
-                handlePostResponse(res, router);
-              })
-              .finally(() => {
-                setLoading(false);
+          onSubmit={({formData}) => {
+            if (!formData) return;
+            startTransition(() => {
+              void postVatStatementHeaderApi({
+                requestBody: formData,
+              }).then((res) => {
+                handlePostResponse(res, router, "../vat-statements");
               });
+            });
           }}
-          schema={$VATStatementHeaderCreateDto}
+          schema={$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto}
           uiSchema={uiSchema}
           useDefaultSubmit={false}
           widgets={{
@@ -83,39 +92,42 @@ export default function VatStatementForm({
           }}>
           <div className="flex w-full justify-end gap-4 pt-8">
             <Button
-              disabled={loading}
+              disabled={isPending}
               onClick={() => {
                 if (!_formData) return;
-                setLoading(true);
-                void postVatStatementHeadersFormDraftApi({
-                  requestBody: _formData,
-                })
-                  .then((res) => {
+                startTransition(() => {
+                  void postVatStatementHeadersFormDraftApi({
+                    requestBody: _formData,
+                  }).then((res) => {
                     if (res.type === "success") {
+                      const vatStatementHeadersFormDraftData =
+                        res.data as UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto[];
+                      setVatStatementData(vatStatementHeadersFormDraftData);
                       setActiveTab("Preview");
                     } else {
                       toast.error(res.message || languageData["Fetch.Fail"]);
                     }
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               }}
               type="button"
               variant="outline">
               {languageData["Button.PreviewData"]}
             </Button>
-            <Button disabled={loading} type="submit">
+            <Button disabled={isPending} type="submit">
               {languageData["Button.Submit"]}
             </Button>
           </div>
         </SchemaForm>
       </TabsContent>
       <TabsContent value="Preview">
-        {!loading && vatStatementData?.length ? (
-          <div className="flex w-full flex-col gap-4">
-            {vatStatementData.map((item) => (
-              <VatStatementInformation VatStatementData={item} key={item.id} languageData={languageData} />
+        {!isPending && vatStatementData?.length ? (
+          <div className="flex max-h-[450px] w-full flex-col overflow-y-auto">
+            {vatStatementData.map((item, index) => (
+              <div className="flex w-full flex-col pb-3" key={index}>
+                <VatStatementInformation VatStatementData={item} languageData={languageData} />
+                <TaxFreeTagTable languageData={languageData} taxFreeTagsData={item} />
+              </div>
             ))}
           </div>
         ) : (
