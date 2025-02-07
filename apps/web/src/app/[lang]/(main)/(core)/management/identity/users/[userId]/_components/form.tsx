@@ -13,9 +13,10 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {PhoneNumberUtil} from "google-libphonenumber";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import {deleteUserByIdApi} from "src/actions/core/IdentityService/delete-actions";
 import {putUserApi} from "src/actions/core/IdentityService/put-actions";
@@ -42,8 +43,10 @@ export default function Form({
   userOrganizationUnits: Volo_Abp_Identity_OrganizationUnitDto[];
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const {grantedPolicies} = useGrantedPolicies();
+  const phoneUtil = PhoneNumberUtil.getInstance();
+
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_IdentityUserUpdateDto,
     resources: languageData,
@@ -55,24 +58,26 @@ export default function Form({
       organizationUnitIds: {
         "ui:widget": "OrganizationUnit",
       },
+      userName: {
+        "ui:className": "md:col-span-2",
+      },
       email: {
         "ui:widget": "email",
       },
+      phoneNumber: {
+        "ui:widget": "phone",
+      },
       isActive: {
         "ui:widget": "switch",
-        "ui:className": "md:col-span-2",
       },
       lockoutEnabled: {
         "ui:widget": "switch",
-        "ui:className": "md:col-span-2",
       },
       phoneNumberConfirmed: {
         "ui:widget": "switch",
-        "ui:className": "md:col-span-2",
       },
       shouldChangePasswordOnNextLogin: {
         "ui:widget": "switch",
-        "ui:className": "md:col-span-2",
       },
       "ui:className": "md:grid md:grid-cols-2 md:gap-2",
     },
@@ -89,14 +94,11 @@ export default function Form({
               variant: "destructive",
               children: languageData.Delete,
               onConfirm: () => {
-                setLoading(true);
-                void deleteUserByIdApi(userDetailsData.id || "")
-                  .then((res) => {
+                startTransition(() => {
+                  void deleteUserByIdApi(userDetailsData.id || "").then((res) => {
                     handleDeleteResponse(res, router, "../users");
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               },
               closeAfterConfirm: true,
             }}
@@ -116,7 +118,7 @@ export default function Form({
       </ActionList>
       <SchemaForm<UserFormDto>
         className="flex flex-col gap-4"
-        disabled={loading}
+        disabled={isPending}
         filter={{
           type: "include",
           sort: true,
@@ -125,9 +127,9 @@ export default function Form({
             "name",
             "surname",
             "email",
+            "phoneNumber",
             "roleNames",
             "organizationUnitIds",
-            "phoneNumber",
             "isActive",
             "lockoutEnabled",
             "phoneNumberConfirmed",
@@ -139,23 +141,23 @@ export default function Form({
           roleNames: userRoles.map((role) => role.name || ""),
           organizationUnitIds: userOrganizationUnits.map((org) => org.id || ""),
         }}
-        onSubmit={(data) => {
-          setLoading(true);
-          const formData = data.formData;
-          void putUserApi({
-            id: userDetailsData.id || "",
-            requestBody: {
-              ...formData,
-              userName: formData?.userName || "",
-              email: formData?.email || "",
-            },
-          })
-            .then((res) => {
+        onSubmit={({formData}) => {
+          const parsedNumber = phoneUtil.parseAndKeepRawInput(formData?.phoneNumber || "");
+          if (!phoneUtil.isValidNumber(parsedNumber)) {
+            return;
+          }
+          startTransition(() => {
+            void putUserApi({
+              id: userDetailsData.id || "",
+              requestBody: {
+                ...formData,
+                userName: formData?.userName || "",
+                email: formData?.email || "",
+              },
+            }).then((res) => {
               handlePutResponse(res, router, "../users");
-            })
-            .finally(() => {
-              setLoading(false);
             });
+          });
         }}
         schema={$Volo_Abp_Identity_IdentityUserUpdateDto}
         submitText={languageData["Edit.Save"]}
