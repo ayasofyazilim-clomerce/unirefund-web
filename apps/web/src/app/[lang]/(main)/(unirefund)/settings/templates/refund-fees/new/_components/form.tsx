@@ -7,6 +7,7 @@ import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
+import {useState, useTransition} from "react";
 import {postRefundFeeHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
@@ -19,6 +20,29 @@ export default function RefundFeeHeaderCreateForm({
   languageData: ContractServiceResource;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [formData, setFormData] = useState<RefundFeeHeaderCreateDto>({
+    name: "",
+    isActive: true,
+    isTemplate: true,
+    refundFeeDetails: [
+      {
+        amountFrom: 0,
+        amountTo: 0,
+        feeType: "AgentFee",
+        fixedFeeValue: 0,
+        maxFee: 0,
+        minFee: 0,
+        percentFeeValue: 0,
+        isForEarlyRefund: false,
+        fixedFeeValueEarlyRefund: 0,
+        maxFeeEarlyRefund: 0,
+        minFeeEarlyRefund: 0,
+        percentFeeValueEarlyRefund: 0,
+        refundMethod: "All",
+      },
+    ],
+  });
   const uiSchema = {
     "ui:className": "md:grid md:grid-cols-2",
     name: {"ui:className": ""},
@@ -52,22 +76,27 @@ export default function RefundFeeHeaderCreateForm({
   };
   return (
     <SchemaForm<RefundFeeHeaderCreateDto>
+      disabled={isPending}
       fields={{
-        RefundFeeDetailsField: RefundFeeDetailsField(),
+        RefundFeeDetailsField: RefundFeeDetailsField(
+          formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
+        ),
       }}
-      formData={{
-        name: "",
-        isActive: true,
-        isTemplate: true,
+      formData={formData}
+      onChange={({formData: editedFormData}) => {
+        if (!editedFormData) return;
+        setFormData(editedFormData);
       }}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        void postRefundFeeHeadersApi({
-          requestBody: formData,
-        }).then((response) => {
-          handlePostResponse(response, router, {
-            prefix: "./",
-            identifier: "id",
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
+        startTransition(() => {
+          void postRefundFeeHeadersApi({
+            requestBody: editedFormData,
+          }).then((response) => {
+            handlePostResponse(response, router, {
+              prefix: "./",
+              identifier: "id",
+            });
           });
         });
       }}

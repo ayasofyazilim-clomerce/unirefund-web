@@ -24,18 +24,20 @@ import {RebateTableDetailsField} from "../../_components/rebate-table-details-fi
 export default function RebateTableHeaderCreateForm({
   languageData,
   merchants,
-  defaultFormData,
   rebateTables,
 }: {
   languageData: ContractServiceResource;
   merchants: MerchantProfileDto[];
-  defaultFormData?: RebateTableHeaderCreateDto;
   rebateTables: RebateTableHeaderListDto[];
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [clonedTemplate, setClonedTemplate] = useState<RebateTableHeaderCreateDto | null>();
-
+  const [formData, setFormData] = useState<RebateTableHeaderCreateDto>({
+    name: "",
+    isTemplate: true,
+    rebateTableDetails: [{fixedFeeValue: 0, percentFeeValue: 0, refundMethod: "All", variableFee: "PercentOfGC"}],
+    processingFeeDetails: [{amount: 0, name: ""}],
+  });
   const uiSchema = {
     "ui:className": "grid md:grid-cols-2",
     calculateNetCommissionInsteadOfRefund: {
@@ -83,7 +85,7 @@ export default function RebateTableHeaderCreateForm({
             startTransition(() => {
               void getRebateTableHeadersByIdApi(rebateTable.id).then((response) => {
                 if (response.type === "success") {
-                  setClonedTemplate(response.data);
+                  setFormData(response.data);
                 } else {
                   toast.error(response.message);
                 }
@@ -98,17 +100,21 @@ export default function RebateTableHeaderCreateForm({
         disabled={isPending}
         fields={{
           RebateTableDetailsField: RebateTableDetailsField(
-            clonedTemplate?.rebateTableDetails || defaultFormData?.rebateTableDetails || undefined,
+            formData.rebateTableDetails !== null ? formData.rebateTableDetails : [],
           ),
           ProcessingFeeDetailsField: ProcessingFeeDetailsField(
-            clonedTemplate?.processingFeeDetails || defaultFormData?.processingFeeDetails || undefined,
+            formData.processingFeeDetails !== null ? formData.processingFeeDetails : [],
           ),
         }}
-        formData={clonedTemplate || defaultFormData}
-        key={clonedTemplate?.name || defaultFormData?.name}
-        onSubmit={({formData}) => {
+        formData={formData}
+        onChange={({formData: editedFormData}) => {
+          if (!editedFormData) return;
+          setFormData(editedFormData);
+        }}
+        onSubmit={({formData: editedFormData}) => {
+          if (!editedFormData) return;
           startTransition(() => {
-            void postRebateTableHeadersApi({requestBody: formData}).then((response) => {
+            void postRebateTableHeadersApi({requestBody: editedFormData}).then((response) => {
               handlePostResponse(response, router, {
                 identifier: "id",
                 prefix: "./",

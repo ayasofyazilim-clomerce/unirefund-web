@@ -7,10 +7,11 @@ import {handlePostResponse} from "@repo/utils/api";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import {useState} from "react";
+import {useState, useTransition} from "react";
 import {postRefundTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
+//import {toastOnSubmit} from "@repo/ui/toast-on-submit";
 
 export default function RefundTableHeaderCreateForm({
   languageData,
@@ -20,7 +21,14 @@ export default function RefundTableHeaderCreateForm({
   merchants: MerchantProfileDto[];
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [formData, setFormData] = useState<RefundTableHeaderCreateDto>({
+    name: "",
+    isDefault: false,
+    isBundling: false,
+    isTemplate: true,
+    refundTableDetails: [{vatRate: 0, minValue: 0, maxValue: 0, refundPercent: 0, refundAmount: 0, isLoyalty: false}],
+  });
   const uiSchema = {
     "ui:className": "md:grid md:grid-cols-2",
     name: {"ui:className": ""},
@@ -59,29 +67,28 @@ export default function RefundTableHeaderCreateForm({
   };
   return (
     <SchemaForm<RefundTableHeaderCreateDto>
-      disabled={loading}
+      disabled={isPending}
       fields={{
-        RefundTableDetailsField: RefundTableDetailsField(),
+        RefundTableDetailsField: RefundTableDetailsField(
+          formData.refundTableDetails !== null ? formData.refundTableDetails : [],
+        ),
       }}
-      formData={{
-        name: "",
-        isDefault: false,
-        isBundling: false,
-        isTemplate: true,
+      formData={formData}
+      onChange={({formData: editedFormData}) => {
+        if (!editedFormData) return;
+        setFormData(editedFormData);
       }}
-      onSubmit={({formData}) => {
-        setLoading(true);
-        void postRefundTableHeadersApi({requestBody: formData})
-          .then((response) => {
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
+        //toastOnSubmit(editedFormData);
+        startTransition(() => {
+          void postRefundTableHeadersApi({requestBody: editedFormData}).then((response) => {
             handlePostResponse(response, router, {
               identifier: "id",
               prefix: "./",
             });
-            setLoading(false);
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$RefundTableHeaderCreateDto}
       uiSchema={uiSchema}
