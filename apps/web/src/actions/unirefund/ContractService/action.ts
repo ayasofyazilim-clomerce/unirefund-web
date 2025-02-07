@@ -154,12 +154,15 @@ export async function getRefundTableHeadersByIdApi(id: string) {
     return structuredError(error);
   }
 }
-export async function getRefundFeeHeadersApi(data: GetApiContractServiceRefundFeeHeadersData) {
+export async function getRefundFeeHeadersApi(
+  data: GetApiContractServiceRefundFeeHeadersData,
+  session?: Session | null,
+) {
   try {
-    const client = await getContractServiceClient();
-    return structuredResponse(await client.refundFeeHeader.getApiContractServiceRefundFeeHeaders(data));
+    const client = await getContractServiceClient(session);
+    return structuredSuccessResponse(await client.refundFeeHeader.getApiContractServiceRefundFeeHeaders(data));
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 export async function getRefundFeeHeadersByIdApi(id: string) {
