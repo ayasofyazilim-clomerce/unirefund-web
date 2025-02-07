@@ -17,13 +17,13 @@ export default function ProductGroups({
   response: UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto[];
   productGroupList: UniRefund_SettingService_ProductGroups_ProductGroupDto[];
 }) {
-  const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const {grantedPolicies} = useGrantedPolicies();
   const productGroupAssign = response.filter((productGroup) => productGroup.isAssign);
 
   const columns = tableData.productGroups.columns(languageData, grantedPolicies, lang);
-  const table = tableData.productGroups.table(languageData, router, productGroupList, partyId);
+  const table = tableData.productGroups.table(languageData, router, productGroupList, partyId, grantedPolicies);
 
   return <TanstackTable {...table} columns={columns} data={productGroupAssign} rowCount={productGroupAssign.length} />;
 }

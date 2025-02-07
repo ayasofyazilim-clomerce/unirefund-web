@@ -50,6 +50,10 @@ const productGroupsColumns = (
       prefix: "product-groups",
       targetAccessorKey: "id",
     };
+    links.vatPercent = {
+      prefix: "/settings/product/vats",
+      targetAccessorKey: "vatId",
+    };
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
     rows: $UniRefund_SettingService_ProductGroups_ProductGroupDto.properties,

@@ -42,6 +42,7 @@
   "Form.Merchant.productGroup.productGroupName": "Product Group Name",
   "Form.Merchant.productGroup.isActive": "Active",
   "Form.Merchant.productGroup.isDefault": "Default",
+  "Form.Merchant.productGroup.vatRate": "VAT Percent(%)",
 
   "Form.Parties.Affiliation.email": "Email",
   "Form.Parties.Affiliation.affiliationCodeId": "Affiliation Code",
