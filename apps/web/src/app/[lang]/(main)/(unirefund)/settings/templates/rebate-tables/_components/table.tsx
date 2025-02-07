@@ -20,7 +20,7 @@ export default function RebateTable({
 }) {
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.rebateTableHeaders.columns(lang, languageData);
+  const columns = tableData.rebateTableHeaders.columns(lang, merchants, languageData);
   const table = tableData.rebateTableHeaders.table({languageData, router, grantedPolicies, merchants});
   return (
     <TanstackTable

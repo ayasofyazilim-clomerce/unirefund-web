@@ -14,14 +14,20 @@ import {handlePostResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useTransition} from "react";
+import Link from "next/link";
 import isActionGranted from "@/utils/page-policy/action-policy";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {postRefundFeeHeaderCloneByIdApi} from "@/actions/unirefund/ContractService/post-actions";
+import {getBaseLink} from "@/utils";
 
 type RefundFeeHeaders =
   TanstackTableCreationProps<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>;
 
-const refundFeeHeadersColumns = (locale: string, languageData?: TanstackTableLanguageDataType) =>
+const refundFeeHeadersColumns = (
+  locale: string,
+  refundPoints: RefundPointProfileDto[],
+  languageData?: TanstackTableLanguageDataType,
+) =>
   tanstackTableCreateColumnsByRowData<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>({
     rows: $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto.properties,
     languageData,
@@ -80,6 +86,20 @@ const refundFeeHeadersColumns = (locale: string, languageData?: TanstackTableLan
         ],
       },
     },
+    custom: {
+      refundPointId: {
+        content(row) {
+          if (!row.refundPointId) return <></>;
+          const refundPoint = refundPoints.find((rp) => rp.id === row.refundPointId);
+          if (!refundPoint) return <></>;
+          return (
+            <Link href={getBaseLink(`parties/refund-points/${row.refundPointId}/details/info`, locale)}>
+              <Badge className="block max-w-52 overflow-hidden text-ellipsis">{refundPoint.name}</Badge>
+            </Link>
+          );
+        },
+      },
+    },
   });
 
 const refundFeeHeadersTable = (params: {
@@ -94,9 +114,9 @@ const refundFeeHeadersTable = (params: {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: ["name", "creationTime", "lastModificationTime"],
+      columns: ["name", "refundPointId", "creationTime", "lastModificationTime"],
     },
-    columnOrder: ["name", "creationTime", "lastModificationTime"],
+    columnOrder: ["name", "refundPointId", "creationTime", "lastModificationTime"],
     tableActions: [
       {
         type: "simple",
