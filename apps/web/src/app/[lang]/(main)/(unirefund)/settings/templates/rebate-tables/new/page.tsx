@@ -46,11 +46,6 @@ export default async function Page({params}: {params: {lang: string}}) {
 
   return (
     <RebateTableHeaderCreateForm
-      defaultFormData={{
-        name: "",
-        calculateNetCommissionInsteadOfRefund: false,
-        isTemplate: true,
-      }}
       languageData={languageData}
       merchants={merchantsResponse.data.items || []}
       rebateTables={rebateTablesResponse.data.items || []}
