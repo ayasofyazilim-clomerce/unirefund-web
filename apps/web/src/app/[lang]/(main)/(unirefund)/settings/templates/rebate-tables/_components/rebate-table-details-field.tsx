@@ -53,8 +53,23 @@ export function RebateTableDetailsField(
     rowActions: [
       {
         actionLocation: "row",
+        cta: "Move Up",
+        type: "move-row-up",
+      },
+      {
+        actionLocation: "row",
         cta: "Delete", // languageData.Delete,
         type: "delete-row",
+      },
+      {
+        actionLocation: "row",
+        cta: "Duplicate",
+        type: "duplicate-row",
+      },
+      {
+        actionLocation: "row",
+        cta: "Move Down",
+        type: "move-row-down",
       },
     ],
   });
