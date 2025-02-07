@@ -2,6 +2,7 @@
 
 import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
+import {Input} from "@/components/ui/input";
 import type {
   Volo_Abp_PermissionManagement_PermissionGroupDto as PermissionGroup,
   Volo_Abp_PermissionManagement_UpdatePermissionDto as UpdatePermissionDto,
@@ -10,7 +11,7 @@ import type {
 } from "@ayasofyazilim/saas/AdministrationService";
 import {SectionLayout, SectionLayoutContent} from "@repo/ayasofyazilim-ui/templates/section-layout-v2";
 import {useRouter} from "next/navigation";
-import {useCallback, useState} from "react";
+import {useCallback, useState, useTransition} from "react";
 import {putPermissionsApi} from "src/actions/core/AdministrationService/put-actions";
 import {handlePutResponse} from "src/actions/core/api-utils-client";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
@@ -23,9 +24,11 @@ export default function RolePermissions({
   rolePermissionsData: Volo_Abp_PermissionManagement_GetPermissionListResultDto;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [permissionsData, setPermissionsData] = useState<PermissionGroup[]>(rolePermissionsData.groups || []);
   const [updatedPermissionsData] = useState<UpdatePermissionDto[]>([]);
+  const [groupSearchTerm, setGroupSearchTerm] = useState("");
+  const [permissionSearchTerms, setPermissionSearchTerms] = useState<Record<string, string>>({});
 
   const permissionChange = (permissionName: string, isGranted: boolean) => {
     const existingIndex = updatedPermissionsData.findIndex((p) => p.name === permissionName);
@@ -136,11 +139,27 @@ export default function RolePermissions({
     );
   };
 
+  const permissionMatches = useCallback(
+    (
+      permission: Volo_Abp_PermissionManagement_PermissionGrantInfoDto,
+      group: PermissionGroup,
+      searchTerm: string,
+    ): boolean => {
+      if (!searchTerm) return true;
+      if (permission.displayName?.toLowerCase().includes(searchTerm.toLowerCase())) return true;
+      const children = group.permissions?.filter((p) => p.parentName === permission.name);
+      return children ? children.some((child) => permissionMatches(child, group, searchTerm)) : false;
+    },
+    [],
+  );
+
   const renderPermissions = useCallback(
-    (groupName: string, parentName: string | null) => {
+    (groupName: string, parentName: string | null, searchTerm: string) => {
       const group = permissionsData.find((g) => g.name === groupName);
       if (!group) return null;
-      const permissions = group.permissions?.filter((p) => p.parentName === parentName);
+      const permissions = group.permissions?.filter(
+        (p) => p.parentName === parentName && permissionMatches(p, group, searchTerm),
+      );
       return (
         <div className={parentName ? "ml-8" : ""}>
           {permissions?.map((permission) => (
@@ -153,17 +172,32 @@ export default function RolePermissions({
                 }}
               />
               <span>{permission.displayName}</span>
-              {renderPermissions(groupName, permission.name || null)}
+              {renderPermissions(groupName, permission.name || null, searchTerm)}
             </div>
           ))}
         </div>
       );
     },
-    [permissionsData, togglePermission],
+    [permissionsData, togglePermission, permissionMatches],
+  );
+
+  const filteredGroups = permissionsData.filter((group) =>
+    group.displayName?.toLowerCase().includes(groupSearchTerm.toLowerCase()),
   );
 
   return (
     <div className="relative flex h-screen flex-col pb-56">
+      <div className="mb-2 mt-2">
+        <Input
+          className="w-60 rounded border p-2"
+          onChange={(e) => {
+            setGroupSearchTerm(e.target.value);
+          }}
+          placeholder={languageData["Search.Groups"]}
+          type="text"
+          value={groupSearchTerm}
+        />
+      </div>
       <div className="mt-2 flex items-center gap-2 pb-2">
         <Checkbox
           checked={permissionsData.every((group) => group.permissions?.every((p) => p.isGranted))}
@@ -173,45 +207,61 @@ export default function RolePermissions({
         />
         <span>{languageData["Grant.All.Permissions"]}</span>
       </div>
+      {filteredGroups.length > 0 && (
+        <SectionLayout
+          sections={filteredGroups.map((group) => ({
+            name: `${group.displayName} (${group.permissions?.filter((p) => p.isGranted).length})`,
+            id: group.name || "",
+          }))}
+          vertical>
+          {filteredGroups.map((group) => {
+            const groupPermissionSearch = permissionSearchTerms[group.name || ""] || "";
+            return (
+              <SectionLayoutContent key={group.name} sectionId={group.name || ""}>
+                <div className="mb-4">
+                  <Input
+                    className="w-full rounded border p-2"
+                    onChange={(e) => {
+                      setPermissionSearchTerms((prev) => ({
+                        ...prev,
+                        [group.name || ""]: e.target.value,
+                      }));
+                    }}
+                    placeholder={languageData["Search.Permissions"]}
+                    type="text"
+                    value={groupPermissionSearch}
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    checked={group.permissions?.every((p) => p.isGranted)}
+                    onCheckedChange={(checked) => {
+                      toggleGroupPermissions(group.name || "", checked === true);
+                    }}
+                  />
+                  <span>{languageData["Select.All"]}</span>
+                </div>
+                <div className="my-2 border-t border-gray-200" />
+                {renderPermissions(group.name || "", null, groupPermissionSearch)}
+              </SectionLayoutContent>
+            );
+          })}
+        </SectionLayout>
+      )}
 
-      <SectionLayout
-        sections={permissionsData.map((group) => ({
-          name: `${group.displayName} (${group.permissions?.filter((p) => p.isGranted).length})`,
-          id: group.name || "",
-        }))}
-        vertical>
-        {permissionsData.map((group) => (
-          <SectionLayoutContent key={group.name} sectionId={group.name || ""}>
-            <div className="flex items-center gap-2">
-              <Checkbox
-                checked={group.permissions?.every((p) => p.isGranted)}
-                onCheckedChange={(checked) => {
-                  toggleGroupPermissions(group.name || "", checked === true);
-                }}
-              />
-              <span>{languageData["Select.All"]}</span>
-            </div>
-            <div className="my-2 border-t border-gray-200" />
-            {renderPermissions(group.name || "", null)}
-          </SectionLayoutContent>
-        ))}
-      </SectionLayout>
-      <div className="sticky bottom-0 left-0 flex w-full justify-end bg-white pb-2 pr-12">
+      <div className="fixed bottom-0 left-0 flex w-full justify-end bg-white pb-4 pr-16">
         <Button
-          disabled={loading}
+          disabled={isPending}
           onClick={() => {
-            setLoading(true);
-            void putPermissionsApi({
-              providerKey: rolePermissionsData.entityDisplayName || "",
-              providerName: "R",
-              requestBody: {permissions: updatedPermissionsData},
-            })
-              .then((res) => {
+            startTransition(() => {
+              void putPermissionsApi({
+                providerKey: rolePermissionsData.entityDisplayName || "",
+                providerName: "R",
+                requestBody: {permissions: updatedPermissionsData},
+              }).then((res) => {
                 handlePutResponse(res, router, "..");
-              })
-              .finally(() => {
-                setLoading(false);
               });
+            });
           }}>
           {languageData["Edit.Save"]}
         </Button>

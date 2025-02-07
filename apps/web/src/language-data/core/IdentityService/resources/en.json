@@ -238,6 +238,8 @@
   "Form.Organization.Role.Name": "Role Name",
 
   "Permissions": "Permissions",
+  "Search.Groups": "Search groups...",
+  "Search.Permissions": "Search permissions...",
   "Permissions.Description": "You can manage the permissions from here.",
   "Select.All": "Select All",
   "Grant.All.Permissions": "Grant All Permissions",
