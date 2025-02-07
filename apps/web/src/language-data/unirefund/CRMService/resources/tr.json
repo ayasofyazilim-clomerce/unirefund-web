@@ -42,6 +42,7 @@
   "Form.Merchant.productGroup.productGroupName": "Ürün Grubu Adı",
   "Form.Merchant.productGroup.isActive": "aktif",
   "Form.Merchant.productGroup.isDefault": "Varsayılan",
+  "Form.Merchant.productGroup.vatRate": "VAT oranı(%)",
 
   "Form.Parties.Affiliation.email": "E-posta",
   "Form.Parties.Affiliation.affiliationCodeId": "Bağlantı Kodu",
