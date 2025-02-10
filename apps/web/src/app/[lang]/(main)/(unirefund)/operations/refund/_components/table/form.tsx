@@ -9,6 +9,7 @@ import type {
   UniRefund_TagService_Tags_TagListItemDto,
 } from "@ayasofyazilim/saas/TagService";
 import {AlertCircle, Banknote, CreditCard} from "lucide-react";
+import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
 import {postRefundApi} from "src/actions/unirefund/RefundService/post-actions";
@@ -20,6 +21,7 @@ export function RefundForm({
   selectedRows: Pick<UniRefund_TagService_Tags_TagListItemDto, "id" | "travellerDocumentNumber">[];
   refundPointId: string;
 }) {
+  const router = useRouter();
   const [refundMethod, setRefundMethod] = useState<string>("Cash");
   const [isPending, startTransition] = useTransition();
 
@@ -35,7 +37,7 @@ export function RefundForm({
           tagIds: selectedRows.map((tag) => tag.id || ""),
         },
       }).then((response) => {
-        handlePostResponse(response);
+        handlePostResponse(response, router);
       });
     });
   }
