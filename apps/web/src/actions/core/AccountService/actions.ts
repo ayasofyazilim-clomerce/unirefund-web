@@ -42,6 +42,39 @@ export async function signInServerApi({
     };
   }
 }
+export async function signUpServerApi({
+  tenantId,
+  userName,
+  email,
+  password,
+}: {
+  tenantId: string;
+  userName: string;
+  email: string;
+  password: string;
+}) {
+  try {
+    const client = await getAccountServiceClient({
+      __tenant: tenantId || "",
+    });
+    await client.account.postApiAccountRegister({
+      requestBody: {
+        userName,
+        emailAddress: email,
+        password,
+        appName: process.env.CLIENT_ID || "",
+        returnUrl: "",
+      },
+    });
+    return structuredSuccessResponse("");
+  } catch (error) {
+    const err = error as {message: string};
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 export async function sendPasswordResetCodeApi({tenantId, email}: {tenantId: string; email: string}) {
   try {
     const client = await getAccountServiceClient({
@@ -111,77 +144,6 @@ export async function resetPasswordApi({
   }
 }
 //unupdated functions
-export async function signInServer({
-  userIdentifier,
-  password,
-  tenantId,
-}: {
-  userIdentifier: string;
-  password: string;
-  tenantId?: string;
-}) {
-  try {
-    await signIn("credentials", {
-      username: userIdentifier,
-      password,
-      tenantId,
-      redirect: false,
-    });
-    return structuredSuccessResponse({});
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function signUpServer({
-  userName,
-  email,
-  password,
-  tenantId,
-}: {
-  userName: string;
-  email: string;
-  password: string;
-  tenantId?: string;
-}) {
-  try {
-    const client = await getAccountServiceClient({
-      __tenant: tenantId || "",
-    });
-
-    await client.account.postApiAccountRegister({
-      requestBody: {
-        userName,
-        emailAddress: email,
-        password,
-        appName: process.env.CLIENT_ID || "",
-      },
-    });
-    return {
-      status: 200,
-    };
-  } catch (error: unknown) {
-    return structuredError(error);
-  }
-}
-export async function sendPasswordResetCodeServer({email, tenant}: {email: string; tenant: string}) {
-  try {
-    const client = await getAccountServiceClient({
-      __tenant: tenant,
-    });
-    await client.account.postApiAccountSendPasswordResetCode({
-      requestBody: {
-        email,
-        appName: process.env.APP_NAME || "",
-      },
-    });
-    return {
-      status: 200,
-    };
-  } catch (error: unknown) {
-    return structuredError(error);
-  }
-}
-
 export async function getGrantedPoliciesApi() {
   try {
     const client = await getAccountServiceClient();

@@ -22,43 +22,42 @@ import {useRouter} from "next/navigation";
 import {FormProvider, useForm} from "react-hook-form";
 
 const formSchema = z.object({
-  username: z.string().min(4, {
-    message: "Username must be at least 4 characters.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
+  username: z.string().min(5),
+  email: z.string().email(),
+  password: z.string().min(4).max(32),
   tenant: z.string().optional(),
 });
 
-export interface LoginCredentials {
+export interface RegisterCredentials {
   tenantId: string;
   userName: string;
+  email: string;
   password: string;
 }
 
-export default function LoginForm({
+export default function RegisterForm({
   languageData,
-  isTenantDisabled,
   defaultTenant = "",
-  onTenantSearchAction,
   onSubmitAction,
+  isTenantDisabled,
+  onTenantSearchAction,
 }: {
   languageData: {
     Login: string;
+    Register: string;
     Tenant: string;
     InvalidToken: string;
   };
-  isTenantDisabled: boolean;
   defaultTenant?: string;
-  onTenantSearchAction?: (name: string) => Promise<{
-    type: "success";
-    data: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto;
-  }>;
-  onSubmitAction: (values: LoginCredentials) => Promise<{
+  isTenantDisabled: boolean;
+  onSubmitAction: (values: RegisterCredentials) => Promise<{
     type: "success" | "error";
     message?: string;
     data?: string;
+  }>;
+  onTenantSearchAction?: (name: string) => Promise<{
+    type: "success";
+    data: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto;
   }>;
 }) {
   const router = useRouter();
@@ -92,13 +91,15 @@ export default function LoginForm({
       onSubmitAction({
         tenantId: tenantData.tenantId || "",
         userName: values.username,
+        email: values.email,
         password: values.password,
       }).then((response) => {
         if (response.type !== "success") {
           toast.error(response?.message);
           return;
         }
-        router.replace(`/${location.pathname.split("/").slice(1).join("/")}/${location.search}`);
+        toast.success("You can now log in to your account.");
+        router.replace(`/${location.pathname.split("/").slice(1)}/login/${location.search}`);
       });
     });
   }
@@ -113,7 +114,7 @@ export default function LoginForm({
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-2 p-5 sm:w-[350px]">
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">{languageData.Login}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{languageData.Register}</h1>
       </div>
       <div className="grid space-y-2">
         <FormProvider {...form}>
@@ -162,17 +163,29 @@ export default function LoginForm({
                 )}
               />
             )}
-
+            <FormField
+              control={form.control}
+              name="email"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Email Address</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="username"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Username or email address</FormLabel>
+                  <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>User name or email address.</FormDescription>
+                  <FormDescription>User name.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -190,14 +203,10 @@ export default function LoginForm({
                 </FormItem>
               )}
             />
-            <div className="text-right">
-              <Link href="reset-password" className="text-muted-foreground mt-1 text-xs hover:underline">
-                Forgot password?
-              </Link>
-            </div>
+
             <div>
               <Button disabled={isPending || isSubmitDisabled} className="my-2 w-full">
-                Login
+                {languageData.Register}
               </Button>
             </div>
           </form>
@@ -206,13 +215,13 @@ export default function LoginForm({
       <div className="flex items-center justify-center">
         <span className="bg-muted h-px w-full"></span>
         <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">
-          Don't you have an account?
+          Do you have an account?
         </span>
         <span className="bg-muted h-px w-full"></span>
       </div>
-      <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
+      <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Register
+          Login
         </Button>
       </Link>
     </div>

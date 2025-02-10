@@ -54,7 +54,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/identity/roles",
     "displayOrder": 1,
-    "requiredPolicies": ["AbpIdentity.Roles"]
+    "requiredPolicies": ["AbpIdentity.Roles.Create"]
   },
   {
     "key": "management/identity/users",
@@ -74,7 +74,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/identity/users",
     "displayOrder": 1,
-    "requiredPolicies": ["AbpIdentity.Users"]
+    "requiredPolicies": ["AbpIdentity.Users.Create"]
   },
   {
     "key": "management/identity/claim-types",
@@ -94,7 +94,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/identity/claim-type",
     "displayOrder": 1,
-    "requiredPolicies": ["AbpIdentity.ClaimTypes"]
+    "requiredPolicies": ["AbpIdentity.ClaimTypes.Create"]
   },
   {
     "key": "management/identity/security-logs",
@@ -144,7 +144,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/saas/editions",
     "displayOrder": 1,
-    "requiredPolicies": ["Saas.Editions"]
+    "requiredPolicies": ["Saas.Editions.Create"]
   },
   {
     "key": "management/saas/tenants",
@@ -164,7 +164,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/saas/tenants",
     "displayOrder": 1,
-    "requiredPolicies": ["Saas.Tenants"]
+    "requiredPolicies": ["Saas.Tenants.Create"]
   },
   {
     "key": "management/openiddict",
@@ -194,7 +194,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/openiddict/applications",
     "displayOrder": 1,
-    "requiredPolicies": ["OpenIddictPro.Application"]
+    "requiredPolicies": ["OpenIddictPro.Application.Create"]
   },
   {
     "key": "management/openiddict/scopes",
@@ -214,7 +214,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/openiddict/scopes",
     "displayOrder": 1,
-    "requiredPolicies": ["OpenIddictPro.Scope"]
+    "requiredPolicies": ["OpenIddictPro.Scope.Create"]
   },
   {
     "key": "management/language-management",
@@ -244,7 +244,7 @@
     "icon": "new",
     "parentNavbarItemKey": "management/language-management/languages",
     "displayOrder": 1,
-    "requiredPolicies": ["LanguageManagement.Languages"]
+    "requiredPolicies": ["LanguageManagement.Languages.Create"]
   },
   {
     "key": "management/language-management/language-texts",
