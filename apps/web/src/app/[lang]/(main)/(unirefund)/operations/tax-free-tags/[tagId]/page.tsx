@@ -79,8 +79,8 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
           </Button>
         ),
       }}>
-      <div className="mb-3 grid h-full grid-cols-4 gap-3 pb-3">
-        <div className="col-span-3 grid h-full grid-cols-6 gap-3 overflow-hidden">
+      <div className="mb-3 grid h-full grid-cols-4 gap-1 pb-3 lg:gap-3">
+        <div className="col-span-3 grid h-full grid-cols-6 gap-1 overflow-hidden lg:gap-3">
           <TagCardList
             icon={<FileIcon className="size-5" />}
             rows={[
@@ -146,7 +146,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
             ]}
             title={languageData.MerchantDetails}
           />
-          <div className="col-span-full h-full overflow-hidden">
+          <div className="col-span-3 row-span-2 h-full overflow-hidden">
             <TagCard icon={<ReceiptText className="size-5" />} title="Invoices">
               <Invoices languageData={languageData} tagDetail={tagDetail} />
             </TagCard>
