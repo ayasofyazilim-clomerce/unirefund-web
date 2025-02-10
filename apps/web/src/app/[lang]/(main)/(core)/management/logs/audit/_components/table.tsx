@@ -4,7 +4,7 @@ import type {PagedResultDto_AuditLogDto} from "@ayasofyazilim/saas/Administratio
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams} from "next/navigation";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
-import {tableData} from "./audit-logs-table-data";
+import {tableData} from "./audit-table-data";
 
 function AuditLogsTable({
   response,

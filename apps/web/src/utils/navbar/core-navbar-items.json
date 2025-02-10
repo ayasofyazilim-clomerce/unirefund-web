@@ -267,10 +267,10 @@
     "requiredPolicies": ["TextTemplateManagement.TextTemplates"]
   },
   {
-    "key": "management/audit-logs",
-    "displayName": "AuditLogs",
+    "key": "management/logs",
+    "displayName": "Logs",
     "description": "View and analyze audit logs.",
-    "href": "management/audit-logs/audit-logs",
+    "href": "management/logs/audit",
     "icon": "log",
     "parentNavbarItemKey": "management",
     "displayOrder": 1,

@@ -15,17 +15,17 @@ export default async function Layout({
 }) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
-  const baseLink = getBaseLink("management/audit-logs/", lang);
+  const baseLink = getBaseLink("management/logs/", lang);
 
   return (
     <TabLayout
       tabList={[
         {
-          label: languageData["AuditLog.AuditLogs"],
-          href: `${baseLink}audit-logs`,
+          label: languageData["Log.Audit"],
+          href: `${baseLink}audit`,
         },
         {
-          label: languageData["AuditLog.EntityChanges"],
+          label: languageData["Log.EntityChanges"],
           href: `${baseLink}entity-changes`,
         },
       ]}>
