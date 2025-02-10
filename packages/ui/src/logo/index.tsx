@@ -4,12 +4,7 @@ interface ILogoProps {
   textProps?: ITextProps;
   iconProps?: IIconProps;
 }
-export function Logo({
-  variant,
-  appIconProps,
-  textProps,
-  iconProps,
-}: ILogoProps) {
+export function Logo({variant, appIconProps, textProps, iconProps}: ILogoProps) {
   if (variant === "icon" && iconProps) {
     return <Icon {...iconProps} />;
   }
@@ -29,19 +24,14 @@ interface IAppIconProps {
   iconColor?: string;
   backgroundColor?: string;
 }
-function AppIcon({
-  className,
-  backgroundColor = "#DB0000",
-  iconColor = "#FFFFFF",
-}: IAppIconProps) {
+function AppIcon({className, backgroundColor = "#DB0000", iconColor = "#FFFFFF"}: IAppIconProps) {
   return (
     <svg
       viewBox="0 0 900 900"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      preserveAspectRatio="xMidYMid meet"
-    >
+      preserveAspectRatio="xMidYMid meet">
       <rect width="900" height="900" rx="60" fill={backgroundColor} />
       <path
         d="M283.675 328.094L333.675 311.41C346.626 307.088 360 316.738 360 330.403V482.813C360 532.57 400.294 572.906 450 572.906C499.706 572.906 540 532.57 540 482.813V363.604C540 354.987 545.509 347.336 553.675 344.611L603.675 327.927C616.626 323.605 630 333.255 630 346.92V482.813C630 582.064 549.411 663 450 663C350.589 663 270 582.327 270 482.813V347.087C270 338.469 275.509 330.819 283.675 328.094Z"
@@ -60,7 +50,7 @@ interface IIconProps extends React.SVGProps<SVGPathElement> {
   color?: string;
   taxFree?: boolean;
 }
-function Icon({ className, taxFree = false, ...props }: IIconProps) {
+function Icon({className, taxFree = false, ...props}: IIconProps) {
   if (taxFree)
     return (
       <svg
@@ -68,8 +58,7 @@ function Icon({ className, taxFree = false, ...props }: IIconProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={className}
-        preserveAspectRatio="xMidYMid meet"
-      >
+        preserveAspectRatio="xMidYMid meet">
         <path
           d="M96.6754 91.0936L146.675 74.4096C159.626 70.0883 173 79.7377 173 93.403V245.813C173 295.57 213.294 335.906 263 335.906C312.706 335.906 353 295.57 353 245.813V126.604C353 117.987 358.509 110.336 366.675 107.611L416.675 90.9268C429.626 86.6054 443 96.2548 443 109.92V245.813C443 345.064 362.411 426 263 426C163.589 426 83 345.327 83 245.813V110.087C83 101.469 88.5086 93.8187 96.6754 91.0936Z"
           {...props}
@@ -115,8 +104,7 @@ function Icon({ className, taxFree = false, ...props }: IIconProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      preserveAspectRatio="xMidYMid meet"
-    >
+      preserveAspectRatio="xMidYMid meet">
       <path
         d="M46.6754 91.0936L96.6754 74.4096C109.626 70.0883 123 79.7377 123 93.403V245.813C123 295.57 163.294 335.906 213 335.906C262.706 335.906 303 295.57 303 245.813V126.604C303 117.987 308.509 110.336 316.675 107.611L366.675 90.9268C379.626 86.6054 393 96.2548 393 109.92V245.813C393 345.064 312.411 426 213 426C113.589 426 33 345.327 33 245.813V110.087C33 101.469 38.5086 93.8187 46.6754 91.0936Z"
         {...props}
@@ -134,19 +122,14 @@ interface ITextProps {
   primaryColor?: string;
   secondaryColor?: string;
 }
-function Text({
-  className,
-  primaryColor = "#DB0000",
-  secondaryColor = "#5B5B5B",
-}: ITextProps) {
+function Text({className, primaryColor = "#DB0000", secondaryColor = "#5B5B5B"}: ITextProps) {
   return (
     <svg
       viewBox="0 0 1051 188"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      preserveAspectRatio="xMidYMid meet"
-    >
+      preserveAspectRatio="xMidYMid meet">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -1,4 +1,4 @@
-import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
+import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
 
 export interface GlobalFetchType {
   url: string;
@@ -16,7 +16,7 @@ export async function GlobalFetch<T>({
   try {
     const getData = await fetch(url, options);
     if (!getData.ok) {
-      const body = (await getData.json()) as { message: string };
+      const body = (await getData.json()) as {message: string};
       if (showErrorToast) {
         toast.error(body.message);
       }

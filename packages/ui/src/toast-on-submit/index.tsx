@@ -1,7 +1,7 @@
-import { ScrollBar } from "@repo/ayasofyazilim-ui/atoms/scroll-area";
-import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
+import {ScrollBar} from "@repo/ayasofyazilim-ui/atoms/scroll-area";
+import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
 import ScrollArea from "@repo/ayasofyazilim-ui/molecules/scroll-area";
-import { Copy } from "lucide-react";
+import {Copy} from "lucide-react";
 
 export function toastOnSubmit(data: string | object) {
   toast("You submitted the following values:", {
@@ -17,9 +17,7 @@ export function toastOnSubmit(data: string | object) {
             <code className=" text-white">{JSON.stringify(data, null, 2)}</code>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
-          <p className="text-muted-foreground">
-            This submit was not connected to an API.
-          </p>
+          <p className="text-muted-foreground">This submit was not connected to an API.</p>
         </pre>
       </>
     ),

@@ -1,9 +1,9 @@
 "use client";
-import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
-import { Search, Star } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import {Search, Star} from "lucide-react";
+import {useEffect, useMemo, useState} from "react";
 
-import { StarFilledIcon } from "@radix-ui/react-icons";
+import {StarFilledIcon} from "@radix-ui/react-icons";
 import {
   Command,
   CommandDialog,
@@ -14,10 +14,10 @@ import {
   CommandList,
   CommandSeparator,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import { NavbarItemsFromDB } from "@repo/ui/theme/types";
-import { useRouter } from "next/navigation";
-import { icons } from "../navbar";
-import { DialogTitle } from "@repo/ayasofyazilim-ui/atoms/dialog";
+import {NavbarItemsFromDB} from "@repo/ui/theme/types";
+import {useRouter} from "next/navigation";
+import {icons} from "../navbar";
+import {DialogTitle} from "@repo/ayasofyazilim-ui/atoms/dialog";
 
 function getFavouriteSearches() {
   if (typeof window === "undefined") return [];
@@ -29,17 +29,9 @@ function getFavouriteSearches() {
   return [];
 }
 
-function SearchBar({
-  navbarItems,
-  prefix,
-}: {
-  navbarItems: NavbarItemsFromDB[];
-  prefix: string;
-}) {
+function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; prefix: string}) {
   const [searchOpen, setSearchOpen] = useState(false);
-  const [favouriteSearches, setFavouriteSearches] = useState(
-    getFavouriteSearches(),
-  );
+  const [favouriteSearches, setFavouriteSearches] = useState(getFavouriteSearches());
   const router = useRouter();
 
   const favourites = useMemo(() => {
@@ -63,10 +55,7 @@ function SearchBar({
     const item = navbarItems.find((i) => i.key === value);
     if (!item) return 0;
 
-    if (
-      item.displayName.toLowerCase().includes(searchValue) ||
-      item.description.toLowerCase().includes(searchValue)
-    ) {
+    if (item.displayName.toLowerCase().includes(searchValue) || item.description.toLowerCase().includes(searchValue)) {
       return 1;
     }
     return 0;
@@ -92,7 +81,7 @@ function SearchBar({
     return false;
   }
 
-  function CustomCommandItem({ item, detailed }: any) {
+  function CustomCommandItem({item, detailed}: any) {
     return (
       <CommandItem
         key={item.key + "-link"}
@@ -101,16 +90,11 @@ function SearchBar({
           router.push("/" + item.href);
           setSearchOpen(false);
         }}
-        className="relative"
-      >
+        className="relative">
         {icons[item.icon as keyof typeof icons]}
         <div className="ml-4 flex flex-col text-left">
           <div className="text-md">{item.displayName}</div>
-          {detailed && (
-            <div className="text-muted-foreground text-xs">
-              {item.description}
-            </div>
-          )}
+          {detailed && <div className="text-muted-foreground text-xs">{item.description}</div>}
         </div>
 
         <Button
@@ -119,8 +103,7 @@ function SearchBar({
           onClick={(e) => {
             e.stopPropagation();
             toggleFavouriteSearch(item.key);
-          }}
-        >
+          }}>
           {isFavouriteSearch(item.key) ? (
             <StarFilledIcon className="h-4 w-4 text-blue-400" />
           ) : (
@@ -136,8 +119,7 @@ function SearchBar({
       <Button
         variant="outline"
         className="text-muted-foreground relative hidden w-48 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block md:w-48 "
-        onClick={() => setSearchOpen(true)}
-      >
+        onClick={() => setSearchOpen(true)}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-xs">
           <Search className="mr-2 size-4 text-gray-500" />
           Search...
@@ -148,11 +130,7 @@ function SearchBar({
       </Button>
 
       {/* Small Screen */}
-      <Button
-        variant="ghost"
-        onClick={() => setSearchOpen(true)}
-        className="text-muted-foreground p-0 md:hidden"
-      >
+      <Button variant="ghost" onClick={() => setSearchOpen(true)} className="text-muted-foreground p-0 md:hidden">
         <Search className="size-6 text-gray-500" />
       </Button>
 
@@ -166,11 +144,7 @@ function SearchBar({
             {favourites.length > 0 && (
               <CommandGroup heading="Favourites">
                 {favourites.map((item) => (
-                  <CustomCommandItem
-                    key={item.key}
-                    item={item}
-                    detailed={false}
-                  />
+                  <CustomCommandItem key={item.key} item={item} detailed={false} />
                 ))}
               </CommandGroup>
             )}

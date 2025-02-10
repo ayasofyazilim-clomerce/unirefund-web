@@ -1,13 +1,9 @@
-import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import jsonToCsv from "@repo/ayasofyazilim-ui/lib/json-to-csv";
-import type {
-  ColumnFilter,
-  ColumnsType,
-  TableAction,
-} from "@repo/ayasofyazilim-ui/molecules/tables/types";
-import type { AutoFormProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {ColumnFilter, ColumnsType, TableAction} from "@repo/ayasofyazilim-ui/molecules/tables/types";
+import type {AutoFormProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export interface FormModifier {
   actionList?: (controlledFetch: unknown, getRoles: unknown) => TableAction[];
@@ -87,7 +83,7 @@ export function DELETE_ROW_ACTION(
     Cancel: string;
     "Delete.Assurance": string;
   },
-  callbackFunction: (data: { id: string }) => void,
+  callbackFunction: (data: {id: string}) => void,
 ): TableAction {
   return {
     cta: languageData.Delete,
@@ -96,7 +92,7 @@ export function DELETE_ROW_ACTION(
     description: languageData["Delete.Assurance"],
     cancelCTA: languageData.Cancel,
     variant: "destructive",
-    callback: (data: { id: string }) => {
+    callback: (data: {id: string}) => {
       callbackFunction(data);
     },
   };
@@ -111,26 +107,20 @@ export function EDIT_ROW_ON_NEW_PAGE(
   return {
     cta: languageData.Edit,
     type: "Action",
-    callback: (row: { id: string }) => {
+    callback: (row: {id: string}) => {
       router.push(`${targetLink}/${row.id}`);
     },
   };
 }
 
-export function TableAction_CREATE_ROW_ON_NEW_PAGE(
-  title: string,
-  targetLink: string,
-): TableAction {
+export function TableAction_CREATE_ROW_ON_NEW_PAGE(title: string, targetLink: string): TableAction {
   return {
     cta: title,
     type: "NewPage",
     href: targetLink,
   };
 }
-export function TableAction_EXPORT_CSV<T>(
-  tableData: T,
-  fileName: string,
-): TableAction {
+export function TableAction_EXPORT_CSV<T>(tableData: T, fileName: string): TableAction {
   return {
     cta: `Export CSV`,
     callback: () => {
@@ -140,21 +130,14 @@ export function TableAction_EXPORT_CSV<T>(
   };
 }
 
-export function getEnumId(data: { name: string; id: string }[], value: string) {
+export function getEnumId(data: {name: string; id: string}[], value: string) {
   return data?.find((item) => item.name === value)?.id || "";
 }
-export function getEnumName(
-  data: { name: string; id: string }[],
-  value: string,
-) {
+export function getEnumName(data: {name: string; id: string}[], value: string) {
   return data?.find((item) => item.id === value)?.name || "";
 }
 
 export function convertZod(schema: FormModifier) {
-  const newSchema = createZodObject(
-    schema.schema,
-    schema.formPositions || [],
-    schema.convertors || {},
-  );
+  const newSchema = createZodObject(schema.schema, schema.formPositions || [], schema.convertors || {});
   return newSchema;
 }

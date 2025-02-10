@@ -29,7 +29,7 @@ export const useLocale = () => {
 export function LocaleProvider({children, lang, resources}: LocaleProviderProps) {
   function changeLocale(cultureName: string) {
     if (!cultureName) return;
-    location.href = `${cultureName}/${location.pathname.split("/").slice(2).join("/")}`;
+    location.href = `/${cultureName}/${location.pathname.split("/").slice(2).join("/")}/${location.search}`;
   }
   const providerValue = {resources, cultureName: lang, changeLocale};
   return <LocaleContext.Provider value={providerValue}>{children}</LocaleContext.Provider>;
