@@ -2,34 +2,15 @@
 
 import type {UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
 import {$UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
-import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {
-  AutoFormSubmit,
-  createFieldConfigWithResource,
-  CustomCombobox,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
 import type {CountryDto} from "src/actions/unirefund/LocationService/types";
 import {postTravellerIdentificationApi} from "src/actions/unirefund/TravellerService/post-actions";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
-
-const createTravellerIdentificationSchema = createZodObject(
-  $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
-  [
-    "travelDocumentNumber",
-    "firstName",
-    "middleName",
-    "lastName",
-    "birthDate",
-    "issueDate",
-    "expirationDate",
-    "nationalityCountryCode2",
-    "residenceCountryCode2",
-    "identificationType",
-  ],
-);
 
 export default function Form({
   languageData,
@@ -42,68 +23,64 @@ export default function Form({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  function postTravellerIdentification(
-    data: UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
-  ) {
-    startTransition(() => {
-      void postTravellerIdentificationApi({
-        id: travellerId,
-        requestBody: data,
-      }).then((response) => {
-        handlePostResponse(response, router, `..`);
-      });
-    });
-  }
 
-  const translatedForm = createFieldConfigWithResource({
+  const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
     resources: languageData,
     name: "Form.personalIdentification",
     extend: {
-      nationalityCountryCode2: {
-        containerClassName: "gap-2",
-        renderer: (props) => (
-          <CustomCombobox<CountryDto>
-            childrenProps={props}
-            emptyValue={languageData["Country.Select"]}
-            list={countryList}
-            searchPlaceholder={languageData["Select.Placeholder"]}
-            searchResultLabel={languageData["Select.ResultLabel"]}
-            selectIdentifier="code2"
-            selectLabel="name"
-          />
-        ),
-      },
+      "ui:title": "",
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
       residenceCountryCode2: {
-        containerClassName: "gap-2",
-        renderer: (props) => (
-          <CustomCombobox<CountryDto>
-            childrenProps={props}
-            emptyValue={languageData["Country.Fetch.Fail"]}
-            list={countryList}
-            searchPlaceholder={languageData["Select.Placeholder"]}
-            searchResultLabel={languageData["Select.ResultLabel"]}
-            selectIdentifier="code2"
-            selectLabel="name"
-          />
-        ),
+        "ui:widget": "countryWidget",
+      },
+      nationalityCountryCode2: {
+        "ui:widget": "countryWidget",
       },
     },
   });
 
   return (
-    <AutoForm
-      className="grid gap-4 space-y-0 pb-4 md:grid-cols-1 lg:grid-cols-2 "
-      fieldConfig={translatedForm}
-      formSchema={createTravellerIdentificationSchema}
-      onSubmit={(values) => {
-        postTravellerIdentification(
-          values as UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
-        );
-      }}>
-      <AutoFormSubmit className="float-right" disabled={isPending}>
-        {languageData.Save}
-      </AutoFormSubmit>
-    </AutoForm>
+    <SchemaForm<UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto>
+      className="flex flex-col gap-4"
+      disabled={isPending}
+      filter={{
+        type: "include",
+        sort: true,
+        keys: [
+          "firstName",
+          "middleName",
+          "lastName",
+          "travelDocumentNumber",
+          "birthDate",
+          "issueDate",
+          "expirationDate",
+          "residenceCountryCode2",
+          "nationalityCountryCode2",
+          "identificationType",
+        ],
+      }}
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void postTravellerIdentificationApi({
+            id: travellerId,
+            requestBody: formData,
+          }).then((res) => {
+            handlePostResponse(res, router, "../personal-identifications");
+          });
+        });
+      }}
+      schema={$UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto}
+      submitText={languageData.Save}
+      uiSchema={uiSchema}
+      widgets={{
+        countryWidget: CustomComboboxWidget<CountryDto>({
+          languageData,
+          list: countryList,
+          selectIdentifier: "code2",
+          selectLabel: "name",
+        }),
+      }}
+    />
   );
 }
