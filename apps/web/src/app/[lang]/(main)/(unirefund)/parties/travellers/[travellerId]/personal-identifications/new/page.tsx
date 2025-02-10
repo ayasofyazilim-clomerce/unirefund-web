@@ -52,7 +52,7 @@ export default async function Page({params}: {params: {travellerId: string; lang
         {languageData["Travellers.Create.Identification.Description"]}
       </div>
       <div className="hidden" id="page-back-link">
-        {getBaseLink(`/parties/travellers/${travellerId}/personal-identifications`)}
+        {getBaseLink(`parties/travellers/${travellerId}/personal-identifications`)}
       </div>
     </>
   );
