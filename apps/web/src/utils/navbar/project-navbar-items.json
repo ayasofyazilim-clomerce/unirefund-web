@@ -232,7 +232,7 @@
     "icon": "new",
     "parentNavbarItemKey": "settings/product/vats",
     "displayOrder": 1,
-    "requiredPolicies": ["SettingService.Vats"]
+    "requiredPolicies": ["SettingService.Vats.Add"]
   },
   {
     "key": "settings/product/product-groups",
@@ -252,7 +252,7 @@
     "icon": "new",
     "parentNavbarItemKey": "settings/product/product-groups",
     "displayOrder": 1,
-    "requiredPolicies": ["SettingService.ProductGroupVats"]
+    "requiredPolicies": ["SettingService.ProductGroupVats.Add"]
   },
   {
     "key": "settings/tenant",
@@ -292,7 +292,7 @@
     "icon": "new",
     "parentNavbarItemKey": "settings/templates/refund-fees",
     "displayOrder": 1,
-    "requiredPolicies": ["ContractService.RefundFeeHeader"]
+    "requiredPolicies": ["ContractService.RefundFeeHeader.Create"]
   },
   {
     "key": "settings/templates/refund-tables",
@@ -312,7 +312,7 @@
     "icon": "new",
     "parentNavbarItemKey": "settings/templates/refund-tables",
     "displayOrder": 1,
-    "requiredPolicies": ["ContractService.RefundTableHeader"]
+    "requiredPolicies": ["ContractService.RefundTableHeader.Create"]
   },
   {
     "key": "settings/templates/rebate-tables",
@@ -332,7 +332,7 @@
     "icon": "new",
     "parentNavbarItemKey": "settings/templates/rebate-tables",
     "displayOrder": 1,
-    "requiredPolicies": ["ContractService.RebateSetting"]
+    "requiredPolicies": ["ContractService.RebateSetting.Create"]
   },
   {
     "key": "settings/affiliations",
@@ -471,7 +471,7 @@
     "icon": "new",
     "parentNavbarItemKey": "parties/individuals",
     "displayOrder": 1,
-    "requiredPolicies": ["CRMService.Individuals"]
+    "requiredPolicies": ["CRMService.Individuals.Create"]
   },
   {
     "key": "parties/travellers",
@@ -491,7 +491,7 @@
     "icon": "new",
     "parentNavbarItemKey": "parties/travellers",
     "displayOrder": 1,
-    "requiredPolicies": ["TravellerService.Travellers"]
+    "requiredPolicies": ["TravellerService.Travellers.Create"]
   },
   {
     "key": "operations",
@@ -575,7 +575,7 @@
     "icon": "new",
     "parentNavbarItemKey": "finance/vat-statements",
     "displayOrder": 1,
-    "requiredPolicies": ["FinanceService.VATStatementHeader"]
+    "requiredPolicies": ["FinanceService.VATStatementHeaders.Create"]
   },
   {
     "key": "finance/rebate-statements",
@@ -595,6 +595,6 @@
     "icon": "new",
     "parentNavbarItemKey": "finance/rebate-statements",
     "displayOrder": 1,
-    "requiredPolicies": ["FinanceService.RebateStatementHeaders"]
+    "requiredPolicies": ["FinanceService.RebateStatementHeaders.Create"]
   }
 ]
