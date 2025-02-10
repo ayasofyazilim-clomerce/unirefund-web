@@ -12,13 +12,19 @@ import type {Policy} from "@repo/utils/policies";
 import {CheckCircle, PlusCircle, XCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useTransition} from "react";
+import Link from "next/link";
 import isActionGranted from "@/utils/page-policy/action-policy";
 import {postRebateTableHeaderCloneByIdApi} from "@/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {getBaseLink} from "@/utils";
 
 type RebateTableHeaders = TanstackTableCreationProps<RebateTableHeaderDto>;
 
-const rebateTableHeadersColumns = (locale: string, languageData: ContractServiceResource) =>
+const rebateTableHeadersColumns = (
+  locale: string,
+  merchants: MerchantProfileDto[],
+  languageData: ContractServiceResource,
+) =>
   tanstackTableCreateColumnsByRowData<RebateTableHeaderDto>({
     rows: $RebateTableHeaderDto.properties,
     languageData: {
@@ -90,6 +96,20 @@ const rebateTableHeadersColumns = (locale: string, languageData: ContractService
         ],
       },
     },
+    custom: {
+      merchantId: {
+        content(row) {
+          if (!row.merchantId) return <></>;
+          const merchant = merchants.find((mc) => mc.id === row.merchantId);
+          if (!merchant) return <></>;
+          return (
+            <Link href={getBaseLink(`parties/merchants/${row.merchantId}/details/info`, locale)}>
+              <Badge className="block max-w-52 overflow-hidden text-ellipsis">{merchant.name}</Badge>
+            </Link>
+          );
+        },
+      },
+    },
   });
 
 const rebateTableHeadersTable = (params: {
@@ -103,9 +123,9 @@ const rebateTableHeadersTable = (params: {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: ["name", "creationTime", "lastModificationTime"],
+      columns: ["name", "merchantId", "creationTime", "lastModificationTime"],
     },
-    columnOrder: ["name", "creationTime", "lastModificationTime"],
+    columnOrder: ["name", "merchantId", "creationTime", "lastModificationTime"],
     tableActions: [
       {
         actionLocation: "table",

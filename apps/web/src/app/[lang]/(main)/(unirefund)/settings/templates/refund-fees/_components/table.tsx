@@ -21,7 +21,7 @@ function Table({
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
 
-  const columns = tableData.refundFeeHeaders.columns(lang, {
+  const columns = tableData.refundFeeHeaders.columns(lang, refundPoints, {
     name: languageData.Name,
     creationTime: languageData.CreationTime,
     lastModificationTime: languageData.LastModificationTime,

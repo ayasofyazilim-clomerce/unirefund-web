@@ -20,7 +20,7 @@ function RefundTable({
 }) {
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.refundTableHeaders.columns(lang, languageData);
+  const columns = tableData.refundTableHeaders.columns(lang, merchants, languageData);
   const table = tableData.refundTableHeaders.table({languageData, router, grantedPolicies, merchants});
   return (
     <TanstackTable
