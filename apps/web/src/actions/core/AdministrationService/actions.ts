@@ -8,6 +8,8 @@ import type {
   GetApiPermissionManagementPermissionsData,
   GetApiTextTemplateManagementTemplateDefinitionsData,
 } from "@ayasofyazilim/saas/AdministrationService";
+import {structuredSuccessResponse} from "@repo/utils/api";
+import type {Session} from "next-auth";
 import {getAdministrationServiceClient, structuredError, structuredResponse} from "src/lib";
 
 export async function getPermissionsApi(data: GetApiPermissionManagementPermissionsData) {
@@ -40,23 +42,26 @@ export async function getTextTemplateApi(data: GetApiTextTemplateManagementTempl
   }
 }
 
-export async function getAuditLogsApi(data: GetApiAuditLoggingAuditLogsData) {
+export async function getAuditLogsApi(data: GetApiAuditLoggingAuditLogsData, session: Session | null) {
   try {
-    const client = await getAdministrationServiceClient();
+    const client = await getAdministrationServiceClient(session);
     const dataResponse = await client.auditLogs.getApiAuditLoggingAuditLogs(data);
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
-export async function getAuditLogsEntityChangesApi(data: GetApiAuditLoggingAuditLogsEntityChangesData) {
+export async function getAuditLogsEntityChangesApi(
+  data: GetApiAuditLoggingAuditLogsEntityChangesData,
+  session: Session | null,
+) {
   try {
-    const client = await getAdministrationServiceClient();
+    const client = await getAdministrationServiceClient(session);
     const dataResponse = await client.auditLogs.getApiAuditLoggingAuditLogsEntityChanges(data);
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 

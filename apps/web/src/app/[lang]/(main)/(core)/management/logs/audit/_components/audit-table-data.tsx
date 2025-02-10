@@ -28,7 +28,7 @@ const auditLogsColumns = (locale: string, languageData: AdministrationServiceRes
     rows: $Volo_Abp_AuditLogging_AuditLogDto.properties,
     languageData: {
       languageData,
-      constantKey: "Form.AuditLog.AuditLogs",
+      constantKey: "Form.Log.Audit",
     },
     config: {
       locale,
@@ -77,14 +77,14 @@ function auditLogsTable(languageData: AdministrationServiceResource) {
       ],
       facetedFilters: {
         httpStatusCode: {
-          title: languageData["Form.AuditLog.AuditLogs.httpStatusCode"],
+          title: languageData["Form.Log.Audit.httpStatusCode"],
           options: $System_Net_HttpStatusCode.enum.map((statusCode) => ({
             value: statusCode,
             label: statusCode,
           })),
         },
         httpMethod: {
-          title: languageData["Form.AuditLog.AuditLogs.httpMethod"],
+          title: languageData["Form.Log.Audit.httpMethod"],
           options: [
             {value: "GET", label: "GET"},
             {value: "POST", label: "POST"},
@@ -97,7 +97,7 @@ function auditLogsTable(languageData: AdministrationServiceResource) {
           ],
         },
         hasException: {
-          title: languageData["Form.AuditLog.AuditLogs.hasException"],
+          title: languageData["Form.Log.Audit.hasException"],
           options: [
             {value: "true", label: "True"},
             {value: "false", label: "False"},
