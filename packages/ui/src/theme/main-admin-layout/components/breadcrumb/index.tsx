@@ -61,7 +61,7 @@ export function BreadcrumbDropdown({
                           );
                           return subSubSubItems.length > 0 ? (
                             <DropdownMenuSub key={subSubItem.key}>
-                              <Link key={subSubSubItems[0].key} href={"/" + subSubSubItems[0].href || "#"}>
+                              <Link key={subSubItem.key} href={"/" + subSubItem.href || "#"}>
                                 <DropdownMenuSubTrigger>
                                   <BreadcrumbIcon item={subSubItem} />
                                   <span>{subSubItem.displayName}</span>
