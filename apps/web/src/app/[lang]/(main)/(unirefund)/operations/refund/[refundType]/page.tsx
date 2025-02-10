@@ -69,29 +69,16 @@ export default async function Page({
     tagIds: tagIds?.split(",") || [],
   });
 
-  // Traveller'ın uygun durumda  tag'ı yoksa "An internal error occurred during your request!" dönüyor. Backend değişince bu kontrol silinebilir.
-  // if (isErrorOnRequest(refundableTagsResponse, lang, false)) {
-  //   return (
-  //     <ErrorComponent
-  //       languageData={languageData}
-  //       message={refundableTagsResponse.message}
-  //     />
-  //   );
-  // }
+  if (isErrorOnRequest(refundableTagsResponse, lang, false)) {
+    return <ErrorComponent languageData={languageData} message={refundableTagsResponse.message} />;
+  }
 
-  const refundableTags =
-    refundableTagsResponse.type === "success"
-      ? refundableTagsResponse.data
-      : {
-          totalCount: 0,
-          items: [],
-        };
   return (
     <ClientPage
       accessibleRefundPoints={accessibleRefundPoints}
       languageData={languageData}
       locale={lang}
-      response={refundableTags}
+      response={refundableTagsResponse.data}
     />
   );
 }
