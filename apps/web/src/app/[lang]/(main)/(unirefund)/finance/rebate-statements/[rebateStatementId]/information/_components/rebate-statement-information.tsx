@@ -81,7 +81,7 @@ export default function RebateStatementInformation({
   };
 
   return (
-    <div className="max-h-[500px] w-full overflow-y-auto pt-4">
+    <div className="max-h-[calc(100vh-200px)] w-full overflow-y-auto pt-4">
       <Card className="flex-1  rounded-none p-4">
         <CardHeader className="py-4">
           <div className="flex flex-row justify-between gap-6">
