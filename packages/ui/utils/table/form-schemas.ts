@@ -11,7 +11,7 @@ export const UpdateAddressTypeDto = $UniRefund_LocationService_AddressCommonData
 export const UpdateEmailCommonDataDto = $UniRefund_CRMService_EmailCommonDatas_UpdateEmailCommonDataDto;
 
 // re-usable schema sub-positions to prevent repeated code
-const TelephoneSubPosition = ["localNumber", "typeCode"];
+const TelephoneSubPosition = ["localNumber"];
 const AddressSubPosition = ["countryId", "regionId", "cityId", "postalCode", "addressLine", "type"];
 const EmailSubPosition = ["emailAddress", "typeCode"];
 export const ContactFormSubPositions = {
