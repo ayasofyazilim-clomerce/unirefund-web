@@ -8,17 +8,16 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import { CheckIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import {CheckIcon} from "lucide-react";
+import {useRouter} from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
-import { countries } from "./country-data";
-import { DropdownMenuSub } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import {countries} from "./country-data";
+import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
-function LanguageSelector({ lang }: { lang: string }) {
+function LanguageSelector({lang}: {lang: string}) {
   const router = useRouter();
   const selectedLanguageId =
-    countries.find((i) => i.cultureName === lang)?.id ||
-    "75fe277d-5138-285d-8088-3a1171b61635";
+    countries.find((i) => i.cultureName === lang)?.id || "75fe277d-5138-285d-8088-3a1171b61635";
 
   const selectedLanguage = countries.find((i) => i.id === selectedLanguageId);
 
@@ -27,10 +26,7 @@ function LanguageSelector({ lang }: { lang: string }) {
     const item = countries.find((i) => i.id === value);
     if (!item) return 0;
 
-    if (
-      item.displayName.toLowerCase().includes(searchValue) ||
-      item.cultureName.toLowerCase().includes(searchValue)
-    ) {
+    if (item.displayName.toLowerCase().includes(searchValue) || item.cultureName.toLowerCase().includes(searchValue)) {
       return 1;
     }
     return 0;
@@ -45,9 +41,7 @@ function LanguageSelector({ lang }: { lang: string }) {
             src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${selectedLanguage?.flagIcon}.svg`}
             alt={selectedLanguage?.displayName}
           />
-          <span className="hidden md:block">
-            {selectedLanguage?.displayName}
-          </span>
+          <span className="hidden md:block">{selectedLanguage?.displayName}</span>
         </div>
       }
       dropdownContent={
@@ -63,13 +57,9 @@ function LanguageSelector({ lang }: { lang: string }) {
                     value={label.id}
                     onSelect={(value) => {
                       const selected = countries.find((i) => i.id === value);
-                      const newUrl =
-                        selected?.cultureName +
-                        "/" +
-                        location.pathname.split("/").slice(2).join("/");
+                      const newUrl = selected?.cultureName + "/" + location.pathname.split("/").slice(2).join("/");
                       router.push("/" + newUrl);
-                    }}
-                  >
+                    }}>
                     {selectedLanguageId === label.id ? (
                       <CheckIcon className="mr-2 h-4 w-4" />
                     ) : (

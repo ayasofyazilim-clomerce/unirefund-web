@@ -1,34 +1,28 @@
 "use client";
 
-import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { useTheme } from "../../providers/theme";
+import {usePathname} from "next/navigation";
+import {useEffect, useMemo, useState} from "react";
+import {useTheme} from "../../providers/theme";
 import Navbar from "./components/navbar";
-import { Skeleton } from "@repo/ayasofyazilim-ui/atoms/skeleton";
+import {Skeleton} from "@repo/ayasofyazilim-ui/atoms/skeleton";
 
-const PageHeader = dynamic(
-  () => import("../../../../ayasofyazilim-ui/src/molecules/page-header"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-4 flex items-center gap-4 px-2">
-        <Skeleton className="h-12 w-12 " />
-        <div>
-          <Skeleton className="h-6 w-80 " />
-          <Skeleton className="w-120 mt-1  h-6" />
-        </div>
+const PageHeader = dynamic(() => import("../../../../ayasofyazilim-ui/src/molecules/page-header"), {
+  ssr: false,
+  loading: () => (
+    <div className="mb-4 flex items-center gap-4 px-2">
+      <Skeleton className="h-12 w-12 " />
+      <div>
+        <Skeleton className="h-6 w-80 " />
+        <Skeleton className="w-120 mt-1  h-6" />
       </div>
-    ),
-  },
-);
+    </div>
+  ),
+});
 
-function findActiveNavbarItem(
-  navbarItems: NavbarItemsFromDB[],
-  pathName: string,
-) {
+function findActiveNavbarItem(navbarItems: NavbarItemsFromDB[], pathName: string) {
   let item = navbarItems?.find((i) => "/" + i.key === pathName);
   if (item) {
     return item;
@@ -54,9 +48,7 @@ function findBreadcrumbItems(
   }
 
   data.push(activeItem);
-  const active = navbarItems.find(
-    (i) => i.key === activeItem?.parentNavbarItemKey,
-  );
+  const active = navbarItems.find((i) => i.key === activeItem?.parentNavbarItemKey);
   if (active && active?.parentNavbarItemKey !== "/") {
     return findBreadcrumbItems(navbarItems, active, data);
   }
@@ -64,15 +56,9 @@ function findBreadcrumbItems(
 }
 
 export function HeaderSection() {
-  const { navbarItems, prefix, lang, tenantData } = useTheme();
+  const {navbarItems, prefix, lang, tenantData} = useTheme();
   const pathName = usePathname();
-  const {
-    activeNavItem,
-    pageBackEnabled,
-    breadcrumbItems,
-    sectionLayoutItems,
-    activeSectionLayoutItem,
-  } = useMemo(() => {
+  const {activeNavItem, pageBackEnabled, breadcrumbItems, sectionLayoutItems, activeSectionLayoutItem} = useMemo(() => {
     const data: NavbarItemsFromDB[] = [];
     const item = findActiveNavbarItem(navbarItems, pathName);
     const pageBackEnabled = "/" + item?.key !== pathName;
@@ -82,24 +68,19 @@ export function HeaderSection() {
     navItems?.forEach((n) => {
       const subItem = {
         ...n,
-        subNavbarItems: navbarItems?.filter(
-          (i) => i.parentNavbarItemKey === n.parentNavbarItemKey,
-        ),
+        subNavbarItems: navbarItems?.filter((i) => i.parentNavbarItemKey === n.parentNavbarItemKey),
       };
       breadcrumbItems.push(subItem);
     });
     breadcrumbItems.reverse();
 
-    const sectionLayoutItems = breadcrumbItems[
-      breadcrumbItems.length - 1
-    ]?.subNavbarItems?.map((item) => ({
+    const sectionLayoutItems = breadcrumbItems[breadcrumbItems.length - 1]?.subNavbarItems?.map((item) => ({
       id: item.key,
       name: item.displayName,
       link: item.href ? "/" + item.href : undefined,
     }));
 
-    const activeSectionLayoutItem =
-      breadcrumbItems[breadcrumbItems.length - 1]?.key;
+    const activeSectionLayoutItem = breadcrumbItems[breadcrumbItems.length - 1]?.key;
 
     return {
       activeNavItem: item,
@@ -119,15 +100,9 @@ export function HeaderSection() {
   });
 
   useEffect(() => {
-    const newTitle =
-      document.getElementById("page-title")?.textContent ||
-      activeNavItem.displayName;
-    const newDescription =
-      document.getElementById("page-description")?.textContent ||
-      activeNavItem.description;
-    const newHref =
-      document.getElementById("page-back-link")?.textContent ||
-      "/" + activeNavItem.href;
+    const newTitle = document.getElementById("page-title")?.textContent || activeNavItem.displayName;
+    const newDescription = document.getElementById("page-description")?.textContent || activeNavItem.description;
+    const newHref = document.getElementById("page-back-link")?.textContent || "/" + activeNavItem.href;
 
     setPageHeaderProps({
       title: newTitle,
