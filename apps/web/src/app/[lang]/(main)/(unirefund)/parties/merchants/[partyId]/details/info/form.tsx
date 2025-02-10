@@ -38,6 +38,7 @@ function MerchantForm({
     "taxOfficeId",
     "parentId",
     "taxpayerId",
+    "customerNumber",
   ]);
   const dependencies: DependenciesType = [
     {
