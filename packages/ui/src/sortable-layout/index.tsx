@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
+import {DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors} from "@dnd-kit/core";
 import {
   SortableContext,
   arraySwap,
@@ -15,12 +8,12 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
+import {CSS} from "@dnd-kit/utilities";
+import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 
-import { GripVertical } from "lucide-react";
-import { useState } from "react";
-import { cn } from "../utils";
+import {GripVertical} from "lucide-react";
+import {useState} from "react";
+import {cn} from "../utils";
 
 export function SortableLayout({
   items,
@@ -36,14 +29,8 @@ export function SortableLayout({
   className?: string;
 }) {
   return (
-    <div className={cn("gap-4 grid grid-cols-3 w-full", className)}>
-      <Sortable
-        initalItems={items}
-        getLatestList={getLatestList}
-        handle
-        editable={editMode}
-        renderItem={renderItem}
-      />
+    <div className={cn("grid w-full grid-cols-3 gap-4", className)}>
+      <Sortable initalItems={items} getLatestList={getLatestList} handle editable={editMode} renderItem={renderItem} />
     </div>
   );
 }
@@ -66,24 +53,14 @@ export function Sortable({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext items={listItems} strategy={rectSwappingStrategy}>
         {listItems.map((item: any) => (
-          <SortableItem
-            key={item.id}
-            id={item.order}
-            handle={handle}
-            editable={editable}
-            className={item.className}
-          >
+          <SortableItem key={item.id} id={item.order} handle={handle} editable={editable} className={item.className}>
             {renderItem(item)}
           </SortableItem>
         ))}
@@ -91,12 +68,10 @@ export function Sortable({
     </DndContext>
   );
   function handleDragEnd(event: any) {
-    const { active, over } = event;
+    const {active, over} = event;
     if (active.id !== over.id) {
       setItems((items: any) => {
-        const oldIndex = items.findIndex(
-          (item: any) => item.order === active.id
-        );
+        const oldIndex = items.findIndex((item: any) => item.order === active.id);
         const newIndex = items.findIndex((item: any) => item.order === over.id);
         let newArray = arraySwap(items, oldIndex, newIndex);
         if (getLatestList) getLatestList(newArray);
@@ -119,8 +94,7 @@ export function SortableItem({
   editable: boolean;
   className?: string;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: id });
+  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: id});
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -134,19 +108,14 @@ export function SortableItem({
       {...attributes}
       {...(handle ? {} : listeners)}
       tabIndex={handle ? -1 : undefined}
-      className={cn(
-        `relative ${editable ? "select-none cursor-default" : "select-all cursor-default"}`,
-        className
-      )}
-    >
+      className={cn(`relative ${editable ? "cursor-default select-none" : "cursor-default select-all"}`, className)}>
       {children}
       {handle && editable ? (
         <Button
           {...(handle ? listeners : {})}
           variant={"secondary"}
-          className="w-4 px-0 absolute top-4 right-4 cursor-grab"
-        >
-          <GripVertical className="w-4 text-muted-foreground" />
+          className="absolute right-4 top-4 w-4 cursor-grab px-0">
+          <GripVertical className="text-muted-foreground w-4" />
         </Button>
       ) : null}
     </div>

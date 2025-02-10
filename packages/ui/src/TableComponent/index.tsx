@@ -1,15 +1,15 @@
 "use client";
 
-import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
+import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
 import type {
   ColumnFilter,
   fetchRequestProps,
   FilterColumnResult,
   TableAction,
 } from "@repo/ayasofyazilim-ui/molecules/tables/types";
-import { AutoFormProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {AutoFormProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import Dashboard from "@repo/ayasofyazilim-ui/templates/dashboard";
-import type { FormModifier } from "@repo/ui/utils/table/table-utils";
+import type {FormModifier} from "@repo/ui/utils/table/table-utils";
 import {
   AUTO_COLUMNS_DATA,
   convertZod,
@@ -18,8 +18,8 @@ import {
   TableAction_CREATE_ROW_ON_NEW_PAGE,
   TableAction_EXPORT_CSV,
 } from "@repo/ui/utils/table/table-utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
 
 type CustomDialogItem = {
   type: "row" | "table";
@@ -27,10 +27,7 @@ type CustomDialogItem = {
   content: JSX.Element;
 };
 
-type AutoFormDialogItem = Pick<
-  AutoFormProps,
-  "values" | "dependencies" | "fieldConfig"
-> & {
+type AutoFormDialogItem = Pick<AutoFormProps, "values" | "dependencies" | "fieldConfig"> & {
   type: "row" | "table";
   title: string;
   formPositions?: string[];
@@ -68,7 +65,7 @@ export default function TableComponent({
     filter?: FilterColumnResult,
   ) => Promise<{
     type: string;
-    data: { items: unknown[]; totalCount: number };
+    data: {items: unknown[]; totalCount: number};
   }>;
   deleteRequest?: (id: string) => Promise<{
     type: string;
@@ -84,10 +81,7 @@ export default function TableComponent({
   const [isLoading, setIsLoading] = useState(true);
   const isWindowExists = typeof window !== "undefined";
 
-  function getData({
-    page,
-    filter,
-  }:fetchRequestProps) {
+  function getData({page, filter}: fetchRequestProps) {
     // setIsLoading(true);
     fetchRequest(page, filter)
       .then((res) => {
@@ -95,13 +89,7 @@ export default function TableComponent({
           setTableData(res?.data);
           setIsLoading(false);
         } else {
-          toast.error(
-            res.type +
-              ": " +
-              languageData["Fetch.Fail"] +
-              " " +
-              JSON.stringify(res?.data),
-          );
+          toast.error(res.type + ": " + languageData["Fetch.Fail"] + " " + JSON.stringify(res?.data));
         }
       })
       .catch(() => {
@@ -110,13 +98,13 @@ export default function TableComponent({
       });
   }
 
-  function deleteRow(row: { id: string }) {
+  function deleteRow(row: {id: string}) {
     if (!deleteRequest) return;
     setIsLoading(true);
     deleteRequest(row.id)
       .then((res) => {
         if (res.type === "success") {
-          getData({page:0, filter: {}});
+          getData({page: 0, filter: {}});
           toast.success(languageData["Delete.Success"]);
         } else {
           setIsLoading(false);
@@ -133,18 +121,12 @@ export default function TableComponent({
 
   if (editOnNewPage) {
     columnsData.data.actionList?.push(
-      EDIT_ROW_ON_NEW_PAGE(
-        languageData,
-        editOnNewPageUrl || (isWindowExists ? window.location.href : ""),
-        router,
-      ),
+      EDIT_ROW_ON_NEW_PAGE(languageData, editOnNewPageUrl || (isWindowExists ? window.location.href : ""), router),
     );
   }
 
   if (deleteableRow) {
-    columnsData.data.actionList?.push(
-      DELETE_ROW_ACTION(languageData, deleteRow),
-    );
+    columnsData.data.actionList?.push(DELETE_ROW_ACTION(languageData, deleteRow));
   }
 
   const action: TableAction[] = [];
@@ -153,8 +135,7 @@ export default function TableComponent({
     action.unshift(
       TableAction_CREATE_ROW_ON_NEW_PAGE(
         createOnNewPageTitle || languageData.New,
-        createOnNewPageUrl ||
-          (isWindowExists ? `${window.location.href}/new` : ""),
+        createOnNewPageUrl || (isWindowExists ? `${window.location.href}/new` : ""),
       ),
     );
   }
@@ -202,11 +183,7 @@ export default function TableComponent({
       action?.push(_action);
     });
   }
-  action.push(
-    TableAction_EXPORT_CSV<
-      { items: unknown[]; totalCount: number } | undefined
-    >(tableData, "export.csv"),
-  );
+  action.push(TableAction_EXPORT_CSV<{items: unknown[]; totalCount: number} | undefined>(tableData, "export.csv"));
 
   return (
     <Dashboard

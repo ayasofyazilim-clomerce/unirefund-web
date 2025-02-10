@@ -1,9 +1,9 @@
-import { useTheme } from "../../../../providers/theme";
+import {useTheme} from "../../../../providers/theme";
 import NavbarDropdown from "../navbar-dropdown";
-import { DropdownMenuSeparator } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import {DropdownMenuSeparator} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
 function ProfileMenu() {
-  const { profileMenu } = useTheme();
+  const {profileMenu} = useTheme();
 
   if (!profileMenu) {
     return null;
@@ -12,22 +12,12 @@ function ProfileMenu() {
     <NavbarDropdown
       title={profileMenu.menuTitle}
       hideChevron={true}
-      triggerContent={
-        <img
-          className="h-8 w-8 rounded-full"
-          src={profileMenu?.info.image}
-          alt="user photo"
-        />
-      }
+      triggerContent={<img className="h-8 w-8 rounded-full" src={profileMenu?.info.image} alt="user photo" />}
       dropdownContent={
         <>
           <div className="px-4 py-3">
-            <span className="block text-sm font-semibold text-gray-900">
-              {profileMenu?.info.name}
-            </span>
-            <span className="block truncate text-sm text-gray-900">
-              {profileMenu?.info.email}
-            </span>
+            <span className="block text-sm font-semibold text-gray-900">{profileMenu?.info.name}</span>
+            <span className="block truncate text-sm text-gray-900">{profileMenu?.info.email}</span>
           </div>
 
           {profileMenu?.menu.account && (
@@ -37,10 +27,7 @@ function ProfileMenu() {
                 {profileMenu?.menu.account.map((item) => (
                   <li key={item.name}>
                     {item.href && (
-                      <a
-                        href={item.href}
-                        className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100"
-                      >
+                      <a href={item.href} className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100">
                         {item.icon}
                         {item.name}
                       </a>
@@ -48,8 +35,7 @@ function ProfileMenu() {
                     {item.onClick && (
                       <button
                         className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100"
-                        onClick={() => item?.onClick()}
-                      >
+                        onClick={() => item?.onClick()}>
                         {item.icon}
                         {item.name}
                       </button>
@@ -67,10 +53,7 @@ function ProfileMenu() {
                 {profileMenu?.menu.primary.map((item) => (
                   <li key={item.name}>
                     {item.href && (
-                      <a
-                        href={item.href}
-                        className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100"
-                      >
+                      <a href={item.href} className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100">
                         {item.icon}
                         {item.name}
                       </a>
@@ -78,8 +61,7 @@ function ProfileMenu() {
                     {item.onClick && (
                       <button
                         className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100"
-                        onClick={() => item?.onClick()}
-                      >
+                        onClick={() => item?.onClick()}>
                         {item.icon}
                         {item.name}
                       </button>
@@ -97,10 +79,7 @@ function ProfileMenu() {
                 {profileMenu?.menu.secondary.map((item) => (
                   <li key={item.name}>
                     {item.href && (
-                      <a
-                        href={item.href}
-                        className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100"
-                      >
+                      <a href={item.href} className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100">
                         {item.icon}
                         {item.name}
                       </a>
@@ -108,8 +87,7 @@ function ProfileMenu() {
                     {item.onClick && (
                       <button
                         className="flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100"
-                        onClick={() => item?.onClick()}
-                      >
+                        onClick={() => item?.onClick()}>
                         {item.icon}
                         {item.name}
                       </button>
