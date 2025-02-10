@@ -14,7 +14,7 @@ async function getApiRequests(filters: GetApiContractServiceRefundFeeHeadersData
     const session = await auth();
     const apiRequests = await Promise.all([
       getRefundFeeHeadersApi(filters, session),
-      getRefundPointsApi({typeCode: "HEADQUARTER"}, session),
+      getRefundPointsApi({typeCodes: ["HEADQUARTER"]}, session),
     ]);
     return {
       type: "success" as const,
