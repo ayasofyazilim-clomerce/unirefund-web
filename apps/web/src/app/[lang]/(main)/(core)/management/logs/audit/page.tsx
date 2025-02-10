@@ -1,12 +1,29 @@
 "use server";
 
 import type {GetApiAuditLoggingAuditLogsData} from "@ayasofyazilim/saas/AdministrationService";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getAuditLogsApi} from "src/actions/core/AdministrationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/AdministrationService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import AuditLogsTable from "./_components/table";
+
+async function getApiRequests(searchParams: GetApiAuditLoggingAuditLogsData) {
+  try {
+    const session = await auth();
+    const apiRequests = await Promise.all([getAuditLogsApi(searchParams, session)]);
+    return {
+      type: "success" as const,
+      data: apiRequests,
+    };
+  } catch (error) {
+    const err = error as {data?: string; message?: string};
+    return {
+      type: "error" as const,
+      message: err.message,
+    };
+  }
+}
 
 export default async function Page({
   params,
@@ -21,10 +38,12 @@ export default async function Page({
     requiredPolicies: ["AuditLogging.AuditLogs"],
     lang,
   });
-  const auditLogsResponse = await getAuditLogsApi(searchParams);
-  if (isErrorOnRequest(auditLogsResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={auditLogsResponse.message} />;
+
+  const apiRequests = await getApiRequests(searchParams);
+  if (apiRequests.type === "error") {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
+  const [auditLogsResponse] = apiRequests.data;
 
   return <AuditLogsTable languageData={languageData} response={auditLogsResponse.data} />;
 }

@@ -14,7 +14,7 @@ const entityChangesColumns = (locale: string, languageData: AdministrationServic
     rows: $Volo_Abp_AuditLogging_EntityChangeDto.properties,
     languageData: {
       languageData,
-      constantKey: "Form.AuditLog.EntityChanges",
+      constantKey: "Form.Log.EntityChanges",
     },
     config: {
       locale,
@@ -35,10 +35,10 @@ function entityChangesTable(languageData: AdministrationServiceResource) {
       ],
       facetedFilters: {
         changeType: {
-          title: languageData["Form.AuditLog.EntityChanges.changeType"],
+          title: languageData["Form.Log.EntityChanges.changeType"],
           options: $Volo_Abp_Auditing_EntityChangeType.enum.map((statusCode) => ({
             value: statusCode,
-            label: languageData[`Form.AuditLog.EntityChanges.${statusCode}`],
+            label: languageData[`Form.Log.EntityChanges.${statusCode}`],
           })),
         },
       },
