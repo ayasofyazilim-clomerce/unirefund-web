@@ -4,17 +4,13 @@ import type {
   UniRefund_TravellerService_Travellers_TravellerDetailProfileDto,
 } from "@ayasofyazilim/saas/TravellerService";
 import {$UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto} from "@ayasofyazilim/saas/TravellerService";
-import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {AutoFormSubmit, createFieldConfigWithResource} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "src/actions/core/api-utils-client";
 import {putTravellerPersonalPreferenceApi} from "src/actions/unirefund/TravellerService/put-actions";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
-
-const updatPersonalPreferenceSchema = createZodObject(
-  $UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto,
-);
 
 export default function Page({
   languageData,
@@ -26,41 +22,33 @@ export default function Page({
   travellerData: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  const translatedPersonalPreferenceForm = createFieldConfigWithResource({
+  const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto,
     resources: languageData,
   });
-  const [isPending, startTransition] = useTransition();
-
-  function updateTravellerPersonalPreference(
-    data: UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto,
-  ) {
-    startTransition(() => {
-      void putTravellerPersonalPreferenceApi({
-        id: travellerId,
-        requestBody: data,
-      }).then((response) => {
-        handlePutResponse(response, router);
-      });
-    });
-  }
 
   return (
-    <AutoForm
-      fieldConfig={translatedPersonalPreferenceForm}
-      formSchema={updatPersonalPreferenceSchema}
-      onSubmit={(values) => {
-        updateTravellerPersonalPreference(
-          values as UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto,
-        );
-      }}
-      values={{
+    <SchemaForm
+      className="flex flex-col gap-4"
+      disabled={isPending}
+      formData={{
         languagePreferenceCode: travellerData.languagePreferenceCode,
-      }}>
-      <AutoFormSubmit className="float-right" disabled={isPending}>
-        {languageData["Edit.Save"]}
-      </AutoFormSubmit>
-    </AutoForm>
+      }}
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void putTravellerPersonalPreferenceApi({
+            id: travellerId,
+            requestBody: formData as UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto,
+          }).then((res) => {
+            handlePutResponse(res, router);
+          });
+        });
+      }}
+      schema={$UniRefund_TravellerService_PersonalPreferencesTypes_UpsertPersonalPreferenceDto}
+      submitText={languageData["Edit.Save"]}
+      uiSchema={uiSchema}
+    />
   );
 }
