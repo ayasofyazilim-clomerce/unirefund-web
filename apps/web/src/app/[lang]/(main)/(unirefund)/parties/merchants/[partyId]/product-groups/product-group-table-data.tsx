@@ -102,6 +102,7 @@ function productGroupsRowActions(
       actionLocation: "row",
       cta: languageData["Merchant.ProductGroup.Default"],
       title: languageData["Merchant.ProductGroup.Default"],
+      condition: (row) => !row.isDefault,
       confirmationText: languageData.Save,
       cancelText: languageData.Cancel,
       description: languageData["Merchant.ProductGroup.Default.Description"],
