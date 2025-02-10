@@ -17,7 +17,7 @@ function TagCardList({
 }) {
   return (
     <TagCard className={className} icon={icon} title={title}>
-      <div className="grid grid-cols-6 gap-2">
+      <div className="grid grid-cols-6 2xl:gap-2">
         {rows.map((row) => {
           const valueElement = row.link ? (
             <Link className="text-blue-700" href={row.link} key={row.name}>
@@ -58,7 +58,7 @@ export function TagCard({
   return (
     <Card className={cn("col-span-2 h-full flex-1 rounded-none", className)}>
       <CardHeader className="h-full py-4">
-        <CardTitle className="mb-2 flex items-center gap-2 text-lg">
+        <CardTitle className=" flex items-center gap-2 text-lg">
           {icon}
           {title}
         </CardTitle>
