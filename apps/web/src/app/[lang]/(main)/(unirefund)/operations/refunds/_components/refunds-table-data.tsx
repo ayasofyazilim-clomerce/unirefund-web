@@ -28,6 +28,13 @@ const refundsColumns = (locale: string, languageData: TagServiceResource) =>
     config: {
       locale,
     },
+    links: {
+      referenceNumber: {
+        prefix: "refunds",
+        targetAccessorKey: "id",
+        suffix: "tags",
+      },
+    },
   });
 
 function refundsTable(languageData: TagServiceResource): RefundsTable {
@@ -46,7 +53,14 @@ function refundsTable(languageData: TagServiceResource): RefundsTable {
         "travellerFeeAmount",
       ],
     },
-    columnOrder: ["referenceNumber", "travellerDocumentNumber"],
+    columnOrder: [
+      "referenceNumber",
+      "travellerDocumentNumber",
+      "refundType",
+      "refundAmount",
+      "travellerFeeAmount",
+      "refundCurrency",
+    ],
     filters: {
       facetedFilters: {
         statusesFilterStatuses: {
