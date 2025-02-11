@@ -286,25 +286,6 @@
     "displayOrder": 1
   },
   {
-    "key": "settings/tenant",
-    "displayName": "Tenant",
-    "description": "Manage settings for tenants.",
-    "href": "settings/tenant",
-    "icon": "settings",
-    "parentNavbarItemKey": "settings",
-    "displayOrder": 1,
-    "requiredPolicies": ["UniRefund.Dashboard.Tenant"]
-  },
-  {
-    "key": "settings",
-    "displayName": "Settings",
-    "description": "Access settings settings and tools.",
-    "href": null,
-    "icon": "settings",
-    "parentNavbarItemKey": "/",
-    "displayOrder": 1
-  },
-  {
     "key": "settings/product",
     "displayName": "Product",
     "description": "Configure VAT settings and rules.",
