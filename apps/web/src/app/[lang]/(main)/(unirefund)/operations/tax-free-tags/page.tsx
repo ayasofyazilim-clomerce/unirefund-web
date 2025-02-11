@@ -1,81 +1,26 @@
 "use server";
 
-import type {
-  GetApiTagServiceTagData,
-  UniRefund_TagService_Tags_Enums_RefundType,
-  UniRefund_TagService_Tags_TagStatusType,
-} from "@ayasofyazilim/saas/TagService";
-import type {FilterComponentSearchItem} from "@repo/ayasofyazilim-ui/molecules/filter-component";
-import {CreditCard, DollarSign, Tags} from "lucide-react";
 import {isUnauthorized} from "@repo/utils/policies";
+import {CreditCard, DollarSign, Tags} from "lucide-react";
 import {getTagsApi, getTagSummaryApi} from "src/actions/unirefund/TagService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import {isErrorOnRequest} from "src/utils/page-policy/utils";
-import {getDateRanges} from "src/utils/utils-date";
 import {localizeCurrency} from "src/utils/utils-number";
 import ErrorComponent from "../../../_components/error-component";
 import {TagSummary} from "../_components/tag-summary";
 import Filter from "./_components/filter";
 import TaxFreeTagsTable from "./_components/table";
 import TaxFreeTagsSearchForm from "./_components/tax-free-tags-search-form";
+import type {TagsSearchParamType} from "./_components/utils";
+import {initParams} from "./_components/utils";
 
-interface SearchParamType {
-  maxResultCount?: number;
-  skipCount?: number;
-  sorting?: string;
-  invoiceNumber?: string;
-  exportDate?: string;
-  issuedDate?: string;
-  paidDate?: string;
-  merchantIds?: string;
-  refundTypes?: string;
-  statuses?: string;
-  tagNumber?: string;
-  travellerDocumentNumber?: string;
-  travellerFullName?: string;
-  travellerIds?: string;
-}
-
-function initParams(searchParams: SearchParamType) {
-  const {ranges} = getDateRanges();
-  const {
-    merchantIds: spMerchantIds,
-    statuses: spStatuses,
-    refundTypes: spRefundTypes,
-    travellerIds: spTravellerIds,
-    exportDate: spExportDate,
-    issuedDate: spIssuedDate,
-    paidDate: spPaidDate,
-  } = searchParams;
-
-  const merchantIdsParsed = JSON.parse(spMerchantIds || "[]") as FilterComponentSearchItem[];
-  const merchantIds = merchantIdsParsed.map((i: FilterComponentSearchItem) => i.id);
-
-  const tagData: GetApiTagServiceTagData = {
-    ...searchParams,
-    merchantIds,
-    statuses: spStatuses?.split(",") as UniRefund_TagService_Tags_TagStatusType[],
-    refundTypes: spRefundTypes?.split(",") as UniRefund_TagService_Tags_Enums_RefundType[],
-    travellerIds: spTravellerIds?.split(","),
-  };
-
-  if (spIssuedDate) {
-    tagData.issuedStartDate = ranges[spIssuedDate].startDate.toISOString();
-    tagData.issuedEndDate = ranges[spIssuedDate].endDate.toISOString();
-  }
-  if (spPaidDate) {
-    tagData.paidStartDate = ranges[spPaidDate].startDate.toISOString();
-    tagData.paidEndDate = ranges[spPaidDate].endDate.toISOString();
-  }
-  if (spExportDate) {
-    tagData.exportStartDate = ranges[spExportDate].startDate.toISOString();
-    tagData.exportEndDate = ranges[spExportDate].endDate.toISOString();
-  }
-  tagData.sorting = "issueDate desc, status";
-  return tagData;
-}
-
-export default async function Page({params, searchParams}: {params: {lang: string}; searchParams: SearchParamType}) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: {lang: string};
+  searchParams: TagsSearchParamType;
+}) {
   const {lang} = params;
   await isUnauthorized({
     requiredPolicies: ["TagService.Tags"],
