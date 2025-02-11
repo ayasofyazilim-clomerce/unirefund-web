@@ -9,7 +9,6 @@ import {$Volo_Abp_Identity_IdentityUserCreateDto} from "@ayasofyazilim/saas/Iden
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {PhoneNumberUtil} from "google-libphonenumber";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
@@ -27,7 +26,6 @@ export default function Form({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const phoneUtil = PhoneNumberUtil.getInstance();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_IdentityUserCreateDto,
@@ -88,10 +86,6 @@ export default function Form({
         ],
       }}
       onSubmit={({formData}) => {
-        const parsedNumber = phoneUtil.parseAndKeepRawInput(formData?.phoneNumber || "");
-        if (!phoneUtil.isValidNumber(parsedNumber)) {
-          return;
-        }
         startTransition(() => {
           void postUserApi({
             requestBody: formData,
