@@ -3,7 +3,7 @@
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useParams, useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handlePutResponse} from "src/actions/core/api-utils-client";
 import {putUsersByIdLockByLockoutEndApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
@@ -27,7 +27,7 @@ const $lockSchema = {
 export default function Form({languageData}: {languageData: IdentityServiceResource}) {
   const router = useRouter();
   const {userId} = useParams<{userId: string}>();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const lockUiSchema = createUiSchemaWithResource({
     schema: $lockSchema,
@@ -38,20 +38,16 @@ export default function Form({languageData}: {languageData: IdentityServiceResou
   return (
     <SchemaForm<FormData>
       className="flex flex-col gap-4"
-      disabled={loading}
+      disabled={isPending}
       onSubmit={({formData}) => {
-        setLoading(true);
-        if (!formData) return;
-        void putUsersByIdLockByLockoutEndApi({
-          id: userId,
-          lockoutEnd: formData.lockoutEnd,
-        })
-          .then((res) => {
+        startTransition(() => {
+          void putUsersByIdLockByLockoutEndApi({
+            id: userId,
+            lockoutEnd: formData?.lockoutEnd || "",
+          }).then((res) => {
             handlePutResponse(res, router, "..");
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$lockSchema}
       submitText={languageData["Edit.Save"]}

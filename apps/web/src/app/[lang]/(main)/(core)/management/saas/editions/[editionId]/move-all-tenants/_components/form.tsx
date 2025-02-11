@@ -5,7 +5,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useParams, useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handlePutResponse} from "src/actions/core/api-utils-client";
 import {putEditionsByIdMoveAllTenantsApi} from "src/actions/core/SaasService/put-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
@@ -35,7 +35,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const {editionId} = useParams<{editionId: string}>();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_UpdateMoveAllTenantsDto,
     resources: languageData,
@@ -49,21 +49,16 @@ export default function Form({
   return (
     <SchemaForm<EditionParams>
       className="flex flex-col gap-4"
-      disabled={loading}
-      onSubmit={(data) => {
-        setLoading(true);
-        const formData = data.formData;
-        if (!formData) return;
-        void putEditionsByIdMoveAllTenantsApi({
-          id: editionId,
-          editionId: formData.editionId,
-        })
-          .then((res) => {
+      disabled={isPending}
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void putEditionsByIdMoveAllTenantsApi({
+            id: editionId,
+            editionId: formData?.editionId,
+          }).then((res) => {
             handlePutResponse(res, router, "..");
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$Volo_Abp_Identity_UpdateMoveAllTenantsDto}
       submitText={languageData["Edit.Save"]}

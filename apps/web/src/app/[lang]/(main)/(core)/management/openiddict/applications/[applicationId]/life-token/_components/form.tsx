@@ -5,7 +5,7 @@ import {$Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto} from
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useParams, useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handlePutResponse} from "src/actions/core/api-utils-client";
 import {putApplicationsByIdTokenLifetimeApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
@@ -19,7 +19,7 @@ export default function Form({
 }) {
   const router = useRouter();
   const {applicationId} = useParams<{applicationId: string}>();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto,
@@ -33,21 +33,17 @@ export default function Form({
   return (
     <SchemaForm<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto>
       className="flex flex-col gap-4"
-      disabled={loading}
+      disabled={isPending}
       formData={lifeTokenData}
-      onSubmit={(data) => {
-        setLoading(true);
-        const formData = data.formData;
-        void putApplicationsByIdTokenLifetimeApi({
-          id: applicationId,
-          requestBody: formData,
-        })
-          .then((res) => {
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void putApplicationsByIdTokenLifetimeApi({
+            id: applicationId,
+            requestBody: formData,
+          }).then((res) => {
             handlePutResponse(res, router, "..");
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto}
       submitText={languageData["Edit.Save"]}

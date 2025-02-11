@@ -18,14 +18,6 @@ export default async function Layout({
       orientation="horizontal"
       tabList={[
         {
-          label: languageData.Sessions,
-          href: `${baseLink}sessions`,
-        },
-        {
-          label: languageData.SecurityLogs,
-          href: `${baseLink}security-logs`,
-        },
-        {
           label: languageData["Personal.Information"],
           href: `${baseLink}personal-information`,
         },
@@ -36,6 +28,14 @@ export default async function Layout({
         {
           label: languageData["Profile.Picture"],
           href: `${baseLink}profile-picture`,
+        },
+        {
+          label: languageData.Sessions,
+          href: `${baseLink}sessions`,
+        },
+        {
+          label: languageData.SecurityLogs,
+          href: `${baseLink}security-logs`,
         },
       ]}>
       {children}

@@ -6,13 +6,13 @@ import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {Trash2} from "lucide-react";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
 import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
-import {putClaimTypeApi} from "src/actions/core/IdentityService/put-actions";
 import {deleteClaimTypeByIdApi} from "src/actions/core/IdentityService/delete-actions";
+import {putClaimTypeApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import isActionGranted from "src/utils/page-policy/action-policy";
 
@@ -24,7 +24,7 @@ export default function Form({
   response: Volo_Abp_Identity_ClaimTypeDto;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const {grantedPolicies} = useGrantedPolicies();
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_UpdateClaimTypeDto,
@@ -51,14 +51,11 @@ export default function Form({
               variant: "destructive",
               children: languageData.Delete,
               onConfirm: () => {
-                setLoading(true);
-                void deleteClaimTypeByIdApi(response.id || "")
-                  .then((res) => {
+                startTransition(() => {
+                  void deleteClaimTypeByIdApi(response.id || "").then((res) => {
                     handleDeleteResponse(res, router, "../claim-types");
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               },
               closeAfterConfirm: true,
             }}
@@ -71,6 +68,7 @@ export default function Form({
                 </>
               ),
               variant: "outline",
+              disabled: isPending,
             }}
             type="with-trigger"
           />
@@ -78,25 +76,21 @@ export default function Form({
       </ActionList>
       <SchemaForm<Volo_Abp_Identity_ClaimTypeDto>
         className="flex flex-col gap-4"
-        disabled={loading}
+        disabled={isPending}
         filter={{
           type: "exclude",
           keys: ["concurrencyStamp"],
         }}
         formData={response}
-        onSubmit={(data) => {
-          setLoading(true);
-          const formData = data.formData;
-          void putClaimTypeApi({
-            id: response.id || "",
-            requestBody: {...formData, name: formData?.name || ""},
-          })
-            .then((res) => {
+        onSubmit={({formData}) => {
+          startTransition(() => {
+            void putClaimTypeApi({
+              id: response.id || "",
+              requestBody: {...formData, name: formData?.name || ""},
+            }).then((res) => {
               handlePutResponse(res, router, "../claim-types");
-            })
-            .finally(() => {
-              setLoading(false);
             });
+          });
         }}
         schema={$Volo_Abp_Identity_UpdateClaimTypeDto}
         submitText={languageData["Edit.Save"]}

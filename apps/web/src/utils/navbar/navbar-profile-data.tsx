@@ -14,7 +14,7 @@ export function getProfileMenuFromDB(languageData: AbpUiNavigationResource) {
       account: [
         {
           name: languageData.MyAccount,
-          href: "/account/sessions",
+          href: "/account/personal-information",
           onClick: undefined,
           icon: <Settings className="mr-2 h-5 w-5 text-gray-400" />,
         },

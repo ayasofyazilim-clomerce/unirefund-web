@@ -9,10 +9,10 @@ import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {useTransition} from "react";
 import {deleteLanguageByIdApi} from "src/actions/core/AdministrationService/delete-actions";
 import {putLanguageApi} from "src/actions/core/AdministrationService/put-actions";
 import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
@@ -27,7 +27,7 @@ export default function Form({
   languageDetailsData: Volo_Abp_LanguageManagement_Dto_LanguageDto;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
@@ -52,14 +52,11 @@ export default function Form({
               variant: "destructive",
               children: languageData.Delete,
               onConfirm: () => {
-                setLoading(true);
-                void deleteLanguageByIdApi(languageDetailsData.id || "")
-                  .then((res) => {
+                startTransition(() => {
+                  void deleteLanguageByIdApi(languageDetailsData.id || "").then((res) => {
                     handleDeleteResponse(res, router, "../languages");
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               },
               closeAfterConfirm: true,
             }}
@@ -72,6 +69,7 @@ export default function Form({
                 </>
               ),
               variant: "outline",
+              disabled: isPending,
             }}
             type="with-trigger"
           />
@@ -79,26 +77,22 @@ export default function Form({
       </ActionList>
       <SchemaForm<Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto>
         className="flex flex-col gap-4"
-        disabled={loading}
+        disabled={isPending}
         filter={{
           type: "include",
           sort: true,
           keys: ["displayName", "isEnabled"],
         }}
         formData={languageDetailsData}
-        onSubmit={(data) => {
-          setLoading(true);
-          const formData = data.formData;
-          void putLanguageApi({
-            id: languageDetailsData.id || "",
-            requestBody: formData,
-          })
-            .then((res) => {
+        onSubmit={({formData}) => {
+          startTransition(() => {
+            void putLanguageApi({
+              id: languageDetailsData.id || "",
+              requestBody: formData,
+            }).then((res) => {
               handlePutResponse(res, router, "../languages");
-            })
-            .finally(() => {
-              setLoading(false);
             });
+          });
         }}
         schema={$Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto}
         submitText={languageData["Edit.Save"]}

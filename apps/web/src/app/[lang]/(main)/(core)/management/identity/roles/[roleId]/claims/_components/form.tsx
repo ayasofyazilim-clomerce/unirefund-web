@@ -13,7 +13,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {Trash2} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";
-import {useState} from "react";
+import {useState, useTransition} from "react";
 import {handlePutResponse} from "src/actions/core/api-utils-client";
 import {putRoleClaimsByIdApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
@@ -29,7 +29,7 @@ export default function Claims({
 }) {
   const {roleId} = useParams<{roleId: string}>();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [roleClaimsData, setRoleClaimsData] = useState(initialRoleClaimsData);
   const [newClaim, setNewClaim] = useState<Volo_Abp_Identity_IdentityRoleClaimDto>({
     claimType: "",
@@ -133,19 +133,16 @@ export default function Claims({
       <div className="mt-8 flex justify-end">
         <Button
           className="ml-4"
-          disabled={loading}
+          disabled={isPending}
           onClick={() => {
-            setLoading(true);
-            void putRoleClaimsByIdApi({
-              id: roleId,
-              requestBody: roleClaimsData,
-            })
-              .then((res) => {
+            startTransition(() => {
+              void putRoleClaimsByIdApi({
+                id: roleId,
+                requestBody: roleClaimsData,
+              }).then((res) => {
                 handlePutResponse(res, router, "..");
-              })
-              .finally(() => {
-                setLoading(false);
               });
+            });
           }}>
           {languageData["Edit.Save"]}
         </Button>

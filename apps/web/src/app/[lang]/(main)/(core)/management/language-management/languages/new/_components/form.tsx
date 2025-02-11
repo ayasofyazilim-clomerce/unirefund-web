@@ -9,7 +9,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {postLanguageApi} from "src/actions/core/AdministrationService/post-actions";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
@@ -22,7 +22,7 @@ export default function Form({
   cultureList: Volo_Abp_LanguageManagement_Dto_CultureInfoDto[];
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_LanguageManagement_Dto_CreateLanguageDto,
@@ -43,24 +43,20 @@ export default function Form({
   return (
     <SchemaForm<Volo_Abp_LanguageManagement_Dto_CreateLanguageDto>
       className="flex flex-col gap-4"
-      disabled={loading}
+      disabled={isPending}
       filter={{
         type: "include",
         sort: true,
         keys: ["cultureName", "uiCultureName", "displayName", "isEnabled"],
       }}
-      onSubmit={(data) => {
-        setLoading(true);
-        const formData = data.formData;
-        void postLanguageApi({
-          requestBody: formData,
-        })
-          .then((res) => {
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void postLanguageApi({
+            requestBody: formData,
+          }).then((res) => {
             handlePostResponse(res, router, "../languages");
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$Volo_Abp_LanguageManagement_Dto_CreateLanguageDto}
       submitText={languageData.Save}
