@@ -62,10 +62,8 @@ export default async function Page({
         />
       </div>
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-4">
-          <Filter languageData={languageData} />
-        </div>
-        <div className="col-span-8 flex flex-col gap-3">
+        <Filter className="peer data-[state=open]:col-span-4" languageData={languageData} />
+        <div className="col-span-8 flex flex-col gap-3 peer-data-[state=closed]:col-span-full">
           <TaxFreeTagsSearchForm languageData={languageData} />
           <TaxFreeTagsTable languageData={languageData} response={tagsResponse.data} />
         </div>
