@@ -12,7 +12,15 @@ import {searchMerchants} from "src/actions/unirefund/CrmService/search";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {getDateRanges} from "src/utils/utils-date";
 
-export default function Filter({languageData}: {languageData: TagServiceResource}) {
+export default function Filter({
+  languageData,
+  className,
+  defaultOpen,
+}: {
+  languageData: TagServiceResource;
+  className?: string;
+  defaultOpen?: boolean;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -102,7 +110,9 @@ export default function Filter({languageData}: {languageData: TagServiceResource
   return (
     <FilterComponent
       asyncSelect={filterData.asyncSelect}
+      className={className}
       dateSelect={filterData.dateSelect}
+      defaultOpen={defaultOpen}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
     />
