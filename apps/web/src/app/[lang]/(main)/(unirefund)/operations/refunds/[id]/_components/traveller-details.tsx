@@ -16,14 +16,14 @@ export function TravellerDetails({
   traveller: TravellerDetailProfileDto & {travellerDocumentNumber: string};
   lang: string;
 }) {
-  const travellerLink = `parties/travellers/${traveller.id}/personal-identifications`;
+  const travellerLink = getBaseLink(`parties/travellers/${traveller.id}/personal-identifications`, lang);
   return (
     <div className="grid max-h-full overflow-y-auto p-4 pb-[50%]">
       <IconWithTitle icon={User} title="Traveller details" />
       <div className="mt-2 grid w-full gap-6">
         <TextWithSubText
           subText={
-            <Link className="font-semibold text-blue-500" href={getBaseLink(travellerLink)}>
+            <Link className="font-semibold text-blue-500" href={travellerLink}>
               {traveller.travellerDocumentNumber}
             </Link>
           }
@@ -101,7 +101,7 @@ function TravellerPersonalIdentification({
       {showDocumentNumber ? (
         <TextWithSubText
           subText={
-            <Link className="font-semibold text-blue-500" href={getBaseLink(`${travellerLink}/${identification.id}`)}>
+            <Link className="font-semibold text-blue-500" href={`${travellerLink}/${identification.id}`}>
               {identification.travelDocumentNumber}
             </Link>
           }

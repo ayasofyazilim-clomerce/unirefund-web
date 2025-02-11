@@ -21,6 +21,7 @@ export default async function Layout({
 
   const session = await auth();
   const refundDetailsResponse = await getRefundDetailByIdApi(refundId, session);
+  const baseLink = getBaseLink(`operations/refunds/${refundId}`, lang);
   if (refundDetailsResponse.type === "api-error") {
     return (
       <ErrorComponent languageData={languageData} message={refundDetailsResponse.message || "Unknown error occurred"} />
@@ -46,16 +47,16 @@ export default async function Layout({
         <TabLayout
           tabList={[
             {
-              href: getBaseLink(`operations/refunds/${refundId}/tags`, lang),
+              href: `${baseLink}/tags`,
               label: "Taxfree tags",
             },
             {
-              href: getBaseLink(`operations/refunds/${refundId}/payments`, lang),
+              href: `${baseLink}/payments`,
               label: "Payments",
               disabled: true,
             },
             {
-              href: getBaseLink(`operations/refunds/${refundId}/history`, lang),
+              href: `${baseLink}/history`,
               label: "History",
               disabled: true,
             },
