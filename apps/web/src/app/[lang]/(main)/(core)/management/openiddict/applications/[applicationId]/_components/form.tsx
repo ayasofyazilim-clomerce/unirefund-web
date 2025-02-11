@@ -20,7 +20,7 @@ import AutoForm, {
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import {deleteApplicationByIdApi} from "src/actions/core/IdentityService/delete-actions";
 import {putApplicationApi} from "src/actions/core/IdentityService/put-actions";
@@ -66,7 +66,7 @@ export default function Form({
   applicationDetailsData: Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const {applicationId} = useParams<{applicationId: string}>();
   const {grantedPolicies} = useGrantedPolicies();
 
@@ -247,14 +247,11 @@ export default function Form({
               variant: "destructive",
               children: languageData.Delete,
               onConfirm: () => {
-                setLoading(true);
-                void deleteApplicationByIdApi(applicationDetailsData.id || "")
-                  .then((res) => {
+                startTransition(() => {
+                  void deleteApplicationByIdApi(applicationDetailsData.id || "").then((res) => {
                     handleDeleteResponse(res, router, "../applications");
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               },
               closeAfterConfirm: true,
             }}
@@ -267,6 +264,7 @@ export default function Form({
                 </>
               ),
               variant: "outline",
+              disabled: isPending,
             }}
             type="with-trigger"
           />
@@ -303,21 +301,18 @@ export default function Form({
         fieldConfig={translatedForm}
         formSchema={applicationUpdateSchema}
         onSubmit={(data) => {
-          setLoading(true);
-          void putApplicationApi({
-            id: applicationId || "",
-            requestBody: data as Volo_Abp_OpenIddict_Applications_Dtos_UpdateApplicationInput,
-          })
-            .then((res) => {
+          startTransition(() => {
+            void putApplicationApi({
+              id: applicationId || "",
+              requestBody: data as Volo_Abp_OpenIddict_Applications_Dtos_UpdateApplicationInput,
+            }).then((res) => {
               handlePutResponse(res, router, "../applications");
-            })
-            .finally(() => {
-              setLoading(false);
             });
+          });
         }}
         stickyChildren
         values={applicationDetailsData}>
-        <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
+        <AutoFormSubmit className="float-right px-8 py-4" disabled={isPending}>
           {languageData["Edit.Save"]}
         </AutoFormSubmit>
       </AutoForm>
