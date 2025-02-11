@@ -6,11 +6,11 @@ import type {
   UniRefund_TagService_Tags_Enums_RefundType,
 } from "@ayasofyazilim/saas/RefundService";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getRefundApi} from "src/actions/unirefund/RefundService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
-import RefundsTable from "./table";
+import RefundsTable from "./_components/table";
 
 interface SearchParamType {
   maxResultCount?: number;
