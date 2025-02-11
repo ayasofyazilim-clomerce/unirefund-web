@@ -23,15 +23,5 @@ export default async function Page({params}: {params: {lang: string; id: string}
   if (response.type !== "success") return notFound();
 
   const {languageData} = await getResourceData(params.lang);
-  return (
-    <>
-      <RefundFeeHeaderUpdateForm formData={response.data} />
-      <div className="hidden" id="page-title">
-        {response.data.name}
-      </div>
-      <div className="hidden" id="page-description">
-        {languageData["RefundFees.Description"]}
-      </div>
-    </>
-  );
+  return <RefundFeeHeaderUpdateForm formData={response.data} languageData={languageData} />;
 }

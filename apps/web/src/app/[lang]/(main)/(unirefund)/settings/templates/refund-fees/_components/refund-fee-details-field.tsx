@@ -3,9 +3,11 @@ import {$UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailCreat
 import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import {PlusCircle} from "lucide-react";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
-export function RefundFeeDetailsField(
-  data: RefundFeeDetailCreateDto[] = [
+export function RefundFeeDetailsField({
+  languageData,
+  data = [
     {
       amountFrom: 0,
       amountTo: 0,
@@ -21,7 +23,10 @@ export function RefundFeeDetailsField(
       minFeeEarlyRefund: 0,
     },
   ],
-) {
+}: {
+  data?: RefundFeeDetailCreateDto[];
+  languageData: ContractServiceResource;
+}) {
   return TableField<RefundFeeDetailCreateDto>({
     fillerColumn: "amountFrom",
     editable: true,
@@ -54,29 +59,29 @@ export function RefundFeeDetailsField(
       {
         type: "create-row",
         actionLocation: "table",
-        cta: "Add", //languageData["Rebate.Form.rebateTableDetails.add"],
+        cta: languageData["Table.Add"],
         icon: PlusCircle,
       },
     ],
     rowActions: [
       {
         actionLocation: "row",
-        cta: "Move Up",
+        cta: languageData["Table.MoveUp"],
         type: "move-row-up",
       },
       {
         actionLocation: "row",
-        cta: "Delete", // languageData.Delete,
+        cta: languageData["Table.Delete"],
         type: "delete-row",
       },
       {
         actionLocation: "row",
-        cta: "Duplicate",
+        cta: languageData["Table.Duplicate"],
         type: "duplicate-row",
       },
       {
         actionLocation: "row",
-        cta: "Move Down",
+        cta: languageData["Table.MoveDown"],
         type: "move-row-down",
       },
     ],

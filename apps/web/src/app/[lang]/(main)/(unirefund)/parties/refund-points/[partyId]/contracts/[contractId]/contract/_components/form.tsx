@@ -77,13 +77,14 @@ export default function RefundPointContractHeaderUpdateForm({
       <SchemaForm<ContractHeaderForRefundPointUpdateDto>
         disabled={isPending}
         fields={{
-          RefundFeeHeadersField: RefundFeeHeadersField(
+          RefundFeeHeadersField: RefundFeeHeadersField({
             refundFeeHeaders,
-            contractHeaderDetails.refundFeeHeaders.map((x) => ({
+            data: contractHeaderDetails.refundFeeHeaders.map((x) => ({
               refundFeeHeaderId: x.id,
               ...x,
             })),
-          ),
+            languageData,
+          }),
         }}
         formData={{
           ...contractHeaderDetails,
@@ -143,20 +144,20 @@ function ContractActions({
           startTransition(() => {
             void postRefundPointContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
               if (response.type === "success" && response.data) {
-                toast.success(languageData["Contracts.Actions.Validate.Success"]);
+                toast.success(response.message);
               } else {
                 toast.error(response.message);
               }
             });
           });
         }}
-        text={languageData["Contracts.Actions.Validate"]}
+        text={languageData["Contracts.Validate"]}
       />
       {!contractDetails.isDraft && !contractDetails.isActive && (
         <ConfirmDialog
           confirmProps={{
             variant: "destructive",
-            children: languageData["Contracts.Actions.MakePassive"],
+            children: languageData["Contracts.Deactivate"],
             closeAfterConfirm: true,
             onConfirm: () => {
               startTransition(() => {
@@ -166,16 +167,16 @@ function ContractActions({
               });
             },
           }}
-          description={languageData["Contracts.Actions.MakePassive.Description"]}
-          title={languageData["Contracts.Actions.MakePassive.Title"]}
+          description={languageData["Contracts.Deactivate.Description"]}
+          title={languageData["Contracts.Deactivate.Title"]}
           type="without-trigger">
-          <ActionButton icon={CircleX} loading={isPending} text={languageData["Contracts.Actions.MakePassive"]} />
+          <ActionButton icon={CircleX} loading={isPending} text={languageData["Contracts.Deactivate"]} />
         </ConfirmDialog>
       )}
       <ConfirmDialog
         confirmProps={{
           variant: "destructive",
-          children: languageData["Contracts.Actions.Delete"],
+          children: languageData.Delete,
           closeAfterConfirm: true,
           onConfirm: () => {
             startTransition(() => {
@@ -185,10 +186,10 @@ function ContractActions({
             });
           },
         }}
-        description={languageData["Contracts.Actions.Delete.Description"]}
-        title={languageData["Contracts.Actions.Delete.Title"]}
+        description={languageData["Delete.Assurance"]}
+        title={languageData.Delete}
         type="without-trigger">
-        <ActionButton icon={Trash} loading={isPending} text={languageData["Contracts.Actions.Delete"]} />
+        <ActionButton icon={Trash} loading={isPending} text={languageData.Delete} />
       </ConfirmDialog>
     </ActionList>
   );

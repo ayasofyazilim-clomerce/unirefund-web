@@ -8,9 +8,16 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {putRefundFeeHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
 
-export default function RefundFeeHeaderUpdateForm({formData}: {formData: RefundFeeHeaderDto}) {
+export default function RefundFeeHeaderUpdateForm({
+  formData,
+  languageData,
+}: {
+  formData: RefundFeeHeaderDto;
+  languageData: ContractServiceResource;
+}) {
   const {id: refundFeeHeaderId} = useParams<{id: string}>();
   const router = useRouter();
   const uiSchema = {
@@ -27,9 +34,10 @@ export default function RefundFeeHeaderUpdateForm({formData}: {formData: RefundF
   return (
     <SchemaForm<RefundFeeHeaderUpdateDto>
       fields={{
-        RefundFeeDetailsField: RefundFeeDetailsField(
-          formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
-        ),
+        RefundFeeDetailsField: RefundFeeDetailsField({
+          data: formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
+          languageData,
+        }),
       }}
       formData={formData}
       onSubmit={({formData: editedFormData}) => {

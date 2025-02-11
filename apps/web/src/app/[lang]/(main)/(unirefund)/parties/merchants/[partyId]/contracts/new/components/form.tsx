@@ -55,7 +55,7 @@ export default function MerchantContractHeaderCreateForm({
     <SchemaForm<ContractHeaderForMerchantCreateDto>
       disabled={isPending}
       fields={{
-        RefundTableHeadersField: RefundTableHeadersField(refundTableHeaders),
+        RefundTableHeadersField: RefundTableHeadersField({refundTableHeaders, languageData}),
       }}
       formData={{
         validFrom: new Date().toISOString(),

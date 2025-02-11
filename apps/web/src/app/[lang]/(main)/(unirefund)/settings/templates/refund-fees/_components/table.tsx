@@ -21,14 +21,7 @@ function Table({
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
 
-  const columns = tableData.refundFeeHeaders.columns(lang, refundPoints, {
-    name: languageData.Name,
-    creationTime: languageData.CreationTime,
-    lastModificationTime: languageData.LastModificationTime,
-    isDefault: languageData.IsDefault,
-    isDeleted: languageData.IsDeleted,
-    isActive: languageData.IsActive,
-  });
+  const columns = tableData.refundFeeHeaders.columns(lang, refundPoints, languageData);
   const table = tableData.refundFeeHeaders.table({languageData, router, grantedPolicies, refundPoints});
 
   return <TanstackTable {...table} columns={columns} data={refundFeeHeaders} rowCount={refundFeeHeaders.length} />;

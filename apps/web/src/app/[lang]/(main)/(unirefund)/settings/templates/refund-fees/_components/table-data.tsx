@@ -2,10 +2,7 @@ import {Badge} from "@/components/ui/badge";
 import type {UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto} from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto} from "@ayasofyazilim/saas/ContractService";
 import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto as RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
-import type {
-  TanstackTableCreationProps,
-  TanstackTableLanguageDataType,
-} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
@@ -13,12 +10,12 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {handlePostResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {useTransition} from "react";
 import Link from "next/link";
+import {useTransition} from "react";
 import isActionGranted from "@/utils/page-policy/action-policy";
+import {getBaseLink} from "@/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {postRefundFeeHeaderCloneByIdApi} from "@/actions/unirefund/ContractService/post-actions";
-import {getBaseLink} from "@/utils";
 
 type RefundFeeHeaders =
   TanstackTableCreationProps<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>;
@@ -26,7 +23,7 @@ type RefundFeeHeaders =
 const refundFeeHeadersColumns = (
   locale: string,
   refundPoints: RefundPointProfileDto[],
-  languageData?: TanstackTableLanguageDataType,
+  languageData: ContractServiceResource,
 ) =>
   tanstackTableCreateColumnsByRowData<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>({
     rows: $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto.properties,
@@ -45,7 +42,7 @@ const refundFeeHeadersColumns = (
         values: [
           {
             position: "before",
-            label: "Active",
+            label: languageData["Contracts.Active"],
             conditions: [
               {
                 conditionAccessorKey: "isActive",
@@ -55,7 +52,7 @@ const refundFeeHeadersColumns = (
           },
           {
             position: "before",
-            label: "Assigned",
+            label: languageData["Contracts.Assigned"],
             conditions: [
               {
                 conditionAccessorKey: "isAssigned",
@@ -65,7 +62,7 @@ const refundFeeHeadersColumns = (
           },
           {
             position: "before",
-            label: "Template",
+            label: languageData["Contracts.Template"],
             conditions: [
               {
                 conditionAccessorKey: "isTemplate",
@@ -75,7 +72,7 @@ const refundFeeHeadersColumns = (
           },
           {
             position: "before",
-            label: "Customized",
+            label: languageData["Contracts.Customized"],
             conditions: [
               {
                 conditionAccessorKey: "isCustomizedOverTemplate",
@@ -120,7 +117,7 @@ const refundFeeHeadersTable = (params: {
     tableActions: [
       {
         type: "simple",
-        cta: "New",
+        cta: languageData["Table.Add"],
         actionLocation: "table",
         onClick: () => {
           router.push("refund-fees/new");
@@ -137,7 +134,7 @@ const refundFeeHeadersTable = (params: {
       {
         actionLocation: "row",
         type: "custom-dialog",
-        cta: "Clone",
+        cta: languageData["Contracts.Clone"],
         condition: (row) => {
           return isActionGranted(["ContractService.RefundFeeHeader.Create"], grantedPolicies) && row.isTemplate;
         },
@@ -146,7 +143,8 @@ const refundFeeHeadersTable = (params: {
         ),
         title: (row) => (
           <div className="flex items-center gap-2">
-            Cloning from<Badge>{row.name}</Badge>
+            {languageData["Contracts.CloningFrom"]}
+            <Badge>{row.name}</Badge>
           </div>
         ),
       },

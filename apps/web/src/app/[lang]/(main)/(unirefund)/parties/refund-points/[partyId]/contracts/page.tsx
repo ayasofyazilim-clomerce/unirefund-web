@@ -5,7 +5,7 @@ import {getRefundPointContractHeadersByRefundPointIdApi} from "@/actions/unirefu
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "@/language-data/unirefund/CRMService";
 import {getResourceData as getContractsResourceData} from "src/language-data/unirefund/ContractService";
-import ContractsTable from "./table";
+import ContractsTable from "./_components/table";
 
 interface SearchParamType {
   affiliationCodeId?: number;

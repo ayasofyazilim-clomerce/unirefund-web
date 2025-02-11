@@ -78,9 +78,10 @@ export default function RefundFeeHeaderCreateForm({
     <SchemaForm<RefundFeeHeaderCreateDto>
       disabled={isPending}
       fields={{
-        RefundFeeDetailsField: RefundFeeDetailsField(
-          formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
-        ),
+        RefundFeeDetailsField: RefundFeeDetailsField({
+          data: formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
+          languageData,
+        }),
       }}
       formData={formData}
       onChange={({formData: editedFormData}) => {
