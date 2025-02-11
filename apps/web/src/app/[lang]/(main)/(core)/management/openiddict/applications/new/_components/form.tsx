@@ -15,7 +15,7 @@ import AutoForm, {
   DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
 import {postApplicationApi} from "src/actions/core/IdentityService/post-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
@@ -50,7 +50,7 @@ export default function Form({
   scopeList: Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto[];
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const switches = createFieldTypeFieldConfig({
     elements: [
       "allowAuthorizationCodeFlow",
@@ -243,19 +243,16 @@ export default function Form({
       fieldConfig={translatedForm}
       formSchema={applicationCreateSchema}
       onSubmit={(data) => {
-        setLoading(true);
-        void postApplicationApi({
-          requestBody: data as Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
-        })
-          .then((res) => {
+        startTransition(() => {
+          void postApplicationApi({
+            requestBody: data as Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
+          }).then((res) => {
             handlePostResponse(res, router, "../applications");
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       stickyChildren>
-      <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
+      <AutoFormSubmit className="float-right px-8 py-4" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>

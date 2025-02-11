@@ -5,14 +5,14 @@ import {$Volo_Saas_Host_Dtos_EditionCreateDto} from "@ayasofyazilim/saas/SaasSer
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import {useTransition} from "react";
 import {handlePostResponse} from "src/actions/core/api-utils-client";
 import {postEditionApi} from "src/actions/core/SaasService/post-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function Form({languageData}: {languageData: SaasServiceResource}) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Saas_Host_Dtos_EditionCreateDto,
@@ -22,23 +22,19 @@ export default function Form({languageData}: {languageData: SaasServiceResource}
   return (
     <SchemaForm<Volo_Saas_Host_Dtos_EditionCreateDto>
       className="flex flex-col gap-4"
-      disabled={loading}
+      disabled={isPending}
       filter={{
         type: "exclude",
         keys: ["planId"],
       }}
-      onSubmit={(data) => {
-        setLoading(true);
-        const formData = data.formData;
-        void postEditionApi({
-          requestBody: formData,
-        })
-          .then((res) => {
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void postEditionApi({
+            requestBody: formData,
+          }).then((res) => {
             handlePostResponse(res, router, "../editions");
-          })
-          .finally(() => {
-            setLoading(false);
           });
+        });
       }}
       schema={$Volo_Saas_Host_Dtos_EditionCreateDto}
       submitText={languageData.Save}
