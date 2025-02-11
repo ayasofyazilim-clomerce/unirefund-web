@@ -1,6 +1,8 @@
 "use server";
 import type {GetApiRefundServiceRefundsData} from "@ayasofyazilim/saas/RefundService";
-import {getRefundServiceClient, structuredError, structuredResponse} from "src/lib";
+import type {Session} from "@repo/utils/auth";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getRefundServiceClient} from "@/lib";
 
 export async function getRefundApi(data: GetApiRefundServiceRefundsData = {}) {
   try {
@@ -11,9 +13,9 @@ export async function getRefundApi(data: GetApiRefundServiceRefundsData = {}) {
     return structuredError(error);
   }
 }
-export async function getRefundDetailByIdApi(id: string) {
+export async function getRefundDetailByIdApi(id: string, session?: Session | null) {
   try {
-    const client = await getRefundServiceClient();
+    const client = await getRefundServiceClient(session);
     const response = await client.refund.getApiRefundServiceRefundsByIdDetail({
       id,
     });
