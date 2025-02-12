@@ -4,19 +4,17 @@
 "use server";
 import {isUnauthorized} from "@repo/utils/policies";
 
-export async function getRebateTableHeadersApi(
-  data: GetApiContractServiceRebateTableHeadersData,
-  session?: Session | null,
-) {
+export async function getTagByIdApi(data: GetApiTagServiceTagByIdDetailData) {
   await isUnauthorized({
-    requiredPolicies: ["ContractService.RebateSetting.Edit"],
+    requiredPolicies: ["RefundService.Refunds.DetailByTagId", "RefundService.Refunds.Detail"],
     lang: "tr",
   });
   try {
-    const client = await getContractServiceClient(session);
-    return structuredSuccessResponse(await client.rebateTableHeader.getApiContractServiceRebateTableHeaders(data));
+    const client = await getTagServiceClient();
+    const response = await client.tag.getApiTagServiceTagByIdDetail(data);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 ```
