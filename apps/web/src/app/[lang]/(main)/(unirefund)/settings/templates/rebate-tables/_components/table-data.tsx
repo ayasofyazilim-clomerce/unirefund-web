@@ -65,7 +65,7 @@ const rebateTableHeadersColumns = (
         values: [
           {
             position: "before",
-            label: "Assigned",
+            label: languageData["Contracts.Assigned"],
             conditions: [
               {
                 conditionAccessorKey: "isAssigned",
@@ -75,7 +75,7 @@ const rebateTableHeadersColumns = (
           },
           {
             position: "before",
-            label: "Template",
+            label: languageData["Contracts.Template"],
             conditions: [
               {
                 conditionAccessorKey: "isTemplate",
@@ -85,7 +85,7 @@ const rebateTableHeadersColumns = (
           },
           {
             position: "before",
-            label: "Customized",
+            label: languageData["Contracts.Customized"],
             conditions: [
               {
                 conditionAccessorKey: "isCustomizedOverTemplate",

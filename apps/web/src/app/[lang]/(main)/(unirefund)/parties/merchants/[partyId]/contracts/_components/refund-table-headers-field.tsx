@@ -6,17 +6,23 @@ import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaderRefundTabl
 import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import {PlusCircle} from "lucide-react";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
-export function RefundTableHeadersField(
-  refundTableHeaders: AssignableRefundTableHeaders[],
-  data: ContractHeaderRefundTableHeaderCreateAndUpdateDto[] = [
+export function RefundTableHeadersField({
+  data = [
     {
       validFrom: new Date().toISOString(),
       refundTableHeaderId: "",
       isDefault: false,
     },
   ],
-) {
+  refundTableHeaders,
+  languageData,
+}: {
+  refundTableHeaders: AssignableRefundTableHeaders[];
+  data?: ContractHeaderRefundTableHeaderCreateAndUpdateDto[];
+  languageData: ContractServiceResource;
+}) {
   return TableField<ContractHeaderRefundTableHeaderCreateAndUpdateDto>({
     fillerColumn: "refundTableHeaderId",
     editable: true,
@@ -38,14 +44,14 @@ export function RefundTableHeadersField(
       {
         type: "create-row",
         actionLocation: "table",
-        cta: "Add", //languageData["Rebate.Form.rebateTableDetails.add"],
+        cta: languageData.New,
         icon: PlusCircle,
       },
     ],
     rowActions: [
       {
         actionLocation: "row",
-        cta: "Delete", // languageData.Delete,
+        cta: languageData.Delete,
         type: "delete-row",
       },
     ],

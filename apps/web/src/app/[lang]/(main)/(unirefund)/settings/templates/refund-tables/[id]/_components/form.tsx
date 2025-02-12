@@ -8,13 +8,14 @@ import {$UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderU
 import {handlePutResponse} from "@repo/utils/api";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {putRefundTableHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
 
 export default function RefundTableHeaderUpdateForm({
-  // languageData,
+  languageData,
   formData,
 }: {
-  // languageData: ContractServiceResource;
+  languageData: ContractServiceResource;
   formData: RefundTableHeaderDto;
 }) {
   const router = useRouter();
@@ -38,9 +39,10 @@ export default function RefundTableHeaderUpdateForm({
   return (
     <SchemaForm<RefundTableHeaderUpdateDto>
       fields={{
-        RefundTableDetailsField: RefundTableDetailsField(
-          formData.refundTableDetails !== null ? formData.refundTableDetails : [],
-        ),
+        RefundTableDetailsField: RefundTableDetailsField({
+          data: formData.refundTableDetails !== null ? formData.refundTableDetails : [],
+          languageData,
+        }),
       }}
       formData={formData}
       onSubmit={({formData: editedFormData}) => {

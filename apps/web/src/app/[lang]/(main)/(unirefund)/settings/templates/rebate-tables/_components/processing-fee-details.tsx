@@ -3,15 +3,20 @@ import {$UniRefund_ContractService_Rebates_ProcessingFeeDetails_ProcessingFeeDet
 import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import {PlusCircle} from "lucide-react";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
-export function ProcessingFeeDetailsField(
-  data: ProcessingFeeDetailCreateDto[] = [
+export function ProcessingFeeDetailsField({
+  data = [
     {
       amount: 0,
       name: "",
     },
   ],
-) {
+  languageData,
+}: {
+  data?: ProcessingFeeDetailCreateDto[];
+  languageData: ContractServiceResource;
+}) {
   return TableField<ProcessingFeeDetailCreateDto>({
     fillerColumn: "name",
     editable: true,
@@ -24,29 +29,29 @@ export function ProcessingFeeDetailsField(
       {
         type: "create-row",
         actionLocation: "table",
-        cta: "Add", //languageData["Rebate.Form.rebateTableDetails.add"],
+        cta: languageData["Table.Add"],
         icon: PlusCircle,
       },
     ],
     rowActions: [
       {
         actionLocation: "row",
-        cta: "Move Up",
+        cta: languageData["Table.MoveUp"],
         type: "move-row-up",
       },
       {
         actionLocation: "row",
-        cta: "Delete", // languageData.Delete,
+        cta: languageData["Table.Delete"],
         type: "delete-row",
       },
       {
         actionLocation: "row",
-        cta: "Duplicate",
+        cta: languageData["Table.Duplicate"],
         type: "duplicate-row",
       },
       {
         actionLocation: "row",
-        cta: "Move Down",
+        cta: languageData["Table.MoveDown"],
         type: "move-row-down",
       },
     ],

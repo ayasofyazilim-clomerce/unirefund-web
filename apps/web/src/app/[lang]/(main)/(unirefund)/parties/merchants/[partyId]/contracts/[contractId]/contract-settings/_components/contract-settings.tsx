@@ -139,7 +139,7 @@ export function ContractSettings({
         }}
         size="sm"
         variant="outline">
-        {languageData["Contracts.Settings.Form.setIsDefault"]}
+        {languageData["Contracts.Settings.SetDefault"]}
       </Button>
     );
   }, []);
@@ -158,7 +158,7 @@ export function ContractSettings({
       name: {
         values: [
           {
-            label: languageData["Contracts.Settings.Form.isDefault"],
+            label: languageData["Form.isDefault"],
             conditions: [
               {
                 conditionAccessorKey: "isDefault",
@@ -176,7 +176,7 @@ export function ContractSettings({
     ? [
         {
           actionLocation: "table",
-          cta: languageData["Contracts.Settings.Form.Add"],
+          cta: languageData.New,
           type: "simple",
           onClick: () => {
             setTempSettings({name: "New", id: "$temp"});
@@ -338,9 +338,7 @@ function SchemaFormForContractSettings({
           setTempSettings={setTempSettings}
           submitId={type === "temp" ? "$temp" : submitId}
         />
-        <Button type="submit">
-          {type === "edit" ? languageData["Contracts.Edit.Submit"] : languageData["Contracts.Create.Submit"]}
-        </Button>
+        <Button type="submit">{type === "edit" ? languageData["Edit.Save"] : languageData.Save}</Button>
       </div>
     </SchemaForm>
   );
@@ -382,12 +380,12 @@ function DeleteDialog({
             });
         },
       }}
-      description={languageData["Contracts.Settings.Form.Delete.Description"]}
-      title={languageData["Contracts.Settings.Form.Delete.Title"]}
+      description={languageData["Delete.Assurance"]}
+      title={languageData.Delete}
       triggerProps={{
         type: "button",
         variant: "outline",
-        children: languageData["Contracts.Settings.Form.Delete"],
+        children: languageData.Delete,
       }}
       type="with-trigger"
     />
