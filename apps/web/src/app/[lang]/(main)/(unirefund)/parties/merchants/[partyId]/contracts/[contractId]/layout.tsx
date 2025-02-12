@@ -44,7 +44,7 @@ export default async function Layout({
           href: `${baseLink}stores`,
         },
         {
-          label: languageData["Contracts.ContractSettings"],
+          label: languageData["Contracts.Settings"],
           href: `${baseLink}contract-settings`,
         },
       ]}>

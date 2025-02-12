@@ -11,7 +11,6 @@ import {useState, useTransition} from "react";
 import {postRefundTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
-//import {toastOnSubmit} from "@repo/ui/toast-on-submit";
 
 export default function RefundTableHeaderCreateForm({
   languageData,
@@ -69,9 +68,10 @@ export default function RefundTableHeaderCreateForm({
     <SchemaForm<RefundTableHeaderCreateDto>
       disabled={isPending}
       fields={{
-        RefundTableDetailsField: RefundTableDetailsField(
-          formData.refundTableDetails !== null ? formData.refundTableDetails : [],
-        ),
+        RefundTableDetailsField: RefundTableDetailsField({
+          data: formData.refundTableDetails !== null ? formData.refundTableDetails : [],
+          languageData,
+        }),
       }}
       formData={formData}
       onChange={({formData: editedFormData}) => {
@@ -80,7 +80,6 @@ export default function RefundTableHeaderCreateForm({
       }}
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;
-        //toastOnSubmit(editedFormData);
         startTransition(() => {
           void postRefundTableHeadersApi({requestBody: editedFormData}).then((response) => {
             handlePostResponse(response, router, {

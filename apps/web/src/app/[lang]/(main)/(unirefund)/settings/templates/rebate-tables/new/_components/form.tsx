@@ -99,12 +99,14 @@ export default function RebateTableHeaderCreateForm({
       <SchemaForm<RebateTableHeaderCreateDto>
         disabled={isPending}
         fields={{
-          RebateTableDetailsField: RebateTableDetailsField(
-            formData.rebateTableDetails !== null ? formData.rebateTableDetails : [],
-          ),
-          ProcessingFeeDetailsField: ProcessingFeeDetailsField(
-            formData.processingFeeDetails !== null ? formData.processingFeeDetails : [],
-          ),
+          RebateTableDetailsField: RebateTableDetailsField({
+            data: formData.rebateTableDetails !== null ? formData.rebateTableDetails : [],
+            languageData,
+          }),
+          ProcessingFeeDetailsField: ProcessingFeeDetailsField({
+            data: formData.processingFeeDetails !== null ? formData.processingFeeDetails : [],
+            languageData,
+          }),
         }}
         formData={formData}
         onChange={({formData: editedFormData}) => {

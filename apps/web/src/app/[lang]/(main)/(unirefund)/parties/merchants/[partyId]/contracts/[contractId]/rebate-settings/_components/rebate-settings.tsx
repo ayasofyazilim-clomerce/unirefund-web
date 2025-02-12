@@ -149,7 +149,7 @@ function RebateTableField(
       {
         type: "create-row",
         actionLocation: "table",
-        cta: languageData["Rebate.Form.rebateTableDetails.add"],
+        cta: languageData.New,
         icon: PlusCircle,
       },
     ],
@@ -190,7 +190,7 @@ function MinimumNetCommissionsField(
       {
         type: "create-row",
         actionLocation: "table",
-        cta: languageData["Rebate.Form.rebateTableDetails.add"],
+        cta: languageData.New,
         icon: PlusCircle,
       },
     ],

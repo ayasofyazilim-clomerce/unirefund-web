@@ -122,5 +122,11 @@
   "Form.personalSummaries.religiousAffiliationName": "Religion",
   "Form.personalSummaries.genderTypeCode": "Gender",
   "Form.personalSummaries.genderTypeCode.male": "Male",
-  "Form.personalSummaries.genderTypeCode.female": "Female"
+  "Form.personalSummaries.genderTypeCode.female": "Female",
+
+  "Table.Add": "Add",
+  "Table.MoveUp": "Move Up",
+  "Table.MoveDown": "Move Down",
+  "Table.Delete": "Delete",
+  "Table.Duplicate": "Duplicate"
 }

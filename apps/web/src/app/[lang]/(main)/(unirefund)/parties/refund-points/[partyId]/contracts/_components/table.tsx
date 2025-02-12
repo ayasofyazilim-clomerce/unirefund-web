@@ -5,7 +5,7 @@ import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useRouter} from "next/navigation";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import {tableData} from "./_components/table-data";
+import {tableData} from "./table-data";
 
 export default function Contracts(props: {
   languageData: CRMServiceServiceResource & ContractServiceResource;

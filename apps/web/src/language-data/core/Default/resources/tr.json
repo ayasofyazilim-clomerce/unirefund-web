@@ -121,5 +121,11 @@
   "Form.personalSummaries.religiousAffiliationName": "Din",
   "Form.personalSummaries.genderTypeCode": "Cinsiyet",
   "Form.personalSummaries.genderTypeCode.male": "Erkek",
-  "Form.personalSummaries.genderTypeCode.female": "Kadın"
+  "Form.personalSummaries.genderTypeCode.female": "Kadın",
+
+  "Table.Add": "Ekle",
+  "Table.MoveUp": "Yukarı taşı",
+  "Table.MoveDown": "Aşagı taşı",
+  "Table.Delete": "Sil",
+  "Table.Duplicate": "Çoğalt"
 }

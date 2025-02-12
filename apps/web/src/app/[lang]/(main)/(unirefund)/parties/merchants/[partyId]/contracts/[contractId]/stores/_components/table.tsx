@@ -69,11 +69,11 @@ export function ContractStoresTable({
             })
               .then((response) => {
                 if (response.type === "success") {
-                  toast.success(languageData["Contracts.Stores.Save.Success"]);
+                  toast.success(response.message);
                   router.refresh();
                   setUpdatedData([]);
                 } else {
-                  toast.error(response.message || languageData["Contracts.Stores.Save.Fail"]);
+                  toast.error(response.message);
                 }
               })
               .finally(() => {

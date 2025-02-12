@@ -29,7 +29,7 @@ const contractsTableColumns = ({
       name: {
         values: [
           {
-            label: languageData["Contracts.draft"],
+            label: languageData["Contracts.Draft"],
             conditions: [
               {
                 when: (value) => value === true,
@@ -38,7 +38,7 @@ const contractsTableColumns = ({
             ],
           },
           {
-            label: languageData["Contracts.active"],
+            label: languageData["Contracts.Active"],
             conditions: [
               {
                 when: (value) => value === true,
