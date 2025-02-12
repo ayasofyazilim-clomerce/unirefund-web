@@ -13,7 +13,6 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useGrantedPolicies} from "@repo/utils/policies";
-import {PhoneNumberUtil} from "google-libphonenumber";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
@@ -45,7 +44,6 @@ export default function Form({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const {grantedPolicies} = useGrantedPolicies();
-  const phoneUtil = PhoneNumberUtil.getInstance();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_IdentityUserUpdateDto,
@@ -143,10 +141,6 @@ export default function Form({
           organizationUnitIds: userOrganizationUnits.map((org) => org.id || ""),
         }}
         onSubmit={({formData}) => {
-          const parsedNumber = phoneUtil.parseAndKeepRawInput(formData?.phoneNumber || "");
-          if (!phoneUtil.isValidNumber(parsedNumber)) {
-            return;
-          }
           startTransition(() => {
             void putUserApi({
               id: userDetailsData.id || "",
