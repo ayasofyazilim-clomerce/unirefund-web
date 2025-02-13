@@ -7,6 +7,7 @@ import type {
 import {$UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderUpdateDto as $RefundTableHeaderUpdateDto} from "@ayasofyazilim/saas/ContractService";
 import {handlePutResponse} from "@repo/utils/api";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {putRefundTableHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
@@ -20,22 +21,27 @@ export default function RefundTableHeaderUpdateForm({
 }) {
   const router = useRouter();
   const {id: refundTableId} = useParams<{id: string}>();
-  const uiSchema = {
-    "ui:className": "md:grid md:grid-cols-2",
-    name: {"ui:className": "col-span-full"},
-    isDefault: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
+  const uiSchema = createUiSchemaWithResource({
+    schema: $RefundTableHeaderUpdateDto,
+    resources: languageData,
+    name: "Contracts.Form",
+    extend: {
+      "ui:className": "md:grid md:grid-cols-2",
+      name: {"ui:className": "col-span-full"},
+      isDefault: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+      },
+      isBundling: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+      },
+      refundTableDetails: {
+        "ui:field": "RefundTableDetailsField",
+        "ui:className": "border-none p-0 md:col-span-full",
+      },
     },
-    isBundling: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
-    },
-    refundTableDetails: {
-      "ui:field": "RefundTableDetailsField",
-      "ui:className": "border-none p-0 md:col-span-full",
-    },
-  };
+  });
   return (
     <SchemaForm<RefundTableHeaderUpdateDto>
       fields={{
@@ -54,6 +60,7 @@ export default function RefundTableHeaderUpdateForm({
         });
       }}
       schema={$RefundTableHeaderUpdateDto}
+      submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
       useDependency
     />

@@ -51,7 +51,7 @@ export function RebateTableDetailsField({
       {
         type: "create-row",
         actionLocation: "table",
-        cta: "Add", //languageData["Rebate.Form.rebateTableDetails.add"],
+        cta: languageData["Table.Add"],
         icon: PlusCircle,
       },
     ],

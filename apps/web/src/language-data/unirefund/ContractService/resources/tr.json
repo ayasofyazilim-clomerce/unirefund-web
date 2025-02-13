@@ -42,5 +42,15 @@
   "Contracts.Stores.receiptType.NoBarcodeText": "Barkod metni yok",
   "Contracts.Stores.receiptType.Barcode": "Barkod",
   "Contracts.Stores.receiptType.QRCodeIntegration": "QR Kodu Entegrasyonu",
-  "Contracts.Stores.receiptType.UniRefundVoucherIntegration": "UniRefundVoucher Entegrasyonu"
+  "Contracts.Stores.receiptType.UniRefundVoucherIntegration": "UniRefundVoucher Entegrasyonu",
+
+  "Contracts.FillFrom": "Şuradan doldur",
+  "Contracts.Form.name": "İsim",
+  "Contracts.Form.calculateNetCommissionInsteadOfRefund": "İade yerine net komisyon hesapla",
+  "Contracts.Form.isTemplate": "Şablon",
+  "Contracts.Form.merchantId": "Müşteri",
+  "Contracts.Form.refundPointId": "İade noktası",
+  "Contracts.Form.isDefault": "Varsayılan",
+  "Contracts.Form.isActive": "Aktif",
+  "Contracts.Form.isBundling": "Paketleme"
 }

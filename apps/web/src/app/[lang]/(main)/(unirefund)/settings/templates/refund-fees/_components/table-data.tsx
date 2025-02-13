@@ -197,9 +197,15 @@ function CloneForm({
           refundPointId: {type: "string", format: "uuid"},
         },
       }}
+      submitText={languageData["Contracts.Clone"]}
       uiSchema={{
-        isTemplate: {"ui:widget": "switch", "ui:className": "border px-2 rounded-md h-max self-end"},
+        isTemplate: {
+          "ui:title": languageData["Contracts.Form.isTemplate"],
+          "ui:widget": "switch",
+          "ui:className": "border px-2 rounded-md h-max self-end",
+        },
         refundPointId: {
+          "ui:title": languageData["Contracts.Form.refundPointId"],
           "ui:widget": "RefundPoints",
           dependencies: [
             {
