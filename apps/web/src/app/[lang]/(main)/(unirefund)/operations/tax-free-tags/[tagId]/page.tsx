@@ -1,11 +1,12 @@
 "use server";
 
-import type {UniRefund_SettingService_ProductGroups_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {auth} from "@repo/utils/auth/next-auth";
 import {FileIcon, FileText, HandCoins, Plane, ReceiptText, Scale, Store} from "lucide-react";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import Link from "next/link";
+import {structuredError} from "@repo/utils/api";
 import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
 import {getRefundDetailByIdApi} from "src/actions/unirefund/RefundService/actions";
 import {getProductGroupsApi} from "src/actions/unirefund/SettingService/actions";
@@ -21,25 +22,23 @@ import TagStatusDiagram from "./_components/tag-status-diagram";
 async function getApiRequests(tagId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      await getTagByIdApi({id: tagId}),
-      await getProductGroupsApi(
-        {
-          maxResultCount: 1000,
-        },
-        session,
-      ),
+    const requiredRequests = await Promise.all([
+      getTagByIdApi({id: tagId}),
+      getProductGroupsApi({maxResultCount: 1}, session),
     ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+
+    const tagDetail = requiredRequests[0].data;
+
+    const optionalRequests = await Promise.allSettled([
+      tagDetail.vatStatementHeaderId ? getVatStatementHeadersByIdApi(tagDetail.vatStatementHeaderId) : {data: null},
+      tagDetail.refundId ? getRefundDetailByIdApi(tagDetail.refundId) : {data: null},
+    ]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 
@@ -48,27 +47,22 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests(tagId);
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
+  const {requiredRequests, optionalRequests} = apiRequests;
+  const [tagDetailResponse, productGroupsResponse] = requiredRequests;
+  const [vatStatementResponse, refundDetailResponse] = optionalRequests;
 
-  const [tagDetailResponse, productGroupsResponse] = apiRequests.data;
-
-  const productGroups: UniRefund_SettingService_ProductGroups_ProductGroupDto[] =
-    productGroupsResponse.data.items || [];
-
+  const isThereAProductGroup = (productGroupsResponse.data.items?.length || 0) > 0;
   const tagDetail = tagDetailResponse.data;
-  const tagVatStatementHeadersResponse = tagDetail.vatStatementHeaderId
-    ? await getVatStatementHeadersByIdApi(tagDetail.vatStatementHeaderId)
-    : null;
-  const tagVatStatementHeader =
-    tagVatStatementHeadersResponse?.type === "success" ? tagVatStatementHeadersResponse.data : null;
+  const vatStatementHeader = vatStatementResponse.status === "fulfilled" ? vatStatementResponse.value.data : null;
+  const refundDetail = refundDetailResponse.status === "fulfilled" ? refundDetailResponse.value.data : null;
 
-  const tagRefundDetailResponse = tagDetail.refundId ? await getRefundDetailByIdApi(tagDetail.refundId) : null;
-  const tagRefundDetail = tagRefundDetailResponse?.type === "success" ? tagRefundDetailResponse.data : null;
   return (
     <FormReadyComponent
-      active={productGroups.length === 0}
+      active={!isThereAProductGroup}
       content={{
         icon: <FileText className="size-20 text-gray-400" />,
         title: languageData["Missing.ProductGroups.Title"],
@@ -180,8 +174,8 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
         <TagStatusDiagram
           languageData={languageData}
           tagDetail={tagDetail}
-          tagRefundDetail={tagRefundDetail}
-          tagVatStatementHeader={tagVatStatementHeader}
+          tagRefundDetail={refundDetail}
+          tagVatStatementHeader={vatStatementHeader}
         />
       </div>
     </FormReadyComponent>

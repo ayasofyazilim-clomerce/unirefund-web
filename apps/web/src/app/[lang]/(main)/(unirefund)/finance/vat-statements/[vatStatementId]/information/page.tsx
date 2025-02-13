@@ -1,6 +1,8 @@
 "use server";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {isStructuredError, structuredError} from "@repo/utils/api";
 import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
@@ -9,20 +11,16 @@ import VatStatementInformation from "./_components/vat-statement-information";
 async function getApiRequests(vatStatementId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getVatStatementHeadersByIdApi(vatStatementId, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getVatStatementHeadersByIdApi(vatStatementId, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
-
 export default async function Page({params}: {params: {lang: string; vatStatementId: string}}) {
   const {lang, vatStatementId} = params;
   const {languageData} = await getResourceData(lang);
@@ -32,10 +30,12 @@ export default async function Page({params}: {params: {lang: string; vatStatemen
   });
 
   const apiRequests = await getApiRequests(vatStatementId);
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+
+  if (isStructuredError(apiRequests)) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const [vatStatementHeadersByIdResponse] = apiRequests.data;
+  const {requiredRequests} = apiRequests;
+  const [vatStatementHeadersByIdResponse] = requiredRequests;
 
   return (
     <>
