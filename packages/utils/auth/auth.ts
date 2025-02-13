@@ -1,16 +1,12 @@
 import Credentials from "next-auth/providers/credentials";
 export type Awaitable<T> = T | PromiseLike<T>;
 
-import { AdapterUser } from "@auth/core/adapters";
-import {
-  fetchNewAccessTokenByRefreshToken,
-  fetchToken,
-  getUserData,
-} from "./auth-actions";
-import NextAuth, { AuthError } from "next-auth";
-import { MyUser } from "./auth-types";
+import {AdapterUser} from "@auth/core/adapters";
+import NextAuth, {AuthError} from "next-auth";
+import {fetchNewAccessTokenByRefreshToken, fetchToken, getUserData} from "./auth-actions";
+import {MyUser} from "./auth-types";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const {handlers, auth, signIn, signOut} = NextAuth({
   providers: [
     Credentials({
       credentials: {
@@ -31,14 +27,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (signInResponse.error_description) {
             return authorizeError(signInResponse.error_description);
           }
-          const { access_token, refresh_token, expires_in } = signInResponse;
+          const {access_token, refresh_token, expires_in} = signInResponse;
           const expiration_date = expires_in * 1000 + Date.now();
 
-          const user_data = await getUserData(
-            access_token,
-            refresh_token,
-            expiration_date,
-          );
+          const user_data = await getUserData(access_token, refresh_token, expiration_date);
           return user_data;
         } catch (error) {
           return authorizeError(JSON.stringify(error));
@@ -54,18 +46,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    signIn({ user }) {
+    signIn({user}) {
       if (user.userName) {
         return true;
       }
       return false;
     },
-    async session({ session, token }) {
+    async session({session, token}) {
       if (token?.user) {
         const user = token?.user as AdapterUser & MyUser;
         if (user.expiration_date < Date.now()) {
-          const { access_token, refresh_token, expires_in } =
-            await fetchNewAccessTokenByRefreshToken(user.refresh_token || "");
+          const {access_token, refresh_token, expires_in} = await fetchNewAccessTokenByRefreshToken(
+            user.refresh_token || "",
+          );
 
           if (access_token && refresh_token) {
             user.access_token = access_token;
@@ -77,11 +70,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       return session;
     },
-    authorized: async ({ auth }) => {
+    authorized: async ({auth}) => {
       // Logged in users are authenticated, otherwise redirect to login page
       return !!auth;
     },
-    async jwt({ token, user }) {
+    async jwt({token, user}) {
       if (user) {
         token.user = user;
       }

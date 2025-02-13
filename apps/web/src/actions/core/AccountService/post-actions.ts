@@ -4,8 +4,9 @@ import type {
   PostApiAccountMyProfileChangePasswordData,
   PostApiAccountProfilePictureData,
   PostApiAccountSendPasswordResetCodeData,
-} from "@ayasofyazilim/saas/AccountService";
-import {getAccountServiceClient, structuredError, structuredResponse} from "src/lib";
+} from "@ayasofyazilim/core-saas/AccountService";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getAccountServiceClient} from "src/lib";
 
 export async function postPasswordChangeApi(data: PostApiAccountMyProfileChangePasswordData) {
   try {

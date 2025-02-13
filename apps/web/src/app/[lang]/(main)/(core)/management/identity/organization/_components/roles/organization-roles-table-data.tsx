@@ -1,10 +1,10 @@
-import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SaveIcon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putOrganizationUnitsByIdRolesApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 

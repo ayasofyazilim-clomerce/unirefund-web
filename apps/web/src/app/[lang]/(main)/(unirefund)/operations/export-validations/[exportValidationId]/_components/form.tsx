@@ -9,7 +9,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putExportValidationApi} from "src/actions/unirefund/ExportValidationService/put-actions";
 import type {ExportValidationServiceResource} from "src/language-data/unirefund/ExportValidationService";
 

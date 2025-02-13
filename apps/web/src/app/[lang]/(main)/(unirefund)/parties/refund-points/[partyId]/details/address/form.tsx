@@ -4,7 +4,7 @@ import type {GetApiCrmServiceMerchantsByIdAddressesResponse} from "@ayasofyazili
 import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putRefundPointAddressApi} from "src/actions/unirefund/CrmService/put-actions";
 import type {AddressUpdateDto, CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
 import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";

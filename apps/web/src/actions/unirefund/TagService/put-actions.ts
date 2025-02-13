@@ -1,6 +1,7 @@
 "use server";
 import type {PutApiTagServiceTagExportValidationByIdData} from "@ayasofyazilim/saas/TagService";
-import {getTagServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getTagServiceClient} from "src/lib";
 
 export async function putExportValidationByIdApi(data: PutApiTagServiceTagExportValidationByIdData) {
   try {

@@ -2,7 +2,7 @@
 
 import {useEffect, useState, useTransition} from "react";
 
-import {Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto} from "@ayasofyazilim/saas/AccountService";
+import {Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto} from "@ayasofyazilim/core-saas/AccountService";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {
   FormControl,

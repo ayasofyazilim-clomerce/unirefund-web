@@ -3,21 +3,20 @@
 import type {
   Volo_Abp_LanguageManagement_Dto_LanguageDto,
   Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto,
-} from "@ayasofyazilim/saas/AdministrationService";
-import {$Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+} from "@ayasofyazilim/core-saas/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteLanguageByIdApi} from "src/actions/core/AdministrationService/delete-actions";
 import {putLanguageApi} from "src/actions/core/AdministrationService/put-actions";
-import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
-import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({
   languageData,

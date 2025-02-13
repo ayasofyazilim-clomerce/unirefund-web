@@ -9,7 +9,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putIndividualPersonalSummaryApi} from "src/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 

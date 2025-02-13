@@ -3,7 +3,7 @@
 import type {
   PagedResultDto_IdentityUserDto,
   Volo_Abp_Identity_IdentityUserDto,
-} from "@ayasofyazilim/saas/IdentityService";
+} from "@ayasofyazilim/core-saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";

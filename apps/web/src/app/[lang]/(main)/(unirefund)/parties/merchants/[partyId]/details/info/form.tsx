@@ -12,7 +12,7 @@ import type {AutoFormInputComponentProps, DependenciesType} from "@repo/ayasofya
 import AutoForm, {AutoFormSubmit, CustomCombobox, DependencyType} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putMerchantBaseApi} from "src/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 

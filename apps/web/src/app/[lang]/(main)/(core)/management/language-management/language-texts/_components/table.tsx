@@ -4,7 +4,7 @@ import type {
   PagedResultDto_LanguageTextDto,
   Volo_Abp_LanguageManagement_Dto_LanguageDto,
   Volo_Abp_LanguageManagement_Dto_LanguageResourceDto,
-} from "@ayasofyazilim/saas/AdministrationService";
+} from "@ayasofyazilim/core-saas/AdministrationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";

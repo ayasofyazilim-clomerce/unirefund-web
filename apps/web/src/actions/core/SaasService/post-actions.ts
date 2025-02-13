@@ -1,7 +1,8 @@
 "use server";
 
-import type {PostApiSaasEditionsData, PostApiSaasTenantsData} from "@ayasofyazilim/saas/SaasService";
-import {getSaasServiceClient, structuredError, structuredResponse} from "src/lib";
+import type {PostApiSaasEditionsData, PostApiSaasTenantsData} from "@ayasofyazilim/core-saas/SaasService";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getSaasServiceClient} from "src/lib";
 
 export async function postEditionApi(data: PostApiSaasEditionsData) {
   try {

@@ -1,6 +1,7 @@
 "use server";
 
-import {getTravellersServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getTravellersServiceClient} from "src/lib";
 
 export async function deleteTravellerPersonalIdentificationApi(id: string) {
   try {

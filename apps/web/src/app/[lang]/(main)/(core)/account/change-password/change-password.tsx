@@ -1,12 +1,12 @@
 "use client";
-import type {Volo_Abp_Account_ChangePasswordInput} from "@ayasofyazilim/saas/AccountService";
-import {$Volo_Abp_Account_ChangePasswordInput} from "@ayasofyazilim/saas/AccountService";
+import type {Volo_Abp_Account_ChangePasswordInput} from "@ayasofyazilim/core-saas/AccountService";
+import {$Volo_Abp_Account_ChangePasswordInput} from "@ayasofyazilim/core-saas/AccountService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource, customPasswordValidate} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {handlePutResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {postPasswordChangeApi} from "src/actions/core/AccountService/post-actions";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 type PasswordForm = Volo_Abp_Account_ChangePasswordInput & {

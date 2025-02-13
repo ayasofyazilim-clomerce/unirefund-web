@@ -1,12 +1,12 @@
 "use client";
-import type {Volo_Abp_LanguageManagement_Dto_LanguageTextDto} from "@ayasofyazilim/saas/AdministrationService";
-import {$Volo_Abp_LanguageManagement_Dto_LanguageTextDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageTextDto} from "@ayasofyazilim/core-saas/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_LanguageTextDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {handlePutResponse} from "@repo/utils/api";
 import {putLanguageTextsByResourceNameByCultureNameByNameApi} from "src/actions/core/AdministrationService/put-actions";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function LanguageTextsEdit({

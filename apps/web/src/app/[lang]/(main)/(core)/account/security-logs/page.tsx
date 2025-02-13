@@ -1,9 +1,9 @@
 "use server";
 
-import type {GetApiAccountSecurityLogsData} from "@ayasofyazilim/saas/AccountService";
+import type {GetApiAccountSecurityLogsData} from "@ayasofyazilim/core-saas/AccountService";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getSecurityLogsApi} from "src/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import SecurityLogsTable from "./table";
 
 export default async function Page({

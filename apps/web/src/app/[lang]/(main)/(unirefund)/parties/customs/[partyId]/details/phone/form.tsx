@@ -5,7 +5,7 @@ import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-fo
 import {telephoneSchema} from "@repo/ui/utils/table/form-schemas";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putCustomTelephoneApi} from "src/actions/unirefund/CrmService/put-actions";
 import type {TelephoneUpdateDto} from "src/actions/unirefund/CrmService/types";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";

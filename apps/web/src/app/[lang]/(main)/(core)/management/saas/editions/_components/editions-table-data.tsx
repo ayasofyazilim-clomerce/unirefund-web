@@ -1,5 +1,5 @@
-import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
-import {$Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
+import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/core-saas/SaasService";
+import {$Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/core-saas/SaasService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -9,9 +9,9 @@ import type {
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {Plus, User2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type EditionsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_EditionDto>;
 

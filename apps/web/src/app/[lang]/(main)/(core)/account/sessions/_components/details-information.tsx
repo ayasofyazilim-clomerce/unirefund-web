@@ -1,5 +1,5 @@
 "use client";
-import type {Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/saas/AccountService";
+import type {Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/core-saas/AccountService";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 export default function DetailsInformation({

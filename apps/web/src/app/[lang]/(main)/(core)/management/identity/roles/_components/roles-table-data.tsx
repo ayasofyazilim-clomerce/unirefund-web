@@ -1,5 +1,5 @@
-import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -9,9 +9,9 @@ import type {
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {FolderCheck, Layers, Plus, ShieldCheck, User2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type RolesTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityRoleDto>;
 

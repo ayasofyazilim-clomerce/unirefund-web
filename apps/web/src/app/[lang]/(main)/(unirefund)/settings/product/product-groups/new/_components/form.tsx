@@ -10,7 +10,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {postProductGroupApi} from "src/actions/unirefund/SettingService/post-actions";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 

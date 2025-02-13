@@ -12,9 +12,9 @@ import type {
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {PlusIcon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type RebateStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto>;

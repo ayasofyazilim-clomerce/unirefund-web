@@ -1,6 +1,7 @@
 "use server";
 import type {GetApiExportValidationServiceExportValidationData} from "@ayasofyazilim/saas/ExportValidationService";
-import {getExportValidationServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredResponse, structuredError} from "@repo/utils/api";
+import {getExportValidationServiceClient} from "src/lib";
 
 export async function getExportValidationApi(data: GetApiExportValidationServiceExportValidationData) {
   try {

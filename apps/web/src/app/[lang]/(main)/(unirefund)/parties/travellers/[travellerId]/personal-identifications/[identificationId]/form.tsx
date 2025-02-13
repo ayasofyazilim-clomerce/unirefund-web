@@ -10,7 +10,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import type {CountryDto} from "src/actions/unirefund/LocationService/types";
 import {putTravellerPersonalIdentificationApi} from "src/actions/unirefund/TravellerService/put-actions";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";

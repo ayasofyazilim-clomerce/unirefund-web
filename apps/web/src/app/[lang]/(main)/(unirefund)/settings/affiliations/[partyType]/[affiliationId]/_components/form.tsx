@@ -8,16 +8,15 @@ import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
 import {putAffiliationCodesByIdApi} from "@/actions/unirefund/CrmService/put-actions";
 import {deleteAffiliationCodesByIdApi} from "@/actions/unirefund/CrmService/delete-actions";
-import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
 import {entityPartyTypeCodeMap} from "../../_components/utils";
 
 export default function Form({

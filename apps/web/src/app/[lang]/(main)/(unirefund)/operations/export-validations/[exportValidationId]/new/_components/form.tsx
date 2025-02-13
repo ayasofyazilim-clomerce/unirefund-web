@@ -8,7 +8,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useParams, useRouter} from "next/navigation";
 import {useState} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {putExportValidationByIdApi} from "src/actions/unirefund/TagService/put-actions";
 import type {ExportValidationServiceResource} from "src/language-data/unirefund/ExportValidationService";
 

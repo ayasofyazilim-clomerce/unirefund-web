@@ -1,12 +1,12 @@
 "use client";
 
-import type {Volo_Saas_Host_Dtos_SaasTenantSetPasswordDto} from "@ayasofyazilim/saas/SaasService";
-import {$Volo_Saas_Host_Dtos_SaasTenantSetPasswordDto} from "@ayasofyazilim/saas/SaasService";
+import type {Volo_Saas_Host_Dtos_SaasTenantSetPasswordDto} from "@ayasofyazilim/core-saas/SaasService";
+import {$Volo_Saas_Host_Dtos_SaasTenantSetPasswordDto} from "@ayasofyazilim/core-saas/SaasService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useParams, useRouter} from "next/navigation";
 import {useState} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putTenantsByIdChangePasswordApi} from "src/actions/core/SaasService/actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 

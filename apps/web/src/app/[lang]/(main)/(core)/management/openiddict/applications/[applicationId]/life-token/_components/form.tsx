@@ -1,12 +1,12 @@
 "use client";
 
-import type {Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_OpenIddict_Applications_Dtos_ApplicationTokenLifetimeDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putApplicationsByIdTokenLifetimeApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 

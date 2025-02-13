@@ -4,7 +4,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putUsersByIdTwoFactorByEnabledApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 

@@ -1,5 +1,5 @@
 "use server";
-import {AccountServiceClient} from "@ayasofyazilim/saas/AccountService";
+import {AccountServiceClient} from "@ayasofyazilim/core-saas/AccountService";
 
 const appClient = new AccountServiceClient({
   BASE: process.env.BASE_URL,

@@ -1,10 +1,10 @@
 "use server";
 
-import type {GetApiLanguageManagementLanguagesData} from "@ayasofyazilim/saas/AdministrationService";
+import type {GetApiLanguageManagementLanguagesData} from "@ayasofyazilim/core-saas/AdministrationService";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getLanguagesApi} from "src/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import LanguagesTable from "./_components/table";
 

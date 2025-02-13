@@ -1,4 +1,4 @@
-import type {UniRefund_AdministrationService_CountrySettings_CountrySettingDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {UniRefund_AdministrationService_CountrySettings_CountrySettingDto} from "@ayasofyazilim/core-saas/AdministrationService";
 
 export const mockSettingsResponse: UniRefund_AdministrationService_CountrySettings_CountrySettingDto = {
   isEnabled: true,

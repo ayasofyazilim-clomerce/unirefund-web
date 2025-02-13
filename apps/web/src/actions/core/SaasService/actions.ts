@@ -3,8 +3,9 @@ import type {
   GetApiSaasEditionsData,
   GetApiSaasTenantsData,
   PutApiSaasTenantsByIdSetPasswordData,
-} from "@ayasofyazilim/saas/SaasService";
-import {getSaasServiceClient, structuredError, structuredResponse} from "src/lib";
+} from "@ayasofyazilim/core-saas/SaasService";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getSaasServiceClient} from "src/lib";
 
 export async function getEditionsApi(data: GetApiSaasEditionsData) {
   try {

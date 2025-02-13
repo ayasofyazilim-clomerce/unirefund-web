@@ -10,8 +10,9 @@ import type {
   GetApiContractServiceRefundTableHeadersAssignablesByMerchantData,
   GetApiContractServiceRefundTableHeadersData,
 } from "@ayasofyazilim/saas/ContractService";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getContractServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
+import {getContractServiceClient} from "@/lib";
 
 export async function getMerchantContractHeadersByMerchantIdApi(
   data: GetApiContractServiceMerchantsByIdContractsContractHeadersData,

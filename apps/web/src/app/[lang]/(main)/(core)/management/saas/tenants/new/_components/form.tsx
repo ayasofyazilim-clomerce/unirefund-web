@@ -2,8 +2,8 @@
 import type {
   Volo_Saas_Host_Dtos_EditionDto,
   Volo_Saas_Host_Dtos_SaasTenantCreateDto,
-} from "@ayasofyazilim/saas/SaasService";
-import {$Volo_Saas_Host_Dtos_SaasTenantCreateDto} from "@ayasofyazilim/saas/SaasService";
+} from "@ayasofyazilim/core-saas/SaasService";
+import {$Volo_Saas_Host_Dtos_SaasTenantCreateDto} from "@ayasofyazilim/core-saas/SaasService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {
   AutoFormSubmit,
@@ -13,7 +13,7 @@ import AutoForm, {
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {postTenantApi} from "src/actions/core/SaasService/post-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 

@@ -7,7 +7,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import type {CountryDto} from "src/actions/unirefund/LocationService/types";
 import {postTravellerIdentificationApi} from "src/actions/unirefund/TravellerService/post-actions";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";

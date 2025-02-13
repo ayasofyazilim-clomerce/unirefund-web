@@ -5,8 +5,9 @@ import type {
   PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestoreData,
   PutApiPermissionManagementPermissionsData,
   UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto,
-} from "@ayasofyazilim/saas/AdministrationService";
-import {getAdministrationServiceClient, structuredError, structuredResponse} from "src/lib";
+} from "@ayasofyazilim/core-saas/AdministrationService";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getAdministrationServiceClient} from "src/lib";
 
 export async function putPermissionsApi(data: PutApiPermissionManagementPermissionsData) {
   try {

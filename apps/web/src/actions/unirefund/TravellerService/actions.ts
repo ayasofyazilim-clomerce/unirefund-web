@@ -1,8 +1,9 @@
 "use server";
 
 import type {GetApiTravellerServiceTravellersData} from "@ayasofyazilim/saas/TravellerService";
+import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getTravellersServiceClient, structuredError, structuredSuccessResponse} from "src/lib";
+import {getTravellersServiceClient} from "src/lib";
 
 export async function getTravellersDetailsApi(id: string, session?: Session | null) {
   try {

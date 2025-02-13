@@ -1,6 +1,7 @@
 "use server";
 
-import {getAdministrationServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getAdministrationServiceClient} from "src/lib";
 
 export async function deleteLanguageByIdApi(id: string) {
   try {

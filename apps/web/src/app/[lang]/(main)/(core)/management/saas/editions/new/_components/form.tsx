@@ -1,12 +1,12 @@
 "use client";
 
-import type {Volo_Saas_Host_Dtos_EditionCreateDto} from "@ayasofyazilim/saas/SaasService";
-import {$Volo_Saas_Host_Dtos_EditionCreateDto} from "@ayasofyazilim/saas/SaasService";
+import type {Volo_Saas_Host_Dtos_EditionCreateDto} from "@ayasofyazilim/core-saas/SaasService";
+import {$Volo_Saas_Host_Dtos_EditionCreateDto} from "@ayasofyazilim/core-saas/SaasService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {postEditionApi} from "src/actions/core/SaasService/post-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 

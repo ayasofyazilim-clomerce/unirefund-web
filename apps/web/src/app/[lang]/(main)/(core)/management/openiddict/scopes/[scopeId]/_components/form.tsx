@@ -1,20 +1,19 @@
 "use client";
 
-import type {Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_OpenIddict_Scopes_Dtos_UpdateScopeInput} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_OpenIddict_Scopes_Dtos_UpdateScopeInput} from "@ayasofyazilim/core-saas/IdentityService";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteScopeByIdApi} from "src/actions/core/IdentityService/delete-actions";
 import {putScopeApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
-import isActionGranted from "src/utils/page-policy/action-policy";
 
 export default function Form({
   languageData,

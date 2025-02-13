@@ -4,8 +4,8 @@ import type {
   Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto,
   Volo_Abp_OpenIddict_Applications_Dtos_UpdateApplicationInput,
   Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto,
-} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_OpenIddict_Applications_Dtos_UpdateApplicationInput} from "@ayasofyazilim/saas/IdentityService";
+} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_OpenIddict_Applications_Dtos_UpdateApplicationInput} from "@ayasofyazilim/core-saas/IdentityService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
@@ -17,15 +17,14 @@ import AutoForm, {
   CustomCombobox,
   DependencyType,
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteApplicationByIdApi} from "src/actions/core/IdentityService/delete-actions";
 import {putApplicationApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
-import isActionGranted from "src/utils/page-policy/action-policy";
 
 interface FieldProps {
   field: {

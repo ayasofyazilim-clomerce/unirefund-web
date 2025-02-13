@@ -1,13 +1,13 @@
 "use client";
 
-import type {UniRefund_IdentityService_AssignableRoles_AssignableRoleDto} from "@ayasofyazilim/saas/IdentityService";
-import {$UniRefund_IdentityService_AssignableRoles_UpsertAssignableRoleDto} from "@ayasofyazilim/saas/IdentityService";
+import type {UniRefund_IdentityService_AssignableRoles_AssignableRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$UniRefund_IdentityService_AssignableRoles_UpsertAssignableRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putAssignableRolesApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 

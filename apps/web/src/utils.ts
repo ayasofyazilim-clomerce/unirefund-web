@@ -1,4 +1,4 @@
-import type {Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationDto} from "@ayasofyazilim/saas/AccountService";
+import type {Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationDto} from "@ayasofyazilim/core-saas/AccountService";
 
 export function isServerSide() {
   return typeof window === "undefined";

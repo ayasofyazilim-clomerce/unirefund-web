@@ -1,10 +1,10 @@
 "use server";
 
-import type {GetApiOpeniddictApplicationsData} from "@ayasofyazilim/saas/IdentityService";
+import type {GetApiOpeniddictApplicationsData} from "@ayasofyazilim/core-saas/IdentityService";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getApplicationsApi} from "src/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ApplicationsTable from "./_components/table";
 
 export default async function Page({

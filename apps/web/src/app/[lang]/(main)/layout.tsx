@@ -2,10 +2,10 @@
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {auth} from "@repo/utils/auth/next-auth";
 import {LogOut} from "lucide-react";
-import type {Policy} from "@repo/utils/policies";
 import {signOutServer} from "@repo/utils/auth";
+import {getGrantedPoliciesApi} from "@repo/utils/api";
+import type {Policy} from "@repo/utils/policies";
 import unirefund from "public/unirefund.png";
-import {getGrantedPoliciesApi} from "src/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import {getBaseLink} from "src/utils";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";

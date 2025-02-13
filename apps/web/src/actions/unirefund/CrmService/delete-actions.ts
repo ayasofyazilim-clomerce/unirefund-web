@@ -7,8 +7,9 @@ import type {
   DeleteApiCrmServiceTaxFreesByIdAffiliationsByAffiliationIdData,
   DeleteApiCrmServiceTaxOfficesByIdAffiliationsByAffiliationIdData,
 } from "@ayasofyazilim/saas/CRMService";
+import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getCRMServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
+import {getCRMServiceClient} from "src/lib";
 
 export async function deleteAffiliationCodesByIdApi(id: number, session?: Session | null) {
   try {

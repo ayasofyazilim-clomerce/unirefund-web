@@ -1,5 +1,5 @@
-import type {Volo_Abp_Identity_IdentitySecurityLogDto} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_Identity_IdentitySecurityLogDto} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_Identity_IdentitySecurityLogDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_Identity_IdentitySecurityLogDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,

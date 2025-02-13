@@ -21,17 +21,17 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import isActionGranted from "@/utils/page-policy/action-policy";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteMerchantsByIdAffiliationsByAffiliationIdApi} from "@/actions/unirefund/CrmService/delete-actions";
 import {postSendPasswordResetCodeApi} from "src/actions/core/AccountService/post-actions";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
 import {
   postAbpUserAccountByIndividualIdApi,
   postAffiliationsToMerchantApi,
 } from "src/actions/unirefund/CrmService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import type {Policy} from "src/utils/page-policy/utils";
 import {getBaseLink} from "@/utils";
 
 type AffiliationsTable = TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;

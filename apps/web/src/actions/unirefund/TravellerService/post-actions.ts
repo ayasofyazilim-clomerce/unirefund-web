@@ -3,7 +3,8 @@ import type {
   PostApiTravellerServiceTravellersByIdCreatePersonalIdentificationData,
   PostApiTravellerServiceTravellersData,
 } from "@ayasofyazilim/saas/TravellerService";
-import {getTravellersServiceClient, structuredError, structuredResponse} from "../../../lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getTravellersServiceClient} from "../../../lib";
 
 export async function postTravellerApi(data: PostApiTravellerServiceTravellersData) {
   try {

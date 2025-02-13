@@ -1,11 +1,11 @@
 "use server";
 
-import type {GetApiSaasEditionsData} from "@ayasofyazilim/saas/SaasService";
+import type {GetApiSaasEditionsData} from "@ayasofyazilim/core-saas/SaasService";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getEditionsApi} from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/SaasService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import EditionsTable from "./_components/table";
 
 export default async function Page({

@@ -5,9 +5,9 @@ import type {
   TanstackTableCreationProps,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type RebateStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto>;
