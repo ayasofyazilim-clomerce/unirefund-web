@@ -147,7 +147,7 @@ const rebateTableHeadersTable = (params: {
       {
         actionLocation: "row",
         type: "custom-dialog",
-        cta: "Clone",
+        cta: languageData["Contracts.Clone"],
         condition: (row) => {
           return (
             isActionGranted(["ContractService.RebateTableHeader.CreateFromTemplate"], grantedPolicies) && row.isTemplate
@@ -156,7 +156,8 @@ const rebateTableHeadersTable = (params: {
         content: (row) => <CloneForm languageData={languageData} merchants={merchants} router={router} row={row} />,
         title: (row) => (
           <div className="flex items-center gap-2">
-            Cloning from<Badge>{row.name}</Badge>
+            {languageData["Contracts.CloningFrom"]}
+            <Badge>{row.name}</Badge>
           </div>
         ),
       },
@@ -209,9 +210,15 @@ function CloneForm({
           merchantId: {type: "string", format: "uuid"},
         },
       }}
+      submitText={languageData["Contracts.Clone"]}
       uiSchema={{
-        isTemplate: {"ui:widget": "switch", "ui:className": "border px-2 rounded-md h-max self-end"},
+        isTemplate: {
+          "ui:title": languageData["Contracts.Form.isTemplate"],
+          "ui:widget": "switch",
+          "ui:className": "border px-2 rounded-md h-max self-end",
+        },
         merchantId: {
+          "ui:title": languageData["Contracts.Form.merchantId"],
           "ui:widget": "Merchants",
           dependencies: [
             {

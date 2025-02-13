@@ -42,5 +42,15 @@
   "Contracts.Stores.receiptType.NoBarcodeText": "No Barcode Text",
   "Contracts.Stores.receiptType.Barcode": "Barcode",
   "Contracts.Stores.receiptType.QRCodeIntegration": "QR Code Integration",
-  "Contracts.Stores.receiptType.UniRefundVoucherIntegration": "UniRefundVoucher Integration"
+  "Contracts.Stores.receiptType.UniRefundVoucherIntegration": "UniRefundVoucher Integration",
+
+  "Contracts.FillFrom": "Fill from",
+  "Contracts.Form.name": "Name",
+  "Contracts.Form.calculateNetCommissionInsteadOfRefund": "Calculate Net Commission Instead Of Refund",
+  "Contracts.Form.isTemplate": "Template",
+  "Contracts.Form.merchantId": "Merchant",
+  "Contracts.Form.refundPointId": "Refund Point",
+  "Contracts.Form.isDefault": "Default",
+  "Contracts.Form.isActive": "Active",
+  "Contracts.Form.isBundling": "Bundling"
 }

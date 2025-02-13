@@ -205,9 +205,15 @@ function CloneForm({
           merchantId: {type: "string", format: "uuid"},
         },
       }}
+      submitText={languageData["Contracts.Clone"]}
       uiSchema={{
-        isTemplate: {"ui:widget": "switch", "ui:className": "border px-2 rounded-md h-max self-end"},
+        isTemplate: {
+          "ui:title": languageData["Contracts.Form.isTemplate"],
+          "ui:widget": "switch",
+          "ui:className": "border px-2 rounded-md h-max self-end",
+        },
         merchantId: {
+          "ui:title": languageData["Contracts.Form.merchantId"],
           "ui:widget": "Merchants",
           dependencies: [
             {
