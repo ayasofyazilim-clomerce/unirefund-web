@@ -2,7 +2,7 @@ import type {
   UniRefund_AdministrationService_Bonds_BondDto,
   UniRefund_AdministrationService_Groups_GroupDto,
   UniRefund_AdministrationService_Items_GroupItemDto,
-} from "@ayasofyazilim/saas/AdministrationService";
+} from "@ayasofyazilim/core-saas/AdministrationService";
 import type {JsonSchema, SchemaType} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {DependenciesType, DependencyType, FieldConfig} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";

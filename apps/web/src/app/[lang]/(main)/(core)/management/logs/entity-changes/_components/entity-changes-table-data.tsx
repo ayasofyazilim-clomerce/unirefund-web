@@ -1,8 +1,8 @@
-import type {Volo_Abp_AuditLogging_EntityChangeDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {Volo_Abp_AuditLogging_EntityChangeDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import {
   $Volo_Abp_Auditing_EntityChangeType,
   $Volo_Abp_AuditLogging_EntityChangeDto,
-} from "@ayasofyazilim/saas/AdministrationService";
+} from "@ayasofyazilim/core-saas/AdministrationService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";

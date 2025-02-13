@@ -21,11 +21,11 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import type {Policy} from "@/utils/page-policy/utils";
-import isActionGranted from "@/utils/page-policy/action-policy";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteTaxOfficesByIdAffiliationsByAffiliationIdApi} from "@/actions/unirefund/CrmService/delete-actions";
 import {postSendPasswordResetCodeApi} from "src/actions/core/AccountService/post-actions";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "src/actions/core/api-utils-client";
 import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
 import {
   postAbpUserAccountByIndividualIdApi,

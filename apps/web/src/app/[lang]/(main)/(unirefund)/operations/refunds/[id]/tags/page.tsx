@@ -1,7 +1,7 @@
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getTagsApi} from "@/actions/unirefund/TagService/actions";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "@/language-data/unirefund/TagService";
-import {isErrorOnRequest} from "@/utils/page-policy/utils";
 import type {TagsSearchParamType} from "../../../tax-free-tags/_components/utils";
 import {initParams} from "../../../tax-free-tags/_components/utils";
 import TaxFreeTagsTable from "./_components/table";

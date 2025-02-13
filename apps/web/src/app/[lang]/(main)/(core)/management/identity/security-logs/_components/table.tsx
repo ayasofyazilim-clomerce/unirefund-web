@@ -2,7 +2,7 @@
 
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams} from "next/navigation";
-import type {PagedResultDto_IdentitySecurityLogDto} from "@ayasofyazilim/saas/IdentityService";
+import type {PagedResultDto_IdentitySecurityLogDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import {tableData} from "./security-logs-table-data";
 

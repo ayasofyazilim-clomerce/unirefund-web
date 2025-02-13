@@ -4,7 +4,8 @@ import type {
   PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
   PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
 } from "@ayasofyazilim/saas/TravellerService";
-import {getTravellersServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getTravellersServiceClient} from "src/lib";
 
 export async function putTravellerPersonalIdentificationApi(
   data: PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,

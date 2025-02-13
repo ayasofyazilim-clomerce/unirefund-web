@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiAuditLoggingAuditLogsEntityChangesData} from "@ayasofyazilim/saas/AdministrationService";
+import type {GetApiAuditLoggingAuditLogsEntityChangesData} from "@ayasofyazilim/core-saas/AdministrationService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getAuditLogsEntityChangesApi} from "src/actions/core/AdministrationService/actions";

@@ -3,15 +3,15 @@
 import type {
   Volo_Abp_LanguageManagement_Dto_CreateLanguageDto,
   Volo_Abp_LanguageManagement_Dto_CultureInfoDto,
-} from "@ayasofyazilim/saas/AdministrationService";
-import {$Volo_Abp_LanguageManagement_Dto_CreateLanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+} from "@ayasofyazilim/core-saas/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_CreateLanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {handlePostResponse} from "@repo/utils/api";
 import {postLanguageApi} from "src/actions/core/AdministrationService/post-actions";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function Form({

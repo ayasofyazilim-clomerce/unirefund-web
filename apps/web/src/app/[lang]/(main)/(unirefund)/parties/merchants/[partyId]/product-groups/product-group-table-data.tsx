@@ -19,15 +19,15 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {CheckCircle, Plus, Star, Trash, XCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {handleDeleteResponse, handlePostResponse} from "src/actions/core/api-utils-client";
+import {handleDeleteResponse, handlePostResponse} from "@repo/utils/api";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import {deleteMerchantsByIdProductGroupsApi} from "src/actions/unirefund/CrmService/delete-actions";
 import {
   postMerchantsByIdProductGroupByProductGroupIdDefaultApi,
   postMerchantsByIdProductGroupsApi,
 } from "src/actions/unirefund/CrmService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type ProductGroupsTable =
   TanstackTableCreationProps<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>;

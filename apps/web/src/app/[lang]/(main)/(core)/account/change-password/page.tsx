@@ -1,7 +1,7 @@
 "use server";
 
 import {getResourceData} from "src/language-data/core/AccountService";
-import ChangePassword from "./change-passwod";
+import ChangePassword from "./change-password";
 
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;

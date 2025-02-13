@@ -1,20 +1,19 @@
-import type {ApiError} from "@ayasofyazilim/saas/AccountService";
-import {AccountServiceClient} from "@ayasofyazilim/saas/AccountService";
-import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationService";
-import {CRMServiceClient} from "@ayasofyazilim/saas/CRMService";
-import {IdentityServiceClient} from "@ayasofyazilim/saas/IdentityService";
-import {SaasServiceClient} from "@ayasofyazilim/saas/SaasService";
-import {SettingServiceClient} from "@ayasofyazilim/saas/SettingService";
+"use server";
+import {AccountServiceClient} from "@ayasofyazilim/core-saas/AccountService";
+import {AdministrationServiceClient} from "@ayasofyazilim/core-saas/AdministrationService";
+import {IdentityServiceClient} from "@ayasofyazilim/core-saas/IdentityService";
+import {SaasServiceClient} from "@ayasofyazilim/core-saas/SaasService";
 import {ContractServiceClient} from "@ayasofyazilim/saas/ContractService";
-import {TravellerServiceClient} from "@ayasofyazilim/saas/TravellerService";
-import {TagServiceClient} from "@ayasofyazilim/saas/TagService";
-import {LocationServiceClient} from "@ayasofyazilim/saas/LocationService";
+import {CRMServiceClient} from "@ayasofyazilim/saas/CRMService";
 import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
 import {FinanceServiceClient} from "@ayasofyazilim/saas/FinanceService";
+import {LocationServiceClient} from "@ayasofyazilim/saas/LocationService";
 import {RefundServiceClient} from "@ayasofyazilim/saas/RefundService";
+import {SettingServiceClient} from "@ayasofyazilim/saas/SettingService";
+import {TagServiceClient} from "@ayasofyazilim/saas/TagService";
+import {TravellerServiceClient} from "@ayasofyazilim/saas/TravellerService";
 import type {Session} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
-import {isApiError} from "./app/api/util";
 
 const HEADERS = {
   "X-Requested-With": "XMLHttpRequest",
@@ -49,7 +48,6 @@ export async function getSaasServiceClient(session?: Session | null) {
     HEADERS,
   });
 }
-
 export async function getSettingServiceClient(session?: Session | null): Promise<SettingServiceClient> {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
@@ -69,7 +67,6 @@ export async function getContractServiceClient(session?: Session | null): Promis
     HEADERS,
   });
 }
-
 export async function getAdministrationServiceClient(session?: Session | null) {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
@@ -148,71 +145,4 @@ export async function getRefundServiceClient(session?: Session | null) {
     BASE: process.env.BASE_URL,
     HEADERS,
   });
-}
-
-export type ServerResponse<T = undefined> = BaseServerResponse & (ErrorTypes | SuccessServerResponse<T>);
-
-export type ErrorTypes = BaseServerResponse & (ErrorServerResponse | ApiErrorServerResponse);
-
-export interface BaseServerResponse {
-  status: number;
-  message: string;
-}
-
-export interface SuccessServerResponse<T> {
-  type: "success";
-  data: T;
-}
-export interface ApiErrorServerResponse {
-  type: "api-error";
-  data: ApiError["message"];
-}
-export interface ErrorServerResponse {
-  type: "error";
-  data: unknown;
-}
-
-export function structuredError(error: unknown): ErrorTypes {
-  if (isApiError(error)) {
-    const body = error.body as
-      | {
-          error: {message?: string; details?: string};
-        }
-      | undefined;
-    const errorDetails = body?.error || {};
-    return {
-      type: "api-error",
-      data: errorDetails.message || error.statusText || "Something went wrong",
-      status: error.status,
-      message: errorDetails.details || errorDetails.message || error.statusText || "Something went wrong",
-    };
-  }
-  return {
-    type: "error",
-    data: error,
-    status: 500,
-    message: "An error occurred",
-  };
-}
-
-export interface PagedResult<T> {
-  items?: T[] | null;
-  totalCount: number;
-}
-
-export function structuredResponse<T>(data: T): ServerResponse<T> {
-  return {
-    type: "success",
-    data,
-    status: 200,
-    message: "",
-  };
-}
-export function structuredSuccessResponse<T>(data: T) {
-  return {
-    type: "success" as const,
-    data,
-    status: 200,
-    message: "",
-  };
 }

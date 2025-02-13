@@ -3,8 +3,9 @@ import type {
   GetApiSettingServiceProductGroupData,
   GetApiSettingServiceVatData,
 } from "@ayasofyazilim/saas/SettingService";
+import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getSettingServiceClient, structuredError, structuredSuccessResponse} from "src/lib";
+import {getSettingServiceClient} from "src/lib";
 
 export async function getVatsApi(data: GetApiSettingServiceVatData, session?: Session | null) {
   try {

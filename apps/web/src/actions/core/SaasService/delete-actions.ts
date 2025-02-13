@@ -1,6 +1,7 @@
 "use server";
 
-import {getSaasServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getSaasServiceClient} from "src/lib";
 
 export async function deleteEditionByIdApi(id: string) {
   try {

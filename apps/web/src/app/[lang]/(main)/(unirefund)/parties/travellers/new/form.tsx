@@ -5,9 +5,9 @@ import {$UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@ayasof
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePostResponse} from "@/actions/core/api-utils-client";
 import type {CountryDto} from "src/actions/unirefund/LocationService/types";
 import {postTravellerApi} from "src/actions/unirefund/TravellerService/post-actions";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";

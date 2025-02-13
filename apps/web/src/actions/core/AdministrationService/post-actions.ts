@@ -1,7 +1,8 @@
 "use server";
 
-import type {PostApiLanguageManagementLanguagesData} from "@ayasofyazilim/saas/AdministrationService";
-import {getAdministrationServiceClient, structuredError, structuredResponse} from "src/lib";
+import type {PostApiLanguageManagementLanguagesData} from "@ayasofyazilim/core-saas/AdministrationService";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getAdministrationServiceClient} from "src/lib";
 
 export async function postLanguageApi(data: PostApiLanguageManagementLanguagesData) {
   try {

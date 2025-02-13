@@ -7,10 +7,10 @@ import type {
   GetApiLanguageManagementLanguageTextsData,
   GetApiPermissionManagementPermissionsData,
   GetApiTextTemplateManagementTemplateDefinitionsData,
-} from "@ayasofyazilim/saas/AdministrationService";
-import {structuredSuccessResponse} from "@repo/utils/api";
+} from "@ayasofyazilim/core-saas/AdministrationService";
+import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
 import type {Session} from "next-auth";
-import {getAdministrationServiceClient, structuredError, structuredResponse} from "src/lib";
+import {getAdministrationServiceClient} from "src/lib";
 
 export async function getPermissionsApi(data: GetApiPermissionManagementPermissionsData) {
   try {

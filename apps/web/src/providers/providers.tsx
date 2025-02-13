@@ -2,11 +2,11 @@
 
 import Toaster from "@repo/ayasofyazilim-ui/molecules/toaster";
 import {SessionProvider} from "@repo/utils/auth";
+import type {Policy} from "@repo/utils/policies";
 import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import type {Session} from "next-auth";
-import {getGrantedPoliciesApi} from "src/actions/core/AccountService/actions";
+import {getGrantedPoliciesApi} from "@repo/utils/api";
 import {getLocalizationResources} from "src/utils";
-import type {Policy} from "src/utils/page-policy/utils";
 import {LocaleProvider} from "./locale";
 import Tooltip from "./tooltip";
 

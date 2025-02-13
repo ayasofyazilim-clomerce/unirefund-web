@@ -2,8 +2,8 @@ import type {
   Volo_Abp_Identity_IdentityRoleLookupDto,
   Volo_Abp_Identity_IdentityUserDto,
   Volo_Abp_Identity_OrganizationUnitLookupDto,
-} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_Identity_IdentityUserDto} from "@ayasofyazilim/saas/IdentityService";
+} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityUserDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -24,11 +24,11 @@ import {
   XCircle,
 } from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import {putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type UsersTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityUserDto>;
 

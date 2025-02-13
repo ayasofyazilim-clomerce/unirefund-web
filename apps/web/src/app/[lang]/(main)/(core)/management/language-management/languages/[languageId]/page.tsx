@@ -1,10 +1,10 @@
 "use server";
 
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getLanguageDetailsByIdApi} from "src/actions/core/AdministrationService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/AdministrationService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import Form from "./_components/form";
 
 export default async function Page({params}: {params: {lang: string; languageId: string}}) {

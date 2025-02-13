@@ -1,6 +1,6 @@
 "use client";
 
-import type {Volo_Abp_Application_Dtos_PagedResultDto_1} from "@ayasofyazilim/saas/SaasService";
+import type {PagedResultDto_EditionDto} from "@ayasofyazilim/core-saas/SaasService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
@@ -11,7 +11,7 @@ function EditionsTable({
   response,
   languageData,
 }: {
-  response: Volo_Abp_Application_Dtos_PagedResultDto_1;
+  response: PagedResultDto_EditionDto;
   languageData: SaasServiceResource;
 }) {
   const router = useRouter();

@@ -3,8 +3,8 @@ import type {
   Volo_Saas_Host_Dtos_EditionDto,
   Volo_Saas_Host_Dtos_SaasTenantDto,
   Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
-} from "@ayasofyazilim/saas/SaasService";
-import {$Volo_Saas_Host_Dtos_SaasTenantUpdateDto} from "@ayasofyazilim/saas/SaasService";
+} from "@ayasofyazilim/core-saas/SaasService";
+import {$Volo_Saas_Host_Dtos_SaasTenantUpdateDto} from "@ayasofyazilim/core-saas/SaasService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
@@ -17,12 +17,11 @@ import AutoForm, {
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {useGrantedPolicies} from "@repo/utils/policies";
-import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteTenantByIdApi} from "src/actions/core/SaasService/delete-actions";
 import {putTenantApi} from "src/actions/core/SaasService/put-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
-import isActionGranted from "src/utils/page-policy/action-policy";
 
 const tenantEditSchema = createZodObject($Volo_Saas_Host_Dtos_SaasTenantUpdateDto, [
   "name",

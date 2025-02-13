@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_IdentitySecurityLogDto} from "@ayasofyazilim/saas/AccountService";
+import type {PagedResultDto_IdentitySecurityLogDto} from "@ayasofyazilim/core-saas/AccountService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams} from "next/navigation";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";

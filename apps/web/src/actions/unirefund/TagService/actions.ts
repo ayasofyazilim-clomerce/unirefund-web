@@ -5,13 +5,14 @@ import type {
   GetApiTagServiceTagSummaryData,
   GetApiTagServiceTagTagsRefundData,
 } from "@ayasofyazilim/saas/TagService";
-import {getTagServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
-import {getApiRequests} from "../../api-requests";
+import {structuredResponse, structuredError, structuredSuccessResponse} from "@repo/utils/api";
+import type {Session} from "@repo/utils/auth";
+import {getTagServiceClient} from "src/lib";
 
-export async function getTagsApi(data: GetApiTagServiceTagData = {}) {
+export async function getTagsApi(data: GetApiTagServiceTagData = {}, session?: Session | null) {
   try {
-    const requests = await getApiRequests();
-    const response = await requests.tags.get(data);
+    const client = await getTagServiceClient(session);
+    const response = await client.tag.getApiTagServiceTag(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

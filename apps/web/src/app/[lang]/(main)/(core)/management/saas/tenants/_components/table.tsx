@@ -1,9 +1,9 @@
 "use client";
 
 import type {
-  Volo_Abp_Application_Dtos_PagedResultDto_15,
+  PagedResultDto_SaasTenantDto,
   Volo_Saas_Host_Dtos_EditionLookupDto,
-} from "@ayasofyazilim/saas/SaasService";
+} from "@ayasofyazilim/core-saas/SaasService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
@@ -15,7 +15,7 @@ function TenantsTable({
   languageData,
   editionList,
 }: {
-  response: Volo_Abp_Application_Dtos_PagedResultDto_15;
+  response: PagedResultDto_SaasTenantDto;
   languageData: SaasServiceResource;
   editionList: Volo_Saas_Host_Dtos_EditionLookupDto[];
 }) {

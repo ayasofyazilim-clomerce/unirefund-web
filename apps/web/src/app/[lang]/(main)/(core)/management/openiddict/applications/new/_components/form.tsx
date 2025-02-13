@@ -3,8 +3,8 @@
 import type {
   Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput,
   Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto,
-} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput} from "@ayasofyazilim/saas/IdentityService";
+} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput} from "@ayasofyazilim/core-saas/IdentityService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {MultiSelect} from "@repo/ayasofyazilim-ui/molecules/multi-select";
 import AutoForm, {
@@ -16,7 +16,7 @@ import AutoForm, {
 } from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {postApplicationApi} from "src/actions/core/IdentityService/post-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 

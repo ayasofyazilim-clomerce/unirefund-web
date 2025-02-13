@@ -1,5 +1,6 @@
 "use server";
-import {getExportValidationServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getExportValidationServiceClient} from "src/lib";
 
 export async function deleteExportValidationByIdApi(id: string) {
   try {

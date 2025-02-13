@@ -1,6 +1,7 @@
 "use server";
 
-import {getSettingServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredResponse, structuredError} from "@repo/utils/api";
+import {getSettingServiceClient} from "src/lib";
 
 export async function deleteVatByIdApi(id: string) {
   try {

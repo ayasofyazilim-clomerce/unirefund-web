@@ -1,6 +1,6 @@
 "use client";
 
-import type {Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto} from "@ayasofyazilim/saas/AccountService";
+import type {Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto} from "@ayasofyazilim/core-saas/AccountService";
 import {createContext, useContext} from "react";
 import type {ResourceResult} from "src/utils";
 

@@ -4,7 +4,8 @@ import type {
   PutApiSettingServiceProductGroupByIdData,
   PutApiSettingServiceVatByIdData,
 } from "@ayasofyazilim/saas/SettingService";
-import {getSettingServiceClient, structuredError, structuredResponse} from "src/lib";
+import {structuredResponse, structuredError} from "@repo/utils/api";
+import {getSettingServiceClient} from "src/lib";
 
 export async function putVatApi(data: PutApiSettingServiceVatByIdData) {
   try {

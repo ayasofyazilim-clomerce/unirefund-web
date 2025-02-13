@@ -1,10 +1,10 @@
 "use server";
 
-import type {GetApiTextTemplateManagementTemplateDefinitionsData} from "@ayasofyazilim/saas/AdministrationService";
+import type {GetApiTextTemplateManagementTemplateDefinitionsData} from "@ayasofyazilim/core-saas/AdministrationService";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getTextTemplateApi} from "src/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import ErrorComponent from "../../../_components/error-component";
 import TextTemplateTable from "./_components/table";
 

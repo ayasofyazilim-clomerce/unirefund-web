@@ -5,22 +5,21 @@ import type {
   Volo_Abp_Identity_IdentityUserDto,
   Volo_Abp_Identity_OrganizationUnitDto,
   Volo_Abp_Identity_OrganizationUnitLookupDto,
-} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_Identity_IdentityUserUpdateDto} from "@ayasofyazilim/saas/IdentityService";
+} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_Identity_IdentityUserUpdateDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handleDeleteResponse, handlePutResponse} from "src/actions/core/api-utils-client";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteUserByIdApi} from "src/actions/core/IdentityService/delete-actions";
 import {putUserApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
-import isActionGranted from "src/utils/page-policy/action-policy";
 
 type UserFormDto = Volo_Abp_Identity_IdentityUserDto & {
   organizationUnitIds?: string[] | null;

@@ -1,5 +1,5 @@
-import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
-import {$Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
+import {$Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -9,11 +9,11 @@ import type {
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {CheckCircle, Languages, Plus, XCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handlePutResponse} from "@repo/utils/api";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import {putLanguagesByIdSetAsDefaultApi} from "src/actions/core/AdministrationService/put-actions";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
-import isActionGranted from "src/utils/page-policy/action-policy";
-import type {Policy} from "src/utils/page-policy/utils";
 
 type LanguagesTable = TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageDto>;
 

@@ -1,12 +1,12 @@
 "use client";
 
-import type {Volo_Abp_Identity_CreateClaimTypeDto} from "@ayasofyazilim/saas/IdentityService";
-import {$Volo_Abp_Identity_CreateClaimTypeDto} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_Identity_CreateClaimTypeDto} from "@ayasofyazilim/core-saas/IdentityService";
+import {$Volo_Abp_Identity_CreateClaimTypeDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {postClaimTypeApi} from "src/actions/core/IdentityService/post-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 

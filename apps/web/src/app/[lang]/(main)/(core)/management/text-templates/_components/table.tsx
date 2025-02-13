@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_TemplateDefinitionDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {PagedResultDto_TemplateDefinitionDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams} from "next/navigation";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";

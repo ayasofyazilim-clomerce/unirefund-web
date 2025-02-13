@@ -3,8 +3,9 @@ import type {
   GetApiFinanceServiceRebateStatementHeadersData,
   GetApiFinanceServiceVatStatementHeadersData,
 } from "@ayasofyazilim/saas/FinanceService";
+import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getFinanceServiceClient, structuredError, structuredSuccessResponse} from "src/lib";
+import {getFinanceServiceClient} from "src/lib";
 
 export async function getVatStatementHeadersApi(
   data: GetApiFinanceServiceVatStatementHeadersData,

@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {PagedResultDto_LanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";

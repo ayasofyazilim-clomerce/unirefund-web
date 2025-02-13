@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_ApplicationDto} from "@ayasofyazilim/saas/IdentityService";
+import type {PagedResultDto_ApplicationDto} from "@ayasofyazilim/core-saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";

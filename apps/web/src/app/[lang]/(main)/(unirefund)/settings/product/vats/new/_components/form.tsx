@@ -6,7 +6,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {handlePostResponse} from "src/actions/core/api-utils-client";
+import {handlePostResponse} from "@repo/utils/api";
 import {postVatApi} from "src/actions/unirefund/SettingService/post-actions";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 

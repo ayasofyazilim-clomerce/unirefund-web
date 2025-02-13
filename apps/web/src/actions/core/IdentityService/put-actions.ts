@@ -18,8 +18,9 @@ import type {
   PutApiOpeniddictApplicationsByIdData,
   PutApiOpeniddictApplicationsByIdTokenLifetimeData,
   PutApiOpeniddictScopesByIdData,
-} from "@ayasofyazilim/saas/IdentityService";
-import {getIdentityServiceClient, structuredError, structuredResponse} from "src/lib";
+} from "@ayasofyazilim/core-saas/IdentityService";
+import {structuredError, structuredResponse} from "@repo/utils/api";
+import {getIdentityServiceClient} from "src/lib";
 
 export async function putUsersByIdTwoFactorByEnabledApi(data: PutApiIdentityUsersByIdTwoFactorByEnabledData) {
   try {

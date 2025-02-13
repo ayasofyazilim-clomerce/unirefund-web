@@ -2,9 +2,9 @@
 
 import {isUnauthorized} from "@repo/utils/policies";
 import {CreditCard, DollarSign, Tags} from "lucide-react";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getTagsApi, getTagSummaryApi} from "src/actions/unirefund/TagService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import {localizeCurrency} from "src/utils/utils-number";
 import ErrorComponent from "../../../_components/error-component";
 import {TagSummary} from "../_components/tag-summary";

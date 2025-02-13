@@ -1,5 +1,5 @@
-import type {Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto} from "@ayasofyazilim/saas/AdministrationService";
-import {$Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto} from "@ayasofyazilim/saas/AdministrationService";
+import type {Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto} from "@ayasofyazilim/core-saas/AdministrationService";
+import {$Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,

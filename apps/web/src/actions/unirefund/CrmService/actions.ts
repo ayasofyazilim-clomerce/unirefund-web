@@ -18,12 +18,10 @@ import type {
   GetApiCrmServiceTaxOfficesByIdAffiliationsData,
   GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData,
   GetApiCrmServiceTaxOfficesData,
-  UniRefund_CRMService_Merchants_StoreProfilePagedResultDto,
 } from "@ayasofyazilim/saas/CRMService";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import type {ServerResponse} from "src/lib";
-import {getCRMServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
-import {getApiRequests} from "../../api-requests";
+import {getCRMServiceClient} from "src/lib";
 
 export async function getMerchantsApi(data: GetApiCrmServiceMerchantsData = {}, session?: Session | null) {
   try {
@@ -608,51 +606,11 @@ export async function getTaxOfficeDetailsByIdApi(id: string, session?: Session |
   }
 }
 //Unupdated actions
-export async function getSubMerchantsByMerchantIdApi(
-  data: GetApiCrmServiceMerchantsByIdSubMerchantsData,
-): Promise<ServerResponse<UniRefund_CRMService_Merchants_StoreProfilePagedResultDto>> {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests.merchants.getSubCompanies({
-      ...data,
-      maxResultCount: data.maxResultCount || 10,
-      skipCount: data.skipCount || 0,
-    });
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
 
 export async function getAccessibleRefundPointsApi(data: GetApiCrmServiceRefundPointsAccessibleData = {}) {
   try {
     const crmClient = await getCRMServiceClient();
     const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsAccessible(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getAdressesApi(id: string, partyName: "merchants") {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].getAdresses({
-      id,
-    });
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function getIndividualsByIdApi(
-  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
-  params: GetApiCrmServiceMerchantsByIdAffiliationsData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].getIndivuals(params);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

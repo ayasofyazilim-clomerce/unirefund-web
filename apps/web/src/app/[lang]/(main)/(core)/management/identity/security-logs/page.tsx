@@ -1,11 +1,11 @@
 "use server";
 
-import type {GetApiIdentitySecurityLogsData} from "@ayasofyazilim/saas/IdentityService";
+import type {GetApiIdentitySecurityLogsData} from "@ayasofyazilim/core-saas/IdentityService";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getIdentitySecurityLogsApi} from "src/actions/core/IdentityService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/IdentityService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import SecurityLogsTable from "./_components/table";
 
 export default async function Page({

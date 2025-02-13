@@ -8,7 +8,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
+import {handlePutResponse} from "@repo/utils/api";
 import {putTravellerPersonalSummaryApi} from "src/actions/unirefund/TravellerService/put-actions";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 

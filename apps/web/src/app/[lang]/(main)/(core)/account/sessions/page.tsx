@@ -1,9 +1,9 @@
 "use server";
 
-import type {GetApiAccountSessionsData} from "@ayasofyazilim/saas/AccountService";
+import type {GetApiAccountSessionsData} from "@ayasofyazilim/core-saas/AccountService";
+import {isErrorOnRequest} from "@repo/utils/api";
 import {getSessionsApi} from "src/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
-import {isErrorOnRequest} from "src/utils/page-policy/utils";
 import SessionsTable from "./table";
 
 export default async function Page({

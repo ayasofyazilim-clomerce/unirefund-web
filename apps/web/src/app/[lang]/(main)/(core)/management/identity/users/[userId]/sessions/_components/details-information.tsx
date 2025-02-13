@@ -1,6 +1,6 @@
 "use client";
 
-import type {Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/saas/IdentityService";
+import type {Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function DetailsInformation({

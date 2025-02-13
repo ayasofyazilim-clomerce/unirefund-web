@@ -12,8 +12,6 @@ import type {
   PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
   PutApiCrmServiceMerchantsByIdData,
   PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
-  PutApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameIdData,
-  PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
   PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
   PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
   PutApiCrmServiceRefundPointsByIdData,
@@ -27,9 +25,9 @@ import type {
   PutApiCrmServiceTaxOfficesByIdEmailsByEmailIdData,
   PutApiCrmServiceTaxOfficesByIdOrganizationsByOrganizationIdData,
 } from "@ayasofyazilim/saas/CRMService";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getCRMServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
-import {getApiRequests} from "../../api-requests";
+import {getCRMServiceClient} from "src/lib";
 
 export async function putMerchantBaseApi(data: PutApiCrmServiceMerchantsByIdData, session?: Session | null) {
   try {
@@ -159,18 +157,6 @@ export async function putIndividualPersonalSummaryApi(
 }
 //Unupdated
 
-export async function putCrmAddressApi(
-  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
-  data: PutApiCrmServiceMerchantsByIdAddressesByAddressIdData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].putAddress(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
 export async function putMerchantEmailApi(data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData) {
   try {
     const crmClient = await getCRMServiceClient();
@@ -341,71 +327,6 @@ export async function putAffiliationCodesByIdApi(
     const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.affiliationCode.putApiCrmServiceAffiliationCodesById(data);
     return structuredSuccessResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-//unupdated
-export async function putCrmEmailAddressApi(
-  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
-  data: PutApiCrmServiceMerchantsByIdEmailsByEmailIdData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].putEmailAddress(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function putCrmTelephoneApi(
-  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
-  data: PutApiCrmServiceMerchantsByIdTelephonesByTelephoneIdData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].putTelephone(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function putCrmOrganizationApi(
-  partyName: "merchants" | "refund-points" | "customs" | "tax-offices" | "tax-free",
-  data: PutApiCrmServiceMerchantsByIdOrganizationsByOrganizationIdData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].putOrganization(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function putCrmIndividualNameApi(
-  partyName: "merchants",
-
-  data: PutApiCrmServiceMerchantsByIdIndividualByIndividualIdNameByNameIdData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].putIndividualName(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
-export async function putCrmIndividualPersonalSummaryApi(
-  partyName: "merchants",
-  data: PutApiCrmServiceMerchantsByIdIndividualByIndividualIdPersonalSummaryByPersonalSummaryIdData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyName].putIndividualPersonalSummary(data);
-    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }

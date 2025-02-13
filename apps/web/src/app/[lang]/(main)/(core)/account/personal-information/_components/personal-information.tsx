@@ -1,12 +1,12 @@
 "use client";
-import type {Volo_Abp_Account_ProfileDto} from "@ayasofyazilim/saas/AccountService";
-import {$Volo_Abp_Account_UpdateProfileDto} from "@ayasofyazilim/saas/AccountService";
+import type {Volo_Abp_Account_ProfileDto} from "@ayasofyazilim/core-saas/AccountService";
+import {$Volo_Abp_Account_UpdateProfileDto} from "@ayasofyazilim/core-saas/AccountService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {handlePutResponse} from "@repo/utils/api";
 import {putPersonalInfomationApi} from "src/actions/core/AccountService/put-actions";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 export default function PersonalInformation({

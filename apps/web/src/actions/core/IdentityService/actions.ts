@@ -12,10 +12,10 @@ import type {
   GetApiIdentityUsersData,
   GetApiOpeniddictApplicationsData,
   GetApiOpeniddictScopesData,
-} from "@ayasofyazilim/saas/IdentityService";
-import {structuredSuccessResponse} from "@repo/utils/api";
+} from "@ayasofyazilim/core-saas/IdentityService";
+import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getIdentityServiceClient, structuredError, structuredResponse} from "src/lib";
+import {getIdentityServiceClient} from "src/lib";
 
 export async function getRolesByIdClaimsApi(id: string) {
   try {

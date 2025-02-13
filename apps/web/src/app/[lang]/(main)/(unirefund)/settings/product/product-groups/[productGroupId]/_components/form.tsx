@@ -11,14 +11,12 @@ import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {handleDeleteResponse} from "@repo/utils/api";
-import {useGrantedPolicies} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import isActionGranted from "@/utils/page-policy/action-policy";
 import {deleteproductGroupByIdApi} from "@/actions/unirefund/SettingService/delete-actions";
-import {handlePutResponse} from "src/actions/core/api-utils-client";
 import {putProductGroupApi} from "src/actions/unirefund/SettingService/put-actions";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 

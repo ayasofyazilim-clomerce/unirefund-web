@@ -1,5 +1,5 @@
-import type {Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/saas/AccountService";
-import {$Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/saas/AccountService";
+import type {Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/core-saas/AccountService";
+import {$Volo_Abp_Identity_IdentitySessionDto} from "@ayasofyazilim/core-saas/AccountService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -7,8 +7,8 @@ import type {
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {InfoIcon, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handleDeleteResponse} from "@repo/utils/api";
 import {deleteSessionsByIdApi} from "src/actions/core/AccountService/delete-actions";
-import {handleDeleteResponse} from "src/actions/core/api-utils-client";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 import DetailsInformation from "./_components/details-information";
 

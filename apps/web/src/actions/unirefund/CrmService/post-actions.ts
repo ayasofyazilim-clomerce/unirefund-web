@@ -16,9 +16,9 @@ import type {
   PostApiCrmServiceTaxOfficesByIdAffiliationsData,
   PostApiCrmServiceTaxOfficesWithComponentsData,
 } from "@ayasofyazilim/saas/CRMService";
+import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getCRMServiceClient, structuredError, structuredResponse, structuredSuccessResponse} from "src/lib";
-import {getApiRequests} from "../../api-requests";
+import {getCRMServiceClient} from "src/lib";
 
 export async function postAffiliationsToMerchantApi(
   data: PostApiCrmServiceMerchantsByIdAffiliationsData,
@@ -169,18 +169,6 @@ export async function postAffiliationCodesApi(data: PostApiCrmServiceAffiliation
   }
 }
 //Unupdated
-export async function postAffiliationsToPartyApi(
-  partyType: "merchants" | "refund-points" | "customs" | "tax-free" | "tax-offices",
-  data: PostApiCrmServiceMerchantsByIdAffiliationsData,
-) {
-  try {
-    const requests = await getApiRequests();
-    const response = await requests[partyType].postAffiliations(data);
-    return structuredResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
 export async function postProductGroupsToMerchantsApi(data: PostApiCrmServiceMerchantsBulkProductGroupMerchantsData) {
   try {
     const crmClient = await getCRMServiceClient();
