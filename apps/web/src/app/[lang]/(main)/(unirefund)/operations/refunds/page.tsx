@@ -1,37 +1,45 @@
 "use server";
 
 import type {
+  GetApiRefundServiceRefundsData,
   UniRefund_RefundService_Enums_RefundReconciliationStatus,
   UniRefund_RefundService_Enums_RefundStatus,
   UniRefund_TagService_Tags_Enums_RefundType,
 } from "@ayasofyazilim/saas/RefundService";
-import {isUnauthorized} from "@repo/utils/policies";
-import {isErrorOnRequest} from "@repo/utils/api";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getRefundApi} from "src/actions/unirefund/RefundService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import ErrorComponent from "../../../_components/error-component";
 import RefundsTable from "./_components/table";
 
-interface SearchParamType {
-  maxResultCount?: number;
-  skipCount?: number;
-  sorting?: string;
+async function getApiRequests(data: GetApiRefundServiceRefundsData) {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([getRefundApi(data, session)]);
+
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
+
+type SearchParamType = GetApiRefundServiceRefundsData & {
   statusesFilterReconciliationStatuses?: string;
   statusesFilterRefundTypes?: string;
   statusesFilterStatuses?: string;
-  timeFilterEndDate?: string;
-  timeFilterStartDate?: string;
-}
+};
 
 export default async function Page({params, searchParams}: {params: {lang: string}; searchParams: SearchParamType}) {
   const {lang} = params;
+  const {languageData} = await getResourceData(lang);
 
-  await isUnauthorized({
-    requiredPolicies: ["RefundService.Refunds"],
-    lang,
-  });
-
-  const response = await getRefundApi({
+  const apiRequests = await getApiRequests({
     ...searchParams,
     statusesFilterStatuses: searchParams.statusesFilterStatuses?.split(",") as
       | UniRefund_RefundService_Enums_RefundStatus[]
@@ -44,12 +52,11 @@ export default async function Page({params, searchParams}: {params: {lang: strin
       | undefined,
     sorting: "paidDate desc",
   });
-
-  const {languageData} = await getResourceData(lang);
-
-  if (isErrorOnRequest(response, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={response.message} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
+  const {requiredRequests} = apiRequests;
+  const [refundResponse] = requiredRequests;
 
-  return <RefundsTable languageData={languageData} locale={lang} response={response.data} />;
+  return <RefundsTable languageData={languageData} locale={lang} response={refundResponse.data} />;
 }

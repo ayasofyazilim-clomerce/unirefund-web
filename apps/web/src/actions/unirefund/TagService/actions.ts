@@ -7,9 +7,14 @@ import type {
 } from "@ayasofyazilim/saas/TagService";
 import {structuredResponse, structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import {getTagServiceClient} from "src/lib";
 
 export async function getTagsApi(data: GetApiTagServiceTagData = {}, session?: Session | null) {
+  await isUnauthorized({
+    requiredPolicies: ["TagService.Tags", "TagService.Tags.View"],
+    lang: "en",
+  });
   try {
     const client = await getTagServiceClient(session);
     const response = await client.tag.getApiTagServiceTag(data);
@@ -20,6 +25,10 @@ export async function getTagsApi(data: GetApiTagServiceTagData = {}, session?: S
 }
 
 export async function getTagSummaryApi(data: GetApiTagServiceTagSummaryData = {}) {
+  await isUnauthorized({
+    requiredPolicies: ["TagService.Tags", "TagService.Tags.View", "TagService.Tags.ViewSummary"],
+    lang: "en",
+  });
   try {
     const client = await getTagServiceClient();
     const response = await client.tag.getApiTagServiceTagSummary(data);
@@ -30,6 +39,10 @@ export async function getTagSummaryApi(data: GetApiTagServiceTagSummaryData = {}
 }
 
 export async function getTagByIdApi(data: GetApiTagServiceTagByIdDetailData) {
+  await isUnauthorized({
+    requiredPolicies: ["TagService.Tags.Detail", "TagService.Tags.View"],
+    lang: "en",
+  });
   try {
     const client = await getTagServiceClient();
     const response = await client.tag.getApiTagServiceTagByIdDetail(data);
@@ -40,6 +53,10 @@ export async function getTagByIdApi(data: GetApiTagServiceTagByIdDetailData) {
 }
 
 export async function getRefundableTagsApi(data: GetApiTagServiceTagTagsRefundData) {
+  await isUnauthorized({
+    requiredPolicies: ["TagService.Tags", "TagService.Tags.ViewForRefund", "TagService.Tags.View"],
+    lang: "en",
+  });
   try {
     const client = await getTagServiceClient();
     const response = await client.tag.getApiTagServiceTagTagsRefund(data);

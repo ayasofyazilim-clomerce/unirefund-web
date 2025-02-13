@@ -1,13 +1,30 @@
-import {auth} from "@repo/utils/auth/next-auth";
 import {Separator} from "@/components/ui/separator";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getRefundDetailByIdApi} from "@/actions/unirefund/RefundService/actions";
 import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "@/language-data/unirefund/RefundService";
 import {getBaseLink} from "@/utils";
-import {RefundSummary} from "./_components/refund-summary";
 import {RefundLocation} from "./_components/refund-location";
+import {RefundSummary} from "./_components/refund-summary";
 import {TravellerDetails} from "./_components/traveller-details";
+
+async function getApiRequests(refundId: string) {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([getRefundDetailByIdApi(refundId, session)]);
+
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
 
 export default async function Layout({
   params,
@@ -19,20 +36,20 @@ export default async function Layout({
   const {id: refundId, lang} = params;
   const {languageData} = await getResourceData(lang);
 
-  const session = await auth();
-  const refundDetailsResponse = await getRefundDetailByIdApi(refundId, session);
-  const baseLink = getBaseLink(`operations/refunds/${refundId}`, lang);
-  if (refundDetailsResponse.type === "api-error") {
-    return (
-      <ErrorComponent languageData={languageData} message={refundDetailsResponse.message || "Unknown error occurred"} />
-    );
+  const apiRequests = await getApiRequests(refundId);
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
+  const {requiredRequests} = apiRequests;
+  const [refundDetailsResponse] = requiredRequests;
+
+  const baseLink = getBaseLink(`operations/refunds/${refundId}`, lang);
   return (
     <div className="grid h-full gap-4 overflow-hidden pb-4 md:auto-rows-[auto_1fr] md:grid-cols-2 lg:grid-cols-3">
       <div className="h-full overflow-hidden rounded-md border lg:col-span-2">
         <RefundSummary refundDetails={refundDetailsResponse.data} />
       </div>
-      <div className="h-full overflow-hidden rounded-md border border md:row-span-2">
+      <div className="h-full overflow-hidden rounded-md border md:row-span-2">
         <RefundLocation refundPointDetails={refundDetailsResponse.data.refundPoint} />
         <Separator />
         <TravellerDetails
@@ -43,7 +60,7 @@ export default async function Layout({
           }}
         />
       </div>
-      <div className="overflow-hidden rounded-md border border p-4 lg:col-span-2">
+      <div className="overflow-hidden rounded-md border p-4 lg:col-span-2">
         <TabLayout
           tabList={[
             {

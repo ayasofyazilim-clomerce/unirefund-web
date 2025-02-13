@@ -8,7 +8,13 @@ export function isApiError(error: unknown): error is ApiError {
   }
   return error instanceof ApiError;
 }
+export function isStructuredError(error: unknown): error is ApiErrorServerResponse {
+  if ((error as ApiErrorServerResponse).type === "api-error") {
+    return true;
+  }
 
+  return false;
+}
 export function structuredError(error: unknown): ApiErrorServerResponse {
   if (isApiError(error)) {
     const body = error.body as
