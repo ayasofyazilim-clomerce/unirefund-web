@@ -7,6 +7,7 @@ import {$UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderUpdat
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {putRefundFeeHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
@@ -20,17 +21,22 @@ export default function RefundFeeHeaderUpdateForm({
 }) {
   const {id: refundFeeHeaderId} = useParams<{id: string}>();
   const router = useRouter();
-  const uiSchema = {
-    "ui:className": "md:grid md:grid-cols-2",
-    isActive: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
+  const uiSchema = createUiSchemaWithResource({
+    schema: $RefundFeeHeaderUpdateDto,
+    name: "Contracts.Form",
+    resources: languageData,
+    extend: {
+      "ui:className": "md:grid md:grid-cols-2",
+      isActive: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+      },
+      refundFeeDetails: {
+        "ui:field": "RefundFeeDetailsField",
+        "ui:className": "border-none p-0 md:col-span-full",
+      },
     },
-    refundFeeDetails: {
-      "ui:field": "RefundFeeDetailsField",
-      "ui:className": "border-none p-0 md:col-span-full",
-    },
-  };
+  });
   return (
     <SchemaForm<RefundFeeHeaderUpdateDto>
       fields={{
@@ -50,6 +56,7 @@ export default function RefundFeeHeaderUpdateForm({
         });
       }}
       schema={$RefundFeeHeaderUpdateDto}
+      submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
     />
   );

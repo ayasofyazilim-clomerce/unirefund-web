@@ -8,6 +8,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {postRefundFeeHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
@@ -43,37 +44,42 @@ export default function RefundFeeHeaderCreateForm({
       },
     ],
   });
-  const uiSchema = {
-    "ui:className": "md:grid md:grid-cols-2",
-    name: {"ui:className": ""},
-    isTemplate: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
+  const uiSchema = createUiSchemaWithResource({
+    schema: $RefundFeeHeaderCreateDto,
+    name: "Contracts.Form",
+    resources: languageData,
+    extend: {
+      "ui:className": "md:grid md:grid-cols-2",
+      name: {"ui:className": ""},
+      isTemplate: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+      },
+      isActive: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+      },
+      refundPointId: {
+        "ui:widget": "RefundPointWidget",
+        dependencies: [
+          {
+            target: "isTemplate",
+            when: (targetValue: boolean) => targetValue,
+            type: DependencyType.HIDES,
+          },
+          {
+            target: "isTemplate",
+            when: (targetValue: boolean) => !targetValue,
+            type: DependencyType.REQUIRES,
+          },
+        ],
+      },
+      refundFeeDetails: {
+        "ui:field": "RefundFeeDetailsField",
+        "ui:className": "border-none p-0 md:col-span-full",
+      },
     },
-    isActive: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
-    },
-    refundPointId: {
-      "ui:widget": "RefundPointWidget",
-      dependencies: [
-        {
-          target: "isTemplate",
-          when: (targetValue: boolean) => targetValue,
-          type: DependencyType.HIDES,
-        },
-        {
-          target: "isTemplate",
-          when: (targetValue: boolean) => !targetValue,
-          type: DependencyType.REQUIRES,
-        },
-      ],
-    },
-    refundFeeDetails: {
-      "ui:field": "RefundFeeDetailsField",
-      "ui:className": "border-none p-0 md:col-span-full",
-    },
-  };
+  });
   return (
     <SchemaForm<RefundFeeHeaderCreateDto>
       disabled={isPending}
@@ -102,6 +108,7 @@ export default function RefundFeeHeaderCreateForm({
         });
       }}
       schema={$RefundFeeHeaderCreateDto}
+      submitText={languageData.Save}
       uiSchema={uiSchema}
       useDependency
       widgets={{

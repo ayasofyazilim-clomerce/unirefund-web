@@ -9,6 +9,7 @@ import type {
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto} from "@ayasofyazilim/saas/ContractService";
 import {handlePutResponse} from "@repo/utils/api";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {putRebateTableHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
@@ -24,26 +25,31 @@ export default function RebateTableHeaderUpdateForm({
   const {id: rebateTableHeaderId} = useParams<{id: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const uiSchema = {
-    "ui:className": "grid md:grid-cols-2",
-    calculateNetCommissionInsteadOfRefund: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
-      "ui:test": languageData.Address,
+  const uiSchema = createUiSchemaWithResource({
+    resources: languageData,
+    schema: $RebateTableHeaderUpdateDto,
+    name: "Contracts.Form",
+    extend: {
+      "ui:className": "grid md:grid-cols-2",
+      calculateNetCommissionInsteadOfRefund: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:test": languageData.Address,
+      },
+      isTemplate: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md h-max self-end",
+      },
+      rebateTableDetails: {
+        "ui:field": "RebateTableDetailsField",
+        "ui:className": "md:col-span-full",
+      },
+      processingFeeDetails: {
+        "ui:field": "ProcessingFeeDetailsField",
+        "ui:className": "md:col-span-full",
+      },
     },
-    isTemplate: {
-      "ui:widget": "switch",
-      "ui:className": "border px-2 rounded-md h-max self-end",
-    },
-    rebateTableDetails: {
-      "ui:field": "RebateTableDetailsField",
-      "ui:className": "md:col-span-full",
-    },
-    processingFeeDetails: {
-      "ui:field": "ProcessingFeeDetailsField",
-      "ui:className": "md:col-span-full",
-    },
-  };
+  });
   return (
     <SchemaForm<RebateTableHeaderUpdateDto>
       disabled={isPending}
@@ -69,6 +75,7 @@ export default function RebateTableHeaderUpdateForm({
         });
       }}
       schema={$RebateTableHeaderUpdateDto}
+      submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
     />
   );
