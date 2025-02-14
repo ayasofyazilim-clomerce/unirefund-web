@@ -15,7 +15,7 @@
     "href": "/home",
     "icon": "home",
     "parentNavbarItemKey": "/",
-    "displayOrder": 1
+    "displayOrder": -1
   },
   {
     "key": "management",

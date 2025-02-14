@@ -4,7 +4,7 @@
     "displayName": "Home",
     "description": "View and manage your Home settings.",
     "href": "home",
-    "icon": "Home",
+    "icon": "home",
     "parentNavbarItemKey": null,
     "displayOrder": 1
   },
@@ -13,9 +13,9 @@
     "displayName": "Home",
     "description": "View and manage your Home settings.",
     "href": "/home",
-    "icon": "Home",
+    "icon": "home",
     "parentNavbarItemKey": "/",
-    "displayOrder": 1
+    "displayOrder": -1
   },
   {
     "key": "management",

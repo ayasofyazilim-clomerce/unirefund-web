@@ -3,6 +3,7 @@
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
+import IndividualActionList from "../_components/individual-action-list";
 
 export default async function Layout({
   children,
@@ -42,6 +43,7 @@ export default async function Layout({
           href: `${baseLink}address`,
         },
       ]}>
+      <IndividualActionList lang={lang} languageData={languageData} partyId={partyId} />
       {children}
     </TabLayout>
   );
