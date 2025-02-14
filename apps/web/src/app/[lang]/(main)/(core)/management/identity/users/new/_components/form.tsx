@@ -53,9 +53,6 @@ export default function Form({
       lockoutEnabled: {
         "ui:widget": "switch",
       },
-      phoneNumberConfirmed: {
-        "ui:widget": "switch",
-      },
       shouldChangePasswordOnNextLogin: {
         "ui:widget": "switch",
       },
@@ -81,7 +78,6 @@ export default function Form({
           "organizationUnitIds",
           "isActive",
           "lockoutEnabled",
-          "phoneNumberConfirmed",
           "shouldChangePasswordOnNextLogin",
         ],
       }}
