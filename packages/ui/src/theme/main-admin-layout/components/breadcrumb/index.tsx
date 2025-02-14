@@ -1,4 +1,7 @@
 "use client";
+import {ChevronDown} from "lucide-react";
+import Link from "next/link";
+import {Fragment} from "react";
 import {Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator} from "@repo/ayasofyazilim-ui/atoms/breadcrumb";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {
@@ -12,9 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
-import {ChevronDown} from "lucide-react";
-import Link from "next/link";
-import {Fragment} from "react";
 import {icons} from "../navbar";
 
 function BreadcrumbIcon({item}: {item: NavbarItemsFromDB}) {
@@ -120,7 +120,6 @@ function BreadcrumbSingleItem({item, isActive}: {item: BreadcrumbItemType; isAct
   );
 }
 
-const data: NavbarItemsFromDB[] = [];
 function BreadcrumbNavigation({
   navbarItems,
   navigation,
@@ -131,23 +130,25 @@ function BreadcrumbNavigation({
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {navigation?.map((item, index) => (
-          <Fragment key={item.key}>
-            {index !== 0 && <BreadcrumbSeparator />}
+        {navigation
+          ?.filter((i) => i.displayOrder !== -1)
+          ?.map((item, index) => (
+            <Fragment key={item.key}>
+              {index !== 0 && <BreadcrumbSeparator />}
 
-            <BreadcrumbItem>
-              {item.subNavbarItems?.filter((i) => i.href)?.length > 1 ? (
-                <BreadcrumbDropdown
-                  item={item}
-                  navbarItems={navbarItems}
-                  isLastNavbarItem={index === navigation.length - 1}
-                />
-              ) : (
-                <BreadcrumbSingleItem item={item} isActive={index === navigation.length - 1} />
-              )}
-            </BreadcrumbItem>
-          </Fragment>
-        ))}
+              <BreadcrumbItem>
+                {item.subNavbarItems?.filter((i) => i.href)?.length > 1 ? (
+                  <BreadcrumbDropdown
+                    item={item}
+                    navbarItems={navbarItems}
+                    isLastNavbarItem={index === navigation.length - 1}
+                  />
+                ) : (
+                  <BreadcrumbSingleItem item={item} isActive={index === navigation.length - 1} />
+                )}
+              </BreadcrumbItem>
+            </Fragment>
+          ))}
       </BreadcrumbList>
     </Breadcrumb>
   );

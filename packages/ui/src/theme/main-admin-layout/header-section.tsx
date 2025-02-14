@@ -1,13 +1,13 @@
 "use client";
 
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {useEffect, useMemo, useState} from "react";
+import {Skeleton} from "@repo/ayasofyazilim-ui/atoms/skeleton";
+import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {useTheme} from "../../providers/theme";
 import Navbar from "./components/navbar";
-import {Skeleton} from "@repo/ayasofyazilim-ui/atoms/skeleton";
 
 const PageHeader = dynamic(() => import("../../../../ayasofyazilim-ui/src/molecules/page-header"), {
   ssr: false,
@@ -58,7 +58,12 @@ function findBreadcrumbItems(
 export function HeaderSection() {
   const {navbarItems, prefix, lang, tenantData} = useTheme();
   const pathName = usePathname();
-  const {activeNavItem, pageBackEnabled, breadcrumbItems, sectionLayoutItems, activeSectionLayoutItem} = useMemo(() => {
+
+  const {activeNavItem, pageBackEnabled, breadcrumbItems} = useMemo(() => {
+    const homeBreadcrumb: BreadcrumbItemType = {
+      ...navbarItems[0],
+      subNavbarItems: navbarItems?.filter((i) => i.parentNavbarItemKey === "en"),
+    };
     const data: NavbarItemsFromDB[] = [];
     const item = findActiveNavbarItem(navbarItems, pathName);
     const pageBackEnabled = "/" + item?.key !== pathName;
@@ -72,22 +77,13 @@ export function HeaderSection() {
       };
       breadcrumbItems.push(subItem);
     });
+    breadcrumbItems.pop();
+    breadcrumbItems.push(homeBreadcrumb);
     breadcrumbItems.reverse();
-
-    const sectionLayoutItems = breadcrumbItems[breadcrumbItems.length - 1]?.subNavbarItems?.map((item) => ({
-      id: item.key,
-      name: item.displayName,
-      link: item.href ? "/" + item.href : undefined,
-    }));
-
-    const activeSectionLayoutItem = breadcrumbItems[breadcrumbItems.length - 1]?.key;
-
     return {
       activeNavItem: item,
       pageBackEnabled,
       breadcrumbItems,
-      sectionLayoutItems,
-      activeSectionLayoutItem,
     };
   }, [pathName, navbarItems]);
 
@@ -116,18 +112,18 @@ export function HeaderSection() {
       <Navbar
         navbarItems={navbarItems}
         navigation={breadcrumbItems}
-        activeSectionLayoutItem={activeSectionLayoutItem}
-        sectionLayoutItems={sectionLayoutItems}
         prefix={prefix}
         lang={lang}
         tenantData={tenantData}
       />
-      <PageHeader
-        title={pageHeaderProps.title}
-        description={pageHeaderProps.description}
-        LinkElement={pageBackEnabled ? Link : undefined}
-        href={pageHeaderProps.href}
-      />
+      {pathName.split(lang + "/")[1] !== "unauthorized" && (
+        <PageHeader
+          title={pageHeaderProps.title}
+          description={pageHeaderProps.description}
+          LinkElement={pageBackEnabled ? Link : undefined}
+          href={pageHeaderProps.href}
+        />
+      )}
     </div>
   );
 }
