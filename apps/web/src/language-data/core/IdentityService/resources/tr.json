@@ -79,7 +79,7 @@
   "Form.User.userName": "Kullanıcı Adı",
   "Form.User.name": "Ad",
   "Form.User.surname": "Soyad",
-  "Form.User.Password": "Şifre",
+  "Form.User.password": "Şifre",
   "Form.User.email": "E-posta",
   "Form.User.emailAddress": "E-posta Adresi",
   "Form.User.phoneNumber": "Telefon Numarası",

@@ -3,13 +3,13 @@
 ```
 "use server";
 
-import {structuredError} from "@/lib";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {auth} from "@repo/utils/auth/next-auth";
 import {FileIcon, FileText, HandCoins, Plane, ReceiptText, Scale, Store} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import Link from "next/link";
+import {structuredError} from "@repo/utils/api";
 import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
 import {getRefundDetailByIdApi} from "src/actions/unirefund/RefundService/actions";
 import {getProductGroupsApi} from "src/actions/unirefund/SettingService/actions";
@@ -29,16 +29,14 @@ async function getApiRequests(tagId: string) {
       getTagByIdApi({id: tagId}),
       getProductGroupsApi({maxResultCount: 1}, session),
     ]);
-    const failureIndex = requiredRequests.findIndex((i) => i.type !== "success");
-    if (failureIndex !== -1) {
-      return {message: requiredRequests[failureIndex].message || "Unknown error occurred"};
-    }
+
     const tagDetail = requiredRequests[0].data;
+
     const optionalRequests = await Promise.allSettled([
-      getVatStatementHeadersByIdApi(tagDetail.vatStatementHeaderId),
-      getRefundDetailByIdApi(tagDetail.refundId),
+      tagDetail.vatStatementHeaderId ? getVatStatementHeadersByIdApi(tagDetail.vatStatementHeaderId) : {data: null},
+      tagDetail.refundId ? getRefundDetailByIdApi(tagDetail.refundId) : {data: null},
     ]);
-    return {requiredRequests: requiredRequests, optionalRequests: optionalRequests};
+    return {requiredRequests, optionalRequests};
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -60,10 +58,11 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
   const [tagDetailResponse, productGroupsResponse] = requiredRequests;
   const [vatStatementResponse, refundDetailResponse] = optionalRequests;
 
-  const isThereAProductGroup = (productGroupsResponse?.data?.items?.length || 0) === 0;
+  const isThereAProductGroup = (productGroupsResponse.data.items?.length || 0) > 0;
   const tagDetail = tagDetailResponse.data;
   const vatStatementHeader = vatStatementResponse.status === "fulfilled" ? vatStatementResponse.value.data : null;
   const refundDetail = refundDetailResponse.status === "fulfilled" ? refundDetailResponse.value.data : null;
+
   return <>test</>;
 }
 ```

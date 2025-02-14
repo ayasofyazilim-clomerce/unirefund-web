@@ -12,11 +12,11 @@ import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteUserByIdApi} from "src/actions/core/IdentityService/delete-actions";
 import {putUserApi} from "src/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
@@ -70,9 +70,7 @@ export default function Form({
       lockoutEnabled: {
         "ui:widget": "switch",
       },
-      phoneNumberConfirmed: {
-        "ui:widget": "switch",
-      },
+
       shouldChangePasswordOnNextLogin: {
         "ui:widget": "switch",
       },
@@ -130,7 +128,6 @@ export default function Form({
             "organizationUnitIds",
             "isActive",
             "lockoutEnabled",
-            "phoneNumberConfirmed",
             "shouldChangePasswordOnNextLogin",
           ],
         }}

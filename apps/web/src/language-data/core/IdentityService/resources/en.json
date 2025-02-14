@@ -82,7 +82,7 @@
   "Form.User.email": "Email",
   "Form.User.emailAddress": "Email Address",
   "Form.User.phoneNumber": "Phone Number",
-  "Form.User.Password": "Password",
+  "Form.User.password": "Password",
   "Form.User.accessFailedCount": "Access Failed Count",
   "Form.User.creationTime": "Creation Time",
   "Form.User.lastModificationTime": "Last Modification Time",
