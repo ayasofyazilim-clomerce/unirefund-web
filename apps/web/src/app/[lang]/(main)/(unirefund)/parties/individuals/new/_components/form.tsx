@@ -3,9 +3,9 @@
 import type {UniRefund_CRMService_Individuals_CreateIndividualDto} from "@ayasofyazilim/saas/CRMService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
 import {handlePostResponse} from "@repo/utils/api";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
 import {postIndividualsWithComponentsApi} from "src/actions/unirefund/CrmService/post-actions";
 import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
 import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
@@ -22,7 +22,7 @@ export default function IndividualForm({
   languageData: CRMServiceServiceResource;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const selectedFieldsDefaultValue: SelectedAddressField = {
     countryId: "",
@@ -41,7 +41,7 @@ export default function IndividualForm({
 
   const $createIndividualSchema = createZodObject(
     $UniRefund_CRMService_Individuals_CreateIndividualFormDto,
-    ["name", "personalSummaries", "address", "createAbpUserAccount", "telephone", "email"],
+    ["name", "personalSummaries", "address", "telephone", "email"],
     undefined,
     {...individualFormSubPositions, address: addressFieldsToShow},
   );
@@ -56,7 +56,7 @@ export default function IndividualForm({
     const createData: UniRefund_CRMService_Individuals_CreateIndividualDto = {
       name: formData.name,
       personalSummaries: [formData.personalSummaries],
-      createAbpUserAccount: formData.createAbpUserAccount,
+      createAbpUserAccount: true,
       contactInformations: [
         {
           telephones: [
@@ -78,29 +78,24 @@ export default function IndividualForm({
         },
       ],
     };
-    void postIndividualsWithComponentsApi({
-      requestBody: createData,
-    })
-      .then((res) => {
+
+    startTransition(() => {
+      void postIndividualsWithComponentsApi({
+        requestBody: createData,
+      }).then((res) => {
         handlePostResponse(res, router, {
           prefix: "/parties/individuals",
           identifier: "id",
           suffix: "details/name",
         });
-      })
-      .finally(() => {
-        setLoading(false);
       });
+    });
   }
 
   return (
     <AutoForm
       className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
       fieldConfig={{
-        createAbpUserAccount: {
-          containerClassName: "lg:col-span-1 border p-4 rounded-md",
-          fieldType: "switch",
-        },
         email: {
           emailAddress: {
             inputProps: {
@@ -121,7 +116,6 @@ export default function IndividualForm({
       }}
       formSchema={$createIndividualSchema}
       onSubmit={(formData) => {
-        setLoading(true);
         handleSaveIndividual(formData as CreateIndividualSchema);
       }}
       onValuesChange={(values) => {
@@ -129,7 +123,7 @@ export default function IndividualForm({
       }}
       stickyChildren
       stickyChildrenClassName="sticky px-6">
-      <AutoFormSubmit className="float-right" disabled={loading}>
+      <AutoFormSubmit className="float-right" disabled={isPending}>
         {languageData.Save}
       </AutoFormSubmit>
     </AutoForm>
