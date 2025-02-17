@@ -40,6 +40,10 @@
   "Form.Tenant.activationState.activeWithLimitedTime": "Sınırlı Süreli Aktif",
   "Form.Tenant.activationState.passive": "Pasif",
   "Form.Tenant.activationEndDate": "Aktivasyon Bitiş Tarihi",
+  "Form.Tenant.countryCode3": "Ülke",
+  "Form.Tenant.defaultLanguage": "Varsayılan Dil",
+  "Form.Tenant.timeZone": "Saat Dilimi",
+  "Form.Tenant.currency": "Para Birimi",
   "Form.Tenant.SetPassword.username": "Kullanıcı adı",
   "Form.Tenant.SetPassword.password": "Şifre"
 }
