@@ -35,9 +35,10 @@
   "Form.Tenant.adminPassword": "Admin Password",
   "Form.Tenant.editionEndDateUtc": "Edition expiration date (UTC)",
   "Form.Tenant.activationState": "Activation State",
-  "Form.Tenant.active": "Active",
-  "Form.Tenant.activeWithLimitedTime": "Active with Limited Time",
-  "Form.Tenant.passive": "Passive",
+  "Form.Tenant.activationState.ui:placeholder": "Seclect activation State",
+  "Form.Tenant.activationState.active": "Active",
+  "Form.Tenant.activationState.activeWithLimitedTime": "Active with Limited Time",
+  "Form.Tenant.activationState.passive": "Passive",
   "Form.Tenant.activationEndDate": "Activation End Date",
   "Form.Tenant.SetPassword.username": "User Name",
   "Form.Tenant.SetPassword.password": "Password"

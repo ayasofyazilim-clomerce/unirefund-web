@@ -4,6 +4,7 @@ import type {
   GetApiLocationServiceCitiesData,
   GetApiLocationServiceCitiesGetListByRegionByRegionIdData,
   GetApiLocationServiceCountriesData,
+  GetApiLocationServiceCurrenciesData,
   GetApiLocationServiceDistrictsGetListByCityByCityIdData,
   GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
@@ -96,5 +97,18 @@ export async function getNeighborhoodsByDistrictIdApi(
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
+  }
+}
+
+export async function getCurrencyApi(data: GetApiLocationServiceCurrenciesData, session?: Session | null) {
+  try {
+    const locationClient = await getLocationServiceClient(session);
+    const response = await locationClient.currency.getApiLocationServiceCurrencies({
+      ...data,
+      maxResultCount: 250,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }
