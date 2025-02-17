@@ -1,9 +1,9 @@
 "use server";
 
-import { AccountServiceClient } from "@ayasofyazilim/core-saas/AccountService";
-import { redirect } from "next/navigation";
-import { structuredError, structuredResponse } from "./../api";
-import { signOut } from "./auth";
+import {redirect} from "next/navigation";
+import {AccountServiceClient} from "@ayasofyazilim/core-saas/AccountService";
+import {structuredError, structuredResponse} from "../api";
+import {signOut} from "./auth";
 
 const TOKEN_URL = `${process.env.TOKEN_URL}/connect/token`;
 const OPENID_URL = `${process.env.TOKEN_URL}/.well-known/openid-configuration`;
@@ -22,19 +22,16 @@ export async function getAccountServiceClient(accessToken?: string) {
 
 export async function signOutServer() {
   try {
-    await signOut({ redirect: false });
+    await signOut({redirect: false});
   } catch (error) {
-    return { error: "Unknown error" };
+    return {error: "Unknown error"};
   }
-  redirect("/login");
+  redirect("/en/login");
 }
 async function fetchScopes() {
   const scopes = await fetch(OPENID_URL)
     .then((response) => response.json())
-    .then(
-      (json: { scopes_supported?: string[] }) =>
-        json.scopes_supported?.join(" ") || "",
-    );
+    .then((json: {scopes_supported?: string[]}) => json.scopes_supported?.join(" ") || "");
   return scopes;
 }
 type TokenResponse = {
@@ -59,9 +56,7 @@ export async function fetchToken<T extends TokenResponse>(credentials: {
     scope: scopes,
   };
 
-  Object.entries(urlEncodedContent).forEach(([key, value]) =>
-    urlencoded.append(key, value),
-  );
+  Object.entries(urlEncodedContent).forEach(([key, value]) => urlencoded.append(key, value));
   const response = await fetch(TOKEN_URL, {
     method: "POST",
     headers: {
@@ -80,9 +75,7 @@ export async function fetchNewAccessTokenByRefreshToken(refreshToken: string) {
     grant_type: "refresh_token",
     refresh_token: refreshToken,
   };
-  Object.entries(urlEncodedContent).forEach(([key, value]) =>
-    urlencoded.append(key, value),
-  );
+  Object.entries(urlEncodedContent).forEach(([key, value]) => urlencoded.append(key, value));
   const response = await fetch(TOKEN_URL, {
     method: "POST",
     headers: {
@@ -94,15 +87,7 @@ export async function fetchNewAccessTokenByRefreshToken(refreshToken: string) {
 
   return await response.json();
 }
-async function getUserProfile(accessToken: string) {
-  try {
-    const client = await getAccountServiceClient(accessToken);
-    const data = await client.profile.getApiAccountMyProfile();
-    return structuredResponse(data);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
+
 async function getTenantData(accessToken: string) {
   try {
     const client = await getAccountServiceClient(accessToken);
@@ -111,7 +96,7 @@ async function getTenantData(accessToken: string) {
     if (!activeSession?.tenantId || !activeSession.tenantName) {
       return structuredError({
         body: {
-          error: { message: "Something went wrong while getting tenantData" },
+          error: {message: "Something went wrong while getting tenantData"},
         },
       });
     }
@@ -120,38 +105,28 @@ async function getTenantData(accessToken: string) {
       tenantName: activeSession.tenantName,
     });
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 
-export async function getUserData(
-  access_token: string,
-  refresh_token: string,
-  expiration_date: number,
-) {
-  try {
-    let tenantData = { tenantId: "", tenantName: "" };
-    if (process.env.FETCH_TENANT) {
-      const tenantDataResponse = await getTenantData(access_token);
-      if (tenantDataResponse.type === "success") {
-        tenantData = tenantDataResponse.data;
-      }
+export async function getUserData(access_token: string, refresh_token: string, expiration_date: number) {
+  let tenantData = {tenantId: "", tenantName: ""};
+  if (process.env.FETCH_TENANT) {
+    const tenantDataResponse = await getTenantData(access_token);
+    if (tenantDataResponse.type === "success") {
+      tenantData = tenantDataResponse.data;
     }
-    const decoded_jwt = JSON.parse(
-      Buffer.from(access_token.split(".")[1], "base64").toString(),
-    );
-    return {
-      access_token,
-      refresh_token,
-      expiration_date,
-      userName: decoded_jwt.unique_name,
-      name: decoded_jwt.given_name,
-      surname: "",
-
-      ...tenantData,
-      ...decoded_jwt,
-    };
-  } catch (error) {
-    throw error;
   }
+  const decoded_jwt = JSON.parse(Buffer.from(access_token.split(".")[1], "base64").toString());
+  return {
+    access_token,
+    refresh_token,
+    expiration_date,
+    userName: decoded_jwt.unique_name,
+    name: decoded_jwt.given_name,
+    surname: "",
+
+    ...tenantData,
+    ...decoded_jwt,
+  };
 }

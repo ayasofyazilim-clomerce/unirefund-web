@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
-import type { ReactNode } from "react";
-import { createContext, useContext, useMemo } from "react";
-import { Policy } from "./types";
+import {createContext, useContext} from "react";
 import policies from "./policies.json";
+import {Policy} from "./types";
 
+import type {ReactNode} from "react";
 const GrantedPoliciesContext = createContext<{
   grantedPolicies: Record<Policy, boolean>;
-}>({ grantedPolicies: policies });
+}>({grantedPolicies: policies});
 
 export const useGrantedPolicies = () => {
   return useContext(GrantedPoliciesContext);
@@ -20,14 +19,8 @@ export function GrantedPoliciesProvider({
   children: ReactNode;
   grantedPolicies?: Record<string, boolean> | undefined;
 }) {
-  const key = useMemo(() => {
-    return new Date().getTime().toString();
-  }, [grantedPolicies]);
   return (
-    <GrantedPoliciesContext.Provider
-      key={key}
-      value={{ grantedPolicies: grantedPolicies as Record<Policy, boolean> }}
-    >
+    <GrantedPoliciesContext.Provider value={{grantedPolicies: grantedPolicies as Record<Policy, boolean>}}>
       {children}
     </GrantedPoliciesContext.Provider>
   );

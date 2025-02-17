@@ -1,7 +1,10 @@
 "use client";
 
+import {XIcon} from "lucide-react";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
 import {useEffect, useState, useTransition} from "react";
-
+import {FormProvider, useForm} from "react-hook-form";
 import {Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto} from "@ayasofyazilim/core-saas/AccountService";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {
@@ -16,10 +19,6 @@ import {Input} from "@repo/ayasofyazilim-ui/atoms/input";
 import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
 import {z, zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {PasswordInput} from "@repo/ayasofyazilim-ui/molecules/password-input";
-import {XIcon} from "lucide-react";
-import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {FormProvider, useForm} from "react-hook-form";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -35,6 +34,7 @@ export interface LoginCredentials {
   tenantId: string;
   userName: string;
   password: string;
+  redirectTo: string;
 }
 
 export default function LoginForm({
@@ -88,17 +88,19 @@ export default function LoginForm({
     });
   }
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const redirectTo =
+      new URLSearchParams(location.search).get("redirect") || "/" + location.pathname.split("/")[1] + "/home";
     startTransition(() => {
       onSubmitAction({
         tenantId: tenantData.tenantId || "",
         userName: values.username,
         password: values.password,
+        redirectTo: redirectTo,
       }).then((response) => {
-        if (response.type !== "success") {
+        if (response && response.type !== "success") {
           toast.error(response?.message);
           return;
         }
-        router.replace(`/${location.pathname.split("/").slice(1).join("/")}/${location.search}`);
       });
     });
   }

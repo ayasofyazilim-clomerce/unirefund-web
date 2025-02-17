@@ -1,8 +1,8 @@
+import Negotiator from "negotiator";
+import {NextResponse} from "next/server";
 import {match as matchLocale} from "@formatjs/intl-localematcher";
 import {auth} from "@repo/utils/auth/next-auth";
-import Negotiator from "negotiator";
 import type {NextRequest} from "next/server";
-import {NextResponse} from "next/server";
 import type {NextAuthRequest} from "node_modules/next-auth/lib";
 
 export const i18n = {
@@ -56,11 +56,11 @@ export const middleware = auth((request: NextAuthRequest) => {
     return i18n.locales.includes(path.split("/")[1]);
   }
   function redirectToLogin(locale: string, req: NextRequest) {
-    return NextResponse.redirect(new URL(`/${locale}/login?redirect=${req.nextUrl.pathname}`, hostURL));
+    return NextResponse.redirect(new URL(`${hostURL}/${locale}/login?redirect=${req.nextUrl.pathname}`, hostURL));
   }
 
   function redirectToRoot(locale: string) {
-    return NextResponse.redirect(new URL(`/${locale}/home`, hostURL));
+    return NextResponse.redirect(new URL(`${hostURL}/${locale}/home`, hostURL));
   }
   function allowURL(locale: string, req: NextRequest) {
     const response = NextResponse.next();
@@ -91,9 +91,8 @@ export const middleware = auth((request: NextAuthRequest) => {
     //   `(No locale provided type 1) Wrong redirection to pathName:${pathName}`
     // );
     const {search} = request.nextUrl;
-    return NextResponse.redirect(new URL(`/${locale}${request.nextUrl.pathname}${search}`, hostURL));
+    return NextResponse.redirect(new URL(`${hostURL}/${locale}${request.nextUrl.pathname}${search}`, hostURL));
   }
-
   // If the user is not authorized and the path is public, continue
   if (publicURLs.includes(pathName) || authPages.includes(pathName)) {
     if (isPathHasLocale(request.nextUrl.pathname)) {
@@ -103,9 +102,8 @@ export const middleware = auth((request: NextAuthRequest) => {
     // console.error(
     //   `(No locale provided type 2) Wrong redirection to pathName:${pathName}`
     // );
-    return NextResponse.redirect(new URL(`/${locale}${request.nextUrl.pathname}`, hostURL));
+    return NextResponse.redirect(new URL(`${hostURL}/${locale}${request.nextUrl.pathname}`, hostURL));
   }
-
   // If the user is not authorized and the path is authorized specific, redirect to login
   return redirectToLogin(locale, request);
 });
