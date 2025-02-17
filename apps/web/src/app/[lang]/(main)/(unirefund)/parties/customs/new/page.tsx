@@ -45,5 +45,12 @@ export default async function Page({
 
   const [countriesResponse] = apiRequests.data;
 
-  return <CustomsOrganizationForm countryList={countriesResponse.data.items || []} languageData={languageData} />;
+  return (
+    <>
+      <CustomsOrganizationForm countryList={countriesResponse.data.items || []} languageData={languageData} />
+      <div className="hidden" id="page-description">
+        {languageData["Customs.New.Description"]}
+      </div>
+    </>
+  );
 }

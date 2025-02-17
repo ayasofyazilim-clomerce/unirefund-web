@@ -1,16 +1,16 @@
 "use server";
 
+import {Button} from "@/components/ui/button";
+import {FormReadyComponent} from "@repo/ui/form-ready";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import {FormReadyComponent} from "@repo/ui/form-ready";
 import {FileText} from "lucide-react";
 import Link from "next/link";
-import {Button} from "@/components/ui/button";
+import {getBaseLink} from "@/utils";
+import {getAllCountriesApi} from "@/actions/unirefund/LocationService/actions";
 import {getTaxOfficesApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import {getAllCountriesApi} from "@/actions/unirefund/LocationService/actions";
-import {getBaseLink} from "@/utils";
 import PageClientSide from "./page-client";
 
 async function getApiRequests() {
@@ -72,11 +72,16 @@ export default async function Page({
           </Button>
         ),
       }}>
-      <PageClientSide
-        countryList={countriesResponse.data.items || []}
-        languageData={languageData}
-        taxOfficeList={taxOfficeResponse.data.items || []}
-      />
+      <>
+        <PageClientSide
+          countryList={countriesResponse.data.items || []}
+          languageData={languageData}
+          taxOfficeList={taxOfficeResponse.data.items || []}
+        />
+        <div className="hidden" id="page-description">
+          {languageData["Merchants.New.Description"]}
+        </div>
+      </>
     </FormReadyComponent>
   );
 }
