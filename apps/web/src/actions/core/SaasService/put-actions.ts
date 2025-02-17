@@ -2,8 +2,8 @@
 import type {
   PutApiSaasEditionsByIdData,
   PutApiSaasEditionsByIdMoveAllTenantsData,
-  PutApiSaasTenantsByIdData,
 } from "@ayasofyazilim/core-saas/SaasService";
+import type {PutApiSaasTenantsByIdData} from "@ayasofyazilim/saas/SaasService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {getSaasServiceClient} from "src/lib";
 
