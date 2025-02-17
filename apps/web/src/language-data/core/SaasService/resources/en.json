@@ -40,6 +40,10 @@
   "Form.Tenant.activationState.activeWithLimitedTime": "Active with Limited Time",
   "Form.Tenant.activationState.passive": "Passive",
   "Form.Tenant.activationEndDate": "Activation End Date",
+  "Form.Tenant.countryCode3": "Country",
+  "Form.Tenant.defaultLanguage": "Default Language",
+  "Form.Tenant.timeZone": "Time Zone",
+  "Form.Tenant.currency": "Currency",
   "Form.Tenant.SetPassword.username": "User Name",
   "Form.Tenant.SetPassword.password": "Password"
 }
