@@ -1,10 +1,12 @@
 "use server";
-import {auth} from "@repo/utils/auth/next-auth";
-import {GeistSans} from "geist/font/sans";
-import type {Metadata} from "next";
-import Providers from "src/providers/providers";
 import "./globals.css";
+import {GeistSans} from "geist/font/sans";
 import {Suspense} from "react";
+import {Toaster} from "@/components/ui/sonner";
+import type {Metadata} from "next";
+import {LocaleProvider} from "src/providers/locale";
+import Tooltip from "src/providers/tooltip";
+import {getLocalizationResources} from "src/utils";
 
 interface RootLayoutProps {
   params: {lang: string};
@@ -21,14 +23,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 export default async function RootLayout({children, params}: RootLayoutProps) {
   const {lang} = params;
-  const session = await auth();
+  const resources = await getLocalizationResources(lang);
   return (
     <html className="h-full overflow-hidden" lang={lang}>
       <body className={GeistSans.className} data-app-name={appName}>
         <Suspense fallback={<div>Loading...</div>}>
-          <Providers lang={lang} session={session}>
-            {children}
-          </Providers>
+          <Toaster richColors />
+          <Tooltip>
+            <LocaleProvider lang={lang} resources={resources}>
+              {children}
+            </LocaleProvider>
+          </Tooltip>
         </Suspense>
       </body>
     </html>

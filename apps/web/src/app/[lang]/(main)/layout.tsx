@@ -1,12 +1,13 @@
 "use server";
-import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
-import {auth} from "@repo/utils/auth/next-auth";
 import {LogOut} from "lucide-react";
-import {signOutServer} from "@repo/utils/auth";
+import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {getGrantedPoliciesApi} from "@repo/utils/api";
+import {signOutServer} from "@repo/utils/auth";
+import {auth} from "@repo/utils/auth/next-auth";
 import type {Policy} from "@repo/utils/policies";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
+import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
@@ -38,18 +39,20 @@ export default async function Layout({children, params}: LayoutProps) {
   ];
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
   return (
-    <div className="flex h-full flex-col bg-white">
-      <MainAdminLayout
-        appName={appName}
-        baseURL={baseURL}
-        lang={lang}
-        logo={logo}
-        navbarItems={navbarFromDB}
-        prefix=""
-        profileMenu={profileMenuProps}
-        tenantData={session?.user}
-      />
-      <div className="flex h-full flex-col overflow-hidden px-4">{children}</div>
-    </div>
+    <Providers>
+      <div className="flex h-full flex-col bg-white">
+        <MainAdminLayout
+          appName={appName}
+          baseURL={baseURL}
+          lang={lang}
+          logo={logo}
+          navbarItems={navbarFromDB}
+          prefix=""
+          profileMenu={profileMenuProps}
+          tenantData={session?.user}
+        />
+        <div className="flex h-full flex-col overflow-hidden px-4">{children}</div>
+      </div>
+    </Providers>
   );
 }
