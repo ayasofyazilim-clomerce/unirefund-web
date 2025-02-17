@@ -1,121 +1,153 @@
 "use client";
+
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
 import type {
+  UniRefund_LocationService_Countries_CountryDto,
+  UniRefund_LocationService_Currencies_CurrencyDto,
+} from "@ayasofyazilim/saas/LocationService";
+import type {
+  UniRefund_SaasService_Tenants_SaasTenantCustomCreateDto,
   Volo_Saas_Host_Dtos_EditionDto,
-  Volo_Saas_Host_Dtos_SaasTenantCreateDto,
-} from "@ayasofyazilim/core-saas/SaasService";
-import {$Volo_Saas_Host_Dtos_SaasTenantCreateDto} from "@ayasofyazilim/core-saas/SaasService";
-import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {
-  AutoFormSubmit,
-  createFieldConfigWithResource,
-  CustomCombobox,
-  DependencyType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
+} from "@ayasofyazilim/saas/SaasService";
+import {$UniRefund_SaasService_Tenants_SaasTenantCustomCreateDto} from "@ayasofyazilim/saas/SaasService";
+import type {Volo_Abp_NameValue} from "@ayasofyazilim/saas/SettingService";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
 import {postTenantApi} from "src/actions/core/SaasService/post-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
-
-const tenantCreateSchema = createZodObject($Volo_Saas_Host_Dtos_SaasTenantCreateDto, [
-  "name",
-  "editionId",
-  "adminEmailAddress",
-  "adminPassword",
-  "activationState",
-  "activationEndDate",
-]);
 
 export default function Page({
   languageData,
   editionList,
+  languageList,
+  countryList,
+  currencyList,
+  timezoneList,
 }: {
   languageData: SaasServiceResource;
   editionList: Volo_Saas_Host_Dtos_EditionDto[];
+  languageList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
+  countryList: UniRefund_LocationService_Countries_CountryDto[];
+  currencyList: UniRefund_LocationService_Currencies_CurrencyDto[];
+  timezoneList: Volo_Abp_NameValue[];
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  const translatedForm = createFieldConfigWithResource({
-    schema: $Volo_Saas_Host_Dtos_SaasTenantCreateDto,
+  const uiSchema = createUiSchemaWithResource({
+    schema: $UniRefund_SaasService_Tenants_SaasTenantCustomCreateDto,
     resources: languageData,
     name: "Form.Tenant",
     extend: {
-      editionId: {
-        renderer: (props) => (
-          <CustomCombobox<Volo_Saas_Host_Dtos_EditionDto>
-            childrenProps={props}
-            emptyValue={languageData["Select.EmptyValue"]}
-            list={editionList}
-            searchPlaceholder={languageData["Select.Placeholder"]}
-            searchResultLabel={languageData["Select.ResultLabel"]}
-            selectIdentifier="id"
-            selectLabel="displayName"
-          />
-        ),
-      },
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
       adminPassword: {
-        fieldType: "password",
+        "ui:widget": "password",
       },
       adminEmailAddress: {
-        inputProps: {
-          type: "email",
-        },
+        "ui:widget": "email",
       },
-      activationState: {
-        containerClassName: "gap-2",
-        renderer: (props) => {
-          const options = [
-            {value: 0, label: languageData["Form.Tenant.active"]},
-            {
-              value: 1,
-              label: languageData["Form.Tenant.activeWithLimitedTime"],
-            },
-            {value: 2, label: languageData["Form.Tenant.passive"]},
-          ];
-          return (
-            <CustomCombobox
-              childrenProps={props}
-              emptyValue={languageData["Select.EmptyValue"]}
-              list={options}
-              selectIdentifier="value"
-              selectLabel="label"
-            />
-          );
-        },
+      editionId: {
+        "ui:widget": "editionWidget",
+      },
+      countryCode3: {
+        "ui:widget": "countryWidget",
+      },
+      defaultLanguage: {
+        "ui:widget": "languageWidget",
+      },
+      currency: {
+        "ui:widget": "currencyWidget",
+      },
+      timeZone: {
+        "ui:widget": "timeZoneWidget",
+      },
+      activationEndDate: {
+        dependencies: [
+          {
+            target: "activationState",
+            type: DependencyType.HIDES,
+            when: (activationState: number) => activationState !== 1,
+          },
+          {
+            target: "activationState",
+            type: DependencyType.REQUIRES,
+            when: (activationState: number) => activationState === 1,
+          },
+        ],
       },
     },
   });
 
   return (
-    <AutoForm
-      className="grid gap-4 space-y-0 pb-4 md:grid-cols-1 lg:grid-cols-2"
-      dependencies={[
-        {
-          sourceField: "activationState",
-          type: DependencyType.HIDES,
-          targetField: "activationEndDate",
-          when: (activationState: string) => activationState !== "1",
-        },
-      ]}
-      fieldConfig={translatedForm}
-      formSchema={tenantCreateSchema}
-      onSubmit={(data) => {
-        setLoading(true);
-        void postTenantApi({
-          requestBody: data as Volo_Saas_Host_Dtos_SaasTenantCreateDto,
-        })
-          .then((res) => {
-            handlePostResponse(res, router, "../tenants");
-          })
-          .finally(() => {
-            setLoading(false);
-          });
+    <SchemaForm<UniRefund_SaasService_Tenants_SaasTenantCustomCreateDto>
+      className="flex flex-col gap-4"
+      disabled={isPending}
+      filter={{
+        type: "include",
+        sort: true,
+        keys: [
+          "name",
+          "editionId",
+          "adminEmailAddress",
+          "adminPassword",
+          "activationState",
+          "activationEndDate",
+          "countryCode3",
+          "defaultLanguage",
+          "currency",
+          "timeZone",
+        ],
       }}
-      stickyChildren>
-      <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
-        {languageData.Save}
-      </AutoFormSubmit>
-    </AutoForm>
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void postTenantApi({
+            requestBody: formData,
+          }).then((res) => {
+            handlePostResponse(res, router, "../tenants");
+          });
+        });
+      }}
+      schema={$UniRefund_SaasService_Tenants_SaasTenantCustomCreateDto}
+      submitText={languageData.Save}
+      uiSchema={uiSchema}
+      useDependency
+      widgets={{
+        editionWidget: CustomComboboxWidget<Volo_Saas_Host_Dtos_EditionDto>({
+          languageData,
+          list: editionList,
+          selectIdentifier: "id",
+          selectLabel: "displayName",
+        }),
+        countryWidget: CustomComboboxWidget<UniRefund_LocationService_Countries_CountryDto>({
+          languageData,
+          list: countryList,
+          selectIdentifier: "code3",
+          selectLabel: "name",
+        }),
+        languageWidget: CustomComboboxWidget<Volo_Abp_LanguageManagement_Dto_LanguageDto>({
+          languageData,
+          list: languageList,
+          selectIdentifier: "cultureName",
+          selectLabel: "displayName",
+        }),
+        currencyWidget: CustomComboboxWidget<UniRefund_LocationService_Currencies_CurrencyDto>({
+          languageData,
+          list: currencyList,
+          selectIdentifier: "code",
+          selectLabel: "code",
+        }),
+        timeZoneWidget: CustomComboboxWidget<Volo_Abp_NameValue>({
+          languageData,
+          list: timezoneList,
+          selectIdentifier: "value",
+          selectLabel: "name",
+        }),
+      }}
+    />
   );
 }
