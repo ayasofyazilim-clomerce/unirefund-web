@@ -62,7 +62,7 @@ export function HeaderSection() {
   const {activeNavItem, pageBackEnabled, breadcrumbItems} = useMemo(() => {
     const homeBreadcrumb: BreadcrumbItemType = {
       ...navbarItems[0],
-      subNavbarItems: navbarItems?.filter((i) => i.parentNavbarItemKey === "en"),
+      subNavbarItems: navbarItems?.filter((i) => i.parentNavbarItemKey === lang),
     };
     const data: NavbarItemsFromDB[] = [];
     const item = findActiveNavbarItem(navbarItems, pathName);
