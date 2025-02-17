@@ -45,5 +45,12 @@ export default async function Page({
 
   const [countriesResponse] = apiRequests.data;
 
-  return <TaxOfficeOrganizationForm countryList={countriesResponse.data.items || []} languageData={languageData} />;
+  return (
+    <>
+      <TaxOfficeOrganizationForm countryList={countriesResponse.data.items || []} languageData={languageData} />
+      <div className="hidden" id="page-description">
+        {languageData["TaxOffices.New.Description"]}
+      </div>
+    </>
+  );
 }
