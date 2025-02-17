@@ -50,3 +50,13 @@ export async function getproductGroupDetailsByIdApi(id: string, session?: Sessio
     throw structuredError(error);
   }
 }
+
+export async function getTimeZoneApi(session?: Session | null) {
+  try {
+    const client = await getSettingServiceClient(session);
+    const response = await client.timeZoneSettings.getApiSettingManagementTimezoneTimezones();
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}

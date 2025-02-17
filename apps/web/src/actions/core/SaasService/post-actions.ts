@@ -1,6 +1,7 @@
 "use server";
 
-import type {PostApiSaasEditionsData, PostApiSaasTenantsData} from "@ayasofyazilim/core-saas/SaasService";
+import type {PostApiSaasEditionsData} from "@ayasofyazilim/core-saas/SaasService";
+import type {PostApiSaasTenantsData} from "@ayasofyazilim/saas/SaasService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {getSaasServiceClient} from "src/lib";
 

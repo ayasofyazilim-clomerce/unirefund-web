@@ -1,12 +1,26 @@
 "use server";
 
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import {isErrorOnRequest} from "@repo/utils/api";
 import {getAllEditionsApi, getEditionDetailsByIdApi} from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 
+async function getApiRequests(editionId: string) {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([
+      getAllEditionsApi(session),
+      getEditionDetailsByIdApi(editionId, session),
+    ]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export default async function Page({params}: {params: {lang: string; editionId: string}}) {
   const {lang, editionId} = params;
   const {languageData} = await getResourceData(lang);
@@ -15,14 +29,13 @@ export default async function Page({params}: {params: {lang: string; editionId: 
     lang,
   });
 
-  const editionsResponse = await getAllEditionsApi();
-  if (isErrorOnRequest(editionsResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={editionsResponse.message} />;
+  const apiRequests = await getApiRequests(editionId);
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const editionDetailsResponse = await getEditionDetailsByIdApi(editionId);
-  if (isErrorOnRequest(editionDetailsResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={editionDetailsResponse.message} />;
-  }
+  const {requiredRequests} = apiRequests;
+  const [editionsResponse, editionDetailsResponse] = requiredRequests;
+
   return (
     <>
       <Form editionList={editionsResponse.data} languageData={languageData} />

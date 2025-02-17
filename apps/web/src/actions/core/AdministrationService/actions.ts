@@ -75,6 +75,16 @@ export async function getLanguagesApi(data: GetApiLanguageManagementLanguagesDat
   }
 }
 
+export async function getAllLanguagesApi(session: Session | null) {
+  try {
+    const client = await getAdministrationServiceClient(session);
+    const dataResponse = await client.languages.getApiLanguageManagementLanguagesAll();
+    return structuredSuccessResponse(dataResponse);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 export async function getLanguageDetailsByIdApi(id: string) {
   try {
     const client = await getAdministrationServiceClient();
