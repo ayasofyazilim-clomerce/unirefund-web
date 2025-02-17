@@ -7,10 +7,10 @@ import {isUnauthorized} from "@repo/utils/policies";
 import {FileText} from "lucide-react";
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
+import {getAllCountriesApi} from "@/actions/unirefund/LocationService/actions";
 import {getTaxOfficesApi} from "src/actions/unirefund/CrmService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import {getAllCountriesApi} from "@/actions/unirefund/LocationService/actions";
 import RefundPointOrganizationForm from "./_components/form";
 
 async function getApiRequests() {
@@ -72,11 +72,16 @@ export default async function Page({
           </Button>
         ),
       }}>
-      <RefundPointOrganizationForm
-        countryList={countriesResponse.data.items || []}
-        languageData={languageData}
-        taxOfficeList={taxOfficeResponse.data.items || []}
-      />
+      <>
+        <RefundPointOrganizationForm
+          countryList={countriesResponse.data.items || []}
+          languageData={languageData}
+          taxOfficeList={taxOfficeResponse.data.items || []}
+        />
+        <div className="hidden" id="page-description">
+          {languageData["RefundPoints.New.Description"]}
+        </div>
+      </>
     </FormReadyComponent>
   );
 }

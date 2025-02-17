@@ -45,5 +45,12 @@ export default async function Page({
 
   const [countriesResponse] = apiRequests.data;
 
-  return <IndividualForm countryList={countriesResponse.data.items || []} languageData={languageData} />;
+  return (
+    <>
+      <IndividualForm countryList={countriesResponse.data.items || []} languageData={languageData} />
+      <div className="hidden" id="page-description">
+        {languageData["Individual.New.Description"]}
+      </div>
+    </>
+  );
 }

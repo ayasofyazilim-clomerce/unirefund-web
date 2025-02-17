@@ -5,7 +5,6 @@ import type {
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
 import {$UniRefund_CRMService_TaxFrees_CreateTaxFreeDto} from "@ayasofyazilim/saas/CRMService";
-import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
 import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateTaxFreeOrganizationSchema {
@@ -19,7 +18,9 @@ export interface CreateTaxFreeOrganizationSchema {
 
 export const taxFreeOrganizationFormSubPositions = {
   organization: ["name", "legalStatusCode"],
-  ...ContactFormSubPositions,
+  telephone: ["localNumber"],
+  address: ["countryId", "regionId", "cityId", "postalCode", "addressLine", "type"],
+  email: ["emailAddress"],
 };
 
 export const localNumber = {

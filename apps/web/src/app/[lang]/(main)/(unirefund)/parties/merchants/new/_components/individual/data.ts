@@ -6,7 +6,6 @@ import type {
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
 import {$UniRefund_CRMService_Merchants_CreateMerchantDto} from "@ayasofyazilim/saas/CRMService";
-import {ContactFormSubPositions} from "@repo/ui/utils/table/form-schemas";
 import {PhoneNumberUtil} from "google-libphonenumber";
 
 export interface CreateMerchantIndividualSchema {
@@ -30,7 +29,9 @@ export const merchantIndividualFormSubPositions = {
     "religiousAffiliationName",
     "genderTypeCode",
   ],
-  ...ContactFormSubPositions,
+  telephone: ["localNumber"],
+  address: ["countryId", "regionId", "cityId", "postalCode", "addressLine", "type"],
+  email: ["emailAddress"],
 };
 
 export const localNumber = {
