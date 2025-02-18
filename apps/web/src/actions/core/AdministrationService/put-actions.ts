@@ -1,5 +1,6 @@
 "use server";
 import type {
+  PutApiFeatureManagementFeaturesData,
   PutApiLanguageManagementLanguagesByIdData,
   PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
   PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestoreData,
@@ -74,6 +75,16 @@ export async function putLanguageTextsByResourceNameByCultureNameByNameRestoreAp
     const client = await getAdministrationServiceClient();
     const dataResponse =
       await client.languageTexts.putApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestore(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function putFeaturesApi(data: PutApiFeatureManagementFeaturesData) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse = await client.features.putApiFeatureManagementFeatures(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

@@ -2,13 +2,14 @@
 import type {
   GetApiAuditLoggingAuditLogsData,
   GetApiAuditLoggingAuditLogsEntityChangesData,
+  GetApiFeatureManagementFeaturesData,
   GetApiLanguageManagementLanguagesData,
   GetApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
   GetApiLanguageManagementLanguageTextsData,
   GetApiPermissionManagementPermissionsData,
   GetApiTextTemplateManagementTemplateDefinitionsData,
 } from "@ayasofyazilim/core-saas/AdministrationService";
-import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "next-auth";
 import {getAdministrationServiceClient} from "src/lib";
 
@@ -16,6 +17,16 @@ export async function getPermissionsApi(data: GetApiPermissionManagementPermissi
   try {
     const client = await getAdministrationServiceClient();
     const dataResponse = await client.permissions.getApiPermissionManagementPermissions(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function getFeaturesApi(data: GetApiFeatureManagementFeaturesData) {
+  try {
+    const client = await getAdministrationServiceClient();
+    const dataResponse = await client.features.getApiFeatureManagementFeatures(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
