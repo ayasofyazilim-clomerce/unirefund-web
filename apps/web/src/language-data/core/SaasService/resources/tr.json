@@ -35,10 +35,15 @@
   "Form.Tenant.adminPassword": "Admin Şifresi",
   "Form.Tenant.editionEndDateUtc": "Paket Sonu (UTC)",
   "Form.Tenant.activationState": "Aktivasyon Durumu",
-  "Form.Tenant.active": "Aktif",
-  "Form.Tenant.activeWithLimitedTime": "Sınırlı Süreli Aktif",
-  "Form.Tenant.passive": "Pasif",
+  "Form.Tenant.activationState.ui:placeholder": "Aktivasyon Durumu Seçiniz",
+  "Form.Tenant.activationState.active": "Aktif",
+  "Form.Tenant.activationState.activeWithLimitedTime": "Sınırlı Süreli Aktif",
+  "Form.Tenant.activationState.passive": "Pasif",
   "Form.Tenant.activationEndDate": "Aktivasyon Bitiş Tarihi",
+  "Form.Tenant.countryCode3": "Ülke",
+  "Form.Tenant.defaultLanguage": "Varsayılan Dil",
+  "Form.Tenant.timeZone": "Saat Dilimi",
+  "Form.Tenant.currency": "Para Birimi",
   "Form.Tenant.SetPassword.username": "Kullanıcı adı",
   "Form.Tenant.SetPassword.password": "Şifre"
 }

@@ -4,7 +4,8 @@ import type {
   GetApiSaasTenantsData,
   PutApiSaasTenantsByIdSetPasswordData,
 } from "@ayasofyazilim/core-saas/SaasService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
+import type {Session} from "@repo/utils/auth";
 import {getSaasServiceClient} from "src/lib";
 
 export async function getEditionsApi(data: GetApiSaasEditionsData) {
@@ -17,25 +18,25 @@ export async function getEditionsApi(data: GetApiSaasEditionsData) {
   }
 }
 
-export async function getEditionDetailsByIdApi(id: string) {
+export async function getEditionDetailsByIdApi(id: string, session?: Session | null) {
   try {
-    const client = await getSaasServiceClient();
+    const client = await getSaasServiceClient(session);
     const dataResponse = await client.edition.getApiSaasEditionsById({
       id,
     });
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
-export async function getAllEditionsApi() {
+export async function getAllEditionsApi(session?: Session | null) {
   try {
-    const client = await getSaasServiceClient();
+    const client = await getSaasServiceClient(session);
     const dataResponse = await client.edition.getApiSaasEditionsAll();
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
@@ -49,13 +50,13 @@ export async function getTenantsApi(data: GetApiSaasTenantsData) {
   }
 }
 
-export async function getTenantDetailsByIdApi(id: string) {
+export async function getTenantDetailsByIdApi(id: string, session?: Session | null) {
   try {
-    const client = await getSaasServiceClient();
+    const client = await getSaasServiceClient(session);
     const dataResponse = await client.tenant.getApiSaasTenantsById({id});
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 

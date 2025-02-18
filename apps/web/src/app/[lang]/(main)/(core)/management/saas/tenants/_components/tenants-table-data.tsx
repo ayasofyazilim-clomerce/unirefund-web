@@ -84,7 +84,7 @@ const tenantsColumns = (
         values: [
           {
             position: "after",
-            label: languageData["Form.Tenant.active"],
+            label: languageData["Form.Tenant.activationState.active"],
             badgeClassName: "text-green-700 bg-green-100 border-green-500",
             conditions: [
               {
@@ -95,7 +95,7 @@ const tenantsColumns = (
           },
           {
             position: "after",
-            label: languageData["Form.Tenant.activeWithLimitedTime"],
+            label: languageData["Form.Tenant.activationState.activeWithLimitedTime"],
             badgeClassName: "text-orange-700 bg-orange-100 border-orange-500",
             conditions: [
               {
@@ -106,7 +106,7 @@ const tenantsColumns = (
           },
           {
             position: "after",
-            label: languageData["Form.Tenant.passive"],
+            label: languageData["Form.Tenant.activationState.passive"],
             badgeClassName: "text-red-700 bg-red-100 border-red-500",
             conditions: [
               {
@@ -160,15 +160,15 @@ function tenantsTable(
           title: languageData["Tenant.activationState"],
           options: [
             {
-              label: languageData["Form.Tenant.active"],
+              label: languageData["Form.Tenant.activationState.active"],
               value: "0",
             },
             {
-              label: languageData["Form.Tenant.activeWithLimitedTime"],
+              label: languageData["Form.Tenant.activationState.activeWithLimitedTime"],
               value: "1",
             },
             {
-              label: languageData["Form.Tenant.passive"],
+              label: languageData["Form.Tenant.activationState.passive"],
               value: "2",
             },
           ],

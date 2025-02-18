@@ -1,87 +1,90 @@
 "use client";
+
+import type {Volo_Saas_Host_Dtos_SaasTenantDto} from "@ayasofyazilim/core-saas/SaasService";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
 import type {
-  Volo_Saas_Host_Dtos_EditionDto,
-  Volo_Saas_Host_Dtos_SaasTenantDto,
-  Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
-} from "@ayasofyazilim/core-saas/SaasService";
-import {$Volo_Saas_Host_Dtos_SaasTenantUpdateDto} from "@ayasofyazilim/core-saas/SaasService";
-import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
+  UniRefund_LocationService_Countries_CountryDto,
+  UniRefund_LocationService_Currencies_CurrencyDto,
+} from "@ayasofyazilim/saas/LocationService";
+import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
+import {$UniRefund_SaasService_Tenants_SaasTenantCustomUpdateDto} from "@ayasofyazilim/saas/SaasService";
+import type {Volo_Abp_NameValue} from "@ayasofyazilim/saas/SettingService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import AutoForm, {
-  AutoFormSubmit,
-  createFieldConfigWithResource,
-  CustomCombobox,
-  DependencyType,
-} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {ActionList} from "@repo/ui/action-button";
+import {handleDeleteResponse, handlePostResponse} from "@repo/utils/api";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
-import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {deleteTenantByIdApi} from "src/actions/core/SaasService/delete-actions";
-import {putTenantApi} from "src/actions/core/SaasService/put-actions";
+import {useTransition} from "react";
+import {putTenantApi} from "@/actions/core/SaasService/put-actions";
+import {deleteTenantByIdApi} from "@/actions/core/SaasService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
-
-const tenantEditSchema = createZodObject($Volo_Saas_Host_Dtos_SaasTenantUpdateDto, [
-  "name",
-  "editionId",
-  "activationState",
-  "activationEndDate",
-]);
 
 export default function Page({
   languageData,
   editionList,
+  languageList,
+  countryList,
+  currencyList,
+  timezoneList,
   tenantDetailsData,
 }: {
   languageData: SaasServiceResource;
   editionList: Volo_Saas_Host_Dtos_EditionDto[];
+  languageList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
+  countryList: UniRefund_LocationService_Countries_CountryDto[];
+  currencyList: UniRefund_LocationService_Currencies_CurrencyDto[];
+  timezoneList: Volo_Abp_NameValue[];
   tenantDetailsData: Volo_Saas_Host_Dtos_SaasTenantDto;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const {grantedPolicies} = useGrantedPolicies();
 
-  const translatedForm = createFieldConfigWithResource({
-    schema: $Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
+  const uiSchema = createUiSchemaWithResource({
+    schema: $UniRefund_SaasService_Tenants_SaasTenantCustomUpdateDto,
     resources: languageData,
     name: "Form.Tenant",
     extend: {
-      editionId: {
-        renderer: (props) => (
-          <CustomCombobox<Volo_Saas_Host_Dtos_EditionDto>
-            childrenProps={props}
-            emptyValue={languageData["Select.EmptyValue"]}
-            list={editionList}
-            searchPlaceholder={languageData["Select.Placeholder"]}
-            searchResultLabel={languageData["Select.ResultLabel"]}
-            selectIdentifier="id"
-            selectLabel="displayName"
-          />
-        ),
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+      adminPassword: {
+        "ui:widget": "password",
       },
-      activationState: {
-        containerClassName: "gap-2",
-        renderer: (props) => {
-          const options = [
-            {value: 0, label: languageData["Form.Tenant.active"]},
-            {
-              value: 1,
-              label: languageData["Form.Tenant.activeWithLimitedTime"],
-            },
-            {value: 2, label: languageData["Form.Tenant.passive"]},
-          ];
-          return (
-            <CustomCombobox
-              childrenProps={props}
-              emptyValue={languageData["Select.EmptyValue"]}
-              list={options}
-              selectIdentifier="value"
-              selectLabel="label"
-            />
-          );
-        },
+      adminEmailAddress: {
+        "ui:widget": "email",
+      },
+      editionId: {
+        "ui:widget": "editionWidget",
+      },
+      countryCode3: {
+        "ui:widget": "countryWidget",
+      },
+      defaultLanguage: {
+        "ui:widget": "languageWidget",
+      },
+      currency: {
+        "ui:widget": "currencyWidget",
+      },
+      timeZone: {
+        "ui:widget": "timeZoneWidget",
+      },
+      activationEndDate: {
+        dependencies: [
+          {
+            target: "activationState",
+            type: DependencyType.HIDES,
+            when: (activationState: number) => activationState !== 1,
+          },
+          {
+            target: "activationState",
+            type: DependencyType.REQUIRES,
+            when: (activationState: number) => activationState === 1,
+          },
+        ],
       },
     },
   });
@@ -98,14 +101,11 @@ export default function Page({
               variant: "destructive",
               children: languageData.Delete,
               onConfirm: () => {
-                setLoading(true);
-                void deleteTenantByIdApi(tenantDetailsData.id || "")
-                  .then((res) => {
+                startTransition(() => {
+                  void deleteTenantByIdApi(tenantDetailsData.id || "").then((res) => {
                     handleDeleteResponse(res, router, "../tenants");
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               },
               closeAfterConfirm: true,
             }}
@@ -118,45 +118,77 @@ export default function Page({
                 </>
               ),
               variant: "outline",
+              disabled: isPending,
             }}
             type="with-trigger"
           />
         )}
       </ActionList>
-      <AutoForm
-        className="grid gap-4 space-y-0 pb-4 md:grid-cols-1 lg:grid-cols-2"
-        dependencies={[
-          {
-            sourceField: "activationState",
-            type: DependencyType.HIDES,
-            targetField: "activationEndDate",
-            when: (activationState: string) => activationState !== "1",
-          },
-        ]}
-        fieldConfig={translatedForm}
-        formSchema={tenantEditSchema}
-        onSubmit={(data) => {
-          setLoading(true);
-          void putTenantApi({
-            id: tenantDetailsData.id || "",
-            requestBody: data as Volo_Saas_Host_Dtos_SaasTenantUpdateDto,
-          })
-            .then((res) => {
-              handlePutResponse(res, router, "../tenants");
-            })
-            .finally(() => {
-              setLoading(false);
-            });
+      <SchemaForm<Volo_Saas_Host_Dtos_SaasTenantDto>
+        className="flex flex-col gap-4"
+        disabled={isPending}
+        filter={{
+          type: "include",
+          sort: true,
+          keys: [
+            "name",
+            "editionId",
+            "activationState",
+            "activationEndDate",
+            "countryCode3",
+            "defaultLanguage",
+            "currency",
+            "timeZone",
+          ],
         }}
-        stickyChildren
-        values={{
-          ...tenantDetailsData,
-          activationState: tenantDetailsData.activationState?.toString(),
-        }}>
-        <AutoFormSubmit className="float-right px-8 py-4" disabled={loading}>
-          {languageData["Edit.Save"]}
-        </AutoFormSubmit>
-      </AutoForm>
+        formData={tenantDetailsData}
+        onSubmit={({formData}) => {
+          startTransition(() => {
+            void putTenantApi({
+              id: tenantDetailsData.id || "",
+              requestBody: {...formData, name: tenantDetailsData.name || ""},
+            }).then((res) => {
+              handlePostResponse(res, router, "../tenants");
+            });
+          });
+        }}
+        schema={$UniRefund_SaasService_Tenants_SaasTenantCustomUpdateDto}
+        submitText={languageData["Edit.Save"]}
+        uiSchema={uiSchema}
+        useDependency
+        widgets={{
+          editionWidget: CustomComboboxWidget<Volo_Saas_Host_Dtos_EditionDto>({
+            languageData,
+            list: editionList,
+            selectIdentifier: "id",
+            selectLabel: "displayName",
+          }),
+          countryWidget: CustomComboboxWidget<UniRefund_LocationService_Countries_CountryDto>({
+            languageData,
+            list: countryList,
+            selectIdentifier: "code3",
+            selectLabel: "name",
+          }),
+          languageWidget: CustomComboboxWidget<Volo_Abp_LanguageManagement_Dto_LanguageDto>({
+            languageData,
+            list: languageList,
+            selectIdentifier: "cultureName",
+            selectLabel: "displayName",
+          }),
+          currencyWidget: CustomComboboxWidget<UniRefund_LocationService_Currencies_CurrencyDto>({
+            languageData,
+            list: currencyList,
+            selectIdentifier: "code",
+            selectLabel: "code",
+          }),
+          timeZoneWidget: CustomComboboxWidget<Volo_Abp_NameValue>({
+            languageData,
+            list: timezoneList,
+            selectIdentifier: "value",
+            selectLabel: "name",
+          }),
+        }}
+      />
     </div>
   );
 }
