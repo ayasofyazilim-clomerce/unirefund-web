@@ -1,23 +1,16 @@
 "use client";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {Search, Star} from "lucide-react";
-import {useEffect, useMemo, useState} from "react";
-
-import {StarFilledIcon} from "@radix-ui/react-icons";
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@repo/ayasofyazilim-ui/atoms/command";
-import {NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {useRouter} from "next/navigation";
-import {icons} from "../navbar";
+import {useEffect, useMemo, useState} from "react";
+import {StarFilledIcon} from "@radix-ui/react-icons";
+import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import {
+    Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
+    CommandSeparator
+} from "@repo/ayasofyazilim-ui/atoms/command";
 import {DialogTitle} from "@repo/ayasofyazilim-ui/atoms/dialog";
+import {NavbarItemsFromDB} from "@repo/ui/theme/types";
+import {icons} from "../navbar";
 
 function getFavouriteSearches() {
   if (typeof window === "undefined") return [];
@@ -28,14 +21,49 @@ function getFavouriteSearches() {
   }
   return [];
 }
-
+type SearchableNavbarItem = {
+  key: string;
+  icon: string;
+  displayName: string;
+  route: string;
+  href: string;
+  searchableText: string;
+};
 function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; prefix: string}) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [favouriteSearches, setFavouriteSearches] = useState(getFavouriteSearches());
   const router = useRouter();
 
+  const searchableItems: SearchableNavbarItem[] = useMemo(() => {
+    return navbarItems
+      .filter((i) => i.href)
+      .map((item) => {
+        const routes: string[] = [];
+        let parentKey: string | null = item.parentNavbarItemKey;
+        while (parentKey) {
+          const parent = navbarItems.find((i) => i.key === parentKey);
+          if (parent) {
+            routes.unshift(parent.displayName);
+            parentKey = parent.parentNavbarItemKey;
+          } else {
+            parentKey = null;
+          }
+        }
+        if (routes.length > 0) {
+          routes.shift(); //remove Home
+        }
+        return {
+          ...item,
+          href: item.href!,
+          route: `${routes.join(" > ")}`,
+          searchableText: `${routes.join(" ")} ${item.displayName}`.toLocaleLowerCase(),
+        };
+      })
+      .filter((i) => i.route.length > 0);
+  }, [navbarItems]);
+
   const favourites = useMemo(() => {
-    return navbarItems.filter((i) => isFavouriteSearch(i.key));
+    return searchableItems.filter((i) => isFavouriteSearch(i.key));
   }, [favouriteSearches]);
 
   useEffect(() => {
@@ -52,16 +80,14 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
 
   function filterNavItems(value: string, search: string) {
     const searchValue = search.toLowerCase();
-    const item = navbarItems.find((i) => i.key === value);
-    if (!item) return 0;
-
-    if (item.displayName.toLowerCase().includes(searchValue) || item.description.toLowerCase().includes(searchValue)) {
+    const item = searchableItems.find((i) => i.key === value);
+    if (item && item.searchableText.includes(searchValue)) {
       return 1;
     }
     return 0;
   }
   function toggleFavouriteSearch(item: string) {
-    const key = item.split(prefix + "/")?.[1];
+    const key = item.split(`${prefix}/`).slice(1).join("/");
     if (key) {
       const favourites = getFavouriteSearches();
       if (!favourites.includes(key)) {
@@ -74,14 +100,14 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
     }
   }
   function isFavouriteSearch(item: string) {
-    const key = item.split(prefix + "/")?.[1];
+    const key = item.split(`${prefix}/`).slice(1).join("/");
     if (key) {
       return favouriteSearches.includes(key);
     }
     return false;
   }
 
-  function CustomCommandItem({item, detailed}: any) {
+  function CustomCommandItem({item}: {item: SearchableNavbarItem}) {
     return (
       <CommandItem
         key={item.key + "-link"}
@@ -90,11 +116,11 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
           router.push("/" + item.href);
           setSearchOpen(false);
         }}
-        className="relative">
+        className="relative !py-1">
         {icons[item.icon as keyof typeof icons]}
         <div className="ml-4 flex flex-col text-left">
+          <div className="text-muted-foreground text-xs">{item.route}</div>
           <div className="text-md">{item.displayName}</div>
-          {detailed && <div className="text-muted-foreground text-xs">{item.description}</div>}
         </div>
 
         <Button
@@ -144,15 +170,17 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
             {favourites.length > 0 && (
               <CommandGroup heading="Favourites">
                 {favourites.map((item) => (
-                  <CustomCommandItem key={item.key} item={item} detailed={false} />
+                  <CustomCommandItem key={item.key} item={item} />
                 ))}
               </CommandGroup>
             )}
             <CommandSeparator />
             <CommandGroup heading="Links">
-              {navbarItems.map((item) => (
-                <CustomCommandItem key={item.key} item={item} detailed={true} />
-              ))}
+              {searchableItems
+                .filter((i) => !isFavouriteSearch(i.key))
+                .map((item) => (
+                  <CustomCommandItem key={item.key} item={item} />
+                ))}
             </CommandGroup>
           </CommandList>
         </Command>
