@@ -3,36 +3,36 @@ import type {
   UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto,
   UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
 } from "@ayasofyazilim/saas/CRMService";
+import {CheckCircle, Eye, FileText, LockIcon, Plus, Trash, UnlockIcon, User2, XCircle} from "lucide-react";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 import {
   $UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto,
   $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
 } from "@ayasofyazilim/saas/CRMService";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {isActionGranted} from "@repo/utils/policies";
 import type {
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {CheckCircle, Eye, FileText, LockIcon, Plus, Trash, UnlockIcon, User2, XCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {FormReadyComponent} from "@repo/ui/form-ready";
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
 import type {Policy} from "@repo/utils/policies";
-import {isActionGranted} from "@repo/utils/policies";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {getBaseLink} from "@/utils";
 import {deleteTaxOfficesByIdAffiliationsByAffiliationIdApi} from "@/actions/unirefund/CrmService/delete-actions";
-import {postSendPasswordResetCodeApi} from "src/actions/core/AccountService/post-actions";
-import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
 import {
   postAbpUserAccountByIndividualIdApi,
   postAffiliationsToTaxOfficeApi,
 } from "src/actions/unirefund/CrmService/post-actions";
+import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
+import {postSendPasswordResetCodeApi} from "src/actions/core/AccountService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
 
 type AffiliationsTable = TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;
 
@@ -113,6 +113,15 @@ function affiliationsTableActions(
           />
         </FormReadyComponent>
       ),
+    });
+    actions.push({
+      type: "simple",
+      actionLocation: "table",
+      cta: languageData["Individuals.New"],
+      icon: Plus,
+      onClick() {
+        router.push(getBaseLink(`parties/individuals/new?entityPartyTypeCode=TAXOFFICE&partyId=${partyId}`));
+      },
     });
   }
   return actions;
