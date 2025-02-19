@@ -16,7 +16,7 @@ import type {
   PostApiCrmServiceTaxOfficesByIdAffiliationsData,
   PostApiCrmServiceTaxOfficesWithComponentsData,
 } from "@ayasofyazilim/saas/CRMService";
-import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {getCRMServiceClient} from "src/lib";
 
@@ -182,7 +182,7 @@ export async function postProductGroupsToMerchantsApi(data: PostApiCrmServiceMer
 export async function postAbpUserAccountByIndividualIdApi(id: string) {
   try {
     const crmClient = await getCRMServiceClient();
-    const response = await crmClient.individual.postApiCrmServiceIndividualsByIdAbpUserAccount({id});
+    const response = await crmClient.individual.postApiCrmServiceIndividualsByIdAbpUserRelation({id});
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
