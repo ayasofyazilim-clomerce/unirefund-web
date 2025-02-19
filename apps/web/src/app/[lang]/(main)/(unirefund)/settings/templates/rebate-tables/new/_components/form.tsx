@@ -81,7 +81,7 @@ export default function RebateTableHeaderCreateForm({
   });
 
   return (
-    <div>
+    <div className="flex flex-col overflow-hidden">
       <ActionList className="items-center">
         <span className="ml-auto text-sm">{languageData["Contracts.FillFrom"]}</span>
         <Combobox<RebateTableHeaderListDto>
