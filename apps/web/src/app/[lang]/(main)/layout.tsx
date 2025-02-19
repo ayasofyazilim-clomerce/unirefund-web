@@ -3,9 +3,9 @@ import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
-import type {Session} from "@repo/utils/auth";
 import {signOutServer} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
+import type {Session} from "@repo/utils/auth";
 import type {Policy} from "@repo/utils/policies";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
@@ -14,7 +14,7 @@ import {getBaseLink} from "src/utils";
 import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
-import NotFound from "./not-found";
+import ErrorComponent from "./_components/error-component";
 
 interface LayoutProps {
   params: {lang: string};
@@ -42,7 +42,7 @@ export default async function Layout({children, params}: LayoutProps) {
   const session = await auth();
   const apiRequests = await getApiRequests(session);
   if ("message" in apiRequests) {
-    return <NotFound />;
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const baseURL = getBaseLink("", lang);
 
