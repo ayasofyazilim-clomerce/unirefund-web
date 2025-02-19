@@ -1,9 +1,9 @@
 "use server";
 
-import {isRedirectError} from "next/dist/client/components/redirect";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getFeaturesApi} from "src/actions/core/AdministrationService/actions";
 import {getTenantDetailsByIdApi} from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
@@ -47,13 +47,13 @@ export default async function Page({params}: {params: {lang: string; tenantId: s
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const {requiredRequests} = apiRequests;
-  const [tenantDetailsDataResponse, featuresResponse] = requiredRequests;
+  const [tenantDetailsResponse, featuresResponse] = requiredRequests;
 
   return (
     <>
       <Form featuresData={featuresResponse.data} languageData={languageData} />
       <div className="hidden" id="page-title">
-        {`${languageData.Tenant} (${tenantDetailsDataResponse.data.name})`}
+        {`${languageData.Tenant} (${tenantDetailsResponse.data.name})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Tenant.Features.Description"]}

@@ -1,13 +1,38 @@
 "use server";
 
-import {isErrorOnRequest} from "@repo/utils/api";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getFeaturesApi} from "src/actions/core/AdministrationService/actions";
 import {getEditionDetailsByIdApi} from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 
+async function getApiRequests(editionId: string) {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([
+      getEditionDetailsByIdApi(editionId, session),
+      getFeaturesApi(
+        {
+          providerName: "E",
+          providerKey: editionId,
+        },
+        session,
+      ),
+    ]);
+
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
 export default async function Page({params}: {params: {lang: string; editionId: string}}) {
   const {lang, editionId} = params;
   const {languageData} = await getResourceData(lang);
@@ -16,18 +41,12 @@ export default async function Page({params}: {params: {lang: string; editionId: 
     lang,
   });
 
-  const editionDetailsResponse = await getEditionDetailsByIdApi(editionId);
-  if (isErrorOnRequest(editionDetailsResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={editionDetailsResponse.message} />;
+  const apiRequests = await getApiRequests(editionId);
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-
-  const featuresResponse = await getFeaturesApi({
-    providerName: "E",
-    providerKey: editionId,
-  });
-  if (isErrorOnRequest(featuresResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={featuresResponse.message} />;
-  }
+  const {requiredRequests} = apiRequests;
+  const [editionDetailsResponse, featuresResponse] = requiredRequests;
 
   return (
     <>
