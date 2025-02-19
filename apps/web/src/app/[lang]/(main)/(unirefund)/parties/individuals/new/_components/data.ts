@@ -5,8 +5,8 @@ import type {
   UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto,
   UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto,
 } from "@ayasofyazilim/saas/CRMService";
-import {$UniRefund_CRMService_Individuals_CreateIndividualDto} from "@ayasofyazilim/saas/CRMService";
 import {PhoneNumberUtil} from "google-libphonenumber";
+import {$UniRefund_CRMService_Individuals_CreateIndividualDto} from "@ayasofyazilim/saas/CRMService";
 
 export interface CreateIndividualSchema {
   createAbpUserAccount: boolean;
@@ -15,6 +15,7 @@ export interface CreateIndividualSchema {
   telephone: UniRefund_CRMService_TelephoneTypes_CreateTelephoneTypeWithComponentsDto;
   address: UniRefund_LocationService_AddressCommonDatas_AddressCommonDataCreateDto;
   email: UniRefund_CRMService_EmailCommonDatas_CreateEmailCommonDataWithComponentsDto;
+  affiliationCodeId: number;
 }
 
 export const individualFormSubPositions = {
