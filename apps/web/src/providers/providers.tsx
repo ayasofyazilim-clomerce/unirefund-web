@@ -1,23 +1,50 @@
 "use server";
 
-import {getGrantedPoliciesApi} from "@repo/utils/api";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
 import {SessionProvider} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
 import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import type {Policy} from "@repo/utils/policies";
+import {getResourceData} from "@/language-data/core/Default";
+import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
+import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {TenantProvider} from "./tenant";
 
 interface ProvidersProps {
   children: JSX.Element;
+  lang: string;
 }
-export default async function Providers({children}: ProvidersProps) {
+
+async function getApiRequests() {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([getGrantedPoliciesApi(), getInfoForCurrentTenantApi(session)]);
+
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
+export default async function Providers({children, lang}: ProvidersProps) {
+  const {languageData} = await getResourceData(lang);
   const session = await auth();
-  const grantedPolicies = (await getGrantedPoliciesApi()) as Record<Policy, boolean>;
+  const apiRequests = await getApiRequests();
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+  }
+  const [grantedPolicies, tenantData] = apiRequests.requiredRequests;
 
   return (
-    <TenantProvider>
+    <TenantProvider tenantData={tenantData.data}>
       <SessionProvider session={session}>
-        <GrantedPoliciesProvider grantedPolicies={grantedPolicies}>{children}</GrantedPoliciesProvider>
+        <GrantedPoliciesProvider grantedPolicies={grantedPolicies as Record<Policy, boolean>}>
+          {children}
+        </GrantedPoliciesProvider>
       </SessionProvider>
     </TenantProvider>
   );

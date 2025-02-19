@@ -1,34 +1,55 @@
 "use server";
 import {LogOut} from "lucide-react";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
-import {getGrantedPoliciesApi} from "@repo/utils/api";
+import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
 import {signOutServer} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
+import type {Session} from "@repo/utils/auth";
 import type {Policy} from "@repo/utils/policies";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
+import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
+import ErrorComponent from "./_components/error-component";
 
 interface LayoutProps {
   params: {lang: string};
   children: JSX.Element;
 }
 const appName = process.env.APPLICATION_NAME || "UNIREFUND";
+
+async function getApiRequests(session: Session | null) {
+  try {
+    const requiredRequests = await Promise.all([getGrantedPoliciesApi(), getInfoForCurrentTenantApi(session)]);
+
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
+
 export default async function Layout({children, params}: LayoutProps) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
   const session = await auth();
-  const grantedPolicies = (await getGrantedPoliciesApi()) as Record<Policy, boolean>;
+  const apiRequests = await getApiRequests(session);
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+  }
   const baseURL = getBaseLink("", lang);
-  const navbarFromDB = await getNavbarFromDB(lang, languageData, grantedPolicies);
+
   const profileMenuProps = getProfileMenuFromDB(languageData);
   profileMenuProps.info.name = session?.user?.name ?? profileMenuProps.info.name;
   profileMenuProps.info.email = session?.user?.email ?? profileMenuProps.info.email;
   profileMenuProps.info.image = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
-
   profileMenuProps.menu.secondary = [
     {
       href: undefined,
@@ -37,9 +58,13 @@ export default async function Layout({children, params}: LayoutProps) {
       icon: <LogOut className="mr-2 h-4 w-4" />,
     },
   ];
+
+  const [grantedPolicies, tenantData] = apiRequests.requiredRequests;
+  const navbarFromDB = await getNavbarFromDB(lang, languageData, grantedPolicies as Record<Policy, boolean>);
+
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
   return (
-    <Providers>
+    <Providers lang={lang}>
       <div className="flex h-full flex-col bg-white">
         <MainAdminLayout
           appName={appName}
@@ -49,7 +74,7 @@ export default async function Layout({children, params}: LayoutProps) {
           navbarItems={navbarFromDB}
           prefix=""
           profileMenu={profileMenuProps}
-          tenantData={session?.user}
+          tenantData={tenantData.data}
         />
         <div className="flex h-full flex-col overflow-hidden px-4">{children}</div>
       </div>
