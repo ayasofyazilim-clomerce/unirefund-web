@@ -7,10 +7,12 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {Plus, User2Icon} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handlePutResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
+import {ArchiveRestore, FileSignature, Plus, User2Icon} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {deleteFeaturesApi} from "src/actions/core/AdministrationService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 type EditionsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_EditionDto>;
@@ -41,21 +43,53 @@ function editionsRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_EditionDto>[] = [];
-  if (isActionGranted(["Saas.Editions.Update"], grantedPolicies)) {
-    actions.push({
+  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_EditionDto>[] = [
+    {
       type: "simple",
       actionLocation: "row",
-      condition: (row) => row.tenantCount !== 0,
+      cta: languageData["Edition.Features"],
+      icon: FileSignature,
+      onClick: (row) => {
+        router.push(`editions/${row.id}/features`);
+      },
+      condition: () => isActionGranted(["Saas.Editions.ManageFeatures"], grantedPolicies),
+    },
+    {
+      type: "confirmation-dialog",
+      actionLocation: "row",
+      cta: languageData["Edition.Restore.Features"],
+      title: languageData["Edition.Restore.Features"],
+      confirmationText: languageData.Save,
+      cancelText: languageData.Cancel,
+      description: languageData["Edition.Restore.Features.Description"],
+      icon: ArchiveRestore,
+      onConfirm: (row) => {
+        void deleteFeaturesApi({
+          providerName: "E",
+          providerKey: row.id,
+        }).then((res) => {
+          handlePutResponse(res, router);
+        });
+      },
+      condition: () => isActionGranted(["Saas.Editions.ManageFeatures"], grantedPolicies),
+    },
+    {
+      type: "simple",
+      actionLocation: "row",
       cta: languageData["Edition.MoveAllTenants"],
       icon: User2Icon,
       onClick: (row) => {
         router.push(`editions/${row.id}/move-all-tenants`);
       },
-    });
-  }
+      condition: (row) =>
+        row.tenantCount !== undefined &&
+        row.tenantCount > 0 &&
+        isActionGranted(["Saas.Editions.Update"], grantedPolicies),
+    },
+  ];
   return actions;
 }
+
 const editionsColumns = (
   locale: string,
   languageData: SaasServiceResource,
