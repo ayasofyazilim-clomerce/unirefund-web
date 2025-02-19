@@ -1,12 +1,38 @@
 "use server";
 
-import {isErrorOnRequest} from "@repo/utils/api";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getFeaturesApi} from "src/actions/core/AdministrationService/actions";
 import {getTenantDetailsByIdApi} from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
+
+async function getApiRequests(tenantId: string) {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([
+      getTenantDetailsByIdApi(tenantId, session),
+      getFeaturesApi(
+        {
+          providerName: "T",
+          providerKey: tenantId,
+        },
+        session,
+      ),
+    ]);
+
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
 
 export default async function Page({params}: {params: {lang: string; tenantId: string}}) {
   const {lang, tenantId} = params;
@@ -16,18 +42,12 @@ export default async function Page({params}: {params: {lang: string; tenantId: s
     lang,
   });
 
-  const tenantDetailsDataResponse = await getTenantDetailsByIdApi(tenantId);
-  if (isErrorOnRequest(tenantDetailsDataResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={tenantDetailsDataResponse.message} />;
+  const apiRequests = await getApiRequests(tenantId);
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-
-  const featuresResponse = await getFeaturesApi({
-    providerName: "T",
-    providerKey: tenantId,
-  });
-  if (isErrorOnRequest(featuresResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={featuresResponse.message} />;
-  }
+  const {requiredRequests} = apiRequests;
+  const [tenantDetailsDataResponse, featuresResponse] = requiredRequests;
 
   return (
     <>

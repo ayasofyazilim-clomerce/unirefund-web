@@ -23,13 +23,13 @@ export async function getPermissionsApi(data: GetApiPermissionManagementPermissi
   }
 }
 
-export async function getFeaturesApi(data: GetApiFeatureManagementFeaturesData) {
+export async function getFeaturesApi(data: GetApiFeatureManagementFeaturesData, session?: Session | null) {
   try {
-    const client = await getAdministrationServiceClient();
+    const client = await getAdministrationServiceClient(session);
     const dataResponse = await client.features.getApiFeatureManagementFeatures(data);
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
