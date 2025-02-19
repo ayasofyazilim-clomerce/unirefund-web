@@ -16,6 +16,7 @@ import type {Policy} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {postAbpUserAccountByIndividualIdApi} from "@/actions/unirefund/CrmService/post-actions";
 import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "@/actions/core/IdentityService/put-actions";
+import {postSendPasswordResetCodeApi} from "@/actions/core/AccountService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 const affiliationTypes = ["COFOUNDER", "PARTNER", "ABPUSER", "SUBCOMPANY", "ACCOUNTMANAGER", "Franchise"];
@@ -135,29 +136,29 @@ function individualsRowActions(
         },
       });
     }
-    // if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
-    //   actions.push({
-    //     type: "confirmation-dialog",
-    //     cta: languageData["Merchants.Individual.Send.Password.Code.Reset"],
-    //     title: languageData["Merchants.Individual.Send.Password.Code.Reset"],
-    //     actionLocation: "row",
-    //     confirmationText: languageData.Save,
-    //     cancelText: languageData.Cancel,
-    //     description: languageData["Merchants.Individual.Send.Password.Code.Reset.Description"],
-    //     icon: Eye,
-    //     condition: (row) => row.abpUserId !== null,
-    //     onConfirm: (row) => {
-    //       void postSendPasswordResetCodeApi({
-    //         requestBody: {
-    //           email: row.email || "",
-    //           appName: "Angular",
-    //         },
-    //       }).then((res) => {
-    //         handlePostResponse(res, router);
-    //       });
-    //     },
-    //   });
-    // }
+    if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
+      actions.push({
+        type: "confirmation-dialog",
+        cta: languageData["Merchants.Individual.Send.Password.Code.Reset"],
+        title: languageData["Merchants.Individual.Send.Password.Code.Reset"],
+        actionLocation: "row",
+        confirmationText: languageData.Save,
+        cancelText: languageData.Cancel,
+        description: languageData["Merchants.Individual.Send.Password.Code.Reset.Description"],
+        icon: Eye,
+        condition: (row) => row.abpUserId !== null,
+        onConfirm: (row) => {
+          void postSendPasswordResetCodeApi({
+            requestBody: {
+              email: row.email || "",
+              appName: "Angular",
+            },
+          }).then((res) => {
+            handlePostResponse(res, router);
+          });
+        },
+      });
+    }
   }
   return actions;
 }
