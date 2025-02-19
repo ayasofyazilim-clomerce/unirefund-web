@@ -5,20 +5,20 @@ import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getFeaturesApi} from "src/actions/core/AdministrationService/actions";
-import {getTenantDetailsByIdApi} from "src/actions/core/SaasService/actions";
+import {getEditionDetailsByIdApi} from "src/actions/core/SaasService/actions";
 import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 
-async function getApiRequests(tenantId: string) {
+async function getApiRequests(editionId: string) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([
-      getTenantDetailsByIdApi(tenantId, session),
+      getEditionDetailsByIdApi(editionId, session),
       getFeaturesApi(
         {
-          providerName: "T",
-          providerKey: tenantId,
+          providerName: "E",
+          providerKey: editionId,
         },
         session,
       ),
@@ -33,30 +33,29 @@ async function getApiRequests(tenantId: string) {
     throw error;
   }
 }
-
-export default async function Page({params}: {params: {lang: string; tenantId: string}}) {
-  const {lang, tenantId} = params;
+export default async function Page({params}: {params: {lang: string; editionId: string}}) {
+  const {lang, editionId} = params;
   const {languageData} = await getResourceData(lang);
   await isUnauthorized({
-    requiredPolicies: ["Saas.Tenants.ManageFeatures"],
+    requiredPolicies: ["Saas.Editions.ManageFeatures"],
     lang,
   });
 
-  const apiRequests = await getApiRequests(tenantId);
+  const apiRequests = await getApiRequests(editionId);
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const {requiredRequests} = apiRequests;
-  const [tenantDetailsResponse, featuresResponse] = requiredRequests;
+  const [editionDetailsResponse, featuresResponse] = requiredRequests;
 
   return (
     <>
       <Form featuresData={featuresResponse.data} languageData={languageData} />
       <div className="hidden" id="page-title">
-        {`${languageData.Tenant} (${tenantDetailsResponse.data.name})`}
+        {`${languageData.Edition} (${editionDetailsResponse.data.displayName})`}
       </div>
       <div className="hidden" id="page-description">
-        {languageData["Tenant.Features.Description"]}
+        {languageData["Edition.Features.Description"]}
       </div>
     </>
   );
