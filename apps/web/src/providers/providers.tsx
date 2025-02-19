@@ -6,12 +6,14 @@ import {SessionProvider} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
 import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import type {Policy} from "@repo/utils/policies";
-import NotFound from "@/app/[lang]/(main)/not-found";
+import {getResourceData} from "@/language-data/core/Default";
+import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {TenantProvider} from "./tenant";
 
 interface ProvidersProps {
   children: JSX.Element;
+  lang: string;
 }
 
 async function getApiRequests() {
@@ -28,11 +30,12 @@ async function getApiRequests() {
     throw error;
   }
 }
-export default async function Providers({children}: ProvidersProps) {
+export default async function Providers({children, lang}: ProvidersProps) {
+  const {languageData} = await getResourceData(lang);
   const session = await auth();
   const apiRequests = await getApiRequests();
   if ("message" in apiRequests) {
-    return <NotFound />;
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [grantedPolicies, tenantData] = apiRequests.requiredRequests;
 
