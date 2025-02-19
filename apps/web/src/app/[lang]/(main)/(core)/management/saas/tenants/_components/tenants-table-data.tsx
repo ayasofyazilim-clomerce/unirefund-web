@@ -10,14 +10,15 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {Eye, Plus} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handlePutResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
+import {ArchiveRestore, Eye, FileSignature, Plus} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {deleteFeaturesApi} from "src/actions/core/AdministrationService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 type TenantsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_SaasTenantDto>;
-
 const links: Partial<Record<keyof Volo_Saas_Host_Dtos_SaasTenantDto, TanstackTableColumnLink>> = {};
 
 function tenantsTableActions(
@@ -44,9 +45,37 @@ function tenantsRowActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_SaasTenantDto>[] = [];
-  if (isActionGranted(["Saas.Tenants.SetPassword"], grantedPolicies)) {
-    actions.push({
+  const actions: TanstackTableRowActionsType<Volo_Saas_Host_Dtos_SaasTenantDto>[] = [
+    {
+      type: "simple",
+      actionLocation: "row",
+      cta: languageData["Tenant.Features"],
+      icon: FileSignature,
+      onClick: (row) => {
+        router.push(`tenants/${row.id}/features`);
+      },
+      condition: () => isActionGranted(["Saas.Tenants.ManageFeatures"], grantedPolicies),
+    },
+    {
+      type: "confirmation-dialog",
+      actionLocation: "row",
+      cta: languageData["Tenant.Restore.Features"],
+      title: languageData["Tenant.Restore.Features"],
+      confirmationText: languageData.Save,
+      cancelText: languageData.Cancel,
+      description: languageData["Tenant.Restore.Features.Description"],
+      icon: ArchiveRestore,
+      onConfirm: (row) => {
+        void deleteFeaturesApi({
+          providerName: "T",
+          providerKey: row.id,
+        }).then((res) => {
+          handlePutResponse(res, router);
+        });
+      },
+      condition: () => isActionGranted(["Saas.Tenants.ManageFeatures"], grantedPolicies),
+    },
+    {
       type: "simple",
       actionLocation: "row",
       cta: languageData["Tenant.SetPassword"],
@@ -54,8 +83,9 @@ function tenantsRowActions(
       onClick: (row) => {
         router.push(`tenants/${row.id}/set-password`);
       },
-    });
-  }
+      condition: () => isActionGranted(["Saas.Tenants.SetPassword"], grantedPolicies),
+    },
+  ];
   return actions;
 }
 const tenantsColumns = (

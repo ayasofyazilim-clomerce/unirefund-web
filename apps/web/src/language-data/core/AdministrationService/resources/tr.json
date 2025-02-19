@@ -52,8 +52,8 @@
   "Form.Language.filter": "Ara",
 
   "LanguageText.Edit.Value": "Değeri Düzenle",
-  "LanguageText.Restore.Value": "Varsayılan Değere Döndür",
-  "LanguageText.Restore.Value.Assurance": "Bu değeri varsayılan değere geri döndürmek istediğinizden emin misiniz?",
+  "LanguageText.Restore.Value": "Varsayılan Değere Geri Yükle",
+  "LanguageText.Restore.Value.Assurance": "Bu değeri varsayılan değere geri yüklemek istediğinizden emin misiniz?",
   "Form.LanguageText.baseCultureName": "Temel Kültür Adı",
   "Form.LanguageText.getOnlyEmptyValues": "Sadece Boş Değerleri Al",
   "Form.LanguageText.targetCultureName": "Hedef Kültür Adı",

@@ -222,7 +222,7 @@ function individualTable(
     fillerColumn: "name",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "affiliationId", "affiliationCode"],
+      columns: ["id"],
     },
     columnOrder: ["name"],
     tableActions: individualsTableActions(languageData, router, grantedPolicies),

@@ -4,11 +4,11 @@ import type {
   UniRefund_CRMService_Organizations_OrganizationDto,
   UniRefund_CRMService_Organizations_UpdateOrganizationDto,
 } from "@ayasofyazilim/saas/CRMService";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
 import {$UniRefund_CRMService_Organizations_UpdateOrganizationDto} from "@ayasofyazilim/saas/CRMService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import {useRouter} from "next/navigation";
-import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
 import {putTaxOfficeOrganizationApi} from "src/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
@@ -24,10 +24,7 @@ function OrganizationForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const schema = createZodObject($UniRefund_CRMService_Organizations_UpdateOrganizationDto, [
-    "name",
-    "legalStatusCode",
-  ]);
+  const schema = createZodObject($UniRefund_CRMService_Organizations_UpdateOrganizationDto, ["name"]);
 
   function handleSubmit(formData: UniRefund_CRMService_Organizations_UpdateOrganizationDto) {
     startTransition(() => {
