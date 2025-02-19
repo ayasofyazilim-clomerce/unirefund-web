@@ -16,6 +16,7 @@ import type {Policy} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {postAbpUserAccountByIndividualIdApi} from "@/actions/unirefund/CrmService/post-actions";
 import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "@/actions/core/IdentityService/put-actions";
+import {postSendPasswordResetCodeApi} from "@/actions/core/AccountService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 const affiliationTypes = ["COFOUNDER", "PARTNER", "ABPUSER", "SUBCOMPANY", "ACCOUNTMANAGER", "Franchise"];
@@ -53,112 +54,104 @@ function individualsRowActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_Individuals_IndividualProfileDto>[] = [];
-  if (isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies)) {
-    actions.push({
-      type: "confirmation-dialog",
-      cta: languageData["Merchants.Individual.Create.User"],
-      title: languageData["Merchants.Individual.Create.User"],
-      actionLocation: "row",
-      confirmationText: languageData.Save,
-      cancelText: languageData.Cancel,
-      description: languageData["Merchants.Individual.Create.User.Description"],
-      condition: (row) => row.abpUserId === null,
-      icon: User2,
-      onConfirm: (row) => {
-        void postAbpUserAccountByIndividualIdApi(row.id || "").then((res) => {
-          handlePostResponse(res, router);
-        });
-      },
-    });
-    if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
-      actions.push({
-        type: "custom-dialog",
-        cta: languageData["Merchants.Individual.Lock.User"],
-        title: languageData["Merchants.Individual.Lock.User"],
-        actionLocation: "row",
-        icon: LockIcon,
-        condition: (row) => row.abpUserId !== null,
-        content: (row) => {
-          return (
-            <SchemaForm<FormData>
-              onSubmit={({formData}) => {
-                if (!formData) return;
-                void putUsersByIdLockByLockoutEndApi({
-                  id: row.abpUserId || "",
-                  lockoutEnd: formData.lockoutEnd,
-                }).then((res) => {
-                  handlePutResponse(res, router);
-                });
-              }}
-              schema={{
-                type: "object",
-                required: ["lockoutEnd"],
-                properties: {
-                  lockoutEnd: {
-                    type: "string",
-                    format: "date-time",
-                  },
-                },
-              }}
-            />
-          );
-        },
+  actions.push({
+    type: "confirmation-dialog",
+    cta: languageData["Merchants.Individual.Create.User"],
+    title: languageData["Merchants.Individual.Create.User"],
+    actionLocation: "row",
+    confirmationText: languageData.Save,
+    cancelText: languageData.Cancel,
+    description: languageData["Merchants.Individual.Create.User.Description"],
+    condition: (row) =>
+      isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies) && row.abpUserId === null,
+    icon: User2,
+    onConfirm: (row) => {
+      void postAbpUserAccountByIndividualIdApi(row.id || "").then((res) => {
+        handlePostResponse(res, router);
       });
-    }
-    if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
-      actions.push({
-        type: "confirmation-dialog",
-        cta: languageData["Merchants.Individual.Unlock.User"],
-        title: languageData["Merchants.Individual.Unlock.User"],
-        actionLocation: "row",
-        confirmationText: languageData.Save,
-        cancelText: languageData.Cancel,
-        description: languageData["Merchants.Individual.Unlock.User.Description"],
-        icon: UnlockIcon,
-        condition: (row) => row.abpUserId !== null,
-        onConfirm: (row) => {
-          void putUsersByIdUnlockApi(row.abpUserId || "").then((res) => {
-            handlePostResponse(res, router);
-          });
-        },
+    },
+  });
+
+  actions.push({
+    type: "custom-dialog",
+    cta: languageData["Merchants.Individual.Lock.User"],
+    title: languageData["Merchants.Individual.Lock.User"],
+    actionLocation: "row",
+    icon: LockIcon,
+    condition: (row) => isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies) && row.abpUserId !== null,
+    content: (row) => {
+      return (
+        <SchemaForm<FormData>
+          onSubmit={({formData}) => {
+            if (!formData) return;
+            void putUsersByIdLockByLockoutEndApi({
+              id: row.abpUserId || "",
+              lockoutEnd: formData.lockoutEnd,
+            }).then((res) => {
+              handlePutResponse(res, router);
+            });
+          }}
+          schema={{
+            type: "object",
+            required: ["lockoutEnd"],
+            properties: {
+              lockoutEnd: {
+                type: "string",
+                format: "date-time",
+              },
+            },
+          }}
+        />
+      );
+    },
+  });
+  actions.push({
+    type: "confirmation-dialog",
+    cta: languageData["Merchants.Individual.Unlock.User"],
+    title: languageData["Merchants.Individual.Unlock.User"],
+    actionLocation: "row",
+    confirmationText: languageData.Save,
+    cancelText: languageData.Cancel,
+    description: languageData["Merchants.Individual.Unlock.User.Description"],
+    icon: UnlockIcon,
+    condition: (row) => isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies) && row.abpUserId !== null,
+    onConfirm: (row) => {
+      void putUsersByIdUnlockApi(row.abpUserId || "").then((res) => {
+        handlePostResponse(res, router);
       });
-    }
-    if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
-      actions.push({
-        type: "simple",
-        cta: languageData["Merchants.Individual.SetPassword"],
-        actionLocation: "row",
-        condition: (row) => row.abpUserId !== null,
-        icon: Eye,
-        onClick: (row) => {
-          router.push(`/management/identity/users/${row.abpUserId}/set-password`);
+    },
+  });
+  actions.push({
+    type: "simple",
+    cta: languageData["Merchants.Individual.SetPassword"],
+    actionLocation: "row",
+    condition: (row) => isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies) && row.abpUserId !== null,
+    icon: Eye,
+    onClick: (row) => {
+      router.push(`/management/identity/users/${row.abpUserId}/set-password`);
+    },
+  });
+  actions.push({
+    type: "confirmation-dialog",
+    cta: languageData["Merchants.Individual.Send.Password.Code.Reset"],
+    title: languageData["Merchants.Individual.Send.Password.Code.Reset"],
+    actionLocation: "row",
+    confirmationText: languageData.Save,
+    cancelText: languageData.Cancel,
+    description: languageData["Merchants.Individual.Send.Password.Code.Reset.Description"],
+    icon: Eye,
+    condition: (row) => isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies) && row.abpUserId !== null,
+    onConfirm: (row) => {
+      void postSendPasswordResetCodeApi({
+        requestBody: {
+          email: row.email || "",
+          appName: "Angular",
         },
+      }).then((res) => {
+        handlePostResponse(res, router);
       });
-    }
-    // if (isActionGranted(["AbpIdentity.Users.Update"], grantedPolicies)) {
-    //   actions.push({
-    //     type: "confirmation-dialog",
-    //     cta: languageData["Merchants.Individual.Send.Password.Code.Reset"],
-    //     title: languageData["Merchants.Individual.Send.Password.Code.Reset"],
-    //     actionLocation: "row",
-    //     confirmationText: languageData.Save,
-    //     cancelText: languageData.Cancel,
-    //     description: languageData["Merchants.Individual.Send.Password.Code.Reset.Description"],
-    //     icon: Eye,
-    //     condition: (row) => row.abpUserId !== null,
-    //     onConfirm: (row) => {
-    //       void postSendPasswordResetCodeApi({
-    //         requestBody: {
-    //           email: row.email || "",
-    //           appName: "Angular",
-    //         },
-    //       }).then((res) => {
-    //         handlePostResponse(res, router);
-    //       });
-    //     },
-    //   });
-    // }
-  }
+    },
+  });
   return actions;
 }
 function individualColumns(
