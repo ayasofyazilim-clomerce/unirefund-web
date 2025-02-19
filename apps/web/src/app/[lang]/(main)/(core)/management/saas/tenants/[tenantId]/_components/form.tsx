@@ -15,7 +15,7 @@ import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {ActionList} from "@repo/ui/action-button";
-import {handleDeleteResponse, handlePostResponse} from "@repo/utils/api";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
@@ -148,7 +148,7 @@ export default function Page({
               id: tenantDetailsData.id || "",
               requestBody: {...formData, name: tenantDetailsData.name || ""},
             }).then((res) => {
-              handlePostResponse(res, router, "../tenants");
+              handlePutResponse(res, router, "../tenants");
             });
           });
         }}
