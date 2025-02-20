@@ -8,8 +8,10 @@ import {} from "lucide-react";
 import {useRouter} from "next/navigation";
 
 export function Novu({appId, appUrl, subscriberId}: {appId: string; appUrl: string; subscriberId: string}) {
-  if (!appId || !appUrl || !subscriberId) throw new Error("appId, appUrl and subscriberId are required");
   const router = useRouter();
+
+  if (!appId || !appUrl || !subscriberId) return null;
+
   const defaultAppearance = {
     elements: {
       popoverContent: {
