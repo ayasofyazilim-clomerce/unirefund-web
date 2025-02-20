@@ -11,7 +11,17 @@ import type {
 } from "@ayasofyazilim/core-saas/AdministrationService";
 import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "next-auth";
-import {getAdministrationServiceClient} from "src/lib";
+import {getAdministrationServiceClient, getAdministrationServiceClient_Unirefund} from "src/lib";
+
+export async function getInfoForCurrentTenantApi(session?: Session | null) {
+  try {
+    const client = await getAdministrationServiceClient_Unirefund(session);
+    const dataResponse = await client.countrySetting.getApiAdministrationServiceCountrySettingsInfoForCurrentTenant();
+    return structuredSuccessResponse(dataResponse);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 
 export async function getPermissionsApi(data: GetApiPermissionManagementPermissionsData) {
   try {

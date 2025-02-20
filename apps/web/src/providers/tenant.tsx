@@ -1,25 +1,20 @@
 "use client";
 
 import {createContext, useContext} from "react";
+import type {UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto} from "@ayasofyazilim/saas/AdministrationService";
 
-interface TenantProviderProps extends TenantContextProps {
+interface TenantProviderProps {
   children: JSX.Element;
-}
-interface TenantContextProps {
-  tenantName?: string;
-  tenantId?: string;
-  countryCode?: string;
-  phoneCode?: string;
-  currency?: string;
-  timezone?: string;
+  tenantData: UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto;
 }
 
-export const TenantContext = createContext<TenantContextProps>({
+export const TenantContext = createContext<UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto>({
   tenantName: "",
   tenantId: "",
-  countryCode: "",
-  phoneCode: "",
+  timeZone: "",
+  countryCode3: "",
   currency: "",
+  countryName: "",
 });
 
 export const useTenant = () => {
@@ -27,5 +22,5 @@ export const useTenant = () => {
 };
 
 export function TenantProvider(props: TenantProviderProps) {
-  return <TenantContext.Provider value={props}>{props.children}</TenantContext.Provider>;
+  return <TenantContext.Provider value={props.tenantData}>{props.children}</TenantContext.Provider>;
 }
