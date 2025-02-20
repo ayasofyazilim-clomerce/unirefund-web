@@ -52,7 +52,7 @@ export default async function Layout({children, params}: LayoutProps) {
             <Novu
               appId={process.env.NOVU_APP_IDENTIFIER || ""}
               appUrl={process.env.NOVU_APP_URL || ""}
-              subscriberId={session?.user?.novuSubscriberId || ""}
+              subscriberId={session?.user?.novuSubscriberId || "0"}
             />
           }
           prefix=""

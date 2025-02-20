@@ -1,5 +1,5 @@
 "use server";
-import "./globals.css";
+import "../globals.css";
 import {GeistSans} from "geist/font/sans";
 import {Suspense} from "react";
 import {Toaster} from "@/components/ui/sonner";
