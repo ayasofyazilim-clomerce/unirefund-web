@@ -3,9 +3,9 @@
 import {getGrantedPoliciesApi} from "@repo/utils/api";
 import {SessionProvider} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
-import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import type {Policy} from "@repo/utils/policies";
-import {TenantProvider} from "./tenant";
+import {GrantedPoliciesProvider} from "@repo/utils/policies";
+import NovuProvider from "@/providers/novu";
 
 interface ProvidersProps {
   children: JSX.Element;
@@ -15,10 +15,15 @@ export default async function Providers({children}: ProvidersProps) {
   const grantedPolicies = (await getGrantedPoliciesApi()) as Record<Policy, boolean>;
 
   return (
-    <TenantProvider>
-      <SessionProvider session={session}>
-        <GrantedPoliciesProvider grantedPolicies={grantedPolicies}>{children}</GrantedPoliciesProvider>
-      </SessionProvider>
-    </TenantProvider>
+    <SessionProvider session={session}>
+      <GrantedPoliciesProvider grantedPolicies={grantedPolicies}>
+        <NovuProvider
+          appId={process.env.NOVU_APP_IDENTIFIER || ""}
+          appUrl={process.env.NOVU_APP_URL || ""}
+          subscriberId={session?.user?.novuSubscriberId || ""}>
+          {children}
+        </NovuProvider>
+      </GrantedPoliciesProvider>
+    </SessionProvider>
   );
 }

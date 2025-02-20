@@ -21,12 +21,11 @@ import type {TableActionCustomDialog} from "@repo/ayasofyazilim-ui/molecules/dia
 import {default as AutoformDialog, default as CustomTableActionDialog} from "@repo/ayasofyazilim-ui/molecules/dialog";
 import {TreeView} from "@repo/ayasofyazilim-ui/molecules/tree-view";
 import {SectionNavbarBase} from "@repo/ayasofyazilim-ui/templates/section-layout";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import type {TreeViewElement} from "node_modules/@repo/ayasofyazilim-ui/src/molecules/tree-view/tree-view-api";
 import {useEffect, useState} from "react";
-import {z} from "zod";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
 import {
   getOrganizationUnitsByIdMembersApi,
   getOrganizationUnitsByIdRolesApi,
@@ -236,13 +235,6 @@ export default function OrganizationComponent({
       return;
     }
     const selectedUnit = organizationUnits.find((i) => i.id === selectedUnitId);
-    const placeholder = languageData["Organization.Select"];
-    const DynamicEnum = z.enum([
-      placeholder,
-      ...unitOptions.map(
-        (u) => `${u.displayName} ${u.parentName ? `${languageData["Organization.Parent"]}: ${u.parentName}` : ""}`,
-      ),
-    ]);
     setTriggerData({
       displayName: selectedUnit?.displayName || "",
       id: selectedUnitId || "",
@@ -253,8 +245,20 @@ export default function OrganizationComponent({
       cta: languageData["Organization.Move.Users"],
       description: `${languageData["Organization.Move.Users.Description"]} ${organizationName}:`,
       autoFormArgs: {
-        formSchema: z.object({
-          targetUnit: DynamicEnum.default(placeholder),
+        formSchema: createZodObject({
+          type: "object",
+          properties: {
+            targetUnit: {
+              type: "string",
+              enum: [
+                "Please select a unit",
+                ...unitOptions.map(
+                  (u) =>
+                    `${u.displayName} ${u.parentName ? `${languageData["Organization.Parent"]}: ${u.parentName}` : ""}`,
+                ),
+              ],
+            },
+          },
         }),
         fieldConfig: {
           all: {withoutBorder: true},

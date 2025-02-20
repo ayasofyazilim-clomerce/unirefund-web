@@ -88,35 +88,7 @@ export async function fetchNewAccessTokenByRefreshToken(refreshToken: string) {
   return await response.json();
 }
 
-async function getTenantData(accessToken: string) {
-  try {
-    const client = await getAccountServiceClient(accessToken);
-    const data = await client.sessions.getApiAccountSessions();
-    const activeSession = data.items?.[0];
-    if (!activeSession?.tenantId || !activeSession.tenantName) {
-      return structuredError({
-        body: {
-          error: {message: "Something went wrong while getting tenantData"},
-        },
-      });
-    }
-    return structuredResponse({
-      tenantId: activeSession.tenantId,
-      tenantName: activeSession.tenantName,
-    });
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-
 export async function getUserData(access_token: string, refresh_token: string, expiration_date: number) {
-  let tenantData = {tenantId: "", tenantName: ""};
-  if (process.env.FETCH_TENANT) {
-    const tenantDataResponse = await getTenantData(access_token);
-    if (tenantDataResponse.type === "success") {
-      tenantData = tenantDataResponse.data;
-    }
-  }
   const decoded_jwt = JSON.parse(Buffer.from(access_token.split(".")[1], "base64").toString());
   return {
     access_token,
@@ -126,7 +98,6 @@ export async function getUserData(access_token: string, refresh_token: string, e
     name: decoded_jwt.given_name,
     surname: "",
 
-    ...tenantData,
     ...decoded_jwt,
   };
 }

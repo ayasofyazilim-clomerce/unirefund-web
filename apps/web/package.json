@@ -29,6 +29,7 @@
     "@ayasofyazilim/core-saas": "latest",
     "@ayasofyazilim/saas": "0.0.136",
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@novu/react": "^2.6.5",
     "@radix-ui/react-icons": "^1.3.0",
     "@repo/ayasofyazilim-ui": "workspace:^",
     "@repo/ui": "workspace:*",

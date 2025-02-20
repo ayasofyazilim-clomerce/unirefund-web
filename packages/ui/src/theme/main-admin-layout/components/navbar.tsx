@@ -1,5 +1,8 @@
 "use client";
 
+import { IdCardIcon } from "@radix-ui/react-icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 import {
   BookA,
   Box,
@@ -36,14 +39,10 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
-import {IdCardIcon} from "@radix-ui/react-icons";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
 import SearchBar from "./navbar-searchbar";
-import NotificationsDropdown from "./notifications";
 import ProfileMenu from "./profile-menu";
 
 export default function Navbar({
@@ -52,12 +51,14 @@ export default function Navbar({
   navigation,
   lang,
   tenantData,
+  notification
 }: {
   prefix: string;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
+  notification?: JSX.Element
 }) {
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
@@ -87,7 +88,7 @@ export default function Navbar({
           <div className="flex items-center lg:order-2">
             <SearchBar navbarItems={navbarItems} prefix={prefix} />
             <LanguageSelector lang={lang} />
-            <NotificationsDropdown />
+            {notification && notification}
             <ProfileMenu />
           </div>
         </div>
