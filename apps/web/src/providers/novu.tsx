@@ -13,7 +13,7 @@ export default function NovuProvider({
   subscriberId: string;
   appUrl: string;
 }) {
-  if (!appId || !appUrl || !subscriberId) throw new Error("appId, appUrl and subscriberId are required");
+  if (!appId || !appUrl || !subscriberId) return children;
   return (
     <Novu applicationIdentifier={appId} backendUrl={appUrl} subscriberId={subscriberId}>
       {children}

@@ -46,7 +46,7 @@ export default async function Providers({children, lang}: ProvidersProps) {
           <NovuProvider
             appId={process.env.NOVU_APP_IDENTIFIER || ""}
             appUrl={process.env.NOVU_APP_URL || ""}
-            subscriberId={session?.user?.novuSubscriberId || "0"}>
+            subscriberId={session?.user?.novuSubscriberId || ""}>
             {children}
           </NovuProvider>
         </GrantedPoliciesProvider>
