@@ -15,7 +15,9 @@
     "AUTH_SECRET",
     "FETCH_TENANT",
     "TENANT_ID",
-    "APP_NAME"
+    "APP_NAME",
+    "NOVU_APP_IDENTIFIER",
+    "NOVU_APP_URL"
   ],
   "tasks": {
     "build": {

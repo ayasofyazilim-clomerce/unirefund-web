@@ -11,6 +11,7 @@ import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
+import {Novu} from "@/utils/navbar/notification";
 import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
@@ -72,6 +73,13 @@ export default async function Layout({children, params}: LayoutProps) {
           lang={lang}
           logo={logo}
           navbarItems={navbarFromDB}
+          notification={
+            <Novu
+              appId={process.env.NOVU_APP_IDENTIFIER || ""}
+              appUrl={process.env.NOVU_APP_URL || ""}
+              subscriberId={session?.user?.novuSubscriberId || "0"}
+            />
+          }
           prefix=""
           profileMenu={profileMenuProps}
           tenantData={tenantData.data}

@@ -2,11 +2,11 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
-import {useEffect, useMemo, useState} from "react";
-import {Skeleton} from "@repo/ayasofyazilim-ui/atoms/skeleton";
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
-import {useTheme} from "../../providers/theme";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { Skeleton } from "@repo/ayasofyazilim-ui/atoms/skeleton";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import { useTheme } from "../../providers/theme";
 import Navbar from "./components/navbar";
 
 const PageHeader = dynamic(() => import("../../../../ayasofyazilim-ui/src/molecules/page-header"), {
@@ -56,10 +56,10 @@ function findBreadcrumbItems(
 }
 
 export function HeaderSection() {
-  const {navbarItems, prefix, lang, tenantData} = useTheme();
+  const { navbarItems, prefix, lang, tenantData, notification } = useTheme();
   const pathName = usePathname();
 
-  const {activeNavItem, pageBackEnabled, breadcrumbItems} = useMemo(() => {
+  const { activeNavItem, pageBackEnabled, breadcrumbItems } = useMemo(() => {
     const homeBreadcrumb: BreadcrumbItemType = {
       ...navbarItems[0],
       subNavbarItems: navbarItems?.filter((i) => i.parentNavbarItemKey === lang),
@@ -115,6 +115,7 @@ export function HeaderSection() {
         prefix={prefix}
         lang={lang}
         tenantData={tenantData}
+        notification={notification}
       />
       {pathName.split(lang + "/")[1] !== "unauthorized" && (
         <PageHeader

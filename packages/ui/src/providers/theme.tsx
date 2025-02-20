@@ -1,8 +1,8 @@
 "use client";
 
-import {NavbarItemsFromDB, ProfileMenuProps} from "@repo/ui/theme/types";
-import {StaticImport} from "next/dist/shared/lib/get-img-props";
-import {createContext, useContext} from "react";
+import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { createContext, useContext } from "react";
 
 interface ThemeProviderProps {
   appName: string;
@@ -12,8 +12,9 @@ interface ThemeProviderProps {
   profileMenu?: ProfileMenuProps;
   prefix: string;
   lang: string;
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
   children: JSX.Element;
+  notification: JSX.Element;
 }
 interface ThemeContextProps {
   appName: string;
@@ -23,7 +24,8 @@ interface ThemeContextProps {
   profileMenu?: ProfileMenuProps;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
+  notification?: JSX.Element;
 }
 
 const ThemeProviderContext = createContext<ThemeContextProps>({
@@ -34,6 +36,7 @@ const ThemeProviderContext = createContext<ThemeContextProps>({
   navbarItems: [],
   profileMenu: undefined,
   tenantData: undefined,
+  notification: undefined,
   logo: "",
 });
 
@@ -51,6 +54,7 @@ export function ThemeProvider({
   lang,
   navbarItems,
   tenantData,
+  notification
 }: ThemeProviderProps) {
   return (
     <ThemeProviderContext.Provider
@@ -63,6 +67,7 @@ export function ThemeProvider({
         lang,
         profileMenu,
         tenantData,
+        notification
       }}>
       {children}
     </ThemeProviderContext.Provider>

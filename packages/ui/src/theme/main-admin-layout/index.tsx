@@ -1,6 +1,6 @@
 "use client";
 
-import {ThemeProvider} from "../../providers/theme";
+import { ThemeProvider } from "../../providers/theme";
 import HeaderSection from "./header-section";
 
 function MainAdminLayout(props: any) {
@@ -13,6 +13,7 @@ function MainAdminLayout(props: any) {
       profileMenu={props.profileMenu}
       prefix={props.prefix}
       lang={props.lang}
+      notification={props.notification}
       tenantData={props.tenantData}>
       <HeaderSection />
     </ThemeProvider>
