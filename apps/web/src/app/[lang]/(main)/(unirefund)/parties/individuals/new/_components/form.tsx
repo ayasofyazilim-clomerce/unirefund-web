@@ -12,6 +12,7 @@ import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import AutoForm, {AutoFormSubmit, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {handlePostResponse} from "@repo/utils/api";
+import {removeEmptyObjects} from "@repo/utils/helper-functions";
 import {
   postAffiliationsToCustomApi,
   postAffiliationsToMerchantApi,
@@ -119,6 +120,7 @@ export default function IndividualForm({
     }
     const phoneData = splitPhone(formData.telephone.localNumber);
     formData.telephone = {...formData.telephone, ...phoneData};
+
     const createData: UniRefund_CRMService_Individuals_CreateIndividualDto = {
       name: formData.name,
       personalSummaries: [formData.personalSummaries],
@@ -144,10 +146,9 @@ export default function IndividualForm({
         },
       ],
     };
-
     startTransition(() => {
       void postIndividualsWithComponentsApi({
-        requestBody: createData,
+        requestBody: removeEmptyObjects(createData),
       }).then((res) => {
         if (formData.affiliationCodeId && entityPartyTypeCode && partyId) {
           saveAffilationOfIndividual(formData);

@@ -4,7 +4,8 @@
   "description": "",
   "exports": {
     "./*": "./*/index.tsx",
-    "./auth/next-auth": "./auth/auth.ts"
+    "./auth/next-auth": "./auth/auth.ts",
+    "./helper-functions": "./helper-functions.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
