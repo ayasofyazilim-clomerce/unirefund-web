@@ -16,7 +16,8 @@ import {getAdministrationServiceClient, getAdministrationServiceClient_Unirefund
 export async function getInfoForCurrentTenantApi(session?: Session | null) {
   try {
     const client = await getAdministrationServiceClient_Unirefund(session);
-    const dataResponse = await client.countrySetting.getApiAdministrationServiceCountrySettingsInfoForCurrentTenant();
+    const dataResponse =
+      await client.countrySettingPublic.getApiAdministrationServicePublicCountrySettingsInfoForCurrentTenant();
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);
