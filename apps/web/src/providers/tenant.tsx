@@ -1,6 +1,6 @@
 "use client";
 
-import {createContext, useContext} from "react";
+import {createContext, useContext, useEffect} from "react";
 import type {UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto} from "@ayasofyazilim/saas/AdministrationService";
 
 interface TenantProviderProps {
@@ -12,6 +12,7 @@ export const TenantContext = createContext<UniRefund_AdministrationService_Count
   tenantName: "",
   tenantId: "",
   timeZone: "",
+  countryCode2: "",
   countryCode3: "",
   currency: "",
   countryName: "",
@@ -22,5 +23,8 @@ export const useTenant = () => {
 };
 
 export function TenantProvider(props: TenantProviderProps) {
+  useEffect(() => {
+    localStorage.setItem("countryCode2", props.tenantData.countryCode2?.toLocaleLowerCase() || "us");
+  }, [props.tenantData.countryCode2]);
   return <TenantContext.Provider value={props.tenantData}>{props.children}</TenantContext.Provider>;
 }
