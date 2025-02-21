@@ -19,6 +19,7 @@ import {useState, useTransition} from "react";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {postRebateTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import {getRebateTableHeadersByIdApi} from "@/actions/unirefund/ContractService/action";
+import {getBaseLink} from "@/utils";
 import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
 import {RebateTableDetailsField} from "../../_components/rebate-table-details-field";
 
@@ -129,7 +130,11 @@ export default function RebateTableHeaderCreateForm({
           if (!editedFormData) return;
           startTransition(() => {
             void postRebateTableHeadersApi({requestBody: editedFormData}).then((response) => {
-              handlePostResponse(response, router, "../rebate-tables");
+              handlePostResponse(response, router, {
+                prefix: getBaseLink("/settings/templates/rebate-tables"),
+                identifier: "id",
+                suffix: "",
+              });
             });
           });
         }}

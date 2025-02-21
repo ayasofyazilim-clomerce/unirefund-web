@@ -4,13 +4,14 @@ import {$UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderCreat
 import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto as RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {postRefundFeeHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
+import {getBaseLink} from "@/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {postRefundFeeHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
 
 export default function RefundFeeHeaderCreateForm({
@@ -100,7 +101,11 @@ export default function RefundFeeHeaderCreateForm({
           void postRefundFeeHeadersApi({
             requestBody: editedFormData,
           }).then((response) => {
-            handlePostResponse(response, router, "../refund-fees");
+            handlePostResponse(response, router, {
+              prefix: getBaseLink("/settings/templates/refund-fees"),
+              identifier: "id",
+              suffix: "",
+            });
           });
         });
       }}

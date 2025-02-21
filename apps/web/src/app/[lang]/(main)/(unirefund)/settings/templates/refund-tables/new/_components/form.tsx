@@ -1,16 +1,17 @@
 "use client";
-import {useRouter} from "next/navigation";
 import type {UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto as RefundTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto as $RefundTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
 import type {UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
-import {handlePostResponse} from "@repo/utils/api";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import {useState, useTransition} from "react";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {postRefundTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handlePostResponse} from "@repo/utils/api";
+import {useRouter} from "next/navigation";
+import {useState, useTransition} from "react";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {postRefundTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
+import {getBaseLink} from "@/utils";
 import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
 
 export default function RefundTableHeaderCreateForm({
@@ -88,7 +89,11 @@ export default function RefundTableHeaderCreateForm({
         if (!editedFormData) return;
         startTransition(() => {
           void postRefundTableHeadersApi({requestBody: editedFormData}).then((response) => {
-            handlePostResponse(response, router, "../refund-tables");
+            handlePostResponse(response, router, {
+              prefix: getBaseLink("/settings/templates/refund-tables"),
+              identifier: "id",
+              suffix: "",
+            });
           });
         });
       }}
