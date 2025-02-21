@@ -13,7 +13,7 @@ export async function POST(reqest: NextRequest) {
 
   const raw = JSON.stringify({
     email,
-    appName: process.env.APP_NAME,
+    appName: process.env.ABP_APP_NAME,
   });
 
   const requestOptions = {
