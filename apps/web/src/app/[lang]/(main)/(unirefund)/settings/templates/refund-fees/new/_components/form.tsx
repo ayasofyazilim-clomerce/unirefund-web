@@ -100,10 +100,7 @@ export default function RefundFeeHeaderCreateForm({
           void postRefundFeeHeadersApi({
             requestBody: editedFormData,
           }).then((response) => {
-            handlePostResponse(response, router, {
-              prefix: "./",
-              identifier: "id",
-            });
+            handlePostResponse(response, router, "../refund-fees");
           });
         });
       }}

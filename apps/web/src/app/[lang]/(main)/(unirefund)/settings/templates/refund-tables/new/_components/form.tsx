@@ -88,10 +88,7 @@ export default function RefundTableHeaderCreateForm({
         if (!editedFormData) return;
         startTransition(() => {
           void postRefundTableHeadersApi({requestBody: editedFormData}).then((response) => {
-            handlePostResponse(response, router, {
-              identifier: "id",
-              prefix: "./",
-            });
+            handlePostResponse(response, router, "../refund-tables");
           });
         });
       }}

@@ -11,11 +11,11 @@ import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {postRebateTableHeadersApi} from "@/actions/unirefund/ContractService/post-actions";
 import {getRebateTableHeadersByIdApi} from "@/actions/unirefund/ContractService/action";
@@ -129,10 +129,7 @@ export default function RebateTableHeaderCreateForm({
           if (!editedFormData) return;
           startTransition(() => {
             void postRebateTableHeadersApi({requestBody: editedFormData}).then((response) => {
-              handlePostResponse(response, router, {
-                identifier: "id",
-                prefix: "./",
-              });
+              handlePostResponse(response, router, "../rebate-tables");
             });
           });
         }}
