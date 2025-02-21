@@ -104,7 +104,6 @@ export default function RefundFeeHeaderCreateForm({
             handlePostResponse(response, router, {
               prefix: getBaseLink("/settings/templates/refund-fees"),
               identifier: "id",
-              suffix: "",
             });
           });
         });

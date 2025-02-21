@@ -133,7 +133,6 @@ export default function RebateTableHeaderCreateForm({
               handlePostResponse(response, router, {
                 prefix: getBaseLink("/settings/templates/rebate-tables"),
                 identifier: "id",
-                suffix: "",
               });
             });
           });

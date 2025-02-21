@@ -92,7 +92,6 @@ export default function RefundTableHeaderCreateForm({
             handlePostResponse(response, router, {
               prefix: getBaseLink("/settings/templates/refund-tables"),
               identifier: "id",
-              suffix: "",
             });
           });
         });
