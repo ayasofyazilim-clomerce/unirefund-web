@@ -1,18 +1,19 @@
 "use server";
-import {LogOut} from "lucide-react";
-import {isRedirectError} from "next/dist/client/components/redirect";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
+import type {Session} from "@repo/utils/auth";
 import {signOutServer} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
-import type {Session} from "@repo/utils/auth";
 import type {Policy} from "@repo/utils/policies";
+import {LogOut} from "lucide-react";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {Novu} from "@/utils/navbar/notification";
+import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
+import {myProfileApi} from "@/actions/core/AccountService/actions";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
-import {Novu} from "@/utils/navbar/notification";
-import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
 import ErrorComponent from "./_components/error-component";
@@ -25,7 +26,11 @@ const appName = process.env.APPLICATION_NAME || "UNIREFUND";
 
 async function getApiRequests(session: Session | null) {
   try {
-    const requiredRequests = await Promise.all([getGrantedPoliciesApi(), getInfoForCurrentTenantApi(session)]);
+    const requiredRequests = await Promise.all([
+      getGrantedPoliciesApi(),
+      getInfoForCurrentTenantApi(session),
+      myProfileApi(),
+    ]);
 
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};

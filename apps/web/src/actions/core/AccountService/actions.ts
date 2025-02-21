@@ -68,7 +68,7 @@ export async function signUpServerApi({
         userName,
         emailAddress: email,
         password,
-        appName: process.env.CLIENT_ID || "",
+        appName: process.env.ABP_APP_NAME || process.env.CLIENT_ID || "",
         returnUrl: "",
       },
     });
@@ -89,7 +89,7 @@ export async function sendPasswordResetCodeApi({tenantId, email}: {tenantId: str
     const response = await client.account.postApiAccountSendPasswordResetCode({
       requestBody: {
         email,
-        appName: process.env.CLIENT_ID || "",
+        appName: process.env.ABP_APP_NAME || process.env.CLIENT_ID || "",
         returnUrl: "",
       },
     });
@@ -147,6 +147,15 @@ export async function resetPasswordApi({
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
+  }
+}
+export async function myProfileApi() {
+  try {
+    const client = await getAccountServiceClient();
+    const response = await client.profile.getApiAccountMyProfile();
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }
 //unupdated functions
