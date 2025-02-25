@@ -3,9 +3,9 @@
 import type {GetApiTextTemplateManagementTemplateDefinitionsData} from "@ayasofyazilim/core-saas/AdministrationService";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getTextTemplateApi} from "src/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
-import ErrorComponent from "../../../_components/error-component";
 import TextTemplateTable from "./_components/table";
 
 export default async function Page({

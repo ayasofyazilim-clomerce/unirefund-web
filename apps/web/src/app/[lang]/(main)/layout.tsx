@@ -7,6 +7,7 @@ import {auth} from "@repo/utils/auth/next-auth";
 import type {Policy} from "@repo/utils/policies";
 import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {Novu} from "@/utils/navbar/notification";
 import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {myProfileApi} from "@/actions/core/AccountService/actions";
@@ -16,7 +17,6 @@ import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
-import ErrorComponent from "./_components/error-component";
 
 interface LayoutProps {
   params: {lang: string};
@@ -47,9 +47,11 @@ export default async function Layout({children, params}: LayoutProps) {
   const {languageData} = await getResourceData(lang);
   const session = await auth();
   const apiRequests = await getApiRequests(session);
+
   if ("message" in apiRequests) {
-    return <ErrorComponent languageData={languageData} logout message={apiRequests.message} />;
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} signOutServer={signOutServer} />;
   }
+
   const baseURL = getBaseLink("", lang);
 
   const profileMenuProps = getProfileMenuFromDB(languageData);

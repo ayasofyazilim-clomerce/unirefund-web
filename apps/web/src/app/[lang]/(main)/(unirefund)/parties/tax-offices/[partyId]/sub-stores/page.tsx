@@ -2,8 +2,8 @@
 
 import type {GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData} from "@ayasofyazilim/saas/CRMService";
 import {auth} from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getTaxOfficeSubStoresByIdApi} from "src/actions/unirefund/CrmService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import SubStoresTable from "./table";
 

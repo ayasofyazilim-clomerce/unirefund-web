@@ -1,8 +1,8 @@
 "use server";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getRefundPointsApi} from "@/actions/unirefund/CrmService/actions";
-import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundFeeHeaderCreateForm from "./_components/form";
 

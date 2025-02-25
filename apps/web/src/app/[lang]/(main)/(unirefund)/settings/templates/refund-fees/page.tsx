@@ -3,10 +3,10 @@
 import type {GetApiContractServiceRefundFeeHeadersData} from "@ayasofyazilim/saas/ContractService";
 import {isUnauthorized} from "@repo/utils/policies";
 import {auth} from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import {getRefundFeeHeadersApi} from "@/actions/unirefund/ContractService/action";
 import {getRefundPointsApi} from "@/actions/unirefund/CrmService/actions";
-import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import RefundFees from "./_components/table";
 
 async function getApiRequests(filters: GetApiContractServiceRefundFeeHeadersData) {

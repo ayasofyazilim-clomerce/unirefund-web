@@ -6,10 +6,10 @@ import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {FileText} from "lucide-react";
 import Link from "next/link";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getBaseLink} from "@/utils";
 import {getAllCountriesApi} from "@/actions/unirefund/LocationService/actions";
 import {getTaxOfficesApi} from "src/actions/unirefund/CrmService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import PageClientSide from "./page-client";
 

@@ -1,9 +1,9 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import type {GetApiContractServiceRebateTableHeadersData} from "@ayasofyazilim/saas/ContractService";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getRebateTableHeadersApi} from "@/actions/unirefund/ContractService/action";
 import {getMerchantsApi} from "@/actions/unirefund/CrmService/actions";
-import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RebateTable from "./_components/table";
 

@@ -3,8 +3,8 @@
 import type {GetApiExportValidationServiceExportValidationData} from "@ayasofyazilim/saas/ExportValidationService";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getExportValidationApi} from "src/actions/unirefund/ExportValidationService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/ExportValidationService";
 import ExportValidationTable from "./_components/table";
 

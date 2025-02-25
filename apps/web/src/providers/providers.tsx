@@ -5,9 +5,9 @@ import {SessionProvider} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
 import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import ErrorComponent from "@repo/ui/components/error-component";
 import NovuProvider from "@/providers/novu";
 import {getResourceData} from "@/language-data/core/Default";
-import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {TenantProvider} from "./tenant";
 

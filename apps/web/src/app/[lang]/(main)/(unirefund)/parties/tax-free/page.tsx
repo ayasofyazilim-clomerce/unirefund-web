@@ -3,9 +3,9 @@
 import type {GetApiCrmServiceTaxFreesData} from "@ayasofyazilim/saas/CRMService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getTaxFreesApi} from "src/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import ErrorComponent from "../../../_components/error-component";
 import TaxFreeTable from "./table";
 
 interface SearchParamType {

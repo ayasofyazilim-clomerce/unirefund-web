@@ -4,12 +4,12 @@ import {Button} from "@/components/ui/button";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {FileText} from "lucide-react";
 import Link from "next/link";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersApi,
 } from "src/actions/unirefund/ContractService/action";
 import {getMerchantAffiliationByIdApi, getMerchantSubStoresByIdApi} from "src/actions/unirefund/CrmService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
 import {RebateSettings} from "./_components/rebate-settings";
