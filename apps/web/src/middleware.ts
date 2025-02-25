@@ -1,17 +1,20 @@
-import Negotiator from "negotiator";
-import {NextResponse} from "next/server";
-import {match as matchLocale} from "@formatjs/intl-localematcher";
-import {auth} from "@repo/utils/auth/next-auth";
 import type {NextRequest} from "next/server";
+import {NextResponse} from "next/server";
+import Negotiator from "negotiator";
+import {match as matchLocale} from "@formatjs/intl-localematcher";
 import type {NextAuthRequest} from "node_modules/next-auth/lib";
+import {auth} from "@repo/utils/auth/next-auth";
+
+const homeRoute = process.env.HOME_ROUTE || "/";
+const protectedRoutes = process.env.PROTECTED_ROUTES?.split(",") || [];
+const unauthorizedRoutes = process.env.UNAUTHORIZED_ROUTES?.split(",") || [];
+const protectAllRoutes = process.env.PROTECT_ALL_ROUTES === "true";
 
 export const i18n = {
-  defaultLocale: "en",
-  locales: ["de-de", "en", "es", "fi", "fr", "hi", "it", "sk", "sl", "tr", "ru", "ar", "zh-hans", "zh-hant"],
+  defaultLocale: process.env.DEFAULT_LOCALE || "en",
+  locales: process.env.SUPPORTED_LOCALES?.split(",") || ["en", "tr"],
 };
 
-const publicURLs = ["404", "500", "api", "public"];
-const authPages = ["login", "register", "forgot-password", "reset-password"];
 function getLocaleFromBrowser(request: NextRequest) {
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
@@ -25,87 +28,78 @@ function getLocaleFromCookies(request: NextRequest) {
     return cookieLocale;
   }
 }
-
-function localeFromPathname(request: NextRequest) {
-  const pathname = `${request.nextUrl.pathname}/`;
-  let returnLocale = i18n.defaultLocale;
-  const isLocaleProvided = i18n.locales.find((locale) => {
-    if (pathname.startsWith(`/${locale}/`)) {
-      returnLocale = locale;
+function getLocaleFromRequest(request: NextRequest) {
+  const acceptLanguage = request.headers.get("accept-language");
+  if (acceptLanguage) {
+    const locale = acceptLanguage.split(",")[0].split("-")[0];
+    if (i18n.locales.includes(locale)) {
       return locale;
     }
-    return false;
-  });
-  if (isLocaleProvided) {
-    return returnLocale;
   }
-  return false;
+  return i18n.defaultLocale;
 }
-
 function getLocale(request: NextRequest) {
-  return localeFromPathname(request) || getLocaleFromCookies(request) || getLocaleFromBrowser(request);
+  return getLocaleFromCookies(request) || getLocaleFromBrowser(request) || getLocaleFromRequest(request);
 }
-
-export const middleware = auth((request: NextAuthRequest) => {
-  const hostURL = `http://${request.headers.get("host")}`;
-
-  function isUserAuthorized(req: NextAuthRequest) {
-    return Boolean(req.auth?.user?.access_token && (req.auth.user.userName || req.auth.user.email));
-  }
-  function isPathHasLocale(path: string) {
-    return i18n.locales.includes(path.split("/")[1]);
-  }
-  function redirectToLogin(locale: string, req: NextRequest) {
-    return NextResponse.redirect(new URL(`${hostURL}/${locale}/login?redirect=${req.nextUrl.pathname}`, hostURL));
-  }
-
-  function redirectToRoot(locale: string) {
-    return NextResponse.redirect(new URL(`${hostURL}/${locale}/home`, hostURL));
-  }
-  function allowURL(locale: string, req: NextRequest) {
-    const response = NextResponse.next();
-    if (req.cookies.get("locale")?.value !== locale) {
-      response.cookies.set("locale", locale);
-    }
-    return response;
-  }
-  const isAuthorized = isUserAuthorized(request);
+function isUserAuthorized(request: NextAuthRequest) {
+  return Boolean(request.auth?.user?.access_token && (request.auth.user.userName || request.auth.user.email));
+}
+function redirectToLocale(request: NextRequest, pathname: string) {
   const locale = getLocale(request);
-  const pathName = request.nextUrl.pathname.split("/")[2];
+  if (request.cookies.get("locale")?.value !== locale) {
+    request.cookies.set("locale", locale);
+  }
+  const newUrl = request.nextUrl.clone();
+  newUrl.pathname = `/${locale}${pathname}`;
+  return NextResponse.redirect(newUrl);
+}
+function redirectToLogin(request: NextRequest, pathname: string, locale: string) {
+  const redirectTo = encodeURIComponent(pathname);
 
-  if (!pathName) {
-    return redirectToRoot(locale);
+  const newUrl = request.nextUrl.clone();
+  newUrl.pathname = `/${locale}/login`;
+  newUrl.searchParams.set("redirectTo", redirectTo);
+  return NextResponse.redirect(newUrl);
+}
+function redirectToHome(request: NextRequest, locale: string) {
+  const newUrl = request.nextUrl.clone();
+  newUrl.pathname = `/${locale}/${homeRoute}`;
+  return NextResponse.redirect(newUrl);
+}
+export const middleware = auth((request: NextAuthRequest) => {
+  const url = request.url;
+  const pathname = new URL(url).pathname;
+
+  const isAuthenticated = isUserAuthorized(request);
+  const pathParts = pathname.split("/").filter(Boolean);
+
+  // 1. Check if the locale is valid
+  if (pathParts.length === 0 || (pathParts.length > 0 && !i18n.locales.includes(pathParts[0]))) {
+    return redirectToLocale(request, pathname);
+  }
+  // 2. Check if the locale is the same as the one in the cookie
+  if (request.cookies.get("locale")?.value !== pathParts[0]) {
+    request.cookies.set("locale", pathParts[0]);
   }
 
-  // If the user is authorized
-  if (isAuthorized) {
-    // If the user is authorized and the path is unauthorized specific, redirect to profile
-    if (authPages.includes(pathName)) {
-      return redirectToRoot(locale);
-    }
-
-    if (isPathHasLocale(request.nextUrl.pathname)) {
-      return allowURL(locale, request);
-    }
-    // console.error(
-    //   `(No locale provided type 1) Wrong redirection to pathName:${pathName}`
-    // );
-    const {search} = request.nextUrl;
-    return NextResponse.redirect(new URL(`${hostURL}/${locale}${request.nextUrl.pathname}${search}`, hostURL));
+  // 3. Check if the user is trying to access a protected route without authorization
+  if (
+    !isAuthenticated &&
+    ((!protectAllRoutes && protectedRoutes.some((route) => route === pathParts[1])) ||
+      (protectAllRoutes && !unauthorizedRoutes.some((route) => route === pathParts[1])))
+  ) {
+    return redirectToLogin(request, pathname, pathParts[0]);
   }
-  // If the user is not authorized and the path is public, continue
-  if (publicURLs.includes(pathName) || authPages.includes(pathName)) {
-    if (isPathHasLocale(request.nextUrl.pathname)) {
-      return allowURL(locale, request);
-    }
 
-    // console.error(
-    //   `(No locale provided type 2) Wrong redirection to pathName:${pathName}`
-    // );
-    return NextResponse.redirect(new URL(`${hostURL}/${locale}${request.nextUrl.pathname}`, hostURL));
+  // 4. Check if the user is trying to access a unauthorized route with authorization
+  if (isAuthenticated && unauthorizedRoutes.some((route) => route === pathParts[1])) {
+    return redirectToHome(request, pathParts[0]);
   }
-  // If the user is not authorized and the path is authorized specific, redirect to login
-  return redirectToLogin(locale, request);
+
+  // 5. So far so good
+  const response = NextResponse.next();
+  response.cookies.set("locale", pathParts[0]);
+  return response;
 });
 
 export const config = {
