@@ -2,8 +2,8 @@
   "name": "@repo/ui",
   "version": "0.0.0",
   "exports": {
-    "./test": "./src/test.tsx",
     "./*": "./src/*/index.tsx",
+    "./components/*": "./src/components/*.tsx",
     "./utils/table/*": "./utils/table/*.ts",
     "./utils/general/*": "./utils/general/*.ts"
   },

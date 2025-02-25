@@ -3,11 +3,11 @@
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getTimeZoneApi} from "@/actions/unirefund/SettingService/actions";
 import {getAllCountriesApi, getCurrencyApi} from "@/actions/unirefund/LocationService/actions";
 import {getAllLanguagesApi} from "src/actions/core/AdministrationService/actions";
 import {getAllEditionsApi, getTenantDetailsByIdApi} from "src/actions/core/SaasService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 
