@@ -82,6 +82,10 @@ export const middleware = auth((request: NextAuthRequest) => {
     request.cookies.set("locale", pathParts[0]);
   }
 
+  if (pathParts.length === 1 && homeRoute !== "/") {
+    return redirectToHome(request, pathParts[0]);
+  }
+
   // 3. Check if the user is trying to access a protected route without authorization
   if (
     !isAuthenticated &&
