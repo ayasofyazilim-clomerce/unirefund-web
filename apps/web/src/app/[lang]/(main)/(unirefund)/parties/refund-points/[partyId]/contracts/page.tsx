@@ -1,8 +1,8 @@
 "use server";
 
 import {auth} from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getRefundPointContractHeadersByRefundPointIdApi} from "@/actions/unirefund/ContractService/action";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "@/language-data/unirefund/CRMService";
 import {getResourceData as getContractsResourceData} from "src/language-data/unirefund/ContractService";
 import ContractsTable from "./_components/table";

@@ -2,9 +2,9 @@
 
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getAllCountriesApi} from "src/actions/unirefund/LocationService/actions";
 import {getTravellersDetailsApi} from "src/actions/unirefund/TravellerService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/TravellerService";
 import {getBaseLink} from "src/utils";
 import Form from "./form";

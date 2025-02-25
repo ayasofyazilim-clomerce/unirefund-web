@@ -1,12 +1,12 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import type {Session} from "@repo/utils/auth";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
 } from "src/actions/unirefund/ContractService/action";
 import {getMerchantAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {ContractSettings} from "./_components/contract-settings";
 

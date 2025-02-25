@@ -3,9 +3,9 @@
 import type {GetApiFinanceServiceVatStatementHeadersData} from "@ayasofyazilim/saas/FinanceService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getVatStatementHeadersApi} from "src/actions/unirefund/FinanceService/actions";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
-import ErrorComponent from "../../../_components/error-component";
 import VatStatementTable from "./_components/table";
 
 async function getApiRequests(searchParams: GetApiFinanceServiceVatStatementHeadersData) {

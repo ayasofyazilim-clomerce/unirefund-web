@@ -4,10 +4,10 @@ import type {GetApiTagServiceTagTagsRefundData} from "@ayasofyazilim/saas/TagSer
 import {redirect} from "next/navigation";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getAccessibleRefundPointsApi} from "src/actions/unirefund/CrmService/actions";
 import {getRefundableTagsApi} from "src/actions/unirefund/TagService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import TravellerDocumentForm from "../_components/traveller-document-form";
 import ClientPage from "./client-page";
 import {isUnauthorizedRefundPoint} from "./utils";
