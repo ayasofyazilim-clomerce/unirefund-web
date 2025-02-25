@@ -45,9 +45,6 @@ importers:
       '@ayasofyazilim/saas':
         specifier: 0.0.139
         version: 0.0.139(magicast@0.3.5)(openapi-types@12.1.3)
-      '@formatjs/intl-localematcher':
-        specifier: ^0.5.4
-        version: 0.5.4
       '@novu/react':
         specifier: ^2.6.5
         version: 2.6.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -87,9 +84,6 @@ importers:
       mini-svg-data-uri:
         specifier: ^1.4.4
         version: 1.4.4
-      negotiator:
-        specifier: 0.6.3
-        version: 0.6.3
       next:
         specifier: 14.2.20
         version: 14.2.20(@playwright/test@1.47.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -121,9 +115,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/config-typescript
-      '@types/negotiator':
-        specifier: 0.6.3
-        version: 0.6.3
       '@types/node':
         specifier: 20.11.24
         version: 20.11.24
@@ -791,6 +782,9 @@ importers:
       '@ayasofyazilim/core-saas':
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+      '@formatjs/intl-localematcher':
+        specifier: ^0.5.4
+        version: 0.5.4
       '@repo/ayasofyazilim-ui':
         specifier: workspace:*
         version: link:../ayasofyazilim-ui
@@ -800,6 +794,9 @@ importers:
       '@types/react-dom':
         specifier: 18.3.5
         version: 18.3.5(@types/react@18.3.18)
+      negotiator:
+        specifier: 0.6.3
+        version: 0.6.3
       next:
         specifier: 14.2.20
         version: 14.2.20(@playwright/test@1.47.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -812,6 +809,10 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@types/negotiator':
+        specifier: 0.6.3
+        version: 0.6.3
 
 packages:
 
