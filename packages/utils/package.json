@@ -5,6 +5,7 @@
   "exports": {
     "./*": "./*/index.tsx",
     "./auth/next-auth": "./auth/auth.ts",
+    "./auth/middleware": "./auth/middleware.ts",
     "./helper-functions": "./helper-functions.ts"
   },
   "scripts": {
@@ -15,11 +16,16 @@
     "@auth/core": "^0.30.0",
     "@ayasofyazilim/core-saas": "latest",
     "@repo/ayasofyazilim-ui": "workspace:*",
+    "negotiator": "0.6.3",
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "next": "14.2.20",
     "react": "18.3.1",
     "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/negotiator": "0.6.3"
   },
   "keywords": [],
   "author": "",

@@ -1,8 +1,7 @@
 "use server";
 
-import {redirect} from "next/navigation";
 import {AccountServiceClient} from "@ayasofyazilim/core-saas/AccountService";
-import {structuredError, structuredResponse} from "../api";
+import {redirect} from "next/navigation";
 import {signOut} from "./auth";
 
 const TOKEN_URL = `${process.env.TOKEN_URL}/connect/token`;
