@@ -1,8 +1,8 @@
-export interface AbpLocalizationResources {
+export type AbpLocalizationResources = {
   "DisplayName:Abp.Localization.DefaultLanguage": "Default language";
   "Description:Abp.Localization.DefaultLanguage": "The default language of the application.";
-}
-export interface AbpValidationResources {
+};
+export type AbpValidationResources = {
   "'{0}' and '{1}' do not match.": "'{0}' and '{1}' do not match.";
   "The {0} field is not a valid credit card number.": "The {0} field is not a valid credit card number.";
   "{0} is not valid.": "{0} is not valid.";
@@ -37,23 +37,23 @@ export interface AbpValidationResources {
   "ThisFieldMustBeAStringWithAMinimumLengthOf{1}AndAMaximumLengthOf{0}": "This field must be a string with a minimum length of {1} and a maximum length of {0}.";
   ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl: "This field is not a valid fully-qualified http, https, or ftp URL.";
   "ThisFieldIsInvalid.": "This field is invalid.";
-}
-export interface UniRefundResources {
+};
+export type UniRefundResources = {
   "Menu:Home": "Home";
   Login: "Login";
   "Menu:Dashboard": "Dashboard";
-}
-export interface AbpTimingResources {
+};
+export type AbpTimingResources = {
   "DisplayName:Abp.Timing.Timezone": "Timezone";
   "Description:Abp.Timing.Timezone": "Application time zone";
-}
-export interface AbpMultiTenancyResources {
+};
+export type AbpMultiTenancyResources = {
   TenantNotFoundMessage: "Tenant not found!";
   TenantNotFoundDetails: "There is no tenant with the tenant id or name: {0}";
   TenantNotActiveMessage: "Tenant is not active!";
   TenantNotActiveDetails: "The tenant is not active with the tenant id or name: {0}";
-}
-export interface AbpExceptionHandlingResources {
+};
+export type AbpExceptionHandlingResources = {
   InternalServerErrorMessage: "An internal error occurred during your request!";
   ValidationErrorMessage: "Your request is not valid!";
   ValidationNarrativeErrorMessageTitle: "The following errors were detected during validation.";
@@ -75,18 +75,18 @@ export interface AbpExceptionHandlingResources {
   "500Message": "Internal Server Error";
   "403MessageDetail": "You are not authorized to perform this operation!";
   "404MessageDetail": "Sorry, there's nothing at this address.";
-}
-export interface AbpAuthorizationResources {
+};
+export type AbpAuthorizationResources = {
   "Volo.Authorization:010001": "Authorization failed! Given policy has not granted.";
   "Volo.Authorization:010002": "Authorization failed! Given policy has not granted: {PolicyName}";
   "Volo.Authorization:010003": "Authorization failed! Given policy has not granted for given resource: {ResourceName}";
   "Volo.Authorization:010004": "Authorization failed! Given requirement has not granted for given resource: {ResourceName}";
   "Volo.Authorization:010005": "Authorization failed! Given requirements has not granted for given resource: {ResourceName}";
-}
-export interface AbpDddApplicationContractsResources {
+};
+export type AbpDddApplicationContractsResources = {
   MaxResultCountExceededExceptionMessage: "{0} can not be more than {1}! Increase {2}.{3} on the server side to allow more results.";
-}
-export interface AbpUiResources {
+};
+export type AbpUiResources = {
   Languages: "Languages";
   AreYouSure: "Are you sure?";
   Cancel: "Cancel";
@@ -145,19 +145,19 @@ export interface AbpUiResources {
   ProfilePicture: "Profile picture";
   Theme: "Theme";
   NotAssigned: "Not Assigned";
-}
-export interface AbpUiNavigationResources {
+};
+export type AbpUiNavigationResources = {
   "Menu:Administration": "Administration";
-}
-export interface AbpGlobalFeatureResources {
+};
+export type AbpGlobalFeatureResources = {
   "Volo.GlobalFeature:010001": "The '{ServiceName}' service needs to enable '{GlobalFeatureName}' feature.";
-}
-export interface AbpFeatureResources {
+};
+export type AbpFeatureResources = {
   "Volo.Feature:010001": "Feature is not enabled: {FeatureName}";
   "Volo.Feature:010002": "Required features are not enabled. All of these features must be enabled: {FeatureNames}";
   "Volo.Feature:010003": "Required features are not enabled. At least one of these features must be enabled: {FeatureNames}";
-}
-export interface AbpUiMultiTenancyResources {
+};
+export type AbpUiMultiTenancyResources = {
   GivenTenantIsNotExist: "Given tenant doesn't exist: {0}";
   GivenTenantIsNotAvailable: "Given tenant isn't available: {0}";
   Tenant: "Tenant";
@@ -166,8 +166,8 @@ export interface AbpUiMultiTenancyResources {
   SwitchTenantHint: "Leave the name field blank to switch to the host side.";
   SwitchTenant: "Switch tenant";
   NotSelected: "Not selected";
-}
-export interface AbpIdentityResources {
+};
+export type AbpIdentityResources = {
   "Menu:IdentityManagement": "Identity management";
   Users: "Users";
   NewUser: "New user";
@@ -536,8 +536,8 @@ export interface AbpIdentityResources {
   "Session:Detail": "Detail";
   "Session:Revoke": "Revoke";
   SessionRevokeConfirmationMessage: "Are you sure you want to revoke the session?";
-}
-export interface AbpLdapResources {
+};
+export type AbpLdapResources = {
   "DisplayName:Abp.Ldap.Ldaps": "LDAP over SSL";
   "Description:Abp.Ldap.Ldaps": "LDAP over SSL";
   "DisplayName:Abp.Ldap.ServerHost": "Server host";
@@ -552,16 +552,16 @@ export interface AbpLdapResources {
   "Description:Abp.Ldap.UserName": "Username";
   "DisplayName:Abp.Ldap.Password": "Password";
   "Description:Abp.Ldap.Password": "Password";
-}
-export interface AbpPermissionManagementResources {
+};
+export type AbpPermissionManagementResources = {
   Permissions: "Permissions";
   OnlyProviderPermissons: "Only this provider";
   All: "All";
   SelectAllInAllTabs: "Grant all permissions";
   SelectAllInThisTab: "Select all";
   SaveWithoutAnyPermissionsWarningMessage: "Are you sure you want to save without any permissions?";
-}
-export interface AbpAccountResources {
+};
+export type AbpAccountResources = {
   "Volo.Account:InvalidEmailAddress": "Can not find the given email address:{0}";
   "Volo.Account:SelfRegistrationDisabled": "Self registration is disabled!";
   "Volo.Account:PhoneNumberEmpty": "Phone number is empty!";
@@ -826,8 +826,8 @@ export interface AbpAccountResources {
   "Authentication:YouAreLoggedOut": "You are logged out.";
   OrRegisterWith: "Or register with";
   RegisterText: 'By clicking Register button, you agree to our <a href="/Account/TermsConditions" target="_blank" class="text-decoration-none" rel="noopener">Terms & Conditions</a> and <a href="/Account/Privacy" target="_blank" class="text-decoration-none" rel="noopener">Privacy Policy</a>.';
-}
-export interface AbpEmailingResources {
+};
+export type AbpEmailingResources = {
   "DisplayName:Abp.Mailing.DefaultFromAddress": "Default from address";
   "DisplayName:Abp.Mailing.DefaultFromDisplayName": "Default from display name";
   "DisplayName:Abp.Mailing.Smtp.Host": "Host";
@@ -848,8 +848,8 @@ export interface AbpEmailingResources {
   "Description:Abp.Mailing.Smtp.UseDefaultCredentials": "Whether the DefaultCredentials are sent with requests.";
   "TextTemplate:StandardEmailTemplates.Layout": "Default email layout template";
   "TextTemplate:StandardEmailTemplates.Message": "Simple message template for emails";
-}
-export interface AbpFeatureManagementResources {
+};
+export type AbpFeatureManagementResources = {
   Features: "Features";
   NoFeatureFoundMessage: "There isn't any available feature.";
   ManageHostFeatures: "Manage host features";
@@ -862,8 +862,8 @@ export interface AbpFeatureManagementResources {
   ResetedToDefault: "Reseted to default";
   AreYouSure: "Are you sure?";
   AreYouSureToResetToDefault: "Are you sure to reset to default?";
-}
-export interface PaymentResources {
+};
+export type PaymentResources = {
   Delete: "Delete";
   "DisplayName:Code": "Code";
   "DisplayName:CreationTime": "Creation time";
@@ -964,8 +964,8 @@ export interface PaymentResources {
   PriceSubscriptionTooltip: "Subscription pricing is managed by payment gateway.";
   "PaymentType:OneTime": "One time";
   "PaymentType:Subscription": "Subscription";
-}
-export interface SaasResources {
+};
+export type SaasResources = {
   "Volo.Saas:DuplicateTenantName": "Tenant name already exists: {Name}";
   "Volo.Saas:DuplicateEditionDisplayName": "Edition display name already exists: {Name}";
   "Menu:Saas": "Saas";
@@ -1045,13 +1045,13 @@ export interface SaasResources {
   "Permission:ViewChangeHistory": "View change history";
   "Permission:Impersonation": "Impersonation";
   CheckYourProviderDashboard: "Check your payment provider's dashboard to cancel this subscription.";
-}
-export interface SaasServiceResources {
+};
+export type SaasServiceResources = {
   "Permission:SaasService": "Saas service";
   "Permission:CustomTenants": "CustomTenants";
   "Permission:Create": "Create";
-}
-export interface AbpSettingManagementResources {
+};
+export type AbpSettingManagementResources = {
   Settings: "Settings";
   SavedSuccessfully: "Saved successfully";
   "Permission:SettingManagement": "Setting management";
@@ -1085,8 +1085,8 @@ export interface AbpSettingManagementResources {
   "Feature:SettingManagementEnableDescription": "Enable setting management system in the application.";
   "Feature:AllowChangingEmailSettings": "Allow changing email settings.";
   "Feature:AllowChangingEmailSettingsDescription": "Allow changing email settings.";
-}
-export interface AbpAuditLoggingResources {
+};
+export type AbpAuditLoggingResources = {
   "Permission:AuditLogging": "Audit logging";
   "Permission:AuditLogs": "Audit logs";
   "Menu:AuditLogging": "Audit logs";
@@ -1180,8 +1180,8 @@ export interface AbpAuditLoggingResources {
   "Description:ExpiredDeleterPeriod": "Set the number of days after which expired items will be automatically deleted.";
   ExpiredDeleterPeriodUnit: "day(s)";
   AuditLogsBeforeXWillBeDeleted: "Audit logs before {0} will be deleted.";
-}
-export interface LanguageManagementResources {
+};
+export type LanguageManagementResources = {
   LanguageManagement: "Language Management";
   Languages: "Languages";
   OnlyEmptyValues: "Only empty values";
@@ -1225,8 +1225,8 @@ export interface LanguageManagementResources {
   "Permission:LanguagesCreate": "Create language";
   "Permission:LanguagesChangeDefault": "Change default language";
   "Permission:LanguagesDelete": "Delete language";
-}
-export interface TextTemplateManagementResources {
+};
+export type TextTemplateManagementResources = {
   "Menu:TextTemplates": "Text templates";
   "Menu:TextTemplates:TemplateDefinitions": "Template definitions";
   "Permission:TextTemplateManagement": "Text template management";
@@ -1261,8 +1261,8 @@ export interface TextTemplateManagementResources {
   "Feature:TextManagementGroup": "Text template management";
   "Feature:TextManagementEnable": "Enable text template management";
   "Feature:TextManagementEnableDescription": "Enable text management system in the application.";
-}
-export interface AbpGdprResources {
+};
+export type AbpGdprResources = {
   "Volo.Abp.Gdpr:010001": "You have previously requested to download personal data. Once the given request time period has passed, you can create a new one.";
   "Volo.Abp.Gdpr:010002": "Your personal data is still being prepared. You can download it at {GdprDataReadyTime}.";
   PersonalData: "Personal Data";
@@ -1286,8 +1286,8 @@ export interface AbpGdprResources {
   CookieConsentAgreePolicies: "If you continue to browse, then you agree to our {0} and {1}.";
   CookieConsentAgreePolicy: "If you continue to browse, then you agree to our {0}.";
   CanNotGetDownloadToken: "You can't get a download token for this request!";
-}
-export interface AdministrationServiceResources {
+};
+export type AdministrationServiceResources = {
   "Permission:Dashboard": "Dashboard";
   CountrySettings: "Country Settings";
   "CountryManagement.InputExample.DisplayName": "Input Example";
@@ -1626,8 +1626,8 @@ export interface AdministrationServiceResources {
   "UniRefund.AdministrationService:010012": "A tenant can not use 'TenantId' filter!";
   "UniRefund.AdministrationService:010013": "Tenant not found by Id: '{tenantId}'!";
   "UniRefund.AdministrationService:010014": "'{givenLanguage}' is not supported. The supported languages are: '{supportedLanguages}'!";
-}
-export interface AbpOpenIddictResources {
+};
+export type AbpOpenIddictResources = {
   TheOpenIDConnectRequestCannotBeRetrieved: "The OpenID Connect request cannot be retrieved.";
   TheUserDetailsCannotBbeRetrieved: "The user details cannot be retrieved.";
   TheApplicationDetailsCannotBeFound: "The application details cannot be found.";
@@ -1695,11 +1695,11 @@ export interface AbpOpenIddictResources {
   IdentityTokenLifetime: "IdentityToken lifetime";
   RefreshTokenLifetime: "RefreshToken lifetime";
   UserCodeLifetime: "UserCode lifetime";
-}
-export interface BlobStoringDatabaseResources {
+};
+export type BlobStoringDatabaseResources = {
   MyAccount: "My account";
-}
-export interface LocationServiceResources {
+};
+export type LocationServiceResources = {
   "UniRefund.LocationService:00001": "One of AddressCommonData not found by given Ids!";
   "UniRefund.LocationService:00002": "{item} not found with the code(3): '{code3}'. If you're sure, firstly add the {item}!";
   "UniRefund.LocationService:00003": "{item} string's length must be fixed size of '{expectedSize}'!";
@@ -1727,8 +1727,8 @@ export interface LocationServiceResources {
   "Permission:ViewListByDistrictId": "View List by DistrictId";
   "Permission:GetDefault": "Get Default";
   "Permission:Exist": "Exist";
-}
-export interface ProductServiceResources {
+};
+export type ProductServiceResources = {
   "Menu:ProductService": "Product Service";
   "Menu:Products": "Products";
   "Permission:ProductService": "Product Service";
@@ -1752,8 +1752,8 @@ export interface ProductServiceResources {
   AreYouSure: "Are you sure?";
   MinName: "Min Name";
   MaxName: "Max Name";
-}
-export interface CRMServiceResources {
+};
+export type CRMServiceResources = {
   "UniRefund.CRMService:010001": "ParentId not found: {parentId}";
   "UniRefund.CRMService:010002": "Address not found: {addressId}";
   "UniRefund.CRMService:010003": "Some of the provided refund points' names could not be found: {ids}";
@@ -1791,8 +1791,8 @@ export interface CRMServiceResources {
   "UniRefund.CRMService:015002": "This account is already linked to another user account. You cannot link this account. You can create a new user account by changing your email address.";
   "UniRefund.CRMService:015003": "Abp User Account not found by id: {id}";
   "UniRefund.CRMService:011015": "Only Headquarter merchants can have a relationship with ProductGroup. This merchant is not of the Headquarter type.";
-}
-export interface SettingServiceResources {
+};
+export type SettingServiceResources = {
   "UniRefund.SettingService:011001": "The default product group for this merchant cannot be deleted. Ensure that at least one product group is marked as default: {id}";
   "UniRefund.SettingService:011002": "This merchant does not have a productGroup, so you must select one of the ones you added as isDefault.";
   "UniRefund.SettingService:011003": "A product group merchant with this merchantId already exists.";
@@ -1802,8 +1802,8 @@ export interface SettingServiceResources {
   "UniRefund.SettingService:011007": "Inactive ProductGroup can not be added: {names}";
   "UniRefund.SettingService:012001": "Default ProductGroup can not be updated.";
   "UniRefund.SettingService:012002": "Default ProductGroup can not be deleted.";
-}
-export interface IdentityServiceResources {
+};
+export type IdentityServiceResources = {
   "Permission:IdentityService": "Identity service";
   "UniRefund.IdentityService:010001": "Assignable roles records must be unique.";
   "UniRefund.IdentityService:010002": "You do not have permission to assign this role: {ids}";
@@ -1811,8 +1811,8 @@ export interface IdentityServiceResources {
   "UniRefund.IdentityService:010102": "User already has this role: {roleName}";
   "UniRefund.IdentityService:010103": "User does not have this role: {roleId}";
   "UniRefund.IdentityService:010003": "This role is already assigned.";
-}
-export interface TagServiceResources {
+};
+export type TagServiceResources = {
   "UniRefund.TagService:010002": "This invoice ({invoiceNumber}) is already taken a Tag number!";
   "UniRefund.TagService:010003": "Merchant not found! VatNumber : {vatNumber} , CountryCode : {countryCode}";
   "UniRefund.TagService:010004": "RefundTableDetail not defined!";
@@ -1838,19 +1838,19 @@ export interface TagServiceResources {
   "UniRefund.TagService:0100022": "Provided product groups are not related to the merchant: {pgIds}";
   "UniRefund.TagService:0100023": "Some of the provided invoice lines do not have tax rate or product group id information!";
   "UniRefund.TagService:0100024": "Refund data not found for the given tag {tagNumber} with id {tagId}";
-}
-export interface RefundServiceResources {
+};
+export type RefundServiceResources = {
   "UniRefund.RefundService:001001": "Country currency is not set";
   "UniRefund.RefundService:001002": "Provided traveller does not exist";
   "UniRefund.RefundService:001003": "The provided traveller does not match with tags' traveller";
   "UniRefund.RefundService:001004": "Provided refund point does not exist";
   "UniRefund.RefundService:001005": "Provided user device name does not exist";
-}
-export interface ExportValidationServiceResources {
+};
+export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
   "UniRefund.ExportValidationService:010002": "The ExportValidation is referenced by a Tag!";
-}
-export interface ContractServiceResources {
+};
+export type ContractServiceResources = {
   "UniRefund.ContractService:01001": "There is no any active ContractHeader related with given {contractType}: {contractTypeIdentifier}!";
   "UniRefund.ContractService:01002": "There is not any active RefundTableHeader relation with given MerchantId : {merchantId} and RefundTableHeaderId : {refundTableHeaderId}!";
   "UniRefund.ContractService:01003": "No active default RefundTableHeader found by given MerchantId : {merchantId}!";
@@ -1973,16 +1973,16 @@ export interface ContractServiceResources {
   "UniRefund.ContractService:01060": "{entityName} ValidFrom and ValidTo dates must be within the Parent's ValidFrom and ValidTo date range!";
   "UniRefund.ContractService:01061": "Calculation is not possible due to Early Refund Fee record does not exist in Refund Fee Table of the active Contract for RefundPoint: '{refundPointId}'!";
   "UniRefund.ContractService:01062": "EarlyRefund is not supported in '{currentTenantName}'!";
-}
-export interface TravellerServiceResources {
+};
+export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";
   "UniRefund.TravellerService:010002": "Provided document number is not unique";
   "UniRefund.TravellerService:010003": "Country codes are not matched with the country names: {codes}";
   "UniRefund.TravellerService:010004": "Required fields are missing: {fields}";
   "UniRefund.TravellerService:010005": "Country name not found for personal identification of travel document number: {documentNumber}";
   "UniRefund.TravellerService:010006": "Single personal identification can not be deleted";
-}
-export interface FinanceServiceResources {
+};
+export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
   "UniRefund.FinanceService:01002": "There is no available tags to form VAT Statement for {month}/{year} yet.";
   "Permission:FinanceService": "Finance Service";
@@ -2000,8 +2000,8 @@ export interface FinanceServiceResources {
   "UniRefund.FinanceService:01004": "Year or month value is invalid! The year should have 4 digits. The month(int) can just be between 1 and 12.";
   "UniRefund.FinanceService:01005": "No VATStatement found for given year month pairs: {invalidDatesString}";
   "Permission:FormBulkPreview": "Form Bulk Preview";
-}
-export interface LeptonXResources {
+};
+export type LeptonXResources = {
   Login: "Login";
   Appearance: "Appearance";
   ContainerWidth: "Container Width";
@@ -2026,4 +2026,4 @@ export interface LeptonXResources {
   SwitchTenantHint: "Leave the name field blank to switch to the host side.";
   SwitchTenant: "Switch tenant";
   NotSelected: "Not selected";
-}
+};
