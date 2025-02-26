@@ -1,6 +1,6 @@
 "use client";
 
-import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
+import { NavbarItemsFromDB, NotificationProps, ProfileMenuProps } from "@repo/ui/theme/types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { createContext, useContext } from "react";
 
@@ -14,7 +14,7 @@ interface ThemeProviderProps {
   lang: string;
   tenantData?: { tenantId: string; tenantName: string };
   children: JSX.Element;
-  notification: JSX.Element;
+  notification: NotificationProps;
 }
 interface ThemeContextProps {
   appName: string;
@@ -25,7 +25,7 @@ interface ThemeContextProps {
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   tenantData?: { tenantId: string; tenantName: string };
-  notification?: JSX.Element;
+  notification?: NotificationProps
 }
 
 const ThemeProviderContext = createContext<ThemeContextProps>({

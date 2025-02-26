@@ -9,7 +9,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import NovuProvider from "@/providers/novu";
 import {getResourceData} from "@/language-data/core/Default";
 import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
-import {TenantProvider} from "./tenant";
+import {TenantProvider} from "@/providers/tenant";
 
 interface ProvidersProps {
   children: JSX.Element;
@@ -46,7 +46,7 @@ export default async function Providers({children, lang}: ProvidersProps) {
           <NovuProvider
             appId={process.env.NOVU_APP_IDENTIFIER || ""}
             appUrl={process.env.NOVU_APP_URL || ""}
-            subscriberId={session?.user?.novuSubscriberId || ""}>
+            subscriberId={session?.user?.sub || "67b8674f58411ad400a054e9"}>
             {children}
           </NovuProvider>
         </GrantedPoliciesProvider>

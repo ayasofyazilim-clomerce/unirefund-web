@@ -1,3 +1,5 @@
+import { BaseProps as BaseNovuInboxProps } from "@novu/react";
+
 export type NavbarItemsFromDB = {
   key: string;
   parentNavbarItemKey: string | null;
@@ -16,9 +18,9 @@ export type BreadcrumbItemType = NavbarItemsFromDB & {
 export type NavbarItemType = NavbarItemsFromDB & {
   subNavbarItems: NavbarItemType[] | null;
 };
-type ProfileMenuLink = {name: string; icon: JSX.Element} & (
-  | {onClick: () => void | Promise<unknown>; href: undefined}
-  | {href: string; onClick: undefined}
+type ProfileMenuLink = { name: string; icon: JSX.Element } & (
+  | { onClick: () => void | Promise<unknown>; href: undefined }
+  | { href: string; onClick: undefined }
 );
 
 export type ProfileMenuProps = {
@@ -34,3 +36,16 @@ export type ProfileMenuProps = {
   };
   menuTitle: string;
 };
+
+
+export type NotificationProps = {
+  appId: string;
+  appUrl: string;
+  subscriberId: string;
+  langugageData: Record<string, string>;
+  popoverContentProps?: {
+    sideOffset?: number;
+    className?: string;
+    style?: React.CSSProperties;
+  }
+} & Omit<BaseNovuInboxProps, "applicationIdentifier">;

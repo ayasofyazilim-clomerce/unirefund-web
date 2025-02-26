@@ -1,9 +1,10 @@
 "use client";
 
+import { NotificationProps } from "../types";
 import { ThemeProvider } from "../../providers/theme";
 import HeaderSection from "./header-section";
 
-function MainAdminLayout(props: any) {
+function MainAdminLayout(props: { notification: NotificationProps, appName: string, baseURL: string, lang: string, logo: any, navbarItems: any, prefix: string, profileMenu: any, tenantData: any }) {
   return (
     <ThemeProvider
       appName={props.appName}
