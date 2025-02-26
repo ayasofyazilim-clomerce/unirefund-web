@@ -1,4 +1,5 @@
 import {getLocalizationResources} from "src/utils";
+import type {ContractServiceResources} from "@/language-data/resources";
 import defaultEn from "../../core/Default/resources/en.json";
 import defaultTr from "../../core/Default/resources/tr.json";
 import en from "./resources/en.json";
@@ -21,8 +22,10 @@ export async function getResourceData(lang: string) {
   const resources = await getLocalizationResources(lang);
   const languageData = getLanguageData(lang);
   return {
-    languageData,
-    resources,
+    languageData: {
+      ...languageData,
+      ...(resources.ContractService?.texts as unknown as ContractServiceResources),
+    },
   };
 }
 export function getResourceDataClient(lang: string) {
