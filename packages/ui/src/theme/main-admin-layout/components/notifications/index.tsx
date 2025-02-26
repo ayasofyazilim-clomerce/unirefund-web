@@ -1,191 +1,98 @@
-import NavbarDropdown from "../navbar-dropdown";
+"use client";
 
-function NotificationsDropdown() {
+import { Bell, Inbox, InboxContent } from "@novu/react";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@repo/ayasofyazilim-ui/atoms/popover";
+import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
+import { } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { NotificationProps } from "../../../types";
+import { cn } from "../../../../utils";
+
+export function Notification({ appId, appUrl, subscriberId, langugageData, tabs, appearance, popoverContentProps }: NotificationProps) {
+  const router = useRouter();
+
+  if (!appId || !appUrl || !subscriberId) return null;
+  const defaultAppearance: NotificationProps["appearance"] = {
+    elements: {
+      inboxContent: "w-full [&div]:w-full",
+      inboxHeader: "px-4 py-2 border-b",
+      inboxStatus__title: "text-sm font-medium text-gray-900",
+      inboxStatus__dropdownContent: "rounded-none border border-l-0 mt-[2px]",
+      inboxStatus__dropdownItem: "[&>.nv-inboxStatus__dropdownItemRight__icon]:text-primary",
+      inboxStatus__dropdownItemLabelContainer: "has-[+span]:text-primary",
+      inboxStatus__dropdownItemLabel: "text-sm font-medium",
+      preferencesHeader: "p-0 py-1 px-4 border-b [&>*]:h-9",
+      preferencesHeader__title: "text-sm font-medium text-gray-900 flex items-center",
+      preferencesContainer: "[&+div.nt-flex]:hidden",
+      notificationListContainer: "h-full [&+div.nt-flex]:hidden w-full",
+      notificationList: "w-full",
+      notification: "flex gap-2 px-3 py-2 md:px-6 md:py-4 w-full",
+      tabsList: "p-0 gap-0  overflow-hidden w-full [&+div]:m-0 [&+div]:border-t-gray-200 [&+div]:z-0 group",
+      tabsTrigger: "p-0 rounded-none px-4 h-9 data-[state=active]:bg-accent data-[state=active]:after:content-none data-[state=active]:text-primary",
+      moreTabs__button: "p-0 border-l rounded-none px-2 after:content-none after:border-b-primary group-has-[button[data-state=active]]:text-muted-foreground group-has-[button[data-state=active]]:bg-white bg-accent text-primary",
+      moreTabs__dropdownContent: "rounded-none border border-t-0 -mt-[9px]",
+      moreTabs__dropdownItem: "has-[>svg]:bg-accent p-0 rounded-none h-9 px-2 text-sm",
+      moreTabs__dropdownItemLabel: "has-[+svg]:text-primary [&+svg]:text-primary",
+      moreActions__dropdownContent: "rounded-none border border-t-0 -mt-px",
+      moreActions__dropdownItem: "text-sm",
+      notificationsTabs__tabsRoot: "[&+div.nt-flex]:hidden",
+      bellDot: "bg-primary",
+      channelSwitchThumb: "peer-checked:bg-primary",
+      button: "data-[variant=default]:bg-primary",
+      notificationListNewNotificationsNotice__button: "bg-primary",
+      notificationDot: "bg-primary",
+      ...appearance?.elements,
+    },
+    animations: appearance?.animations,
+    baseTheme: appearance?.baseTheme,
+    variables: appearance?.variables,
+  };
   return (
-    <NavbarDropdown
-      title={"Notifications"}
-      size="lg"
-      triggerContent={
-        <svg
-          aria-hidden="true"
-          className="h-6 w-6 text-gray-500"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-        </svg>
-      }
-      dropdownContent={
-        <>
-          <div>
-            <a href="#" className="flex border-b px-4 py-3 hover:bg-gray-100">
-              <div className="flex-shrink-0">
-                <img
-                  className="h-11 w-11 rounded-full"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
-                  alt="Bonnie Green avatar"
-                />
-                <div className="bg-primary-700 absolute -mt-5 ml-6 flex h-5 w-5 items-center justify-center rounded-full border border-white">
-                  <svg
-                    aria-hidden="true"
-                    className="h-3 w-3 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
-                    <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="w-full pl-3">
-                <div className="mb-1.5 text-sm font-normal text-gray-500">
-                  New message from
-                  <span className="font-semibold text-gray-900">Bonnie Green</span>: "Hey, what's up? All set for the
-                  presentation?"
-                </div>
-                <div className="text-primary-600  text-xs font-medium">a few moments ago</div>
-              </div>
-            </a>
-            <a href="#" className="flex border-b px-4 py-3 hover:bg-gray-100">
-              <div className="flex-shrink-0">
-                <img
-                  className="h-11 w-11 rounded-full"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                  alt="Jese Leos avatar"
-                />
-                <div className="absolute -mt-5 ml-6 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-gray-900">
-                  <svg
-                    aria-hidden="true"
-                    className="h-3 w-3 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="w-full pl-3">
-                <div className="mb-1.5 text-sm font-normal text-gray-500">
-                  <span className="font-semibold text-gray-900">Jese leos</span>
-                  and
-                  <span className="font-medium text-gray-900">5 others</span>
-                  started following you.
-                </div>
-                <div className="text-primary-600  text-xs font-medium">10 minutes ago</div>
-              </div>
-            </a>
-            <a href="#" className="flex border-b px-4 py-3 hover:bg-gray-100">
-              <div className="flex-shrink-0">
-                <img
-                  className="h-11 w-11 rounded-full"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
-                  alt="Joseph McFall avatar"
-                />
-                <div className="absolute -mt-5 ml-6 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-red-600">
-                  <svg
-                    aria-hidden="true"
-                    className="h-3 w-3 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fillRule="evenodd"
-                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                      clipRule="evenodd"></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="w-full pl-3">
-                <div className="mb-1.5 text-sm font-normal text-gray-500">
-                  <span className="font-semibold text-gray-900">Joseph Mcfall</span>
-                  and
-                  <span className="font-medium text-gray-900">141 others</span>
-                  love your story. See it and view more stories.
-                </div>
-                <div className="text-primary-600  text-xs font-medium">44 minutes ago</div>
-              </div>
-            </a>
-            <a href="#" className="flex border-b px-4 py-3 hover:bg-gray-100">
-              <div className="flex-shrink-0">
-                <img
-                  className="h-11 w-11 rounded-full"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png"
-                  alt="Roberta Casas image"
-                />
-                <div className="absolute -mt-5 ml-6 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-green-400">
-                  <svg
-                    aria-hidden="true"
-                    className="h-3 w-3 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fillRule="evenodd"
-                      d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
-                      clipRule="evenodd"></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="w-full pl-3">
-                <div className="mb-1.5 text-sm font-normal text-gray-500">
-                  <span className="font-semibold text-gray-900">Leslie Livingston</span>
-                  mentioned you in a comment:
-                  <span className="text-primary-600  font-medium">@bonnie.green</span>
-                  what do you say?
-                </div>
-                <div className="text-primary-600  text-xs font-medium">1 hour ago</div>
-              </div>
-            </a>
-            <a href="#" className="flex px-4 py-3 hover:bg-gray-100">
-              <div className="flex-shrink-0">
-                <img
-                  className="h-11 w-11 rounded-full"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/robert-brown.png"
-                  alt="Robert image"
-                />
-                <div className="absolute -mt-5 ml-6 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-purple-500">
-                  <svg
-                    aria-hidden="true"
-                    className="h-3 w-3 text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="w-full pl-3">
-                <div className="mb-1.5 text-sm font-normal text-gray-500">
-                  <span className="font-semibold text-gray-900">Robert Brown</span>
-                  posted a new video: Glassmorphism - learn how to implement the new design trend.
-                </div>
-                <div className="text-primary-600  text-xs font-medium">3 hours ago</div>
-              </div>
-            </a>
-          </div>
-          <a
-            href="#"
-            className="text-md block bg-gray-50 py-2 text-center font-medium text-gray-900 hover:bg-gray-100 ">
-            <div className="inline-flex items-center">
-              <svg
-                aria-hidden="true"
-                className="mr-2 h-4 w-4 text-gray-500 "
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                <path
-                  fillRule="evenodd"
-                  d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                  clipRule="evenodd"></path>
-              </svg>
-              View all
-            </div>
-          </a>
-        </>
-      }
-    />
+    <Inbox
+      localization={langugageData}
+      appearance={defaultAppearance}
+      applicationIdentifier={appId}
+      backendUrl={appUrl}
+      routerPush={(path: string) => {
+        router.push(path);
+      }}
+      tabs={tabs}
+      subscriberId={subscriberId}>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button className="relative" size="icon" variant="ghost">
+            <Bell />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent
+          sideOffset={popoverContentProps?.sideOffset || 10}
+          className={cn("rounded-none p-0 max-w-[25rem] w-full h-[500px] overflow-hidden [&>div]:h-full [&>div>div]:h-full", popoverContentProps?.className)}
+          style={{
+            width: 'var(--radix-popover-content-available-width)',
+            height: 'var(--radix-popover-content-available-height)',
+            ...popoverContentProps?.style
+          }}>
+          <InboxContent
+            onNotificationClick={(notification) => {
+              // your logic to handle notification click
+              toast.success(notification.subject || "");
+            }}
+            onPrimaryActionClick={(notification) => {
+              toast.success(notification.subject || "");
+              // your logic to handle primary action click
+            }}
+            onSecondaryActionClick={(notification) => {
+              toast.success(notification.subject || "");
+              // your logic to handle secondary action click
+            }}
+          />
+        </PopoverContent>
+      </Popover>
+    </Inbox>
   );
 }
-
-export default NotificationsDropdown;

@@ -108,7 +108,7 @@ export function HeaderSection() {
   }, [pathName]);
 
   return (
-    <div className="flex flex-col gap-3 px-1">
+    <div className="flex flex-col gap-3">
       <Navbar
         navbarItems={navbarItems}
         navigation={breadcrumbItems}

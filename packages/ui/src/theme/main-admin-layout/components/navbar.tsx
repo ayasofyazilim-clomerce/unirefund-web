@@ -2,7 +2,9 @@
 
 import { IdCardIcon } from "@radix-ui/react-icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import { BreadcrumbItemType, NavbarItemsFromDB, NotificationProps } from "@repo/ui/theme/types";
+import { Notification } from "../components/notifications";
+
 import {
   BookA,
   Box,
@@ -58,7 +60,7 @@ export default function Navbar({
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
   tenantData?: { tenantId: string; tenantName: string };
-  notification?: JSX.Element
+  notification?: NotificationProps;
 }) {
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
@@ -88,7 +90,7 @@ export default function Navbar({
           <div className="flex items-center lg:order-2">
             <SearchBar navbarItems={navbarItems} prefix={prefix} />
             <LanguageSelector lang={lang} />
-            {notification && notification}
+            {notification && <Notification {...notification} />}
             <ProfileMenu />
           </div>
         </div>
