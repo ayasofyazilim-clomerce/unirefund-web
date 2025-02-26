@@ -2,8 +2,8 @@
 
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {auth} from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getTravellersDetailsApi} from "@/actions/unirefund/TravellerService/actions";
-import ErrorComponent from "@/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/TravellerService";
 import {getBaseLink} from "src/utils";
 

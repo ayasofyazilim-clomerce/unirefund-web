@@ -3,10 +3,10 @@
 import {isUnauthorized} from "@repo/utils/policies";
 import {CreditCard, DollarSign, Tags} from "lucide-react";
 import {isErrorOnRequest} from "@repo/utils/api";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getTagsApi, getTagSummaryApi} from "src/actions/unirefund/TagService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import {localizeCurrency} from "src/utils/utils-number";
-import ErrorComponent from "../../../_components/error-component";
 import {TagSummary} from "../_components/tag-summary";
 import Filter from "./_components/filter";
 import TaxFreeTagsTable from "./_components/table";

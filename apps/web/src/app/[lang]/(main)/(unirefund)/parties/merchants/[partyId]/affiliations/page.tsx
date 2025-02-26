@@ -3,8 +3,8 @@
 import type {GetApiCrmServiceMerchantsByIdAffiliationsData} from "@ayasofyazilim/saas/CRMService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getAffiliationCodeApi, getMerchantAffiliationByIdApi} from "src/actions/unirefund/CrmService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "./table";
 

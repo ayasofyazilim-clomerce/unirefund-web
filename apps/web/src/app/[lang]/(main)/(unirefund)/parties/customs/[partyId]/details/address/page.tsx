@@ -1,9 +1,9 @@
 "use server";
 
 import {auth} from "@repo/utils/auth/next-auth";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getCustomAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
 import {getAllCountriesApi} from "src/actions/unirefund/LocationService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AddressForm from "./form";
 

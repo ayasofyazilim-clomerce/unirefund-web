@@ -7,11 +7,11 @@ import {FileIcon, FileText, HandCoins, Plane, ReceiptText, Scale, Store} from "l
 import {isRedirectError} from "next/dist/client/components/redirect";
 import Link from "next/link";
 import {structuredError} from "@repo/utils/api";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
 import {getRefundDetailByIdApi} from "src/actions/unirefund/RefundService/actions";
 import {getProductGroupsApi} from "src/actions/unirefund/SettingService/actions";
 import {getTagByIdApi} from "src/actions/unirefund/TagService/actions";
-import ErrorComponent from "src/app/[lang]/(main)/_components/error-component";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import {getBaseLink} from "src/utils";
 import {dateToString, getStatusColor} from "../../_components/utils";
