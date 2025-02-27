@@ -1,4 +1,5 @@
 import {getLocalizationResources} from "src/utils";
+import type {TagServiceResources} from "@/language-data/resources";
 import defaultEn from "../../core/Default/resources/en.json";
 import defaultTr from "../../core/Default/resources/tr.json";
 import en from "./resources/en.json";
@@ -22,8 +23,10 @@ export async function getResourceData(lang: string) {
   const resources = await getLocalizationResources(lang);
   const languageData = getLanguageData(lang);
   return {
-    languageData,
-    resources,
+    languageData: {
+      ...languageData,
+      ...(resources.TagService?.texts as unknown as TagServiceResources),
+    },
   };
 }
 export function getResourceDataClient(lang: string) {
