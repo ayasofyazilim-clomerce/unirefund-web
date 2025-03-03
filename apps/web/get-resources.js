@@ -17,7 +17,7 @@ async function getRequestAndWriteToFile() {
       const resources = response["resources"][key]["texts"];
       string += `export type ${key}Resources = {\n`;
       Object.keys(resources).forEach((key) => (string += `\t"${key}": "${resources[key].replaceAll('"', '\\"')}";\n`));
-      string += "}\n";
+      string += "};\n";
     });
 
     const filePath = path.join(__dirname, "src/language-data/resources.ts");

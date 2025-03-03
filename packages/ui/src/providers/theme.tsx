@@ -1,8 +1,9 @@
 "use client";
 
-import { NavbarItemsFromDB, NotificationProps, ProfileMenuProps } from "@repo/ui/theme/types";
+import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { createContext, useContext } from "react";
+import { NotificationProps } from "../components/notification";
 
 interface ThemeProviderProps {
   appName: string;

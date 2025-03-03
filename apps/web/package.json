@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node get-resources.js && next dev",
+    "dev": "node get-resources.js && prettier --write \"src/language-data/resources.ts\" && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint:fix": "next lint --fix --quiet > lint-output.txt 2>&1",
     "lint:report": "next lint --quiet  > lint-output.txt 2>&1",
     "type-check": "tsc --noEmit",
     "type-check:report": "tsc --noEmit > type-check-output.txt 2>&1",
@@ -19,7 +19,6 @@
   },
   "lint-staged": {
     "*": [
-      "prettier --write",
       "next lint --fix",
       "tsc --noEmit"
     ]
@@ -28,7 +27,6 @@
     "@auth/core": "^0.30.0",
     "@ayasofyazilim/core-saas": "latest",
     "@ayasofyazilim/saas": "0.0.139",
-    "@novu/react": "^2.6.5",
     "@radix-ui/react-icons": "^1.3.0",
     "@repo/ayasofyazilim-ui": "workspace:^",
     "@repo/ui": "workspace:*",
@@ -45,6 +43,8 @@
     "next-auth": "5.0.0-beta.16",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "3.22.4"
   },
   "devDependencies": {

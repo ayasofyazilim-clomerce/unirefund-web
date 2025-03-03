@@ -1,8 +1,8 @@
 "use client";
 
-import {NovuProvider as Novu} from "@novu/react";
+import { NovuProvider as Novu } from "@novu/react";
 
-export default function NovuProvider({
+export function NovuProvider({
   children,
   appId,
   subscriberId,

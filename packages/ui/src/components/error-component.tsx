@@ -1,7 +1,6 @@
 "use client";
 
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
-import {Logo} from "@repo/ui/logo";
 import {FileLock2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
@@ -47,7 +46,6 @@ export default function ErrorComponent({
           variant="ghost">
           {signOutServer ? "You will be redirected to the login page shortly." : "Go Back"}
         </Button>
-        <Logo textProps={{className: "max-w-32 min-h-12 m-auto"}} variant="text" />
       </div>
     </section>
   );
