@@ -2,8 +2,7 @@
 
 import { IdCardIcon } from "@radix-ui/react-icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import { BreadcrumbItemType, NavbarItemsFromDB, NotificationProps } from "@repo/ui/theme/types";
-import { Notification } from "../components/notifications";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 
 import {
   BookA,
@@ -41,6 +40,7 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
+import { Notification, NotificationProps } from "../../../components/notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";

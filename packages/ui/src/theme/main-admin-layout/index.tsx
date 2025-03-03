@@ -1,6 +1,6 @@
 "use client";
 
-import { NotificationProps } from "../types";
+import { NotificationProps } from "../../components/notification";
 import { ThemeProvider } from "../../providers/theme";
 import HeaderSection from "./header-section";
 

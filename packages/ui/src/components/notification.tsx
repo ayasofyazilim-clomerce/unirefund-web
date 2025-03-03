@@ -1,5 +1,5 @@
 "use client";
-
+import type { BaseProps as BaseNovuInboxProps, InboxContentProps } from "@novu/react";
 import { Bell, Inbox, InboxContent } from "@novu/react";
 import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
 import {
@@ -7,13 +7,23 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@repo/ayasofyazilim-ui/atoms/popover";
-import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
 import { } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { NotificationProps } from "../../../types";
-import { cn } from "../../../../utils";
+import { cn } from "../utils";
+export type NotificationProps = {
+  appId: string;
+  appUrl: string;
+  subscriberId: string;
+  langugageData: Record<string, string>;
+  popoverContentProps?: {
+    sideOffset?: number;
+    className?: string;
+    style?: React.CSSProperties;
+  },
+  inboxContentProps?: InboxContentProps;
+} & Omit<BaseNovuInboxProps, "applicationIdentifier">;
 
-export function Notification({ appId, appUrl, subscriberId, langugageData, tabs, appearance, popoverContentProps }: NotificationProps) {
+export function Notification({ appId, appUrl, subscriberId, langugageData, tabs, appearance, popoverContentProps, inboxContentProps }: NotificationProps) {
   const router = useRouter();
 
   if (!appId || !appUrl || !subscriberId) return null;
@@ -78,21 +88,24 @@ export function Notification({ appId, appUrl, subscriberId, langugageData, tabs,
             ...popoverContentProps?.style
           }}>
           <InboxContent
-            onNotificationClick={(notification) => {
-              // your logic to handle notification click
-              toast.success(notification.subject || "");
-            }}
-            onPrimaryActionClick={(notification) => {
-              toast.success(notification.subject || "");
-              // your logic to handle primary action click
-            }}
-            onSecondaryActionClick={(notification) => {
-              toast.success(notification.subject || "");
-              // your logic to handle secondary action click
-            }}
+            // onNotificationClick={(notification) => {
+            //   // your logic to handle notification click
+            //   toast.success(notification.subject || "");
+            // }}
+            // onPrimaryActionClick={(notification) => {
+            //   toast.success(notification.subject || "");
+            //   // your logic to handle primary action click
+            // }}
+            // onSecondaryActionClick={(notification) => {
+            //   toast.success(notification.subject || "");
+            //   // your logic to handle secondary action click
+            // }}
+            {...inboxContentProps}
           />
         </PopoverContent>
       </Popover>
     </Inbox>
   );
 }
+
+

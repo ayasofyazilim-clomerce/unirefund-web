@@ -1,4 +1,3 @@
-import { BaseProps as BaseNovuInboxProps } from "@novu/react";
 
 export type NavbarItemsFromDB = {
   key: string;
@@ -38,14 +37,3 @@ export type ProfileMenuProps = {
 };
 
 
-export type NotificationProps = {
-  appId: string;
-  appUrl: string;
-  subscriberId: string;
-  langugageData: Record<string, string>;
-  popoverContentProps?: {
-    sideOffset?: number;
-    className?: string;
-    style?: React.CSSProperties;
-  }
-} & Omit<BaseNovuInboxProps, "applicationIdentifier">;

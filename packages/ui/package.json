@@ -5,7 +5,8 @@
     "./*": "./src/*/index.tsx",
     "./components/*": "./src/components/*.tsx",
     "./utils/table/*": "./utils/table/*.ts",
-    "./utils/general/*": "./utils/general/*.ts"
+    "./utils/general/*": "./utils/general/*.ts",
+    "./providers/*": "./src/providers/*.tsx"
   },
   "license": "MIT",
   "scripts": {
