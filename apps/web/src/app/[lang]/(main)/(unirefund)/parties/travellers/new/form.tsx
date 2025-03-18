@@ -8,8 +8,8 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import type {CountryDto} from "src/actions/unirefund/LocationService/types";
-import {postTravellerApi} from "src/actions/unirefund/TravellerService/post-actions";
+import {postTravellerApi} from "@repo/actions/unirefund/TravellerService/post-actions";
+import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
 export default function TravellerNewForm({

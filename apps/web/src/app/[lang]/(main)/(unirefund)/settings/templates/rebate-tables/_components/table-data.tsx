@@ -14,7 +14,7 @@ import {useTransition} from "react";
 import Link from "next/link";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {postRebateTableHeaderCloneByIdApi} from "@/actions/unirefund/ContractService/post-actions";
+import {postRebateTableHeaderCloneByIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
 

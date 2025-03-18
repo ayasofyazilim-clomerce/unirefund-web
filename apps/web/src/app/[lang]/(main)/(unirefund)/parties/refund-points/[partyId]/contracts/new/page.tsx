@@ -8,8 +8,8 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   // getRefundPointContractHeadersByRefundPointIdApi,
-} from "src/actions/unirefund/ContractService/action";
-import {getRefundPointDetailsByIdApi} from "src/actions/unirefund/CrmService/actions";
+} from "@repo/actions/unirefund/ContractService/action";
+import {getRefundPointDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "src/utils";
 import RefundPointContractHeaderCreateForm from "./_components/form";

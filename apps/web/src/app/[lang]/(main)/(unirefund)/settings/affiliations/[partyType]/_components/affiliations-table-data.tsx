@@ -24,9 +24,9 @@ import Link from "next/link";
 import {handlePostResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
+import type {PartyNameType} from "@repo/actions/unirefund/CrmService/types";
+import {postAffiliationCodesApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {getBaseLink} from "@/utils";
-import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
-import {postAffiliationCodesApi} from "@/actions/unirefund/CrmService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {entityPartyTypeCodeMap} from "./utils";
 

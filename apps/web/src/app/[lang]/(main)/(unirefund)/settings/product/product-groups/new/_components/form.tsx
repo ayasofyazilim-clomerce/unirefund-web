@@ -11,7 +11,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postProductGroupApi} from "src/actions/unirefund/SettingService/post-actions";
+import {postProductGroupApi} from "@repo/actions/unirefund/SettingService/post-actions";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({

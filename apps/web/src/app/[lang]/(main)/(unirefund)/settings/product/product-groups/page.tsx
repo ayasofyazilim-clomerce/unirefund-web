@@ -4,7 +4,7 @@ import type {GetApiSettingServiceProductGroupData} from "@ayasofyazilim/saas/Set
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getProductGroupsApi} from "src/actions/unirefund/SettingService/actions";
+import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getResourceData} from "src/language-data/unirefund/SettingService";
 import ProductGroupsTable from "./_components/table";
 

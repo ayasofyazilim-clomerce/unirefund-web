@@ -23,7 +23,8 @@
     "SUPPORTED_LOCALES",
     "ABP_APP_NAME",
     "NOVU_APP_IDENTIFIER",
-    "NOVU_APP_URL"
+    "NOVU_APP_URL",
+    "NOVU_SECRET_KEY"
   ],
   "tasks": {
     "build": {

@@ -10,7 +10,7 @@ import type {
 import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto} from "@ayasofyazilim/saas/ContractService";
 import {handlePutResponse} from "@repo/utils/api";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {putRebateTableHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import {putRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
 import {RebateTableDetailsField} from "../../_components/rebate-table-details-field";

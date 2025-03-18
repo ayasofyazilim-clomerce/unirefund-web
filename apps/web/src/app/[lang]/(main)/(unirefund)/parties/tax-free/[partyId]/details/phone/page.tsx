@@ -2,7 +2,7 @@
 
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getTaxFreePhoneByIdApi} from "src/actions/unirefund/CrmService/actions";
+import {getTaxFreePhoneByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import TelephoneForm from "./form";
 

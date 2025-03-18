@@ -7,7 +7,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putApplicationsByIdTokenLifetimeApi} from "src/actions/core/IdentityService/put-actions";
+import {putApplicationsByIdTokenLifetimeApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Form({

@@ -5,9 +5,9 @@ import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-fo
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putCustomAddressApi} from "src/actions/unirefund/CrmService/put-actions";
-import type {AddressUpdateDto, CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
-import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import {putCustomAddressApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import type {AddressUpdateDto, CountryDto, SelectedAddressField} from "@/utils/address-hook/types";
+import {useAddressHook} from "@/utils/address-hook/use-address-hook.tsx";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function AddressForm({

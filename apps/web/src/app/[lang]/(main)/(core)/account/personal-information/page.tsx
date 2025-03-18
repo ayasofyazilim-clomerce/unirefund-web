@@ -1,7 +1,7 @@
 "use server";
 
 import {isErrorOnRequest} from "@repo/utils/api";
-import {getPersonalInfomationApi} from "src/actions/core/AccountService/actions";
+import {getPersonalInfomationApi} from "@repo/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
 import PersonalInformation from "./_components/personal-information";
 

@@ -4,7 +4,7 @@ import type {GetApiLanguageManagementLanguagesData} from "@ayasofyazilim/core-sa
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getLanguagesApi} from "src/actions/core/AdministrationService/actions";
+import {getLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
 import LanguagesTable from "./_components/table";
 

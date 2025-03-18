@@ -8,7 +8,7 @@ import {$UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderU
 import {handlePutResponse} from "@repo/utils/api";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {putRefundTableHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import {putRefundTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
 

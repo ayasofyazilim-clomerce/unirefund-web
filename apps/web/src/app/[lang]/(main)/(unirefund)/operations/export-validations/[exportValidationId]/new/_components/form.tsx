@@ -9,7 +9,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {useParams, useRouter} from "next/navigation";
 import {useState} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {putExportValidationByIdApi} from "src/actions/unirefund/TagService/put-actions";
+import {putExportValidationByIdApi} from "@repo/actions/unirefund/TagService/put-actions";
 import type {ExportValidationServiceResource} from "src/language-data/unirefund/ExportValidationService";
 
 export default function Form({

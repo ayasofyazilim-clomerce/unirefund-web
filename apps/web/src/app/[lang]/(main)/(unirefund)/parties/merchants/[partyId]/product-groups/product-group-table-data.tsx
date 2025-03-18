@@ -22,11 +22,11 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handleDeleteResponse, handlePostResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {deleteMerchantsByIdProductGroupsApi} from "src/actions/unirefund/CrmService/delete-actions";
+import {deleteMerchantsByIdProductGroupsApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {
   postMerchantsByIdProductGroupByProductGroupIdDefaultApi,
   postMerchantsByIdProductGroupsApi,
-} from "src/actions/unirefund/CrmService/post-actions";
+} from "@repo/actions/unirefund/CrmService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type ProductGroupsTable =

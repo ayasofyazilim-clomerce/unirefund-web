@@ -4,7 +4,7 @@ import type {GetApiIdentitySessionsData} from "@ayasofyazilim/core-saas/Identity
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getSessionsApi, getUserDetailsByIdApi} from "src/actions/core/IdentityService/actions";
+import {getSessionsApi, getUserDetailsByIdApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import SessionsTable from "./_components/table";
 

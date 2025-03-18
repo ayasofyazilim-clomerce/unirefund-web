@@ -8,7 +8,7 @@ import {
   resetPasswordApi,
   sendPasswordResetCodeApi,
   verifyPasswordResetTokenApi,
-} from "src/actions/core/AccountService/actions";
+} from "@repo/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
 import {getBaseLink} from "src/utils";
 

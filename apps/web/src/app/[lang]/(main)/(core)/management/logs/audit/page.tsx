@@ -4,7 +4,7 @@ import type {GetApiAuditLoggingAuditLogsData} from "@ayasofyazilim/core-saas/Adm
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getAuditLogsApi} from "src/actions/core/AdministrationService/actions";
+import {getAuditLogsApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
 import AuditLogsTable from "./_components/table";
 

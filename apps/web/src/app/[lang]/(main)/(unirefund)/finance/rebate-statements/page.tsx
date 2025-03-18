@@ -4,7 +4,7 @@ import type {GetApiFinanceServiceRebateStatementHeadersData} from "@ayasofyazili
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRebateStatementHeadersApi} from "src/actions/unirefund/FinanceService/actions";
+import {getRebateStatementHeadersApi} from "@repo/actions/unirefund/FinanceService/actions";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
 import RebateStatementTable from "./_components/table";
 

@@ -4,7 +4,7 @@ import type {GetApiSaasEditionsData} from "@ayasofyazilim/core-saas/SaasService"
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getEditionsApi} from "src/actions/core/SaasService/actions";
+import {getEditionsApi} from "@repo/actions/core/SaasService/actions";
 import {getResourceData} from "src/language-data/core/SaasService";
 import EditionsTable from "./_components/table";
 

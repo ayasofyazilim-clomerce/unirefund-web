@@ -10,7 +10,7 @@ import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-fo
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putRefundPointOrganizationApi} from "src/actions/unirefund/CrmService/put-actions";
+import {putRefundPointOrganizationApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function OrganizationForm({

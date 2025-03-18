@@ -11,7 +11,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postLanguageApi} from "src/actions/core/AdministrationService/post-actions";
+import {postLanguageApi} from "@repo/actions/core/AdministrationService/post-actions";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function Form({

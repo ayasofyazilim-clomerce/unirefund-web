@@ -65,7 +65,7 @@ export default function LoginForm({
   const [isPending, startTransition] = useTransition();
   const [tenantData, setTenantData] = useState<Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto>({});
   const [isSubmitDisabled, setSubmitDisabled] = useState(false);
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.input<typeof formSchema>, unknown, z.output<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       tenant: defaultTenant,

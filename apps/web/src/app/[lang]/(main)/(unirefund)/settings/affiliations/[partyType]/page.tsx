@@ -4,9 +4,9 @@ import type {UniRefund_CRMService_Enums_EntityPartyTypeCode} from "@ayasofyazili
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getAssignableRolesByCurrentUserApi} from "src/actions/core/IdentityService/actions";
-import {getAffiliationCodeApi} from "src/actions/unirefund/CrmService/actions";
-import type {PartyNameType} from "src/actions/unirefund/CrmService/types";
+import {getAssignableRolesByCurrentUserApi} from "@repo/actions/core/IdentityService/actions";
+import {getAffiliationCodeApi} from "@repo/actions/unirefund/CrmService/actions";
+import type {PartyNameType} from "@repo/actions/unirefund/CrmService/types";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "./_components/table";
 import {entityPartyTypeCodeMap} from "./_components/utils";

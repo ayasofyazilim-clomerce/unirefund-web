@@ -3,7 +3,7 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getIndividualPhoneByIdApi} from "src/actions/unirefund/CrmService/actions";
+import {getIndividualPhoneByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import TelephoneForm from "./form";
 

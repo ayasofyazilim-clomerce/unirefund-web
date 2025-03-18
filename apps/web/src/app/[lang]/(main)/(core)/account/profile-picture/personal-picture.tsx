@@ -4,7 +4,7 @@ import type {Volo_Abp_Account_ProfilePictureType} from "@ayasofyazilim/core-saas
 import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {postProfilePictureApi} from "src/actions/core/AccountService/post-actions";
+import {postProfilePictureApi} from "@repo/actions/core/AccountService/post-actions";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 export default function PersonalPicture({languageData}: {languageData: AccountServiceResource}) {

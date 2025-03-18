@@ -12,7 +12,7 @@ import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import {ArchiveRestore, FileSignature, Plus, User2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {deleteFeaturesApi} from "src/actions/core/AdministrationService/delete-actions";
+import {deleteFeaturesApi} from "@repo/actions/core/AdministrationService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 type EditionsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_EditionDto>;

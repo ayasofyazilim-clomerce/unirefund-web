@@ -15,7 +15,7 @@ import {SectionLayout, SectionLayoutContent} from "@repo/ayasofyazilim-ui/templa
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
-import {putFeaturesApi} from "src/actions/core/AdministrationService/put-actions";
+import {putFeaturesApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function FeatureManagement({

@@ -4,7 +4,7 @@ import type {GetApiOpeniddictScopesData} from "@ayasofyazilim/core-saas/Identity
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getScopesApi} from "src/actions/core/IdentityService/actions";
+import {getScopesApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import ScopesTable from "./_components/table";
 

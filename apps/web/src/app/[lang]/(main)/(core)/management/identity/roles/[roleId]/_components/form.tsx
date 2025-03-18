@@ -11,8 +11,8 @@ import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {deleteRoleByIdApi} from "src/actions/core/IdentityService/delete-actions";
-import {putRoleApi} from "src/actions/core/IdentityService/put-actions";
+import {deleteRoleByIdApi} from "@repo/actions/core/IdentityService/delete-actions";
+import {putRoleApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Form({

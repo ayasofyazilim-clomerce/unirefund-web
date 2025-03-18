@@ -10,7 +10,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putIndividualNameApi} from "src/actions/unirefund/CrmService/put-actions";
+import {putIndividualNameApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function NameForm({

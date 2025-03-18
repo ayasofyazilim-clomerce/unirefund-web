@@ -8,7 +8,7 @@ import {
   getLanguagesApi,
   getLanguagesResourcesApi,
   getLanguageTextsApi,
-} from "src/actions/core/AdministrationService/actions";
+} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
 import LanguageTextsTable from "./_components/table";
 

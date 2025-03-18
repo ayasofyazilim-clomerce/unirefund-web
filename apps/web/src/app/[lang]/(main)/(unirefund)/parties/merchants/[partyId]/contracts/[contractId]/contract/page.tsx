@@ -5,8 +5,8 @@ import {
   getMerchantContractHeaderByIdApi,
   // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
-} from "src/actions/unirefund/ContractService/action";
-import {getMerchantAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
+} from "@repo/actions/unirefund/ContractService/action";
+import {getMerchantAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {MerchantContractHeaderUpdateForm} from "./_components/form";
 

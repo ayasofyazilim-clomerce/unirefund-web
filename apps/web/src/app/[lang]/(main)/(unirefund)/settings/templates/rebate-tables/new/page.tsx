@@ -1,9 +1,9 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantsApi} from "@/actions/unirefund/CrmService/actions";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/action";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
-import {getRebateTableHeadersApi} from "@/actions/unirefund/ContractService/action";
 import RebateTableHeaderCreateForm from "./_components/form";
 
 async function getApiRequests() {

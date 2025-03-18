@@ -20,11 +20,11 @@ import {
   postIndividualsWithComponentsApi,
   postAffiliationsToRefundPointApi,
   postAffiliationsToTaxFreeApi,
-} from "src/actions/unirefund/CrmService/post-actions";
-import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+} from "@repo/actions/unirefund/CrmService/post-actions";
+import {useAddressHook} from "@/utils/address-hook/use-address-hook.tsx";
 import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
 import {getBaseLink} from "@/utils";
-import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
+import type {CountryDto, SelectedAddressField} from "@/utils/address-hook/types";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {$UniRefund_CRMService_Individuals_CreateIndividualFormDto, individualFormSubPositions} from "./data";
 import type {CreateIndividualSchema} from "./data";

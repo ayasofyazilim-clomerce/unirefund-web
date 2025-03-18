@@ -146,5 +146,12 @@
   "Table.MoveUp": "Yukarı taşı",
   "Table.MoveDown": "Aşagı taşı",
   "Table.Delete": "Sil",
-  "Table.Duplicate": "Çoğalt"
+  "Table.Duplicate": "Çoğalt",
+  "error": "Hata",
+  "trigger_not_active": "Tetikleyici aktif değil",
+  "no_workflow_active_steps_defined": "Aktif akış adımı tanımlanmadı",
+  "no_workflow_steps_defined": "Akış adımı tanımlanmadı",
+  "processed": "İşlendi",
+  "no_tenant_found": "Kiracı bulunamadı",
+  "invalid_recipients": "Geçersiz alıcı"
 }

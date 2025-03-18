@@ -4,7 +4,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import {getAllEditionsApi, getEditionDetailsByIdApi} from "src/actions/core/SaasService/actions";
+import {getAllEditionsApi, getEditionDetailsByIdApi} from "@repo/actions/core/SaasService/actions";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 

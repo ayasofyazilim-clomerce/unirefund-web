@@ -29,17 +29,17 @@ import {useEffect, useState} from "react";
 import {
   getOrganizationUnitsByIdMembersApi,
   getOrganizationUnitsByIdRolesApi,
-} from "src/actions/core/IdentityService/actions";
+} from "@repo/actions/core/IdentityService/actions";
 import {
   deleteOrganizationUnitsApi,
   deleteOrganizationUnitsByIdMembersByMemberIdApi,
   deleteOrganizationUnitsByIdRolesByRoleIdApi,
-} from "src/actions/core/IdentityService/delete-actions";
-import {postOrganizationUnitsApi} from "src/actions/core/IdentityService/post-actions";
+} from "@repo/actions/core/IdentityService/delete-actions";
+import {postOrganizationUnitsApi} from "@repo/actions/core/IdentityService/post-actions";
 import {
   putOrganizationUnitsByIdApi,
   putOrganizationUnitsByIdMoveAllUsersApi,
-} from "src/actions/core/IdentityService/put-actions";
+} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import OrganizationRolesTable from "./_components/roles/table";
 import OrganizationUsersTable from "./_components/users/table";

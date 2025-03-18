@@ -6,7 +6,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putLanguageTextsByResourceNameByCultureNameByNameApi} from "src/actions/core/AdministrationService/put-actions";
+import {putLanguageTextsByResourceNameByCultureNameByNameApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function LanguageTextsEdit({

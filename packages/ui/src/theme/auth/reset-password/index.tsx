@@ -56,7 +56,7 @@ export default function ResetPasswordForm({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [tenantId, setTenantId] = useState<string>("");
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.input<typeof formSchema>, unknown, z.output<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       tenant: defaultTenant,

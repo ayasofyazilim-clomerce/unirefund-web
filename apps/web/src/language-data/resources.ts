@@ -1626,6 +1626,7 @@ export type AdministrationServiceResources = {
   "UniRefund.AdministrationService:010012": "A tenant can not use 'TenantId' filter!";
   "UniRefund.AdministrationService:010013": "Tenant not found by Id: '{tenantId}'!";
   "UniRefund.AdministrationService:010014": "'{givenLanguage}' is not supported. The supported languages are: '{supportedLanguages}'!";
+  "UniRefund.AdministrationService:010015": "Specified value: '{value}' is not found in selection items that you must set just one of them: '{itemValues}' for the setting: '{key}'!";
 };
 export type AbpOpenIddictResources = {
   TheOpenIDConnectRequestCannotBeRetrieved: "The OpenID Connect request cannot be retrieved.";
@@ -1791,6 +1792,8 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:015002": "This account is already linked to another user account. You cannot link this account. You can create a new user account by changing your email address.";
   "UniRefund.CRMService:015003": "Abp User Account not found by id: {id}";
   "UniRefund.CRMService:011015": "Only Headquarter merchants can have a relationship with ProductGroup. This merchant is not of the Headquarter type.";
+  "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
+  "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
 };
 export type SettingServiceResources = {
   "UniRefund.SettingService:011001": "The default product group for this merchant cannot be deleted. Ensure that at least one product group is marked as default: {id}";
@@ -1823,7 +1826,7 @@ export type TagServiceResources = {
   "UniRefund.TagService:010009": "Provided tags have different currencies: {differentCurrencies}";
   "UniRefund.TagService:0100010": "Some of the provided tags do not have calculated refund amount!";
   "UniRefund.TagService:0100011": "Provided tags belong to different travelers!";
-  "UniRefund.TagService:0100012": "Some of the provided tags are already refunded";
+  "UniRefund.TagService:0100012": "Some of the provided tags are already refunded! Related Tags: '{tagNumbers}'";
   "UniRefund.SettingService:0100013": "There is no such an entity given id. Entity type: {fullname}";
   "UniRefund.SettingService:0100014": "There is no such an entity. Entity type: {fullname}, id: {id}";
   "UniRefund.TagService:0100015": "Provided tags have different statuses: {differentStatuses}";
@@ -1838,6 +1841,13 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100022": "Provided product groups are not related to the merchant: {pgIds}";
   "UniRefund.TagService:0100023": "Some of the provided invoice lines do not have tax rate or product group id information!";
   "UniRefund.TagService:0100024": "Refund data not found for the given tag {tagNumber} with id {tagId}";
+  "UniRefund.TagService:0100025": "Refund request must have at least one tag!";
+  "UniRefund.TagService:0100026": "Non early refunded tag can not have early RefundFeeAmount! Wrong TagIds: '{wrongTagIds}'";
+  "UniRefund.TagService:0100027": "Total amount of all invoices in Tag: '{salesAmount}' must be upper than '{minimumAmount}'!";
+  "UniRefund.TagService:0100028": "Total amount of the invoice lines with the VAT Rate: '{vATRate}': '{amount}' must be upper than '{minimumAmount}'!";
+  "UniRefund.TagService:0100029": "Total amount of the invoice: '{invoiceNumber}' in Tag: '{amount}' must be upper than '{minimumAmount}'!";
+  "UniRefund.TagService:0100030": "Tags without an early refund fee in their contract cannot be refunded. Affected Tags: '{tagNumbersStr}'";
+  "UniRefund.TagService:0100031": "Refund operation can not be performed due to some tags' refund expiration date have passed! Related Tags: '{tagNumbers}'";
 };
 export type RefundServiceResources = {
   "UniRefund.RefundService:001001": "Country currency is not set";
@@ -1973,6 +1983,10 @@ export type ContractServiceResources = {
   "UniRefund.ContractService:01060": "{entityName} ValidFrom and ValidTo dates must be within the Parent's ValidFrom and ValidTo date range!";
   "UniRefund.ContractService:01061": "Calculation is not possible due to Early Refund Fee record does not exist in Refund Fee Table of the active Contract for RefundPoint: '{refundPointId}'!";
   "UniRefund.ContractService:01062": "EarlyRefund is not supported in '{currentTenantName}'!";
+  "UniRefund.ContractService:01063": "There is no contract within the refund date: '{refundDate}' for given Refund Point!";
+  "UniRefund.ContractService:01064": "Though a valid contract exists, there is no refund fee header relation that is valid within given date: '{date}' in the related contract of given Refund Point!";
+  "UniRefund.ContractService:01065": "The refund fee calculation is not possible because there is no tourist fee record in contract's refund fee header!";
+  "UniRefund.ContractService:01066": "The refund fee calculation is not possible because there is no agent fee record in contract's refund fee header!";
 };
 export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";

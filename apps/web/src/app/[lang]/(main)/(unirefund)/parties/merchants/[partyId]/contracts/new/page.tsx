@@ -5,12 +5,12 @@ import {FileText} from "lucide-react";
 import Link from "next/link";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getResourceData} from "src/language-data/unirefund/ContractService";
-import {getMerchantAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
+import {getMerchantAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {
   // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
-} from "src/actions/unirefund/ContractService/action";
+} from "@repo/actions/unirefund/ContractService/action";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
 import MerchantContractHeaderCreateForm from "./components/form";
 

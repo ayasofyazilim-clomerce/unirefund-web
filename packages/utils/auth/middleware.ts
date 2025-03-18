@@ -67,6 +67,9 @@ function redirectToHome(request: NextRequest, locale: string) {
   return NextResponse.redirect(newUrl);
 }
 export const middleware = auth((request: NextAuthRequest) => {
+  if (request.headers.has("next-action")) {
+    return NextResponse.next();
+  }
   const url = request.url;
   const pathname = new URL(url).pathname;
 

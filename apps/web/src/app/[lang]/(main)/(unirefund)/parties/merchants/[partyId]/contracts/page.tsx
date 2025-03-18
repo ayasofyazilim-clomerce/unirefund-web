@@ -2,7 +2,7 @@
 
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantContractHeadersByMerchantIdApi} from "@/actions/unirefund/ContractService/action";
+import {getMerchantContractHeadersByMerchantIdApi} from "@repo/actions/unirefund/ContractService/action";
 import {getResourceData} from "@/language-data/unirefund/CRMService";
 import {getResourceData as getContractsResourceData} from "src/language-data/unirefund/ContractService";
 import ContractsTable from "./table";

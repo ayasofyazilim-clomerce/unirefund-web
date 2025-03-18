@@ -14,8 +14,8 @@ import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {deleteLanguageByIdApi} from "src/actions/core/AdministrationService/delete-actions";
-import {putLanguageApi} from "src/actions/core/AdministrationService/put-actions";
+import {deleteLanguageByIdApi} from "@repo/actions/core/AdministrationService/delete-actions";
+import {putLanguageApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 export default function Form({
