@@ -2,7 +2,7 @@
 
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {auth} from "@repo/utils/auth/next-auth";
-import {getMerchantOrganizationsByIdApi} from "@/actions/unirefund/CrmService/actions";
+import {getMerchantOrganizationsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
 

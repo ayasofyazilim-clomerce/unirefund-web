@@ -9,7 +9,7 @@ import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-fo
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {notFound, useParams, useRouter} from "next/navigation";
 import {handlePutResponse} from "@repo/utils/api";
-import {putCountrySettingsApi} from "src/actions/core/AdministrationService/put-actions";
+import {putCountrySettingsApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import {createDependencies, createFieldConfig, createSchema} from "./_components/utils";
 

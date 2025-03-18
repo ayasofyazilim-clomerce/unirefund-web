@@ -7,7 +7,7 @@ import {
   getMerchantDetailByIdApi,
   getMerchantsApi,
   getTaxOfficesApi,
-} from "src/actions/unirefund/CrmService/actions";
+} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import MerchantForm from "./form";
 

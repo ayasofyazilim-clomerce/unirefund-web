@@ -17,7 +17,7 @@ import {handlePostResponse} from "@repo/utils/api";
 import {
   postRebateStatementHeadersApi,
   postRebateStatementHeadersFormDraftApi,
-} from "src/actions/unirefund/FinanceService/post-actions";
+} from "@repo/actions/unirefund/FinanceService/post-actions";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import RebateStatementInformation from "../../[rebateStatementId]/information/_components/rebate-statement-information";
 

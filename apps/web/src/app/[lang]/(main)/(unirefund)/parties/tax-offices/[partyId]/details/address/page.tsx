@@ -2,8 +2,8 @@
 
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getTaxOfficeAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
-import {getAllCountriesApi} from "src/actions/unirefund/LocationService/actions";
+import {getTaxOfficeAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getAllCountriesApi} from "@repo/actions/unirefund/LocationService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AddressForm from "./form";
 

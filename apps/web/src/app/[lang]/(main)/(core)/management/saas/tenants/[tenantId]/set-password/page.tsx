@@ -1,10 +1,10 @@
 "use server";
 
 import ErrorComponent from "@repo/ui/components/error-component";
+import {getTenantDetailsByIdApi} from "@repo/actions/core/SaasService/actions";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import {getTenantDetailsByIdApi} from "src/actions/core/SaasService/actions";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 

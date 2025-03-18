@@ -11,7 +11,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
-import type {CountryDto} from "../../../../../../actions/unirefund/LocationService/types";
+import type {CountryDto} from "@/utils/address-hook/types";
 
 type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListProfileDto>;
 

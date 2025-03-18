@@ -17,7 +17,7 @@ import {handlePostResponse} from "@repo/utils/api";
 import {
   postVatStatementHeaderApi,
   postVatStatementHeadersFormDraftApi,
-} from "src/actions/unirefund/FinanceService/post-actions";
+} from "@repo/actions/unirefund/FinanceService/post-actions";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import VatStatementInformation from "../../[vatStatementId]/information/_components/vat-statement-information";
 import TaxFreeTagTable from "../../[vatStatementId]/tax-free-tags/_components/table";

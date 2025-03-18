@@ -4,9 +4,9 @@ import type {GetApiContractServiceRefundTableHeadersData} from "@ayasofyazilim/s
 import {isUnauthorized} from "@repo/utils/policies";
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRefundTableHeadersApi} from "@/actions/unirefund/ContractService/action";
+import {getRefundTableHeadersApi} from "@repo/actions/unirefund/ContractService/action";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
-import {getMerchantsApi} from "@/actions/unirefund/CrmService/actions";
 import RefundTable from "./_components/table";
 
 async function getApiRequests(filters: GetApiContractServiceRefundTableHeadersData) {

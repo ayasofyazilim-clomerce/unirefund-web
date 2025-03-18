@@ -23,7 +23,7 @@ import {PlusCircle} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postMerchantContractHeaderRebateSettingByHeaderIdApi} from "src/actions/unirefund/ContractService/post-actions";
+import {postMerchantContractHeaderRebateSettingByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 export function RebateSettings({

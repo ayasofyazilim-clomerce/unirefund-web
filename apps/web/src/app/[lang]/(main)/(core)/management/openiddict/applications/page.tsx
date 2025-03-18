@@ -3,7 +3,7 @@
 import type {GetApiOpeniddictApplicationsData} from "@ayasofyazilim/core-saas/IdentityService";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
-import {getApplicationsApi} from "src/actions/core/IdentityService/actions";
+import {getApplicationsApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import ApplicationsTable from "./_components/table";
 

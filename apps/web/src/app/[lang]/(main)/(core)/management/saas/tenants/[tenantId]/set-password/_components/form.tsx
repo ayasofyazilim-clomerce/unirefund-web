@@ -7,7 +7,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {putTenantsByIdChangePasswordApi} from "src/actions/core/SaasService/actions";
+import {putTenantsByIdChangePasswordApi} from "@repo/actions/core/SaasService/actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function Form({languageData}: {languageData: SaasServiceResource}) {

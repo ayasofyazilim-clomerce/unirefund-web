@@ -7,7 +7,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putEditionsByIdMoveAllTenantsApi} from "src/actions/core/SaasService/put-actions";
+import {putEditionsByIdMoveAllTenantsApi} from "@repo/actions/core/SaasService/put-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 interface EditionParams {

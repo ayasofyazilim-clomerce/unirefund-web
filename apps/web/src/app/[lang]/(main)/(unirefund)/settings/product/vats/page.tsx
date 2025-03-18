@@ -4,7 +4,7 @@ import type {GetApiSettingServiceVatData} from "@ayasofyazilim/saas/SettingServi
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getVatsApi} from "src/actions/unirefund/SettingService/actions";
+import {getVatsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getResourceData} from "src/language-data/unirefund/SettingService";
 import VatsTable from "./_components/table";
 

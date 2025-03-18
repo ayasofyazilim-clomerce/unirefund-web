@@ -16,9 +16,9 @@ import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
+import {postTenantApi} from "@repo/actions/core/SaasService/post-actions";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {postTenantApi} from "src/actions/core/SaasService/post-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function Page({

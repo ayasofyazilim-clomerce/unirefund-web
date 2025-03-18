@@ -6,8 +6,8 @@ import {telephoneSchema} from "@repo/ui/utils/table/form-schemas";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putMerchantTelephoneApi} from "src/actions/unirefund/CrmService/put-actions";
-import type {TelephoneUpdateDto} from "src/actions/unirefund/CrmService/types";
+import {putMerchantTelephoneApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import type {TelephoneUpdateDto} from "@repo/actions/unirefund/CrmService/types";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
 

@@ -1,7 +1,7 @@
 "use server";
 
 import RegisterForm from "@repo/ui/theme/auth/register";
-import {getTenantByNameApi, signUpServerApi} from "src/actions/core/AccountService/actions";
+import {getTenantByNameApi, signUpServerApi} from "@repo/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
 
 export default async function Page({params}: {params: {lang: string}}) {

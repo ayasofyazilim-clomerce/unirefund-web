@@ -3,7 +3,7 @@
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getTravellersDetailsApi} from "@/actions/unirefund/TravellerService/actions";
+import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
 import {getResourceData} from "src/language-data/unirefund/TravellerService";
 import {getBaseLink} from "src/utils";
 

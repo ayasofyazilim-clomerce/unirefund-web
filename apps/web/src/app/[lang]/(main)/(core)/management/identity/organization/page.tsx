@@ -4,7 +4,7 @@ import type {GetApiIdentityRolesData, GetApiIdentityUsersData} from "@ayasofyazi
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getAllOrganizationUnitsApi, getRolesApi, getUsersApi} from "src/actions/core/IdentityService/actions";
+import {getAllOrganizationUnitsApi, getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import OrganizationComponent from "./organization";
 

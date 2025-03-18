@@ -15,7 +15,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handlePutResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {putLanguageTextsByResourceNameByCultureNameByNameRestoreApi} from "src/actions/core/AdministrationService/put-actions";
+import {putLanguageTextsByResourceNameByCultureNameByNameRestoreApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import LanguageTextsEdit from "./language-text-edit";
 

@@ -4,7 +4,7 @@ import type {UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto} from "@ayasofy
 import SelectTabs, {SelectTabsContent} from "@repo/ayasofyazilim-ui/molecules/select-tabs";
 import {Building2, User} from "lucide-react";
 import {useState} from "react";
-import type {CountryDto} from "src/actions/unirefund/LocationService/types";
+import type {CountryDto} from "@/utils/address-hook/types";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import MerchantOrganizationForm from "./_components/organization/form";
 import MerchantIndividualForm from "./_components/individual/form";

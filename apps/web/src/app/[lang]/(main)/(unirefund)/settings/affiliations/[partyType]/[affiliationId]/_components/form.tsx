@@ -13,10 +13,10 @@ import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import type {PartyNameType} from "@repo/actions/unirefund/CrmService/types";
+import {putAffiliationCodesByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import {deleteAffiliationCodesByIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
-import {putAffiliationCodesByIdApi} from "@/actions/unirefund/CrmService/put-actions";
-import {deleteAffiliationCodesByIdApi} from "@/actions/unirefund/CrmService/delete-actions";
 import {entityPartyTypeCodeMap} from "../../_components/utils";
 
 export default function Form({

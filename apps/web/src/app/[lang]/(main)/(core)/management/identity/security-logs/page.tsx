@@ -4,7 +4,7 @@ import type {GetApiIdentitySecurityLogsData} from "@ayasofyazilim/core-saas/Iden
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getIdentitySecurityLogsApi} from "src/actions/core/IdentityService/actions";
+import {getIdentitySecurityLogsApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import SecurityLogsTable from "./_components/table";
 

@@ -3,8 +3,8 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getIndividualAddressByIdApi} from "src/actions/unirefund/CrmService/actions";
-import {getAllCountriesApi} from "src/actions/unirefund/LocationService/actions";
+import {getIndividualAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getAllCountriesApi} from "@repo/actions/unirefund/LocationService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AddressForm from "./form";
 

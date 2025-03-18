@@ -3,7 +3,7 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getVatDetailsByIdApi} from "src/actions/unirefund/SettingService/actions";
+import {getVatDetailsByIdApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getResourceData} from "src/language-data/unirefund/SettingService";
 import Form from "./_components/form";
 

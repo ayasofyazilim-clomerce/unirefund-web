@@ -12,7 +12,7 @@ import {AlertCircle, Banknote, CreditCard} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postRefundApi} from "src/actions/unirefund/RefundService/post-actions";
+import {postRefundApi} from "@repo/actions/unirefund/RefundService/post-actions";
 
 export function RefundForm({
   refundPointId,

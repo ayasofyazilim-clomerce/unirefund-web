@@ -10,7 +10,7 @@ import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRefundApi} from "src/actions/unirefund/RefundService/actions";
+import {getRefundApi} from "@repo/actions/unirefund/RefundService/actions";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import RefundsTable from "./_components/table";
 

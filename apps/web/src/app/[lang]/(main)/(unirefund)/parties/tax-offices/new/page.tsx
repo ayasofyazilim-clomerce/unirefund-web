@@ -3,8 +3,8 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
+import {getAllCountriesApi} from "@repo/actions/unirefund/LocationService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import {getAllCountriesApi} from "../../../../../../../actions/unirefund/LocationService/actions";
 import TaxOfficeOrganizationForm from "./_components/form";
 
 async function getApiRequests() {

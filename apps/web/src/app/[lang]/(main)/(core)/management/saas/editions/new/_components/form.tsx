@@ -7,7 +7,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postEditionApi} from "src/actions/core/SaasService/post-actions";
+import {postEditionApi} from "@repo/actions/core/SaasService/post-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function Form({languageData}: {languageData: SaasServiceResource}) {

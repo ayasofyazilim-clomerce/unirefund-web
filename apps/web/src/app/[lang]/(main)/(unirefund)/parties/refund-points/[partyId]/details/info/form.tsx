@@ -13,7 +13,7 @@ import AutoForm, {AutoFormSubmit, CustomCombobox, DependencyType} from "@repo/ay
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putRefundPointBaseApi} from "src/actions/unirefund/CrmService/put-actions";
+import {putRefundPointBaseApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function RefundPointForm({

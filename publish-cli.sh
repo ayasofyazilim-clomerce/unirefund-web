@@ -76,7 +76,12 @@ start_app() {
     local project_name=$(basename "$(dirname "$(pwd)")")
     local app_name="[$app_port][${env_name^^}]${project_name^}($app)"
     echo -e $app_name
-    pnpm run build --filter "./apps/${app,,}"
+    
+    if ! pnpm run build --filter "./apps/${app,,}"; then
+        echo -e "${BOLD}${RED}Build failed for $app_name.${RESET}"
+        return 1
+    fi
+    
     echo -e "${BOLD}${BLUE}\nStarting $app_name..${RESET}\n"
     if pm2 pid "$app_name"; then
         pm2 delete "$app_name"

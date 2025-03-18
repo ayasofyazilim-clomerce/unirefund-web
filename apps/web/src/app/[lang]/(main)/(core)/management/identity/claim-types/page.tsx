@@ -4,7 +4,7 @@ import type {GetApiIdentityClaimTypesData} from "@ayasofyazilim/core-saas/Identi
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getClaimTypesApi} from "src/actions/core/IdentityService/actions";
+import {getClaimTypesApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import ClaimTypesTable from "./_components/table";
 

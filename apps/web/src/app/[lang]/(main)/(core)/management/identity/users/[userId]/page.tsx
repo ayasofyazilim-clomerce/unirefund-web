@@ -9,7 +9,7 @@ import {
   getUsersAvailableOrganizationUnitsApi,
   getUsersByIdOrganizationUnitsApi,
   getUsersByIdRolesApi,
-} from "src/actions/core/IdentityService/actions";
+} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import Form from "./_components/form";
 

@@ -15,13 +15,13 @@ import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {ActionList} from "@repo/ui/action-button";
-import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
+import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
+import {deleteTenantByIdApi} from "@repo/actions/core/SaasService/delete-actions";
+import {putTenantApi} from "@repo/actions/core/SaasService/put-actions";
 import {useTransition} from "react";
-import {putTenantApi} from "@/actions/core/SaasService/put-actions";
-import {deleteTenantByIdApi} from "@/actions/core/SaasService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function Page({

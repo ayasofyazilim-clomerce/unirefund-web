@@ -14,9 +14,9 @@ import type {
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import type {Policy} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {postAbpUserAccountByIndividualIdApi} from "@/actions/unirefund/CrmService/post-actions";
-import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "@/actions/core/IdentityService/put-actions";
-import {postSendPasswordResetCodeApi} from "@/actions/core/AccountService/post-actions";
+import {postAbpUserAccountByIndividualIdApi} from "@repo/actions/unirefund/CrmService/post-actions";
+import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "@repo/actions/core/IdentityService/put-actions";
+import {postSendPasswordResetCodeApi} from "@repo/actions/core/AccountService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 const affiliationTypes = ["COFOUNDER", "PARTNER", "ABPUSER", "SUBCOMPANY", "ACCOUNTMANAGER", "Franchise"];

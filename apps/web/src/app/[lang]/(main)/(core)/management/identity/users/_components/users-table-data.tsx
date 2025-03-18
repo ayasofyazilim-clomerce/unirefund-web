@@ -27,7 +27,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handlePutResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
+import {putUsersByIdUnlockApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 type UsersTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityUserDto>;

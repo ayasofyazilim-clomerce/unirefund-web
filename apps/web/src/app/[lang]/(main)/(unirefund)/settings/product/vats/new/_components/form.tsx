@@ -7,7 +7,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postVatApi} from "src/actions/unirefund/SettingService/post-actions";
+import {postVatApi} from "@repo/actions/unirefund/SettingService/post-actions";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({languageData}: {languageData: SettingServiceResource}) {

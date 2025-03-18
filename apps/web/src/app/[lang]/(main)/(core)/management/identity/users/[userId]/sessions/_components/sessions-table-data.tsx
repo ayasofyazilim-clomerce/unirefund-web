@@ -8,7 +8,7 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import {InfoIcon, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {handleDeleteResponse} from "@repo/utils/api";
-import {deleteUserSessionsByIdApi} from "src/actions/core/IdentityService/delete-actions";
+import {deleteUserSessionsByIdApi} from "@repo/actions/core/IdentityService/delete-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import DetailsInformation from "./details-information";
 

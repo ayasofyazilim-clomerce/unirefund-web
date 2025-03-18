@@ -3,7 +3,7 @@
 import type {GetApiCrmServiceCustomsByIdSubCustomsData} from "@ayasofyazilim/saas/CRMService";
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getCustomSubStoresByIdApi} from "src/actions/unirefund/CrmService/actions";
+import {getCustomSubStoresByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import SubStoresTable from "./table";
 

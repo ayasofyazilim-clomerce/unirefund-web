@@ -1,7 +1,7 @@
 "use server";
 import {isUnauthorized} from "@repo/utils/policies";
 import {notFound} from "next/navigation";
-import {getRefundFeeHeadersByIdApi} from "@/actions/unirefund/ContractService/action";
+import {getRefundFeeHeadersByIdApi} from "@repo/actions/unirefund/ContractService/action";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundFeeHeaderUpdateForm from "./_components/form";
 

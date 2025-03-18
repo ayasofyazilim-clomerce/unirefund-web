@@ -1,6 +1,6 @@
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getTagsApi} from "@/actions/unirefund/TagService/actions";
+import {getTagsApi} from "@repo/actions/unirefund/TagService/actions";
 import {getResourceData} from "@/language-data/unirefund/TagService";
 import type {TagsSearchParamType} from "../../../tax-free-tags/_components/utils";
 import {initParams} from "../../../tax-free-tags/_components/utils";
