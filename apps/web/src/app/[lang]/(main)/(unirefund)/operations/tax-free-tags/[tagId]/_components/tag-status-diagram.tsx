@@ -62,7 +62,7 @@ export default function TagStatusDiagram({
   languageData: TagServiceResource;
 }) {
   return (
-    <div className="grid h-max gap-3">
+    <div className=" h-max gap-3">
       <ValidStatus
         date={dateToString(tagDetail.issueDate, "tr")}
         link={`/operations/tax-free-tags/${tagDetail.id}`}

@@ -140,12 +140,12 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
             ]}
             title={languageData.MerchantDetails}
           />
-          <div className="col-span-3 row-span-2 h-full overflow-hidden">
+          <div className="col-span-4 row-span-2 h-full overflow-hidden">
             <TagCard icon={<ReceiptText className="size-5" />} title="Invoices">
               <Invoices languageData={languageData} tagDetail={tagDetail} />
             </TagCard>
           </div>
-          <div className="col-span-3 h-full">
+          <div className="col-span-2 h-full">
             <TagCardList
               icon={<Scale className="size-5" />}
               rows={
@@ -157,7 +157,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               title="Totals"
             />
           </div>
-          <div className="col-span-3">
+          <div className="col-span-2">
             <TagCardList
               icon={<HandCoins className="size-5" />}
               rows={
