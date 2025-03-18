@@ -12,7 +12,7 @@ import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-f
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postUserApi} from "src/actions/core/IdentityService/post-actions";
+import {postUserApi} from "@repo/actions/core/IdentityService/post-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Form({

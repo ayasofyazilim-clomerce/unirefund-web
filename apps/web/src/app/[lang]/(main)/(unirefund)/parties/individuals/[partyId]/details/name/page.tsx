@@ -3,7 +3,7 @@
 import {isUnauthorized} from "@repo/utils/policies";
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getIndividualNameByIdApi} from "src/actions/unirefund/CrmService/actions";
+import {getIndividualNameByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import NameForm from "./form";
 

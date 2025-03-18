@@ -4,9 +4,9 @@ import type {UniRefund_CRMService_Enums_EntityPartyTypeCode} from "@ayasofyazili
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
+import {getAffiliationCodeApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getAllCountriesApi} from "@repo/actions/unirefund/LocationService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import {getAffiliationCodeApi} from "@/actions/unirefund/CrmService/actions";
-import {getAllCountriesApi} from "../../../../../../../actions/unirefund/LocationService/actions";
 import IndividualForm from "./_components/form";
 
 async function getApiRequests(entityPartyTypeCode?: UniRefund_CRMService_Enums_EntityPartyTypeCode) {

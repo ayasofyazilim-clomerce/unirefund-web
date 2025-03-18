@@ -7,7 +7,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postRoleApi} from "src/actions/core/IdentityService/post-actions";
+import {postRoleApi} from "@repo/actions/core/IdentityService/post-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Form({languageData}: {languageData: IdentityServiceResource}) {

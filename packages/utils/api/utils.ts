@@ -8,7 +8,7 @@ export function isApiError(error: unknown): error is ApiError {
   }
   return error instanceof ApiError;
 }
-export function isStructuredError(error: unknown): error is ApiErrorServerResponse {
+export function isThrowedError(error: unknown): error is ApiErrorServerResponse {
   if ((error as ApiErrorServerResponse).type === "api-error") {
     return true;
   }
@@ -28,6 +28,9 @@ export function structuredError(error: unknown): ApiErrorServerResponse {
       data: errorDetails.message || error.statusText || "Something went wrong",
       message: errorDetails.details || errorDetails.message || error.statusText || "Something went wrong",
     };
+  }
+  if (isThrowedError(error)) {
+    return error;
   }
   return {
     type: "api-error",

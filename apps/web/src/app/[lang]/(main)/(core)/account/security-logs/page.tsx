@@ -2,7 +2,7 @@
 
 import type {GetApiAccountSecurityLogsData} from "@ayasofyazilim/core-saas/AccountService";
 import {isErrorOnRequest} from "@repo/utils/api";
-import {getSecurityLogsApi} from "src/actions/core/AccountService/actions";
+import {getSecurityLogsApi} from "@repo/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
 import SecurityLogsTable from "./table";
 

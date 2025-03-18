@@ -2,7 +2,7 @@
 
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRefundPointByIdApi, getRefundPointsApi, getTaxOfficesApi} from "src/actions/unirefund/CrmService/actions";
+import {getRefundPointByIdApi, getRefundPointsApi, getTaxOfficesApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import RefundPointForm from "./form";
 

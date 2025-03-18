@@ -5,7 +5,7 @@ import {isUnauthorized} from "@repo/utils/policies";
 import {
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
   getMerchantContractHeadersContractStoresByHeaderIdApi,
-} from "src/actions/unirefund/ContractService/action";
+} from "@repo/actions/unirefund/ContractService/action";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {ContractStoresTable} from "./_components/table";
 

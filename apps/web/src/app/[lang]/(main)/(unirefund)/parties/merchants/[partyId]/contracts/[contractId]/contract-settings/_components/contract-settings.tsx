@@ -19,13 +19,13 @@ import {useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback, useState} from "react";
 import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
-import {getMerchantContractHeaderContractSettingsByHeaderIdApi as getContractSettings} from "@/actions/unirefund/ContractService/action";
+import {getMerchantContractHeaderContractSettingsByHeaderIdApi as getContractSettings} from "@repo/actions/unirefund/ContractService/action";
 import {
   putMerchantContractContractHeaderSetDefaultContractSettingByHeaderIdApi,
   putMerchantContractContractSettingsByIdApi,
-} from "@/actions/unirefund/ContractService/put-actions";
-import {postMerchantContractHeaderContractSettingsByHeaderIdApi} from "@/actions/unirefund/ContractService/post-actions";
-import {deleteMerchantContractContractSettingsByIdApi} from "@/actions/unirefund/ContractService/delete-actions";
+} from "@repo/actions/unirefund/ContractService/put-actions";
+import {postMerchantContractHeaderContractSettingsByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
+import {deleteMerchantContractContractSettingsByIdApi} from "@repo/actions/unirefund/ContractService/delete-actions";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 interface ContractSettingsTable {

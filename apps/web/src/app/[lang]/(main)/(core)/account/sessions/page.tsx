@@ -2,7 +2,7 @@
 
 import type {GetApiAccountSessionsData} from "@ayasofyazilim/core-saas/AccountService";
 import {isErrorOnRequest} from "@repo/utils/api";
-import {getSessionsApi} from "src/actions/core/AccountService/actions";
+import {getSessionsApi} from "@repo/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
 import SessionsTable from "./table";
 

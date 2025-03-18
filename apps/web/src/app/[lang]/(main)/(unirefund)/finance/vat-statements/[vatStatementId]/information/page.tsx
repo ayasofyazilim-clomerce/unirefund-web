@@ -1,10 +1,10 @@
 "use server";
+import {getVatStatementHeadersByIdApi} from "@repo/actions/unirefund/FinanceService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
-import {isStructuredError, structuredError} from "@repo/utils/api";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {getVatStatementHeadersByIdApi} from "src/actions/unirefund/FinanceService/actions";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
 import VatStatementInformation from "./_components/vat-statement-information";
 
@@ -31,7 +31,7 @@ export default async function Page({params}: {params: {lang: string; vatStatemen
 
   const apiRequests = await getApiRequests(vatStatementId);
 
-  if (isStructuredError(apiRequests)) {
+  if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const {requiredRequests} = apiRequests;

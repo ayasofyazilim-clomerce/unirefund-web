@@ -8,7 +8,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {putRefundFeeHeadersByIdApi} from "@/actions/unirefund/ContractService/put-actions";
+import {putRefundFeeHeadersByIdApi} from "@repo/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
 

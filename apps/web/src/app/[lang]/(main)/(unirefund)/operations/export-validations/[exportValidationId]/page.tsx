@@ -3,7 +3,7 @@
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getExportValidationDetailsApi} from "src/actions/unirefund/ExportValidationService/actions";
+import {getExportValidationDetailsApi} from "@repo/actions/unirefund/ExportValidationService/actions";
 import {getResourceData} from "src/language-data/unirefund/ExportValidationService";
 import Form from "./_components/form";
 

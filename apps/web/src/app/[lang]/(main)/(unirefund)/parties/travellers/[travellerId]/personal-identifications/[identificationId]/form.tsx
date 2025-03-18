@@ -11,8 +11,8 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import type {CountryDto} from "src/actions/unirefund/LocationService/types";
-import {putTravellerPersonalIdentificationApi} from "src/actions/unirefund/TravellerService/put-actions";
+import {putTravellerPersonalIdentificationApi} from "@repo/actions/unirefund/TravellerService/put-actions";
+import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
 export default function Form({

@@ -2,7 +2,7 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRefundPointsApi} from "@/actions/unirefund/CrmService/actions";
+import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundFeeHeaderCreateForm from "./_components/form";
 

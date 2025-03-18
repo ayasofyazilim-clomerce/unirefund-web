@@ -5,8 +5,8 @@ import {
   getRefundFeeHeadersAssignablesByRefundPointIdApi,
   getRefundPointContractHeaderByIdApi,
   // getRefundPointContractHeadersByRefundPointIdApi,
-} from "src/actions/unirefund/ContractService/action";
-import {getRefundPointDetailsByIdApi} from "src/actions/unirefund/CrmService/actions";
+} from "@repo/actions/unirefund/ContractService/action";
+import {getRefundPointDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import RefundPointContractHeaderUpdateForm from "./_components/form";
 

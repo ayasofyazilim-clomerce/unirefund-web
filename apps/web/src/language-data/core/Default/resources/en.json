@@ -147,5 +147,12 @@
   "Table.MoveUp": "Move Up",
   "Table.MoveDown": "Move Down",
   "Table.Delete": "Delete",
-  "Table.Duplicate": "Duplicate"
+  "Table.Duplicate": "Duplicate",
+  "error": "Error",
+  "trigger_not_active": "Trigger not active",
+  "no_workflow_active_steps_defined": "No active workflow steps defined",
+  "no_workflow_steps_defined": "No workflow steps defined",
+  "processed": "Processed",
+  "no_tenant_found": "No tenant found",
+  "invalid_recipients": "Invalid rsecipients"
 }

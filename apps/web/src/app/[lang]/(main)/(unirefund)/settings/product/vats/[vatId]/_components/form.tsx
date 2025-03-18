@@ -11,8 +11,8 @@ import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {deleteVatByIdApi} from "@/actions/unirefund/SettingService/delete-actions";
-import {putVatApi} from "src/actions/unirefund/SettingService/put-actions";
+import {deleteVatByIdApi} from "@repo/actions/unirefund/SettingService/delete-actions";
+import {putVatApi} from "@repo/actions/unirefund/SettingService/put-actions";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({

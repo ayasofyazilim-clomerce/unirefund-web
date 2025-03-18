@@ -3,7 +3,7 @@
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getClaimTypeDetailsByIdApi} from "src/actions/core/IdentityService/actions";
+import {getClaimTypeDetailsByIdApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import Form from "./_components/form";
 

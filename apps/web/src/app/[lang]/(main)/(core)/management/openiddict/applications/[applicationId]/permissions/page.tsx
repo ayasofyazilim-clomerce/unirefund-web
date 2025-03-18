@@ -3,8 +3,8 @@
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getPermissionsApi} from "src/actions/core/AdministrationService/actions";
-import {getApplicationDetailsByIdApi} from "src/actions/core/IdentityService/actions";
+import {getPermissionsApi} from "@repo/actions/core/AdministrationService/actions";
+import {getApplicationDetailsByIdApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import ApplicationPermissions from "./_components/permissions";
 

@@ -3,10 +3,10 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getAffiliationCodesDetailsByIdApi} from "@/actions/unirefund/CrmService/actions";
-import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
+import {getAffiliationCodesDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import type {PartyNameType} from "@repo/actions/unirefund/CrmService/types";
+import {getAssignableRolesByCurrentUserApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "@/language-data/unirefund/CRMService";
-import {getAssignableRolesByCurrentUserApi} from "src/actions/core/IdentityService/actions";
 import Form from "./_components/form";
 
 async function getApiRequests(affiliationId: number) {

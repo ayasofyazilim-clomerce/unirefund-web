@@ -15,7 +15,7 @@ import {Trash2} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putRoleClaimsByIdApi} from "src/actions/core/IdentityService/put-actions";
+import {putRoleClaimsByIdApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Claims({

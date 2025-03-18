@@ -4,7 +4,7 @@ import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {structuredError} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRefundDetailByIdApi} from "@/actions/unirefund/RefundService/actions";
+import {getRefundDetailByIdApi} from "@repo/actions/unirefund/RefundService/actions";
 import {getResourceData} from "@/language-data/unirefund/RefundService";
 import {getBaseLink} from "@/utils";
 import {RefundLocation} from "./_components/refund-location";

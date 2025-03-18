@@ -13,7 +13,7 @@ import {SectionLayout, SectionLayoutContent} from "@repo/ayasofyazilim-ui/templa
 import {useRouter} from "next/navigation";
 import {useCallback, useState, useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putPermissionsApi} from "src/actions/core/AdministrationService/put-actions";
+import {putPermissionsApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function RolePermissions({

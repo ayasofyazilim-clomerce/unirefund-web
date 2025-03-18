@@ -5,9 +5,9 @@ import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {ActionList} from "@repo/ui/action-button";
 import {handleDeleteResponse} from "@repo/utils/api";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
+import {deleteIndividualsByIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {deleteIndividualsByIdApi} from "@/actions/unirefund/CrmService/delete-actions";
 
 export default function IndividualActionList({
   partyId,

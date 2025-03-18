@@ -1,6 +1,6 @@
 import {notFound} from "next/navigation";
 import {isUnauthorized} from "@repo/utils/policies";
-import {getRefundTableHeadersByIdApi} from "@/actions/unirefund/ContractService/action";
+import {getRefundTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/action";
 import {getResourceData} from "@/language-data/unirefund/ContractService";
 import RefundTableHeaderUpdateForm from "./_components/form";
 

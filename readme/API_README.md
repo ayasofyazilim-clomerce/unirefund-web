@@ -20,7 +20,7 @@ export const revalidate = 0;
 Her dakika önbelleği sıfırlayan bir örnek:
 
 ```ts
-import { getProjectServiceClient } from "src/lib";
+import { getProjectServiceClient } from "../lib";
 export const revalidate = 60;
 
 export default async function Page() {
@@ -46,7 +46,7 @@ Güncel veriyi önbelleğe almadan getiren bir örnek:
 
 ```ts
 "use server";
-import { getProjectServiceClient } from "src/lib";
+import { getProjectServiceClient } from "../lib";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Page() {

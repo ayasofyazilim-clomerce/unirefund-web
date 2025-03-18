@@ -4,10 +4,10 @@ import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getTimeZoneApi} from "@/actions/unirefund/SettingService/actions";
-import {getAllCountriesApi, getCurrencyApi} from "@/actions/unirefund/LocationService/actions";
-import {getAllLanguagesApi} from "src/actions/core/AdministrationService/actions";
-import {getAllEditionsApi, getTenantDetailsByIdApi} from "src/actions/core/SaasService/actions";
+import {getAllEditionsApi, getTenantDetailsByIdApi} from "@repo/actions/core/SaasService/actions";
+import {getAllCountriesApi, getCurrencyApi} from "@repo/actions/unirefund/LocationService/actions";
+import {getTimeZoneApi} from "@repo/actions/unirefund/SettingService/actions";
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 

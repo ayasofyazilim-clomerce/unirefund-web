@@ -10,7 +10,7 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putExportValidationApi} from "src/actions/unirefund/ExportValidationService/put-actions";
+import {putExportValidationApi} from "@repo/actions/unirefund/ExportValidationService/put-actions";
 import type {ExportValidationServiceResource} from "src/language-data/unirefund/ExportValidationService";
 
 export default function Form({

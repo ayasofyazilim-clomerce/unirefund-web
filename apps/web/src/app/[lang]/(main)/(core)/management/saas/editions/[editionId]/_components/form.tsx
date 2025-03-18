@@ -11,8 +11,8 @@ import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {deleteEditionByIdApi} from "src/actions/core/SaasService/delete-actions";
-import {putEditionApi} from "src/actions/core/SaasService/put-actions";
+import {deleteEditionByIdApi} from "@repo/actions/core/SaasService/delete-actions";
+import {putEditionApi} from "@repo/actions/core/SaasService/put-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
 export default function Form({

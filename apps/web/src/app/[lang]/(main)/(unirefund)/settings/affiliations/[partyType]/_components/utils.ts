@@ -1,5 +1,5 @@
 import type {UniRefund_CRMService_Enums_EntityPartyTypeCode} from "@ayasofyazilim/saas/CRMService";
-import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
+import type {PartyNameType} from "@repo/actions/unirefund/CrmService/types";
 
 export const entityPartyTypeCodeMap: Record<
   Exclude<PartyNameType, "individuals">,

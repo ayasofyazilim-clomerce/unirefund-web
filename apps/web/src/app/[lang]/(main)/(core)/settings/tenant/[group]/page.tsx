@@ -1,7 +1,7 @@
 "use server";
 
 import {notFound} from "next/navigation";
-import {getCountrySettingsApi} from "src/actions/core/AdministrationService/actions";
+import {getCountrySettingsApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/AdministrationService";
 import TenantSettingsPage from "./group";
 

@@ -8,7 +8,7 @@ import type {FilterComponentSearchItem} from "@repo/ayasofyazilim-ui/molecules/f
 import FilterComponent from "@repo/ayasofyazilim-ui/molecules/filter-component";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useState} from "react";
-import {searchMerchants} from "src/actions/unirefund/CrmService/search";
+import {searchMerchants} from "@repo/actions/unirefund/CrmService/search";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {getDateRanges} from "src/utils/utils-date";
 

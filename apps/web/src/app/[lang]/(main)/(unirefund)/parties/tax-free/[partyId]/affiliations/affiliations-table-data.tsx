@@ -24,14 +24,14 @@ import type {
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {Policy} from "@repo/utils/policies";
-import {getBaseLink} from "@/utils";
-import {deleteTaxFreesByIdAffiliationsByAffiliationIdApi} from "@/actions/unirefund/CrmService/delete-actions";
+import {deleteTaxFreesByIdAffiliationsByAffiliationIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {
   postAbpUserAccountByIndividualIdApi,
   postAffiliationsToTaxFreeApi,
-} from "src/actions/unirefund/CrmService/post-actions";
-import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "src/actions/core/IdentityService/put-actions";
-import {postSendPasswordResetCodeApi} from "src/actions/core/AccountService/post-actions";
+} from "@repo/actions/unirefund/CrmService/post-actions";
+import {putUsersByIdLockByLockoutEndApi, putUsersByIdUnlockApi} from "@repo/actions/core/IdentityService/put-actions";
+import {postSendPasswordResetCodeApi} from "@repo/actions/core/AccountService/post-actions";
+import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type AffiliationsTable = TanstackTableCreationProps<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>;

@@ -17,7 +17,7 @@ import AutoForm, {
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postApplicationApi} from "src/actions/core/IdentityService/post-actions";
+import {postApplicationApi} from "@repo/actions/core/IdentityService/post-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 const applicationCreateSchema = createZodObject($Volo_Abp_OpenIddict_Applications_Dtos_CreateApplicationInput, [

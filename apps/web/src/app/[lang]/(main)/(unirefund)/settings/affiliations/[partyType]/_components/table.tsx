@@ -4,7 +4,7 @@ import type {GetApiIdentityRolesAssignableRolesByCurrentUserResponse} from "@aya
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";
-import type {PartyNameType} from "@/actions/unirefund/CrmService/types";
+import type {PartyNameType} from "@repo/actions/unirefund/CrmService/types";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {tableData} from "./affiliations-table-data";
 

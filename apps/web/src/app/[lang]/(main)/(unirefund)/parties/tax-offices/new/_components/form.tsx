@@ -6,9 +6,9 @@ import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-fo
 import {useRouter, useSearchParams} from "next/navigation";
 import {useState} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postTaxOfficesWithComponentsApi} from "src/actions/unirefund/CrmService/post-actions";
-import type {CountryDto, SelectedAddressField} from "src/actions/unirefund/LocationService/types";
-import {useAddressHook} from "src/actions/unirefund/LocationService/use-address-hook.tsx";
+import {postTaxOfficesWithComponentsApi} from "@repo/actions/unirefund/CrmService/post-actions";
+import type {CountryDto, SelectedAddressField} from "@/utils/address-hook/types";
+import {useAddressHook} from "@/utils/address-hook/use-address-hook.tsx";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {isPhoneValid, splitPhone} from "src/utils/utils-phone";
 import type {CreateTaxOfficeOrganizationSchema} from "./data";

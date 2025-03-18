@@ -4,7 +4,7 @@ import type {GetApiExportValidationServiceExportValidationData} from "@ayasofyaz
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getExportValidationApi} from "src/actions/unirefund/ExportValidationService/actions";
+import {getExportValidationApi} from "@repo/actions/unirefund/ExportValidationService/actions";
 import {getResourceData} from "src/language-data/unirefund/ExportValidationService";
 import ExportValidationTable from "./_components/table";
 

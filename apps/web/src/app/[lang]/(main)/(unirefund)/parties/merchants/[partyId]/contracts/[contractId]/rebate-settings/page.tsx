@@ -8,8 +8,8 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersApi,
-} from "src/actions/unirefund/ContractService/action";
-import {getMerchantAffiliationByIdApi, getMerchantSubStoresByIdApi} from "src/actions/unirefund/CrmService/actions";
+} from "@repo/actions/unirefund/ContractService/action";
+import {getMerchantAffiliationByIdApi, getMerchantSubStoresByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
 import {RebateSettings} from "./_components/rebate-settings";

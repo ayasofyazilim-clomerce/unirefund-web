@@ -5,7 +5,7 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import {SaveIcon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {handlePutResponse} from "@repo/utils/api";
-import {putOrganizationUnitsByIdRolesApi} from "src/actions/core/IdentityService/put-actions";
+import {putOrganizationUnitsByIdRolesApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 type RolesTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityRoleDto>;

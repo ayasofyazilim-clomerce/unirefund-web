@@ -10,7 +10,7 @@ import {$UniRefund_CRMService_Organizations_UpdateOrganizationDto} from "@ayasof
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {handlePutResponse} from "@repo/utils/api";
-import {putTaxOfficeOrganizationApi} from "src/actions/unirefund/CrmService/put-actions";
+import {putTaxOfficeOrganizationApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 function OrganizationForm({

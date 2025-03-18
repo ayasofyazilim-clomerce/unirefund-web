@@ -8,7 +8,7 @@ import {CustomMultiSelectWidget} from "@repo/ayasofyazilim-ui/organisms/schema-f
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePutResponse} from "@repo/utils/api";
-import {putAssignableRolesApi} from "src/actions/core/IdentityService/put-actions";
+import {putAssignableRolesApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Form({

@@ -1,7 +1,7 @@
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantsApi} from "@/actions/unirefund/CrmService/actions";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import RebateTableHeaderUpdateForm from "./_components/form";
 

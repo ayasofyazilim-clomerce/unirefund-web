@@ -4,7 +4,7 @@ import type {GetApiFinanceServiceVatStatementHeadersData} from "@ayasofyazilim/s
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getVatStatementHeadersApi} from "src/actions/unirefund/FinanceService/actions";
+import {getVatStatementHeadersApi} from "@repo/actions/unirefund/FinanceService/actions";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
 import VatStatementTable from "./_components/table";
 

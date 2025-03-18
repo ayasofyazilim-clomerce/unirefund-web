@@ -7,8 +7,8 @@ import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {NovuProvider} from "@repo/ui/providers/novu";
+import {getInfoForCurrentTenantApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "@/language-data/core/Default";
-import {getInfoForCurrentTenantApi} from "@/actions/core/AdministrationService/actions";
 import {TenantProvider} from "@/providers/tenant";
 
 interface ProvidersProps {
