@@ -17,10 +17,6 @@ export function RefundFeeDetailsField({
       maxFee: 0,
       minFee: 0,
       percentFeeValue: 0,
-      percentFeeValueEarlyRefund: 0,
-      fixedFeeValueEarlyRefund: 0,
-      maxFeeEarlyRefund: 0,
-      minFeeEarlyRefund: 0,
     },
   ],
 }: {
