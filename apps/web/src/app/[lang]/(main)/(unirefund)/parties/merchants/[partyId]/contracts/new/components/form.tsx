@@ -51,18 +51,29 @@ export default function MerchantContractHeaderCreateForm({
       "ui:field": "RefundTableHeadersField",
     },
   };
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
   return (
     <SchemaForm<ContractHeaderForMerchantCreateDto>
       disabled={isPending}
       fields={{
-        RefundTableHeadersField: RefundTableHeadersField({refundTableHeaders, languageData}),
+        RefundTableHeadersField: RefundTableHeadersField({
+          data: [
+            {
+              refundTableHeaderId: refundTableHeaders[0]?.id || "",
+              validFrom: today.toISOString(),
+            },
+          ],
+          refundTableHeaders,
+          languageData,
+        }),
       }}
       formData={{
-        validFrom: new Date().toISOString(),
+        validFrom: today.toISOString(),
         refundTableHeaders: [
           {
             refundTableHeaderId: refundTableHeaders[0]?.id || "",
-            validFrom: new Date().toISOString(),
+            validFrom: today.toISOString(),
           },
         ],
         merchantClassification: "Satisfactory",
