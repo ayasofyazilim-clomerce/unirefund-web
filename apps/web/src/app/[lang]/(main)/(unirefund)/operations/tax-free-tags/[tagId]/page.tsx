@@ -91,10 +91,6 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: "Issue Date",
                 value: dateToString(tagDetail.issueDate || "", "tr"),
               },
-              {
-                name: "Expiration Date",
-                value: dateToString(tagDetail.expireDate || "", "tr"),
-              },
             ]}
             title={languageData.TagSummary}
           />

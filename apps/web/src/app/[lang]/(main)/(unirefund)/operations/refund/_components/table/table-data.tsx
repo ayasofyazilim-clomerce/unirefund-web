@@ -91,7 +91,6 @@ function taxFreeTagsTable(): RefundsTable {
         "travellerFullName",
         "travellerDocumentNumber",
         "issueDate",
-        "expireDate",
       ],
     },
   };
