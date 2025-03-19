@@ -7,6 +7,7 @@ import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 const statusArray = [
   "None",
   "Open",
+  "EarlyPaid",
   "PreIssued",
   "Issued",
   "WaitingGoodsValidation",
@@ -64,6 +65,7 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
             Open: "text-green-700 bg-green-100 border-green-300", // İşlem başladı
             Issued: "text-green-700 bg-green-100 border-green-300", // İşlem başladı
             ExportValidated: "text-green-700 bg-green-100 border-green-300", // İşlem başladı
+            EarlyPaid: "text-yellow-700 bg-yellow-100 border-yellow-300",
             PreIssued: "text-yellow-400 bg-yellow-100 border-yellow-300", // Hazırlık aşaması
             WaitingGoodsValidation: "text-yellow-500 bg-yellow-100 border-yellow-400", // Bekleyen işlemler
             WaitingStampValidation: "text-yellow-500 bg-yellow-100 border-yellow-400", // Bekleyen işlemler
