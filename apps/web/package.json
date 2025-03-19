@@ -26,12 +26,13 @@
   "dependencies": {
     "@auth/core": "^0.30.0",
     "@ayasofyazilim/core-saas": "latest",
-    "@ayasofyazilim/saas": "0.0.139",
+    "@ayasofyazilim/saas": "0.0.142",
     "@radix-ui/react-icons": "^1.3.0",
+    "@repo/actions": "workspace:*",
     "@repo/ayasofyazilim-ui": "workspace:^",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@repo/actions": "workspace:*",
+    "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-table": "8.16.0",
     "@types/google-libphonenumber": "^7.4.30",
     "dotenv": "^16.4.5",
@@ -44,7 +45,6 @@
     "next-auth": "5.0.0-beta.16",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "@tailwindcss/typography": "^0.5.10",
     "tailwindcss-animate": "^1.0.7",
     "zod": "3.24.2"
   },
