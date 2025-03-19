@@ -20,12 +20,12 @@ export default function TagActions({
   const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
 
   const status = tagDetail.status;
-  if (status !== "ExportValidated" && status !== "Issued") return null;
+  if (status !== "ExportValidated" && status !== "Issued" && status !== "EarlyPaid") return null;
 
   return (
     <TagCard icon={<PencilRuler />} title={languageData.TagActions}>
       <div className="flex flex-col gap-4">
-        {status === "Issued" && (
+        {(status === "Issued" || status === "EarlyPaid") && (
           <Button
             onClick={() => {
               router.push(`/operations/export-validations/${tagId}/new`);

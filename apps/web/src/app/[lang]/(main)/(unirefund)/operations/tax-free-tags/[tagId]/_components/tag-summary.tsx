@@ -33,7 +33,6 @@ function TagSummary({
             <div className="w-1/3 text-sm text-gray-500">{languageData.IssueDate}</div>
             <div className="w-2/3">
               <div className="font-semibold">{dateToString(tagDetail.issueDate || "", "tr")}</div>
-              <div className="text-gray-500">Exp: {dateToString(tagDetail.expireDate || "", "tr")}</div>
             </div>
           </div>
         </div>

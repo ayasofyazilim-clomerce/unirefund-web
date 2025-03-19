@@ -13,7 +13,7 @@
     "next-auth": "5.0.0-beta.16",
     "@auth/core": "^0.30.0",
     "@ayasofyazilim/core-saas": "latest",
-    "@ayasofyazilim/saas": "latest",
+    "@ayasofyazilim/saas": "0.0.142",
     "@repo/utils": "workspace:*",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
