@@ -51,6 +51,8 @@ export default function RefundPointContractHeaderCreateForm({
       "ui:field": "RefundFeeHeadersField",
     },
   };
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
   return (
     <SchemaForm<ContractHeaderForRefundPointCreateDto>
       disabled={isPending}
@@ -59,7 +61,7 @@ export default function RefundPointContractHeaderCreateForm({
           refundFeeHeaders,
           data: [
             {
-              validFrom: new Date().toISOString(),
+              validFrom: today.toISOString(),
               refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
               isDefault: true,
             },
@@ -68,11 +70,11 @@ export default function RefundPointContractHeaderCreateForm({
         }),
       }}
       formData={{
-        validFrom: new Date().toISOString(),
+        validFrom: today.toISOString(),
         refundFeeHeaders: [
           {
             refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
-            validFrom: new Date().toISOString(),
+            validFrom: today.toISOString(),
           },
         ],
         merchantClassification: "Satisfactory",

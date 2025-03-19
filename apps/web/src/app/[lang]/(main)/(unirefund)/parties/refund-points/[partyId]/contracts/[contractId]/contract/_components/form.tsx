@@ -66,6 +66,10 @@ export default function RefundPointContractHeaderUpdateForm({
       "ui:field": "RefundFeeHeadersField",
     },
   };
+  const validFrom = new Date(contractHeaderDetails.validFrom);
+  validFrom.setUTCHours(0, 0, 0, 0);
+  const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;
+  validTo?.setUTCHours(0, 0, 0, 0);
   return (
     <div className="space-y-2">
       <ContractActions
@@ -88,6 +92,8 @@ export default function RefundPointContractHeaderUpdateForm({
         }}
         formData={{
           ...contractHeaderDetails,
+          validFrom: validFrom.toISOString(),
+          validTo: validTo ? validTo.toISOString() : undefined,
           refundFeeHeaders: contractHeaderDetails.refundFeeHeaders.map((x) => ({
             refundFeeHeaderId: x.id,
             ...x,

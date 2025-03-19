@@ -72,6 +72,10 @@ export function MerchantContractHeaderUpdateForm({
       "ui:options": {},
     },
   };
+  const validFrom = new Date(contractHeaderDetails.validFrom);
+  validFrom.setUTCHours(0, 0, 0, 0);
+  const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;
+  validTo?.setUTCHours(0, 0, 0, 0);
   return (
     <div className="space-y-2">
       <ContractActions
@@ -94,6 +98,8 @@ export function MerchantContractHeaderUpdateForm({
         }}
         formData={{
           ...contractHeaderDetails,
+          validFrom: validFrom.toISOString(),
+          validTo: validTo ? validTo.toISOString() : undefined,
           refundTableHeaders: {
             ...contractHeaderDetails.refundTableHeaders.map((x) => ({
               ...x,
