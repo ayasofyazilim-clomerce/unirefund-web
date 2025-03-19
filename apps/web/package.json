@@ -26,7 +26,7 @@
   "dependencies": {
     "@auth/core": "^0.30.0",
     "@ayasofyazilim/core-saas": "latest",
-    "@ayasofyazilim/saas": "0.0.142",
+    "@ayasofyazilim/saas": "0.0.143",
     "@radix-ui/react-icons": "^1.3.0",
     "@repo/actions": "workspace:*",
     "@repo/ayasofyazilim-ui": "workspace:^",

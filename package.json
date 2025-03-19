@@ -22,6 +22,7 @@
     "precommit": "turbo lint && turbo type-check",
     "precommit:web": "npm run format:web && turbo lint --filter web && turbo type-check --filter web",
     "precommit:lintstaged": "cd apps/web && npx lint-staged",
+    "saas": "pnpm i @ayasofyazilim/saas@latest --filter ./apps/* --filter ./packages/actions",
     "unused": "npx knip"
   },
   "devDependencies": {

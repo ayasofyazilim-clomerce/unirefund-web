@@ -10,17 +10,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "next-auth": "5.0.0-beta.16",
     "@auth/core": "^0.30.0",
     "@ayasofyazilim/core-saas": "latest",
-    "@ayasofyazilim/saas": "0.0.142",
+    "@ayasofyazilim/saas": "0.0.143",
+    "@novu/api": "latest",
     "@repo/utils": "workspace:*",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "next": "14.2.20",
+    "next-auth": "5.0.0-beta.16",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "@novu/api": "latest"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@types/negotiator": "0.6.3"
