@@ -74,10 +74,10 @@ export async function signUpServerApi({
     });
     return structuredSuccessResponse("");
   } catch (error) {
-    const err = error as {message: string};
+    const err = error as {body: {error: {message: string}}};
     return {
       type: "error" as const,
-      message: err.message,
+      message: err?.body?.error.message,
     };
   }
 }
