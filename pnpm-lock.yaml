@@ -428,6 +428,9 @@ importers:
       '@vercel/blob':
         specifier: ^0.22.1
         version: 0.22.1
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
