@@ -1,8 +1,8 @@
 "use client";
 
-import { IdCardIcon } from "@radix-ui/react-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import {IdCardIcon} from "@radix-ui/react-icons";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 
 import {
   BookA,
@@ -40,7 +40,7 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
-import { Notification, NotificationProps } from "../../../components/notification";
+import {Notification, NotificationProps} from "../../../components/notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
@@ -53,13 +53,13 @@ export default function Navbar({
   navigation,
   lang,
   tenantData,
-  notification
+  notification,
 }: {
   prefix: string;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
-  tenantData?: { tenantId: string; tenantName: string };
+  tenantData?: {tenantId: string; tenantName: string};
   notification?: NotificationProps;
 }) {
   return (
@@ -69,22 +69,24 @@ export default function Navbar({
           <div className="flex items-center justify-start">
             <Logo />
             {tenantData && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    className="text-muted-foreground font-light"
-                    onClick={() => {
-                      if (navigator.clipboard) {
-                        navigator.clipboard.writeText(tenantData.tenantId);
-                      } else {
-                        alert(tenantData.tenantId);
-                      }
-                    }}>
-                    □ {tenantData.tenantName}
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent className="bg-black">Click to copy tenant id.</TooltipContent>
-              </Tooltip>
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      className="text-muted-foreground flex items-center border-l pl-2 font-light"
+                      onClick={() => {
+                        if (navigator.clipboard) {
+                          navigator.clipboard.writeText(tenantData.tenantId);
+                        } else {
+                          alert(tenantData.tenantId);
+                        }
+                      }}>
+                      {tenantData.tenantName}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-black">Click to copy tenant id.</TooltipContent>
+                </Tooltip>
+              </>
             )}
           </div>
           <div className="flex items-center lg:order-2">
