@@ -2014,6 +2014,7 @@ export type FinanceServiceResources = {
   "UniRefund.FinanceService:01004": "Year or month value is invalid! The year should have 4 digits. The month(int) can just be between 1 and 12.";
   "UniRefund.FinanceService:01005": "No VATStatement found for given year month pairs: {invalidDatesString}";
   "Permission:FormBulkPreview": "Form Bulk Preview";
+  "Permission:ExportExcelFile": "Export Excel File";
 };
 export type LeptonXResources = {
   Login: "Login";
