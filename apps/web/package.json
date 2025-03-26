@@ -32,6 +32,7 @@
     "@repo/actions": "workspace:*",
     "@repo/ayasofyazilim-ui": "workspace:^",
     "@repo/ui": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-table": "8.16.0",
     "@types/google-libphonenumber": "^7.4.30",
