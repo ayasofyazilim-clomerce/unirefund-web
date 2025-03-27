@@ -2,7 +2,7 @@
 
 import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/unirefund/TagService";
-import Filter from "./_components/filter";
+import ClientPage from "./client";
 
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;
@@ -14,7 +14,7 @@ export default async function Page({params}: {params: {lang: string}}) {
   const {languageData} = await getResourceData(lang);
   return (
     <div className="flex h-full flex-col overflow-auto">
-      <Filter languageData={languageData} />
+      <ClientPage languageData={languageData} />
     </div>
   );
 }
