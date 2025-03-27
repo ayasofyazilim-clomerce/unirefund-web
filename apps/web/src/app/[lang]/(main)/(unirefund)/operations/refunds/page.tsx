@@ -58,5 +58,9 @@ export default async function Page({params, searchParams}: {params: {lang: strin
   const {requiredRequests} = apiRequests;
   const [refundResponse] = requiredRequests;
 
-  return <RefundsTable languageData={languageData} locale={lang} response={refundResponse.data} />;
+  return (
+    <div className="mt-6 rounded-lg border border-gray-200 p-6 shadow-sm">
+      <RefundsTable languageData={languageData} locale={lang} response={refundResponse.data} />
+    </div>
+  );
 }
