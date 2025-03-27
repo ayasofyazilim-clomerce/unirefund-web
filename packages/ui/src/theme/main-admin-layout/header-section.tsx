@@ -119,6 +119,8 @@ export function HeaderSection() {
       />
       {pathName.split(lang + "/")[1] !== "unauthorized" && (
         <PageHeader
+          align="center"
+          size="large"
           title={pageHeaderProps.title}
           description={pageHeaderProps.description}
           LinkElement={pageBackEnabled ? Link : undefined}
