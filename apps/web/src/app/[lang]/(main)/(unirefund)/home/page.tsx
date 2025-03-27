@@ -1,5 +1,9 @@
-import Charts from "./charts";
+// import Charts from "./charts";
+import dynamic from "next/dynamic";
 
+const Dashboard = dynamic(() => import("./dashboard"), {
+  ssr: false,
+});
 export default function Page() {
-  return <Charts />;
+  return <Dashboard />;
 }
