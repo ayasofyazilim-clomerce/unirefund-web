@@ -583,6 +583,16 @@
     "displayOrder": 1
   },
   {
+    "key": "operations/new-tag",
+    "displayName": "NewTag",
+    "description": "Create a new tag.",
+    "href": "operations/new-tag",
+    "icon": "new",
+    "parentNavbarItemKey": "operations",
+    "displayOrder": 1,
+    "requiredPolicies": ["TagService.Tags"]
+  },
+  {
     "key": "operations/tax-free-tags",
     "displayName": "TaxFreeTags",
     "description": "Manage tax-free tags and settings.",
