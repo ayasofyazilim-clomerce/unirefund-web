@@ -60,6 +60,9 @@ importers:
       '@repo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@superset-ui/embedded-sdk':
+        specifier: ^0.1.3
+        version: 0.1.3
       '@tailwindcss/typography':
         specifier: ^0.5.10
         version: 0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
@@ -159,7 +162,7 @@ importers:
         version: 0.0.143(magicast@0.3.5)(openapi-types@12.1.3)
       '@novu/api':
         specifier: latest
-        version: 0.5.0(zod@3.24.2)
+        version: 0.6.1(zod@3.24.2)
       '@repo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -2410,8 +2413,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@novu/api@0.5.0':
-    resolution: {integrity: sha512-rqgfrp5HdMwjRPpI9algGx4X+cWXhMEh1Q4VJysfOc6fep8qg2D3ua1e9dU3zuzNz6+fhnrfZaGb2WYRjX5Mvw==}
+  '@novu/api@0.6.1':
+    resolution: {integrity: sha512-0N6LGJ5WeNM5nFQT2uPzbkKE+ryvY+75M6LUfyDC5nF1rEw2wt8QAviq0Gv6YAyidfltq1bv1xfEJP5845DwSA==}
     hasBin: true
     peerDependencies:
       '@modelcontextprotocol/sdk': ^1.5.0
@@ -4197,6 +4200,12 @@ packages:
     resolution: {integrity: sha512-lJCarAzswZvUgBt/o1LMJp+07Io5G2VI1+Fw+bgn+92kRD8otCFwuMZIy0u7cEjHiEGqGnpzThlIki6vFjEXeA==}
     peerDependencies:
       storybook: ^8.3.0
+
+  '@superset-ui/embedded-sdk@0.1.3':
+    resolution: {integrity: sha512-7NJMTx+rWzOzY0CHTFkh+iZjxsvz9ga8HJxpAN/LaY+uM6jBObbzo8KXah6qcX6no2wEfOQYdSazDPfWOrnHQw==}
+
+  '@superset-ui/switchboard@0.20.3':
+    resolution: {integrity: sha512-qEMXFwdRLfXug4gXXdBEGpFtBWZoxdZkCJLBVxj1IR8cQvSqjkWAQOzSSYYdcIeREWqi8iP+iK6apNV1ZQCKcA==}
 
   '@swc/core-darwin-arm64@1.7.26':
     resolution: {integrity: sha512-FF3CRYTg6a7ZVW4yT9mesxoVVZTrcSWtmZhxKCYJX9brH4CS/7PRPjAKNk6kzWgWuRoglP7hkjQcd6EpMcZEAw==}
@@ -7685,6 +7694,10 @@ packages:
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
+
+  jwt-decode@4.0.0:
+    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
+    engines: {node: '>=18'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -12214,7 +12227,7 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@novu/api@0.5.0(zod@3.24.2)':
+  '@novu/api@0.6.1(zod@3.24.2)':
     dependencies:
       zod: 3.24.2
 
@@ -14733,6 +14746,13 @@ snapshots:
   '@storybook/theming@8.3.0(storybook@8.3.0)':
     dependencies:
       storybook: 8.3.0
+
+  '@superset-ui/embedded-sdk@0.1.3':
+    dependencies:
+      '@superset-ui/switchboard': 0.20.3
+      jwt-decode: 4.0.0
+
+  '@superset-ui/switchboard@0.20.3': {}
 
   '@swc/core-darwin-arm64@1.7.26':
     optional: true
@@ -18775,6 +18795,8 @@ snapshots:
       array.prototype.flat: 1.3.2
       object.assign: 4.1.5
       object.values: 1.2.0
+
+  jwt-decode@4.0.0: {}
 
   keyv@4.5.4:
     dependencies:
