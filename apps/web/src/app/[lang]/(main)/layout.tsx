@@ -9,7 +9,7 @@ import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {myProfileApi} from "@repo/actions/core/AccountService/actions";
-import {getInfoForCurrentTenantApi} from "@repo/actions/core/AdministrationService/actions";
+import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";

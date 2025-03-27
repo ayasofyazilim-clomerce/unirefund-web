@@ -1,4 +1,4 @@
-import {AdministrationServiceClient as AdministrationServiceClient_Unirefund} from "@ayasofyazilim/saas/AdministrationService";
+import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationService";
 import {ContractServiceClient} from "@ayasofyazilim/saas/ContractService";
 import {CRMServiceClient} from "@ayasofyazilim/saas/CRMService";
 import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
@@ -105,10 +105,10 @@ export async function getContractServiceClient(session?: Session | null) {
     HEADERS,
   });
 }
-export async function getAdministrationServiceClient_Unirefund(session?: Session | null) {
+export async function getAdministrationServiceClient(session?: Session | null) {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
-  return new AdministrationServiceClient_Unirefund({
+  return new AdministrationServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
     HEADERS,

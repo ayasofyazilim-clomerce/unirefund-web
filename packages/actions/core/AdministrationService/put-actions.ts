@@ -5,7 +5,6 @@ import type {
   PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameData,
   PutApiLanguageManagementLanguageTextsByResourceNameByCultureNameByNameRestoreData,
   PutApiPermissionManagementPermissionsData,
-  UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto,
 } from "@ayasofyazilim/core-saas/AdministrationService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {getAdministrationServiceClient} from "../lib";
@@ -14,19 +13,6 @@ export async function putPermissionsApi(data: PutApiPermissionManagementPermissi
   try {
     const client = await getAdministrationServiceClient();
     const dataResponse = await client.permissions.putApiPermissionManagementPermissions(data);
-    return structuredResponse(dataResponse);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function putCountrySettingsApi(
-  data: UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto,
-) {
-  try {
-    const client = await getAdministrationServiceClient();
-    const dataResponse = await client.countrySetting.putApiAdministrationServiceCountrySettingsSetValues({
-      requestBody: data,
-    });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
