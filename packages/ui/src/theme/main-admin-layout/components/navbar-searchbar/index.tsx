@@ -144,7 +144,7 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
       {/* Big Screen */}
       <Button
         variant="outline"
-        className="text-muted-foreground relative hidden w-48 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block md:w-48 "
+        className="text-muted-foreground relative hidden w-48 md:w-96 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block"
         onClick={() => setSearchOpen(true)}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-xs">
           <Search className="mr-2 size-4 text-gray-500" />
