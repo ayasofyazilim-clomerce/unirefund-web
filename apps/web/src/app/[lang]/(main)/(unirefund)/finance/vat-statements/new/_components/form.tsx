@@ -11,7 +11,7 @@ import {$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDt
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
 import {
@@ -36,6 +36,8 @@ export default function VatStatementForm({
     useState<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto>();
   const [vatStatementData, setVatStatementData] =
     useState<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto[]>();
+
+  const {lang} = useParams<{lang: string}>();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto,
@@ -77,6 +79,7 @@ export default function VatStatementForm({
                       vatStatementDate: new Date().toISOString(),
                     }
                   }
+                  locale={lang}
                   onChange={(e) => {
                     set_FormData(e.formData);
                   }}

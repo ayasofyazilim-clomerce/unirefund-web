@@ -11,7 +11,7 @@ import {$UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCr
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
 import {
@@ -35,6 +35,7 @@ export default function RebateStatementForm({
     useState<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto>();
   const [rebateStatementData, setRebateStatementData] =
     useState<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto[]>();
+  const {lang} = useParams<{lang: string}>();
 
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto,
@@ -89,6 +90,7 @@ export default function RebateStatementForm({
                       ],
                     }
                   }
+                  locale={lang}
                   onChange={(e) => {
                     set_FormData(e.formData);
                   }}
