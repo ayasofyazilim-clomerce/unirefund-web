@@ -43,8 +43,8 @@ importers:
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/saas':
-        specifier: 0.0.143
-        version: 0.0.143(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.144
+        version: 0.0.144(magicast@0.3.5)(openapi-types@12.1.3)
       '@radix-ui/react-icons':
         specifier: ^1.3.0
         version: 1.3.0(react@18.3.1)
@@ -155,11 +155,11 @@ importers:
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/saas':
-        specifier: 0.0.143
-        version: 0.0.143(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.144
+        version: 0.0.144(magicast@0.3.5)(openapi-types@12.1.3)
       '@novu/api':
         specifier: latest
-        version: 0.5.0(zod@3.24.2)
+        version: 0.6.1(zod@3.24.2)
       '@repo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -930,8 +930,8 @@ packages:
   '@ayasofyazilim/saas@0.0.142':
     resolution: {integrity: sha512-x9l/D5cWKBzK8kkQmXi7Y/W1vzNBY39/utACsNIu2KTX0CqNLuahe1VSKDZnpIf+RwWjYTUv3zN3IWfuU4s9rQ==}
 
-  '@ayasofyazilim/saas@0.0.143':
-    resolution: {integrity: sha512-o+jYiTPM3Z/3ZmV2/Tpznlcn8F+L6SgfTrKDfBjj9krndC4QXzRfTbYFjCge1w0BGwrhcBtcVl9ihi+/ohcdHA==}
+  '@ayasofyazilim/saas@0.0.144':
+    resolution: {integrity: sha512-PEoM0Oqo/bNPV/ktxlXe27rlEMRK/fmituMln3IEmAicE99HMZM7GNJwnDstrjrV/dlNUZi2LUBZJL6AM13kNw==}
 
   '@ayasofyazilim/sdk_generator@0.0.13':
     resolution: {integrity: sha512-Iof0t+ZKdIEJS2ddm2HBqSMncalBNyKsYYlMq1tkH8vQHgtG7kZMPy2YTRHP6WlH/CKcHC3R5ulOf8xmC2H3UA==}
@@ -2410,8 +2410,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@novu/api@0.5.0':
-    resolution: {integrity: sha512-rqgfrp5HdMwjRPpI9algGx4X+cWXhMEh1Q4VJysfOc6fep8qg2D3ua1e9dU3zuzNz6+fhnrfZaGb2WYRjX5Mvw==}
+  '@novu/api@0.6.1':
+    resolution: {integrity: sha512-0N6LGJ5WeNM5nFQT2uPzbkKE+ryvY+75M6LUfyDC5nF1rEw2wt8QAviq0Gv6YAyidfltq1bv1xfEJP5845DwSA==}
     hasBin: true
     peerDependencies:
       '@modelcontextprotocol/sdk': ^1.5.0
@@ -10688,7 +10688,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/saas@0.0.143(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.144(magicast@0.3.5)(openapi-types@12.1.3)':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.1.0
@@ -12214,7 +12214,7 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@novu/api@0.5.0(zod@3.24.2)':
+  '@novu/api@0.6.1(zod@3.24.2)':
     dependencies:
       zod: 3.24.2
 
