@@ -69,7 +69,7 @@ export default function ClientPage({
           tabList={tabList}>
           <SummarySection languageData={languageData} totalDataOfSelectedTags={totalDataOfSelectedTags} />
           <div className="grid grid-cols-10 gap-5">
-            <div className="col-span-6">
+            <div className="col-span-6 rounded-lg border border-gray-200 p-6 shadow-sm">
               <ExportValidatedTable
                 languageData={languageData}
                 locale={locale}
@@ -80,7 +80,7 @@ export default function ClientPage({
 
             <div
               className={cn(
-                "col-span-4 h-full overflow-hidden",
+                "col-span-4 h-full overflow-hidden rounded-lg border border-gray-200 p-7 shadow-sm",
                 selectedRows.length ? "" : "pointer-events-none opacity-30",
               )}>
               <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} />

@@ -43,7 +43,9 @@ export function RefundForm({
   }
   return (
     <>
-      <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-6">{selectedRows.length} transaction selected</div>
+      <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-2 text-center">
+        {selectedRows.length} transaction selected
+      </div>
       {!canRefundable && (
         <Alert className="my-3" variant="destructive">
           <AlertCircle className="h-4 w-4" />
@@ -53,7 +55,7 @@ export function RefundForm({
           </AlertDescription>
         </Alert>
       )}
-      <div className="my-3 flex flex-col space-y-1.5">
+      <div className="my-3 flex flex-col space-y-1.5 text-center">
         <div className="font-semibold leading-none">Payment Method</div>
         <div className="text-muted-foreground text-sm">Select a payment method.</div>
       </div>

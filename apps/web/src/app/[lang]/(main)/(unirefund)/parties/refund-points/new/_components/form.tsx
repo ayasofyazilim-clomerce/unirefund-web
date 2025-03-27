@@ -52,7 +52,7 @@ export default function RefundPointOrganizationForm({
 
   const $createRefundPointOrganizationHeadquarterSchema = createZodObject(
     $UniRefund_CRMService_RefundPoints_CreateRefundPointOrganizationFormDto,
-    ["organization", "address", "taxpayerId", "taxOfficeId", "telephone", "email"],
+    ["organization", "taxpayerId", "taxOfficeId", "address", "telephone", "email"],
     undefined,
     {
       ...refundPointOrganizationFormSubPositions,
@@ -128,68 +128,74 @@ export default function RefundPointOrganizationForm({
   }
 
   return (
-    <AutoForm
-      className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
-      fieldConfig={{
-        taxOfficeId: {
-          containerClassName: "lg:col-span-2 border p-4 rounded-md",
-          renderer: (props: AutoFormInputComponentProps) => {
-            return (
-              <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
-                childrenProps={props}
-                list={taxOfficeList}
-                selectIdentifier="id"
-                selectLabel="name"
-              />
-            );
-          },
-        },
-        address: {
-          ...addressSchemaFieldConfig,
-          className: parentId ? "row-span-3" : "row-span-5",
-        },
-        organization: {
-          className: "lg:col-span-2",
-        },
-        email: {
-          className: parentId ? "lg:col-span-2 border p-4 rounded-md" : "",
-          containerClassName: parentId ? "" : "col-span-2",
-          emailAddress: {
-            inputProps: {
-              type: "email",
-            },
-          },
-        },
-        taxpayerId: {
-          containerClassName: "lg:col-span-2 border p-4 rounded-md",
-        },
-        telephone: {
-          className: parentId ? "lg:col-span-2 border p-4 rounded-md" : "",
-          containerClassName: parentId ? "" : "col-span-2",
-          localNumber: {
-            fieldType: "phone",
-            displayName: languageData.Telephone,
-            inputProps: {
-              showLabel: true,
-            },
-          },
-        },
-      }}
-      formSchema={
-        parentId ? $createRefundPointOrganizationStoreSchema : $createRefundPointOrganizationHeadquarterSchema
-      }
-      onSubmit={(formData) => {
-        setLoading(true);
-        handleSaveRefundPointOrganization(formData as CreateRefundPointOrganizationSchema);
-      }}
-      onValuesChange={(values) => {
-        onAddressValueChanged(values);
-      }}
-      stickyChildren
-      stickyChildrenClassName="sticky px-6">
-      <AutoFormSubmit className="float-right" disabled={loading}>
-        {languageData.Save}
-      </AutoFormSubmit>
-    </AutoForm>
+    <div className="flex w-full justify-center overflow-y-auto py-6">
+      <div className="w-full max-w-5xl">
+        <div className="p-6">
+          <AutoForm
+            className="grid gap-4 md:grid-cols-2"
+            fieldConfig={{
+              taxOfficeId: {
+                containerClassName: "md:col-span-1 p-4 rounded-md  border-none",
+                renderer: (props: AutoFormInputComponentProps) => {
+                  return (
+                    <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
+                      childrenProps={props}
+                      list={taxOfficeList}
+                      selectIdentifier="id"
+                      selectLabel="name"
+                    />
+                  );
+                },
+              },
+              taxpayerId: {
+                containerClassName: "md:col-span-1 p-4 rounded-md  border-none",
+              },
+              organization: {
+                className: "md:col-span-2  p-4 rounded-md border-none",
+              },
+              address: {
+                ...addressSchemaFieldConfig,
+                className: "md:col-span-2  p-4 rounded-md border-none",
+              },
+              email: {
+                className: "md:col-span-1  p-4 rounded-md border-none",
+                emailAddress: {
+                  inputProps: {
+                    type: "email",
+                  },
+                },
+              },
+              telephone: {
+                className: "md:col-span-1  p-4 rounded-md border-none",
+                localNumber: {
+                  fieldType: "phone",
+                  displayName: languageData.Telephone,
+                  inputProps: {
+                    showLabel: true,
+                  },
+                },
+              },
+            }}
+            formSchema={
+              parentId ? $createRefundPointOrganizationStoreSchema : $createRefundPointOrganizationHeadquarterSchema
+            }
+            onSubmit={(formData) => {
+              setLoading(true);
+              handleSaveRefundPointOrganization(formData as CreateRefundPointOrganizationSchema);
+            }}
+            onValuesChange={(values) => {
+              onAddressValueChanged(values);
+            }}
+            stickyChildren
+            stickyChildrenClassName="sticky mt-6 flex justify-end">
+            <AutoFormSubmit
+              className="bg-primary hover:bg-primary/90 rounded-md px-6 py-2 text-white transition-colors"
+              disabled={loading}>
+              {languageData.Save}
+            </AutoFormSubmit>
+          </AutoForm>
+        </div>
+      </div>
+    </div>
   );
 }
