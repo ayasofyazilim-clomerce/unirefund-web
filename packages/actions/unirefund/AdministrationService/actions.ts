@@ -1,8 +1,7 @@
 "use server";
-import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
+import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "next-auth";
 import {getAdministrationServiceClient} from "../lib";
-
 export async function getInfoForCurrentTenantApi(session?: Session | null) {
   try {
     const client = await getAdministrationServiceClient(session);
@@ -15,11 +14,11 @@ export async function getInfoForCurrentTenantApi(session?: Session | null) {
 }
 
 export async function getCountrySettingsApi() {
+  const api_client = await getAdministrationServiceClient();
   try {
-    const client = await getAdministrationServiceClient();
-    const dataResponse = await client.countrySetting.getApiAdministrationServiceCountrySettings();
-    return structuredResponse(dataResponse);
+    const response = await api_client.countrySetting.getApiAdministrationServiceCountrySettings();
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
