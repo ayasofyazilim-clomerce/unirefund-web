@@ -1,17 +1,15 @@
 "use client";
-import type {
-  UniRefund_AdministrationService_CountrySettings_SetCountrySettingsByListDto as SetCountrySettingsByListDto,
-  UniRefund_AdministrationService_CountrySettings_CountrySettingDto as CountrySettingDto,
-  UniRefund_AdministrationService_Items_GroupItemDto as GroupItemDto,
-} from "@ayasofyazilim/core-saas/AdministrationService";
-import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import AutoForm, {AutoFormSubmit} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import type {UniRefund_AdministrationService_CountrySettings_CountrySettingDto as CountrySettingDto} from "@ayasofyazilim/saas/AdministrationService";
+import {putCountrySettingsApi} from "@repo/actions/unirefund/AdministrationService/put-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import {notFound, useParams, useRouter} from "next/navigation";
+import {cn} from "@repo/ui/utils";
 import {handlePutResponse} from "@repo/utils/api";
-import {putCountrySettingsApi} from "@repo/actions/core/AdministrationService/put-actions";
+import {notFound, useParams, useRouter} from "next/navigation";
+import {useTransition} from "react";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
-import {createDependencies, createFieldConfig, createSchema} from "./_components/utils";
+import {createSchema, createUiSchema} from "./_components/schema";
+import {createTabListFromList, manupulatedData} from "./_components/utils";
 
 export default function TenantSettingsPage({
   list,
@@ -21,48 +19,33 @@ export default function TenantSettingsPage({
   languageData: AdministrationServiceResource;
 }) {
   const router = useRouter();
-  const {group} = useParams<{group: string}>();
+  const {group, lang} = useParams<{group: string; lang: string}>();
+  const [isPending, startTransition] = useTransition();
   const activeGroup = list.groups.find((x) => x.key === group) || list.groups.at(0);
   if (!activeGroup) return notFound();
-
-  const schema = createSchema(activeGroup);
-  const formSchema = createZodObject(schema, activeGroup.items?.map((item: GroupItemDto) => item.key) || []);
-  const fieldConfig = createFieldConfig(activeGroup, languageData);
-  const dependencies = createDependencies(activeGroup);
+  const $schema = createSchema({group: activeGroup, languageData});
+  const uiSchema = createUiSchema({group: activeGroup});
   const tabList = createTabListFromList(list, languageData);
   return (
     <TabLayout orientation="vertical" tabList={tabList}>
-      <AutoForm
-        className="w-full"
-        dependencies={dependencies}
-        fieldConfig={fieldConfig}
-        formSchema={formSchema}
-        onSubmit={(data) => {
-          const manupulatedData = {
-            countrySettings: Object.keys(data).map((key) => {
-              return {
-                key,
-                value: (data[key] as string).toString(),
-              };
-            }),
-          };
-
-          void putCountrySettingsApi(manupulatedData as SetCountrySettingsByListDto).then((response) => {
-            handlePutResponse(response, router);
+      <SchemaForm
+        className={cn("max-w-lg", activeGroup.items && activeGroup.items.length > 5 && "max-w-3xl")}
+        defaultSubmitClassName="justify-start [&>button]:w-full"
+        disableValidation
+        disabled={isPending}
+        locale={lang}
+        onSubmit={({formData}) => {
+          if (!formData) return;
+          const requestBody = manupulatedData(formData);
+          startTransition(() => {
+            void putCountrySettingsApi(requestBody).then((response) => {
+              handlePutResponse(response, router);
+            });
           });
         }}
-        stickyChildren>
-        <AutoFormSubmit className="float-right" />
-      </AutoForm>
+        schema={$schema}
+        uiSchema={uiSchema}
+      />
     </TabLayout>
   );
-}
-
-function createTabListFromList(list: CountrySettingDto, languageData: AdministrationServiceResource) {
-  return list.groups.map((item) => {
-    return {
-      label: languageData[item.displayName as keyof typeof languageData] || item.displayName,
-      href: item.key,
-    };
-  });
 }
