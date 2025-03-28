@@ -43,27 +43,29 @@ export default async function Page({
   const currencyFormatter = localizeCurrency(lang);
   const summary = tagSummaryResponse.data;
   return (
-    <div className="flex h-full flex-col overflow-auto">
-      <div className="mb-3 grid grid-cols-3 gap-4">
-        <TagSummary
-          icon={<Tags className="size-4" />}
-          title={languageData.TotalTags}
-          value={tagsResponse.data.totalCount || 0}
-        />
-        <TagSummary
-          icon={<DollarSign className="size-4" />}
-          title={languageData.Sales}
-          value={currencyFormatter(summary.totalSalesAmount || 0, summary.currency || "TRY")}
-        />
-        <TagSummary
-          icon={<CreditCard className="size-4" />}
-          title={languageData.Refunds}
-          value={currencyFormatter(summary.totalRefundAmount || 0, summary.currency || "TRY")}
-        />
+    <div className="mt-4 flex h-full w-full flex-row gap-4 overflow-auto">
+      <div className=" mb-3 gap-4">
+        <Filter className="peer data-[state=open]:col-span-4" defaultOpen isCollapsible languageData={languageData} />
       </div>
-      <div className="grid grid-cols-12 gap-4">
-        <Filter className="peer data-[state=open]:col-span-4" languageData={languageData} />
-        <div className="col-span-8 flex flex-col gap-3 peer-data-[state=closed]:col-span-full">
+      <div className="flex w-full flex-col peer-data-[state=closed]:w-full">
+        <div className="grid grid-cols-3 gap-4">
+          <TagSummary
+            icon={<Tags className="size-4" />}
+            title={languageData.TotalTags}
+            value={tagsResponse.data.totalCount || 0}
+          />
+          <TagSummary
+            icon={<DollarSign className="size-4" />}
+            title={languageData.Sales}
+            value={currencyFormatter(summary.totalSalesAmount || 0, summary.currency || "TRY")}
+          />
+          <TagSummary
+            icon={<CreditCard className="size-4" />}
+            title={languageData.Refunds}
+            value={currencyFormatter(summary.totalRefundAmount || 0, summary.currency || "TRY")}
+          />
+        </div>
+        <div className="col-span-8 mt-4 flex flex-col gap-3 rounded-lg border border-gray-200 p-4 shadow-sm peer-data-[state=closed]:col-span-full">
           <TaxFreeTagsSearchForm languageData={languageData} />
           <TaxFreeTagsTable languageData={languageData} response={tagsResponse.data} />
         </div>

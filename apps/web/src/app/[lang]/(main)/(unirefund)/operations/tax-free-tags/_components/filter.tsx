@@ -16,10 +16,12 @@ export default function Filter({
   languageData,
   className,
   defaultOpen,
+  isCollapsible,
 }: {
   languageData: TagServiceResource;
   className?: string;
   defaultOpen?: boolean;
+  isCollapsible?: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -113,6 +115,7 @@ export default function Filter({
       className={className}
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
+      isCollapsible={isCollapsible}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
     />
