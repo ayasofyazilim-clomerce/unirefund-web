@@ -1,8 +1,5 @@
 "use server";
 
-import {isUnauthorized} from "@repo/utils/policies";
-import {isErrorOnRequest} from "@repo/utils/api";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getAllRolesApi,
   getUserDetailsByIdApi,
@@ -10,9 +7,28 @@ import {
   getUsersByIdOrganizationUnitsApi,
   getUsersByIdRolesApi,
 } from "@repo/actions/core/IdentityService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {isErrorOnRequest, structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/core/IdentityService";
 import Form from "./_components/form";
 
+async function getApiRequests() {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([]);
+
+    const optionalRequests = await Promise.allSettled([getAllRolesApi(session)]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
 export default async function Page({params}: {params: {lang: string; userId: string}}) {
   const {lang, userId} = params;
   const {languageData} = await getResourceData(lang);
@@ -21,14 +37,18 @@ export default async function Page({params}: {params: {lang: string; userId: str
     lang,
   });
 
+  const apiRequests = await getApiRequests();
+
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+  }
+  const {optionalRequests} = apiRequests;
+  const [allRolesResponse] = optionalRequests;
+
+  const allRoles = allRolesResponse.status === "fulfilled" ? allRolesResponse.value.data.items || [] : [];
   const userDetailsResponse = await getUserDetailsByIdApi(userId);
   if (isErrorOnRequest(userDetailsResponse, lang, false)) {
     return <ErrorComponent languageData={languageData} message={userDetailsResponse.message} />;
-  }
-
-  const rolesResponse = await getAllRolesApi();
-  if (isErrorOnRequest(rolesResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={rolesResponse.message} />;
   }
 
   const organizationResponse = await getUsersAvailableOrganizationUnitsApi();
@@ -51,7 +71,7 @@ export default async function Page({params}: {params: {lang: string; userId: str
       <Form
         languageData={languageData}
         organizationList={organizationResponse.data.items || []}
-        roleList={rolesResponse.data.items || []}
+        roleList={allRoles}
         userDetailsData={userDetailsResponse.data}
         userOrganizationUnits={userOrganizationResponse.data}
         userRoles={userRolesResponse.data.items || []}
