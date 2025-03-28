@@ -179,6 +179,7 @@ export default function ClientPage({
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
       disabled={isPending}
+      isCollapsible={false}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
     />
