@@ -12,7 +12,7 @@ export function TagSummary({
   textColor?: string;
 }) {
   return (
-    <Card>
+    <Card className="rounded-lg shadow-sm">
       <CardContent className="m-auto flex flex-wrap justify-between p-3">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         {icon ? icon : <div className={`font-bold ${textColor}`}>{value}</div>}

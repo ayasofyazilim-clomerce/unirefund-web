@@ -54,38 +54,40 @@ export default function ClientPage({
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto mt-6 space-y-4">
       <TravellerDocumentForm accessibleRefundPoints={accessibleRefundPoints} languageData={languageData} />
+      <div className=" rounded-lg border border-gray-200 p-6 shadow-sm">
+        <TabLayout
+          classNames={{
+            horizontal: {
+              tabList: "grid w-full max-w-3xl grid-cols-2 mx-auto mb-4",
+              tabTrigger: "h-full text-center",
+              tabContent: "mx-auto w-full max-w-7xl ",
+            },
+          }}
+          orientation="horizontal"
+          tabList={tabList}>
+          <SummarySection languageData={languageData} totalDataOfSelectedTags={totalDataOfSelectedTags} />
+          <div className="grid grid-cols-10 gap-5">
+            <div className="col-span-6 rounded-lg border border-gray-200 p-6 shadow-sm">
+              <ExportValidatedTable
+                languageData={languageData}
+                locale={locale}
+                response={response}
+                setSelectedRows={setSelectedRows}
+              />
+            </div>
 
-      <TabLayout
-        classNames={{
-          horizontal: {
-            tabList: "grid h-16 w-full grid-cols-2",
-            tabTrigger: "h-full text-center",
-          },
-        }}
-        orientation="horizontal"
-        tabList={tabList}>
-        <SummarySection languageData={languageData} totalDataOfSelectedTags={totalDataOfSelectedTags} />
-        <div className="grid grid-cols-10 gap-5">
-          <div className="col-span-6">
-            <ExportValidatedTable
-              languageData={languageData}
-              locale={locale}
-              response={response}
-              setSelectedRows={setSelectedRows}
-            />
+            <div
+              className={cn(
+                "col-span-4 h-full overflow-hidden rounded-lg border border-gray-200 p-7 shadow-sm",
+                selectedRows.length ? "" : "pointer-events-none opacity-30",
+              )}>
+              <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} />
+            </div>
           </div>
-
-          <div
-            className={cn(
-              "col-span-4 h-full overflow-hidden",
-              selectedRows.length ? "" : "pointer-events-none opacity-30",
-            )}>
-            <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} />
-          </div>
-        </div>
-      </TabLayout>
+        </TabLayout>
+      </div>
     </div>
   );
 }
