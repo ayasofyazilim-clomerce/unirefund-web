@@ -223,7 +223,10 @@ function SearchBar({
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogTitle></DialogTitle>
         <Command filter={filterNavItems}>
-          <CommandInput placeholder="Type a commond or search..." onValueChange={(s) => searchDB(s)} />
+          <CommandInput
+            placeholder="Type to search or type merchants: to search merchants"
+            onValueChange={(s) => searchDB(s)}
+          />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             {favourites.length > 0 && (
