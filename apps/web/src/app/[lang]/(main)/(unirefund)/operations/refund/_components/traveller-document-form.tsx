@@ -50,11 +50,11 @@ export default function TravellerDocumentForm({
 
   return (
     <form
-      className="mt-6 flex w-full items-end justify-center gap-4"
+      className="mt-6 flex w-full items-end justify-center gap-6 rounded-lg border border-gray-200 p-6"
       onSubmit={(e) => {
         e.preventDefault();
       }}>
-      <div className="grid max-w-lg items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="traveller-document-no">{languageData.TravellerDocumentNo}</Label>
         <Input
           disabled={isPending}
@@ -66,7 +66,7 @@ export default function TravellerDocumentForm({
           value={travellerDocumentNoInput}
         />
       </div>
-      <div className="grid max-w-lg items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="traveller-document-no">{languageData.TaxFreeTagID}</Label>
         <Input
           disabled={isPending}
@@ -78,7 +78,7 @@ export default function TravellerDocumentForm({
           value={tagIdInput}
         />
       </div>
-      <div className="grid max-w-lg items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="refund-point">{languageData.RefundPoint}</Label>
         <Combobox<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>
           list={accessibleRefundPoints}
@@ -89,7 +89,7 @@ export default function TravellerDocumentForm({
         />
       </div>
       <Button
-        className="w-24"
+        className="px-12"
         disabled={
           isPending ||
           !travellerDocumentNoInput.length ||

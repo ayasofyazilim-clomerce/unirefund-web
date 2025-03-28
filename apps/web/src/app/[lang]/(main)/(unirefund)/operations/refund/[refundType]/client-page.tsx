@@ -54,21 +54,21 @@ export default function ClientPage({
   ];
 
   return (
-    <div className="mx-auto mt-6 space-y-4">
+    <div className="mx-auto w-full">
       <TravellerDocumentForm accessibleRefundPoints={accessibleRefundPoints} languageData={languageData} />
-      <div className=" rounded-lg border border-gray-200 p-6 shadow-sm">
+      <div className=" mt-6 rounded-lg border border-gray-200 p-6 shadow-sm">
         <TabLayout
           classNames={{
             horizontal: {
-              tabList: "grid w-full max-w-3xl grid-cols-2 mx-auto mb-4",
+              tabList: "grid w-full max-w-2xl grid-cols-2 mx-auto mb-4",
               tabTrigger: "h-full text-center",
-              tabContent: "mx-auto w-full max-w-7xl ",
+              tabContent: "mx-auto w-full ",
             },
           }}
           orientation="horizontal"
           tabList={tabList}>
           <SummarySection languageData={languageData} totalDataOfSelectedTags={totalDataOfSelectedTags} />
-          <div className="grid grid-cols-10 gap-5">
+          <div className="mt-2 grid grid-cols-10 gap-6">
             <div className="col-span-6 rounded-lg border border-gray-200 p-6 shadow-sm">
               <ExportValidatedTable
                 languageData={languageData}
