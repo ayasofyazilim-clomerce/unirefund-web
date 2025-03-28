@@ -18,7 +18,7 @@ export default function SummarySection({
   totalDataOfSelectedTags: TotalDataOfSelectedTagsType;
 }) {
   return (
-    <div className="mb-2 grid grid-cols-5 gap-5">
+    <div className="grid grid-cols-5 gap-6">
       <TagSummary title={languageData.SalesAmount} value={totalDataOfSelectedTags.salesAmount || 0} />
       <TagSummary title={languageData.VatAmount} value={totalDataOfSelectedTags.vatAmount || 0} />
       <TagSummary title={languageData.GrossRefund} value={totalDataOfSelectedTags.grossRefund || 0} />
