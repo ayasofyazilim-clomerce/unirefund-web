@@ -59,15 +59,15 @@ export default function RebateStatementForm({
   });
 
   return (
-    <div className="mx-auto w-full max-w-5xl">
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all">
+    <div className="mx-auto mt-6 w-full rounded-lg border border-gray-200 ">
+      <div className="overflow-hidden transition-all">
         <Tabs className="flex h-full flex-col" defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
-          <div className="border-b px-6 pb-4 pt-6">
+          <div className=" px-6 pt-6">
             <TabsList className="mx-auto grid h-auto w-full max-w-xl grid-cols-2 items-center gap-2 rounded-lg bg-gray-50 p-1">
-              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white " value="Form">
+              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Form">
                 {languageData["Button.Form"]}
               </TabsTrigger>
-              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white " value="Preview">
+              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Preview">
                 {languageData["Button.Preview"]}
               </TabsTrigger>
             </TabsList>
@@ -75,7 +75,7 @@ export default function RebateStatementForm({
 
           <div className="flex-grow p-6">
             <TabsContent className="mt-0 h-full" value="Form">
-              <div className="space-y-6">
+              <div className="space-y-6 rounded-lg border border-gray-200 p-6">
                 <SchemaForm<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto>
                   disabled={isPending}
                   formData={
@@ -107,7 +107,16 @@ export default function RebateStatementForm({
                   schema={$UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto}
                   uiSchema={{
                     ...uiSchema,
-                    "ui:className": "grid grid-cols-1 md:grid-cols-2 gap-4 mb-6",
+                    "ui:className": "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-6",
+                    yearMonthPairs: {
+                      className: {
+                        accordion: "col-span-full",
+                        accordionContent: "!py-0  gap-0 w-full",
+                      },
+                      items: {
+                        "ui:className": "border-0 border-b rounded-none !gap-4 [&>div]:grid grid-cols-2 [&>div]:gap-1 ",
+                      },
+                    },
                   }}
                   useDefaultSubmit={false}
                   widgets={{
@@ -118,7 +127,7 @@ export default function RebateStatementForm({
                       selectLabel: "name",
                     }),
                   }}>
-                  <div className="mt-6 flex w-full flex-col justify-end gap-3 border-t pt-6 sm:flex-row">
+                  <div className=" flex w-full flex-col justify-end gap-3 sm:flex-row">
                     <Button
                       className="w-full sm:w-auto"
                       disabled={isPending}
@@ -201,7 +210,16 @@ export default function RebateStatementForm({
             <TabsContent className="mt-0 h-full" value="Preview">
               <div className="min-h-[300px] rounded-lg bg-gray-50 p-4">
                 {(() => {
-                  if (!isPending && rebateStatementData && rebateStatementData.length > 0) {
+                  if (isPending) {
+                    return (
+                      <div className="flex h-[300px] flex-col items-center justify-center">
+                        <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2" />
+                        <p className="mt-4 text-gray-500">Loading...</p>
+                      </div>
+                    );
+                  }
+
+                  if (rebateStatementData && rebateStatementData.length > 0) {
                     return (
                       <div className="space-y-4">
                         {rebateStatementData.map((item, index) => (
@@ -213,15 +231,6 @@ export default function RebateStatementForm({
                             />
                           </div>
                         ))}
-                      </div>
-                    );
-                  }
-
-                  if (isPending) {
-                    return (
-                      <div className="flex h-[300px] flex-col items-center justify-center">
-                        <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2" />
-                        <p className="mt-4 text-gray-500">Loading...</p>
                       </div>
                     );
                   }

@@ -47,15 +47,15 @@ export default function VatStatementForm({
       merchantId: {
         "ui:widget": "Merchant",
       },
-      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2 ",
     },
   });
 
   return (
-    <div className="mx-auto w-full max-w-5xl">
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all">
+    <div className="mx-auto mt-6 w-full rounded-lg border border-gray-200 ">
+      <div className="overflow-hidden transition-all">
         <Tabs className="flex h-full flex-col" defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
-          <div className="border-b px-6 pb-4 pt-6">
+          <div className=" px-6 pt-6">
             <TabsList className="mx-auto grid h-auto w-full max-w-xl grid-cols-2 items-center gap-2 rounded-lg bg-gray-50 p-1">
               <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Form">
                 {languageData["Button.Form"]}
@@ -68,7 +68,7 @@ export default function VatStatementForm({
 
           <div className="flex-grow p-6">
             <TabsContent className="mt-0 h-full" value="Form">
-              <div className="space-y-6">
+              <div className="space-y-6 rounded-lg border border-gray-200 p-6">
                 <SchemaForm<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto>
                   disabled={isPending}
                   formData={
@@ -96,7 +96,7 @@ export default function VatStatementForm({
                   schema={$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto}
                   uiSchema={{
                     ...uiSchema,
-                    "ui:className": "grid grid-cols-1 md:grid-cols-2 gap-4 mb-6",
+                    "ui:className": "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-6",
                   }}
                   useDefaultSubmit={false}
                   widgets={{
@@ -107,7 +107,7 @@ export default function VatStatementForm({
                       selectLabel: "name",
                     }),
                   }}>
-                  <div className="mt-6 flex w-full flex-col justify-end gap-3 border-t pt-6 sm:flex-row">
+                  <div className=" flex w-full flex-col justify-end gap-3 sm:flex-row">
                     <Button
                       className="w-full sm:w-auto"
                       disabled={isPending}
@@ -205,7 +205,7 @@ export default function VatStatementForm({
                         {vatStatementData.map((item, index) => (
                           <div className="rounded-lg bg-white p-4 shadow-sm transition-all hover:shadow-md" key={index}>
                             <VatStatementInformation VatStatementData={item} languageData={languageData} />
-                            <div className="mt-4 border-t pt-4">
+                            <div className="mt-4  pt-4">
                               <TaxFreeTagTable languageData={languageData} taxFreeTagsData={item} />
                             </div>
                           </div>
