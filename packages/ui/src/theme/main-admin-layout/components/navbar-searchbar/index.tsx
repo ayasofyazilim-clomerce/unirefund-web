@@ -5,12 +5,19 @@ import {useEffect, useMemo, useState} from "react";
 import {StarFilledIcon} from "@radix-ui/react-icons";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {
-    Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
-    CommandSeparator
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
 } from "@repo/ayasofyazilim-ui/atoms/command";
 import {DialogTitle} from "@repo/ayasofyazilim-ui/atoms/dialog";
 import {NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {icons} from "../navbar";
+import {set} from "react-hook-form";
 
 function getFavouriteSearches() {
   if (typeof window === "undefined") return [];
@@ -29,8 +36,32 @@ type SearchableNavbarItem = {
   href: string;
   searchableText: string;
 };
-function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; prefix: string}) {
+type DBSearchResult = {
+  title: string;
+  key: string;
+  icon: string;
+  items: {href: string; name: string; id: string; searhableText: string}[];
+};
+let timeout: NodeJS.Timeout;
+
+export type SearchFromDB = {
+  key: string;
+  title: string;
+  icon: string;
+  search: (search: string) => Promise<{id: string; name: string; href: string}[]>;
+};
+
+function SearchBar({
+  navbarItems,
+  prefix,
+  searchFromDB,
+}: {
+  navbarItems: NavbarItemsFromDB[];
+  prefix: string;
+  searchFromDB: SearchFromDB[];
+}) {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [dbSearchResults, setDbSearchResults] = useState<DBSearchResult | null>();
   const [favouriteSearches, setFavouriteSearches] = useState(getFavouriteSearches());
   const router = useRouter();
 
@@ -78,10 +109,38 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  function searchDB(search: string) {
+    clearTimeout(timeout);
+    if (searchFromDB.length > 0) {
+      searchFromDB.forEach((item) => {
+        if (search.startsWith(item.key + ":")) {
+          const searchValue = search.split(`${item.key}:`).slice(1).join("").trim();
+          timeout = setTimeout(() => {
+            item.search(searchValue).then((res) => {
+              setDbSearchResults({
+                title: item.title,
+                key: item.key,
+                icon: item.icon,
+                items: res.map((i) => ({
+                  id: i.id,
+                  name: i.name,
+                  href: i.href,
+                  searhableText: `${item.key}: ${i.name}`,
+                })),
+              });
+            });
+          }, 400);
+        }
+      });
+    }
+  }
   function filterNavItems(value: string, search: string) {
     const searchValue = search.toLowerCase();
     const item = searchableItems.find((i) => i.key === value);
     if (item && item.searchableText.includes(searchValue)) {
+      return 1;
+    }
+    if (dbSearchResults?.items.find((i) => i.id === value)) {
       return 1;
     }
     return 0;
@@ -144,7 +203,7 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
       {/* Big Screen */}
       <Button
         variant="outline"
-        className="text-muted-foreground relative hidden w-48 md:w-96 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block"
+        className="text-muted-foreground relative hidden w-48 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block md:w-96"
         onClick={() => setSearchOpen(true)}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-xs">
           <Search className="mr-2 size-4 text-gray-500" />
@@ -164,7 +223,7 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogTitle></DialogTitle>
         <Command filter={filterNavItems}>
-          <CommandInput placeholder="Type a commond or search..." />
+          <CommandInput placeholder="Type a commond or search..." onValueChange={(s) => searchDB(s)} />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             {favourites.length > 0 && (
@@ -182,6 +241,23 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
                   <CustomCommandItem key={item.key} item={item} />
                 ))}
             </CommandGroup>
+            {dbSearchResults && (
+              <CommandGroup heading={dbSearchResults.title}>
+                {dbSearchResults.items.map((item) => (
+                  <CustomCommandItem
+                    key={item.id}
+                    item={{
+                      key: item.id,
+                      icon: dbSearchResults.icon,
+                      displayName: item.name,
+                      href: item.href,
+                      route: "",
+                      searchableText: item.searhableText.toLowerCase(),
+                    }}
+                  />
+                ))}
+              </CommandGroup>
+            )}
           </CommandList>
         </Command>
       </CommandDialog>

@@ -55,7 +55,7 @@ function findBreadcrumbItems(
 }
 
 export function HeaderSection() {
-  const {navbarItems, prefix, lang, tenantData, notification} = useTheme();
+  const {navbarItems, prefix, lang, tenantData, notification, searchFromDB} = useTheme();
   const pathName = usePathname();
 
   const {activeNavItem, pageBackEnabled, breadcrumbItems} = useMemo(() => {
@@ -115,6 +115,7 @@ export function HeaderSection() {
         lang={lang}
         tenantData={tenantData}
         notification={notification}
+        searchFromDB={searchFromDB}
       />
     </div>
   );
