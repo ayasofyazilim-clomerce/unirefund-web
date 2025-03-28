@@ -44,7 +44,7 @@ import {Notification, NotificationProps} from "../../../components/notification"
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
-import SearchBar from "./navbar-searchbar";
+import SearchBar, {type SearchFromDB} from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
 
 export default function Navbar({
@@ -54,6 +54,7 @@ export default function Navbar({
   lang,
   tenantData,
   notification,
+  searchFromDB,
 }: {
   prefix: string;
   lang: string;
@@ -61,6 +62,7 @@ export default function Navbar({
   navigation: BreadcrumbItemType[];
   tenantData?: {tenantId: string; tenantName: string};
   notification?: NotificationProps;
+  searchFromDB?: SearchFromDB[];
 }) {
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
@@ -90,16 +92,15 @@ export default function Navbar({
             )}
           </div>
           <div className="flex items-center lg:order-2">
-           
             <LanguageSelector lang={lang} />
             {notification && <Notification {...notification} />}
             <ProfileMenu />
           </div>
         </div>
       </nav>
-      <div className="border-y border-gray-200 bg-white py-1 flex items-center justify-between">
+      <div className="flex items-center justify-between border-y border-gray-200 bg-white py-1">
         <BreadcrumbNavigation navigation={navigation} navbarItems={navbarItems} />
-        <SearchBar navbarItems={navbarItems} prefix={prefix} />
+        <SearchBar navbarItems={navbarItems} prefix={prefix} searchFromDB={searchFromDB || []} />
       </div>
     </div>
   );

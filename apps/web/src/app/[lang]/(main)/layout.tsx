@@ -10,6 +10,7 @@ import {isRedirectError} from "next/dist/client/components/redirect";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {myProfileApi} from "@repo/actions/core/AccountService/actions";
 import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";
@@ -87,9 +88,31 @@ export default async function Layout({children, params}: LayoutProps) {
           }}
           prefix=""
           profileMenu={profileMenuProps}
+          searchFromDB={[
+            {
+              key: "merchants",
+              icon: "user",
+              search: async (search: string) => {
+                "use server";
+                try {
+                  const res = await getMerchantsApi({name: search});
+                  return (
+                    res.data.items?.map((i) => ({
+                      id: i.id,
+                      name: i.name,
+                      href: `parties/merchants/${i.id}/details/info`,
+                    })) || []
+                  );
+                } catch (error) {
+                  return [];
+                }
+              },
+              title: "Merchants",
+            },
+          ]}
           tenantData={tenantData.data}
         />
-        <div className="flex h-full flex-col overflow-hidden px-16">{children}</div>
+        <div className="flex h-full flex-col overflow-hidden px-16 py-2">{children}</div>
       </div>
     </Providers>
   );

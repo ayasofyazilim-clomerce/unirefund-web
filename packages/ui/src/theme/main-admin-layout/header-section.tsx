@@ -1,25 +1,23 @@
 "use client";
 
-import {Skeleton} from "@repo/ayasofyazilim-ui/atoms/skeleton";
 import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
-import dynamic from "next/dynamic";
 import {usePathname} from "next/navigation";
 import {useEffect, useMemo, useState} from "react";
 import {useTheme} from "../../providers/theme";
 import Navbar from "./components/navbar";
 
-const PageHeader = dynamic(() => import("../../../../ayasofyazilim-ui/src/molecules/page-header"), {
-  ssr: false,
-  loading: () => (
-    <div className="mb-4 flex items-center gap-4 px-2">
-      <Skeleton className="h-12 w-12 " />
-      <div>
-        <Skeleton className="h-6 w-80 " />
-        <Skeleton className="w-120 mt-1  h-6" />
-      </div>
-    </div>
-  ),
-});
+// const PageHeader = dynamic(() => import("../../../../ayasofyazilim-ui/src/molecules/page-header"), {
+//   ssr: false,
+//   loading: () => (
+//     <div className="mb-4 flex items-center gap-4 px-2">
+//       <Skeleton className="h-12 w-12 " />
+//       <div>
+//         <Skeleton className="h-6 w-80 " />
+//         <Skeleton className="w-120 mt-1  h-6" />
+//       </div>
+//     </div>
+//   ),
+// });
 
 function findActiveNavbarItem(navbarItems: NavbarItemsFromDB[], pathName: string) {
   let item = navbarItems?.find((i) => "/" + i.key === pathName);
@@ -55,7 +53,7 @@ function findBreadcrumbItems(
 }
 
 export function HeaderSection() {
-  const {navbarItems, prefix, lang, tenantData, notification} = useTheme();
+  const {navbarItems, prefix, lang, tenantData, notification, searchFromDB} = useTheme();
   const pathName = usePathname();
 
   const {activeNavItem, pageBackEnabled, breadcrumbItems} = useMemo(() => {
@@ -115,7 +113,16 @@ export function HeaderSection() {
         lang={lang}
         tenantData={tenantData}
         notification={notification}
+        searchFromDB={searchFromDB}
       />
+      {/* {pathName.split(lang + "/")[1] !== "unauthorized" && (
+        <PageHeader
+          title={pageHeaderProps.title}
+          description={pageHeaderProps.description}
+          LinkElement={pageBackEnabled ? Link : undefined}
+          href={pageHeaderProps.href}
+        />
+      )} */}
     </div>
   );
 }
