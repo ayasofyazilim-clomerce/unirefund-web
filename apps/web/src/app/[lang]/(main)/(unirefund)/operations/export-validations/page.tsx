@@ -29,5 +29,9 @@ export default async function Page({
     return <ErrorComponent languageData={languageData} message={exportValidationResponse.message} />;
   }
 
-  return <ExportValidationTable languageData={languageData} response={exportValidationResponse.data} />;
+  return (
+    <div className="mt-6 rounded-lg border border-gray-200 p-6 ">
+      <ExportValidationTable languageData={languageData} response={exportValidationResponse.data} />
+    </div>
+  );
 }
