@@ -55,5 +55,9 @@ export default async function Page({params, searchParams}: {params: {lang: strin
 
   const [merchantResponse] = apiRequests.data;
 
-  return <MerchantsTable languageData={languageData} response={merchantResponse.data} />;
+  return (
+    <div className="mt-6 rounded-lg border border-gray-200 p-6">
+      <MerchantsTable languageData={languageData} response={merchantResponse.data} />
+    </div>
+  );
 }
