@@ -55,13 +55,13 @@ export async function getAllUserClaimsApi() {
   }
 }
 
-export async function getAllRolesApi() {
+export async function getAllRolesApi(session?: Session | null) {
   try {
-    const client = await getIdentityServiceClient();
+    const client = await getIdentityServiceClient(session);
     const dataResponse = await client.role.getApiIdentityRolesAll();
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 
