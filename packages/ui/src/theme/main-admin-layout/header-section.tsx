@@ -117,7 +117,7 @@ export function HeaderSection() {
         tenantData={tenantData}
         notification={notification}
       />
-      {pathName.split(lang + "/")[1] !== "unauthorized" && (
+      {/* {pathName.split(lang + "/")[1] !== "unauthorized" && (
         <PageHeader
           align="center"
           size="large"
@@ -126,7 +126,7 @@ export function HeaderSection() {
           LinkElement={pageBackEnabled ? Link : undefined}
           href={pageHeaderProps.href}
         />
-      )}
+      )} */}
     </div>
   );
 }

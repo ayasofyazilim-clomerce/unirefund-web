@@ -89,7 +89,7 @@ export default async function Layout({children, params}: LayoutProps) {
           profileMenu={profileMenuProps}
           tenantData={tenantData.data}
         />
-        <div className="flex h-full flex-col overflow-hidden px-4">{children}</div>
+        <div className="flex h-full flex-col overflow-hidden ">{children}</div>
       </div>
     </Providers>
   );
