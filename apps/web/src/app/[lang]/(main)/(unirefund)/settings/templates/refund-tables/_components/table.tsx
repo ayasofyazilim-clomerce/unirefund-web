@@ -23,12 +23,14 @@ function RefundTable({
   const columns = tableData.refundTableHeaders.columns(lang, merchants, languageData);
   const table = tableData.refundTableHeaders.table({languageData, router, grantedPolicies, merchants});
   return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={refundTableHeaders.items || []}
-      rowCount={refundTableHeaders.totalCount}
-    />
+    <div className="mt-6 rounded-md border p-6">
+      <TanstackTable
+        {...table}
+        columns={columns}
+        data={refundTableHeaders.items || []}
+        rowCount={refundTableHeaders.totalCount}
+      />
+    </div>
   );
 }
 

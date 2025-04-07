@@ -23,11 +23,13 @@ export default function RebateTable({
   const columns = tableData.rebateTableHeaders.columns(lang, merchants, languageData);
   const table = tableData.rebateTableHeaders.table({languageData, router, grantedPolicies, merchants});
   return (
-    <TanstackTable
-      {...table}
-      columns={columns}
-      data={rebateTableHeaders.items || []}
-      rowCount={rebateTableHeaders.totalCount}
-    />
+    <div className="mt-6 rounded-md border p-6">
+      <TanstackTable
+        {...table}
+        columns={columns}
+        data={rebateTableHeaders.items || []}
+        rowCount={rebateTableHeaders.totalCount}
+      />
+    </div>
   );
 }

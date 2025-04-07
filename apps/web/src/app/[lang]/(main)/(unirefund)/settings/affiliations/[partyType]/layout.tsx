@@ -14,6 +14,11 @@ export default async function Layout({
   const baseLink = getBaseLink(`settings/affiliations/`, params.lang);
   return (
     <TabLayout
+      classNames={{
+        horizontal: {
+          tabs: "rounded-md border p-6 mt-6",
+        },
+      }}
       tabList={[
         {
           label: languageData.Merchants,
