@@ -112,7 +112,7 @@ export default async function Layout({children, params}: LayoutProps) {
           ]}
           tenantData={tenantData.data}
         />
-        <div className="flex h-full flex-col overflow-hidden px-16 py-2">{children}</div>
+        <div className="flex h-full flex-col overflow-hidden px-16">{children}</div>
       </div>
     </Providers>
   );
