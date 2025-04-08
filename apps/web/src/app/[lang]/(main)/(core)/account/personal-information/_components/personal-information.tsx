@@ -29,16 +29,17 @@ export default function PersonalInformation({
       phoneNumber: {
         "ui:widget": "phone",
       },
+      "ui:className": "md:grid md:grid-cols-2 md:gap-4 mt-6",
     },
   });
   return (
     <SchemaForm
-      className="flex flex-col gap-4"
+      className="flex flex-col justify-center"
       disabled={isPending}
       filter={{
         type: "include",
         sort: true,
-        keys: ["userName", "name", "surname", "email", "phoneNumber"],
+        keys: ["name", "surname", "userName", "email", "phoneNumber"],
       }}
       formData={personalInformationData}
       onSubmit={({formData}) => {
