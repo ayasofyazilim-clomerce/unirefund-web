@@ -20,6 +20,10 @@ function LanguagesTable({
   const columns = tableData.languages.columns(lang, languageData, grantedPolicies);
   const table = tableData.languages.table(languageData, router, grantedPolicies);
 
-  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
+  return (
+    <div className="mt-6 rounded-md border p-6">
+      <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />
+    </div>
+  );
 }
 export default LanguagesTable;

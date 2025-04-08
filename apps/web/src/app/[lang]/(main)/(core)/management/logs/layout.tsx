@@ -19,6 +19,13 @@ export default async function Layout({
 
   return (
     <TabLayout
+      classNames={{
+        horizontal: {
+          tabs: "mt-6 p-6 rounded-md border",
+          tabList: "mx-auto mb-2",
+          tabTrigger: "px-12  text-sm font-medium text-gray-700",
+        },
+      }}
       tabList={[
         {
           label: languageData["Log.Audit"],
