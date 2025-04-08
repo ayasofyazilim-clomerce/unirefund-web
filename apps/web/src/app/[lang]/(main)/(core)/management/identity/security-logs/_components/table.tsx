@@ -17,6 +17,10 @@ function SecurityLogsTable({
   const columns = tableData.securityLogs.columns(lang, languageData);
   const table = tableData.securityLogs.table(languageData);
 
-  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
+  return (
+    <div className="mt-6 rounded-md border p-6">
+      <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
+    </div>
+  );
 }
 export default SecurityLogsTable;
