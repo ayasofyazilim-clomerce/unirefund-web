@@ -1,61 +1,27 @@
+require("dotenv").config({
+  path: [".env.local", ".env"],
+});
 const fs = require("fs");
 const path = require("path");
 
-async function readEnvironmentVariables() {
-  function parseEnv(data) {
-    const envObj = {};
-    data.split("\n").forEach((line) => {
-      const [key, value] = line.split("=");
-      if (key && value) {
-        envObj[key.trim()] = value.trim();
-      }
-    });
-    return envObj;
-  }
-
-  try {
-    const filePath = path.join(__dirname, ".env");
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const envVariables = parseEnv(fileContent);
-
-    const data = {
-      clientId: envVariables.CLIENT_ID.replaceAll('"', ""),
-      clientSecret: envVariables.CLIENT_SECRET.replaceAll('"', ""),
-      username: envVariables.ADMIN_USERNAME.replaceAll('"', ""),
-      password: envVariables.ADMIN_PASSWORD.replaceAll('"', ""),
-      BASE_URL: envVariables.BASE_URL.replaceAll('"', ""),
-      TOKEN_URL: envVariables.TOKEN_URL.replaceAll('"', "") + "/connect/token",
-      OPENID_URL: envVariables.TOKEN_URL.replaceAll('"', "") + "/.well-known/openid-configuration",
-    };
-    return data;
-  } catch (error) {
-    console.error("Hata oluştu:", error);
-  }
-}
 async function getLanguageResources(credentials) {
-  try {
-    //AbpApplicationLocalization endpoint linki
-    const url = credentials.BASE_URL + "/api/abp/application-localization?CultureName=en";
+  const url = credentials.BASE_URL + "/api/abp/application-localization?CultureName=en";
+  const response = await (await fetch(url)).json();
+  const keys = Object.keys(response["resources"]);
 
-    const response = await (await fetch(url)).json();
-    const keys = Object.keys(response["resources"]);
+  let string = "";
+  keys.map((key) => {
+    if (!response["resources"]?.[key]?.["texts"]) return;
+    if (Object.keys(response["resources"][key].texts).length === 0) return; // Boş type'lar eslint hatası veriyor
 
-    let string = "";
-    keys.map((key) => {
-      if (!response["resources"]?.[key]?.["texts"]) return;
-      if (Object.keys(response["resources"][key].texts).length === 0) return; // Boş type'lar eslint hatası veriyor
+    const resources = response["resources"][key]["texts"];
+    string += `export type ${key}Resources = {\n`;
+    Object.keys(resources).forEach((key) => (string += `\t"${key}": "${resources[key].replaceAll('"', '\\"')}";\n`));
+    string += "};\n";
+  });
 
-      const resources = response["resources"][key]["texts"];
-      string += `export type ${key}Resources = {\n`;
-      Object.keys(resources).forEach((key) => (string += `\t"${key}": "${resources[key].replaceAll('"', '\\"')}";\n`));
-      string += "};\n";
-    });
-
-    const filePath = path.join(__dirname, "src/language-data/resources.ts");
-    fs.writeFileSync(filePath, string);
-  } catch (error) {
-    console.error("Hata oluştu:", error);
-  }
+  const filePath = path.join(__dirname, "src/language-data/resources.ts");
+  fs.writeFileSync(filePath, string);
 }
 
 async function getGrantedPolicies(credentials) {
@@ -103,25 +69,33 @@ async function getGrantedPolicies(credentials) {
     );
     return response.json();
   }
+  const data = await login(credentials);
+  const response = await getPolicies(data.access_token);
+  const policies = response.auth.grantedPolicies;
+  //make all policies false
+  Object.keys(policies).forEach((key) => (policies[key] = false));
+  const filePath = path.join(__dirname, "../../packages/utils/policies/policies.json");
+
+  fs.writeFileSync(filePath, JSON.stringify(policies, null, 2));
+}
+
+function main() {
+  const credentials = {
+    ...process.env,
+    TOKEN_URL: process.env.TOKEN_URL + "/connect/token",
+    OPENID_URL: process.env.TOKEN_URL + "/.well-known/openid-configuration",
+  };
+  if (!credentials.ADMIN_USERNAME || !credentials.ADMIN_PASSWORD) {
+    console.warn("Set ADMIN_USERNAME and ADMIN_PASSWORD to update resources.");
+    return;
+  }
+
+  console.log(credentials);
   try {
-    const data = await login(credentials);
-    const response = await getPolicies(data.access_token);
-    const policies = response.auth.grantedPolicies;
-
-    //make all policies false
-    Object.keys(policies).forEach((key) => (policies[key] = false));
-    const filePath = path.join(__dirname, "../../packages/utils/policies/policies.json");
-
-    fs.writeFileSync(filePath, JSON.stringify(policies, null, 2));
+    getGrantedPolicies(credentials);
+    getLanguageResources(credentials);
   } catch (error) {
     console.error("Hata oluştu:", error);
   }
 }
-
-async function main() {
-  const credentials = await readEnvironmentVariables();
-  getGrantedPolicies(credentials);
-  getLanguageResources(credentials);
-}
-
 main();
