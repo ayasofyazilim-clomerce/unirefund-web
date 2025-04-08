@@ -28,6 +28,10 @@ function UsersTable({
   const columns = tableData.users.columns(lang, languageData, grantedPolicies);
   const table = tableData.users.table(languageData, router, grantedPolicies, roleList, organizationList);
 
-  return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;
+  return (
+    <div className="mt-6 rounded-md border p-6">
+      <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />
+    </div>
+  );
 }
 export default UsersTable;

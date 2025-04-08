@@ -15,6 +15,11 @@ export default async function Layout({
   const baseLink = getBaseLink("account/", lang);
   return (
     <TabLayout
+      classNames={{
+        horizontal: {
+          tabs: "rounded-md border p-6 mt-6",
+        },
+      }}
       orientation="horizontal"
       tabList={[
         {

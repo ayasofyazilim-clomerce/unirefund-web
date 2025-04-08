@@ -325,8 +325,8 @@ export default function OrganizationComponent({
 
   return (
     <>
-      <div className="flex min-h-[60vh] w-full flex-row">
-        <Card className="m-2 max-h-[60vh] w-1/2 overflow-y-auto">
+      <div className="m-6 mx-auto flex min-h-[60vh] w-full flex-row gap-6">
+        <Card className=" max-h-[60vh] w-1/2 overflow-y-auto">
           <CardHeader>
             <div className="flex items-center justify-between">
               <h2 className="text-xl">{languageData["Organization.Tree"]}</h2>
@@ -382,7 +382,7 @@ export default function OrganizationComponent({
           </CardContent>
         </Card>
 
-        <Card className="m-2 max-h-[60vh] w-1/2 overflow-y-auto">
+        <Card className=" max-h-[60vh] w-1/2 overflow-y-auto">
           <CardContent>
             <SectionNavbarBase
               activeSectionId={activeTab}
