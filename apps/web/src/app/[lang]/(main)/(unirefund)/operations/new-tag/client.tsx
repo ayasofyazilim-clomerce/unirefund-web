@@ -11,6 +11,7 @@ import {postTagApi} from "@repo/actions/unirefund/TagService/post-actions";
 import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
 import {searchTravellers} from "@repo/actions/unirefund/TravellerService/search";
 import {handlePostResponse} from "@repo/utils/api";
+import {UserIcon, StoreIcon, TagsIcon, SearchIcon} from "lucide-react";
 import {getBaseLink} from "@/utils";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import ProductGroupAmountInput from "./_components/product-group-amount-input";
@@ -76,6 +77,43 @@ export default function ClientPage({
       return newInvoiceLines;
     });
   }, [productGroupIds]);
+
+  const defaultFilterGuidanceContent = (
+    <>
+      <h3 className="mb-2 text-base font-medium text-black">Filtre Yönergeleri</h3>
+      <p>Aradığınız sonuçlara daha hızlı ulaşmak için aşağıdaki filtre alanlarını kullanabilirsiniz:</p>
+      <ul className="mt-2 list-disc space-y-1 pl-4">
+        <li className="flex items-start gap-2">
+          <UserIcon className="mt-0.5 h-4 w-4 flex-shrink-0" />
+          <span>
+            <strong>Traveller Full Name:</strong> İlgili yolcunun adını yazarak arama yapabilirsiniz. Otomatik olarak
+            eşleşen sonuçlar listelenecektir.
+          </span>
+        </li>
+        <li className="flex items-start gap-2">
+          <StoreIcon className="mt-0.5 h-4 w-4 flex-shrink-0" />
+          <span>
+            <strong>Merchant Title:</strong> İşlem yapılan mağaza/unvan bilgisini girerek filtreleyebilirsiniz. Birden
+            fazla seçim yapılabilir.
+          </span>
+        </li>
+        <li className="flex items-start gap-2">
+          <TagsIcon className="mt-0.5 h-4 w-4 flex-shrink-0" />
+          <span>
+            <strong>Product Groups:</strong> İlgili ürün gruplarını seçerek yalnızca belirli kategorilerdeki işlemleri
+            görüntüleyebilirsiniz.
+          </span>
+        </li>
+        <li className="flex items-start gap-2">
+          <SearchIcon className="mt-0.5 h-4 w-4 flex-shrink-0" />
+          <span>
+            Tüm filtre seçimlerinizi tamamladıktan sonra <strong>&quot;Apply&quot;</strong> butonuna tıklayarak
+            filtrelenmiş sonuçları görebilirsiniz.
+          </span>
+        </li>
+      </ul>
+    </>
+  );
 
   function onSubmit() {
     startTransition(async () => {
@@ -179,6 +217,7 @@ export default function ClientPage({
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
       disabled={isPending}
+      filterGuidanceContent={defaultFilterGuidanceContent}
       isCollapsible={false}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}

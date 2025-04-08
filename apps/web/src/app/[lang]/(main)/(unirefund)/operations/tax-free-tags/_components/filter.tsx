@@ -112,6 +112,7 @@ export default function Filter({
   return (
     <FilterComponent
       asyncSelect={filterData.asyncSelect}
+      cardClassName="mx-none w-full"
       className={className}
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
