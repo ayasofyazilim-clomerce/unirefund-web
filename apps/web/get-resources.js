@@ -87,15 +87,12 @@ function main() {
   };
   if (!credentials.ADMIN_USERNAME || !credentials.ADMIN_PASSWORD) {
     console.warn("Set ADMIN_USERNAME and ADMIN_PASSWORD to update resources.");
-    return;
-  }
-
-  console.log(credentials);
-  try {
-    getGrantedPolicies(credentials);
-    getLanguageResources(credentials);
-  } catch (error) {
-    console.error("Hata oluştu:", error);
+  } else {
+    try {
+      getGrantedPolicies(credentials);
+      getLanguageResources(credentials);
+    } catch (error) {
+      console.error("Hata oluştu:", error);
+    }
   }
 }
-main();
