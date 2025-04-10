@@ -46,22 +46,25 @@ export default function RebateTableHeaderCreateForm({
     schema: $RebateTableHeaderCreateDto,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "grid md:grid-cols-2",
+      "ui:className": "flex flex-col items-center justify-center border rounded-md p-6 ",
+      name: {
+        "ui:className": "max-w-xl",
+      },
       calculateNetCommissionInsteadOfRefund: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "max-w-xl",
       },
       isTemplate: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "max-w-xl",
       },
       rebateTableDetails: {
         "ui:field": "RebateTableDetailsField",
-        "ui:className": "md:col-span-full",
+        "ui:className": "md:col-span-full border-none w-full",
       },
       processingFeeDetails: {
         "ui:field": "ProcessingFeeDetailsField",
-        "ui:className": "md:col-span-full",
+        "ui:className": "md:col-span-full border-none  w-full",
       },
       merchantId: {
         "ui:widget": "MerchantsWidget",
@@ -83,11 +86,11 @@ export default function RebateTableHeaderCreateForm({
 
   return (
     <div className="flex flex-col overflow-hidden">
-      <ActionList className="items-center">
-        <span className="ml-auto text-sm">{languageData["Contracts.FillFrom"]}</span>
+      <ActionList className="mb-4 mt-6 flex w-full flex-col items-center justify-center rounded-md border p-6">
         <Combobox<RebateTableHeaderListDto>
-          classNames={{container: "w-52"}}
+          classNames={{container: "w-full max-w-xl"}}
           emptyValue={languageData["Select.EmptyValue"]}
+          label={languageData["Contracts.FillFrom"]}
           list={rebateTables}
           onValueChange={(rebateTable: RebateTableHeaderListDto | null | undefined) => {
             if (!rebateTable) return;
@@ -109,6 +112,7 @@ export default function RebateTableHeaderCreateForm({
         />
       </ActionList>
       <SchemaForm<RebateTableHeaderCreateDto>
+        className="pr-0"
         disabled={isPending}
         fields={{
           RebateTableDetailsField: RebateTableDetailsField({

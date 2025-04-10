@@ -46,16 +46,17 @@ export default function RefundFeeHeaderCreateForm({
     name: "Contracts.Form",
     resources: languageData,
     extend: {
-      "ui:className": "md:grid md:grid-cols-2",
-      name: {"ui:className": ""},
+      "ui:className": "flex align-center items-center flex-col gap-0  border rounded-md p-6 my-6 mx-auto w-full",
       isTemplate: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "max-w-xl",
       },
       isActive: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "   max-w-xl",
       },
+      name: {"ui:className": "max-w-xl w-full "},
+
       refundPointId: {
         "ui:widget": "RefundPointWidget",
         dependencies: [
@@ -73,12 +74,13 @@ export default function RefundFeeHeaderCreateForm({
       },
       refundFeeDetails: {
         "ui:field": "RefundFeeDetailsField",
-        "ui:className": "border-none p-0 md:col-span-full",
+        "ui:className": "border-none p-0 w-full",
       },
     },
   });
   return (
     <SchemaForm<RefundFeeHeaderCreateDto>
+      className="pr-0"
       disabled={isPending}
       fields={{
         RefundFeeDetailsField: RefundFeeDetailsField({

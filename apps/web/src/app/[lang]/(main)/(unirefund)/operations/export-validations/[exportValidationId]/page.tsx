@@ -19,7 +19,7 @@ export default async function Page({params}: {params: {lang: string; exportValid
     return <ErrorComponent languageData={languageData} message={exportValidationDetailsResponse.message} />;
   }
   return (
-    <>
+    <div className="my-6 rounded-md border  p-6 ">
       <Form exportValidationData={exportValidationDetailsResponse.data} languageData={languageData} />
       <div className="hidden" id="page-title">
         {`${languageData.ExportValidation} (${exportValidationDetailsResponse.data.tagNumber})`}
@@ -27,6 +27,6 @@ export default async function Page({params}: {params: {lang: string; exportValid
       <div className="hidden" id="page-description">
         {languageData["ExportValidation.Update.Description"]}
       </div>
-    </>
+    </div>
   );
 }

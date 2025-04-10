@@ -34,11 +34,12 @@ export default function Form({
       active: {
         "ui:widget": "switch",
       },
+      "ui:className": " max-w-5xl flex justify-center",
     },
   });
   return (
-    <div className="flex flex-col gap-4 overflow-auto">
-      <ActionList>
+    <div className="mx-auto flex flex-col justify-center gap-4 overflow-auto">
+      <ActionList className="border-none">
         {isActionGranted(["SettingService.Vats.Delete"], grantedPolicies) && (
           <ConfirmDialog
             closeProps={{

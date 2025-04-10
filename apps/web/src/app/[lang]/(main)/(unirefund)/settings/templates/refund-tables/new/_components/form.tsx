@@ -35,19 +35,19 @@ export default function RefundTableHeaderCreateForm({
     resources: languageData,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "md:grid md:grid-cols-2",
-      name: {"ui:className": ""},
+      "ui:className": "flex flex-col items-center justify-center border  rounded-md p-6 my-6 gap-0",
+      name: {"ui:className": "max-w-xl"},
       isTemplate: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "max-w-xl",
       },
       isDefault: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "max-w-xl",
       },
       isBundling: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "max-w-xl",
       },
       merchantId: {
         "ui:className": "col-span-full",
@@ -67,12 +67,13 @@ export default function RefundTableHeaderCreateForm({
       },
       refundTableDetails: {
         "ui:field": "RefundTableDetailsField",
-        "ui:className": "border-none p-0 md:col-span-full",
+        "ui:className": "border-none p-0 w-full",
       },
     },
   });
   return (
     <SchemaForm<RefundTableHeaderCreateDto>
+      className="flex flex-col items-center justify-center pr-0"
       disabled={isPending}
       fields={{
         RefundTableDetailsField: RefundTableDetailsField({

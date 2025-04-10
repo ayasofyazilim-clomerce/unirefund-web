@@ -41,12 +41,12 @@ export default function Form({
         "ui:widget": "VatWidget",
         "ui:className": "md:col-span-2",
       },
-      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2 border rounded-md p-6 my-6 ",
     },
   });
   return (
     <SchemaForm<UniRefund_SettingService_ProductGroups_CreateProductGroupDto>
-      className="flex flex-col gap-4 "
+      className="mx-auto flex max-w-4xl flex-col pr-0"
       disabled={loading}
       filter={{
         type: "include",
