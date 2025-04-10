@@ -22,11 +22,12 @@ export default function Form({languageData}: {languageData: SettingServiceResour
       active: {
         "ui:widget": "switch",
       },
+      "ui:className": "border rounded-md p-6 my-6",
     },
   });
   return (
     <SchemaForm<UniRefund_SettingService_Vats_CreateVatDto>
-      className="flex flex-col gap-4"
+      className="mx-auto flex max-w-4xl flex-col pr-0"
       disabled={loading}
       onSubmit={({formData}) => {
         setLoading(true);

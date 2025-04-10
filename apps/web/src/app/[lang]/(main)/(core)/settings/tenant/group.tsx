@@ -22,11 +22,11 @@ export default function TenantSettingsPage({
   languageData: AdministrationServiceResource;
 }) {
   return (
-    <Tabs className="flex h-full gap-2 pb-4" defaultValue={list.groups[0].key}>
-      <TabsList className="flex h-full flex-col justify-start">
+    <Tabs className="flex h-full gap-4 pb-4" defaultValue={list.groups[0].key}>
+      <TabsList className="my-6 flex h-auto w-1/3 flex-col justify-start rounded-md border bg-transparent p-6">
         {list.groups.map((tab) => (
           <TabsTrigger
-            className="w-full justify-start text-wrap text-left md:text-nowrap"
+            className="hover:bg-muted/30 data-[state=active]:bg-muted w-full justify-start text-wrap text-left data-[state=active]:font-medium md:text-nowrap"
             key={tab.key}
             value={tab.key}>
             {languageData[tab.displayName as keyof typeof languageData] || tab.displayName}
@@ -35,7 +35,10 @@ export default function TenantSettingsPage({
       </TabsList>
 
       {list.groups.map((tab) => (
-        <TabsContent className="relative m-0 w-full max-w-3xl rounded-md" key={tab.key} value={tab.key}>
+        <TabsContent
+          className="relative my-6 h-auto w-2/3 rounded-md border bg-transparent p-6"
+          key={tab.key}
+          value={tab.key}>
           <Content group={tab} languageData={languageData} />
         </TabsContent>
       ))}
@@ -56,7 +59,7 @@ function Content({
   const uiSchema = createUiSchema({group});
   return (
     <SchemaForm
-      className={cn("w-full max-w-3xl")}
+      className={cn("mx-auto w-full max-w-3xl rounded-md border p-6 shadow-md")}
       defaultSubmitClassName="justify-start [&>button]:w-full pb-0"
       disableValidation
       disabled={isPending}
