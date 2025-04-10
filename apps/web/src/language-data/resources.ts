@@ -1946,7 +1946,7 @@ export type ContractServiceResources = {
   "UniRefund.ContractService:01043": "Started RebateTableHeader can not be deleted! Id: '{id}', ValidFrom: '{validFrom}'";
   "Permission:CreateTemplate": "Create Template";
   "Permission:EditTemplate": "Edit Template";
-  "UniRefund.ContractService:01044": "Contract header not found for the following merchants: {merchantNames}";
+  "UniRefund.ContractService:01044": "Enabled Contract header not found for the following merchants: {merchantNames}";
   "UniRefund.ContractService:01045": "Rebate table not found for the following merchants: {merchantNames}";
   "UniRefund.ContractService:01046": "{contractType} ContractHeader: '{id}' is already passive!";
   "UniRefund.ContractService:01047": "The provided merchant does not have an active contract header with active rebate and refund headers for the provided dates and amounts";
@@ -1983,7 +1983,7 @@ export type ContractServiceResources = {
   "UniRefund.ContractService:01060": "{entityName} ValidFrom and ValidTo dates must be within the Parent's ValidFrom and ValidTo date range!";
   "UniRefund.ContractService:01061": "Calculation is not possible due to Early Refund Fee record does not exist in Refund Fee Table of the active Contract for RefundPoint: '{refundPointId}'!";
   "UniRefund.ContractService:01062": "EarlyRefund is not supported in '{currentTenantName}'!";
-  "UniRefund.ContractService:01063": "There is no contract within the refund date: '{refundDate}' for given Refund Point!";
+  "UniRefund.ContractService:01063": "There is no enabled contract within the refund date: '{refundDate}' for given Refund Point!";
   "UniRefund.ContractService:01064": "Though a valid contract exists, there is no refund fee header relation that is valid within given date: '{date}' in the related contract of given Refund Point!";
   "UniRefund.ContractService:01065": "The refund fee calculation is not possible because there is no tourist fee record in contract's refund fee header!";
   "UniRefund.ContractService:01066": "The refund fee calculation is not possible because there is no agent fee record in contract's refund fee header!";
