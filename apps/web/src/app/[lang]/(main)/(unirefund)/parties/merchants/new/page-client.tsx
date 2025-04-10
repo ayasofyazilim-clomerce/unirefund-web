@@ -22,8 +22,8 @@ export default function PageClientSide({
   const [activeTab, setActiveTab] = useState<TabSection>("Organization");
 
   return (
-    <>
-      <div className="mb-3">
+    <div className="my-6 rounded-md border p-6">
+      <div className="mb-4">
         <SelectTabs
           onValueChange={(value) => {
             setActiveTab(value as TabSection);
@@ -48,6 +48,6 @@ export default function PageClientSide({
       ) : (
         <MerchantIndividualForm countryList={countryList} languageData={languageData} taxOfficeList={taxOfficeList} />
       )}
-    </>
+    </div>
   );
 }
