@@ -36,10 +36,10 @@ async function getGrantedPolicies(credentials) {
     const urlencoded = new URLSearchParams();
     const urlEncodedContent = {
       grant_type: "password",
-      client_id: credentials.clientId,
-      client_secret: credentials.clientSecret,
-      username: credentials.username,
-      password: credentials.password,
+      client_id: credentials.CLIENT_ID,
+      client_secret: credentials.CLIENT_SECRET,
+      username: credentials.ADMIN_USERNAME,
+      password: credentials.ADMIN_PASSWORD,
       scope: scopes,
     };
 
@@ -96,3 +96,5 @@ function main() {
     }
   }
 }
+
+main();
