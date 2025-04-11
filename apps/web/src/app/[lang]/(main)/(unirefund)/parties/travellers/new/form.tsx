@@ -2,13 +2,13 @@
 
 import type {UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@ayasofyazilim/saas/TravellerService";
 import {$UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@ayasofyazilim/saas/TravellerService";
+import {postTravellerApi} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {postTravellerApi} from "@repo/actions/unirefund/TravellerService/post-actions";
 import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
@@ -26,8 +26,9 @@ export default function TravellerNewForm({
     schema: $UniRefund_TravellerService_Travellers_CreateTravellerDto,
     resources: languageData,
     extend: {
+      "ui:className": "md:grid md:grid-cols-2 border rounded-md p-6 my-6 gap-y-6 gap-x-4",
       personalIdentification: {
-        "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+        "ui:className": "md:grid md:grid-cols-2 md:gap-4 md:col-span-full",
         residenceCountryCode2: {
           "ui:widget": "countryWidget",
         },
@@ -40,7 +41,8 @@ export default function TravellerNewForm({
 
   return (
     <SchemaForm<UniRefund_TravellerService_Travellers_CreateTravellerDto>
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-0 p-0"
+      defaultSubmitClassName="p-0"
       disabled={isPending}
       onSubmit={({formData}) => {
         startTransition(() => {
