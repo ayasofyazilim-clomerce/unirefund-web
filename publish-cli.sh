@@ -87,7 +87,7 @@ start_app() {
         pm2 delete "$app_name"
     fi
     cd "apps/${app,,}"
-    pm2 start server.js -n "$app_name"
+    pm2 start "pnpm start --port $app_port" -n "$app_name"
     echo -e "${BOLD}${BLUE}\n$app_type Started${RESET}\n"
     cd ../..
 }
