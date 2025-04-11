@@ -19,6 +19,7 @@ export default function Form({languageData}: {languageData: IdentityServiceResou
     resources: languageData,
     name: "Form.Role",
     extend: {
+      "ui:className": "border rounded-md p-6 my-6 flex mx-auto w-full flex-col items-center justify-center",
       isDefault: {
         "ui:widget": "switch",
       },
@@ -27,9 +28,10 @@ export default function Form({languageData}: {languageData: IdentityServiceResou
       },
     },
   });
+
   return (
     <SchemaForm<Volo_Abp_Identity_IdentityRoleCreateDto>
-      className="flex flex-col gap-4"
+      className="mx-auto flex w-full max-w-3xl flex-col p-0 "
       disabled={isPending}
       onSubmit={({formData}) => {
         startTransition(() => {
