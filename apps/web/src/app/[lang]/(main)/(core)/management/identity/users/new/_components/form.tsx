@@ -32,6 +32,9 @@ export default function Form({
     resources: languageData,
     name: "Form.User",
     extend: {
+      surname: {
+        "ui:className": "self-stretch",
+      },
       roleNames: {
         "ui:widget": "Role",
       },
@@ -43,26 +46,30 @@ export default function Form({
       },
       email: {
         "ui:widget": "email",
+        "ui:className": "self-end",
       },
       phoneNumber: {
         "ui:widget": "phone",
       },
       isActive: {
         "ui:widget": "switch",
+        "ui:className": "md:col-span-full h-",
       },
       lockoutEnabled: {
         "ui:widget": "switch",
+        "ui:className": "md:col-span-full",
       },
       shouldChangePasswordOnNextLogin: {
         "ui:widget": "switch",
+        "ui:className": "md:col-span-full",
       },
-      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+      "ui:className": "md:grid md:grid-cols-2 md:gap-4 self-end rounded-md border p-6 my-6 h-max",
     },
   });
 
   return (
     <SchemaForm<Volo_Abp_Identity_IdentityUserCreateDto>
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-0"
       disabled={isPending}
       filter={{
         type: "include",
