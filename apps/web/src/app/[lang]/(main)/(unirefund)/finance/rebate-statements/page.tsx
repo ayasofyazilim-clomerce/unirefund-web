@@ -47,7 +47,7 @@ export default async function Page({
   const [rebateStatementHeadersResponse] = apiRequests.data;
 
   return (
-    <div className="mt-6 rounded-lg border border-gray-200 p-6 ">
+    <div className="my-6 rounded-lg border border-gray-200 p-2 md:p-6 ">
       <RebateStatementTable languageData={languageData} locale={lang} response={rebateStatementHeadersResponse.data} />
     </div>
   );

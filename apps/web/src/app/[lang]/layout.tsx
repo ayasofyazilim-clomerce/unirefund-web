@@ -19,13 +19,17 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: "Core project is a core web app for managing multi-tenant apps.",
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+    },
   };
 }
 export default async function RootLayout({children, params}: RootLayoutProps) {
   const {lang} = params;
   const resources = await getLocalizationResources(lang);
   return (
-    <html className="h-full overflow-hidden" lang={lang}>
+    <html className="h-full" lang={lang}>
       <body className={GeistSans.className} data-app-name={appName}>
         <Suspense fallback={<div>Loading...</div>}>
           <Toaster richColors />

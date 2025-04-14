@@ -50,7 +50,7 @@ export default function TravellerDocumentForm({
 
   return (
     <form
-      className="mt-6 flex w-full items-end justify-center gap-6 rounded-lg border border-gray-200 p-6"
+      className="mt-6 grid w-full grid-cols-1 items-end justify-center gap-6 rounded-lg border border-gray-200 p-2 md:grid-cols-4 md:p-6"
       onSubmit={(e) => {
         e.preventDefault();
       }}>

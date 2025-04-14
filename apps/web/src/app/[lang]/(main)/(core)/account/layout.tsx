@@ -17,7 +17,10 @@ export default async function Layout({
     <TabLayout
       classNames={{
         horizontal: {
-          tabs: "rounded-md border p-6 mt-6",
+          tabs: "rounded-md border md:p-6 p-2 my-6",
+          tabList:
+            "md:w-max md:overflow-visible overflow-x-auto overflow-y-hidden scrollbar-thin justify-start md:px-1  pb-1 md:mb-4",
+          tabTrigger: "md:flex-initial flex-shrink-0 whitespace-nowrap",
         },
       }}
       orientation="horizontal"

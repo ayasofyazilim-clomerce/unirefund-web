@@ -19,7 +19,7 @@ export default function Form({languageData}: {languageData: IdentityServiceResou
     resources: languageData,
     name: "Form.Role",
     extend: {
-      "ui:className": "border rounded-md p-6 my-6 flex mx-auto w-full flex-col items-center justify-center",
+      "ui:className": "border rounded-md p-2 md:p-6 my-6 flex mx-auto w-full flex-col items-center justify-center",
       isDefault: {
         "ui:widget": "switch",
       },

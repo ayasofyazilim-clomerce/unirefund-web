@@ -46,7 +46,7 @@ export default function RebateTableHeaderCreateForm({
     schema: $RebateTableHeaderCreateDto,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "flex flex-col items-center justify-center border rounded-md p-6 ",
+      "ui:className": "flex flex-col items-center justify-center border rounded-md md:p-6 p-2",
       name: {
         "ui:className": "max-w-xl",
       },

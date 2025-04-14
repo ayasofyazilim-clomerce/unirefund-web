@@ -59,7 +59,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
   const [refundResponse] = requiredRequests;
 
   return (
-    <div className="mt-6 rounded-lg border border-gray-200 p-6 shadow-sm">
+    <div className="p-2shadow-sm mt-6 rounded-lg border border-gray-200 md:p-6">
       <RefundsTable languageData={languageData} locale={lang} response={refundResponse.data} />
     </div>
   );

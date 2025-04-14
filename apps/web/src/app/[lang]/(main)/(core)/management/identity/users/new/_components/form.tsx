@@ -63,7 +63,7 @@ export default function Form({
         "ui:widget": "switch",
         "ui:className": "md:col-span-full",
       },
-      "ui:className": "md:grid md:grid-cols-2 md:gap-4 self-end rounded-md border p-6 my-6 h-max",
+      "ui:className": "md:grid md:grid-cols-2 md:gap-4 self-end rounded-md border md:p-6 p-2 my-6 h-max",
     },
   });
 

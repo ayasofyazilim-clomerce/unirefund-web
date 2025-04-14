@@ -41,7 +41,7 @@ export default function Form({
         "ui:widget": "VatWidget",
         "ui:className": "md:col-span-2",
       },
-      "ui:className": "md:grid md:grid-cols-2 md:gap-2 border rounded-md p-6 my-6 ",
+      "ui:className": "md:grid md:grid-cols-2 md:gap-2 border rounded-md md:p-6 p-2 my-6 ",
     },
   });
   return (

@@ -1,9 +1,9 @@
 "use client";
-import {Search, Star} from "lucide-react";
-import {useRouter} from "next/navigation";
-import {useEffect, useMemo, useState} from "react";
-import {StarFilledIcon} from "@radix-ui/react-icons";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import { Search, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { StarFilledIcon } from "@radix-ui/react-icons";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
 import {
   Command,
   CommandDialog,
@@ -14,10 +14,10 @@ import {
   CommandList,
   CommandSeparator,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {DialogTitle} from "@repo/ayasofyazilim-ui/atoms/dialog";
-import {NavbarItemsFromDB} from "@repo/ui/theme/types";
-import {icons} from "../navbar";
-import {set} from "react-hook-form";
+import { DialogTitle } from "@repo/ayasofyazilim-ui/atoms/dialog";
+import { NavbarItemsFromDB } from "@repo/ui/theme/types";
+import { icons } from "../navbar";
+import { set } from "react-hook-form";
 
 function getFavouriteSearches() {
   if (typeof window === "undefined") return [];
@@ -40,7 +40,7 @@ type DBSearchResult = {
   title: string;
   key: string;
   icon: string;
-  items: {href: string; name: string; id: string; searhableText: string}[];
+  items: { href: string; name: string; id: string; searhableText: string }[];
 };
 let timeout: NodeJS.Timeout;
 
@@ -48,7 +48,7 @@ export type SearchFromDB = {
   key: string;
   title: string;
   icon: string;
-  search: (search: string) => Promise<{id: string; name: string; href: string}[]>;
+  search: (search: string) => Promise<{ id: string; name: string; href: string }[]>;
 };
 
 function SearchBar({
@@ -166,7 +166,7 @@ function SearchBar({
     return false;
   }
 
-  function CustomCommandItem({item}: {item: SearchableNavbarItem}) {
+  function CustomCommandItem({ item }: { item: SearchableNavbarItem }) {
     return (
       <CommandItem
         key={item.key + "-link"}
@@ -199,7 +199,7 @@ function SearchBar({
     );
   }
   return (
-    <div className="px-2">
+    <div>
       {/* Big Screen */}
       <Button
         variant="outline"

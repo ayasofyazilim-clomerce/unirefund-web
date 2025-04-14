@@ -1,9 +1,9 @@
-import {useTheme} from "../../../../providers/theme";
+import { useTheme } from "../../../../providers/theme";
 import NavbarDropdown from "../navbar-dropdown";
-import {DropdownMenuSeparator} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import { DropdownMenuSeparator } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
 function ProfileMenu() {
-  const {profileMenu} = useTheme();
+  const { profileMenu } = useTheme();
 
   if (!profileMenu) {
     return null;

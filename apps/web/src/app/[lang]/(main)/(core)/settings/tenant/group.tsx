@@ -59,7 +59,7 @@ function Content({
   const uiSchema = createUiSchema({group});
   return (
     <SchemaForm
-      className={cn("mx-auto w-full max-w-3xl rounded-md border p-6 shadow-md")}
+      className={cn("mx-auto w-full max-w-3xl rounded-md border p-2 shadow-md md:p-6")}
       defaultSubmitClassName="justify-start [&>button]:w-full pb-0"
       disableValidation
       disabled={isPending}
