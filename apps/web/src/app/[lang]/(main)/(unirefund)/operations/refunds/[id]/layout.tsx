@@ -45,7 +45,7 @@ export default async function Layout({
 
   const baseLink = getBaseLink(`operations/refunds/${refundId}`, lang);
   return (
-    <div className="my-6 grid h-full gap-4 overflow-hidden rounded-md border p-6 pb-4 md:auto-rows-[auto_1fr] md:grid-cols-2 lg:grid-cols-3">
+    <div className="my-6 grid h-full gap-4 overflow-hidden rounded-md border p-2 pb-4 md:auto-rows-[auto_1fr] md:grid-cols-2 md:p-6 lg:grid-cols-3">
       <div className="h-full overflow-hidden rounded-md border lg:col-span-2">
         <RefundSummary refundDetails={refundDetailsResponse.data} />
       </div>

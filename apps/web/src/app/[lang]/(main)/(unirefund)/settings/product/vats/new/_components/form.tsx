@@ -22,7 +22,7 @@ export default function Form({languageData}: {languageData: SettingServiceResour
       active: {
         "ui:widget": "switch",
       },
-      "ui:className": "border rounded-md p-6 my-6",
+      "ui:className": "border rounded-md md:p-6 p-2 my-6",
     },
   });
   return (

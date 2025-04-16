@@ -59,10 +59,10 @@ export default function RebateStatementForm({
   });
 
   return (
-    <div className="mx-auto mt-6 w-full rounded-lg border border-gray-200 ">
+    <div className="mx-auto my-6 w-full rounded-lg border border-gray-200 ">
       <div className="overflow-hidden transition-all">
         <Tabs className="flex h-full flex-col" defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
-          <div className=" px-6 pt-6">
+          <div className="p-2 md:p-6">
             <TabsList className="mx-auto grid h-auto w-full max-w-xl grid-cols-2 items-center gap-2 rounded-lg bg-gray-50 p-1">
               <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Form">
                 {languageData["Button.Form"]}
@@ -73,7 +73,7 @@ export default function RebateStatementForm({
             </TabsList>
           </div>
 
-          <div className="flex-grow p-6">
+          <div className="flex-grow p-2 md:p-6">
             <TabsContent className="mt-0 h-full" value="Form">
               <div className="space-y-6 rounded-lg border border-gray-200 p-6">
                 <SchemaForm<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto>

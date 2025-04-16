@@ -35,7 +35,7 @@ export default function RefundTableHeaderCreateForm({
     resources: languageData,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "flex flex-col items-center justify-center border  rounded-md p-6 my-6 gap-0",
+      "ui:className": "flex flex-col items-center justify-center border  rounded-md md:p-6 p-2 my-6 gap-0",
       name: {"ui:className": "max-w-xl"},
       isTemplate: {
         "ui:widget": "switch",
@@ -73,7 +73,7 @@ export default function RefundTableHeaderCreateForm({
   });
   return (
     <SchemaForm<RefundTableHeaderCreateDto>
-      className="flex flex-col items-center justify-center pr-0"
+      className="flex flex-col  justify-center pr-0"
       disabled={isPending}
       fields={{
         RefundTableDetailsField: RefundTableDetailsField({

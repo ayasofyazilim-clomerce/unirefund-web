@@ -56,7 +56,7 @@ export default function ClientPage({
   return (
     <div className="mx-auto w-full">
       <TravellerDocumentForm accessibleRefundPoints={accessibleRefundPoints} languageData={languageData} />
-      <div className=" mt-6 rounded-lg border border-gray-200 p-6 shadow-sm">
+      <div className=" mt-6 rounded-lg border border-gray-200 p-2 shadow-sm md:p-6">
         <TabLayout
           classNames={{
             horizontal: {
@@ -68,8 +68,8 @@ export default function ClientPage({
           orientation="horizontal"
           tabList={tabList}>
           <SummarySection languageData={languageData} totalDataOfSelectedTags={totalDataOfSelectedTags} />
-          <div className="mt-2 grid grid-cols-10 gap-6">
-            <div className="col-span-6 rounded-lg border border-gray-200 p-6 shadow-sm">
+          <div className="mt-2 grid grid-cols-1 gap-6 md:grid-cols-10">
+            <div className="rounded-lg border border-gray-200 p-2 shadow-sm md:col-span-6 md:p-6">
               <ExportValidatedTable
                 languageData={languageData}
                 locale={locale}
@@ -80,7 +80,7 @@ export default function ClientPage({
 
             <div
               className={cn(
-                "col-span-4 h-full overflow-hidden rounded-lg border border-gray-200 p-7 shadow-sm",
+                "h-full overflow-hidden rounded-lg border border-gray-200 p-7 shadow-sm md:col-span-4",
                 selectedRows.length ? "" : "pointer-events-none opacity-30",
               )}>
               <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} />

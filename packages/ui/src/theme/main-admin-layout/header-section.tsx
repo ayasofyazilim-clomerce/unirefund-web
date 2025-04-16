@@ -1,9 +1,9 @@
 "use client";
 
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
-import {usePathname} from "next/navigation";
-import {useEffect, useMemo, useState} from "react";
-import {useTheme} from "../../providers/theme";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useTheme } from "../../providers/theme";
 import Navbar from "./components/navbar";
 
 // const PageHeader = dynamic(() => import("../../../../ayasofyazilim-ui/src/molecules/page-header"), {
@@ -53,10 +53,10 @@ function findBreadcrumbItems(
 }
 
 export function HeaderSection() {
-  const {navbarItems, prefix, lang, tenantData, notification, searchFromDB} = useTheme();
+  const { navbarItems, prefix, lang, tenantData, notification, searchFromDB } = useTheme();
   const pathName = usePathname();
 
-  const {activeNavItem, pageBackEnabled, breadcrumbItems} = useMemo(() => {
+  const { activeNavItem, breadcrumbItems } = useMemo(() => {
     const homeBreadcrumb: BreadcrumbItemType = {
       ...navbarItems[0],
       subNavbarItems: navbarItems?.filter((i) => i.parentNavbarItemKey === lang),
@@ -105,7 +105,7 @@ export function HeaderSection() {
   }, [pathName]);
 
   return (
-    <div className="flex flex-col gap-3 px-16">
+    <div className="flex flex-col gap-2 sm:gap-3 px-2 sm:px-4 md:px-8 lg:px-16">
       <Navbar
         navbarItems={navbarItems}
         navigation={breadcrumbItems}

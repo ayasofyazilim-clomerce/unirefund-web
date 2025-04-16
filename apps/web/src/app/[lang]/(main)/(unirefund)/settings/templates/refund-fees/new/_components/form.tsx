@@ -46,7 +46,7 @@ export default function RefundFeeHeaderCreateForm({
     name: "Contracts.Form",
     resources: languageData,
     extend: {
-      "ui:className": "flex align-center items-center flex-col gap-0  border rounded-md p-6 my-6 mx-auto w-full",
+      "ui:className": "flex align-center items-center flex-col gap-0  border rounded-md md:p-6 p-2 my-6 mx-auto w-full",
       isTemplate: {
         "ui:widget": "switch",
         "ui:className": "max-w-xl",

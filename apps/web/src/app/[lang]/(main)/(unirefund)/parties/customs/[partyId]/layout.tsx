@@ -49,7 +49,7 @@ export default async function Layout({
       <TabLayout
         classNames={{
           vertical: {
-            tabs: "rounded-md mt-6 p-6 border",
+            tabs: "rounded-md mt-6 md:p-6 p-2 border",
           },
         }}
         orientation="vertical"
