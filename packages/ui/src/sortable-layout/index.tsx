@@ -1,6 +1,6 @@
 "use client";
 
-import {DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors} from "@dnd-kit/core";
+import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
 import {
   SortableContext,
   arraySwap,
@@ -8,12 +8,11 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
 } from "@dnd-kit/sortable";
-import {CSS} from "@dnd-kit/utilities";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
-
-import {GripVertical} from "lucide-react";
-import {useState} from "react";
-import {cn} from "../utils";
+import { CSS } from "@dnd-kit/utilities";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
+import { GripVertical } from "lucide-react";
+import { useState } from "react";
+import { cn } from "../utils";
 
 export function SortableLayout({
   items,
@@ -29,7 +28,7 @@ export function SortableLayout({
   className?: string;
 }) {
   return (
-    <div className={cn("grid w-full grid-cols-3 gap-4", className)}>
+    <div className={cn("grid w-full gap-4", className)}>
       <Sortable initalItems={items} getLatestList={getLatestList} handle editable={editMode} renderItem={renderItem} />
     </div>
   );
@@ -67,8 +66,9 @@ export function Sortable({
       </SortableContext>
     </DndContext>
   );
+
   function handleDragEnd(event: any) {
-    const {active, over} = event;
+    const { active, over } = event;
     if (active.id !== over.id) {
       setItems((items: any) => {
         const oldIndex = items.findIndex((item: any) => item.order === active.id);
@@ -94,7 +94,7 @@ export function SortableItem({
   editable: boolean;
   className?: string;
 }) {
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: id});
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -108,13 +108,13 @@ export function SortableItem({
       {...attributes}
       {...(handle ? {} : listeners)}
       tabIndex={handle ? -1 : undefined}
-      className={cn(`relative ${editable ? "cursor-default select-none" : "cursor-default select-all"}`, className)}>
+      className={cn(`relative overflow-hidden ${editable ? "cursor-default select-none" : "cursor-default select-all"}`, className)}>
       {children}
       {handle && editable ? (
         <Button
           {...(handle ? listeners : {})}
           variant={"secondary"}
-          className="absolute right-4 top-4 w-4 cursor-grab px-0">
+          className="absolute right-2 top-2 w-6 h-6 cursor-grab px-0 z-10">
           <GripVertical className="text-muted-foreground w-4" />
         </Button>
       ) : null}

@@ -29,11 +29,14 @@ function PersonalSummaryForm({
     schema: $UniRefund_CRMService_PersonalSummaries_UpdatePersonalSummaryDto,
     resources: languageData,
     name: "Form.Individual",
+    extend: {
+      "ui:className": "grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4",
+    },
   });
 
   return (
     <SchemaForm<UniRefund_CRMService_PersonalSummaries_PersonalSummaryDto>
-      className="flex flex-col gap-4 p-4"
+      className="flex flex-col gap-4 pr-0 pt-6"
       disabled={isPending}
       formData={individualPersonalSummaryData[0]}
       onSubmit={({formData}) => {

@@ -34,12 +34,36 @@ export default function Form({
       active: {
         "ui:widget": "switch",
       },
-      "ui:className": " max-w-5xl flex justify-center",
+      "ui:className": "flex flex-col gap-4 w-full border rounded-md p-4 md:p-6 my-4 bg-white shadow-sm",
     },
   });
   return (
-    <div className="mx-auto flex flex-col justify-center gap-4 overflow-auto">
-      <ActionList className="border-none">
+    <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-6">
+      <div className="w-full ">
+        <SchemaForm
+          className="w-full pr-0"
+          disabled={loading}
+          formData={response}
+          onSubmit={({formData}) => {
+            setLoading(true);
+            void putVatApi({
+              id: response.id || "",
+              requestBody: formData,
+            })
+              .then((res) => {
+                handlePutResponse(res, router, "../vats");
+              })
+              .finally(() => {
+                setLoading(false);
+              });
+          }}
+          schema={$UniRefund_SettingService_Vats_UpdateVatDto}
+          submitText={languageData["Edit.Save"]}
+          uiSchema={uiSchema}
+        />
+      </div>
+
+      <ActionList className="self-end border-none p-0">
         {isActionGranted(["SettingService.Vats.Delete"], grantedPolicies) && (
           <ConfirmDialog
             closeProps={{
@@ -74,27 +98,6 @@ export default function Form({
           />
         )}
       </ActionList>
-      <SchemaForm
-        className="flex flex-col gap-4"
-        disabled={loading}
-        formData={response}
-        onSubmit={({formData}) => {
-          setLoading(true);
-          void putVatApi({
-            id: response.id || "",
-            requestBody: formData,
-          })
-            .then((res) => {
-              handlePutResponse(res, router, "../vats");
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-        }}
-        schema={$UniRefund_SettingService_Vats_UpdateVatDto}
-        submitText={languageData["Edit.Save"]}
-        uiSchema={uiSchema}
-      />
     </div>
   );
 }

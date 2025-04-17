@@ -8,8 +8,10 @@ const Dashboard = dynamic(() => import("./dashboard"), {
 export default function Page() {
   const supersetUrl = process.env.SUPERSET_URL;
   const dashboardId = process.env.SUPERSET_DASHBOARD_ID;
-  if (!supersetUrl || !dashboardId) {
-    return <Charts />;
-  }
-  return <Dashboard dashboardId={dashboardId} supersetUrl={supersetUrl} />;
+
+  return (
+    <div className="h-full w-full">
+      {!supersetUrl || !dashboardId ? <Charts /> : <Dashboard dashboardId={dashboardId} supersetUrl={supersetUrl} />}
+    </div>
+  );
 }

@@ -26,10 +26,26 @@ export default function RefundFeeHeaderUpdateForm({
     name: "Contracts.Form",
     resources: languageData,
     extend: {
-      "ui:className": "md:grid md:grid-cols-2",
+      "ui:className": "md:grid md:grid-cols-2 md:p-6 p-2 my-6 border rounded-md",
+      name: {
+        "ui:className": "h-max flex justify-center md:col-span-2",
+        "ui:options": {
+          classNames: {
+            root: "flex justify-center w-full",
+            label: "flex justify-center",
+          },
+        },
+      },
       isActive: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "h-max md:col-span-2 justify-center",
+        "ui:options": {
+          inline: true,
+          classNames: {
+            root: "flex items-center",
+            label: "mr-2",
+          },
+        },
       },
       refundFeeDetails: {
         "ui:field": "RefundFeeDetailsField",

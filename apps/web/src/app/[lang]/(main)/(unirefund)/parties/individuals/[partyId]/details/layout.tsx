@@ -21,6 +21,13 @@ export default async function Layout({
   const baseLink = getBaseLink(`parties/individuals/${partyId}/details/`, lang);
   return (
     <TabLayout
+      classNames={{
+        horizontal: {
+          // Ensure the tab list scrolls horizontally on smaller screens
+          tabList:
+            "overflow-x-auto whitespace-nowrap  lg:overflow-x-hidden w-full lg:w-max justify-start lg::justify-center",
+        },
+      }}
       tabList={[
         {
           label: languageData["Form.Individual.name"],
@@ -43,8 +50,8 @@ export default async function Layout({
           href: `${baseLink}address`,
         },
       ]}>
-      <IndividualActionList lang={lang} languageData={languageData} partyId={partyId} />
       {children}
+      <IndividualActionList lang={lang} languageData={languageData} partyId={partyId} />
     </TabLayout>
   );
 }

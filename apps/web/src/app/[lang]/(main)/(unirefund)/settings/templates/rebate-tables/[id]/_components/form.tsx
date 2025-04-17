@@ -30,10 +30,20 @@ export default function RebateTableHeaderUpdateForm({
     schema: $RebateTableHeaderUpdateDto,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "grid md:grid-cols-2",
+      "ui:className": "grid md:grid-cols-1 p-2 my-6 border rounded-md md:p-6",
+      name: {
+        "ui:className": "h-max flex justify-center",
+        "ui:options": {
+          classNames: {
+            root: "flex justify-center w-full",
+            label: "flex justify-center",
+          },
+        },
+      },
+
       calculateNetCommissionInsteadOfRefund: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "h-max flex justify-center md:col-span-2",
         "ui:test": languageData.Address,
       },
       isTemplate: {

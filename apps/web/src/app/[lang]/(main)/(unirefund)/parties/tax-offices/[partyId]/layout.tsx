@@ -47,6 +47,14 @@ export default async function Layout({
   return (
     <>
       <TabLayout
+        classNames={{
+          vertical: {
+            tabs: "my-6 flex items-center lg:items-start flex-col lg:flex-row overflow-auto gap-4 lg:gap-0 w-full",
+            tabContent: "border rounded-md p-6 [&>div]:h-max",
+            tabList:
+              "border rounded-md py-6 pr-0 px-6 border-gray-200 h-max w-full max-w-full   lg:w-1/6 text-center lg:text-left",
+          },
+        }}
         orientation="vertical"
         tabList={[
           {

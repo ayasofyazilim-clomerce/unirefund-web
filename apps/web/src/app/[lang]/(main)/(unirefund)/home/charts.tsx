@@ -7,9 +7,7 @@ import {BarChart} from "@repo/ayasofyazilim-ui/molecules/bar-chart";
 import {BarList} from "@repo/ayasofyazilim-ui/molecules/bar-list";
 import {CategoryBar} from "@repo/ayasofyazilim-ui/molecules/category-bar";
 import {LineChart} from "@repo/ayasofyazilim-ui/molecules/line-chart";
-import ScrollArea from "@repo/ayasofyazilim-ui/molecules/scroll-area";
 import DataTable from "@repo/ayasofyazilim-ui/molecules/tables";
-import {SortableLayout} from "@repo/ui/sortable-layout";
 import {Grid2X2, SaveAll} from "lucide-react";
 import {useState} from "react";
 
@@ -287,7 +285,7 @@ const DashboardJson = {
       title: "Top 5 issuing nationalities",
       description: "Bar list description",
       data: issuingNationalities,
-      className: "col-span-2",
+      className: "col-span-full",
     },
     {
       id: 4,
@@ -391,13 +389,6 @@ const DashboardJson = {
 export default function Charts() {
   const [sortableEditMode, setSortableEditMode] = useState(false);
   const [listOrder, setListOrder] = useState(DashboardJson.items);
-  function getLatestList(list: typeof DashboardJson.items) {
-    setListOrder(
-      list.map((item, index: number) => {
-        return {...item, order: index + 1};
-      }),
-    );
-  }
   function handleEditMode() {
     setSortableEditMode(!sortableEditMode);
     if (sortableEditMode) {
@@ -406,85 +397,99 @@ export default function Charts() {
   }
 
   return (
-    <ScrollArea className="flex h-full [&>div>div]:h-full">
-      <div className="flex h-full grow flex-col-reverse">
-        <SortableLayout
-          className="h-full grid-cols-2 p-4"
-          editMode={sortableEditMode}
-          getLatestList={getLatestList}
-          items={DashboardJson.items}
-          renderItem={(item: any) => {
-            return (
-              <Card className="h-full rounded-md shadow-none">
-                <CardHeader>{item.title}</CardHeader>
-                <CardContent>
-                  {item.type === "barChart" && <BarChartHero item={item} />}
-                  {item.type === "areaChart" && <AreaChartHero item={item} />}
-                  {item.type === "barList" && <BarListHero item={item} />}
-                  {item.type === "categoryBar" && <CategoryBarHero item={item} />}
-                  {item.type === "lineChart" && <LineChartHero item={item} />}
-                  {item.type === "component" && item.component}
-                </CardContent>
-              </Card>
-            );
-          }}
-        />
-        <div className="sticky top-0 flex h-16 w-full items-center border-b bg-white px-4">
-          <Button className="h-8 w-8 bg-white p-0 text-slate-900 shadow" onClick={handleEditMode} variant="secondary">
-            {sortableEditMode ? <SaveAll className="w-4" /> : <Grid2X2 className="w-4" />}
-          </Button>
-        </div>
+    <div className="flex h-full w-full flex-col px-1 py-4 ">
+      <div className="mb-4 flex items-center">
+        <Button className="h-8 w-8 bg-white p-0 text-slate-900 shadow" onClick={handleEditMode} variant="secondary">
+          {sortableEditMode ? <SaveAll className="w-4" /> : <Grid2X2 className="w-4" />}
+        </Button>
       </div>
-    </ScrollArea>
+      <div className="grid w-full auto-rows-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        {listOrder.map((item) => (
+          <Card className={`h-auto w-full overflow-hidden rounded-md shadow ${item.className || ""}`} key={item.id}>
+            <CardHeader className="p-4 font-medium">{item.title}</CardHeader>
+            <CardContent className="overflow-x-auto p-4">
+              {item.type === "barChart" && <BarChartHero item={item} />}
+              {item.type === "areaChart" && <AreaChartHero item={item} />}
+              {item.type === "barList" && <BarListHero item={item} />}
+              {item.type === "categoryBar" && <CategoryBarHero item={item} />}
+              {item.type === "lineChart" && <LineChartHero item={item} />}
+              {item.type === "component" && <div className="max-w-full overflow-x-auto">{item.component}</div>}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 }
 
 function AreaChartHero({item}: any) {
   return (
-    <AreaChart
-      categories={["SolarPanels", "Inverters"]}
-      className="h-80"
-      data={item.data}
-      index="date"
-      valueFormatter={(number: number) => `$${Intl.NumberFormat("us").format(number).toString()}`}
-    />
+    <div className="w-full max-w-full overflow-x-auto">
+      <div className="min-w-[300px]">
+        <AreaChart
+          categories={["SolarPanels", "Inverters"]}
+          className="h-60 w-full"
+          data={item.data}
+          index="date"
+          valueFormatter={(number: number) => `$${Intl.NumberFormat("us").format(number).toString()}`}
+        />
+      </div>
+    </div>
   );
 }
+
 function BarChartHero({item}: any) {
   return (
-    <BarChart
-      categories={item.categories}
-      className="h-80"
-      colors={["emerald"]}
-      data={item.data}
-      index={item.index}
-      valueFormatter={(number: number) => Intl.NumberFormat("us").format(number).toString()}
-    />
+    <div className="w-full max-w-full overflow-x-auto">
+      <div className="min-w-[300px]">
+        <BarChart
+          categories={item.categories}
+          className="h-60 w-full"
+          colors={["emerald"]}
+          data={item.data}
+          index={item.index}
+          valueFormatter={(number: number) => Intl.NumberFormat("us").format(number).toString()}
+        />
+      </div>
+    </div>
   );
 }
+
 function BarListHero({item}: any) {
-  return <BarList data={item.data} />;
+  return (
+    <div className="w-full max-w-full">
+      <BarList data={item.data} />
+    </div>
+  );
 }
+
 function CategoryBarHero({item}: any) {
   return (
-    <CategoryBar
-      className="mx-auto w-full p-4"
-      colors={["pink", "amber", "emerald"]}
-      marker={{value: 99, tooltip: "68", showAnimation: true}}
-      values={item.data}
-    />
+    <div className="w-full max-w-full">
+      <CategoryBar
+        className="w-full"
+        colors={["pink", "amber", "emerald"]}
+        marker={{value: 99, tooltip: "68", showAnimation: true}}
+        values={item.data}
+      />
+    </div>
   );
 }
+
 function LineChartHero({item}: any) {
   return (
-    <LineChart
-      categories={["SolarPanels", "Inverters"]}
-      className="h-80"
-      data={item.data}
-      index="date"
-      valueFormatter={(number: number) => `$${Intl.NumberFormat("us").format(number).toString()}`}
-      xAxisLabel="Month"
-      yAxisLabel="Spend Category"
-    />
+    <div className="w-full max-w-full overflow-x-auto">
+      <div className="min-w-[300px]">
+        <LineChart
+          categories={["SolarPanels", "Inverters"]}
+          className="h-60 w-full"
+          data={item.data}
+          index="date"
+          valueFormatter={(number: number) => `$${Intl.NumberFormat("us").format(number).toString()}`}
+          xAxisLabel="Month"
+          yAxisLabel="Spend Category"
+        />
+      </div>
+    </div>
   );
 }

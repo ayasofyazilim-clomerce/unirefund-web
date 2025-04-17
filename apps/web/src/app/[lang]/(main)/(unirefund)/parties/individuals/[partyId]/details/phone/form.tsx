@@ -43,7 +43,7 @@ function TelephoneForm({
   }
   return (
     <AutoForm
-      className="m-4"
+      className="w-full py-6 md:w-1/2 lg:w-1/3"
       fieldConfig={{
         localNumber: {
           fieldType: "phone",
@@ -51,6 +51,7 @@ function TelephoneForm({
           inputProps: {
             showLabel: true,
           },
+          className: "w-full",
         },
       }}
       formSchema={telephoneSchema}
@@ -68,7 +69,7 @@ function TelephoneForm({
       }}
       stickyChildren
       values={telephoneValues}>
-      <AutoFormSubmit className="float-right mr-6" disabled={isPending}>
+      <AutoFormSubmit className="float-right mb-2" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>
     </AutoForm>
