@@ -21,7 +21,7 @@ export default function IndividualActionList({
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
   return (
-    <ActionList>
+    <ActionList className="border-none p-0">
       {isActionGranted(["SettingService.Vats.Delete"], grantedPolicies) && (
         <ConfirmDialog
           closeProps={{

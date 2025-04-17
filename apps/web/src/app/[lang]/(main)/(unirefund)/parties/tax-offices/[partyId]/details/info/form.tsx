@@ -67,6 +67,7 @@ function TaxOfficeForm({
   }
   return (
     <AutoForm
+      className="grid w-2/3 grid-cols-1 items-center justify-center gap-4 space-y-0 pt-6 md:grid-cols-2 [&>div]:flex [&>div]:flex-col"
       dependencies={dependencies}
       fieldConfig={{
         taxOfficeId: {
@@ -93,8 +94,13 @@ function TaxOfficeForm({
             );
           },
         },
+        taxpayerId: {
+          className: "space-y-0",
+        },
+        typeCode: {
+          className: "space-y-0 ",
+        },
       }}
-      formClassName="pb-40"
       formSchema={schema}
       onSubmit={(values) => {
         if (values.typeCode !== "HEADQUARTER") {

@@ -41,7 +41,7 @@ export default function TravellerNewForm({
 
   return (
     <SchemaForm<UniRefund_TravellerService_Travellers_CreateTravellerDto>
-      className="flex flex-col gap-0 p-0"
+      className="mx-auto flex max-w-6xl flex-col gap-0 p-0"
       defaultSubmitClassName="p-0"
       disabled={isPending}
       onSubmit={({formData}) => {

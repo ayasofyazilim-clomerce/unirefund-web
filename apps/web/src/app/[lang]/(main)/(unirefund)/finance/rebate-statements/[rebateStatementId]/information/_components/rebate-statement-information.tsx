@@ -1,5 +1,5 @@
 "use client";
-import {Card, CardHeader} from "@/components/ui/card";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
@@ -8,23 +8,17 @@ import {dateToString} from "@/app/[lang]/(main)/(unirefund)/operations/_componen
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {tableData} from "./rebate-information-table-data";
 
-interface SummaryListType {
-  title?: string;
-  rows: {
-    title: string;
-    content?: string;
-  }[];
+interface InformationItemProps {
+  label: string;
+  value: string | null | undefined;
+  highlight?: boolean;
 }
 
-function SummaryList({summaryList}: {summaryList: SummaryListType}) {
+function InformationItem({label, value, highlight}: InformationItemProps) {
   return (
-    <div className="mt-2 flex w-1/3 flex-col">
-      {summaryList.rows.map((row) => (
-        <div className=" mb-2 flex flex-row gap-2 " key={row.title}>
-          <div>{row.title}:</div>
-          <div className="font-semibold">{row.content || "-"}</div>
-        </div>
-      ))}
+    <div className="flex flex-col">
+      <span className="text-sm text-gray-500">{label}</span>
+      <span className={`font-medium ${highlight ? "text-primary text-lg" : ""}`}>{value || "-"}</span>
     </div>
   );
 }
@@ -42,59 +36,80 @@ export default function RebateStatementInformation({
   const columns = tableData.rebateInformation.columns(lang, languageData, grantedPolicies);
   const table = tableData.rebateInformation.table();
 
-  const firstColumn: SummaryListType = {
-    title: rebateStatementData.status,
-    rows: [
-      {
-        title: languageData["RebateStatement.MerchantName"],
-        content: rebateStatementData.merchantName,
-      },
-      {
-        title: languageData["RebateStatement.Status"],
-        content: rebateStatementData.status,
-      },
-      {
-        title: languageData["RebateStatement.Total"],
-        content: rebateStatementData.total.toString(),
-      },
-      {
-        title: languageData["RebateStatement.CustomerNumber"],
-        content: rebateStatementData.customerNumber || "",
-      },
-    ],
+  const formatCurrency = (value: number | undefined) => {
+    if (value === undefined) return "-";
+    return new Intl.NumberFormat("tr-TR", {
+      style: "currency",
+      currency: "EUR",
+    }).format(value);
   };
-  const secondColumn: SummaryListType = {
-    rows: [
-      {
-        title: languageData["RebateStatement.Number"],
-        content: rebateStatementData.number,
-      },
-      {
-        title: languageData["RebateStatement.RebateStatementDate"],
-        content: dateToString(rebateStatementData.rebateStatementDate, "tr"),
-      },
-      {
-        title: languageData["RebateStatement.Period"],
-        content: rebateStatementData.period,
-      },
-    ],
+
+  const getStatusColor = (status: string | undefined) => {
+    if (!status) return "text-gray-600";
+
+    switch (status) {
+      case "Sent":
+        return "text-blue-600";
+      case "Cancelled":
+        return "text-red-600";
+      case "DebtCollection":
+        return "text-amber-600";
+      case "CreditNote":
+        return "text-green-600";
+      case "PaymentReminder1":
+      case "PaymentReminder2":
+      case "PaymentReminder3":
+        return "text-orange-600";
+      default:
+        return "text-gray-600";
+    }
   };
 
   return (
-    <div className="max-h-[calc(100vh-200px)] w-full overflow-y-auto pt-4">
-      <Card className="flex-1  rounded-none p-4">
-        <CardHeader className="py-4">
-          <div className="flex flex-row justify-between gap-6">
-            <SummaryList summaryList={firstColumn} />
-            <SummaryList summaryList={secondColumn} />
+    <div className="max-h-[calc(100vh-200px)] w-full overflow-y-auto pt-4 ">
+      <Card className="mb-6 border shadow-sm">
+        <CardHeader className="border-b pb-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold">{languageData["RebateStatement.Information"] || "Information"}</h2>
+            <span className={`rounded-md px-3 py-1 font-bold ${getStatusColor(rebateStatementData.status)}`}>
+              {rebateStatementData.status}
+            </span>
           </div>
         </CardHeader>
-        <TanstackTable
-          {...table}
-          columns={columns}
-          data={rebateStatementData.rebateStatementStoreDetails || []}
-          rowCount={1}
-        />
+        <CardContent className="pt-5">
+          <div className="grid grid-cols-2 gap-x-12 gap-y-6 md:grid-cols-4">
+            <InformationItem
+              highlight
+              label={languageData["RebateStatement.MerchantName"]}
+              value={rebateStatementData.merchantName}
+            />
+            <InformationItem label={languageData["RebateStatement.Number"]} value={rebateStatementData.number} />
+            <InformationItem
+              label={languageData["RebateStatement.CustomerNumber"]}
+              value={rebateStatementData.customerNumber || "-"}
+            />
+            <InformationItem
+              highlight
+              label={languageData["RebateStatement.Total"]}
+              value={formatCurrency(rebateStatementData.total)}
+            />
+            <InformationItem
+              label={languageData["RebateStatement.RebateStatementDate"]}
+              value={
+                rebateStatementData.rebateStatementDate
+                  ? dateToString(rebateStatementData.rebateStatementDate, "tr")
+                  : "-"
+              }
+            />
+            <InformationItem label={languageData["RebateStatement.Period"]} value={rebateStatementData.period} />
+          </div>
+          <TanstackTable
+            {...table}
+            columns={columns}
+            data={rebateStatementData.rebateStatementStoreDetails || []}
+            rowCount={rebateStatementData.rebateStatementStoreDetails?.length || 0}
+          />
+        </CardContent>
       </Card>
     </div>
   );

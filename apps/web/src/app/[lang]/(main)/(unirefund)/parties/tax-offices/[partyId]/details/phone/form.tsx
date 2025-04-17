@@ -43,6 +43,7 @@ function TelephoneForm({
   }
   return (
     <AutoForm
+      className="grid w-2/3 grid-cols-1 items-center justify-center gap-4 space-y-0 pt-6 md:grid-cols-2 [&>div]:flex [&>div]:flex-col"
       fieldConfig={{
         localNumber: {
           fieldType: "phone",
@@ -52,7 +53,6 @@ function TelephoneForm({
           },
         },
       }}
-      formClassName="pb-40 "
       formSchema={telephoneSchema}
       onSubmit={(values) => {
         const isValid = isPhoneValid(values.localNumber as string);

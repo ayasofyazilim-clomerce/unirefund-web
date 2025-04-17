@@ -36,12 +36,14 @@ function EmailForm({
   }
   return (
     <AutoForm
-      className="m-4"
+      className="w-full py-6 md:w-1/2 lg:w-1/3"
       fieldConfig={{
         emailAddress: {
           inputProps: {
             type: "email",
           },
+
+          className: "w-full ",
         },
       }}
       formSchema={emailSchema}
@@ -50,7 +52,7 @@ function EmailForm({
       }}
       stickyChildren
       values={emailValues}>
-      <AutoFormSubmit className="float-right mr-6" disabled={isPending}>
+      <AutoFormSubmit className="float-right mb-2" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>
     </AutoForm>

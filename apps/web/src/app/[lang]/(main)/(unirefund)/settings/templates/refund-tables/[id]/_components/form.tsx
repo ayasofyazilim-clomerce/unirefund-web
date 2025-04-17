@@ -26,15 +26,15 @@ export default function RefundTableHeaderUpdateForm({
     resources: languageData,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "md:grid md:grid-cols-2",
-      name: {"ui:className": "col-span-full"},
+      "ui:className": "md:grid md:grid-cols-1 border rounded-md p-2 my-6 md:p-6",
+      name: {"ui:className": "flex justify-center items-center"},
       isDefault: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "h-max flex justify-center items-center",
       },
       isBundling: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md h-max self-end",
+        "ui:className": "h-max flex justify-center items-center",
       },
       refundTableDetails: {
         "ui:field": "RefundTableDetailsField",

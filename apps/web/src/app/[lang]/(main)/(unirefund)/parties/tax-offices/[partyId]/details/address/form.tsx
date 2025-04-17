@@ -59,8 +59,8 @@ function AddressForm({
 
   return (
     <AutoForm
+      className="grid grid-cols-1 items-center justify-center gap-4 space-y-0 pt-6 md:grid-cols-2 lg:grid-cols-3 [&>div]:flex [&>div]:flex-col"
       fieldConfig={addressSchemaFieldConfig}
-      formClassName="pb-40"
       formSchema={addressSchema}
       onSubmit={(values) => {
         const formData = {

@@ -32,7 +32,7 @@ export default function Page({
 
   return (
     <SchemaForm
-      className="flex flex-col gap-4"
+      className="flex w-1/3 flex-col"
       disabled={isPending}
       formData={{
         genderTypeCode: travellerData.gender,

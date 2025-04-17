@@ -59,7 +59,7 @@ function AddressForm({
 
   return (
     <AutoForm
-      className="m-4"
+      className="grid grid-cols-1 gap-4 space-y-0 pt-6 md:grid-cols-2 lg:grid-cols-3"
       fieldConfig={addressSchemaFieldConfig}
       formSchema={addressSchema}
       onSubmit={(values) => {
@@ -75,7 +75,7 @@ function AddressForm({
       }}
       stickyChildren
       values={addressValues}>
-      <AutoFormSubmit className="float-right mr-6" disabled={isPending}>
+      <AutoFormSubmit className="float-right mb-2" disabled={isPending}>
         {languageData["Edit.Save"]}
       </AutoFormSubmit>
     </AutoForm>
