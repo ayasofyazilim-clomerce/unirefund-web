@@ -24,4 +24,4 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - name: Run a publish script
-        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && chmod 777 ./publish-cli.sh && ./publish-cli.sh --app web --port 14530"
+        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit"
