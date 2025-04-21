@@ -32,8 +32,4 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - name: Run a publish script
-        if: github.event.inputs.app == 'ssr'
-        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit"
-      - name: Run a publish script for web
-        if: github.event.inputs.app == 'web'
-        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit"
+        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit --project Unirefund --app ${{ github.event.inputs.app }} --env ${{ github.event.inputs.release-type }} --sync tue --port ${{ github.event.inputs.app == 'web' && '14530' || '14540' }}"
