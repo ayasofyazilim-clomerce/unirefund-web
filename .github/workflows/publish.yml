@@ -11,7 +11,7 @@ on:
         options:
           - dev
         # - prod
-        app:
+      app:
         description: "App to publish (one of): ssr, web"
         required: true
         default: "ssr"
