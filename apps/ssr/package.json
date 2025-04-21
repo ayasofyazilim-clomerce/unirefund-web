@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "ssr",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -12,9 +12,6 @@
     "lint:report": "next lint --quiet  > lint-output.txt 2>&1",
     "type-check": "tsc --noEmit",
     "type-check:report": "tsc --noEmit > type-check-output.txt 2>&1",
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
     "format": "prettier --write . --plugin=prettier-plugin-tailwindcss",
     "precommit": "prettier --write . && next lint --fix && tsc --noEmit ",
     "lint-staged": "npx lint-staged --config .lintstagedrc.js"
@@ -41,15 +38,13 @@
     "dotenv": "^16.4.5",
     "env-cmd": "^10.1.0",
     "geist": "1.3.0",
-    "google-libphonenumber": "^3.2.37",
     "lucide-react": "0.445.0",
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.20",
     "next-auth": "5.0.0-beta.16",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "3.24.2"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.1.1",
