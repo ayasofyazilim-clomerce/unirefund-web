@@ -1,0 +1,39 @@
+{
+  "ExportValidation": "İhracat Doğrulaması",
+  "ExportValidation.New": "Yeni İhracat Doğrulaması",
+  "ExportValidation.Delete": "İhracat Doğrulamasını Sil",
+  "ExportValidation.Update.Description": "İhracat Doğrulamasının detaylarını buradan güncelleyebilirsin.",
+  "ExportValidation.Create.Description": "Buradan yeni bir ihracat doğrulaması oluşturabilirsin.",
+  "Custom.Select": "Gümrük Seçin",
+  "Tag.Select": "Etiket Seçin",
+
+  "Form.ExportValidation.tagId": "Etiket Adı",
+  "Form.ExportValidation.customsId": "Gümrük Adı",
+  "Form.ExportValidation.customsName": "Gümrük Adı",
+  "Form.ExportValidation.tagNumber": "Etiket Numarası",
+  "Form.ExportValidation.referenceId": "Referans Adı",
+  "Form.ExportValidation.exportDate": "İhracat Tarihi",
+  "Form.ExportValidation.exportDate.StartEnd": "Ihracat Tarihi (Başlangıc - Bitis)",
+  "Form.ExportValidation.status": "Durum",
+  "Form.ExportValidation.stampType": "Damga Türü",
+  "Form.ExportValidation.initialValidationResult": "İlk Doğrulama Sonucu",
+  "Form.ExportValidation.finalValidationResult": "Son Doğrulama Sonucu",
+  "Form.ExportValidation.responseCode": "Cevap Kodu",
+  "Form.ExportValidation.description": "Acıklama",
+
+  "Form.ExportValidation.status.None": "Yok",
+  "Form.ExportValidation.status.Waiting": "Bekleniyor",
+  "Form.ExportValidation.status.Approved": "Onaylandı",
+  "Form.ExportValidation.status.Rejected": "Reddedildi",
+  "Form.ExportValidation.status.Expired": "Sona erdi",
+
+  "Form.ExportValidation.stampType.None": "Yok",
+  "Form.ExportValidation.stampType.Integration": "Entegrasyon",
+  "Form.ExportValidation.stampType.DigitalStamp": "Elektronik",
+
+  "Form.ExportValidation.initialValidationResult.None": "Yok",
+  "Form.ExportValidation.initialValidationResult.Green": "Yeşil",
+
+  "Form.ExportValidation.finalValidationResult.None": "Yok",
+  "Form.ExportValidation.finalValidationResult.Green": "Yeşil"
+}

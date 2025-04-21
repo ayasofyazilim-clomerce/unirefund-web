@@ -34,6 +34,115 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
 
+  apps/ssr:
+    dependencies:
+      '@auth/core':
+        specifier: ^0.30.0
+        version: 0.30.0
+      '@ayasofyazilim/core-saas':
+        specifier: latest
+        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+      '@ayasofyazilim/saas':
+        specifier: 0.0.144
+        version: 0.0.144(magicast@0.3.5)(openapi-types@12.1.3)
+      '@radix-ui/react-icons':
+        specifier: ^1.3.0
+        version: 1.3.2(react@18.3.1)
+      '@repo/actions':
+        specifier: workspace:*
+        version: link:../../packages/actions
+      '@repo/ayasofyazilim-ui':
+        specifier: workspace:^
+        version: link:../../packages/ayasofyazilim-ui
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      '@superset-ui/embedded-sdk':
+        specifier: ^0.1.3
+        version: 0.1.3
+      '@tailwindcss/typography':
+        specifier: ^0.5.10
+        version: 0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
+      '@tanstack/react-table':
+        specifier: 8.16.0
+        version: 8.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/google-libphonenumber':
+        specifier: ^7.4.30
+        version: 7.4.30
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.7
+      env-cmd:
+        specifier: ^10.1.0
+        version: 10.1.0
+      geist:
+        specifier: 1.3.0
+        version: 1.3.0(next@14.2.20(@playwright/test@1.47.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      lucide-react:
+        specifier: 0.445.0
+        version: 0.445.0(react@18.3.1)
+      mini-svg-data-uri:
+        specifier: ^1.4.4
+        version: 1.4.4
+      next:
+        specifier: 14.2.20
+        version: 14.2.20(@playwright/test@1.47.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-auth:
+        specifier: 5.0.0-beta.16
+        version: 5.0.0-beta.16(next@14.2.20(@playwright/test@1.47.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: 18.3.1
+        version: 18.3.1(react@18.3.1)
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
+    devDependencies:
+      '@next/eslint-plugin-next':
+        specifier: 14.1.1
+        version: 14.1.1
+      '@playwright/test':
+        specifier: ^1.44.1
+        version: 1.47.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/config-eslint
+      '@repo/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/config-tailwind
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
+      '@types/node':
+        specifier: 20.11.24
+        version: 20.11.24
+      '@types/react':
+        specifier: 18.3.18
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: 18.3.5
+        version: 18.3.5(@types/react@18.3.18)
+      autoprefixer:
+        specifier: 10.4.18
+        version: 10.4.18(postcss@8.4.35)
+      lint-staged:
+        specifier: 15.2.2
+        version: 15.2.2
+      postcss:
+        specifier: 8.4.35
+        version: 8.4.35
+      tailwindcss:
+        specifier: 3.4.1
+        version: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+
   apps/web:
     dependencies:
       '@auth/core':
@@ -4773,9 +4882,6 @@ packages:
 
   '@types/node@20.11.25':
     resolution: {integrity: sha512-TBHyJxk2b7HceLVGFcpAUjsa5zIdsPWlR6XHfyGzd0SFu+/NFgQgMAl96MSDZgQDvJAvV6BKsFOrt6zIL09JDw==}
-
-  '@types/node@22.5.4':
-    resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
 
   '@types/node@22.5.5':
     resolution: {integrity: sha512-Xjs4y5UPO/CLdzpgR6GirZJx36yScjh73+2NlLlkFRSoQN8B0DpfXPdZGnvVmLRLOsqDpOfTNv7D9trgGhmOIA==}
@@ -14573,7 +14679,7 @@ snapshots:
       '@storybook/preset-react-webpack': 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(@swc/core@1.7.26(@swc/helpers@0.5.5))(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)(typescript@5.6.2)
       '@storybook/react': 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)(typescript@5.6.2)
       '@storybook/test': 8.3.0(storybook@8.3.0)
-      '@types/node': 22.5.4
+      '@types/node': 22.5.5
       '@types/semver': 7.5.8
       babel-loader: 9.2.0(@babel/core@7.25.2)(webpack@5.94.0(@swc/core@1.7.26(@swc/helpers@0.5.5))(esbuild@0.23.1))
       css-loader: 6.11.0(webpack@5.94.0(@swc/core@1.7.26(@swc/helpers@0.5.5))(esbuild@0.23.1))
@@ -14630,7 +14736,7 @@ snapshots:
       '@storybook/core-webpack': 8.3.0(storybook@8.3.0)
       '@storybook/react': 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)(typescript@5.6.2)
       '@storybook/react-docgen-typescript-plugin': 1.0.6--canary.9.0c3f3b7.0(typescript@5.6.2)(webpack@5.94.0(@swc/core@1.7.26(@swc/helpers@0.5.5))(esbuild@0.23.1))
-      '@types/node': 22.5.4
+      '@types/node': 22.5.5
       '@types/semver': 7.5.8
       find-up: 5.0.0
       fs-extra: 11.2.0
@@ -14682,7 +14788,7 @@ snapshots:
       '@storybook/builder-webpack5': 8.3.0(@swc/core@1.7.26(@swc/helpers@0.5.5))(esbuild@0.23.1)(storybook@8.3.0)(typescript@5.6.2)
       '@storybook/preset-react-webpack': 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(@swc/core@1.7.26(@swc/helpers@0.5.5))(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)(typescript@5.6.2)
       '@storybook/react': 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)(typescript@5.6.2)
-      '@types/node': 22.5.4
+      '@types/node': 22.5.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.3.0
@@ -14707,7 +14813,7 @@ snapshots:
       '@storybook/theming': 8.3.0(storybook@8.3.0)
       '@types/escodegen': 0.0.6
       '@types/estree': 0.0.51
-      '@types/node': 22.5.4
+      '@types/node': 22.5.5
       acorn: 7.4.1
       acorn-jsx: 5.3.2(acorn@7.4.1)
       acorn-walk: 7.2.0
@@ -15338,10 +15444,6 @@ snapshots:
   '@types/node@20.11.25':
     dependencies:
       undici-types: 5.26.5
-
-  '@types/node@22.5.4':
-    dependencies:
-      undici-types: 6.19.8
 
   '@types/node@22.5.5':
     dependencies:
@@ -17714,7 +17816,7 @@ snapshots:
 
   execa@8.0.1:
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       get-stream: 8.0.1
       human-signals: 5.0.0
       is-stream: 3.0.0
