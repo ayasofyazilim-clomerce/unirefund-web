@@ -32,8 +32,39 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - name: Run a publish script
-        if: github.event.inputs.app == 'ssr'
-        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit"
-      - name: Run a publish script for web
-        if: github.event.inputs.app == 'web'
-        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit"
+name: Publish apps
+run-name: ${{ github.actor }} is publishing projects to dev 🚀
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: "Release type (one of): dev, prod"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+        # - prod
+      app:
+        description: "App to publish (one of): ssr, web"
+        required: true
+        default: "ssr"
+        type: choice
+        options:
+          - ssr
+          - web
+  workflow_call:
+    inputs:
+      release-type:
+        default: "dev"
+        type: string
+jobs:
+  publish_dev:
+    timeout-minutes: 60
+    runs-on: self-hosted
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - name: Run a publish script
+        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit --project Unirefund ---app ${{ github.event.inputs.app }} --env ${{ github.event.inputs.release-type }} --sync true --port ${{ github.event.inputs.app === 'web' && '14530' || '14540' }}"
+
