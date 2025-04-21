@@ -1,0 +1,39 @@
+{
+  "ExportValidation": "Export Validation",
+  "ExportValidation.New": "New Export Validation",
+  "ExportValidation.Delete": "Delete Export Validation",
+  "ExportValidation.Update.Description": "You can update the export validation's details from here.",
+  "ExportValidation.Create.Description": "You can create a new export validation from here.",
+  "Custom.Select": "Select Custom",
+  "Tag.Select": "Select Tag",
+
+  "Form.ExportValidation.tagId": "Tag Name",
+  "Form.ExportValidation.customsId": "Custom Name",
+  "Form.ExportValidation.customsName": "Custom Name",
+  "Form.ExportValidation.tagNumber": "Tag Number",
+  "Form.ExportValidation.referenceId": "Reference Name",
+  "Form.ExportValidation.exportDate": "Export Date",
+  "Form.ExportValidation.exportDate.StartEnd": "Export Date (start - End)",
+  "Form.ExportValidation.status": "Status",
+  "Form.ExportValidation.stampType": "Stamp Type",
+  "Form.ExportValidation.initialValidationResult": "Initial Validation Result",
+  "Form.ExportValidation.finalValidationResult": "Final Validation Result",
+  "Form.ExportValidation.responseCode": "Response Code",
+  "Form.ExportValidation.description": "Description",
+
+  "Form.ExportValidation.status.None": "None",
+  "Form.ExportValidation.status.Waiting": "Waiting",
+  "Form.ExportValidation.status.Approved": "Approved",
+  "Form.ExportValidation.status.Rejected": "Rejected",
+  "Form.ExportValidation.status.Expired": "Expired",
+
+  "Form.ExportValidation.stampType.None": "None",
+  "Form.ExportValidation.stampType.Integration": "Integration",
+  "Form.ExportValidation.stampType.DigitalStamp": "Digital",
+
+  "Form.ExportValidation.initialValidationResult.None": "None",
+  "Form.ExportValidation.initialValidationResult.Green": "Green",
+
+  "Form.ExportValidation.finalValidationResult.None": "None",
+  "Form.ExportValidation.finalValidationResult.Green": "Green"
+}

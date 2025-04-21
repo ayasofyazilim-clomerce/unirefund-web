@@ -1,0 +1,34 @@
+import {getLocalizationResources} from "src/utils";
+import type {SaasServiceResources} from "@/language-data/resources";
+import defaultEn from "../Default/resources/en.json";
+import defaultTr from "../Default/resources/tr.json";
+import en from "./resources/en.json";
+import tr from "./resources/tr.json";
+
+export type SaasServiceResource = typeof en & typeof defaultEn;
+function getLanguageData(lang: string): SaasServiceResource {
+  if (lang === "tr") {
+    return {
+      ...defaultTr,
+      ...tr,
+    };
+  }
+  return {
+    ...defaultEn,
+    ...en,
+  };
+}
+export async function getResourceData(lang: string) {
+  const resources = await getLocalizationResources(lang);
+  const languageData = getLanguageData(lang);
+  return {
+    languageData: {
+      ...languageData,
+      ...(resources.SaasService?.texts as unknown as SaasServiceResources),
+    },
+  };
+}
+export function getResourceDataClient(lang: string) {
+  const languageData = getLanguageData(lang);
+  return languageData;
+}
