@@ -72,6 +72,7 @@ export default function IndividualForm({
     undefined,
     {...individualFormSubPositions, address: addressFieldsToShow},
   );
+
   function saveAffilationOfIndividual(formData: CreateIndividualSchema) {
     const body = {
       id: partyId || "",
@@ -164,54 +165,81 @@ export default function IndividualForm({
   }
 
   return (
-    <AutoForm
-      className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
-      fieldConfig={{
-        email: {
-          emailAddress: {
-            inputProps: {
-              type: "email",
+    <div className="flex w-full justify-center py-6">
+      <div className="w-full max-w-6xl">
+        <AutoForm
+          className="grid grid-cols-6 gap-2 lg:gap-6"
+          fieldConfig={{
+            name: {
+              className:
+                "col-span-6 space-y-0 p-6 [&>div]:grid [&>div]:grid-cols-2 [&>div]:gap-4 [&>div]:p-0 [&>div>div]:grid [&>div>div]:grid-cols-1 [&>div>div]:space-y-0 [&>div>div]:gap-1",
             },
-          },
-        },
-
-        affiliationCodeId: {
-          containerClassName: `p-4 border rounded-md ${partyId && entityPartyTypeCode ? "" : "hidden"}`,
-
-          renderer: (props: AutoFormInputComponentProps) => {
-            return (
-              <CustomCombobox<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>
-                childrenProps={{...props, isRequired: Boolean(partyId && entityPartyTypeCode)}}
-                list={affiliationCodeResponse}
-                selectIdentifier="id"
-                selectLabel="name"
-              />
-            );
-          },
-        },
-        address: {...addressSchemaFieldConfig, className: "row-span-1"},
-        telephone: {
-          localNumber: {
-            fieldType: "phone",
-            displayName: languageData.Telephone,
-            inputProps: {
-              showLabel: true,
+            personalSummaries: {
+              className:
+                "col-span-6 lg:col-span-3 space-y-0 p-6  [&>div]:grid [&>div]:grid-cols-2 [&>div]:gap-4 [&>div]:p-0 [&>div>div]:grid [&>div>div]:grid-cols-1 [&>div>div]:space-y-0 [&>div>div]:gap-1",
             },
-          },
-        },
-      }}
-      formSchema={$createIndividualSchema}
-      onSubmit={(formData) => {
-        handleSaveIndividual(formData as CreateIndividualSchema);
-      }}
-      onValuesChange={(values) => {
-        onAddressValueChanged(values);
-      }}
-      stickyChildren
-      stickyChildrenClassName="sticky px-6">
-      <AutoFormSubmit className="float-right" disabled={isPending}>
-        {languageData.Save}
-      </AutoFormSubmit>
-    </AutoForm>
+            address: {
+              ...addressSchemaFieldConfig,
+              className:
+                "col-span-6 lg:col-span-3 space-y-0 p-6 [&>div]:grid [&>div]:grid-cols-2 [&>div]:gap-4 [&>div]:p-0 [&>div>div]:grid [&>div>div]:grid-cols-1 [&>div>div]:space-y-0 [&>div>div]:gap-1",
+            },
+            email: {
+              className:
+                "col-span-6 lg:col-span-2 space-y-0 p-6 [&>div]:grid [&>div]:grid-cols-1 [&>div]:gap-4 [&>div]:p-0 [&>div>div]:grid [&>div>div]:grid-cols-1 [&>div>div]:space-y-0 [&>div>div]:gap-1",
+              emailAddress: {
+                inputProps: {
+                  type: "email",
+                  placeholder: "email@example.com",
+                  className: "w-full",
+                  showLabel: false,
+                },
+              },
+            },
+            telephone: {
+              className:
+                "col-span-6 lg:col-span-2 space-y-0 p-6 [&>div]:grid [&>div]:grid-cols-1 [&>div]:gap-4 [&>div]:p-0 [&>div>div]:grid [&>div>div]:grid-cols-1 [&>div>div]:space-y-0 [&>div>div]:gap-1",
+              localNumber: {
+                fieldType: "phone",
+                displayName: languageData.Telephone || "Telephone",
+                inputProps: {
+                  showLabel: false,
+                  className: "w-full",
+                },
+              },
+            },
+            affiliationCodeId: {
+              inputProps: {
+                type: "select",
+                showLabel: true,
+                className: "w-full",
+              },
+              containerClassName: `lg:col-span-2 col-span-6 justify-center  bg-white p-5 rounded-md border border-gray-200 [&>div]:grid [&>div]:grid-cols-2 [&>div]:gap-4 ${partyId && entityPartyTypeCode ? "" : "hidden"}`,
+              renderer: (props: AutoFormInputComponentProps) => {
+                return (
+                  <CustomCombobox<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>
+                    childrenProps={{...props, isRequired: Boolean(partyId && entityPartyTypeCode)}}
+                    list={affiliationCodeResponse}
+                    selectIdentifier="id"
+                    selectLabel="name"
+                  />
+                );
+              },
+            },
+          }}
+          formSchema={$createIndividualSchema}
+          onSubmit={(formData) => {
+            handleSaveIndividual(formData as CreateIndividualSchema);
+          }}
+          onValuesChange={(values) => {
+            onAddressValueChanged(values);
+          }}
+          stickyChildren
+          stickyChildrenClassName="sticky p-0 lg:py-4 bg-white border-t border-gray-100 mt-4 flex justify-end">
+          <AutoFormSubmit className="w-full p-0 lg:w-1/6 lg:px-6 lg:py-2" disabled={isPending}>
+            {languageData.Save}
+          </AutoFormSubmit>
+        </AutoForm>
+      </div>
+    </div>
   );
 }

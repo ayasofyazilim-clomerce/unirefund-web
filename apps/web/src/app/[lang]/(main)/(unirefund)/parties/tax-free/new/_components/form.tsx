@@ -123,13 +123,13 @@ export default function TaxFreeOrganizationForm({
 
   return (
     <AutoForm
-      className="grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-3"
+      className="my-6 grid gap-2 space-y-0 md:grid-cols-2 lg:grid-cols-2"
       fieldConfig={{
         taxOfficeId: {
           inputProps: {
             required: !parentId,
           },
-          containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          containerClassName: "lg:col-span-1 border p-4 rounded-md",
           renderer: (props: AutoFormInputComponentProps) => {
             return (
               <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
@@ -143,10 +143,10 @@ export default function TaxFreeOrganizationForm({
         },
         address: {
           ...addressSchemaFieldConfig,
-          className: parentId ? "row-span-3" : "row-span-5",
+          className: parentId ? "row-span-3" : "row-span-5 h-fit",
         },
         organization: {
-          className: "lg:col-span-2",
+          className: "lg:col-span-1 gap-4",
         },
         email: {
           className: parentId ? "lg:col-span-2 border p-4 rounded-md" : "",
@@ -158,7 +158,7 @@ export default function TaxFreeOrganizationForm({
           },
         },
         taxpayerId: {
-          containerClassName: "lg:col-span-2 border p-4 rounded-md",
+          containerClassName: "lg:col-span-1 border p-4 rounded-md",
           inputProps: {
             required: !parentId,
           },

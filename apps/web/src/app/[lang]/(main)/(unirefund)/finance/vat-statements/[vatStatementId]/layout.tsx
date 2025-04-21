@@ -15,18 +15,20 @@ export default async function Layout({
   const baseLink = getBaseLink(`finance/vat-statements/${vatStatementId}/`, lang);
 
   return (
-    <TabLayout
-      tabList={[
-        {
-          label: languageData["VatStatement.Information"],
-          href: `${baseLink}information`,
-        },
-        {
-          label: languageData["VatStatement.TaxFreeTags"],
-          href: `${baseLink}tax-free-tags`,
-        },
-      ]}>
-      {children}
-    </TabLayout>
+    <div className="my-6 space-y-6 rounded-md border p-6">
+      <TabLayout
+        tabList={[
+          {
+            label: languageData["VatStatement.Information"],
+            href: `${baseLink}information`,
+          },
+          {
+            label: languageData["VatStatement.TaxFreeTags"],
+            href: `${baseLink}tax-free-tags`,
+          },
+        ]}>
+        {children}
+      </TabLayout>
+    </div>
   );
 }

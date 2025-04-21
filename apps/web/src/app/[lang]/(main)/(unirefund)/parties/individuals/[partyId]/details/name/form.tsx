@@ -29,11 +29,14 @@ function NameForm({
     schema: $UniRefund_CRMService_NameCommonDatas_UpdateNameCommonDataDto,
     resources: languageData,
     name: "Form.Individual",
+    extend: {
+      "ui:className": "grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4",
+    },
   });
 
   return (
     <SchemaForm<UniRefund_CRMService_NameCommonDatas_NameCommonDataDto>
-      className="flex flex-col gap-4 p-4"
+      className="flex flex-col gap-4 pr-0 pt-6"
       disabled={isPending}
       formData={individualNameData}
       onSubmit={({formData}) => {

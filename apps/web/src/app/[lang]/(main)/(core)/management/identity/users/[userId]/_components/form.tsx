@@ -51,67 +51,46 @@ export default function Form({
     extend: {
       roleNames: {
         "ui:widget": "Role",
+        "ui:className": "col-span-1",
       },
       organizationUnitIds: {
         "ui:widget": "OrganizationUnit",
+        "ui:className": "col-span-1",
       },
       userName: {
-        "ui:className": "md:col-span-2",
+        "ui:className": "col-span-1",
+      },
+      name: {
+        "ui:className": "col-span-1",
+      },
+      surname: {
+        "ui:className": "col-span-1",
       },
       email: {
         "ui:widget": "email",
+        "ui:className": "col-span-1",
       },
       phoneNumber: {
         "ui:widget": "phone",
+        "ui:className": "col-span-2  !w-1/2 mx-auto",
       },
       isActive: {
         "ui:widget": "switch",
+        "ui:className": "col-span-2  !w-1/2 mx-auto",
       },
       lockoutEnabled: {
         "ui:widget": "switch",
+        "ui:className": "col-span-2  !w-1/2 mx-auto",
       },
-
       shouldChangePasswordOnNextLogin: {
         "ui:widget": "switch",
+        "ui:className": "col-span-2  !w-1/2 mx-auto",
       },
-      "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+      "ui:className": "grid  gap-2 rounded-md p-2 md:p-6  border",
     },
   });
   return (
-    <div className="flex flex-col gap-4 overflow-auto">
-      <ActionList>
-        {isActionGranted(["AbpIdentity.Users.Delete"], grantedPolicies) && (
-          <ConfirmDialog
-            closeProps={{
-              children: languageData.Cancel,
-            }}
-            confirmProps={{
-              variant: "destructive",
-              children: languageData.Delete,
-              onConfirm: () => {
-                startTransition(() => {
-                  void deleteUserByIdApi(userDetailsData.id || "").then((res) => {
-                    handleDeleteResponse(res, router, "../users");
-                  });
-                });
-              },
-              closeAfterConfirm: true,
-            }}
-            description={languageData["Delete.Assurance"]}
-            title={languageData["User.Delete"]}
-            triggerProps={{
-              children: (
-                <>
-                  <Trash2 className="mr-2 w-4" /> {languageData.Delete}
-                </>
-              ),
-              variant: "outline",
-              disabled: isPending,
-            }}
-            type="with-trigger"
-          />
-        )}
-      </ActionList>
+    <div className="my-6 flex flex-col gap-4 overflow-auto">
       <SchemaForm<UserFormDto>
         className="flex flex-col gap-4"
         disabled={isPending}
@@ -123,9 +102,9 @@ export default function Form({
             "name",
             "surname",
             "email",
-            "phoneNumber",
-            "roleNames",
             "organizationUnitIds",
+            "roleNames",
+            "phoneNumber",
             "isActive",
             "lockoutEnabled",
             "shouldChangePasswordOnNextLogin",
@@ -168,6 +147,39 @@ export default function Form({
           }),
         }}
       />
+      <ActionList className="flex border-none">
+        {isActionGranted(["AbpIdentity.Users.Delete"], grantedPolicies) && (
+          <ConfirmDialog
+            closeProps={{
+              children: languageData.Cancel,
+            }}
+            confirmProps={{
+              variant: "destructive",
+              children: languageData.Delete,
+              onConfirm: () => {
+                startTransition(() => {
+                  void deleteUserByIdApi(userDetailsData.id || "").then((res) => {
+                    handleDeleteResponse(res, router, "../users");
+                  });
+                });
+              },
+              closeAfterConfirm: true,
+            }}
+            description={languageData["Delete.Assurance"]}
+            title={languageData["User.Delete"]}
+            triggerProps={{
+              children: (
+                <>
+                  <Trash2 className="mr-2 w-4" /> {languageData.Delete}
+                </>
+              ),
+              variant: "outline",
+              disabled: isPending,
+            }}
+            type="with-trigger"
+          />
+        )}
+      </ActionList>
     </div>
   );
 }

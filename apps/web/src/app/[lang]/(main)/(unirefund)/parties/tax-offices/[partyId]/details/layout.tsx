@@ -19,6 +19,13 @@ export default async function Layout({
   const {languageData} = await getResourceData(lang);
   return (
     <TabLayout
+      classNames={{
+        horizontal: {
+          // Ensure the tab list scrolls horizontally on smaller screens
+          tabList:
+            "overflow-x-auto whitespace-nowrap  lg:overflow-x-hidden w-full lg:w-max justify-start lg::justify-center",
+        },
+      }}
       tabList={[
         {
           label: "Info",
