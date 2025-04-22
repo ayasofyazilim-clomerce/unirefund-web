@@ -1,4 +1,3 @@
-"use server";
 import Providers from "src/providers/providers";
 
 interface LayoutProps {
@@ -6,7 +5,7 @@ interface LayoutProps {
   children: JSX.Element;
 }
 
-export default async function Layout({children, params}: LayoutProps) {
+export default function Layout({children, params}: LayoutProps) {
   const {lang} = params;
 
   return <Providers lang={lang}>{children}</Providers>;

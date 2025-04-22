@@ -1,5 +1,3 @@
-"use server";
-
 // import NewPasswordForm from "@repo/ui/theme/auth/new-password";
 // import ResetPasswordForm from "@repo/ui/theme/auth/reset-password";
 // import {redirect} from "next/navigation";
@@ -12,7 +10,7 @@
 // import {getResourceData} from "src/language-data/core/AccountService";
 // import {getBaseLink} from "src/utils";
 
-export default async function Page() {
+export default function Page() {
   //   {
   //   params,
   //   searchParams,
@@ -43,5 +41,5 @@ export default async function Page() {
   //   return <div></div>;
   // }
 
-  return <div></div>;
+  return <div />;
 }
