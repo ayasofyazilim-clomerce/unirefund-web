@@ -1,17 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import {useState} from "react";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {CreditCard, Camera, ArrowLeft} from "lucide-react";
+import {ArrowLeft} from "lucide-react";
+import SearchTransactionForm from "../_components/search-transaction-form";
 
 export default function SearchTransactionClient() {
-  const [docId, setDocId] = useState("");
-  const [purchaseAmount, setPurchaseAmount] = useState("");
-
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-gray-50 ">
       <div className="flex w-full max-w-md flex-col items-center justify-center gap-6">
@@ -26,54 +20,7 @@ export default function SearchTransactionClient() {
             <CardDescription>Provide your tax free form information</CardDescription>
           </CardHeader>
           <CardContent className="w-full p-0">
-            <form className="w-full space-y-4">
-              <div className="space-y-2">
-                <Label className="text-sm" htmlFor="docId">
-                  Tax Free Form Number (Doc-ID)
-                </Label>
-                <Input
-                  className="border-input"
-                  id="docId"
-                  onChange={(e) => {
-                    setDocId(e.target.value);
-                  }}
-                  placeholder="e.g. 1234567890"
-                  required
-                  value={docId}
-                />
-                <p className="text-muted-foreground text-xs">The Doc-ID is printed below the barcode on your form</p>
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-sm" htmlFor="purchaseAmount">
-                  Purchase Amount
-                </Label>
-                <div className="relative">
-                  <CreditCard className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
-                  <Input
-                    className="pl-10"
-                    id="purchaseAmount"
-                    onChange={(e) => {
-                      setPurchaseAmount(e.target.value);
-                    }}
-                    placeholder="e.g. 100.00"
-                    required
-                    value={purchaseAmount}
-                  />
-                </div>
-                <p className="text-muted-foreground text-xs">Verify your identity with the exact purchase amount</p>
-              </div>
-
-              <div className="flex w-full flex-col gap-3">
-                <Button className="bg-primary hover:bg-primary/90 flex-1" type="submit">
-                  Next
-                </Button>
-                <Button className="flex items-center justify-center gap-2" type="button" variant="outline">
-                  <Camera className="h-4 w-4" />
-                  Scan Tax Free Form
-                </Button>
-              </div>
-            </form>
+            <SearchTransactionForm />
           </CardContent>
         </Card>
         <Link
