@@ -4,48 +4,49 @@ import Link from "next/link";
 import Image from "next/image";
 import {useState} from "react";
 import {Menu, X} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {useParams} from "next/navigation";
+import unirefundLogo from "public/unirefund.png";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const params = useParams();
+  const lang = params.lang as string;
 
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container flex h-16 items-center justify-between px-4 md:px-8">
         <Link className="flex items-center space-x-2" href="/">
-          <Image alt="UniRefund Logo" height={32} priority src="/unirefund.svg" width={140} />
+          <Image alt="UniRefund Logo" height={32} priority src={unirefundLogo.src} width={140} />
         </Link>
 
         {/* Mobile menu button */}
-        <button
-          className="focus:ring-primary inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset md:hidden"
+        <Button
+          className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none md:hidden"
           onClick={() => {
             setIsMenuOpen(!isMenuOpen);
-          }}>
+          }}
+          variant="outline">
           <span className="sr-only">Open main menu</span>
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        </Button>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex md:items-center md:space-x-8">
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href="/about">
+            href={`https://unirefund.com/${lang}/about-us`}>
             About
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href="/services">
+            href={`https://unirefund.com/${lang}/shoppers`}>
             Services
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href="/contact">
+            href={`https://unirefund.com/${lang}/contact`}>
             Contact
-          </Link>
-          <Link
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium"
-            href="/login">
-            Login
           </Link>
         </nav>
 
@@ -57,7 +58,7 @@ export default function Header() {
                 <div className="flex flex-col space-y-4">
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
-                    href="/about"
+                    href={`https://unirefund.com/${lang}/about-us`}
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
@@ -65,7 +66,7 @@ export default function Header() {
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
-                    href="/services"
+                    href={`https://unirefund.com/${lang}/shoppers`}
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
@@ -73,19 +74,11 @@ export default function Header() {
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
-                    href="/contact"
+                    href={`https://unirefund.com/${lang}/contact`}
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
                     Contact
-                  </Link>
-                  <Link
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-center text-sm font-medium"
-                    href="/login"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                    }}>
-                    Login
                   </Link>
                 </div>
               </div>
