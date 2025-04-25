@@ -7,25 +7,19 @@
   "Delete.Assurance": "Silmek istediğinize emin misiniz?",
   "Cancel": "İptal",
   "Edit.Save": "Değişiklikleri kaydet",
-
   "SomethingWentWrong": "Bir şeyler yanlış gitti.",
-
   "Yes": "Evet",
   "No": "Hayır",
-
   "New": "Yeni",
   "New.Success": "Başarıyla oluşturuldu",
   "New.Fail": "Kayıt oluşturulurken bir hata oluştu.",
-
   "Edit": "Düzenle",
   "Edit.Success": "Veriler başarıyla güncellendi.",
   "Edit.Fail": "Güncellenirken bir hata oluştu.",
-
   "Delete": "Sil",
   "Delete.Success": "Veri başarıyla silindi.",
   "Delete.Fail": "Veri silinirken bir hata oluştu.",
   "Fetch.Fail": "Veriler alırken bir hata oluştu.",
-
   "Country.Select": "Ülke Seç",
   "Region.Select": "Bölge Seç",
   "City.Select": "Şehir Seç",
@@ -39,9 +33,14 @@
   "City.Fetch.Fail": "Şehirleri getirilirken bir hata oluştu.",
   "District.Fetch.Fail": "İlçeler getirilirken bir hata oluştu.",
   "Neighborhood.Fetch.Fail": "Mahalleler getirilirken bir hata oluştu.",
-
   "ExportCSV": "CSV Dışa Aktar",
-
+  "ScanYourIdOrPassport": "Kimliğinizi veya Pasaportunuzu Taratın",
+  "ScanPassportDescription": "Vergisiz alışveriş işlemlerinizi bulmak ve ödeme yöntemi eklemek için pasaportunuzu veya kimlik kartınızı taratın.",
+  "PositionDocumentWithinMarkers": "Belgenizi işaretçilerin içine yerleştirin",
+  "UnableToFindTransactions": "İşlemlerinizi bulamıyor musunuz?",
+  "RefundTracker": "İade Takipçisi",
+  "ScanPassport": "Pasaport Tarat",
+  "ScanIDCard": "Kimlik Kartı Tarat",
   "Name": "İsim",
   "UserName": "Kullanıcı Adı",
   "PersonalSummaries": "Kişi Özeti",
@@ -62,7 +61,6 @@
   "Sorting.Placeholder": "Sıralama Seçin",
   "Sorting.Ascending": "Artan",
   "Sorting.Descending": "Azalan",
-
   "FileUploader.CannotUploadMoreThanOne": "Birden fazla dosya yükleyemezsiniz",
   "FileUploader.CannotUploadMoreThan{0}": "En fazla {0} dosya yükleyebilirsiniz",
   "FileUploader.RejectedFile {0}": "Dosya {0} reddedildi",
@@ -75,7 +73,6 @@
   "FileUploader.DragAndDropFilesHere": "Dosyaları buraya sürükleyin ya da seçmek için tıklatın",
   "FileUploader.YouCanUpload{0}files{1}each": "En fazla {0} dosya yükleyebilirsiniz (her biri en fazla {1})",
   "FileUploader.RemoveFile": "Dosyayı kaldır",
-
   "Form.name": "İsim",
   "Form.email": "E-posta",
   "Form.telephone": "Telefon",
@@ -85,21 +82,18 @@
   "Form.personalPreferencesTypes": "Tercihler",
   "Form.isDefault": "Varsayılan",
   "Form.isActive": "Aktif",
-
   "Form.name.firstName": "Ad",
   "Form.name.lastName": "Soyad",
   "Form.email.emailAddress": "E-posta Adresi",
   "Form.email.typeCode": "E-posta Türü",
   "Form.email.typeCode.work": "İş",
   "Form.email.typeCode.personal": "Kişisel",
-
   "Form.telephone.localNumber": "Telefon Numarası",
   "Form.telephone.typeCode": "Telefon Türü",
   "Form.telephone.typeCode.home": "Ev",
   "Form.telephone.typeCode.mobile": "Mobil",
   "Form.telephone.typeCode.work": "İş",
   "Form.telephone.typeCode.fax": "Faks",
-
   "Form.address.countryId": "Ülke",
   "Form.address.regionId": "Bölge",
   "Form.address.cityId": "Şehir",
@@ -113,7 +107,6 @@
   "Form.address.type.office": "Ofis",
   "Form.address.type.invoice": "Fatura",
   "Form.address.type.contact": "İletişim",
-
   "Form.personalSummaries.date": "Tarih",
   "Form.personalSummaries.birthDate": "Doğum Tarihi",
   "Form.personalSummaries.ethnicity": "Etnik Köken",
@@ -122,7 +115,6 @@
   "Form.personalSummaries.genderTypeCode": "Cinsiyet",
   "Form.personalSummaries.genderTypeCode.male": "Erkek",
   "Form.personalSummaries.genderTypeCode.female": "Kadın",
-
   "inbox.filters.dropdownOptions.unread": "Sadece okunmamış",
   "inbox.filters.dropdownOptions.default": "Tümü",
   "inbox.filters.dropdownOptions.archived": "Arşivlenmiş",
@@ -141,7 +133,6 @@
   "preferences.global": "Genel Tercihler",
   "preferences.workflow.disabled.notice": "Bu kritik bildirim için abonelik yönetimini etkinleştirmek için yöneticiyle iletişime geçin.",
   "preferences.workflow.disabled.tooltip": "Düzenlemek için yöneticiyle iletişime geçin",
-
   "Table.Add": "Ekle",
   "Table.MoveUp": "Yukarı taşı",
   "Table.MoveDown": "Aşagı taşı",
@@ -153,5 +144,22 @@
   "no_workflow_steps_defined": "Akış adımı tanımlanmadı",
   "processed": "İşlendi",
   "no_tenant_found": "Kiracı bulunamadı",
-  "invalid_recipients": "Geçersiz alıcı"
+  "invalid_recipients": "Geçersiz alıcı",
+  "About": "Hakkımızda",
+  "Services": "Hizmetlerimiz",
+  "Contact": "İletişim",
+  "SelectLanguage": "Dil Seçiniz",
+  "FindYourTransaction": "İşleminizi Bulun",
+  "SearchForYourTaxFreeRefunds": "Form bilgilerinizi kullanarak vergisiz iadelerinizi arayın",
+  "EnterFormDetails": "Form Bilgilerini Girin",
+  "ProvideYourTaxFreeFormInfo": "Vergi iade formu bilgilerinizi sağlayın",
+  "GoHomePage": "Ana Sayfaya Git",
+  "TaxFreeFormNumber": "Vergi İade Formu Numarası (Doc-ID)",
+  "DocIdPlaceholder": "örn. 1234567890",
+  "DocIdHelp": "Doc-ID, formunuzdaki barkodun altında basılıdır",
+  "PurchaseAmount": "Alışveriş Tutarı",
+  "AmountPlaceholder": "örn. 100.00",
+  "PurchaseAmountHelp": "Kimliğinizi tam alışveriş tutarı ile doğrulayın",
+  "Next": "İleri",
+  "ScanTaxFreeForm": "Vergi İade Formunu Tarat"
 }
