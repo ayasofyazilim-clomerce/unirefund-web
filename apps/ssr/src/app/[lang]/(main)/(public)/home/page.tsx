@@ -23,12 +23,9 @@ export default async function Home({
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            {languageData.ScanYourIdOrPassport || "Scan your ID or Passport"}
+            {languageData.ScanYourIdOrPassport}
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
-            {languageData.ScanPassportDescription ||
-              "Scan your passport or ID card to find your tax free transactions and add a payment method."}
-          </p>
+          <p className="mt-2 text-sm text-gray-600">{languageData.ScanPassportDescription}</p>
         </div>
 
         <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-6 shadow-md">
@@ -56,15 +53,13 @@ export default async function Home({
           <HomeButtons />
 
           <div className="text-center">
-            <p className="mt-2 text-xs text-gray-500">
-              {languageData.PositionDocumentWithinMarkers || "Position your document within the markers"}
-            </p>
+            <p className="mt-2 text-xs text-gray-500">{languageData.PositionDocumentWithinMarkers}</p>
             <p className="text-sm text-gray-600">
-              {languageData.UnableToFindTransactions || "Unable to find your transactions?"}{" "}
+              {languageData.UnableToFindTransactions}{" "}
               <Link
                 className="text-primary hover:text-primary/90 font-medium"
                 href={getBaseLink("search-transaction", lang)}>
-                {languageData.RefundTracker || "Refund Tracker"}
+                {languageData.RefundTracker}
               </Link>
             </p>
           </div>

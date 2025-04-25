@@ -69,17 +69,17 @@ export default function Header() {
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
             href={`https://unirefund.com/${lang}/about-us`}>
-            {languageData.About || "About"}
+            {languageData.About}
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
             href={`https://unirefund.com/${lang}/shoppers`}>
-            {languageData.Services || "Services"}
+            {languageData.Services}
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
             href={`https://unirefund.com/${lang}/contact`}>
-            {languageData.Contact || "Contact"}
+            {languageData.Contact}
           </Link>
 
           {/* Dil seçici dropdown (Desktop - en sağda) */}
@@ -128,7 +128,7 @@ export default function Header() {
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
-                    {languageData.About || "About"}
+                    {languageData.About}
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
@@ -136,7 +136,7 @@ export default function Header() {
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
-                    {languageData.Services || "Services"}
+                    {languageData.Services}
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
@@ -144,12 +144,12 @@ export default function Header() {
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
-                    {languageData.Contact || "Contact"}
+                    {languageData.Contact}
                   </Link>
 
                   {/* Mobil görünümde dil seçenekleri */}
                   <div className="border-t border-gray-100 pt-2">
-                    <p className="mb-2 text-sm text-gray-500">{languageData.SelectLanguage || "Select Language"}:</p>
+                    <p className="mb-2 text-sm text-gray-500">{languageData.SelectLanguage}:</p>
                     <div className="grid grid-cols-3 gap-2">
                       {languages.map((language) => (
                         <button

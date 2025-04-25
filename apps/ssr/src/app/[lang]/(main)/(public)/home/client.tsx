@@ -17,11 +17,11 @@ export default function HomeButtons() {
     <div className="mt-4 flex w-full flex-col gap-3 text-center">
       <Button className="bg-primary hover:bg-primary/90 flex-1 gap-2">
         <Camera className="h-4 w-4" />
-        {languageData.ScanPassport || "Scan Passport"}
+        {languageData.ScanPassport}
       </Button>
       <Button className="flex items-center justify-center gap-2" variant="outline">
         <Camera className="h-4 w-4" />
-        {languageData.ScanIDCard || "Scan ID Card"}
+        {languageData.ScanIDCard}
       </Button>
     </div>
   );

@@ -21,21 +21,15 @@ export default function SearchTransactionClient() {
       <div className="flex w-full max-w-md flex-col items-center justify-center gap-6">
         <div className="text-center">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            {languageData.FindYourTransaction || "Find Your Transaction"}
+            {languageData.FindYourTransaction}
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
-            {languageData.SearchForYourTaxFreeRefunds || "Search for your tax-free refunds using your form details"}
-          </p>
+          <p className="mt-2 text-sm text-gray-600">{languageData.SearchForYourTaxFreeRefunds}</p>
         </div>
 
         <Card className="flex w-full flex-col items-center justify-center rounded-lg bg-white p-6 shadow-md">
           <CardHeader className="w-full pt-0 text-center">
-            <CardTitle className="text-xl font-semibold">
-              {languageData.EnterFormDetails || "Enter Form Details"}
-            </CardTitle>
-            <CardDescription>
-              {languageData.ProvideYourTaxFreeFormInfo || "Provide your tax free form information"}
-            </CardDescription>
+            <CardTitle className="text-xl font-semibold">{languageData.EnterFormDetails}</CardTitle>
+            <CardDescription>{languageData.ProvideYourTaxFreeFormInfo}</CardDescription>
           </CardHeader>
           <CardContent className="w-full p-0">
             <SearchTransactionForm />
@@ -45,7 +39,7 @@ export default function SearchTransactionClient() {
           className="text-primary hover:text-primary/90 flex items-center justify-center gap-2 text-center text-sm font-medium"
           href={getBaseLink("home", lang)}>
           <ArrowLeft className="h-5 w-5" />
-          {languageData.GoHomePage || "Go Home Page"}
+          {languageData.GoHomePage}
         </Link>
       </div>
     </div>
