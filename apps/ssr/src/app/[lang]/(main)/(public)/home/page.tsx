@@ -1,10 +1,8 @@
-"use server";
-
 import {Card} from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import PassportMockup from "public/passport-mockup.png";
-import {getResourceData} from "src/language-data/core/Default";
+import {getResourceData} from "src/language-data/unirefund/SSRService";
 import {getBaseLink} from "src/utils";
 import HomeButtons from "./client";
 
@@ -49,8 +47,8 @@ export default async function Home({
             </div>
           </div>
 
-          {/* Client component for interactive buttons */}
-          <HomeButtons />
+          {/* Pass languageData to client component */}
+          <HomeButtons languageData={languageData} />
 
           <div className="text-center">
             <p className="mt-2 text-xs text-gray-500">{languageData.PositionDocumentWithinMarkers}</p>

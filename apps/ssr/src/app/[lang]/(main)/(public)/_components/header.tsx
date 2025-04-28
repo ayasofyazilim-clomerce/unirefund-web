@@ -9,15 +9,12 @@ import {useParams} from "next/navigation";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
-import {getResourceDataClient} from "src/language-data/core/Default";
+import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
-export default function Header() {
+export default function Header({languageData}: {languageData: SSRServiceResource}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const params = useParams();
   const lang = params.lang as string;
-
-  // Dil verilerini doğrudan JSON dosyalarından al
-  const languageData = getResourceDataClient(lang);
 
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">

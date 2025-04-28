@@ -2,17 +2,10 @@
 
 import {Button} from "@/components/ui/button";
 import {Camera} from "lucide-react";
-import {useParams} from "next/navigation";
-import {getResourceDataClient} from "src/language-data/core/Default";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
-export default function HomeButtons() {
-  // URL'den dil parametresini al
-  const params = useParams();
-  const lang = params.lang as string;
-
-  // Dil kaynaklarını istemci tarafında al
-  const languageData = getResourceDataClient(lang);
-
+// Update the component to accept languageData as a prop
+export default function HomeButtons({languageData}: {languageData: SSRServiceResource}) {
   return (
     <div className="mt-4 flex w-full flex-col gap-3 text-center">
       <Button className="bg-primary hover:bg-primary/90 flex-1 gap-2">

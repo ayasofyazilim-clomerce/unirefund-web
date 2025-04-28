@@ -4,17 +4,14 @@ import Link from "next/link";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {ArrowLeft} from "lucide-react";
 import {useParams} from "next/navigation";
-import {getResourceDataClient} from "src/language-data/core/Default";
 import {getBaseLink} from "src/utils";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import SearchTransactionForm from "../_components/search-transaction-form";
 
-export default function SearchTransactionClient() {
+export default function SearchTransactionClient({languageData}: {languageData: SSRServiceResource}) {
   // URL'den dil parametresini al
   const params = useParams();
   const lang = params.lang as string;
-
-  // Dil kaynaklarını istemci tarafında al
-  const languageData = getResourceDataClient(lang);
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-gray-50 ">
@@ -32,7 +29,7 @@ export default function SearchTransactionClient() {
             <CardDescription>{languageData.ProvideYourTaxFreeFormInfo}</CardDescription>
           </CardHeader>
           <CardContent className="w-full p-0">
-            <SearchTransactionForm />
+            <SearchTransactionForm languageData={languageData} />
           </CardContent>
         </Card>
         <Link

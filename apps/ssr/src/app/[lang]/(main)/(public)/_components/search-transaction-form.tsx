@@ -5,19 +5,11 @@ import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {CreditCard, Camera} from "lucide-react";
 import {useState} from "react";
-import {useParams} from "next/navigation";
-import {getResourceDataClient} from "src/language-data/core/Default";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
-export default function SearchTransactionForm() {
+export default function SearchTransactionForm({languageData}: {languageData: SSRServiceResource}) {
   const [docId, setDocId] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState("");
-
-  // URL'den dil parametresini al
-  const params = useParams();
-  const lang = params.lang as string;
-
-  // Dil kaynaklarını istemci tarafında al
-  const languageData = getResourceDataClient(lang);
 
   return (
     <form className="w-full space-y-4">
