@@ -6,9 +6,12 @@ import {useState} from "react";
 import {Menu, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useParams} from "next/navigation";
+import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import unirefundLogo from "public/unirefund.png";
+import {getBaseLink} from "src/utils";
+import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
-export default function Header() {
+export default function Header({languageData}: {languageData: SSRServiceResource}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const params = useParams();
   const lang = params.lang as string;
@@ -16,7 +19,7 @@ export default function Header() {
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container flex h-16 items-center justify-between px-4 md:px-8">
-        <Link className="flex items-center space-x-2" href="/">
+        <Link className="flex items-center space-x-2" href={getBaseLink("", lang)}>
           <Image alt="UniRefund Logo" height={32} priority src={unirefundLogo.src} width={140} />
         </Link>
 
@@ -36,18 +39,23 @@ export default function Header() {
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
             href={`https://unirefund.com/${lang}/about-us`}>
-            About
+            {languageData.About}
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
             href={`https://unirefund.com/${lang}/shoppers`}>
-            Services
+            {languageData.Services}
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
             href={`https://unirefund.com/${lang}/contact`}>
-            Contact
+            {languageData.Contact}
           </Link>
+
+          {/* LanguageSelector bileşeni ile dil seçici (Desktop - en sağda) */}
+          <div className="ml-4">
+            <LanguageSelector lang={lang} />
+          </div>
         </nav>
 
         {/* Mobile Navigation */}
@@ -62,7 +70,7 @@ export default function Header() {
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
-                    About
+                    {languageData.About}
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
@@ -70,7 +78,7 @@ export default function Header() {
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
-                    Services
+                    {languageData.Services}
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
@@ -78,8 +86,16 @@ export default function Header() {
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
-                    Contact
+                    {languageData.Contact}
                   </Link>
+
+                  {/* Mobil görünümde dil seçici */}
+                  <div className="border-t border-gray-100 pt-2">
+                    <p className="mb-2 text-sm text-gray-500">{languageData.SelectLanguage}:</p>
+                    <div className="flex items-center">
+                      <LanguageSelector lang={lang} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

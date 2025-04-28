@@ -1848,6 +1848,7 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100029": "Total amount of the invoice: '{invoiceNumber}' in Tag: '{amount}' must be upper than '{minimumAmount}'!";
   "UniRefund.TagService:0100030": "Tags without an early refund fee in their contract cannot be refunded. Affected Tags: '{tagNumbersStr}'";
   "UniRefund.TagService:0100031": "Refund operation can not be performed due to some tags' refund expiration date have passed! Related Tags: '{tagNumbers}'";
+  "UniRefund.TagService:0100032": "Multi Invoices in a Tag currently not supported. Tag can just have one Invoice!";
 };
 export type RefundServiceResources = {
   "UniRefund.RefundService:001001": "Country currency is not set";

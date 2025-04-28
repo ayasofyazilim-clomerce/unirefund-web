@@ -2,17 +2,28 @@ import {Card} from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import PassportMockup from "public/passport-mockup.png";
+import {getResourceData} from "src/language-data/unirefund/SSRService";
+import {getBaseLink} from "src/utils";
 import HomeButtons from "./client";
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: {
+    lang: string;
+  };
+}) {
+  const {lang} = params;
+  const {languageData} = await getResourceData(lang);
+
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Scan your ID or Passport</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Scan your passport or ID card to find your tax free transactions and add a payment method.
-          </p>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            {languageData.ScanYourIdOrPassport}
+          </h1>
+          <p className="mt-2 text-sm text-gray-600">{languageData.ScanPassportDescription}</p>
         </div>
 
         <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-6 shadow-md">
@@ -36,15 +47,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Client component for interactive buttons */}
-          <HomeButtons />
+          {/* Pass languageData to client component */}
+          <HomeButtons languageData={languageData} />
 
           <div className="text-center">
-            <p className="mt-2 text-xs text-gray-500">Position your document within the markers</p>
+            <p className="mt-2 text-xs text-gray-500">{languageData.PositionDocumentWithinMarkers}</p>
             <p className="text-sm text-gray-600">
-              Unable to find your transactions?{" "}
-              <Link className="text-primary hover:text-primary/90 font-medium" href="/search-transaction">
-                Refund Tracker
+              {languageData.UnableToFindTransactions}{" "}
+              <Link
+                className="text-primary hover:text-primary/90 font-medium"
+                href={getBaseLink("search-transaction", lang)}>
+                {languageData.RefundTracker}
               </Link>
             </p>
           </div>
