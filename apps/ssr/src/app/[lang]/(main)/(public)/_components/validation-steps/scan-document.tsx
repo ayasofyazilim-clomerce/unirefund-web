@@ -1,10 +1,11 @@
 "use client";
+import {Button} from "@/components/ui/button";
 import {toast} from "@/components/ui/sonner";
+import type {Block} from "@aws-sdk/client-textract";
 import {toastOnSubmit} from "@repo/ui/toast-on-submit";
 import {defineStepper} from "@stepperize/react";
 import {parse} from "mrz";
 import {useEffect} from "react";
-import {Button} from "@/components/ui/button";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {textractIt} from "../actions";
 import type {DocumentData} from "../validation-steps";
@@ -50,11 +51,7 @@ export default function ScanDocument({
           if (!imageSrc) return;
           void textractIt(imageSrc).then((res) => {
             if (res?.Blocks) {
-              const mrz = res.Blocks.filter(
-                (x) => x.BlockType === "WORD" && typeof x.Text === "string" && x.Text.includes("<"),
-              )
-                .map((y) => y.Text)
-                .filter((x) => typeof x === "string");
+              const mrz = getMRZ(res.Blocks);
               try {
                 const fields = parse(mrz).fields;
                 toastOnSubmit(fields);
@@ -94,11 +91,7 @@ export default function ScanDocument({
           if (!imageSrc) return;
           void textractIt(imageSrc).then((res) => {
             if (res?.Blocks) {
-              const mrz = res.Blocks.filter(
-                (x) => x.BlockType === "WORD" && typeof x.Text === "string" && x.Text.includes("<"),
-              )
-                .map((y) => y.Text)
-                .filter((x) => typeof x === "string");
+              const mrz = getMRZ(res.Blocks);
               toastOnSubmit(parse(mrz).fields);
               setBack({
                 base64: imageSrc,
@@ -166,11 +159,7 @@ export function ScanDocumentStep({
                   if (!imageSrc) return;
                   void textractIt(imageSrc).then((res) => {
                     if (res?.Blocks) {
-                      const mrz = res.Blocks.filter(
-                        (x) => x.BlockType === "WORD" && typeof x.Text === "string" && x.Text.includes("<"),
-                      )
-                        .map((y) => y.Text)
-                        .filter((x) => typeof x === "string");
+                      const mrz = getMRZ(res.Blocks);
                       toastOnSubmit(parse(mrz).fields);
                       setBack({
                         base64: imageSrc,
@@ -212,4 +201,11 @@ function MyLocalActions() {
       </Button>
     </div>
   );
+}
+
+function getMRZ(blocks: Block[]): string[] {
+  return blocks
+    .filter((x) => x.BlockType === "WORD" && typeof x.Text === "string" && x.Text.includes("<"))
+    .map((y) => y.Text)
+    .filter((text): text is string => text !== undefined);
 }
