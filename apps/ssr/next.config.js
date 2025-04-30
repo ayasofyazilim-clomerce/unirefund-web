@@ -5,6 +5,8 @@ module.exports = {
   output: "standalone",
   experimental: {
     serverActions: {
+      bodySizeLimit: 10 * 1024 * 1024,
+
       allowedOrigins: ["localhost:3000", "*.devtunnels.ms:3000"],
     },
   },
