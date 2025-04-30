@@ -1,5 +1,5 @@
 "use server";
-const supersetUrl = "http://192.168.1.107:8089";
+const supersetUrl = process.env.SUPERSET_URL;
 const supersetApiUrl = `${supersetUrl}/api/v1/security`;
 
 export async function GET(request: Request) {
