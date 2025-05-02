@@ -35,32 +35,153 @@ export default function ScanDocument({
 
   // Always allow to go next regardless of state
   useEffect(() => {
-    setCanGoNext(true);
-  }, [setCanGoNext]);
+    if (type === "id-card") {
+      if (front && back) {
+        setCanGoNext(true);
+      } else {
+        setCanGoNext(false);
+      }
+    } else if (front) {
+      setCanGoNext(true);
+    } else {
+      setCanGoNext(false);
+    }
+  }, [front, back]);
 
   // For passport, we only need one image
   if (type === "passport") {
     return (
-      <WebcamCapture
-        handleImage={(imageSrc) => {
-          if (!imageSrc) return;
-          void textractIt(imageSrc).then((res) => {
-            if (res?.Blocks) {
-              const mrz = getMRZ(res.Blocks);
-              try {
-                setFront({
-                  base64: imageSrc,
-                  data: parse(mrz).fields,
-                });
-              } catch (e) {
-                toast.error("Error parsing MRZ data. Please try again.");
-                setFront(null);
+      <div className="space-y-4">
+        <WebcamCapture
+          handleImage={(imageSrc) => {
+            if (!imageSrc) return;
+            void textractIt(imageSrc).then((res) => {
+              console.log("MRZ Data:", res);
+              if (res?.Blocks) {
+                const mrz = getMRZ(res.Blocks);
+
+                try {
+                  setFront({
+                    base64: imageSrc,
+                    data: parse(mrz).fields,
+                  });
+                  console.log("MRZ Data:", parse(mrz).fields);
+                } catch (e) {
+                  console.error("Error parsing MRZ data:", e);
+                  toast.error("Error parsing MRZ data. Please try again.");
+                  setFront(null);
+                }
               }
-            }
-          });
-        }}
-        type="document"
-      />
+            });
+          }}
+          type="document"
+        />
+        {front?.base64 && (
+          <div className="mt-4 rounded-md border p-2">
+            <p className="mb-2 text-sm font-medium text-green-600">✓ Passport captured</p>
+            <div className="relative">
+              <img src={front.base64} alt="Passport" className="max-h-40 w-full rounded-md object-contain" />
+              {front.data && (
+                <div className="mt-2 rounded-lg border border-gray-200 bg-white/60 p-3 backdrop-blur-sm">
+                  <div className="mb-2 text-xs font-medium text-gray-500">Machine Readable Zone (MRZ)</div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {front.data.documentCode && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Document Code</span>
+                        <span className="font-medium">{front.data.documentCode}</span>
+                      </div>
+                    )}
+                    {front.data.issuingState && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Issuing State</span>
+                        <span className="font-medium">{front.data.issuingState}</span>
+                      </div>
+                    )}
+                    {front.data.documentNumber && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Document No</span>
+                        <span className="font-medium">{front.data.documentNumber}</span>
+                      </div>
+                    )}
+                    {front.data.documentNumberCheckDigit && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Doc No Check Digit</span>
+                        <span className="font-medium">{front.data.documentNumberCheckDigit}</span>
+                      </div>
+                    )}
+                    {front.data.optional1 && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Optional 1</span>
+                        <span className="font-medium">{front.data.optional1}</span>
+                      </div>
+                    )}
+                    {front.data.birthDate && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Birth Date</span>
+                        <span className="font-medium">{front.data.birthDate}</span>
+                      </div>
+                    )}
+                    {front.data.birthDateCheckDigit && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Birth Date Check</span>
+                        <span className="font-medium">{front.data.birthDateCheckDigit}</span>
+                      </div>
+                    )}
+                    {front.data.sex && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Sex</span>
+                        <span className="font-medium">{front.data.sex}</span>
+                      </div>
+                    )}
+                    {front.data.expirationDate && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Expiry Date</span>
+                        <span className="font-medium">{front.data.expirationDate}</span>
+                      </div>
+                    )}
+                    {front.data.expirationDateCheckDigit && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Expiry Date Check</span>
+                        <span className="font-medium">{front.data.expirationDateCheckDigit}</span>
+                      </div>
+                    )}
+                    {front.data.nationality && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Nationality</span>
+                        <span className="font-medium">{front.data.nationality}</span>
+                      </div>
+                    )}
+                    {front.data.optional2 && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Optional 2</span>
+                        <span className="font-medium">{front.data.optional2}</span>
+                      </div>
+                    )}
+                    {front.data.compositeCheckDigit && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Composite Check</span>
+                        <span className="font-medium">{front.data.compositeCheckDigit}</span>
+                      </div>
+                    )}
+                    {front.data.lastName && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Surname</span>
+                        <span className="font-medium">{front.data.lastName}</span>
+                      </div>
+                    )}
+                    {front.data.firstName && (
+                      <div className="overflow-hidden">
+                        <span className="block text-gray-500">Given Name</span>
+                        <span className="font-medium">{front.data.firstName}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
 
