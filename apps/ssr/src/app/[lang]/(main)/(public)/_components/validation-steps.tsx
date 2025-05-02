@@ -28,26 +28,41 @@ export type DocumentData = {
 
 export default function ValidationSteps({languageData}: {languageData: SSRServiceResource}) {
   const [canGoNext, setCanGoNext] = useState(false);
+  const [front, setFront] = useState<DocumentData>(null);
+  const [back, setBack] = useState<DocumentData>(null);
 
   return (
     <div className="bg-gray-3 flex w-full flex-col gap-2 rounded-md p-3 sm:gap-4 sm:p-4">
       <GlobalScopper.Scoped>
-        <Steps languageData={languageData} setCanGoNext={setCanGoNext} />
-        <Actions canGoNext={canGoNext} setCanGoNext={setCanGoNext} />
+        <Steps
+          languageData={languageData}
+          setCanGoNext={setCanGoNext}
+          setFront={setFront}
+          setBack={setBack}
+          front={front}
+          back={back}
+        />
+        <Actions canGoNext={canGoNext} setCanGoNext={setCanGoNext} setBack={setBack} setFront={setFront} />
       </GlobalScopper.Scoped>
     </div>
   );
 }
 function Steps({
+  front,
+  back,
+  setFront,
+  setBack,
   languageData,
   setCanGoNext,
 }: {
+  front: DocumentData;
+  back: DocumentData;
+  setFront: (value: DocumentData) => void;
+  setBack: (value: DocumentData) => void;
   languageData: SSRServiceResource;
   setCanGoNext: (value: boolean) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
-  const [front, setFront] = useState<DocumentData>(null);
-  const [back, setBack] = useState<DocumentData>(null);
 
   return (
     <div className="h-full text-start">
@@ -84,7 +99,17 @@ function Steps({
   );
 }
 
-function Actions({canGoNext, setCanGoNext}: {canGoNext: boolean; setCanGoNext: (value: boolean) => void}) {
+function Actions({
+  canGoNext,
+  setCanGoNext,
+  setFront,
+  setBack,
+}: {
+  canGoNext: boolean;
+  setCanGoNext: (value: boolean) => void;
+  setFront: (value: DocumentData) => void;
+  setBack: (value: DocumentData) => void;
+}) {
   const stepper = GlobalScopper.useStepper();
   // const scanDocumentStepper = ScanDocumentStepper.useStepper();
 
@@ -139,7 +164,15 @@ function Actions({canGoNext, setCanGoNext}: {canGoNext: boolean; setCanGoNext: (
     </div>
   ) : (
     <div className="mt-6 flex items-center gap-2">
-      <Button onClick={stepper.reset}>Reset</Button>
+      <Button
+        onClick={() => {
+          stepper.reset();
+          setCanGoNext(false);
+          setBack(null);
+          setFront(null);
+        }}>
+        Reset
+      </Button>
     </div>
   );
 }
