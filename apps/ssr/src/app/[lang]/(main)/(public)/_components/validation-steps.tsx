@@ -33,18 +33,16 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
     <div className="bg-gray-3 flex w-full flex-col gap-2 rounded-md p-3 sm:gap-4 sm:p-4">
       <GlobalScopper.Scoped>
         <Steps languageData={languageData} setCanGoNext={setCanGoNext} />
-        <Actions canGoNext={canGoNext} languageData={languageData} setCanGoNext={setCanGoNext} />
+        <Actions canGoNext={canGoNext} setCanGoNext={setCanGoNext} />
       </GlobalScopper.Scoped>
     </div>
   );
 }
 function Steps({
   languageData,
-  // canGoNext,
   setCanGoNext,
 }: {
   languageData: SSRServiceResource;
-  // canGoNext: boolean;
   setCanGoNext: (value: boolean) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
@@ -56,7 +54,6 @@ function Steps({
       {!stepper.isFirst && (
         <div className="flex flex-col">
           <h2 className="text-lg font-semibold">{stepper.current.title}</h2>
-          {/* <p className="text-sm text-gray-500">{stepper.current.id}</p> */}
         </div>
       )}
       {stepper.when("start", () => (
@@ -70,18 +67,14 @@ function Steps({
           setBack={setBack}
           type={stepper.getMetadata("scan-document")?.type as "passport" | "id-card"}
           languageData={languageData}
-          // canGoNext={canGoNext}
           setCanGoNext={setCanGoNext}
-          // front={front}
           setFront={setFront}
-          // back={back}
-          // setBack={setBack}
         />
       ))}
 
       {stepper.when("take-selfie", () => {
         if (!front?.base64) return null;
-        return <TakeSelfie documentSrc={front.base64} languageData={languageData} setCanGoNext={setCanGoNext} />;
+        return <TakeSelfie documentSrc={front.base64} setCanGoNext={setCanGoNext} />;
       })}
 
       {stepper.when("liveness-dedection", () => (
@@ -91,15 +84,15 @@ function Steps({
   );
 }
 
-function Actions({
-  canGoNext,
-  setCanGoNext,
-}: {
-  languageData: SSRServiceResource;
-  canGoNext: boolean;
-  setCanGoNext: (value: boolean) => void;
-}) {
+function Actions({canGoNext, setCanGoNext}: {canGoNext: boolean; setCanGoNext: (value: boolean) => void}) {
   const stepper = GlobalScopper.useStepper();
+  // const scanDocumentStepper = ScanDocumentStepper.useStepper();
+
+  // const isIdCardScanMode =
+  //   stepper.current.id === "scan-document" && stepper.getMetadata("scan-document")?.type === "id-card";
+
+  // const hideGlobalButtons = isIdCardScanMode && scanDocumentStepper.current.id === "front";
+
   return !stepper.isLast ? (
     <div className="mt-6 grid grid-cols-2 gap-2">
       {!stepper.isFirst && (
