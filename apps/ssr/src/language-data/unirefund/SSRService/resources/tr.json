@@ -191,5 +191,7 @@
   "LivenessCompleted": "Canlılık kontrolü başarıyla tamamlandı",
   "LivenessFailed": "Canlılık kontrolü başarısız oldu. Lütfen tekrar deneyin",
   "ErrorParsingMRZ": "Belge verilerini çözümlerken hata oluştu. Lütfen tekrar deneyin",
-  "PleaseCaptureBothSides": "Lütfen kimlik kartının her iki yüzünü de çekin"
+  "PleaseCaptureBothSides": "Lütfen kimlik kartının her iki yüzünü de çekin",
+  "FrontSide": "Ön Yüz",
+  "BackSide": "Arka Yüz"
 }

@@ -191,5 +191,7 @@
   "LivenessCompleted": "Liveness check completed successfully",
   "LivenessFailed": "Liveness check failed. Please try again",
   "ErrorParsingMRZ": "Error parsing document data. Please try again",
-  "PleaseCaptureBothSides": "Please capture both sides of the ID card"
+  "PleaseCaptureBothSides": "Please capture both sides of the ID card",
+  "FrontSide": "Front Side",
+  "BackSide": "Back Side"
 }

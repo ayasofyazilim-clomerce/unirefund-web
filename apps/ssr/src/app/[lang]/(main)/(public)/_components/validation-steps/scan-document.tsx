@@ -254,7 +254,7 @@ export default function ScanDocument({
             }
           }}
           disabled={scanStepper.isFirst}>
-          {languageData.Previous || "Previous"}
+          {languageData.FrontSide || "Previous"}
         </Button>
 
         <Button
@@ -269,7 +269,7 @@ export default function ScanDocument({
             }
           }}
           disabled={scanStepper.current.id === "front" ? !front : false}>
-          {languageData.Next || "Next"}
+          {languageData.BackSide || "Next"}
         </Button>
       </div>
     </div>
