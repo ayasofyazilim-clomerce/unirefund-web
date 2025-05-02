@@ -30,7 +30,7 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
   const [canGoNext, setCanGoNext] = useState(false);
 
   return (
-    <div className="bg-gray-3 flex flex-col gap-4 rounded-md p-4">
+    <div className="bg-gray-3 flex w-full flex-col gap-2 rounded-md p-3 sm:gap-4 sm:p-4">
       <GlobalScopper.Scoped>
         <Steps languageData={languageData} setCanGoNext={setCanGoNext} />
         <Actions canGoNext={canGoNext} languageData={languageData} setCanGoNext={setCanGoNext} />
@@ -101,7 +101,7 @@ function Actions({
 }) {
   const stepper = GlobalScopper.useStepper();
   return !stepper.isLast ? (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="mt-6 grid grid-cols-2 gap-2">
       {!stepper.isFirst && (
         <>
           <Button disabled={stepper.isFirst} onClick={stepper.prev} variant="outline">
@@ -145,7 +145,7 @@ function Actions({
       ))}
     </div>
   ) : (
-    <div className="flex items-center gap-2">
+    <div className="mt-6 flex items-center gap-2">
       <Button onClick={stepper.reset}>Reset</Button>
     </div>
   );

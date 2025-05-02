@@ -72,7 +72,7 @@ export default function ScanDocument({
     );
   }
   return (
-    <div>
+    <div className="w-full space-y-4">
       <h3 className="text-sm font-bold">Front</h3>
 
       <WebcamCapture
@@ -85,7 +85,7 @@ export default function ScanDocument({
         languageData={languageData}
         type="document"
       />
-      <h3 className="text-sm font-bold">Back</h3>
+      <h3 className="mt-4 text-sm font-bold">Back</h3>
       <WebcamCapture
         handleImage={(imageSrc) => {
           if (!imageSrc) return;
@@ -184,7 +184,7 @@ export function ScanDocumentStep({
 function MyLocalActions() {
   const stepper = ScanDocumentStepper.useStepper();
   return (
-    <div className="mt-4 flex items-center justify-between">
+    <div className="mt-16 flex items-center justify-between py-4">
       <Button
         onClick={() => {
           stepper.goTo("back");
