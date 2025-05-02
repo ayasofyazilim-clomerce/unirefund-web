@@ -56,7 +56,6 @@ export default function ScanDocument({
           handleImage={(imageSrc) => {
             if (!imageSrc) return;
             void textractIt(imageSrc).then((res) => {
-              console.log("MRZ Data:", res);
               if (res?.Blocks) {
                 const mrz = getMRZ(res.Blocks);
 
@@ -65,9 +64,7 @@ export default function ScanDocument({
                     base64: imageSrc,
                     data: parse(mrz).fields,
                   });
-                  console.log("MRZ Data:", parse(mrz).fields);
-                } catch (e) {
-                  console.error("Error parsing MRZ data:", e);
+                } catch {
                   toast.error("Error parsing MRZ data. Please try again.");
                   setFront(null);
                 }
