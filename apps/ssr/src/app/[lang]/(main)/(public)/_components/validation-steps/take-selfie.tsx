@@ -2,16 +2,13 @@
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {ScanFace} from "lucide-react";
 import {useState} from "react";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {compareFaces} from "../actions";
 import {WebcamCapture} from "../webcam";
 
 export default function TakeSelfie({
-  languageData,
   setCanGoNext,
   documentSrc,
 }: {
-  languageData: SSRServiceResource;
   setCanGoNext: (value: boolean) => void;
   documentSrc: string;
 }) {
@@ -30,7 +27,6 @@ export default function TakeSelfie({
             }
           });
         }}
-        languageData={languageData}
         type="selfie"
       />
 

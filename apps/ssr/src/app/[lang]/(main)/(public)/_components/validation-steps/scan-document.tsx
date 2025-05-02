@@ -2,20 +2,20 @@
 import {Button} from "@/components/ui/button";
 import {toast} from "@/components/ui/sonner";
 import type {Block} from "@aws-sdk/client-textract";
-import {toastOnSubmit} from "@repo/ui/toast-on-submit";
 import {defineStepper} from "@stepperize/react";
 import {parse} from "mrz";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {textractIt} from "../actions";
 import type {DocumentData} from "../validation-steps";
 import {GlobalScopper} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 
+export const ScanDocumentStepper = defineStepper({id: "front", title: "Front"}, {id: "back", title: "Back"});
+
 export default function ScanDocument({
   languageData,
   type,
-  // canGoNext,
   setCanGoNext,
   front,
   setFront,
@@ -24,26 +24,21 @@ export default function ScanDocument({
 }: {
   languageData: SSRServiceResource;
   type: "passport" | "id-card";
-  // canGoNext: boolean;
   setCanGoNext: (value: boolean) => void;
   front: DocumentData;
   setFront: (value: DocumentData) => void;
   back: DocumentData;
   setBack: (value: DocumentData) => void;
 }) {
+  // Initialize the stepper hook unconditionally to fix the rules-of-hooks error
+  const scanStepper = ScanDocumentStepper.useStepper();
+
+  // Always allow to go next regardless of state
   useEffect(() => {
-    if (type === "id-card") {
-      if (front && back) {
-        setCanGoNext(true);
-      } else {
-        setCanGoNext(false);
-      }
-    } else if (front) {
-      setCanGoNext(true);
-    } else {
-      setCanGoNext(false);
-    }
-  }, [front, back]);
+    setCanGoNext(true);
+  }, [setCanGoNext]);
+
+  // For passport, we only need one image
   if (type === "passport") {
     return (
       <WebcamCapture
@@ -53,8 +48,6 @@ export default function ScanDocument({
             if (res?.Blocks) {
               const mrz = getMRZ(res.Blocks);
               try {
-                const fields = parse(mrz).fields;
-                toastOnSubmit(fields);
                 setFront({
                   base64: imageSrc,
                   data: parse(mrz).fields,
@@ -66,140 +59,480 @@ export default function ScanDocument({
             }
           });
         }}
-        languageData={languageData}
         type="document"
       />
     );
   }
+
   return (
     <div className="w-full space-y-4">
-      <h3 className="text-sm font-bold">Front</h3>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-md font-medium">
+          {scanStepper.current.id === "front"
+            ? languageData.IDCardFront || "ID Card Front"
+            : languageData.IDCardBack || "ID Card Back"}
+        </h2>
+        <div className="text-muted-foreground text-sm">
+          {scanStepper.current.id === "front" ? "Step 1/2" : "Step 2/2"}
+        </div>
+      </div>
 
-      <WebcamCapture
-        handleImage={(imageSrc) => {
-          setFront({
-            base64: imageSrc,
-            data: null,
-          });
-        }}
-        languageData={languageData}
-        type="document"
-      />
-      <h3 className="mt-4 text-sm font-bold">Back</h3>
-      <WebcamCapture
-        handleImage={(imageSrc) => {
-          if (!imageSrc) return;
-          void textractIt(imageSrc).then((res) => {
-            if (res?.Blocks) {
-              const mrz = getMRZ(res.Blocks);
-              toastOnSubmit(parse(mrz).fields);
-              setBack({
+      {scanStepper.when("front", () => (
+        <div className="space-y-4">
+          <p className="text-muted-foreground text-sm">
+            {languageData.CaptureIDCardFront || "Please capture the front side of your ID card"}
+          </p>
+          <WebcamCapture
+            handleImage={(imageSrc) => {
+              if (!imageSrc) return;
+              setFront({
                 base64: imageSrc,
-                data: parse(mrz).fields,
+                data: null,
               });
+            }}
+            type="document"
+          />
+          {front?.base64 && (
+            <div className="mt-4 rounded-md border p-2">
+              <p className="mb-2 text-sm font-medium text-green-600">✓ Front side captured</p>
+              <img src={front.base64} alt="ID Card Front" className="max-h-40 w-full rounded-md object-contain" />
+            </div>
+          )}
+        </div>
+      ))}
+
+      {scanStepper.when("back", () => (
+        <div className="space-y-4">
+          <p className="text-muted-foreground text-sm">
+            {languageData.CaptureIDCardBack || "Please capture the back side of your ID card"}
+          </p>
+          <WebcamCapture
+            handleImage={(imageSrc) => {
+              if (!imageSrc) return;
+              void textractIt(imageSrc).then((res) => {
+                if (res?.Blocks) {
+                  const mrz = getMRZ(res.Blocks);
+                  try {
+                    const fields = parse(mrz).fields;
+                    setBack({
+                      base64: imageSrc,
+                      data: fields,
+                    });
+                  } catch (e) {
+                    toast.error("Error parsing MRZ data. Please try again.");
+                    setBack({
+                      base64: imageSrc,
+                      data: null,
+                    });
+                  }
+                } else {
+                  setBack({
+                    base64: imageSrc,
+                    data: null,
+                  });
+                }
+              });
+            }}
+            type="document"
+          />
+          {back?.base64 && (
+            <div className="mt-4 rounded-md border p-2">
+              <p className="mb-2 text-sm font-medium text-green-600">✓ Back side captured</p>
+              <div className="relative">
+                <img alt="ID Card Back" className="max-h-40 w-full rounded-md object-contain" src={back.base64} />
+                {back.data && (
+                  <div className="mt-2 rounded-lg border border-gray-200 bg-white/60 p-3 backdrop-blur-sm">
+                    <div className="mb-2 text-xs font-medium text-gray-500">Machine Readable Zone (MRZ)</div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      {back.data.documentCode && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Document Code</span>
+                          <span className="font-medium">{back.data.documentCode}</span>
+                        </div>
+                      )}
+                      {back.data.issuingState && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Issuing State</span>
+                          <span className="font-medium">{back.data.issuingState}</span>
+                        </div>
+                      )}
+                      {back.data.documentNumber && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Document No</span>
+                          <span className="font-medium">{back.data.documentNumber}</span>
+                        </div>
+                      )}
+                      {back.data.documentNumberCheckDigit && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Doc No Check Digit</span>
+                          <span className="font-medium">{back.data.documentNumberCheckDigit}</span>
+                        </div>
+                      )}
+                      {back.data.optional1 && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Optional 1</span>
+                          <span className="font-medium">{back.data.optional1}</span>
+                        </div>
+                      )}
+                      {back.data.birthDate && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Birth Date</span>
+                          <span className="font-medium">{back.data.birthDate}</span>
+                        </div>
+                      )}
+                      {back.data.birthDateCheckDigit && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Birth Date Check</span>
+                          <span className="font-medium">{back.data.birthDateCheckDigit}</span>
+                        </div>
+                      )}
+                      {back.data.sex && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Sex</span>
+                          <span className="font-medium">{back.data.sex}</span>
+                        </div>
+                      )}
+                      {back.data.expirationDate && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Expiry Date</span>
+                          <span className="font-medium">{back.data.expirationDate}</span>
+                        </div>
+                      )}
+                      {back.data.expirationDateCheckDigit && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Expiry Date Check</span>
+                          <span className="font-medium">{back.data.expirationDateCheckDigit}</span>
+                        </div>
+                      )}
+                      {back.data.nationality && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Nationality</span>
+                          <span className="font-medium">{back.data.nationality}</span>
+                        </div>
+                      )}
+                      {back.data.optional2 && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Optional 2</span>
+                          <span className="font-medium">{back.data.optional2}</span>
+                        </div>
+                      )}
+                      {back.data.compositeCheckDigit && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Composite Check</span>
+                          <span className="font-medium">{back.data.compositeCheckDigit}</span>
+                        </div>
+                      )}
+                      {back.data.lastName && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Surname</span>
+                          <span className="font-medium">{back.data.lastName}</span>
+                        </div>
+                      )}
+                      {back.data.firstName && (
+                        <div className="overflow-hidden">
+                          <span className="block text-gray-500">Given Name</span>
+                          <span className="font-medium">{back.data.firstName}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+
+      <div className="mt-8 flex justify-between">
+        <Button
+          variant="outline"
+          onClick={() => {
+            if (scanStepper.isFirst) {
+              // Do nothing or show info that this is the first step
+            } else {
+              scanStepper.prev();
             }
-          });
-        }}
-        languageData={languageData}
-        type="document"
-      />
+          }}
+          disabled={scanStepper.isFirst}>
+          {languageData.Previous || "Previous"}
+        </Button>
+
+        <Button
+          onClick={() => {
+            if (scanStepper.isLast) {
+              // Son adımda olduğumuzda, ana adıma geçişe izin ver
+              setCanGoNext(true);
+              // Doğrudan bir sonraki global adıma geçmek için burada global stepper'ı ilerletmeye çalışabilirsiniz
+              // Ancak bu ScanDocument bileşeninin içinde global stepper'a erişimimiz yok
+            } else {
+              scanStepper.next();
+            }
+          }}
+          disabled={scanStepper.current.id === "front" ? !front : false}>
+          {languageData.Next || "Next"}
+        </Button>
+      </div>
     </div>
   );
 }
 
-export const ScanDocumentStepper = defineStepper({id: "front", title: "Front"}, {id: "back", title: "Back"});
-
 export function ScanDocumentStep({
   languageData,
-  // canGoNext,
-  // setCanGoNext,
-  // front,
   setFront,
-  // back,
   setBack,
 }: {
   languageData: SSRServiceResource;
-  // canGoNext: boolean;
-
-  // setCanGoNext: (value: boolean) => void;
-  // front: DocumentData;
   setFront: (value: DocumentData) => void;
-  // back: DocumentData;
   setBack: (value: DocumentData) => void;
 }) {
   const globalStepper = GlobalScopper.useStepper();
   const scanStepper = ScanDocumentStepper.useStepper();
+  const [localFront, setLocalFront] = useState<DocumentData>(null);
+  const [localBack, setLocalBack] = useState<DocumentData>(null);
+
+  useEffect(() => {
+    // When front is captured, update the parent state
+    if (localFront) {
+      setFront(localFront);
+    }
+  }, [localFront, setFront]);
+
+  useEffect(() => {
+    // When back is captured, update the parent state
+    if (localBack) {
+      setBack(localBack);
+    }
+  }, [localBack, setBack]);
+
   return (
     <>
-      {globalStepper.when("scan-document", (gstep) => (
-        <div>
-          {gstep.id}
-          {scanStepper.when("front", (step) => (
-            <div>
-              {step.id}
+      {globalStepper.when("scan-document", () => (
+        <div className="w-full space-y-4">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-md font-medium">
+              {scanStepper.current.id === "front"
+                ? languageData.IDCardFront || "ID Card Front"
+                : languageData.IDCardBack || "ID Card Back"}
+            </h2>
+            <div className="text-muted-foreground text-sm">
+              {scanStepper.current.id === "front" ? "Step 1/2" : "Step 2/2"}
+            </div>
+          </div>
+
+          {scanStepper.when("front", () => (
+            <div className="space-y-4">
+              <p className="text-muted-foreground text-sm">
+                {languageData.CaptureIDCardFront || "Please capture the front side of your ID card"}
+              </p>
               <WebcamCapture
                 handleImage={(imageSrc) => {
-                  setFront({
+                  if (!imageSrc) return;
+                  setLocalFront({
                     base64: imageSrc,
                     data: null,
                   });
                 }}
-                languageData={languageData}
                 type="document"
               />
-              Front
+              {localFront?.base64 && (
+                <div className="mt-4 rounded-md border p-2">
+                  <p className="mb-2 text-sm font-medium text-green-600">✓ Front side captured</p>
+                  <img
+                    alt="ID Card Front"
+                    className="max-h-40 w-full rounded-md object-contain"
+                    src={localFront.base64}
+                  />
+                </div>
+              )}
+
+              <div className="mt-8 flex justify-between">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    if (scanStepper.isFirst) {
+                      // Do nothing or show info that this is the first step
+                    } else {
+                      scanStepper.prev();
+                    }
+                  }}
+                  disabled={scanStepper.isFirst}>
+                  {languageData.Previous || "Previous"}
+                </Button>
+                <Button
+                  disabled={!localFront}
+                  onClick={() => {
+                    scanStepper.next();
+                  }}>
+                  {languageData.Next || "Next"}
+                </Button>
+              </div>
             </div>
           ))}
-          {scanStepper.when("back", (step) => (
-            <div>
-              {step.id}
-              Back
+
+          {scanStepper.when("back", () => (
+            <div className="space-y-4">
+              <p className="text-muted-foreground text-sm">
+                {languageData.CaptureIDCardBack || "Please capture the back side of your ID card"}
+              </p>
               <WebcamCapture
                 handleImage={(imageSrc) => {
                   if (!imageSrc) return;
                   void textractIt(imageSrc).then((res) => {
                     if (res?.Blocks) {
                       const mrz = getMRZ(res.Blocks);
-                      toastOnSubmit(parse(mrz).fields);
-                      setBack({
+                      try {
+                        const fields = parse(mrz).fields;
+                        setLocalBack({
+                          base64: imageSrc,
+                          data: fields,
+                        });
+                      } catch (e) {
+                        toast.error("Error parsing MRZ data. Please try again.");
+                        setLocalBack({
+                          base64: imageSrc,
+                          data: null,
+                        });
+                      }
+                    } else {
+                      setLocalBack({
                         base64: imageSrc,
-                        data: parse(mrz).fields,
+                        data: null,
                       });
                     }
                   });
                 }}
-                languageData={languageData}
                 type="document"
               />
+              {localBack?.base64 && (
+                <div className="mt-4 rounded-md border p-2">
+                  <p className="mb-2 text-sm font-medium text-green-600">✓ Back side captured</p>
+                  <div className="relative">
+                    <img
+                      alt="ID Card Back"
+                      className="max-h-40 w-full rounded-md object-contain"
+                      src={localBack.base64}
+                    />
+                    {localBack.data && (
+                      <div className="mt-2 rounded-lg border border-gray-200 bg-white/60 p-3 backdrop-blur-sm">
+                        <div className="mb-2 text-xs font-medium text-gray-500">Machine Readable Zone (MRZ)</div>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          {localBack.data.documentCode && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Document Code</span>
+                              <span className="font-medium">{localBack.data.documentCode}</span>
+                            </div>
+                          )}
+                          {localBack.data.issuingState && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Issuing State</span>
+                              <span className="font-medium">{localBack.data.issuingState}</span>
+                            </div>
+                          )}
+                          {localBack.data.documentNumber && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Document No</span>
+                              <span className="font-medium">{localBack.data.documentNumber}</span>
+                            </div>
+                          )}
+                          {localBack.data.documentNumberCheckDigit && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Doc No Check Digit</span>
+                              <span className="font-medium">{localBack.data.documentNumberCheckDigit}</span>
+                            </div>
+                          )}
+                          {localBack.data.optional1 && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Optional 1</span>
+                              <span className="font-medium">{localBack.data.optional1}</span>
+                            </div>
+                          )}
+                          {localBack.data.birthDate && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Birth Date</span>
+                              <span className="font-medium">{localBack.data.birthDate}</span>
+                            </div>
+                          )}
+                          {localBack.data.birthDateCheckDigit && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Birth Date Check</span>
+                              <span className="font-medium">{localBack.data.birthDateCheckDigit}</span>
+                            </div>
+                          )}
+                          {localBack.data.sex && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Sex</span>
+                              <span className="font-medium">{localBack.data.sex}</span>
+                            </div>
+                          )}
+                          {localBack.data.expirationDate && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Expiry Date</span>
+                              <span className="font-medium">{localBack.data.expirationDate}</span>
+                            </div>
+                          )}
+                          {localBack.data.expirationDateCheckDigit && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Expiry Date Check</span>
+                              <span className="font-medium">{localBack.data.expirationDateCheckDigit}</span>
+                            </div>
+                          )}
+                          {localBack.data.nationality && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Nationality</span>
+                              <span className="font-medium">{localBack.data.nationality}</span>
+                            </div>
+                          )}
+                          {localBack.data.optional2 && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Optional 2</span>
+                              <span className="font-medium">{localBack.data.optional2}</span>
+                            </div>
+                          )}
+                          {localBack.data.compositeCheckDigit && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Composite Check</span>
+                              <span className="font-medium">{localBack.data.compositeCheckDigit}</span>
+                            </div>
+                          )}
+                          {localBack.data.lastName && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Surname</span>
+                              <span className="font-medium">{localBack.data.lastName}</span>
+                            </div>
+                          )}
+                          {localBack.data.firstName && (
+                            <div className="overflow-hidden">
+                              <span className="block text-gray-500">Given Name</span>
+                              <span className="font-medium">{localBack.data.firstName}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-8 flex justify-between">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    scanStepper.prev();
+                  }}>
+                  {languageData.Previous || "Previous"}
+                </Button>
+                <Button
+                  onClick={() => {
+                    // No condition to hide global buttons
+                  }}>
+                  {languageData.Next || "Next"}
+                </Button>
+              </div>
             </div>
           ))}
-
-          {globalStepper.getMetadata("scan-document")?.type === "id-card" && <MyLocalActions />}
         </div>
       ))}
     </>
-  );
-}
-
-function MyLocalActions() {
-  const stepper = ScanDocumentStepper.useStepper();
-  return (
-    <div className="mt-16 flex items-center justify-between py-4">
-      <Button
-        onClick={() => {
-          stepper.goTo("back");
-        }}
-        variant="outline">
-        Front
-      </Button>
-      <Button
-        onClick={() => {
-          stepper.goTo("front");
-        }}
-        variant="outline">
-        Back
-      </Button>
-    </div>
   );
 }
 

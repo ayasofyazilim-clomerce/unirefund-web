@@ -3,16 +3,13 @@ import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
 import {cn} from "@/lib/utils";
 import {Camera} from "lucide-react";
-import {useCallback, useRef, useTransition} from "react";
+import {useCallback, useRef, useState, useTransition} from "react";
 import Webcam from "react-webcam";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 export function WebcamCapture({
-  languageData,
-  type,
   handleImage,
+  type,
 }: {
-  languageData: SSRServiceResource;
   type: "document" | "selfie";
   handleImage: (imageSrc: string | null) => void;
 }) {
@@ -20,6 +17,7 @@ export function WebcamCapture({
     facingMode: type === "document" ? "environment" : "user",
   };
   const [isPending, startTransition] = useTransition();
+  const [isHovering, setIsHovering] = useState(false);
   const webcamRef = useRef<Webcam>(null);
 
   const capture = useCallback(() => {
@@ -40,14 +38,30 @@ export function WebcamCapture({
         <div className="border-primary absolute bottom-2 right-2 h-6 w-6 border-b-2 border-r-2 sm:bottom-4 sm:right-4 sm:h-8 sm:w-8" />
       </div>
 
-      <div className="relative flex w-full items-center justify-center">
+      <div
+        className="relative flex w-full items-center justify-center"
+        onMouseEnter={() => {
+          setIsHovering(true);
+        }}
+        onMouseLeave={() => {
+          setIsHovering(false);
+        }}
+        onTouchEnd={() => {
+          setIsHovering(false);
+        }}
+        onTouchStart={() => {
+          setIsHovering(true);
+        }}>
         {isPending ? <Skeleton className="absolute inset-0 z-10 h-full w-full rounded-xl bg-white/60" /> : null}
 
         {/* Type indicator badge */}
 
         <Webcam
           audio={false}
-          className={cn("h-auto w-full rounded-lg shadow-lg transition-all duration-300")}
+          className={cn(
+            "h-auto w-full rounded-lg shadow-lg transition-all duration-300",
+            isHovering && "brightness-105",
+          )}
           mirrored={type === "selfie"}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
@@ -68,17 +82,20 @@ export function WebcamCapture({
             disabled={isPending}
             onClick={capture}
             variant="outline">
-            <span className="sr-only">{languageData.Save}</span>
             <Camera
-              className={cn("text-primary z-10 transition-all duration-300", isPending ? "h-7 w-7" : "h-7 w-7")}
+              className={cn(
+                "text-primary z-10 transition-all duration-300",
+                isPending ? "h-7 w-7" : "h-7 w-7",
+                isHovering && "scale-110",
+              )}
               strokeWidth={2.5}
             />
 
-            {isPending ? (
+            {isPending && (
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="bg-primary h-full w-full animate-ping rounded-full opacity-20" />
               </span>
-            ) : null}
+            )}
 
             <span className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 transition-opacity hover:opacity-100" />
           </Button>
