@@ -1988,6 +1988,7 @@ export type ContractServiceResources = {
   "UniRefund.ContractService:01064": "Though a valid contract exists, there is no refund fee header relation that is valid within given date: '{date}' in the related contract of given Refund Point!";
   "UniRefund.ContractService:01065": "The refund fee calculation is not possible because there is no tourist fee record in contract's refund fee header!";
   "UniRefund.ContractService:01066": "The refund fee calculation is not possible because there is no agent fee record in contract's refund fee header!";
+  "UniRefund.ContractService:01067": "Contract is already validated!";
 };
 export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";
