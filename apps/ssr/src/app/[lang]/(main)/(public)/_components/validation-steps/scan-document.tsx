@@ -75,8 +75,13 @@ export default function ScanDocument({
             });
           }}
           placeholder={
-            <div className="relative m-4 mt-auto h-12 w-full opacity-50">
-              <Image alt="Passport MRZ" fill src={PassportMRZ as string} />
+            <div className="relative flex size-full opacity-50">
+              <Image
+                alt="Passport MRZ"
+                className="!relative mb-4 mt-auto !h-auto !p-4"
+                fill
+                src={PassportMRZ as string}
+              />
             </div>
           }
           type="document"
@@ -88,7 +93,7 @@ export default function ScanDocument({
 
   return (
     <div className="w-full space-y-4">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <h2 className="text-md font-medium">
           {scanStepper.current.id === "front"
             ? languageData.IDCardFront || "ID Card Front"
@@ -102,7 +107,7 @@ export default function ScanDocument({
       </div>
 
       {scanStepper.when("front", () => (
-        <div className="space-y-4">
+        <>
           <p className="text-muted-foreground text-sm">
             {languageData.CaptureIDCardFront || "Please capture the front side of your ID card"}
           </p>
@@ -117,7 +122,7 @@ export default function ScanDocument({
             }}
             type="document"
           />
-        </div>
+        </>
       ))}
 
       {scanStepper.when("back", () => (
@@ -155,8 +160,8 @@ export default function ScanDocument({
               });
             }}
             placeholder={
-              <div className="relative m-4 mt-auto h-12 w-full opacity-50">
-                <Image alt="ID Card MRZ" fill src={IDCardMRZ as string} />
+              <div className="relative flex size-full opacity-50">
+                <Image alt="ID Card MRZ" className="!relative mt-auto !h-auto !p-4" fill src={IDCardMRZ as string} />
               </div>
             }
             type="document"
