@@ -61,11 +61,11 @@ export default function ScanDocument({
             void textractIt(imageSrc).then((res) => {
               if (res?.Blocks) {
                 const mrz = getMRZ(res.Blocks);
-
                 try {
+                  const parsedMRZ = parse(mrz);
                   setFront({
                     base64: imageSrc,
-                    data: parse(mrz).fields,
+                    data: parsedMRZ.fields,
                   });
                 } catch {
                   toast.error("Error parsing MRZ data. Please try again.");
@@ -138,10 +138,11 @@ export default function ScanDocument({
                 if (res?.Blocks) {
                   const mrz = getMRZ(res.Blocks);
                   try {
-                    const fields = parse(mrz).fields;
+                    const parsedMRZ = parse(mrz);
+
                     setBack({
                       base64: imageSrc,
-                      data: fields,
+                      data: parsedMRZ.fields,
                     });
                   } catch (e) {
                     toast.error("Error parsing MRZ data. Please try again.");
