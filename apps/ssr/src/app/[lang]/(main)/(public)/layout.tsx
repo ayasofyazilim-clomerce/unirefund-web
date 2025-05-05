@@ -7,9 +7,9 @@ export default async function Layout({children, params}: {children: React.ReactN
   const {languageData} = await getResourceData(lang);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="grid h-screen min-h-screen grid-rows-[4rem,1fr] flex-col overflow-hidden">
       <Header languageData={languageData} />
-      <main className="flex-1">{children}</main>
+      <main className="overflow-auto bg-gray-50 p-4">{children}</main>
     </div>
   );
 }

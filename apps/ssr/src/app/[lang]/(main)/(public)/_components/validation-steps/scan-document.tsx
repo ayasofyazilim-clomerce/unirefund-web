@@ -5,7 +5,10 @@ import type {Block} from "@aws-sdk/client-textract";
 import {defineStepper} from "@stepperize/react";
 import {parse} from "mrz";
 import {useEffect} from "react";
+import Image from "next/image";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import IDCardMRZ from "public/idcard-mrz.svg";
+import PassportMRZ from "public/passport-mrz.svg";
 import {textractIt} from "../actions";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
@@ -52,6 +55,7 @@ export default function ScanDocument({
     return (
       <div className="space-y-4">
         <WebcamCapture
+          capturedImage={front?.base64}
           handleImage={(imageSrc) => {
             if (!imageSrc) return;
             void textractIt(imageSrc).then((res) => {
@@ -70,6 +74,11 @@ export default function ScanDocument({
               }
             });
           }}
+          placeholder={
+            <div className="relative m-4 mt-auto h-12 w-full opacity-50">
+              <Image alt="Passport MRZ" fill src={PassportMRZ as string} />
+            </div>
+          }
           type="document"
         />
         {front ? <DisplayCaptured document={front} title={languageData.PassportCaptured} /> : null}
@@ -98,6 +107,7 @@ export default function ScanDocument({
             {languageData.CaptureIDCardFront || "Please capture the front side of your ID card"}
           </p>
           <WebcamCapture
+            capturedImage={front?.base64}
             handleImage={(imageSrc) => {
               if (!imageSrc) return;
               setFront({
@@ -107,7 +117,6 @@ export default function ScanDocument({
             }}
             type="document"
           />
-          {front ? <DisplayCaptured document={front} title={languageData.FrontSideCaptured} /> : null}
         </div>
       ))}
 
@@ -117,6 +126,7 @@ export default function ScanDocument({
             {languageData.CaptureIDCardBack || "Please capture the back side of your ID card"}
           </p>
           <WebcamCapture
+            capturedImage={back?.base64}
             handleImage={(imageSrc) => {
               if (!imageSrc) return;
               void textractIt(imageSrc).then((res) => {
@@ -144,6 +154,11 @@ export default function ScanDocument({
                 }
               });
             }}
+            placeholder={
+              <div className="relative m-4 mt-auto h-12 w-full opacity-50">
+                <Image alt="ID Card MRZ" fill src={IDCardMRZ as string} />
+              </div>
+            }
             type="document"
           />
           {back ? <DisplayCaptured document={back} title={languageData.BackSideCaptured} /> : null}
@@ -197,9 +212,6 @@ function DisplayCaptured({document, title}: {document: DocumentData; title: stri
         <div className="mt-4 rounded-md border p-2">
           <p className="mb-2 text-sm font-medium text-green-600">{title}</p>
           <div className="relative">
-            {document.base64 ? (
-              <img alt="Passport" className="max-h-40 w-full rounded-md object-contain" src={document.base64} />
-            ) : null}
             {document.data ? (
               <div className="mt-2 rounded-lg border border-gray-200 bg-white/60 p-3 backdrop-blur-sm">
                 <div className="mb-2 text-xs font-medium text-gray-500">Machine Readable Zone (MRZ)</div>
