@@ -3,7 +3,7 @@ import * as Avatar from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import * as Dialog from "@/components/ui/dialog";
 import {cn} from "@/lib/utils";
-import {RefreshCw} from "lucide-react";
+import {RefreshCw, CameraOff} from "lucide-react";
 import {useCallback, useRef, useState, useTransition} from "react";
 import Webcam from "react-webcam";
 
@@ -36,16 +36,24 @@ export function WebcamCapture({
   return (
     <div className="webcam-container grid overflow-hidden rounded-md bg-black">
       <div className="webcam relative p-2">
-        {placeholder ? <div className="absolute inset-2 flex items-center justify-center">{placeholder}</div> : null}
+        <div className="absolute inset-2 z-[1] flex items-center justify-center rounded-md text-white/10 ring ring-inset ring-white/10">
+          <CameraOff className="size-32" />
+        </div>
+        {placeholder ? (
+          <div className="absolute inset-2 z-[3] flex items-center justify-center">{placeholder}</div>
+        ) : null}
         <Webcam
           audio={false}
-          className={cn("background-transparent h-auto w-full rounded-md")}
+          className={cn("background-transparent z-[2] h-auto w-full rounded-md")}
           mirrored={type === "selfie"}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           screenshotQuality={1}
           videoConstraints={{
             facingMode,
+            aspectRatio: 16 / 9,
+            width: 1920,
+            height: 1080,
           }}
         />
       </div>

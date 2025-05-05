@@ -14,7 +14,7 @@ export default async function Home({
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <div className="w-full max-w-md space-y-8">
+      <div className="w-full space-y-8 landscape:lg:max-w-md">
         {/* <div className="text-center">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             {languageData.ScanYourIdOrPassport}

@@ -9,7 +9,7 @@ import Image from "next/image";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import IDCardMRZ from "public/idcard-mrz.svg";
 import PassportMRZ from "public/passport-mrz.svg";
-import {textractIt} from "../actions";
+import {detectFace, textractIt} from "../actions";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 
@@ -38,7 +38,7 @@ export default function ScanDocument({
   // Always allow to go next regardless of state
   useEffect(() => {
     if (type === "id-card") {
-      if (front && back?.data) {
+      if (front && back) {
         setCanGoNext(true);
       } else {
         setCanGoNext(false);
@@ -49,8 +49,6 @@ export default function ScanDocument({
       setCanGoNext(false);
     }
   }, [front, back, type]);
-
-  // For passport, we only need one image
   if (type === "passport") {
     return (
       <div className="space-y-4">
@@ -61,11 +59,23 @@ export default function ScanDocument({
             void textractIt(imageSrc).then((res) => {
               if (res?.Blocks) {
                 const mrz = getMRZ(res.Blocks);
-
                 try {
+                  const parsedMRZ = parse(mrz);
                   setFront({
                     base64: imageSrc,
-                    data: parse(mrz).fields,
+                    data: parsedMRZ.fields,
+                  });
+                  void detectFace(imageSrc).then((faceDetection) => {
+                    if (faceDetection > 80) {
+                      toast.success(`Face detected${faceDetection}`);
+                      setFront({
+                        base64: imageSrc,
+                        data: null,
+                      });
+                    } else {
+                      toast.error(`Face not detected;${faceDetection}`);
+                      setFront(null);
+                    }
                   });
                 } catch {
                   toast.error("Error parsing MRZ data. Please try again.");
@@ -75,8 +85,13 @@ export default function ScanDocument({
             });
           }}
           placeholder={
-            <div className="relative m-4 mt-auto h-12 w-full opacity-50">
-              <Image alt="Passport MRZ" fill src={PassportMRZ as string} />
+            <div className="relative flex size-full opacity-50">
+              <Image
+                alt="Passport MRZ"
+                className="!relative mb-4 mt-auto !h-auto !p-4"
+                fill
+                src={PassportMRZ as string}
+              />
             </div>
           }
           type="document"
@@ -88,7 +103,7 @@ export default function ScanDocument({
 
   return (
     <div className="w-full space-y-4">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <h2 className="text-md font-medium">
           {scanStepper.current.id === "front"
             ? languageData.IDCardFront || "ID Card Front"
@@ -102,7 +117,7 @@ export default function ScanDocument({
       </div>
 
       {scanStepper.when("front", () => (
-        <div className="space-y-4">
+        <>
           <p className="text-muted-foreground text-sm">
             {languageData.CaptureIDCardFront || "Please capture the front side of your ID card"}
           </p>
@@ -110,14 +125,22 @@ export default function ScanDocument({
             capturedImage={front?.base64}
             handleImage={(imageSrc) => {
               if (!imageSrc) return;
-              setFront({
-                base64: imageSrc,
-                data: null,
+              void detectFace(imageSrc).then((res) => {
+                if (res > 80) {
+                  toast.success(`Face detected${res}`);
+                  setFront({
+                    base64: imageSrc,
+                    data: null,
+                  });
+                } else {
+                  toast.error(`Face not detected;${res}`);
+                  setFront(null);
+                }
               });
             }}
             type="document"
           />
-        </div>
+        </>
       ))}
 
       {scanStepper.when("back", () => (
@@ -133,10 +156,11 @@ export default function ScanDocument({
                 if (res?.Blocks) {
                   const mrz = getMRZ(res.Blocks);
                   try {
-                    const fields = parse(mrz).fields;
+                    const parsedMRZ = parse(mrz);
+
                     setBack({
                       base64: imageSrc,
-                      data: fields,
+                      data: parsedMRZ.fields,
                     });
                   } catch (e) {
                     toast.error("Error parsing MRZ data. Please try again.");
@@ -155,8 +179,8 @@ export default function ScanDocument({
               });
             }}
             placeholder={
-              <div className="relative m-4 mt-auto h-12 w-full opacity-50">
-                <Image alt="ID Card MRZ" fill src={IDCardMRZ as string} />
+              <div className="relative flex size-full opacity-50">
+                <Image alt="ID Card MRZ" className="!relative mt-auto !h-auto !p-4" fill src={IDCardMRZ as string} />
               </div>
             }
             type="document"

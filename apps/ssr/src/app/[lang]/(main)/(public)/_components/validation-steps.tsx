@@ -32,17 +32,17 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
   const [back, setBack] = useState<DocumentData>(null);
 
   return (
-    <div className="bg-gray-3 flex w-full flex-col gap-2 rounded-md p-3 sm:gap-4 sm:p-4">
+    <div className="bg-gray-3 flex w-full flex-col gap-2 rounded-md p-3 sm:gap-4">
       <GlobalScopper.Scoped>
         <Steps
+          back={back}
+          front={front}
           languageData={languageData}
+          setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
-          setBack={setBack}
-          front={front}
-          back={back}
         />
-        <Actions canGoNext={canGoNext} setCanGoNext={setCanGoNext} setBack={setBack} setFront={setFront} />
+        <Actions canGoNext={canGoNext} setBack={setBack} setCanGoNext={setCanGoNext} setFront={setFront} />
       </GlobalScopper.Scoped>
     </div>
   );
@@ -79,11 +79,11 @@ function Steps({
         <ScanDocument
           back={back}
           front={front}
-          setBack={setBack}
-          type={stepper.getMetadata("scan-document")?.type as "passport" | "id-card"}
           languageData={languageData}
+          setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
+          type={stepper.getMetadata("scan-document")?.type as "passport" | "id-card"}
         />
       ))}
 

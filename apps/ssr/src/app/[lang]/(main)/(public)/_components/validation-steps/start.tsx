@@ -9,7 +9,7 @@ export default function Start({languageData}: {languageData: SSRServiceResource}
   const {lang} = useParams<{lang: string}>();
   return (
     <div>
-      <div className="relative aspect-[4/3] w-full overflow-hidden p-4">
+      <div className="relative flex w-full justify-center overflow-hidden p-4">
         <Image alt="Scan Placeholder" height={300} priority src={PassportMockup.src} width={400} />
       </div>
       {/* Pass languageData to client component */}
