@@ -9,7 +9,7 @@ import Image from "next/image";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import IDCardMRZ from "public/idcard-mrz.svg";
 import PassportMRZ from "public/passport-mrz.svg";
-import {textractIt} from "../actions";
+import {detectFace, textractIt} from "../actions";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 
@@ -38,7 +38,7 @@ export default function ScanDocument({
   // Always allow to go next regardless of state
   useEffect(() => {
     if (type === "id-card") {
-      if (front && back?.data) {
+      if (front && back) {
         setCanGoNext(true);
       } else {
         setCanGoNext(false);
@@ -49,8 +49,6 @@ export default function ScanDocument({
       setCanGoNext(false);
     }
   }, [front, back, type]);
-
-  // For passport, we only need one image
   if (type === "passport") {
     return (
       <div className="space-y-4">
@@ -66,6 +64,18 @@ export default function ScanDocument({
                   setFront({
                     base64: imageSrc,
                     data: parsedMRZ.fields,
+                  });
+                  void detectFace(imageSrc).then((faceDetection) => {
+                    if (faceDetection > 80) {
+                      toast.success(`Face detected${faceDetection}`);
+                      setFront({
+                        base64: imageSrc,
+                        data: null,
+                      });
+                    } else {
+                      toast.error(`Face not detected;${faceDetection}`);
+                      setFront(null);
+                    }
                   });
                 } catch {
                   toast.error("Error parsing MRZ data. Please try again.");
@@ -115,9 +125,17 @@ export default function ScanDocument({
             capturedImage={front?.base64}
             handleImage={(imageSrc) => {
               if (!imageSrc) return;
-              setFront({
-                base64: imageSrc,
-                data: null,
+              void detectFace(imageSrc).then((res) => {
+                if (res > 80) {
+                  toast.success(`Face detected${res}`);
+                  setFront({
+                    base64: imageSrc,
+                    data: null,
+                  });
+                } else {
+                  toast.error(`Face not detected;${res}`);
+                  setFront(null);
+                }
               });
             }}
             type="document"
