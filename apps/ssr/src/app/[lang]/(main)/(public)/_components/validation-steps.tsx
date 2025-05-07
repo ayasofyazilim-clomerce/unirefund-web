@@ -8,12 +8,14 @@ import LivenessDedection from "./validation-steps/liveness-dedection";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
 import TakeSelfie from "./validation-steps/take-selfie";
+import SuccessModal from "./validation-steps/finish";
 
 export const GlobalScopper = defineStepper(
   {id: "start", title: "Start Validation"},
   {id: "scan-document", title: "Scan Document"},
   {id: "take-selfie", title: "Take Selfie"},
   {id: "liveness-dedection", title: "Liveness Detection"},
+  {id: "finish", title: "Finish"},
 );
 
 export type StepProps = {
@@ -42,7 +44,7 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
           setCanGoNext={setCanGoNext}
           setFront={setFront}
         />
-        <Actions canGoNext={canGoNext} setBack={setBack} setCanGoNext={setCanGoNext} setFront={setFront} />
+        <Actions canGoNext={canGoNext} setBack={setBack} setCanGoNext={setCanGoNext} setFront={setFront} />{" "}
       </GlobalScopper.Scoped>
     </div>
   );
@@ -93,7 +95,17 @@ function Steps({
       })}
 
       {stepper.when("liveness-dedection", () => (
-        <LivenessDedection languageData={languageData} />
+        <LivenessDedection setCanGoNext={setCanGoNext} front={front} />
+      ))}
+      {stepper.when("finish", () => (
+        <SuccessModal
+          onRestart={() => {
+            stepper.reset();
+            setCanGoNext(false);
+            setBack(null);
+            setFront(null);
+          }}
+        />
       ))}
     </div>
   );
