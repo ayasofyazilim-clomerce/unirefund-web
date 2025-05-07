@@ -2096,3 +2096,7 @@ export type FileServiceResources = {
   "FileService:FS0008": "If the isMulti field is true, the maxFileCount value cannot be null.";
   "FileService:FS0009": "Duplicate record found.";
 };
+export type RlsConfigResources = {
+  SamplePageMessage: "A sample page for the RlsConfig module";
+  "Menu:RlsConfig": "RlsConfig";
+};
