@@ -247,5 +247,10 @@
   "LivenessDetection.PositionFace": "Yüzünüzü kameraya bakacak şekilde yerleştirin",
   "LivenessDetection.NeutralExpression": "Kameraya doğrudan bakın ve yüzünüzü sabit tutun",
   "LivenessDetection.LookLeftExpression": "Başınızı sola çevirin ve kameraya bakın",
-  "LivenessDetection.LookRightExpression": "Başınızı sağa çevirin ve kameraya bakın"
+  "LivenessDetection.LookRightExpression": "Başınızı sağa çevirin ve kameraya bakın",
+  "Toast.MRZ.Detected": "MRZ algılandı",
+  "Toast.MRZ.InvalidFormat": "Geçersiz MRZ formatı. Lütfen tekrar deneyin.",
+  "Toast.MRZ.Error": "MRZ verisi çözümlenirken hata oluştu. Lütfen tekrar deneyin.",
+  "Toast.Face.Detected": "Yüz algılandı: {0}",
+  "Toast.Face.NotDetected": "Yüz algılanamadı: {0}"
 }

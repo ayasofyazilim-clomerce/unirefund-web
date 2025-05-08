@@ -61,24 +61,30 @@ export default function ScanDocument({
                 const mrz = getMRZ(res.Blocks);
                 try {
                   const parsedMRZ = parse(mrz);
-                  setFront({
-                    base64: imageSrc,
-                    data: parsedMRZ.fields,
-                  });
+                  if (parsedMRZ.format === "TD3") {
+                    // Pasaport verisi olarak ayarla
+                    setFront({
+                      base64: imageSrc,
+                      data: parsedMRZ.fields,
+                    });
+                    toast.success(languageData["Toast.MRZ.Detected"]);
+                  } else {
+                    toast.error(languageData["Toast.MRZ.InvalidFormat"]);
+                    setFront(null);
+                  }
+
                   void detectFace(imageSrc).then((faceDetection) => {
                     if (faceDetection > 80) {
-                      toast.success(`Face detected${faceDetection}`);
-                      setFront({
-                        base64: imageSrc,
-                        data: null,
-                      });
+                      toast.success(languageData["Toast.Face.Detected"].replace("{0}", String(faceDetection)));
+                      // Yüz algılama başarılı ise, zaten MRZ verisini içeren front'u güncellemiyoruz
+                      // Böylece MRZ verisi korunuyor
                     } else {
-                      toast.error(`Face not detected;${faceDetection}`);
+                      toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", String(faceDetection)));
                       setFront(null);
                     }
                   });
                 } catch {
-                  toast.error("Error parsing MRZ data. Please try again.");
+                  toast.error(languageData["Toast.MRZ.Error"]);
                   setFront(null);
                 }
               }
@@ -127,13 +133,13 @@ export default function ScanDocument({
               if (!imageSrc) return;
               void detectFace(imageSrc).then((res) => {
                 if (res > 80) {
-                  toast.success(`Face detected${res}`);
+                  toast.success(languageData["Toast.Face.Detected"].replace("{0}", String(res)));
                   setFront({
                     base64: imageSrc,
                     data: null,
                   });
                 } else {
-                  toast.error(`Face not detected;${res}`);
+                  toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", String(res)));
                   setFront(null);
                 }
               });
@@ -163,7 +169,7 @@ export default function ScanDocument({
                       data: parsedMRZ.fields,
                     });
                   } catch (e) {
-                    toast.error("Error parsing MRZ data. Please try again.");
+                    toast.error(languageData["Toast.MRZ.Error"]);
                     setBack({
                       base64: imageSrc,
                       data: null,

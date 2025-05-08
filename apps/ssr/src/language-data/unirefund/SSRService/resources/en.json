@@ -247,5 +247,10 @@
   "LivenessDetection.PositionFace": "Position your face looking at the camera",
   "LivenessDetection.NeutralExpression": "Look straight at the camera and keep your face neutral",
   "LivenessDetection.LookLeftExpression": "Turn your head to the left and look at the camera",
-  "LivenessDetection.LookRightExpression": "Turn your head to the right and look at the camera"
+  "LivenessDetection.LookRightExpression": "Turn your head to the right and look at the camera",
+  "Toast.MRZ.Detected": "MRZ detected",
+  "Toast.MRZ.InvalidFormat": "Invalid MRZ format. Please try again.",
+  "Toast.MRZ.Error": "Error parsing MRZ data. Please try again.",
+  "Toast.Face.Detected": "Face detected: {0}",
+  "Toast.Face.NotDetected": "Face not detected: {0}"
 }
