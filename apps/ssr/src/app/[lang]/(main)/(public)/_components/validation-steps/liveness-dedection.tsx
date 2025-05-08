@@ -14,24 +14,20 @@ import {useFaceDetection} from "../liveness/hooks/use-face-detection";
 import {Expression} from "../liveness/types";
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 // Ses dosyaları - Projedeki mevcut dosyaları kullan
 const CORRECT_SOUND_URL = "/voices/correct-voice.mp3"; // Başarılı doğrulama için
 const ACCESS_DENIED_SOUND_URL = "/voices/access-denied.mp3"; // Başarısız doğrulama için
 
-// İfade açıklamalarını iyileştir - bunlar constants.ts'deki ifadelerin yerini alacak
-const improvedExpressionInstructions: Record<Expression, string> = {
-  neutral: "Kameraya doğrudan bakın ve yüzünüzü sabit tutun",
-  lookLeft: "Başınızı sola çevirin ve kameraya bakın",
-  lookRight: "Başınızı sağa çevirin ve kameraya bakın",
-};
-
 export default function LivenessDedection({
   setCanGoNext,
   front,
+  languageData,
 }: {
   setCanGoNext: (value: boolean) => void;
   front: DocumentData;
+  languageData: SSRServiceResource;
 }) {
   const webcamRef = useRef<Webcam>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -46,6 +42,20 @@ export default function LivenessDedection({
   const successSoundRef = useRef<HTMLAudioElement | null>(null);
   const deniedSoundRef = useRef<HTMLAudioElement | null>(null);
   const playedSoundRef = useRef<boolean>(false); // Ses çalınıp çalınmadığını takip etmek için
+
+  // İfade açıklamalarını dil servisinden al
+  const getExpressionInstruction = (expression: Expression): string => {
+    switch (expression) {
+      case "neutral":
+        return languageData["LivenessDetection.NeutralExpression"];
+      case "lookLeft":
+        return languageData["LivenessDetection.LookLeftExpression"];
+      case "lookRight":
+        return languageData["LivenessDetection.LookRightExpression"];
+      default:
+        return expressionInstructions[expression];
+    }
+  };
 
   // Ses efektlerini yükle
   useEffect(() => {
@@ -81,15 +91,15 @@ export default function LivenessDedection({
           return (
             <div className="flex h-screen flex-col items-center justify-center bg-red-50">
               <div className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700" role="alert">
-                <strong className="font-bold">Hata:</strong>
-                <span className="block sm:inline"> Model yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.</span>
+                <strong className="font-bold">{languageData.error}:</strong>
+                <span className="block sm:inline"> {languageData["LivenessDetection.CameraPermission"]}</span>
               </div>
               <Button
                 onClick={() => {
                   router.refresh();
                 }}
                 className="mt-4 rounded bg-red-500 px-4 py-2 text-white transition hover:bg-red-600">
-                Sayfayı Yenile
+                {languageData.Reset}
               </Button>
             </div>
           );
@@ -99,7 +109,7 @@ export default function LivenessDedection({
 
     // Use void operator to explicitly mark the promise as ignored
     void loadModels();
-  }, []);
+  }, [languageData]);
 
   // webcam referansını video referansına bağla
   useEffect(() => {
@@ -108,40 +118,96 @@ export default function LivenessDedection({
     }
   }, [webcamRef.current]);
 
-  // Resim çekme fonksiyonu
-  const captureUserImage = useCallback(() => {
-    if (!webcamReady) {
+  // Direct video capture method that's more reliable
+  const captureVideoFrame = useCallback((): Promise<string | null> => {
+    return new Promise((resolve) => {
+      if (!webcamRef.current?.video || !front?.base64) {
+        resolve(null);
+        return;
+      }
+
+      const video = webcamRef.current.video;
+
+      // If video is not fully loaded, wait for it
+      if (video.readyState < 2 || video.videoWidth <= 0 || video.videoHeight <= 0) {
+        // Set a timeout in case the event never fires
+        const timeout = setTimeout(() => {
+          resolve(null);
+        }, 3000);
+
+        const handleVideoReady = () => {
+          clearTimeout(timeout);
+
+          if (video.videoWidth <= 0 || video.videoHeight <= 0) {
+            resolve(null);
+            return;
+          }
+
+          void captureAndCompare(video).then(resolve);
+        };
+
+        video.addEventListener("loadeddata", handleVideoReady, {once: true});
+        return;
+      }
+
+      // Video is already ready, capture directly
+      void captureAndCompare(video).then(resolve);
+    });
+  }, [webcamRef, front]);
+
+  // Helper function to capture from video and compare faces
+  const captureAndCompare = async (video: HTMLVideoElement): Promise<string | null> => {
+    try {
+      // Request an animation frame to ensure we're in a paint cycle
+      await new Promise(requestAnimationFrame);
+
+      // Create a canvas with exactly the video dimensions
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        return null;
+      }
+
+      // Draw the current video frame to the canvas
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Convert to data URL and return
+      return canvas.toDataURL("image/jpeg", 0.9);
+    } catch {
+      return null;
+    }
+  };
+
+  // Updated capureUserImage to use our more reliable method
+  const captureUserImage = useCallback(async () => {
+    if (!webcamReady || !front?.base64) {
       return;
     }
 
-    if (webcamRef.current?.video && front?.base64) {
-      // Canvas boyut hatasını önlemek için video boyutlarını kontrol et
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
+    try {
+      // Get the image safely
+      const imageSrc = await captureVideoFrame();
 
-      if (videoWidth <= 0 || videoHeight <= 0) {
-        return;
-      }
-
-      const imageSrc = webcamRef.current.getScreenshot();
       if (!imageSrc) {
         return;
       }
-      // Use void operator to explicitly mark the promise as ignored
-      void compareFaces(imageSrc, front.base64).then((res) => {
-        setSimilarity(res);
 
-        // Eşleşme eşiği kontrolü - 65% veya üzeri başarılı kabul edilsin
-        if (res >= 65) {
-          setComparisonStatus("success");
-        } else {
-          setComparisonStatus("error");
-        }
+      // Compare faces
+      const res = await compareFaces(imageSrc, front.base64);
+      setSimilarity(res);
 
-        // Burada henüz setCanGoNext veya ses çalmıyoruz, tüm adımlar tamamlanınca yapılacak
-      });
+      if (res >= 65) {
+        setComparisonStatus("success");
+      } else {
+        setComparisonStatus("error");
+      }
+    } catch {
+      setComparisonStatus("error");
     }
-  }, [webcamRef, front, webcamReady]);
+  }, [webcamReady, front, captureVideoFrame]);
 
   // İfade sekansı yönetimi
   const {
@@ -222,6 +288,7 @@ export default function LivenessDedection({
     isModelLoaded && !livenessComplete, // Test tamamlandığında model yüklemeyi durdur
     startTimer,
     resetTimer,
+    languageData,
   );
 
   // İfade "neutral" olduğunda ve algılandığında, daha güvenilir bir şekilde resim çekme
@@ -238,17 +305,19 @@ export default function LivenessDedection({
       // İlk olarak resim çekimi denendiğini işaretle
       captureAttemptedRef.current = true;
 
-      // Neutral ifadesi algılandıktan 2 saniye sonra resim çek
-      // Bu gecikme, videoRef'in tam olarak hazırlanmasını ve 'drawImage' hatasının önlenmesini sağlar
+      // Neutral ifadesi algılandıktan sonra resim çekmeden önce
+      // kameranın tamamen hazır olmasını sağlayacak bir zamanlayıcı kullan
       captureTimeout = setTimeout(() => {
         // Video hazır mı bir kez daha kontrol et
         const video = webcamRef.current?.video;
-        if (video && video.videoWidth > 0) {
-          captureUserImage();
+        if (video && video.videoWidth > 0 && video.videoHeight > 0 && video.readyState >= 2) {
+          // Video hazır, resim çek
+          void captureUserImage();
         } else {
+          // Video hazır değil, bayrağı sıfırla ve daha sonra tekrar denesin
           captureAttemptedRef.current = false;
         }
-      }, 2500); // Biraz daha uzun bir süre verelim (2.5 saniye)
+      }, 3000); // Yeterli süre bekle - 3 saniye
     }
 
     return () => {
@@ -273,66 +342,48 @@ export default function LivenessDedection({
         completeLivenessCheck();
       }
     }
-  }, [isComplete, livenessComplete, expressionSequence.length, currentStepIndex]);
+  }, [isComplete, livenessComplete, expressionSequence.length, currentStepIndex, completeLivenessCheck]);
 
   // Süreçlerin doğrulama durumunu gösteren bir özet fonksiyonu
   const getVerificationSummary = useCallback(() => {
-    const livenessStatus = livenessComplete ? "✓ Canlılık testi tamamlandı" : "⚠️ Canlılık testi tamamlanmadı";
-
-    let compareStatus = "";
-    if (comparisonStatus === "success") {
-      compareStatus = "✓ Kimlik doğrulaması başarılı";
-    } else if (comparisonStatus === "error") {
-      compareStatus = "❌ Kimlik doğrulaması başarısız";
-    } else {
-      compareStatus = "⚠️ Kimlik doğrulaması yapılmadı";
-    }
-
-    // Sorun mesajını hazırla
     let problemMessage = "";
+
     if (livenessComplete && comparisonStatus === "error") {
-      problemMessage = "Yüz eşleşmesi başarısız oldu. Lütfen daha iyi ışık koşullarında tekrar deneyin.";
+      problemMessage = languageData["LivenessDetection.FailureReason"];
     } else if (!livenessComplete && comparisonStatus !== "success") {
-      problemMessage = "Canlılık testi tamamlanamadı. Lütfen tüm adımları takip ederek tekrar deneyin.";
+      problemMessage = languageData["LivenessDetection.LivenessFailed"];
     }
 
     return {
-      livenessStatus,
-      compareStatus,
       allComplete: livenessComplete && comparisonStatus === "success",
       problemMessage,
       showRetry: (livenessComplete && comparisonStatus !== "success") || (!livenessComplete && currentStepIndex > 0),
     };
-  }, [livenessComplete, comparisonStatus, currentStepIndex]);
+  }, [livenessComplete, comparisonStatus, currentStepIndex, languageData]);
 
-  // İlerleme mesajları - İyileştirilmiş açıklamalar kullanılarak
+  // İlerleme mesajları - Dil servisi kullanarak
   const getCurrentInstruction = useCallback(() => {
     if (expressionSequence.length === 0) {
-      return "Canlılık testine başlamak için hazırlanıyor...";
+      return languageData["LivenessDetection.PreparingTest"];
     }
 
     if (currentStepIndex >= expressionSequence.length) {
-      return "Tüm adımlar başarıyla tamamlandı! Kimlik doğrulaması yapılıyor...";
+      return languageData["LivenessDetection.AllStepsCompleted"];
     }
 
     const currentExpr = expressionSequence[currentStepIndex];
+    return getExpressionInstruction(currentExpr as Expression);
+  }, [expressionSequence, currentStepIndex, languageData]);
 
-    // İyileştirilmiş ifade açıklamalarını kullan
-    return (
-      improvedExpressionInstructions[currentExpr as keyof typeof improvedExpressionInstructions] ||
-      expressionInstructions[currentExpr]
-    );
-  }, [expressionSequence, currentStepIndex]);
-
-  // İfade durumuna göre mesaj - İyileştirilmiş
+  // İfade durumuna göre mesaj - Dil servisi kullanarak
   const getExpressionStatusMessage = useCallback(() => {
     if (expressionStatus === "detected") {
-      return `İfade başarıyla algılandı! ${timeRemaining} saniye boyunca bu ifadeyi sürdürün`;
+      return languageData["LivenessDetection.ExpressionDetected"].replace("{0}", timeRemaining.toString());
     } else if (expressionStatus === "lost") {
-      return "İfade kaybedildi, lütfen tekrar deneyiniz ve kameraya bakın";
+      return languageData["LivenessDetection.ExpressionLost"];
     }
-    return detectionMessage || "Yüzünüzü kameraya bakacak şekilde yerleştirin";
-  }, [expressionStatus, timeRemaining, detectionMessage]);
+    return detectionMessage || languageData["LivenessDetection.PositionFace"];
+  }, [expressionStatus, timeRemaining, detectionMessage, languageData]);
 
   // Testi yeniden başlat
   const restartTest = useCallback(() => {
@@ -391,13 +442,15 @@ export default function LivenessDedection({
         {/* Doğrulama özeti - SADECE canlılık testi tamamlandıktan sonra göster */}
         {livenessComplete && expressionSequence.length > 0 && currentStepIndex > 0 && (
           <div className="bg-primary/5 border-primary/10 mb-4 rounded-lg border p-5 transition-colors duration-300">
-            <h3 className="mb-4 text-xl font-medium text-gray-800">Doğrulama Durumu</h3>
+            <h3 className="mb-4 text-xl font-medium text-gray-800">
+              {languageData["LivenessDetection.VerificationStatus"]}
+            </h3>
             <ul className="mb-6 space-y-3">
               <li className="flex items-center gap-3 font-medium text-gray-700">
                 <div className="bg-primary/10 flex h-7 w-7 items-center justify-center rounded-full">
                   <Check className="text-primary h-4 w-4" strokeWidth={3} />
                 </div>
-                <span>Canlılık testi tamamlandı</span>
+                <span>{languageData["LivenessDetection.LivenessCompleted"]}</span>
               </li>
               <li className="flex items-center gap-3 font-medium text-gray-700">
                 <div
@@ -411,7 +464,9 @@ export default function LivenessDedection({
                   )}
                 </div>
                 <span>
-                  {comparisonStatus === "success" ? "Kimlik doğrulaması başarılı" : "Kimlik doğrulaması başarısız"}
+                  {comparisonStatus === "success"
+                    ? languageData["LivenessDetection.IDVerificationSuccess"]
+                    : languageData["LivenessDetection.IDVerificationFailed"]}
                 </span>
               </li>
             </ul>
@@ -426,26 +481,17 @@ export default function LivenessDedection({
               {expressionSequence.length > 0 && currentStepIndex < expressionSequence.length && (
                 <div className="mb-2 flex items-center justify-between rounded-md bg-gray-50 p-2">
                   <span className="text-sm font-medium text-gray-600">
-                    Adım {currentStepIndex + 1}/{expressionSequence.length}
+                    {languageData["LivenessDetection.CurrentStep"]
+                      .replace("{0}", (currentStepIndex + 1).toString())
+                      .replace("{1}", expressionSequence.length.toString())}
                   </span>
                   <span className="bg-primary/10 text-primary rounded-full px-2 py-1 text-xs font-semibold">
-                    Kalan süre: {timeRemaining}s
+                    {languageData["LivenessDetection.RemainingTime"].replace("{0}", timeRemaining.toString())}
                   </span>
                 </div>
               )}
               <h2 className="mb-3 mt-2 text-xl font-bold text-gray-900">{getCurrentInstruction()}</h2>
             </div>
-
-            {/* Adım göstergeleri */}
-            {/* {expressionSequence.length > 0 && (
-              <ExpressionIndicators
-                sequence={expressionSequence}
-                currentIndex={currentStepIndex}
-                timerActive={timer !== null}
-              />
-            )} */}
-
-            {/* Algılama durumu - İyileştirilmiş tasarım */}
 
             {expressionSequence.length > 0 &&
               currentStepIndex < expressionSequence.length &&
@@ -481,7 +527,7 @@ export default function LivenessDedection({
           <div className="rounded-lg transition-colors duration-300">
             {similarity >= 0 && (
               <div className="mt-2">
-                <p className="mb-3 text-sm font-medium text-gray-600">Kimlik Eşleşme Oranı</p>
+                <p className="mb-3 text-sm font-medium text-gray-600">{languageData["LivenessDetection.MatchRate"]}</p>
                 <div className="h-2 w-full rounded-full bg-gray-100">
                   <div
                     className="bg-primary h-2 rounded-full transition-all duration-500 ease-out"
@@ -506,7 +552,7 @@ export default function LivenessDedection({
                   onClick={restartTest}
                   className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/50 inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1">
                   <RefreshCw className="mr-2 h-4 w-4" />
-                  Tekrar Dene
+                  {languageData["LivenessDetection.TryAgain"]}
                 </button>
               </div>
             )}

@@ -38,7 +38,7 @@ export default function ScanDocument({
   // Always allow to go next regardless of state
   useEffect(() => {
     if (type === "id-card") {
-      if (front && back) {
+      if (front && back?.data) {
         setCanGoNext(true);
       } else {
         setCanGoNext(false);
@@ -61,29 +61,36 @@ export default function ScanDocument({
                 const mrz = getMRZ(res.Blocks);
                 try {
                   const parsedMRZ = parse(mrz);
-                  setFront({
-                    base64: imageSrc,
-                    data: parsedMRZ.fields,
-                  });
+                  if (parsedMRZ.format === "TD3") {
+                    // Pasaport verisi olarak ayarla
+                    setFront({
+                      base64: imageSrc,
+                      data: parsedMRZ.fields,
+                    });
+                    toast.success(languageData["Toast.MRZ.Detected"]);
+                  } else {
+                    toast.error(languageData["Toast.MRZ.InvalidFormat"]);
+                    setFront(null);
+                  }
+
                   void detectFace(imageSrc).then((faceDetection) => {
                     if (faceDetection > 80) {
-                      toast.success(`Face detected${faceDetection}`);
-                      setFront({
-                        base64: imageSrc,
-                        data: null,
-                      });
+                      toast.success(languageData["Toast.Face.Detected"].replace("{0}", String(faceDetection)));
+                      // Yüz algılama başarılı ise, zaten MRZ verisini içeren front'u güncellemiyoruz
+                      // Böylece MRZ verisi korunuyor
                     } else {
-                      toast.error(`Face not detected;${faceDetection}`);
+                      toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", String(faceDetection)));
                       setFront(null);
                     }
                   });
                 } catch {
-                  toast.error("Error parsing MRZ data. Please try again.");
+                  toast.error(languageData["Toast.MRZ.Error"]);
                   setFront(null);
                 }
               }
             });
           }}
+          languageData={languageData}
           placeholder={
             <div className="relative flex size-full opacity-50">
               <Image
@@ -127,17 +134,18 @@ export default function ScanDocument({
               if (!imageSrc) return;
               void detectFace(imageSrc).then((res) => {
                 if (res > 80) {
-                  toast.success(`Face detected${res}`);
+                  toast.success(languageData["Toast.Face.Detected"].replace("{0}", String(res)));
                   setFront({
                     base64: imageSrc,
                     data: null,
                   });
                 } else {
-                  toast.error(`Face not detected;${res}`);
+                  toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", String(res)));
                   setFront(null);
                 }
               });
             }}
+            languageData={languageData}
             type="document"
           />
         </>
@@ -157,13 +165,20 @@ export default function ScanDocument({
                   const mrz = getMRZ(res.Blocks);
                   try {
                     const parsedMRZ = parse(mrz);
-
-                    setBack({
-                      base64: imageSrc,
-                      data: parsedMRZ.fields,
-                    });
+                    if (parsedMRZ.format !== "TD3" && parsedMRZ.format !== "SWISS_DRIVING_LICENSE") {
+                      setBack({
+                        base64: imageSrc,
+                        data: parsedMRZ.fields,
+                      });
+                    } else {
+                      toast.error(languageData["Toast.MRZ.InvalidFormat"]);
+                      setBack({
+                        base64: imageSrc,
+                        data: null,
+                      });
+                    }
                   } catch (e) {
-                    toast.error("Error parsing MRZ data. Please try again.");
+                    toast.error(languageData["Toast.MRZ.Error"]);
                     setBack({
                       base64: imageSrc,
                       data: null,
@@ -178,6 +193,7 @@ export default function ScanDocument({
                 }
               });
             }}
+            languageData={languageData}
             placeholder={
               <div className="relative flex size-full opacity-50">
                 <Image alt="ID Card MRZ" className="!relative mt-auto !h-auto !p-4" fill src={IDCardMRZ as string} />

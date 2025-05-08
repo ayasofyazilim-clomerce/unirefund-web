@@ -2,6 +2,7 @@ import {useState, useRef, useCallback, useEffect} from "react";
 import * as faceapi from "face-api.js";
 import {Expression, ExpressionStatus, ExpressionValues} from "../types";
 import {thresholds, DETECTION_INTERVAL} from "../constants";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 /**
  * Yüz tespiti ve ifade analizi için hook
@@ -12,9 +13,12 @@ export const useFaceDetection = (
   isModelLoaded: boolean,
   onExpressionDetected: () => void,
   onExpressionLost: () => void,
+  languageData: SSRServiceResource,
 ) => {
   const [expressionValues, setExpressionValues] = useState<ExpressionValues>({});
-  const [detectionMessage, setDetectionMessage] = useState("Hazırlanıyor...");
+  const [detectionMessage, setDetectionMessage] = useState(
+    languageData["LivenessDetection.PreparingTest"] || "Hazırlanıyor...",
+  );
   const [expressionStatus, setExpressionStatus] = useState<ExpressionStatus>("waiting");
   const lastDetectionRef = useRef<boolean>(false);
 
@@ -133,7 +137,7 @@ export const useFaceDetection = (
           .withFaceExpressions();
 
         if (!detection) {
-          setDetectionMessage("Yüz algılanamadı - lütfen kameraya bakın");
+          setDetectionMessage(languageData["LivenessDetection.FaceNotDetected"]);
           setExpressionStatus("waiting");
           lastDetectionRef.current = false;
           return;
@@ -167,10 +171,10 @@ export const useFaceDetection = (
         }
 
         if (isExpressionDetected) {
-          setDetectionMessage(`${currentExpression} hareketi algılandı - Sabit tutun`);
+          setDetectionMessage(languageData["LivenessDetection.ExpressionDetected"].replace("{0}", "5"));
           setExpressionStatus("detected");
         } else {
-          setDetectionMessage(`${currentExpression} hareketi algılanamadı - Lütfen talimatlara uyun`);
+          setDetectionMessage(languageData["LivenessDetection.ExpressionLost"]);
           if (lastDetectionRef.current) {
             setExpressionStatus("lost");
             onExpressionLost();
