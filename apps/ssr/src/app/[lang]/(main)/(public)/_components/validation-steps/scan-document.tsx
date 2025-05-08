@@ -38,7 +38,7 @@ export default function ScanDocument({
   // Always allow to go next regardless of state
   useEffect(() => {
     if (type === "id-card") {
-      if (front && back) {
+      if (front && back?.data) {
         setCanGoNext(true);
       } else {
         setCanGoNext(false);

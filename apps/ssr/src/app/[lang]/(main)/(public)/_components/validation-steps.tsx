@@ -10,14 +10,6 @@ import Start from "./validation-steps/start";
 import TakeSelfie from "./validation-steps/take-selfie";
 import SuccessModal from "./validation-steps/finish";
 
-export const GlobalScopper = defineStepper(
-  {id: "start", title: "Start Validation"},
-  {id: "scan-document", title: "Scan Document"},
-  {id: "take-selfie", title: "Take Selfie"},
-  {id: "liveness-dedection", title: "Liveness Detection"},
-  {id: "finish", title: "Finish"},
-);
-
 export type StepProps = {
   step: {id: string; title: string; description: string};
   languageData: SSRServiceResource;
@@ -27,6 +19,14 @@ export type DocumentData = {
   base64: string | null;
   data: ParseResult["fields"] | null;
 } | null;
+
+const GlobalScopper = defineStepper(
+  {id: "start", title: "StartValidation"},
+  {id: "scan-document", title: "ScanDocument"},
+  {id: "take-selfie", title: "TakeSelfie"},
+  {id: "liveness-dedection", title: "LivenessDetection"},
+  {id: "finish", title: "Continue"},
+);
 
 export default function ValidationSteps({languageData}: {languageData: SSRServiceResource}) {
   const [canGoNext, setCanGoNext] = useState(false);
@@ -44,11 +44,18 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
           setCanGoNext={setCanGoNext}
           setFront={setFront}
         />
-        <Actions canGoNext={canGoNext} setBack={setBack} setCanGoNext={setCanGoNext} setFront={setFront} />{" "}
+        <Actions
+          canGoNext={canGoNext}
+          languageData={languageData}
+          setBack={setBack}
+          setCanGoNext={setCanGoNext}
+          setFront={setFront}
+        />
       </GlobalScopper.Scoped>
     </div>
   );
 }
+
 function Steps({
   front,
   back,
@@ -70,7 +77,7 @@ function Steps({
     <div className="h-full text-start">
       {!stepper.isFirst && (
         <div className="flex flex-col">
-          <h2 className="text-lg font-semibold">{stepper.current.title}</h2>
+          <h2 className="text-lg font-semibold">{languageData[stepper.current.title]}</h2>
         </div>
       )}
       {stepper.when("start", () => (
@@ -95,7 +102,7 @@ function Steps({
       })}
 
       {stepper.when("liveness-dedection", () => (
-        <LivenessDedection setCanGoNext={setCanGoNext} front={front} />
+        <LivenessDedection languageData={languageData} setCanGoNext={setCanGoNext} front={front} />
       ))}
       {stepper.when("finish", () => (
         <SuccessModal
@@ -116,26 +123,22 @@ function Actions({
   setCanGoNext,
   setFront,
   setBack,
+  languageData,
 }: {
   canGoNext: boolean;
   setCanGoNext: (value: boolean) => void;
   setFront: (value: DocumentData) => void;
   setBack: (value: DocumentData) => void;
+  languageData: SSRServiceResource;
 }) {
   const stepper = GlobalScopper.useStepper();
-  // const scanDocumentStepper = ScanDocumentStepper.useStepper();
-
-  // const isIdCardScanMode =
-  //   stepper.current.id === "scan-document" && stepper.getMetadata("scan-document")?.type === "id-card";
-
-  // const hideGlobalButtons = isIdCardScanMode && scanDocumentStepper.current.id === "front";
 
   return !stepper.isLast ? (
     <div className="mt-6 grid grid-cols-2 gap-2">
       {!stepper.isFirst && (
         <>
           <Button disabled={stepper.isFirst} onClick={stepper.prev} variant="outline">
-            Previous
+            {languageData.Previous}
           </Button>
           <Button
             disabled={!canGoNext}
@@ -144,7 +147,7 @@ function Actions({
               setCanGoNext(false);
             }}
             variant="outline">
-            Next
+            {languageData.Next}
           </Button>
         </>
       )}
@@ -158,7 +161,7 @@ function Actions({
                 type: "passport",
               });
             }}>
-            Start validation with passport
+            {languageData.StartValidationWithPassport}
           </Button>
           <Button
             className="col-span-full"
@@ -169,7 +172,7 @@ function Actions({
               });
             }}
             variant="outline">
-            Start validation with id card
+            {languageData.StartValidationWithIDCard}
           </Button>
         </>
       ))}
@@ -183,7 +186,7 @@ function Actions({
           setBack(null);
           setFront(null);
         }}>
-        Reset
+        {languageData.Reset}
       </Button>
     </div>
   );
