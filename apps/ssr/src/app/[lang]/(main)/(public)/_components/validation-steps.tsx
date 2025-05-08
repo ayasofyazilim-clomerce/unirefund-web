@@ -98,7 +98,7 @@ function Steps({
 
       {stepper.when("take-selfie", () => {
         if (!front?.base64) return null;
-        return <TakeSelfie documentSrc={front.base64} setCanGoNext={setCanGoNext} />;
+        return <TakeSelfie documentSrc={front.base64} languageData={languageData} setCanGoNext={setCanGoNext} />;
       })}
 
       {stepper.when("liveness-dedection", () => (

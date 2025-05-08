@@ -252,5 +252,11 @@
   "Toast.MRZ.InvalidFormat": "Invalid MRZ format. Please try again.",
   "Toast.MRZ.Error": "Error parsing MRZ data. Please try again.",
   "Toast.Face.Detected": "Face detected: {0}",
-  "Toast.Face.NotDetected": "Face not detected: {0}"
+  "Toast.Face.NotDetected": "Face not detected: {0}",
+  "Face.Similarity": "Similarity: {0}%",
+  "Face.Matches": "Your face matches the document",
+  "Face.DoesNotMatch": "Your face does not match the document",
+  "Webcam.CapturedPhoto": "Captured Photo",
+  "Webcam.Capture": "Capture",
+  "Webcam.SwitchCamera": "Switch Camera"
 }

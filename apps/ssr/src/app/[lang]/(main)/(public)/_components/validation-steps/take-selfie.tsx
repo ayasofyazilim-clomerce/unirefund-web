@@ -2,15 +2,18 @@
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {ScanFace} from "lucide-react";
 import {useState} from "react";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {compareFaces} from "../actions";
 import {WebcamCapture} from "../webcam";
 
 export default function TakeSelfie({
   setCanGoNext,
   documentSrc,
+  languageData,
 }: {
   setCanGoNext: (value: boolean) => void;
   documentSrc: string;
+  languageData: SSRServiceResource;
 }) {
   const [similarity, setSimilarity] = useState(-1);
   return (
@@ -27,15 +30,16 @@ export default function TakeSelfie({
             }
           });
         }}
+        languageData={languageData}
         type="selfie"
       />
 
       {similarity !== -1 && (
         <Alert className="mt-4" variant={similarity < 80 ? "destructive" : "default"}>
           <ScanFace className="h-4 w-4" />
-          <AlertTitle>Similarity: %{similarity}</AlertTitle>
+          <AlertTitle>{languageData["Face.Similarity"].replace("{0}", similarity.toString())}</AlertTitle>
           <AlertDescription>
-            {similarity > 80 ? "Your face matches the document" : "Your face does not match the document"}
+            {similarity > 80 ? languageData["Face.Matches"] : languageData["Face.DoesNotMatch"]}
           </AlertDescription>
         </Alert>
       )}

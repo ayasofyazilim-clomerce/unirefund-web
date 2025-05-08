@@ -174,6 +174,7 @@ export function LivenessDetection({
           handleImage={handleImage}
           capturedImage={capturedImage}
           allowCameraSwitch={false}
+          languageData={languageData}
           placeholder={
             <div className="flex flex-col items-center justify-center text-white">
               <div className="text-center text-xs opacity-70">{getInstructionText()}</div>

@@ -90,6 +90,7 @@ export default function ScanDocument({
               }
             });
           }}
+          languageData={languageData}
           placeholder={
             <div className="relative flex size-full opacity-50">
               <Image
@@ -144,6 +145,7 @@ export default function ScanDocument({
                 }
               });
             }}
+            languageData={languageData}
             type="document"
           />
         </>
@@ -163,11 +165,18 @@ export default function ScanDocument({
                   const mrz = getMRZ(res.Blocks);
                   try {
                     const parsedMRZ = parse(mrz);
-
-                    setBack({
-                      base64: imageSrc,
-                      data: parsedMRZ.fields,
-                    });
+                    if (parsedMRZ.format !== "TD3" && parsedMRZ.format !== "SWISS_DRIVING_LICENSE") {
+                      setBack({
+                        base64: imageSrc,
+                        data: parsedMRZ.fields,
+                      });
+                    } else {
+                      toast.error(languageData["Toast.MRZ.InvalidFormat"]);
+                      setBack({
+                        base64: imageSrc,
+                        data: null,
+                      });
+                    }
                   } catch (e) {
                     toast.error(languageData["Toast.MRZ.Error"]);
                     setBack({
@@ -184,6 +193,7 @@ export default function ScanDocument({
                 }
               });
             }}
+            languageData={languageData}
             placeholder={
               <div className="relative flex size-full opacity-50">
                 <Image alt="ID Card MRZ" className="!relative mt-auto !h-auto !p-4" fill src={IDCardMRZ as string} />

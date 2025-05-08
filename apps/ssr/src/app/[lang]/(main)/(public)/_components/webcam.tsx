@@ -6,7 +6,7 @@ import {cn} from "@/lib/utils";
 import {RefreshCw} from "lucide-react";
 import {useCallback, useRef, useState, useTransition, useEffect} from "react";
 import Webcam from "react-webcam";
-import {useParams} from "next/navigation";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 export function WebcamCapture({
   handleImage,
@@ -14,12 +14,14 @@ export function WebcamCapture({
   placeholder,
   allowCameraSwitch = false,
   capturedImage,
+  languageData,
 }: {
   type: "document" | "selfie";
   handleImage: (imageSrc: string | null) => void;
   allowCameraSwitch?: boolean;
   placeholder?: React.ReactElement;
   capturedImage?: string | null;
+  languageData: SSRServiceResource;
 }) {
   const [isPending, startTransition] = useTransition();
   const [facingMode, setFacingMode] = useState<"user" | "environment">(type === "selfie" ? "user" : "environment");
@@ -29,8 +31,6 @@ export function WebcamCapture({
   type Timeout = ReturnType<typeof setTimeout>;
   const videoCheckIntervalRef = useRef<Timeout | null>(null);
   const retryCountRef = useRef(0);
-  const params = useParams();
-  const lang = params.lang as string;
 
   // Cleanup function for intervals
   const clearVideoCheckInterval = useCallback(() => {
@@ -88,72 +88,40 @@ export function WebcamCapture({
     };
   }, [clearVideoCheckInterval]);
 
-  // Create a more reliable capture function that doesn't depend on React state
+  // Use the built-in getScreenshot method instead of canvas-based capture
   const captureImageSafely = useCallback(() => {
     return new Promise<string | null>((resolve) => {
-      if (!webcamRef.current?.video) {
+      if (!webcamRef.current) {
         resolve(null);
         return;
       }
 
-      const video = webcamRef.current.video;
-
       // If video is not ready yet, wait for it
-      if (video.readyState < 2) {
-        // Set a timeout in case the event never fires
+      if (!isVideoReady) {
+        // Set a timeout in case the video never becomes ready
         const timeout = setTimeout(() => {
           resolve(null);
         }, 5000);
 
-        // Listen for the video to be ready
-        const handleVideoReady = () => {
-          clearTimeout(timeout);
+        const checkIntervalId = setInterval(() => {
+          if (checkVideoReady()) {
+            clearTimeout(timeout);
+            clearInterval(checkIntervalId);
 
-          // Even after the event, double-check dimensions
-          if (video.videoWidth <= 0 || video.videoHeight <= 0) {
-            resolve(null);
-            return;
+            // Try to get screenshot after video is ready
+            const screenshot = webcamRef.current?.getScreenshot();
+            resolve(screenshot || null);
           }
+        }, 200);
 
-          // Now safely capture
-          void tryCaptureFromVideo(video).then(resolve);
-        };
-
-        video.addEventListener("loadeddata", handleVideoReady, {once: true});
         return;
       }
 
       // Video is already ready, capture directly
-      void tryCaptureFromVideo(video).then(resolve);
+      const screenshot = webcamRef.current.getScreenshot();
+      resolve(screenshot || null);
     });
-  }, [webcamRef]);
-
-  // Helper function to safely draw video to canvas
-  const tryCaptureFromVideo = async (video: HTMLVideoElement): Promise<string | null> => {
-    try {
-      // Wait a frame for good measure
-      await new Promise(requestAnimationFrame);
-
-      // Create a canvas with the exact dimensions of the video
-      const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-
-      // Get context and draw
-      const context = canvas.getContext("2d");
-      if (!context) {
-        return null;
-      }
-
-      // Draw the frame
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Convert to data URL
-      return canvas.toDataURL("image/jpeg", 0.9);
-    } catch {
-      return null;
-    }
-  };
+  }, [webcamRef, isVideoReady, checkVideoReady]);
 
   // Replace the original capture function with our safer version
   const capture = useCallback(() => {
@@ -198,11 +166,7 @@ export function WebcamCapture({
               </Avatar.Avatar>
             </Dialog.DialogTrigger>
             <Dialog.DialogContent className="w-max justify-center">
-              <img
-                alt={lang === "tr" ? "Çekilmiş Fotoğraf" : "Captured"}
-                className="rounded-md"
-                src={image ? image : ""}
-              />
+              <img alt={languageData["Webcam.CapturedPhoto"]} className="rounded-md" src={image ? image : ""} />
             </Dialog.DialogContent>
           </Dialog.Dialog>
         </div>
@@ -211,7 +175,7 @@ export function WebcamCapture({
             className="size-10 rounded-full border-2 border-white bg-white ring ring-inset ring-black transition-all hover:bg-white hover:ring-4"
             disabled={isPending || !isVideoReady}
             onClick={capture}>
-            <span className="sr-only">{lang === "tr" ? "Çek" : "Capture"}</span>
+            <span className="sr-only">{languageData["Webcam.Capture"]}</span>
           </Button>
         </div>
         <div className="switch flex justify-end">
@@ -225,7 +189,7 @@ export function WebcamCapture({
               }}
               variant="ghost">
               <RefreshCw className="size-4" />
-              <span className="sr-only">{lang === "tr" ? "Kamerayı Değiştir" : "Switch Camera"}</span>
+              <span className="sr-only">{languageData["Webcam.SwitchCamera"]}</span>
             </Button>
           ) : null}
         </div>

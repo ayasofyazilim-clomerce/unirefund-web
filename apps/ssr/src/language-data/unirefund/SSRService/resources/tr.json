@@ -252,5 +252,11 @@
   "Toast.MRZ.InvalidFormat": "Geçersiz MRZ formatı. Lütfen tekrar deneyin.",
   "Toast.MRZ.Error": "MRZ verisi çözümlenirken hata oluştu. Lütfen tekrar deneyin.",
   "Toast.Face.Detected": "Yüz algılandı: {0}",
-  "Toast.Face.NotDetected": "Yüz algılanamadı: {0}"
+  "Toast.Face.NotDetected": "Yüz algılanamadı: {0}",
+  "Face.Similarity": "Benzerlik: %{0}",
+  "Face.Matches": "Yüzünüz belge ile eşleşiyor",
+  "Face.DoesNotMatch": "Yüzünüz belge ile eşleşmiyor",
+  "Webcam.CapturedPhoto": "Çekilen Fotoğraf",
+  "Webcam.Capture": "Çek",
+  "Webcam.SwitchCamera": "Kamera Değiştir"
 }
