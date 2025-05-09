@@ -67,24 +67,24 @@ export default function ScanDocument({
                       base64: imageSrc,
                       data: parsedMRZ.fields,
                     });
-                    toast.success(languageData["Toast.MRZ.Detected"]);
+                    toast.success("MRZ detected successfully.");
                   } else {
-                    toast.error(languageData["Toast.MRZ.InvalidFormat"]);
+                    toast.error("Invalid MRZ format.");
                     setFront(null);
                   }
 
                   void detectFace(imageSrc).then((faceDetection) => {
                     if (faceDetection > 80) {
-                      toast.success(languageData["Toast.Face.Detected"].replace("{0}", String(faceDetection)));
+                      toast.success(`Face detected with confidence: ${faceDetection}%`);
                       // Yüz algılama başarılı ise, zaten MRZ verisini içeren front'u güncellemiyoruz
                       // Böylece MRZ verisi korunuyor
                     } else {
-                      toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", String(faceDetection)));
+                      toast.error(`Face not detected. Confidence: ${faceDetection}%`);
                       setFront(null);
                     }
                   });
                 } catch {
-                  toast.error(languageData["Toast.MRZ.Error"]);
+                  toast.error("An error occurred while parsing MRZ.");
                   setFront(null);
                 }
               }
@@ -134,13 +134,13 @@ export default function ScanDocument({
               if (!imageSrc) return;
               void detectFace(imageSrc).then((res) => {
                 if (res > 80) {
-                  toast.success(languageData["Toast.Face.Detected"].replace("{0}", String(res)));
+                  toast.success(`Face detected with confidence: ${res}%`);
                   setFront({
                     base64: imageSrc,
                     data: null,
                   });
                 } else {
-                  toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", String(res)));
+                  toast.error(`Face not detected. Confidence: ${res}%`);
                   setFront(null);
                 }
               });
@@ -171,14 +171,14 @@ export default function ScanDocument({
                         data: parsedMRZ.fields,
                       });
                     } else {
-                      toast.error(languageData["Toast.MRZ.InvalidFormat"]);
+                      toast.error("Invalid MRZ format.");
                       setBack({
                         base64: imageSrc,
                         data: null,
                       });
                     }
                   } catch (e) {
-                    toast.error(languageData["Toast.MRZ.Error"]);
+                    toast.error("An error occurred while parsing MRZ.");
                     setBack({
                       base64: imageSrc,
                       data: null,
