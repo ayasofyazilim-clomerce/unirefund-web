@@ -1806,6 +1806,15 @@ export type SettingServiceResources = {
   "UniRefund.SettingService:012001": "Default ProductGroup can not be updated.";
   "UniRefund.SettingService:012002": "Default ProductGroup can not be deleted.";
 };
+export type IdentityServiceResources = {
+  "Permission:IdentityService": "Identity service";
+  "UniRefund.IdentityService:010001": "Assignable roles records must be unique.";
+  "UniRefund.IdentityService:010002": "You do not have permission to assign this role: {ids}";
+  "UniRefund.IdentityService:010101": "Some of the provided user devices' names could not be found: {ids}";
+  "UniRefund.IdentityService:010102": "User already has this role: {roleName}";
+  "UniRefund.IdentityService:010103": "User does not have this role: {roleId}";
+  "UniRefund.IdentityService:010003": "This role is already assigned.";
+};
 export type TagServiceResources = {
   "UniRefund.TagService:010002": "This invoice ({invoiceNumber}) is already taken a Tag number!";
   "UniRefund.TagService:010003": "Merchant not found! VatNumber : {vatNumber} , CountryCode : {countryCode}";
@@ -2008,6 +2017,32 @@ export type FinanceServiceResources = {
   "UniRefund.FinanceService:01005": "No VATStatement found for given year month pairs: {invalidDatesString}";
   "Permission:FormBulkPreview": "Form Bulk Preview";
   "Permission:ExportExcelFile": "Export Excel File";
+};
+export type LeptonXResources = {
+  Login: "Login";
+  Appearance: "Appearance";
+  ContainerWidth: "Container Width";
+  "ContainerWidth:Boxed": "Boxed Layout";
+  "ContainerWidth:Fixed": "Fixed";
+  "ContainerWidth:Fluid": "Fluid";
+  GeneralSettings: "General Settings";
+  Language: "Language";
+  Settings: "Settings";
+  "Theme:dark": "Dark";
+  "Theme:dim": "Semi-Dark";
+  "Theme:light": "Light";
+  "Theme:system": "System";
+  Welcome: "Welcome";
+  FilterMenu: "Filter Menu";
+  "Authentication:YouAreLoggedOut": "You are logged out.";
+  GivenTenantIsNotExist: "Given tenant doesn't exist: {0}";
+  GivenTenantIsNotAvailable: "Given tenant isn't available: {0}";
+  Tenant: "Tenant";
+  Switch: "switch";
+  Name: "Name";
+  SwitchTenantHint: "Leave the name field blank to switch to the host side.";
+  SwitchTenant: "Switch tenant";
+  NotSelected: "Not selected";
 };
 export type FileServiceResources = {
   "Permission:MimeType": "MimeType";
