@@ -40,7 +40,7 @@ export default function Form({
   });
   return (
     <div className="flex flex-col gap-4 overflow-auto">
-      <ActionList>
+      {/* <ActionList>
         {isActionGranted(["AbpIdentity.ClaimTypes.Delete"], grantedPolicies) && (
           <ConfirmDialog
             closeProps={{
@@ -72,7 +72,7 @@ export default function Form({
             type="with-trigger"
           />
         )}
-      </ActionList>
+      </ActionList> */}
       <SchemaForm<Volo_Abp_Identity_ClaimTypeDto>
         className="flex flex-col gap-4"
         disabled={isPending}

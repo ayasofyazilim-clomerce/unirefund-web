@@ -48,73 +48,73 @@ function affiliationsTableActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableTableActionsType[] = [];
-  if (isActionGranted(["CRMService.Merchants.CreateAffiliation"], grantedPolicies)) {
-    actions.push({
-      type: "custom-dialog",
-      actionLocation: "table",
-      cta: languageData["Affiliations.New"],
-      title: languageData["Affiliations.New"],
-      icon: Plus,
-      content: (
-        <FormReadyComponent
-          active={affiliationCodes.length === 0}
-          content={{
-            icon: <FileText className="size-20 text-gray-400" />,
-            title: languageData["Missing.Affiliation.Title"],
-            message: languageData["Missing.Affiliation.Message"],
-            action: (
-              <Button asChild className="text-blue-500" variant="link">
-                <Link href={getBaseLink("settings/affiliations/merchants")}>{languageData.New}</Link>
-              </Button>
-            ),
-          }}>
-          <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
-            className="flex flex-col gap-4"
-            filter={{
-              type: "include",
-              sort: true,
-              keys: ["email", "affiliationCodeId"],
-            }}
-            onSubmit={({formData}) => {
-              if (!formData) return;
-              void postAffiliationsToMerchantApi({
-                id: partyId,
-                requestBody: {
-                  ...formData,
-                  entityInformationTypeCode: "INDIVIDUAL",
-                },
-              }).then((res) => {
-                handlePostResponse(res, router);
-              });
-            }}
-            schema={$UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto}
-            submitText={languageData.Save}
-            uiSchema={createUiSchemaWithResource({
-              schema: $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
-              resources: languageData,
-              name: "Form.Parties.Affiliation",
-              extend: {
-                affiliationCodeId: {
-                  "ui:widget": "affiliationCode",
-                },
-                email: {
-                  "ui:widget": "email",
-                },
-              },
-            })}
-            widgets={{
-              affiliationCode: CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>({
-                languageData,
-                list: affiliationCodes,
-                selectIdentifier: "id",
-                selectLabel: "name",
-              }),
-            }}
-          />
-        </FormReadyComponent>
-      ),
-    });
-  }
+  // if (isActionGranted(["CRMService.Merchants.CreateAffiliation"], grantedPolicies)) {
+  //   actions.push({
+  //     type: "custom-dialog",
+  //     actionLocation: "table",
+  //     cta: languageData["Affiliations.New"],
+  //     title: languageData["Affiliations.New"],
+  //     icon: Plus,
+  //     content: (
+  //       <FormReadyComponent
+  //         active={affiliationCodes.length === 0}
+  //         content={{
+  //           icon: <FileText className="size-20 text-gray-400" />,
+  //           title: languageData["Missing.Affiliation.Title"],
+  //           message: languageData["Missing.Affiliation.Message"],
+  //           action: (
+  //             <Button asChild className="text-blue-500" variant="link">
+  //               <Link href={getBaseLink("settings/affiliations/merchants")}>{languageData.New}</Link>
+  //             </Button>
+  //           ),
+  //         }}>
+  //         <SchemaForm<UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto>
+  //           className="flex flex-col gap-4"
+  //           filter={{
+  //             type: "include",
+  //             sort: true,
+  //             keys: ["email", "affiliationCodeId"],
+  //           }}
+  //           onSubmit={({formData}) => {
+  //             if (!formData) return;
+  //             void postAffiliationsToMerchantApi({
+  //               id: partyId,
+  //               requestBody: {
+  //                 ...formData,
+  //                 entityInformationTypeCode: "INDIVIDUAL",
+  //               },
+  //             }).then((res) => {
+  //               handlePostResponse(res, router);
+  //             });
+  //           }}
+  //           schema={$UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto}
+  //           submitText={languageData.Save}
+  //           uiSchema={createUiSchemaWithResource({
+  //             schema: $UniRefund_CRMService_AffiliationTypes_CreateAffiliationTypeDto,
+  //             resources: languageData,
+  //             name: "Form.Parties.Affiliation",
+  //             extend: {
+  //               affiliationCodeId: {
+  //                 "ui:widget": "affiliationCode",
+  //               },
+  //               email: {
+  //                 "ui:widget": "email",
+  //               },
+  //             },
+  //           })}
+  //           widgets={{
+  //             affiliationCode: CustomComboboxWidget<UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto>({
+  //               languageData,
+  //               list: affiliationCodes,
+  //               selectIdentifier: "id",
+  //               selectLabel: "name",
+  //             }),
+  //           }}
+  //         />
+  //       </FormReadyComponent>
+  //     ),
+  //   });
+  // }
   actions.push({
     type: "simple",
     actionLocation: "table",
@@ -135,24 +135,24 @@ function affiliationsRowActions(
   grantedPolicies: Record<Policy, boolean>,
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] = [];
-  if (isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies)) {
-    actions.push({
-      type: "confirmation-dialog",
-      cta: languageData["Merchants.Individual.Create.User"],
-      title: languageData["Merchants.Individual.Create.User"],
-      actionLocation: "row",
-      confirmationText: languageData.Save,
-      cancelText: languageData.Cancel,
-      description: languageData["Merchants.Individual.Create.User.Description"],
-      condition: (row) => row.abpUserId === null,
-      icon: User2,
-      onConfirm: (row) => {
-        void postAbpUserAccountByIndividualIdApi(row.partyId || "").then((res) => {
-          handlePostResponse(res, router);
-        });
-      },
-    });
-  }
+  // if (isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies)) {
+  //   actions.push({
+  //     type: "confirmation-dialog",
+  //     cta: languageData["Merchants.Individual.Create.User"],
+  //     title: languageData["Merchants.Individual.Create.User"],
+  //     actionLocation: "row",
+  //     confirmationText: languageData.Save,
+  //     cancelText: languageData.Cancel,
+  //     description: languageData["Merchants.Individual.Create.User.Description"],
+  //     condition: (row) => row.abpUserId === null,
+  //     icon: User2,
+  //     onConfirm: (row) => {
+  //       void postAbpUserAccountByIndividualIdApi(row.partyId || "").then((res) => {
+  //         handlePostResponse(res, router);
+  //       });
+  //     },
+  //   });
+  // }
   if (isActionGranted(["CRMService.Merchants.CreateAffiliation"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",

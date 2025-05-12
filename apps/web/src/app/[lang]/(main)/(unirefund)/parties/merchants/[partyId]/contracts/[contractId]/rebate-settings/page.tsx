@@ -55,10 +55,10 @@ export default async function Page({
   };
 }) {
   const {lang, partyId, contractId} = params;
-  await isUnauthorized({
-    requiredPolicies: ["ContractService.RebateSetting.Edit"],
-    lang,
-  });
+  // await isUnauthorized({
+  //   requiredPolicies: ["ContractService.RebateSetting.Edit"],
+  //   lang,
+  // });
 
   const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests(partyId);

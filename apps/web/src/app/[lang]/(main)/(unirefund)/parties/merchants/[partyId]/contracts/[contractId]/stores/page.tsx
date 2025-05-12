@@ -11,15 +11,15 @@ import {ContractStoresTable} from "./_components/table";
 
 export default async function Page({params}: {params: {contractId: string; lang: string}}) {
   const {contractId, lang} = params;
-  await isUnauthorized({
-    requiredPolicies: [
-      "ContractService.ContractStore",
-      "ContractService.ContractStore.Edit",
-      "ContractService.ContractStore.Delete",
-      "ContractService.ContractStore.Create",
-    ],
-    lang,
-  });
+  // await isUnauthorized({
+  //   requiredPolicies: [
+  //     "ContractService.ContractStore",
+  //     "ContractService.ContractStore.Edit",
+  //     "ContractService.ContractStore.Delete",
+  //     "ContractService.ContractStore.Create",
+  //   ],
+  //   lang,
+  // });
   const session = await auth();
   const {languageData} = await getResourceData(lang);
   const contractStoresResponse = await getMerchantContractHeadersContractStoresByHeaderIdApi(

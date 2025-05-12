@@ -37,7 +37,9 @@ export default async function Page({
 }) {
   const {lang} = params;
   await isUnauthorized({
-    requiredPolicies: ["ContractService.RefundTableHeader", "ContractService.RefundTableDetail"],
+    requiredPolicies: ["ContractService.RefundTableHeader"
+      // , "ContractService.RefundTableDetail"
+    ],
     lang,
   });
   const {languageData} = await getResourceData(lang);

@@ -136,24 +136,7 @@ function affiliationsRowActions(
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] = [];
 
-  if (isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies)) {
-    actions.push({
-      type: "confirmation-dialog",
-      cta: languageData["Merchants.Individual.Create.User"],
-      title: languageData["Merchants.Individual.Create.User"],
-      actionLocation: "row",
-      confirmationText: languageData.Save,
-      cancelText: languageData.Cancel,
-      description: languageData["Merchants.Individual.Create.User.Description"],
-      condition: (row) => row.abpUserId === null,
-      icon: User2,
-      onConfirm: (row) => {
-        void postAbpUserAccountByIndividualIdApi(row.partyId || "").then((res) => {
-          handlePostResponse(res, router);
-        });
-      },
-    });
-  }
+  
   if (isActionGranted(["CRMService.TaxFrees.CreateAffiliation"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",

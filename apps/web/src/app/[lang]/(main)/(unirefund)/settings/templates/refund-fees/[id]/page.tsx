@@ -9,9 +9,9 @@ export default async function Page({params}: {params: {lang: string; id: string}
   const {id} = params;
   await isUnauthorized({
     requiredPolicies: [
-      "ContractService.RefundFeeDetail.Create",
-      "ContractService.RefundFeeDetail.Edit",
-      "ContractService.RefundFeeDetail.Delete",
+      // "ContractService.RefundFeeDetail.Create",
+      // "ContractService.RefundFeeDetail.Edit",
+      // "ContractService.RefundFeeDetail.Delete",
       "ContractService.RefundFeeHeader.Create",
       "ContractService.RefundFeeHeader.Edit",
       "ContractService.RefundFeeHeader.Delete",

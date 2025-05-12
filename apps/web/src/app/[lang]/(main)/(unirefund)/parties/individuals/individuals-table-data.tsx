@@ -54,23 +54,22 @@ function individualsRowActions(
   grantedPolicies: Record<Policy, boolean>,
 ) {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_Individuals_IndividualProfileDto>[] = [];
-  actions.push({
-    type: "confirmation-dialog",
-    cta: languageData["Merchants.Individual.Create.User"],
-    title: languageData["Merchants.Individual.Create.User"],
-    actionLocation: "row",
-    confirmationText: languageData.Save,
-    cancelText: languageData.Cancel,
-    description: languageData["Merchants.Individual.Create.User.Description"],
-    condition: (row) =>
-      isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies) && row.abpUserId === null,
-    icon: User2,
-    onConfirm: (row) => {
-      void postAbpUserAccountByIndividualIdApi(row.id || "").then((res) => {
-        handlePostResponse(res, router);
-      });
-    },
-  });
+  // actions.push({
+  //   type: "confirmation-dialog",
+  //   cta: languageData["Merchants.Individual.Create.User"],
+  //   title: languageData["Merchants.Individual.Create.User"],
+  //   actionLocation: "row",
+  //   confirmationText: languageData.Save,
+  //   cancelText: languageData.Cancel,
+  //   description: languageData["Merchants.Individual.Create.User.Description"],
+  //   condition: (row) => null,
+  //   icon: User2,
+  //   onConfirm: (row) => {
+  //     void postAbpUserAccountByIndividualIdApi(row.id || "").then((res) => {
+  //       handlePostResponse(res, router);
+  //     });
+  //   },
+  // });
 
   actions.push({
     type: "custom-dialog",

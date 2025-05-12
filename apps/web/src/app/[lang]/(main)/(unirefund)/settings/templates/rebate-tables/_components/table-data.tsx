@@ -149,9 +149,10 @@ const rebateTableHeadersTable = (params: {
         type: "custom-dialog",
         cta: languageData["Contracts.Clone"],
         condition: (row) => {
-          return (
-            isActionGranted(["ContractService.RebateTableHeader.CreateFromTemplate"], grantedPolicies) && row.isTemplate
-          );
+          return true;
+          // return (
+          //   isActionGranted(["ContractService.RebateTableHeader.CreateFromTemplate"], grantedPolicies) && row.isTemplate
+          // );
         },
         content: (row) => <CloneForm languageData={languageData} merchants={merchants} router={router} row={row} />,
         title: (row) => (

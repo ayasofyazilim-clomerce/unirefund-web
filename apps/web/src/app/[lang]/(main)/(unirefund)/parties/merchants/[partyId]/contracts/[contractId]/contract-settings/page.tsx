@@ -38,10 +38,10 @@ export default async function Page({
   };
 }) {
   const {lang, contractId, partyId} = params;
-  await isUnauthorized({
-    requiredPolicies: ["ContractService.ContractSetting.Edit"],
-    lang,
-  });
+  // await isUnauthorized({
+  //   requiredPolicies: ["ContractService.ContractSetting.Edit"],
+  //   lang,
+  // });
 
   const {languageData} = await getResourceData(lang);
   const session = await auth();
