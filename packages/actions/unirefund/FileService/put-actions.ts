@@ -15,7 +15,10 @@ import {structuredError, structuredResponse} from "@repo/utils/api";
 import {Session} from "@repo/utils/auth";
 import {getFileServiceClient} from "unirefund/lib";
 
-export async function putFileValidationByIdApi(data: PutApiFileServiceFilesByIdValidatedData, session: Session | null) {
+export async function putFileValidationByIdApi(
+  data: PutApiFileServiceFilesByIdValidatedData,
+  session?: Session | null,
+) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.file.putApiFileServiceFilesByIdValidated(data);
@@ -24,7 +27,7 @@ export async function putFileValidationByIdApi(data: PutApiFileServiceFilesByIdV
     return structuredError(error);
   }
 }
-export async function putFileMetaByIdApi(data: PutApiFileServiceFilesByIdMetaData, session: Session | null) {
+export async function putFileMetaByIdApi(data: PutApiFileServiceFilesByIdMetaData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.file.putApiFileServiceFilesByIdMeta(data);
@@ -33,7 +36,7 @@ export async function putFileMetaByIdApi(data: PutApiFileServiceFilesByIdMetaDat
     return structuredError(error);
   }
 }
-export async function putFileRelationsByIdApi(data: PutApiFileServiceFileRelationsByIdData, session: Session | null) {
+export async function putFileRelationsByIdApi(data: PutApiFileServiceFileRelationsByIdData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileRelation.putApiFileServiceFileRelationsById(data);
@@ -44,7 +47,7 @@ export async function putFileRelationsByIdApi(data: PutApiFileServiceFileRelatio
 }
 export async function putFileRelationEntitiesApi(
   data: PutApiFileServiceFileRelationEntitiesByIdData,
-  session: Session | null,
+  session?: Session | null,
 ) {
   try {
     const client = await getFileServiceClient(session);
@@ -54,7 +57,7 @@ export async function putFileRelationEntitiesApi(
     return structuredError(error);
   }
 }
-export async function putFileTypesApi(data: PutApiFileServiceFileTypesByIdData, session: Session | null) {
+export async function putFileTypesApi(data: PutApiFileServiceFileTypesByIdData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileType.putApiFileServiceFileTypesById(data);
@@ -63,7 +66,7 @@ export async function putFileTypesApi(data: PutApiFileServiceFileTypesByIdData, 
     return structuredError(error);
   }
 }
-export async function putFileTypeGroupApi(data: PutApiFileServiceFileTypeGroupsByIdData, session: Session | null) {
+export async function putFileTypeGroupApi(data: PutApiFileServiceFileTypeGroupsByIdData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileTypeGroup.putApiFileServiceFileTypeGroupsById(data);
@@ -74,7 +77,7 @@ export async function putFileTypeGroupApi(data: PutApiFileServiceFileTypeGroupsB
 }
 export async function putFileTypeMimeTypesApi(
   data: PutApiFileServiceFileTypeMimeTypesByIdData,
-  session: Session | null,
+  session?: Session | null,
 ) {
   try {
     const client = await getFileServiceClient(session);
@@ -84,7 +87,7 @@ export async function putFileTypeMimeTypesApi(
     return structuredError(error);
   }
 }
-export async function putMimeTypeApi(data: PutApiFileServiceMimeTypesByIdData, session: Session | null) {
+export async function putMimeTypeApi(data: PutApiFileServiceMimeTypesByIdData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.mimeType.putApiFileServiceMimeTypesById(data);
@@ -93,7 +96,7 @@ export async function putMimeTypeApi(data: PutApiFileServiceMimeTypesByIdData, s
     return structuredError(error);
   }
 }
-export async function putProviderApi(data: PutApiFileServiceProvidersByIdData, session: Session | null) {
+export async function putProviderApi(data: PutApiFileServiceProvidersByIdData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.provider.putApiFileServiceProvidersById(data);

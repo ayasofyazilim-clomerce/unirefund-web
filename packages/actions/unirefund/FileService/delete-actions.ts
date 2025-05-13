@@ -3,7 +3,7 @@ import {structuredError, structuredResponse} from "@repo/utils/api";
 import {Session} from "@repo/utils/auth";
 import {getFileServiceClient} from "unirefund/lib";
 
-export async function deleteFileRelationsByIdApi(id: string, session: Session | null) {
+export async function deleteFileRelationsByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileRelation.deleteApiFileServiceFileRelationsById({id});
@@ -12,7 +12,7 @@ export async function deleteFileRelationsByIdApi(id: string, session: Session | 
     return structuredError(error);
   }
 }
-export async function deleteFileRelationEntitiesByIdApi(id: string, session: Session | null) {
+export async function deleteFileRelationEntitiesByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileRelationEntity.deleteApiFileServiceFileRelationEntitiesById({id});
@@ -21,7 +21,7 @@ export async function deleteFileRelationEntitiesByIdApi(id: string, session: Ses
     return structuredError(error);
   }
 }
-export async function deleteFileTypesByIdApi(id: string, session: Session | null) {
+export async function deleteFileTypesByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileType.deleteApiFileServiceFileTypesById({id});
@@ -30,7 +30,7 @@ export async function deleteFileTypesByIdApi(id: string, session: Session | null
     return structuredError(error);
   }
 }
-export async function deleteFileTypeGroupsByIdApi(id: string, session: Session | null) {
+export async function deleteFileTypeGroupsByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileTypeGroup.deleteApiFileServiceFileTypeGroupsById({id});
@@ -39,7 +39,7 @@ export async function deleteFileTypeGroupsByIdApi(id: string, session: Session |
     return structuredError(error);
   }
 }
-export async function deleteFileTypeMimeTypesByIdApi(id: string, session: Session | null) {
+export async function deleteFileTypeMimeTypesByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileTypeMimeType.deleteApiFileServiceFileTypeMimeTypesById({id});
@@ -48,7 +48,7 @@ export async function deleteFileTypeMimeTypesByIdApi(id: string, session: Sessio
     return structuredError(error);
   }
 }
-export async function deleteMimeTypeByIdApi(id: string, session: Session | null) {
+export async function deleteMimeTypeByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.mimeType.deleteApiFileServiceMimeTypesById({id});
@@ -57,7 +57,7 @@ export async function deleteMimeTypeByIdApi(id: string, session: Session | null)
     return structuredError(error);
   }
 }
-export async function deleteProviderByIdApi(id: string, session: Session | null) {
+export async function deleteProviderByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.provider.deleteApiFileServiceProvidersById({id});
