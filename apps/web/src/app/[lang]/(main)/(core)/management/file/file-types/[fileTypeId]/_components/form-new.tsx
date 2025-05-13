@@ -4,7 +4,7 @@ import {$UniRefund_FileService_FileTypes_FileTypeCreateDto} from "@ayasofyazilim
 import type {
   UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto,
   UniRefund_FileService_FileTypes_FileTypeCreateDto,
-  type UniRefund_FileService_Providers_ProviderListDto,
+  UniRefund_FileService_Providers_ProviderListDto,
 } from "@ayasofyazilim/saas/FileService";
 import {postFileTypesApi} from "@repo/actions/unirefund/FileService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";

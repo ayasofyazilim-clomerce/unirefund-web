@@ -3,9 +3,9 @@
 import {$UniRefund_FileService_FileTypes_FileTypeUpdateDto} from "@ayasofyazilim/saas/FileService";
 import type {
   UniRefund_FileService_FileTypes_FileTypeUpdateDto,
-  type UniRefund_FileService_Providers_ProviderListDto,
-  type UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto,
-  type UniRefund_FileService_FileTypes_FileTypeListDto,
+  UniRefund_FileService_Providers_ProviderListDto,
+  UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto,
+  UniRefund_FileService_FileTypes_FileTypeListDto,
 } from "@ayasofyazilim/saas/FileService";
 import {putFileTypesApi} from "@repo/actions/unirefund/FileService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";

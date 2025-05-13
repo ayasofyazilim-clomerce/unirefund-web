@@ -6,7 +6,7 @@ import {
 import type {
   UniRefund_FileService_MimeTypes_MimeTypeCreateDto,
   UniRefund_FileService_MimeTypes_MimeTypeUpdateDto,
-  type UniRefund_FileService_MimeTypes_MimeTypeListDto,
+  UniRefund_FileService_MimeTypes_MimeTypeListDto,
 } from "@ayasofyazilim/saas/FileService";
 import {deleteMimeTypeByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import {postMimeTypesApi} from "@repo/actions/unirefund/FileService/post-actions";
