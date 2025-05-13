@@ -13,7 +13,7 @@ import {
 } from "@ayasofyazilim/saas/FileService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {Session} from "@repo/utils/auth";
-import {getFileServiceClient} from "unirefund/lib";
+import {getFileServiceClient} from "../lib";
 
 export async function putFileValidationByIdApi(
   data: PutApiFileServiceFilesByIdValidatedData,
@@ -66,7 +66,10 @@ export async function putFileTypesApi(data: PutApiFileServiceFileTypesByIdData, 
     return structuredError(error);
   }
 }
-export async function putFileTypeGroupApi(data: PutApiFileServiceFileTypeGroupsByIdData, session?: Session | null) {
+export async function putFileTypeGroupsByIdApi(
+  data: PutApiFileServiceFileTypeGroupsByIdData,
+  session?: Session | null,
+) {
   try {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.fileTypeGroup.putApiFileServiceFileTypeGroupsById(data);

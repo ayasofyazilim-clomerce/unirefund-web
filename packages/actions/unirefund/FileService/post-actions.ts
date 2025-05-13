@@ -11,7 +11,7 @@ import {
 } from "@ayasofyazilim/saas/FileService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {Session} from "@repo/utils/auth";
-import {getFileServiceClient} from "unirefund/lib";
+import {getFileServiceClient} from "../lib";
 
 export async function postFileApi(data: PostApiFileServiceFilesData, session?: Session | null) {
   try {

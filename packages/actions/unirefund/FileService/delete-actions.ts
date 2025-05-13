@@ -1,7 +1,7 @@
 "use server";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {Session} from "@repo/utils/auth";
-import {getFileServiceClient} from "unirefund/lib";
+import {getFileServiceClient} from "../lib";
 
 export async function deleteFileRelationsByIdApi(id: string, session?: Session | null) {
   try {
