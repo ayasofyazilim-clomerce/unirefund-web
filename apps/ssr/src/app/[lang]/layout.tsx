@@ -26,10 +26,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: "Core project is a core web app for managing multi-tenant apps.",
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-    },
   };
 }
 export default async function RootLayout({children, params}: RootLayoutProps) {
