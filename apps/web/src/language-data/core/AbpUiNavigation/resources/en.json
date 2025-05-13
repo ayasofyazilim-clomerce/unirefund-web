@@ -83,5 +83,12 @@
   "RebateStatements.Description": "You can view the rebate statements from here.",
   "MyAccount": "My Account",
   "Affiliation": "Affiliation",
-  "Affiliation.Description": "You can manage the affiliations from here."
+  "Affiliation.Description": "You can manage the affiliations from here.",
+  "File": "File",
+  "Providers": "Providers",
+  "MimeTypes": "Mime Types",
+  "FileTypes": "File Types",
+  "FileTypeMimeTypes": "File Type Mime Types",
+  "FileTypeGroups": "File Type Groups",
+  "FileRelationEntities": "File Relation Entities"
 }
