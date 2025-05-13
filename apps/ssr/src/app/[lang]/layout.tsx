@@ -14,15 +14,18 @@ interface RootLayoutProps {
 }
 const appName = process.env.APPLICATION_NAME || "UNIREFUND";
 const title = appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase();
+export async function generateViewport() {
+  await Promise.resolve();
+  return {
+    width: "device-width",
+    initialScale: 1,
+  };
+}
 export async function generateMetadata(): Promise<Metadata> {
   await Promise.resolve();
   return {
     title,
     description: "Core project is a core web app for managing multi-tenant apps.",
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-    },
   };
 }
 export default async function RootLayout({children, params}: RootLayoutProps) {

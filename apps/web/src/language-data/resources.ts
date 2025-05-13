@@ -1848,6 +1848,7 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100029": "Total amount of the invoice: '{invoiceNumber}' in Tag: '{amount}' must be upper than '{minimumAmount}'!";
   "UniRefund.TagService:0100030": "Tags without an early refund fee in their contract cannot be refunded. Affected Tags: '{tagNumbersStr}'";
   "UniRefund.TagService:0100031": "Refund operation can not be performed due to some tags' refund expiration date have passed! Related Tags: '{tagNumbers}'";
+  "UniRefund.TagService:0100032": "Multi Invoices in a Tag currently not supported. Tag can just have one Invoice!";
 };
 export type RefundServiceResources = {
   "UniRefund.RefundService:001001": "Country currency is not set";
@@ -1987,6 +1988,7 @@ export type ContractServiceResources = {
   "UniRefund.ContractService:01064": "Though a valid contract exists, there is no refund fee header relation that is valid within given date: '{date}' in the related contract of given Refund Point!";
   "UniRefund.ContractService:01065": "The refund fee calculation is not possible because there is no tourist fee record in contract's refund fee header!";
   "UniRefund.ContractService:01066": "The refund fee calculation is not possible because there is no agent fee record in contract's refund fee header!";
+  "UniRefund.ContractService:01067": "Contract is already validated!";
 };
 export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";
@@ -2041,4 +2043,60 @@ export type LeptonXResources = {
   SwitchTenantHint: "Leave the name field blank to switch to the host side.";
   SwitchTenant: "Switch tenant";
   NotSelected: "Not selected";
+};
+export type FileServiceResources = {
+  "Permission:MimeType": "MimeType";
+  "Permission:MimeType.Save": "Saving the MimeType";
+  "Permission:MimeType.Delete": "Delete the MimeType";
+  "Permission:MimeType.Update": "Update the MimeType";
+  "Permission:MimeType.List": "List the MimeType";
+  "Permission:FileTypeGroup": "FileTypeGroup";
+  "Permission:FileTypeGroup.Save": "Saving the FileTypeGroup";
+  "Permission:FileTypeGroup.Delete": "Delete the FileTypeGroup";
+  "Permission:FileTypeGroup.Update": "Update the FileTypeGroup";
+  "Permission:FileTypeGroup.List": "List the FileTypeGroup";
+  "Permission:File": "File";
+  "Permission:File.Save": "Saving the File";
+  "Permission:File.Delete": "Delete the File";
+  "Permission:File.Update": "Update the File";
+  "Permission:File.List": "List the File";
+  "Permission:File.Validated": "Validated the File";
+  "Permission:FileType": "FileType";
+  "Permission:FileType.Save": "Saving the FileType";
+  "Permission:FileType.Delete": "Delete the FileType";
+  "Permission:FileType.Update": "Update the FileType";
+  "Permission:FileType.List": "List the FileType";
+  "Permission:Provider": "Provider";
+  "Permission:Provider.Save": "Saving the Provider";
+  "Permission:Provider.Delete": "Delete the Provider";
+  "Permission:Provider.Update": "Update the Provider";
+  "Permission:Provider.List": "List the Provider";
+  "Permission:FileRelation": "FileRelation";
+  "Permission:FileRelation.Save": "Saving the FileRelation";
+  "Permission:FileRelation.Delete": "Delete the FileRelation";
+  "Permission:FileRelation.Update": "Update the FileRelation";
+  "Permission:FileRelation.List": "List the FileRelation";
+  "Permission:FileRelationEntity": "FileRelationEntity";
+  "Permission:FileRelationEntity.Save": "Saving the FileRelationEntity";
+  "Permission:FileRelationEntity.Delete": "Delete the FileRelationEntity";
+  "Permission:FileRelationEntity.Update": "Update the FileRelationEntity";
+  "Permission:FileRelationEntity.List": "List the FileRelationEntity";
+  "Permission:FileTypeMimeType": "FileTypeMimeType";
+  "Permission:FileTypeMimeType.Save": "Saving the FileTypeMimeType";
+  "Permission:FileTypeMimeType.Delete": "Delete the FileTypeMimeType";
+  "Permission:FileTypeMimeType.Update": "Update the FileTypeMimeType";
+  "Permission:FileTypeMimeType.List": "List the FileTypeMimeType";
+  "FileService:FS0001": "File could not be fetched from file storage!";
+  "FileService:FS0002": "Error: FileType could not be found for the namespace {namespaceName}. Please make sure you have entered a valid namespace.";
+  "FileService:FS0003": "Error: RelatedEntity could not be found for the relatedEntityName {relatedEntityName}. Please make sure you have entered a valid relatedEntityName.";
+  "FileService:FS0004": "You can only upload one file for this file type. Please select only one file and try again.";
+  "FileService:FS0005": "Input cannot be null!";
+  "FileService:FS0006": "Only files with the following extensions are allowed for {fileTypeName}: {mimeTypes}.The file type you attempted to upload: {fileContentType}.";
+  "FileService:FS0007": "Error: FileTypeGroup could not be found for the namespace {namespaceName}. Please make sure you have entered a valid namespace.";
+  "FileService:FS0008": "If the isMulti field is true, the maxFileCount value cannot be null.";
+  "FileService:FS0009": "Duplicate record found.";
+};
+export type RlsConfigResources = {
+  SamplePageMessage: "A sample page for the RlsConfig module";
+  "Menu:RlsConfig": "RlsConfig";
 };
