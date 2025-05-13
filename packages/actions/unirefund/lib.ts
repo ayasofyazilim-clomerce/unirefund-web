@@ -2,6 +2,7 @@ import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationSer
 import {ContractServiceClient} from "@ayasofyazilim/saas/ContractService";
 import {CRMServiceClient} from "@ayasofyazilim/saas/CRMService";
 import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
+import {FileServiceClient} from "@ayasofyazilim/saas/FileService";
 import {FinanceServiceClient} from "@ayasofyazilim/saas/FinanceService";
 import {LocationServiceClient} from "@ayasofyazilim/saas/LocationService";
 import {RefundServiceClient} from "@ayasofyazilim/saas/RefundService";
@@ -109,6 +110,16 @@ export async function getAdministrationServiceClient(session?: Session | null) {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;
   return new AdministrationServiceClient({
+    TOKEN: token,
+    BASE: process.env.BASE_URL,
+    HEADERS,
+  });
+}
+
+export async function getFileServiceClient(session?: Session | null) {
+  const userData = session || (await auth());
+  const token = userData?.user?.access_token;
+  return new FileServiceClient({
     TOKEN: token,
     BASE: process.env.BASE_URL,
     HEADERS,
