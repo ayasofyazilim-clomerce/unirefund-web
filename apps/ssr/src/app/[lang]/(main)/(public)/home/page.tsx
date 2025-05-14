@@ -13,19 +13,8 @@ export default async function Home({
   const {languageData} = await getResourceData(lang);
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
-      <div className="w-full space-y-8 landscape:lg:max-w-md">
-        {/* <div className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            {languageData.ScanYourIdOrPassport}
-          </h1>
-          <p className="mt-2 text-sm text-gray-600">{languageData.ScanPassportDescription}</p>
-        </div> */}
-
-        <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md ">
-          <ValidationSteps languageData={languageData} />
-        </Card>
-      </div>
-    </div>
+    <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md">
+      <ValidationSteps languageData={languageData} />
+    </Card>
   );
 }

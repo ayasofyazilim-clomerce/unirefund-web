@@ -8,7 +8,7 @@ import PassportMockup from "public/passport-mockup.png";
 export default function Start({languageData}: {languageData: SSRServiceResource}) {
   const {lang} = useParams<{lang: string}>();
   return (
-    <div>
+    <div className=" md:h-auto">
       <div className="relative flex w-full justify-center overflow-hidden p-4">
         <Image alt="Scan Placeholder" height={300} priority src={PassportMockup.src} width={400} />
       </div>
