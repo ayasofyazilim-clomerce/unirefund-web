@@ -1,15 +1,29 @@
 "use server";
 import {CompareFacesCommand, DetectFacesCommand, RekognitionClient} from "@aws-sdk/client-rekognition";
 import {AnalyzeIDCommand, TextractClient} from "@aws-sdk/client-textract";
+import {revalidatePath} from "next/cache";
 /* eslint prefer-named-capture-group: off -- We need to disable this rule */
 const regex = /^data:(.+);base64,(.+)$/;
-const clientAuths = {
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-  },
-};
+
+export function getAWSEnvoriment() {
+  if (!process.env.AWS_REGION) {
+    throw new Error("AWS_REGION is not defined");
+  }
+  if (!process.env.AWS_ACCESS_KEY_ID) {
+    throw new Error("AWS_ACCESS_KEY_ID is not defined");
+  }
+  if (!process.env.AWS_SECRET_ACCESS_KEY) {
+    throw new Error("AWS_SECRET_ACCESS_KEY is not defined");
+  }
+  return {
+    region: process.env.AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  };
+}
+
+const clientAuths = getAWSEnvoriment();
+
 const textractClient = new TextractClient(clientAuths);
 const rekognitionClient = new RekognitionClient(clientAuths);
 
@@ -26,7 +40,6 @@ export async function textractIt(base64: string) {
     ],
   });
   const data = await textractClient.send(command);
-  // console.log("DATA", data.IdentityDocuments);
   if (data.IdentityDocuments?.at(0)?.Blocks) {
     return data.IdentityDocuments[0];
   }
@@ -49,8 +62,7 @@ export async function compareFaces(image: string, image2: string) {
     const response = await rekognitionClient.send(command);
     const match = response.FaceMatches?.at(0);
     return match?.Similarity ?? 0;
-  } catch (error) {
-    // console.error("AWS Rekognition error:", error);
+  } catch {
     return 0;
   }
 }
@@ -68,8 +80,31 @@ export async function detectFace(image: string) {
     const response = await rekognitionClient.send(command);
     const match = response.FaceDetails?.at(0);
     return match?.Confidence ?? 0;
-  } catch (error) {
-    // console.error("AWS Rekognition error:", error);
+  } catch {
     return 0;
   }
+}
+
+export async function createFaceLivenessSession() {
+  revalidatePath("");
+  const response = await fetch(
+    "http://192.168.1.69:44455/api/traveller-service/faceliveness/CreateFaceLivenessSession",
+  );
+  const data = await response.json();
+  return data.sessionId;
+}
+
+export async function getFaceLivenessSessionResults(sessionId: string): Promise<{
+  isLive: boolean;
+  confidence: number;
+}> {
+  const response = await fetch(
+    `http://192.168.1.69:44455/api/traveller-service/faceliveness/GetFaceLivenessSessionResults?sessionId=${sessionId}`,
+  );
+  const data = await response.json();
+  const confidence = data?.confidence || 0;
+  return {
+    isLive: confidence >= 90,
+    confidence: confidence,
+  };
 }

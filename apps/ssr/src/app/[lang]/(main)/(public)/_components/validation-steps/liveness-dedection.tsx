@@ -3,18 +3,17 @@
 import React, {useEffect, useRef, useState, useCallback} from "react";
 import Webcam from "react-webcam";
 import {CheckCircle, XCircle, AlertCircle, AlertTriangle, RefreshCw, Check} from "lucide-react";
-
-import {compareFaces} from "../actions";
-import {DocumentData} from "../validation-steps";
+import {compareFaces} from "@repo/actions/unirefund/AWSService/actions";
+import {Button} from "@/components/ui/button";
+import {useRouter} from "next/navigation";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import type {DocumentData} from "../validation-steps";
 import {loadFaceApiModels} from "../liveness/hooks/face-api-utils";
 import {DEFAULT_DURATION, expressionInstructions} from "../liveness/constants";
 import {useExpressionSequence} from "../liveness/hooks/use-expression-sequence";
 import {useExpressionTimer} from "../liveness/hooks/use-expression-timer";
 import {useFaceDetection} from "../liveness/hooks/use-face-detection";
-import {Expression} from "../liveness/types";
-import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import type {Expression} from "../liveness/types";
 
 // Ses dosyaları - Projedeki mevcut dosyaları kullan
 const CORRECT_SOUND_URL = "/voices/correct-voice.mp3"; // Başarılı doğrulama için
@@ -95,10 +94,10 @@ export default function LivenessDedection({
                 <span className="block sm:inline"> {languageData["LivenessDetection.CameraPermission"]}</span>
               </div>
               <Button
+                className="mt-4 rounded bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
                 onClick={() => {
                   router.refresh();
-                }}
-                className="mt-4 rounded bg-red-500 px-4 py-2 text-white transition hover:bg-red-600">
+                }}>
                 {languageData.Reset}
               </Button>
             </div>
@@ -408,19 +407,19 @@ export default function LivenessDedection({
       <div className="relative mt-4 w-full overflow-hidden rounded-xl bg-black shadow-lg">
         {!livenessComplete && (
           <Webcam
-            mirrored
-            ref={webcamRef}
             audio={false}
+            className="rounded-xl"
+            mirrored
+            onUserMedia={() => {
+              setWebcamReady(true);
+            }}
+            ref={webcamRef}
             screenshotFormat="image/jpeg"
+            style={{width: "100%", height: "auto"}}
             videoConstraints={{
               width: 400,
               height: 300,
               facingMode: "user",
-            }}
-            style={{width: "100%", height: "auto"}}
-            className="rounded-xl"
-            onUserMedia={() => {
-              setWebcamReady(true);
             }}
           />
         )}
@@ -433,14 +432,15 @@ export default function LivenessDedection({
             <div className="absolute bottom-0 left-0 h-1.5 w-full bg-gray-700/50">
               <div
                 className="bg-primary h-full transition-all duration-300 ease-in-out"
-                style={{width: `${progress}%`}}></div>
+                style={{width: `${progress}%`}}
+              />
             </div>
           )}
       </div>
 
       <div className="w-full rounded-xl border border-gray-100 bg-white p-5 text-center shadow-md">
         {/* Doğrulama özeti - SADECE canlılık testi tamamlandıktan sonra göster */}
-        {livenessComplete && expressionSequence.length > 0 && currentStepIndex > 0 && (
+        {livenessComplete && expressionSequence.length > 0 && currentStepIndex > 0 ? (
           <div className="bg-primary/5 border-primary/10 mb-4 rounded-lg border p-5 transition-colors duration-300">
             <h3 className="mb-4 text-xl font-medium text-gray-800">
               {languageData["LivenessDetection.VerificationStatus"]}
@@ -471,7 +471,7 @@ export default function LivenessDedection({
               </li>
             </ul>
           </div>
-        )}
+        ) : null}
 
         {/* Liveness doğrulama süreci - henüz tamamlanmadıysa göster */}
         {!livenessComplete && (
@@ -523,7 +523,7 @@ export default function LivenessDedection({
         )}
 
         {/* Doğrulama özeti - SADECE canlılık testi tamamlandıktan sonra göster */}
-        {livenessComplete && expressionSequence.length > 0 && currentStepIndex > 0 && (
+        {livenessComplete && expressionSequence.length > 0 && currentStepIndex > 0 ? (
           <div className="rounded-lg transition-colors duration-300">
             {similarity >= 0 && (
               <div className="mt-2">
@@ -531,7 +531,8 @@ export default function LivenessDedection({
                 <div className="h-2 w-full rounded-full bg-gray-100">
                   <div
                     className="bg-primary h-2 rounded-full transition-all duration-500 ease-out"
-                    style={{width: `${similarity}%`}}></div>
+                    style={{width: `${similarity}%`}}
+                  />
                 </div>
                 <p className="text-primary mt-2 text-right text-sm font-medium">{similarity.toFixed(1)}%</p>
               </div>
@@ -540,24 +541,24 @@ export default function LivenessDedection({
             {/* Sorun mesajı ve tekrar dene butonu */}
             {!getVerificationSummary().allComplete && (
               <div className="mt-5">
-                {getVerificationSummary().problemMessage && (
+                {getVerificationSummary().problemMessage ? (
                   <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-red-800">
                     <p className="flex items-center gap-2">
                       <AlertTriangle className="h-5 w-5 text-red-600" />
                       {getVerificationSummary().problemMessage}
                     </p>
                   </div>
-                )}
+                ) : null}
                 <button
-                  onClick={restartTest}
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/50 inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1">
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/50 inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1"
+                  onClick={restartTest}>
                   <RefreshCw className="mr-2 h-4 w-4" />
                   {languageData["LivenessDetection.TryAgain"]}
                 </button>
               </div>
             )}
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
