@@ -88,5 +88,12 @@
   "RebateStatements.Description": "Komisyon beyanlarını buradan görüntüleyebilirsiniz.",
   "MyAccount": "Hesabım",
   "Affiliation": "Bağlılıklar",
-  "Affiliation.Description": "Bağlılıkları buradan yönetebilirsiniz."
+  "Affiliation.Description": "Bağlılıkları buradan yönetebilirsiniz.",
+  "File": "Dosyalar",
+  "Providers": "Sağlayıcılar",
+  "MimeTypes": "Mime Türleri",
+  "FileTypes": "Dosya Türleri",
+  "FileTypeMimeTypes": "Dosya Türü Mime Türleri",
+  "FileTypeGroups": "Dosya Türü Grupları",
+  "FileRelationEntities": "Dosya İlişki Varlıkları"
 }

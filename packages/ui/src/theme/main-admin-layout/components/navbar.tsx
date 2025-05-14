@@ -1,8 +1,8 @@
 "use client";
 
-import { IdCardIcon } from "@radix-ui/react-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import {IdCardIcon} from "@radix-ui/react-icons";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 
 import {
   BookA,
@@ -39,15 +39,22 @@ import {
   TicketSlash,
   User,
   WalletCards,
-  Menu
+  Menu,
+  FileIcon,
+  FileType2,
+  Server,
+  FileSliders,
+  FileSpreadsheet,
+  FileStack,
+  FileKey,
 } from "lucide-react";
-import { Notification, NotificationProps } from "../../../components/notification";
+import {Notification, NotificationProps} from "../../../components/notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
-import SearchBar, { type SearchFromDB } from "./navbar-searchbar";
+import SearchBar, {type SearchFromDB} from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
-import { useState } from "react";
+import {useState} from "react";
 
 export default function Navbar({
   prefix,
@@ -62,7 +69,7 @@ export default function Navbar({
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
-  tenantData?: { tenantId: string; tenantName: string };
+  tenantData?: {tenantId: string; tenantName: string};
   notification?: NotificationProps;
   searchFromDB?: SearchFromDB[];
 }) {
@@ -79,7 +86,7 @@ export default function Navbar({
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      className="text-muted-foreground flex items-center border-l p-0 pl-2 font-light text-xs sm:text-sm truncate max-w-[100px] sm:max-w-none"
+                      className="text-muted-foreground flex max-w-[100px] items-center truncate border-l p-0 pl-2 text-xs font-light sm:max-w-none sm:text-sm"
                       onClick={() => {
                         if (navigator.clipboard) {
                           navigator.clipboard.writeText(tenantData.tenantId);
@@ -96,9 +103,7 @@ export default function Navbar({
             )}
           </div>
           <div className="flex items-center gap-1 md:gap-2 lg:order-2">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1 md:hidden">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-1 md:hidden">
               <Menu size={20} />
             </button>
             <LanguageSelector lang={lang} />
@@ -107,7 +112,8 @@ export default function Navbar({
           </div>
         </div>
       </nav>
-      <div className={`flex flex-col md:flex-row items-start md:items-center justify-between border-y border-gray-200 bg-white py-1 ${isMobileMenuOpen ? 'block' : 'hidden md:flex'}`}>
+      <div
+        className={`flex flex-col items-start justify-between border-y border-gray-200 bg-white py-1 md:flex-row md:items-center ${isMobileMenuOpen ? "block" : "hidden md:flex"}`}>
         <BreadcrumbNavigation navigation={navigation} navbarItems={navbarItems} />
         <SearchBar navbarItems={navbarItems} prefix={prefix} searchFromDB={searchFromDB || []} />
       </div>
@@ -151,4 +157,11 @@ export const icons = {
   table: <Table className="mr-1 size-4 text-gray-600" />,
   template: <LayoutTemplate className="mr-1 size-4 text-gray-600" />,
   new: <PlusCircle className="mr-1 size-4 text-gray-600" />,
+  file: <FileIcon className="mr-1 size-4 text-gray-600" />,
+  fileTypes: <FileType2 className="mr-1 size-4 text-gray-600" />,
+  mimeTypes: <FileSliders className="mr-1 size-4 text-gray-600" />,
+  fileTypeMimeTypes: <FileSpreadsheet className="mr-1 size-4 text-gray-600" />,
+  fileTypeGroups: <FileStack className="mr-1 size-4 text-gray-600" />,
+  fileRelationEntities: <FileKey className="mr-1 size-4 text-gray-600" />,
+  providers: <Server className="mr-1 size-4 text-gray-600" />,
 };

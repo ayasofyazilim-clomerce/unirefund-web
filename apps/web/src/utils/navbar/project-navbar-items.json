@@ -277,6 +277,76 @@
     "requiredPolicies": ["AuditLogging.AuditLogs"]
   },
   {
+    "key": "management/file",
+    "displayName": "File",
+    "description": "View and manage files.",
+    "href": null,
+    "icon": "file",
+    "parentNavbarItemKey": "management",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService"]
+  },
+  {
+    "key": "management/file/providers",
+    "displayName": "Providers",
+    "description": "Manage providers.",
+    "href": "management/file/providers",
+    "icon": "providers",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService.Providers"]
+  },
+  {
+    "key": "management/file/mime-types",
+    "displayName": "MimeTypes",
+    "description": "Manage mime types.",
+    "href": "management/file/mime-types",
+    "icon": "mimeTypes",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService.MimeType"]
+  },
+  {
+    "key": "management/file/file-types",
+    "displayName": "FileTypes",
+    "description": "Manage file types.",
+    "href": "management/file/file-types",
+    "icon": "fileTypes",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService.FileType"]
+  },
+  {
+    "key": "management/file/file-type-mime-types",
+    "displayName": "FileTypeMimeTypes",
+    "description": "Manage file types mime types.",
+    "href": "management/file/file-type-mime-types",
+    "icon": "fileTypeMimeTypes",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService.FileTypeMimeType"]
+  },
+  {
+    "key": "management/file/file-type-groups",
+    "displayName": "FileTypeGroups",
+    "description": "Manage file type groups.",
+    "href": "management/file/file-type-groups",
+    "icon": "fileTypeGroups",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService.FileTypeGroup"]
+  },
+  {
+    "key": "management/file/file-relation-entities",
+    "displayName": "FileRelationEntities",
+    "description": "Manage file relation entities.",
+    "href": "management/file/file-relation-entities",
+    "icon": "fileRelationEntities",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["Permission:FileService.FileRelationEntity"]
+  },
+  {
     "key": "settings",
     "displayName": "Settings",
     "description": "Access settings settings and tools.",
