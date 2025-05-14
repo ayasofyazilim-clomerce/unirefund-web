@@ -6,14 +6,14 @@ import type {Block} from "@aws-sdk/client-textract";
 import {parse} from "mrz";
 import {useState} from "react";
 import Image from "next/image";
+import {detectFace, textractIt} from "@repo/actions/unirefund/AWSService/actions";
+import {CheckCircle, AlertCircle} from "lucide-react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import IDCardMRZ from "public/ID-Back.png";
 import PassportMRZ from "public/Passport.png";
 import IdCardFront from "public/ID-Front.png";
-import {detectFace, textractIt} from "../actions";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
-import {CheckCircle, AlertCircle} from "lucide-react";
 
 export default function ScanDocument({
   languageData,
@@ -48,15 +48,15 @@ export default function ScanDocument({
 
           <div className="mb-6 space-y-3 text-sm">
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.PassportTip1 || "Make sure all text is clearly visible"}</p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.PassportTip2 || "Position inside the frame completely"}</p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.PassportTip3 || "Avoid glare and shadows"}</p>
             </div>
           </div>
@@ -64,19 +64,19 @@ export default function ScanDocument({
           {/* Passport mockup image */}
           <div className="mb-4 rounded-lg border border-gray-200 p-4">
             <Image
-              src={PassportMRZ}
-              width={300}
-              height={400}
               alt="Passport mockup"
               className="mx-auto h-auto max-w-full"
+              height={400}
+              src={PassportMRZ}
+              width={300}
             />
           </div>
 
           <Button
+            className="bg-primary text-primary-foreground w-full"
             onClick={() => {
               setShowOnboarding(false);
-            }}
-            className="bg-primary text-primary-foreground w-full">
+            }}>
             {languageData.Continue}
           </Button>
         </div>
@@ -95,15 +95,15 @@ export default function ScanDocument({
 
           <div className="mb-4 space-y-3 text-sm">
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.IDCardFrontTip1 || "Make sure all text is clearly visible"}</p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.IDCardFrontTip2 || "Position inside the frame completely"}</p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.IDCardFrontTip3 || "Avoid glare and shadows"}</p>
             </div>
           </div>
@@ -111,19 +111,19 @@ export default function ScanDocument({
           {/* ID Card mockup image */}
           <div className="mb-4 rounded-lg border border-gray-200">
             <Image
-              src={IdCardFront}
-              width={500}
-              height={300}
               alt="ID Card front mockup"
               className="mx-auto h-auto max-w-full"
+              height={300}
+              src={IdCardFront}
+              width={500}
             />
           </div>
 
           <Button
+            className="bg-primary text-primary-foreground w-full"
             onClick={() => {
               setShowOnboarding(false);
-            }}
-            className="bg-primary text-primary-foreground w-full">
+            }}>
             {languageData.Continue}
           </Button>
         </div>
@@ -142,15 +142,15 @@ export default function ScanDocument({
 
           <div className="mb-6 space-y-3 text-sm">
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.IDCardBackTip1 || "Make sure MRZ area is fully visible"}</p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.IDCardBackTip2 || "Position inside the frame completely"}</p>
             </div>
             <div className="flex items-start gap-2">
-              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400"></div>
+              <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
               <p>{languageData.IDCardBackTip3 || "Avoid glare and shadows"}</p>
             </div>
           </div>
@@ -158,19 +158,19 @@ export default function ScanDocument({
           {/* ID Card back mockup image */}
           <div className="mb-4 rounded-lg border border-gray-200">
             <Image
-              src={IDCardMRZ}
-              width={500}
-              height={300}
               alt="ID Card back mockup"
               className="mx-auto h-auto max-w-full"
+              height={300}
+              src={IDCardMRZ}
+              width={500}
             />
           </div>
 
           <Button
+            className="bg-primary text-primary-foreground w-full"
             onClick={() => {
               setShowOnboarding(false);
-            }}
-            className="bg-primary text-primary-foreground w-full">
+            }}>
             {languageData.Continue}
           </Button>
         </div>
@@ -183,9 +183,8 @@ export default function ScanDocument({
       return renderPassport();
     } else if (type === "id-card-front") {
       return renderIDCardFront();
-    } else {
-      return renderIDCardBack();
     }
+    return renderIDCardBack();
   }
 
   if (type === "passport") {
@@ -248,7 +247,7 @@ export default function ScanDocument({
                 <div className="bg-primary/5 relative flex size-full rounded-lg opacity-70">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-full p-2 text-center md:p-4">
-                      <div className="border-primary my-auto mb-2 flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed md:h-64"></div>
+                      <div className="border-primary my-auto mb-2 flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed md:h-64" />
                       <p className="text-sm text-white">
                         {languageData.PositionDocumentWithinMarkers || "Align your passport with the frame"}
                       </p>
@@ -313,7 +312,7 @@ export default function ScanDocument({
                 <div className="bg-primary/5 relative flex size-full rounded-lg opacity-70">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-full p-2 text-center md:p-4">
-                      <div className="border-primary my-auto mb-2 flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed md:h-64"></div>
+                      <div className="border-primary my-auto mb-2 flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed md:h-64" />
                       <p className="text-sm text-white">
                         {languageData.CaptureIDCardFront || "Position the front of your ID card"}
                       </p>
@@ -345,94 +344,93 @@ export default function ScanDocument({
         ) : null}
       </div>
     );
-  } else {
-    return (
-      <div className="mx-auto max-w-md space-y-4 md:pb-12">
-        <div className="overflow-hidden">
-          <div className="bg-white md:p-5">
-            <WebcamCapture
-              capturedImage={back?.base64}
-              handleImage={(imageSrc) => {
-                if (!imageSrc) return;
-                setScanStatus("scanning");
-                void textractIt(imageSrc).then((res) => {
-                  if (res?.Blocks) {
-                    const mrz = getMRZ(res.Blocks);
-                    try {
-                      const parsedMRZ = parse(mrz);
-                      if (parsedMRZ.format !== "TD3" && parsedMRZ.format !== "SWISS_DRIVING_LICENSE") {
-                        setBack({
-                          base64: imageSrc,
-                          data: parsedMRZ.fields,
-                        });
-                        setScanStatus("success");
-                        setCanGoNext(true);
-                      } else {
-                        toast.error(languageData["Toast.MRZ.InvalidFormat"] || "Invalid MRZ format.");
-                        setBack({
-                          base64: imageSrc,
-                          data: null,
-                        });
-                        setScanStatus("error");
-                        setCanGoNext(false);
-                      }
-                    } catch (e) {
-                      toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while parsing MRZ.");
+  }
+  return (
+    <div className="mx-auto max-w-md space-y-4 md:pb-12">
+      <div className="overflow-hidden">
+        <div className="bg-white md:p-5">
+          <WebcamCapture
+            capturedImage={back?.base64}
+            handleImage={(imageSrc) => {
+              if (!imageSrc) return;
+              setScanStatus("scanning");
+              void textractIt(imageSrc).then((res) => {
+                if (res?.Blocks) {
+                  const mrz = getMRZ(res.Blocks);
+                  try {
+                    const parsedMRZ = parse(mrz);
+                    if (parsedMRZ.format !== "TD3" && parsedMRZ.format !== "SWISS_DRIVING_LICENSE") {
+                      setBack({
+                        base64: imageSrc,
+                        data: parsedMRZ.fields,
+                      });
+                      setScanStatus("success");
+                      setCanGoNext(true);
+                    } else {
+                      toast.error(languageData["Toast.MRZ.InvalidFormat"] || "Invalid MRZ format.");
                       setBack({
                         base64: imageSrc,
                         data: null,
                       });
-                      setCanGoNext(false);
                       setScanStatus("error");
+                      setCanGoNext(false);
                     }
-                  } else {
+                  } catch (e) {
+                    toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while parsing MRZ.");
                     setBack({
                       base64: imageSrc,
                       data: null,
                     });
-                    setScanStatus("error");
                     setCanGoNext(false);
+                    setScanStatus("error");
                   }
-                });
-              }}
-              languageData={languageData}
-              placeholder={
-                <div className="bg-primary/5 relative flex size-full rounded-lg opacity-70">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-full p-2 text-center md:p-4">
-                      <div className="border-primary my-auto mb-2 flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed md:h-64"></div>
-                      <p className="text-sm text-white">
-                        {languageData.CaptureIDCardBack || "Position the back of your ID card"}
-                      </p>
-                    </div>
+                } else {
+                  setBack({
+                    base64: imageSrc,
+                    data: null,
+                  });
+                  setScanStatus("error");
+                  setCanGoNext(false);
+                }
+              });
+            }}
+            languageData={languageData}
+            placeholder={
+              <div className="bg-primary/5 relative flex size-full rounded-lg opacity-70">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-full p-2 text-center md:p-4">
+                    <div className="border-primary my-auto mb-2 flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed md:h-64" />
+                    <p className="text-sm text-white">
+                      {languageData.CaptureIDCardBack || "Position the back of your ID card"}
+                    </p>
                   </div>
                 </div>
-              }
-              type="document"
-            />
-          </div>
+              </div>
+            }
+            type="document"
+          />
         </div>
-
-        {scanStatus === "scanning" && (
-          <Alert className="mt-4" variant="default">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>{"Processing"}</AlertTitle>
-            <AlertDescription>
-              {languageData["LivenessDetection.Processing"] || "Processing your document..."}
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {back?.data ? (
-          <Alert className="mt-4" variant="default">
-            <CheckCircle className="h-4 w-4" />
-            <AlertTitle>{"Document Captured"}</AlertTitle>
-            <AlertDescription>{languageData.BackSideCaptured || "Back side captured"}</AlertDescription>
-          </Alert>
-        ) : null}
       </div>
-    );
-  }
+
+      {scanStatus === "scanning" && (
+        <Alert className="mt-4" variant="default">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Processing</AlertTitle>
+          <AlertDescription>
+            {languageData["LivenessDetection.Processing"] || "Processing your document..."}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {back?.data ? (
+        <Alert className="mt-4" variant="default">
+          <CheckCircle className="h-4 w-4" />
+          <AlertTitle>Document Captured</AlertTitle>
+          <AlertDescription>{languageData.BackSideCaptured || "Back side captured"}</AlertDescription>
+        </Alert>
+      ) : null}
+    </div>
+  );
 }
 
 function getMRZ(blocks: Block[]): string[] {
@@ -442,7 +440,7 @@ function getMRZ(blocks: Block[]): string[] {
     .filter((text): text is string => text !== undefined);
 }
 
-function DisplayCaptured({document, title}: {document: DocumentData; title: string}) {
+export function DisplayCaptured({document, title}: {document: DocumentData; title: string}) {
   return (
     <>
       {document ? (
@@ -455,9 +453,9 @@ function DisplayCaptured({document, title}: {document: DocumentData; title: stri
           <div className="bg-white md:p-5">
             <div className="relative">
               <div className="mb-4 aspect-[3/2] overflow-hidden rounded-lg bg-black/5">
-                {document.base64 && (
-                  <img src={document.base64} alt="Captured document" className="h-full w-full object-cover" />
-                )}
+                {document.base64 ? (
+                  <img alt="Captured document" className="h-full w-full object-cover" src={document.base64} />
+                ) : null}
               </div>
 
               {document.data ? (

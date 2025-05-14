@@ -63,3 +63,15 @@
 body {
   height: 100%;
 }
+
+.amplify-liveness-video-anchor {
+  position: relative;
+}
+.amplify-flex.amplify-liveness-oval-canvas,
+.amplify-liveness-freshness-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
