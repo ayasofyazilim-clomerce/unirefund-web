@@ -151,8 +151,8 @@ export function WebcamCapture({
           onUserMedia={handleUserMedia}
           videoConstraints={{
             facingMode,
-            width: 300,
-            height: 300,
+            width: 1080,
+            height: 1080,
           }}
         />
       </div>
