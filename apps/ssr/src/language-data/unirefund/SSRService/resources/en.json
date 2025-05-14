@@ -1,4 +1,6 @@
 {
+  "Document.Processing": "Processing",
+  "Document.Captured": "Document Captured",
   "NotImplemented": "Not implemented yet.",
   "Back": "Back",
   "Save": "Save",

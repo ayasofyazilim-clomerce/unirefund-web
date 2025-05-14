@@ -1,4 +1,6 @@
 {
+  "Document.Processing": "İşleniyor",
+  "Document.Captured": "Belge Yakalandı",
   "NotImplemented": "Geliştirme aşamasında.",
   "Back": "Geri",
   "Save": "Kaydet",

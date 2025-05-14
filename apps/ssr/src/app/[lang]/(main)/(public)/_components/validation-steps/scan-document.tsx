@@ -1,6 +1,7 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import {toast} from "@/components/ui/sonner";
+import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import type {Block} from "@aws-sdk/client-textract";
 import {parse} from "mrz";
 import {useState} from "react";
@@ -191,13 +192,6 @@ export default function ScanDocument({
     return (
       <div className="mx-auto max-w-md space-y-6 md:pb-12">
         <div className="overflow-hidden rounded-xl border-black/10 shadow-sm md:border">
-          <div className="md:bg-primary/10 border-b p-5">
-            <h3 className="mb-2 text-xl font-semibold text-black">{languageData.ScanPassport || "Scan Passport"}</h3>
-            <p className="text-sm text-black/70">
-              {languageData.ScanDocumentDescription || "Position your passport properly in the frame"}
-            </p>
-          </div>
-
           <div className="bg-white md:p-5">
             <WebcamCapture
               capturedImage={front?.base64}
@@ -268,16 +262,21 @@ export default function ScanDocument({
         </div>
 
         {scanStatus === "scanning" && (
-          <div className="bg-primary/10 flex items-center justify-center rounded-lg p-4 text-black">
-            <AlertCircle className="mr-2 h-5 w-5" />
-            <p className="text-sm">{languageData["LivenessDetection.Processing"] || "Processing your document..."}</p>
-          </div>
+          <Alert className="mt-4" variant="default">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>{languageData["Document.Processing"] || "Processing"}</AlertTitle>
+            <AlertDescription>
+              {languageData["LivenessDetection.Processing"] || "Processing your document..."}
+            </AlertDescription>
+          </Alert>
         )}
 
         {front ? (
-          <div className="animate-in fade-in-50 mt-6 duration-300">
-            <DisplayCaptured document={front} title={languageData.PassportCaptured || "Passport captured"} />
-          </div>
+          <Alert className="mt-4" variant="default">
+            <CheckCircle className="h-4 w-4" />
+            <AlertTitle>{languageData["Document.Captured"] || "Document Captured"}</AlertTitle>
+            <AlertDescription>{languageData.PassportCaptured || "Passport captured"}</AlertDescription>
+          </Alert>
         ) : null}
       </div>
     );
@@ -328,17 +327,21 @@ export default function ScanDocument({
         </div>
 
         {scanStatus === "scanning" && (
-          <div className="bg-primary/10 flex items-center justify-center rounded-lg p-4 text-black">
-            <AlertCircle className="mr-2 h-5 w-5" />
-            <p className="text-sm">{languageData["LivenessDetection.Processing"] || "Processing your document..."}</p>
-          </div>
+          <Alert className="mt-4" variant="default">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>{languageData["Document.Processing"] || "Processing"}</AlertTitle>
+            <AlertDescription>
+              {languageData["LivenessDetection.Processing"] || "Processing your document..."}
+            </AlertDescription>
+          </Alert>
         )}
 
         {front ? (
-          <div className="flex items-center justify-center rounded-lg bg-green-400/30 p-2 text-black">
-            <CheckCircle className="mr-2 h-5 w-5" />
-            <p className="text-sm"> {languageData.FrontSideCaptured || "Front side captured"}</p>
-          </div>
+          <Alert className="mt-4" variant="default">
+            <CheckCircle className="h-4 w-4" />
+            <AlertTitle>{languageData["Document.Captured"] || "Document Captured"}</AlertTitle>
+            <AlertDescription>{languageData.FrontSideCaptured || "Front side captured"}</AlertDescription>
+          </Alert>
         ) : null}
       </div>
     );
@@ -411,22 +414,25 @@ export default function ScanDocument({
         </div>
 
         {scanStatus === "scanning" && (
-          <div className="bg-primary/10 flex items-center justify-center rounded-lg p-4 text-black">
-            <AlertCircle className="mr-2 h-5 w-5" />
-            <p className="text-sm">{languageData["LivenessDetection.Processing"] || "Processing your document..."}</p>
-          </div>
+          <Alert className="mt-4" variant="default">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>{"Processing"}</AlertTitle>
+            <AlertDescription>
+              {languageData["LivenessDetection.Processing"] || "Processing your document..."}
+            </AlertDescription>
+          </Alert>
         )}
 
         {back?.data ? (
-          <div className="flex items-center justify-center rounded-lg bg-green-400/30 p-2 text-black">
-            <CheckCircle className="mr-2 h-5 w-5" />
-            <p className="text-sm">{languageData.BackSideCaptured || "Back side captured"}</p>
-          </div>
+          <Alert className="mt-4" variant="default">
+            <CheckCircle className="h-4 w-4" />
+            <AlertTitle>{"Document Captured"}</AlertTitle>
+            <AlertDescription>{languageData.BackSideCaptured || "Back side captured"}</AlertDescription>
+          </Alert>
         ) : null}
       </div>
     );
   }
-
 }
 
 function getMRZ(blocks: Block[]): string[] {
