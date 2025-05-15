@@ -284,7 +284,17 @@
     "icon": "file",
     "parentNavbarItemKey": "management",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService"]
+    "requiredPolicies": ["FileService.File"]
+  },
+  {
+    "key": "management/file/list",
+    "displayName": "FileList",
+    "description": "Manage files.",
+    "href": "management/file/list",
+    "icon": "fileList",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["FileService.File"]
   },
   {
     "key": "management/file/providers",
@@ -294,7 +304,7 @@
     "icon": "providers",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService.Providers"]
+    "requiredPolicies": ["FileService.Provider"]
   },
   {
     "key": "management/file/mime-types",
@@ -304,7 +314,7 @@
     "icon": "mimeTypes",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService.MimeType"]
+    "requiredPolicies": ["FileService.MimeType"]
   },
   {
     "key": "management/file/file-types",
@@ -314,7 +324,7 @@
     "icon": "fileTypes",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService.FileType"]
+    "requiredPolicies": ["FileService.FileType"]
   },
   {
     "key": "management/file/file-type-mime-types",
@@ -324,7 +334,7 @@
     "icon": "fileTypeMimeTypes",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService.FileTypeMimeType"]
+    "requiredPolicies": ["FileService.FileTypeMimeType"]
   },
   {
     "key": "management/file/file-type-groups",
@@ -334,7 +344,7 @@
     "icon": "fileTypeGroups",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService.FileTypeGroup"]
+    "requiredPolicies": ["FileService.FileTypeGroup"]
   },
   {
     "key": "management/file/file-relation-entities",
@@ -344,7 +354,7 @@
     "icon": "fileRelationEntities",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["Permission:FileService.FileRelationEntity"]
+    "requiredPolicies": ["FileService.FileRelationEntity"]
   },
   {
     "key": "settings",

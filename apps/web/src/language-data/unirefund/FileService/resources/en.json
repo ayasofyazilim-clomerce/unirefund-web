@@ -1,0 +1,10 @@
+{
+  "Missing.FileTypeGroup.Title": "Missing file type group",
+  "Missing.FileTypeGroup.Message": "Please create at least one file type group to proceed.",
+  "Missing.Provider.Title": "Missing provider",
+  "Missing.Provider.Message": "Please create at least one provide to proceed.",
+  "Missing.MimeType.Title": "Missing mime type",
+  "Missing.MimeType.Message": "Please create at least one mime type to proceed.",
+  "Missing.FileType.Title": "Missing file type",
+  "Missing.FileType.Message": "Please create at least one file type to proceed."
+}

@@ -6,7 +6,7 @@ import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isRedirectError, permanentRedirect} from "next/dist/client/components/redirect";
-import {getResourceData} from "src/language-data/core/IdentityService";
+import {getResourceData} from "src/language-data/unirefund/FileService";
 import EditForm from "./_components/form-edit";
 import NewForm from "./_components/form-new";
 

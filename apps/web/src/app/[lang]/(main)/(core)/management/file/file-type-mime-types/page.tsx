@@ -6,7 +6,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
-import {getResourceData} from "@/language-data/core/Default";
+import {getResourceData} from "@/language-data/unirefund/FileService";
 import FileTypeMimeTypesTable from "./_components/table";
 
 async function getApiRequests(filters: GetApiFileServiceFileTypesData) {
