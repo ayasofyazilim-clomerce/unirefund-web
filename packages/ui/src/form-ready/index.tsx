@@ -10,9 +10,10 @@ export function FormReadyComponent({
     title: string;
     message: string;
     action?: JSX.Element;
-  };
+  } | null;
 }) {
   if (!active) return children;
+  if (!content) return children;
   return (
     <div className="relative size-full">
       <div className="pointer-events-none [&_*]:-z-10 ">{children}</div>
@@ -22,9 +23,7 @@ export function FormReadyComponent({
           <h1 className="text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl xl:text-4xl">
             {content.title}
           </h1>
-          <p className="font-light text-gray-500 md:text-lg xl:text-xl">
-            {content.message}
-          </p>
+          <p className="font-light text-gray-500 md:text-lg xl:text-xl">{content.message}</p>
           {content.action}
         </div>
       </div>

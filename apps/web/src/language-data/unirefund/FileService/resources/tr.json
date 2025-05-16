@@ -1,0 +1,10 @@
+{
+  "Missing.FileTypeGroup.Title": "Eksik dosya tipi grubu",
+  "Missing.FileTypeGroup.Message": "Devam etmek için lütfen en az bir dosya tipi grubu oluşturun.",
+  "Missing.Provider.Title": "Eksik sağlayıcı",
+  "Missing.Provider.Message": "Devam etmek için lütfen en az bir sağlayıcı oluşturun.",
+  "Missing.MimeType.Title": "Eksik mime türü",
+  "Missing.MimeType.Message": "Devam etmek için lütfen en az bir mime türü oluşturun.",
+  "Missing.FileType.Title": "Eksik dosya türü",
+  "Missing.FileType.Message": "Devam etmek için lütfen en az bir dosya türü oluşturun."
+}

@@ -13,7 +13,14 @@ import {
   ClipboardList,
   Container,
   DiamondPercent,
+  FileIcon,
+  FileKey,
+  FileSliders,
+  FileSpreadsheet,
+  FileStack,
+  FileType2,
   Fingerprint,
+  FolderTree,
   Globe,
   HandCoins,
   Handshake,
@@ -25,6 +32,7 @@ import {
   LayoutDashboard,
   LayoutTemplate,
   Lock,
+  Menu,
   Percent,
   Plane,
   PlusCircle,
@@ -32,6 +40,7 @@ import {
   ScanBarcode,
   ScanLine,
   ScrollText,
+  Server,
   Settings,
   ShoppingBag,
   Table,
@@ -39,22 +48,14 @@ import {
   TicketSlash,
   User,
   WalletCards,
-  Menu,
-  FileIcon,
-  FileType2,
-  Server,
-  FileSliders,
-  FileSpreadsheet,
-  FileStack,
-  FileKey,
 } from "lucide-react";
+import {useState} from "react";
 import {Notification, NotificationProps} from "../../../components/notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
 import SearchBar, {type SearchFromDB} from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
-import {useState} from "react";
 
 export default function Navbar({
   prefix,
@@ -158,6 +159,7 @@ export const icons = {
   template: <LayoutTemplate className="mr-1 size-4 text-gray-600" />,
   new: <PlusCircle className="mr-1 size-4 text-gray-600" />,
   file: <FileIcon className="mr-1 size-4 text-gray-600" />,
+  fileList: <FolderTree className="mr-1 size-4 text-gray-600" />,
   fileTypes: <FileType2 className="mr-1 size-4 text-gray-600" />,
   mimeTypes: <FileSliders className="mr-1 size-4 text-gray-600" />,
   fileTypeMimeTypes: <FileSpreadsheet className="mr-1 size-4 text-gray-600" />,
