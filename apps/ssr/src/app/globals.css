@@ -64,9 +64,30 @@ body {
   height: 100%;
 }
 
+.amplify-flex.amplify-liveness-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.amplify-flex.amplify-liveness-recording-icon {
+  display: none;
+}
+
 .amplify-liveness-video-anchor {
   position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
+
 .amplify-flex.amplify-liveness-oval-canvas,
 .amplify-liveness-freshness-canvas {
   position: absolute;
@@ -74,4 +95,96 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.amplify-flex.amplify-liveness-camera-module {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  max-height: 90vh;
+  margin: 0 auto;
+}
+
+.amplify-liveness-hint {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 1rem;
+}
+
+.amplify-liveness-toast {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  max-width: 90%;
+  text-align: center;
+}
+
+.amplify-liveness-toast--primary {
+  background-color: hsl(var(--primary) / 0.9);
+}
+
+.amplify-liveness-toast__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.amplify-liveness-match-indicator {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: 0.75rem auto;
+}
+
+.amplify-liveness-match-indicator__bar {
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.amplify-liveness-match-indicator__bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--percentage);
+  background-color: hsl(var(--primary));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.amplify-liveness-video {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 70vh;
+  object-fit: cover;
+}
+
+.amplify-liveness-cancel-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+}
+
+.amplify-liveness-cancel-button {
+  display: none;
+}
+
+.amplify-liveness-instruction-overlay {
+  padding: 1rem;
+  flex-direction: column;
+}
+
+.amplify-flex.amplify-liveness-oval-canvas{
+  display: none;
 }

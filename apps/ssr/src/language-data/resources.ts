@@ -2095,6 +2095,8 @@ export type FileServiceResources = {
   "FileService:FS0007": "Error: FileTypeGroup could not be found for the namespace {namespaceName}. Please make sure you have entered a valid namespace.";
   "FileService:FS0008": "If the isMulti field is true, the maxFileCount value cannot be null.";
   "FileService:FS0009": "Duplicate record found.";
+  "Permission:File.ListWithRelation": "List the File with Relation";
+  "FileService:FS0010": "This is Unstract unrelated file!";
 };
 export type RlsConfigResources = {
   SamplePageMessage: "A sample page for the RlsConfig module";
