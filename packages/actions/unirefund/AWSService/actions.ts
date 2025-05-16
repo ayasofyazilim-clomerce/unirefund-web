@@ -23,6 +23,14 @@ export async function getAWSEnvoriment() {
   };
 }
 
+// Define type for AWS authentication config
+export type AWSAuthConfig = {
+  region: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+};
+
+
 const clientAuths = getAWSEnvoriment();
 
 const textractClient = new TextractClient(clientAuths);

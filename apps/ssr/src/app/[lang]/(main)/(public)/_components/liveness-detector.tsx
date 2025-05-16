@@ -7,13 +7,16 @@ import {ThemeProvider, useTheme} from "@aws-amplify/ui-react";
 import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import {useState} from "react";
+import {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 export default function LivenessDetector({
+  languageData,
   sessionId,
   config,
   onAnalysisComplete,
   onError,
 }: {
+  languageData: SSRServiceResource;
   sessionId: string;
   config: {
     accessKeyId: string;
@@ -55,7 +58,12 @@ export default function LivenessDetector({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div>
-          <OnboardingPage onStartValidation={() => {setOpen(true)}} />
+          <OnboardingPage
+            languageData={languageData}
+            onStartValidation={() => {
+              setOpen(true);
+            }}
+          />
         </div>
       </DialogTrigger>
       <DialogContent className="flex min-h-screen w-full max-w-2xl items-center justify-center border-none bg-transparent p-0 shadow-none">

@@ -14,8 +14,8 @@ export default async function Home({
   const {languageData} = await getResourceData(lang);
   const clientAuths = await getAWSEnvoriment();
   return (
-    <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:max-w-xl md:mx-auto">
-      <ValidationSteps languageData={languageData} clientAuths={clientAuths}/>
+    <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:mx-auto md:max-w-xl">
+      <ValidationSteps languageData={languageData} clientAuths={clientAuths} />
     </Card>
   );
 }

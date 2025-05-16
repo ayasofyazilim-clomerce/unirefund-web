@@ -10,7 +10,7 @@ import TakeSelfie from "./validation-steps/take-selfie";
 import SuccessModal from "./validation-steps/finish";
 import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
 import LivenessDetector from "./liveness-detector";
-import {createFaceLivenessSession} from "@repo/actions/unirefund/AWSService/actions";
+import {AWSAuthConfig, createFaceLivenessSession} from "@repo/actions/unirefund/AWSService/actions";
 
 // Define the type for stepper metadata
 interface StepperMetadata {
@@ -38,13 +38,6 @@ const GlobalScopper = defineStepper(
   {id: "fail", title: "LivenessFailed", icon: <Shield className="h-5 w-5" />},
   {id: "finish", title: "Continue", icon: <CheckCircle className="h-5 w-5" />},
 );
-
-// Define type for AWS authentication config
-type AWSAuthConfig = {
-  region: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-};
 
 export default function ValidationSteps({
   languageData,
@@ -231,10 +224,12 @@ function StepperContent({
 
 // LivenessStep bileşeni Steps fonksiyonu dışına çıkarıldı
 function LivenessStep({
+  languageData,
   stepper,
   setCanGoNext,
   clientAuths,
 }: {
+  languageData: SSRServiceResource;
   stepper: ReturnType<typeof GlobalScopper.useStepper>;
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
@@ -252,6 +247,7 @@ function LivenessStep({
   return (
     <div className="relative h-full w-full">
       <LivenessDetector
+        languageData={languageData}
         sessionId={session}
         onAnalysisComplete={(result) => {
           if (result.isLive) {
@@ -338,7 +334,12 @@ function Steps({
       })}
 
       {stepper.when("liveness-detector", () => (
-        <LivenessStep stepper={stepper} setCanGoNext={setCanGoNext} clientAuths={clientAuths} />
+        <LivenessStep
+          languageData={languageData}
+          stepper={stepper}
+          setCanGoNext={setCanGoNext}
+          clientAuths={clientAuths}
+        />
       ))}
 
       {stepper.when("fail", () => (
