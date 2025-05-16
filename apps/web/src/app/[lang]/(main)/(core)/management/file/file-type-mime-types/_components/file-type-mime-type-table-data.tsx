@@ -23,18 +23,27 @@ import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo
 import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {Edit, Plus, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type {DefaultResource} from "@/language-data/core/Default";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import type {FileServiceResource} from "@/language-data/unirefund/FileService";
+import {checkIsFormReady} from "../../_components/utils";
 
 type FileRelationEntityTable =
   TanstackTableCreationProps<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto>;
 
 function fileTypeMimeTypesTableActions(
+  lang: string,
   router: AppRouterInstance,
-  languageData: DefaultResource,
+  languageData: FileServiceResource,
   mimeTypeData: UniRefund_FileService_MimeTypes_MimeTypeListDto[],
   fileTypeData: UniRefund_FileService_FileTypes_FileTypeListDto[],
 ) {
   const actions: TanstackTableTableActionsType[] = [];
+  const isFormReady = checkIsFormReady({
+    lang,
+    languageData,
+    mimeTypeDataLength: mimeTypeData.length,
+    fileTypeDataLength: fileTypeData.length,
+  });
   actions.push({
     type: "custom-dialog",
     actionLocation: "table",
@@ -42,41 +51,43 @@ function fileTypeMimeTypesTableActions(
     title: "Yeni Ekle",
     icon: Plus,
     content: (
-      <SchemaForm<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeCreateDto>
-        className="flex flex-col gap-4"
-        onSubmit={({formData}) => {
-          if (!formData) return;
-          void postFileTypeMimeTypesApi({
-            requestBody: formData,
-          }).then((res) => {
-            handlePostResponse(res, router);
-          });
-        }}
-        schema={$UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeCreateDto}
-        submitText="Kaydet"
-        uiSchema={{
-          mimeTypeId: {
-            "ui:widget": "MimeType",
-          },
-          fileTypeNamespace: {
-            "ui:widget": "File",
-          },
-        }}
-        widgets={{
-          MimeType: CustomComboboxWidget<UniRefund_FileService_MimeTypes_MimeTypeListDto>({
-            languageData,
-            list: mimeTypeData,
-            selectIdentifier: "id",
-            selectLabel: "mimeTypeCode",
-          }),
-          File: CustomComboboxWidget<UniRefund_FileService_FileTypes_FileTypeListDto>({
-            languageData,
-            list: fileTypeData,
-            selectIdentifier: "namespace",
-            selectLabel: "name",
-          }),
-        }}
-      />
+      <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
+        <SchemaForm<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeCreateDto>
+          className="flex flex-col gap-4"
+          onSubmit={({formData}) => {
+            if (!formData) return;
+            void postFileTypeMimeTypesApi({
+              requestBody: formData,
+            }).then((res) => {
+              handlePostResponse(res, router);
+            });
+          }}
+          schema={$UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeCreateDto}
+          submitText="Kaydet"
+          uiSchema={{
+            mimeTypeId: {
+              "ui:widget": "MimeType",
+            },
+            fileTypeNamespace: {
+              "ui:widget": "File",
+            },
+          }}
+          widgets={{
+            MimeType: CustomComboboxWidget<UniRefund_FileService_MimeTypes_MimeTypeListDto>({
+              languageData,
+              list: mimeTypeData,
+              selectIdentifier: "id",
+              selectLabel: "mimeTypeCode",
+            }),
+            File: CustomComboboxWidget<UniRefund_FileService_FileTypes_FileTypeListDto>({
+              languageData,
+              list: fileTypeData,
+              selectIdentifier: "namespace",
+              selectLabel: "name",
+            }),
+          }}
+        />
+      </FormReadyComponent>
     ),
   });
 
@@ -84,7 +95,7 @@ function fileTypeMimeTypesTableActions(
 }
 
 function fileTypeMimeTypesRowActions(
-  languageData: DefaultResource,
+  languageData: FileServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
   mimeTypeData: UniRefund_FileService_MimeTypes_MimeTypeListDto[],
@@ -170,7 +181,8 @@ function fileTypeMimeTypesColumns(locale: string) {
 }
 
 function fileTypeMimeTypesTable(
-  languageData: DefaultResource,
+  lang: string,
+  languageData: FileServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
   mimeTypeData: UniRefund_FileService_MimeTypes_MimeTypeListDto[],
@@ -182,7 +194,7 @@ function fileTypeMimeTypesTable(
       type: "hide",
       columns: ["id", "fileTypeId", "mimeTypeId"],
     },
-    tableActions: fileTypeMimeTypesTableActions(router, languageData, mimeTypeData, fileTypeData),
+    tableActions: fileTypeMimeTypesTableActions(lang, router, languageData, mimeTypeData, fileTypeData),
     rowActions: fileTypeMimeTypesRowActions(languageData, router, grantedPolicies, mimeTypeData, fileTypeData),
   };
   return table;

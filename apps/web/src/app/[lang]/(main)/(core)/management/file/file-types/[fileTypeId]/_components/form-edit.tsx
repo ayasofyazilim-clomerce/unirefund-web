@@ -12,7 +12,7 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePutResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
-import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 
 export default function EditForm({
   languageData,
@@ -20,7 +20,7 @@ export default function EditForm({
   fileTypeGroupData,
   providerData,
 }: {
-  languageData: IdentityServiceResource;
+  languageData: FileServiceResource;
   fileTypeData: UniRefund_FileService_FileTypes_FileTypeListDto;
   fileTypeGroupData: UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto[];
   providerData: UniRefund_FileService_Providers_ProviderListDto[];
