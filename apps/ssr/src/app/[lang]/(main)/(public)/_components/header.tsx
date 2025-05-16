@@ -30,7 +30,7 @@ export default function Header({languageData}: {languageData: SSRServiceResource
             setIsMenuOpen(!isMenuOpen);
           }}
           variant="outline">
-          <span className="sr-only">Open main menu</span>
+          <span className="sr-only">{languageData.OpenMainMenu}</span>
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </Button>
 

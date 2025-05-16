@@ -39,6 +39,9 @@ importers:
       '@auth/core':
         specifier: ^0.30.0
         version: 0.30.0
+      '@aws-amplify/ui-react':
+        specifier: ^6.11.2
+        version: 6.11.2(@aws-amplify/core@6.11.4)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(aws-amplify@6.14.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(xstate@4.38.3)
       '@aws-amplify/ui-react-liveness':
         specifier: ^3.3.8
         version: 3.3.8(@aws-amplify/core@6.11.4)(@tensorflow/tfjs-backend-webgl@4.22.0(@tensorflow/tfjs-core@4.11.0))(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(aws-amplify@6.14.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1116,6 +1119,12 @@ packages:
       aws-amplify: ^6.14.3
       react: ^16.14 || ^17 || ^18 || ^19
 
+  '@aws-amplify/ui-react-core@3.4.3':
+    resolution: {integrity: sha512-B0ODGYbCy2nOcm7Ni/3cv+qGVtDkiYvsnojtaN2DyjXJVE33cGRyqsbwhoaWSetUoNGkN2C6Q/twJPHwOq6a2g==}
+    peerDependencies:
+      aws-amplify: ^6.14.3
+      react: ^16.14 || ^17 || ^18 || ^19
+
   '@aws-amplify/ui-react-liveness@3.3.8':
     resolution: {integrity: sha512-7foNt6WA13BlSyPU8OW/qIKWqRHPsX6pL6e98xjR97HW6uKAkDNjThWLoiPTs4h6XvXFl/xM+Cxslmn8TC7UrQ==}
     peerDependencies:
@@ -1135,8 +1144,29 @@ packages:
       aws-amplify:
         optional: true
 
+  '@aws-amplify/ui-react@6.11.2':
+    resolution: {integrity: sha512-LNr4jTjupphiSfInk+vBY81JruoLm/ReOaOuPye0XIT6rPFV24bhm/nphIACJnD0LWhc9VMpv/BahVZKUi4eHg==}
+    peerDependencies:
+      '@aws-amplify/core': '*'
+      aws-amplify: ^6.14.3
+      react: ^16.14.0 || ^17.0 || ^18.0 || ^19
+      react-dom: ^16.14 || ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      aws-amplify:
+        optional: true
+
   '@aws-amplify/ui@6.10.2':
     resolution: {integrity: sha512-eymjV3ZBq6eCZC958wJEboUUvV9hYYAZKojKTHnRKN5qtjeYxeRyLJ8c41ZCkHWctOxB9GsFfO1xwVYLevrQ5Q==}
+    peerDependencies:
+      '@aws-amplify/core': '*'
+      aws-amplify: ^6.14.3
+      xstate: ^4.33.6
+    peerDependenciesMeta:
+      xstate:
+        optional: true
+
+  '@aws-amplify/ui@6.10.3':
+    resolution: {integrity: sha512-dWi2W6TrGMPFW5uvDUHpch2Z28m683KsPbFt2E+a4UQp05GP5qXgCa+jIkxVZmoPop3//udfRxwszGi0MQWX9Q==}
     peerDependencies:
       '@aws-amplify/core': '*'
       aws-amplify: ^6.14.3
@@ -12282,6 +12312,20 @@ snapshots:
       - '@types/react'
       - '@xstate/fsm'
 
+  '@aws-amplify/ui-react-core@3.4.3(@aws-amplify/core@6.11.4)(@types/react@18.3.18)(aws-amplify@6.14.4)(react@18.3.1)':
+    dependencies:
+      '@aws-amplify/ui': 6.10.3(@aws-amplify/core@6.11.4)(aws-amplify@6.14.4)(xstate@4.38.3)
+      '@xstate/react': 3.2.2(@types/react@18.3.18)(react@18.3.1)(xstate@4.38.3)
+      aws-amplify: 6.14.4
+      lodash: 4.17.21
+      react: 18.3.1
+      react-hook-form: 7.56.3(react@18.3.1)
+      xstate: 4.38.3
+    transitivePeerDependencies:
+      - '@aws-amplify/core'
+      - '@types/react'
+      - '@xstate/fsm'
+
   '@aws-amplify/ui-react-liveness@3.3.8(@aws-amplify/core@6.11.4)(@tensorflow/tfjs-backend-webgl@4.22.0(@tensorflow/tfjs-core@4.11.0))(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(aws-amplify@6.14.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@aws-amplify/core': 6.11.4
@@ -12337,7 +12381,39 @@ snapshots:
       - '@xstate/fsm'
       - xstate
 
+  '@aws-amplify/ui-react@6.11.2(@aws-amplify/core@6.11.4)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(aws-amplify@6.14.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(xstate@4.38.3)':
+    dependencies:
+      '@aws-amplify/core': 6.11.4
+      '@aws-amplify/ui': 6.10.3(@aws-amplify/core@6.11.4)(aws-amplify@6.14.4)(xstate@4.38.3)
+      '@aws-amplify/ui-react-core': 3.4.3(@aws-amplify/core@6.11.4)(@types/react@18.3.18)(aws-amplify@6.14.4)(react@18.3.1)
+      '@radix-ui/react-direction': 1.1.1(@types/react@18.3.18)(react@18.3.1)
+      '@radix-ui/react-dropdown-menu': 2.1.14(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slider': 1.3.4(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@xstate/react': 3.2.2(@types/react@18.3.18)(react@18.3.1)(xstate@4.38.3)
+      lodash: 4.17.21
+      qrcode: 1.5.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      tslib: 2.7.0
+    optionalDependencies:
+      aws-amplify: 6.14.4
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+      - '@xstate/fsm'
+      - xstate
+
   '@aws-amplify/ui@6.10.2(@aws-amplify/core@6.11.4)(aws-amplify@6.14.4)(xstate@4.38.3)':
+    dependencies:
+      '@aws-amplify/core': 6.11.4
+      aws-amplify: 6.14.4
+      csstype: 3.1.3
+      lodash: 4.17.21
+      tslib: 2.7.0
+    optionalDependencies:
+      xstate: 4.38.3
+
+  '@aws-amplify/ui@6.10.3(@aws-amplify/core@6.11.4)(aws-amplify@6.14.4)(xstate@4.38.3)':
     dependencies:
       '@aws-amplify/core': 6.11.4
       aws-amplify: 6.14.4
@@ -19502,7 +19578,7 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint@8.57.0)(typescript@5.8.2)
       '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.8.2)
       eslint-config-prettier: 9.1.0(eslint@8.57.0)
-      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.30.0)
+      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0))
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.57.0)
       eslint-plugin-import: 2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
@@ -21229,7 +21305,7 @@ snapshots:
       eslint: 8.57.0
       eslint-plugin-turbo: 2.1.2(eslint@8.57.0)
 
-  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.30.0):
+  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)):
     dependencies:
       eslint-plugin-import: 2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
 
@@ -21247,7 +21323,7 @@ snapshots:
       debug: 4.3.7
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
-      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
+      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.8.1
       is-bun-module: 1.2.1
@@ -21260,7 +21336,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
+  eslint-module-utils@2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -21298,7 +21374,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
+      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3

@@ -4,12 +4,13 @@ import {defineStepper} from "@stepperize/react";
 import type {ParseResult} from "mrz";
 import {useState, useEffect} from "react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
-import LivenessDedection from "./validation-steps/liveness-dedection";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
 import TakeSelfie from "./validation-steps/take-selfie";
 import SuccessModal from "./validation-steps/finish";
 import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
+import LivenessDetector from "./liveness-detector";
+import {createFaceLivenessSession} from "@repo/actions/unirefund/AWSService/actions";
 
 // Define the type for stepper metadata
 interface StepperMetadata {
@@ -33,11 +34,25 @@ const GlobalScopper = defineStepper(
   {id: "scan-back", title: "IDCardBack", icon: <Camera className="h-5 w-5" />},
   {id: "scan-passport", title: "ScanPassport", icon: <Camera className="h-5 w-5" />},
   {id: "take-selfie", title: "TakeSelfie", icon: <User className="h-5 w-5" />},
-  {id: "liveness-dedection", title: "LivenessDetection", icon: <Shield className="h-5 w-5" />},
+  {id: "liveness-detector", title: "LivenessDetector", icon: <Shield className="h-5 w-5" />},
+  {id: "fail", title: "LivenessFailed", icon: <Shield className="h-5 w-5" />},
   {id: "finish", title: "Continue", icon: <CheckCircle className="h-5 w-5" />},
 );
 
-export default function ValidationSteps({languageData}: {languageData: SSRServiceResource}) {
+// Define type for AWS authentication config
+type AWSAuthConfig = {
+  region: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+};
+
+export default function ValidationSteps({
+  languageData,
+  clientAuths,
+}: {
+  languageData: SSRServiceResource;
+  clientAuths: AWSAuthConfig;
+}) {
   const [canGoNext, setCanGoNext] = useState(false);
   const [front, setFront] = useState<DocumentData>(null);
   const [back, setBack] = useState<DocumentData>(null);
@@ -53,6 +68,7 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
     <div className="mx-auto w-full max-w-3xl">
       <GlobalScopper.Scoped>
         <StepperContent
+          clientAuths={clientAuths}
           languageData={languageData}
           canGoNext={canGoNext}
           setCanGoNext={setCanGoNext}
@@ -70,6 +86,7 @@ export default function ValidationSteps({languageData}: {languageData: SSRServic
 
 // Separated component to use the stepper hook
 function StepperContent({
+  clientAuths,
   languageData,
   canGoNext,
   setCanGoNext,
@@ -80,6 +97,7 @@ function StepperContent({
   updateProgress,
   progress,
 }: {
+  clientAuths: AWSAuthConfig;
   languageData: SSRServiceResource;
   canGoNext: boolean;
   setCanGoNext: (value: boolean) => void;
@@ -95,7 +113,24 @@ function StepperContent({
   // Update progress when step changes
   useEffect(() => {
     const currentIndex = stepper.all.findIndex((step) => step.id === stepper.current.id);
-    updateProgress(currentIndex, stepper.all.length);
+
+    // Handle fail step specially - it should have the same progress as liveness-detector
+    const failStepIndex = stepper.all.findIndex((s) => s.id === "fail");
+    const livenessStepIndex = stepper.all.findIndex((s) => s.id === "liveness-detector");
+    const finishStepIndex = stepper.all.findIndex((s) => s.id === "finish");
+
+    let effectiveIndex = currentIndex;
+    if (currentIndex === failStepIndex) {
+      effectiveIndex = livenessStepIndex;
+    } else if (currentIndex === finishStepIndex) {
+      // For finish step, make it 100%
+      const totalSteps = stepper.all.length - 1;
+      updateProgress(totalSteps - 1, totalSteps - 1); // This will make it 100%
+      return;
+    }
+
+    const totalSteps = stepper.all.length - 1; // Exclude fail step from total count
+    updateProgress(effectiveIndex, totalSteps);
   }, [stepper.current.id, stepper, updateProgress]);
 
   return (
@@ -120,6 +155,16 @@ function StepperContent({
                 // Calculate the logical step number for display
                 let displayIndex = currentIndex;
 
+                // Check if we're in the fail step and keep the same index as liveness-detector
+                // Also handle finish step to show as the final step
+                const failStepIndex = stepper.all.findIndex((s) => s.id === "fail");
+                const livenessStepIndex = stepper.all.findIndex((s) => s.id === "liveness-detector");
+                const finishStepIndex = stepper.all.findIndex((s) => s.id === "finish");
+
+                if (currentIndex === failStepIndex) {
+                  displayIndex = livenessStepIndex;
+                }
+
                 // For ID card flow, adjust to remove scan-passport from count
                 // For passport flow, adjust to remove scan-front and scan-back from count
                 if (isIdCardFlow) {
@@ -137,10 +182,15 @@ function StepperContent({
                   }
                 }
 
-                // Calculate total steps excluding start and unused scan options
+                // Calculate total steps excluding start, unused scan options, and fail step
                 const totalSteps = isIdCardFlow
-                  ? stepper.all.length - 2 // Exclude start and scan-passport
-                  : stepper.all.length - 3; // Exclude start, scan-front, and scan-back
+                  ? stepper.all.length - 3 // Exclude start, scan-passport, and fail
+                  : stepper.all.length - 4; // Exclude start, scan-front, scan-back, and fail
+
+                // For finish step, always show it as the final step
+                if (currentIndex === finishStepIndex) {
+                  return `${totalSteps}/${totalSteps}`;
+                }
 
                 return `${displayIndex}/${totalSteps}`;
               })()}
@@ -156,6 +206,7 @@ function StepperContent({
 
       {/* Step content */}
       <Steps
+        clientAuths={clientAuths}
         back={back}
         front={front}
         languageData={languageData}
@@ -178,6 +229,48 @@ function StepperContent({
   );
 }
 
+// LivenessStep bileşeni Steps fonksiyonu dışına çıkarıldı
+function LivenessStep({
+  stepper,
+  setCanGoNext,
+  clientAuths,
+}: {
+  stepper: ReturnType<typeof GlobalScopper.useStepper>;
+  setCanGoNext: (value: boolean) => void;
+  clientAuths: AWSAuthConfig;
+}) {
+  const [session, setSession] = useState("");
+
+  useEffect(() => {
+    void createFaceLivenessSession().then((sessionId: string) => {
+      setSession(sessionId);
+    });
+  }, []);
+
+  if (!session) return null;
+
+  return (
+    <div className="relative h-full w-full">
+      <LivenessDetector
+        sessionId={session}
+        onAnalysisComplete={(result) => {
+          if (result.isLive) {
+            stepper.goTo("finish");
+          } else {
+            setSession("");
+            stepper.goTo("fail");
+          }
+        }}
+        onError={() => {
+          setCanGoNext(false);
+          stepper.goTo("fail");
+        }}
+        config={clientAuths}
+      />
+    </div>
+  );
+}
+
 function Steps({
   front,
   back,
@@ -185,6 +278,7 @@ function Steps({
   setBack,
   languageData,
   setCanGoNext,
+  clientAuths,
 }: {
   front: DocumentData;
   back: DocumentData;
@@ -192,6 +286,7 @@ function Steps({
   setBack: (value: DocumentData) => void;
   languageData: SSRServiceResource;
   setCanGoNext: (value: boolean) => void;
+  clientAuths: AWSAuthConfig;
 }) {
   const stepper = GlobalScopper.useStepper();
 
@@ -242,12 +337,35 @@ function Steps({
         return <TakeSelfie documentSrc={front.base64} languageData={languageData} setCanGoNext={setCanGoNext} />;
       })}
 
-      {stepper.when("liveness-dedection", () => (
-        <LivenessDedection languageData={languageData} setCanGoNext={setCanGoNext} front={front} />
+      {stepper.when("liveness-detector", () => (
+        <LivenessStep stepper={stepper} setCanGoNext={setCanGoNext} clientAuths={clientAuths} />
+      ))}
+
+      {stepper.when("fail", () => (
+        <div className="flex flex-col items-center justify-center space-y-6 p-4">
+          <div className="rounded-full bg-red-50 p-4">
+            <Shield className="h-12 w-12 text-red-500" />
+          </div>
+          <h3 className="text-center text-xl font-semibold">
+            {languageData.LivenessFailed || "Liveness verification failed"}
+          </h3>
+          <p className="text-center text-gray-600">
+            {languageData.LivenessFailedDescription ||
+              "We couldn't verify that you're a real person. Please try again."}
+          </p>
+          <Button
+            className="bg-primary hover:bg-primary/90 mt-4 px-5 py-2.5"
+            onClick={() => {
+              stepper.goTo("liveness-detector");
+            }}>
+            {languageData.TryAgain || "Try Again"}
+          </Button>
+        </div>
       ))}
 
       {stepper.when("finish", () => (
         <SuccessModal
+          languageData={languageData}
           onRestart={() => {
             stepper.reset();
             setCanGoNext(false);

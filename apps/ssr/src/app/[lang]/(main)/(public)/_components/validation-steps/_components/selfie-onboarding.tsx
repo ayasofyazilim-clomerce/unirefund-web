@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button";
 import {ArrowRight} from "lucide-react";
 import Image from "next/image";
 import Selfie from "public/selfie.png";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 export interface SelfieOnboardingProps {
   title: string;
@@ -12,9 +13,10 @@ export interface SelfieOnboardingProps {
   imageUrl: string;
   onContinue: () => void;
   tips?: string[];
+  languageData: SSRServiceResource;
 }
 
-export function SelfieOnboarding({title, description, onContinue, tips}: SelfieOnboardingProps) {
+export function SelfieOnboarding({title, description, onContinue, tips, languageData}: SelfieOnboardingProps) {
   return (
     <div className="mx-auto max-h-[85vh] space-y-6 overflow-y-auto pb-12 md:max-h-none">
       <div className="overflow-hidden rounded-xl border border-black/10 shadow-sm">
@@ -24,7 +26,7 @@ export function SelfieOnboarding({title, description, onContinue, tips}: SelfieO
         </div>
 
         <div className="flex flex-col items-center bg-white p-5">
-         <div className="mb-4 rounded-lg border border-gray-200">
+          <div className="mb-4 rounded-lg border border-gray-200">
             <Image
               src={Selfie}
               width={500}
@@ -36,7 +38,7 @@ export function SelfieOnboarding({title, description, onContinue, tips}: SelfieO
 
           {tips && tips.length > 0 && (
             <div className="mb-6 w-full space-y-3">
-              <h4 className="text-sm font-medium text-black/80">Tips:</h4>
+              <h4 className="text-sm font-medium text-black/80">{languageData.Tips || "Tips"}:</h4>
               <ul className="space-y-2">
                 {tips.map((tip, index) => (
                   <li key={index} className="flex items-start text-sm">
@@ -49,7 +51,7 @@ export function SelfieOnboarding({title, description, onContinue, tips}: SelfieO
           )}
 
           <Button onClick={onContinue} className="w-full">
-            Continue <ArrowRight className="ml-2 h-4 w-4" />
+            {languageData.Continue || "Continue"} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </div>

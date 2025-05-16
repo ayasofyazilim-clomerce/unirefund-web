@@ -10,6 +10,8 @@
   "Cancel": "İptal",
   "Edit.Save": "Değişiklikleri kaydet",
   "SomethingWentWrong": "Bir şeyler yanlış gitti.",
+  "LivenessVerificationSuccessful": "Canlılık Doğrulaması Başarılı!",
+  "AllExpressionTestsCompleted": "Tüm ifade testlerini başarıyla tamamladınız. İşleminize devam edebilirsiniz.",
   "Yes": "Evet",
   "No": "Hayır",
   "New": "Yeni",
@@ -251,6 +253,9 @@
   "LivenessDetection.LookLeftExpression": "Başınızı sola çevirin ve kameraya bakın",
   "LivenessDetection.LookRightExpression": "Başınızı sağa çevirin ve kameraya bakın",
   "LivenessDetection.Start": "Canlılık Kontrolüne Başla",
+  "LivenessDetection.LookStraightDescription": "Yüzünüzü ekranın tam ortasına konumlandırın ve sabit tutun. Bu pozisyonda 3 saniye bekleyin.",
+  "LivenessDetection.TurnLeftDescription": "Başınızı hafifçe sola çevirin ve 3 saniye boyunca bu pozisyonda hareketsiz kalın.",
+  "LivenessDetection.TurnRightDescription": "Başınızı hafifçe sağa çevirin ve 3 saniye boyunca bu pozisyonda hareketsiz kalın.",
   "Toast.MRZ.Detected": "MRZ algılandı",
   "Toast.MRZ.InvalidFormat": "Geçersiz MRZ formatı. Lütfen tekrar deneyin.",
   "Toast.MRZ.Error": "MRZ verisi çözümlenirken hata oluştu. Lütfen tekrar deneyin.",
@@ -286,5 +291,9 @@
   "SelfieOnboardingDescription": "Bunu kimlik belgenizle karşılaştıracağız",
   "SelfieTip1": "Yüzünüzün iyi aydınlatıldığından emin olun",
   "SelfieTip2": "Doğrudan kameraya bakın",
-  "SelfieTip3": "Doğal bir ifade takının"
+  "SelfieTip3": "Doğal bir ifade takının",
+  "Tips": "İpuçları",
+  "OpenMainMenu": "Ana Menü",
+  "LivenessFailedDescription": "Canlılık kontrolü başarısız oldu. Lütfen tekrar deneyin",
+  "TryAgain": "Tekrar Dene"
 }

@@ -5,7 +5,8 @@ import {revalidatePath} from "next/cache";
 /* eslint prefer-named-capture-group: off -- We need to disable this rule */
 const regex = /^data:(.+);base64,(.+)$/;
 
-export function getAWSEnvoriment() {
+export async function getAWSEnvoriment() {
+  await Promise.resolve();
   if (!process.env.AWS_REGION) {
     throw new Error("AWS_REGION is not defined");
   }
@@ -104,7 +105,7 @@ export async function getFaceLivenessSessionResults(sessionId: string): Promise<
   const data = await response.json();
   const confidence = data?.confidence || 0;
   return {
-    isLive: confidence >= 90,
+    isLive: confidence >= 70,
     confidence: confidence,
   };
 }
