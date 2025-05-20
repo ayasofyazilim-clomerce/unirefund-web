@@ -243,6 +243,7 @@ function LivenessStep({
   front: DocumentData;
 }) {
   const [session, setSession] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     void createFaceLivenessSession().then((sessionId: string) => {
@@ -254,6 +255,13 @@ function LivenessStep({
 
   return (
     <div className="relative h-full w-full">
+      {isLoading && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-neutral-900/70">
+          <div className="border-primary mb-4 h-12 w-12 animate-spin rounded-full border-4 border-t-transparent"></div>
+          <h3 className="text-lg font-semibold text-white">{languageData.VerifyingYourIdentity}</h3>
+          <p className="mt-2 text-sm text-neutral-200">{languageData.PleaseWaitWhileWeVerify}</p>
+        </div>
+      )}
       <LivenessDetector
         languageData={languageData}
         sessionId={session}
@@ -262,7 +270,9 @@ function LivenessStep({
             if (result.isLive) {
               if (front?.base64) {
                 try {
+                  setIsLoading(true); // Show loading overlay
                   const compareResult = await postCompareFaces(session, front.base64);
+                  setIsLoading(false); // Hide loading overlay
 
                   if (compareResult.data) {
                     const responseData = compareResult.data as CompareFacesResponse;
@@ -280,6 +290,7 @@ function LivenessStep({
                     stepper.goTo("fail");
                   }
                 } catch (error) {
+                  setIsLoading(false); // Hide loading overlay in case of error
                   setSession("");
                   stepper.goTo("fail");
                 }
