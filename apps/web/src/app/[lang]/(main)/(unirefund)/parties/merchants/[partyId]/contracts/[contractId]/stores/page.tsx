@@ -14,9 +14,7 @@ export default async function Page({params}: {params: {contractId: string; lang:
   await isUnauthorized({
     requiredPolicies: [
       "ContractService.ContractStore",
-      "ContractService.ContractStore.Edit",
-      "ContractService.ContractStore.Delete",
-      "ContractService.ContractStore.Create",
+      "ContractService.ContractHeaderForMerchant.ContractStoreUpSert",
     ],
     lang,
   });

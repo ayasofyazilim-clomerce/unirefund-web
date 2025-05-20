@@ -63,7 +63,7 @@ function individualsRowActions(
     cancelText: languageData.Cancel,
     description: languageData["Merchants.Individual.Create.User.Description"],
     condition: (row) =>
-      isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies) && row.abpUserId === null,
+      isActionGranted(["CRMService.Individuals.CreateAbpUserRelation"], grantedPolicies) && row.abpUserId === null,
     icon: User2,
     onConfirm: (row) => {
       void postAbpUserAccountByIndividualIdApi(row.id || "").then((res) => {

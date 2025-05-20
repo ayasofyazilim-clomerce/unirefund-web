@@ -8,12 +8,12 @@ import RebateTableHeaderUpdateForm from "./_components/form";
 export default async function Page({params}: {params: {lang: string; type: string; id: string}}) {
   await isUnauthorized({
     requiredPolicies: [
-      "ContractService.RebateTableDetail.Create",
-      "ContractService.RebateTableDetail.Edit",
-      "ContractService.RebateTableDetail.Delete",
       "ContractService.RebateTableHeader.Create",
       "ContractService.RebateTableHeader.Edit",
       "ContractService.RebateTableHeader.Delete",
+      "ContractService.RebateTableHeader.Detail",
+      "ContractService.RebateTableHeader.View",
+      "ContractService.RebateTableHeader.ViewDetail",
     ],
     lang: params.lang,
   });

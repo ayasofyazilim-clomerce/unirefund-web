@@ -56,7 +56,7 @@ export default async function Page({
 }) {
   const {lang, partyId, contractId} = params;
   await isUnauthorized({
-    requiredPolicies: ["ContractService.RebateSetting.Edit"],
+    requiredPolicies: ["ContractService.ContractHeaderForMerchant.UpSertRebateSetting"],
     lang,
   });
 
