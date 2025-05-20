@@ -10,7 +10,7 @@ import TakeSelfie from "./validation-steps/take-selfie";
 import SuccessModal from "./validation-steps/finish";
 import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
 import LivenessDetector from "./liveness-detector";
-import {AWSAuthConfig, createFaceLivenessSession} from "@repo/actions/unirefund/AWSService/actions";
+import {AWSAuthConfig, createFaceLivenessSession, postCompareFaces} from "@repo/actions/unirefund/AWSService/actions";
 
 // Define the type for stepper metadata
 interface StepperMetadata {
@@ -26,6 +26,12 @@ export type DocumentData = {
   base64: string | null;
   data: ParseResult["fields"] | null;
 } | null;
+
+interface CompareFacesResponse {
+  faceMatches: {
+    similarity: number;
+  }[];
+}
 
 // Updated steps with larger icons
 const GlobalScopper = defineStepper(
@@ -228,11 +234,13 @@ function LivenessStep({
   stepper,
   setCanGoNext,
   clientAuths,
+  front,
 }: {
   languageData: SSRServiceResource;
   stepper: ReturnType<typeof GlobalScopper.useStepper>;
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
+  front: DocumentData;
 }) {
   const [session, setSession] = useState("");
 
@@ -250,12 +258,40 @@ function LivenessStep({
         languageData={languageData}
         sessionId={session}
         onAnalysisComplete={(result) => {
-          if (result.isLive) {
-            stepper.goTo("finish");
-          } else {
-            setSession("");
-            stepper.goTo("fail");
-          }
+          void (async () => {
+            if (result.isLive) {
+              if (front?.base64) {
+                try {
+                  const compareResult = await postCompareFaces(session, front.base64);
+
+                  if (compareResult.data) {
+                    const responseData = compareResult.data as CompareFacesResponse;
+                    const isSimilarityHigh =
+                      responseData.faceMatches.length > 0 && responseData.faceMatches[0].similarity > 80;
+
+                    if (isSimilarityHigh) {
+                      stepper.goTo("finish");
+                    } else {
+                      setSession("");
+                      stepper.goTo("fail");
+                    }
+                  } else {
+                    setSession("");
+                    stepper.goTo("fail");
+                  }
+                } catch (error) {
+                  setSession("");
+                  stepper.goTo("fail");
+                }
+              } else {
+                setSession("");
+                stepper.goTo("fail");
+              }
+            } else {
+              setSession("");
+              stepper.goTo("fail");
+            }
+          })();
         }}
         onError={() => {
           setCanGoNext(false);
@@ -339,6 +375,7 @@ function Steps({
           stepper={stepper}
           setCanGoNext={setCanGoNext}
           clientAuths={clientAuths}
+          front={front}
         />
       ))}
 

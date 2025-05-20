@@ -96,9 +96,7 @@ export async function detectFace(image: string) {
 
 export async function createFaceLivenessSession() {
   revalidatePath("");
-  const response = await fetch(
-    "http://192.168.1.69:44455/api/traveller-service/faceliveness/CreateFaceLivenessSession",
-  );
+  const response = await fetch("http://192.168.1.69:44455/api/traveller-service/rekognition/CreateFaceLivenessSession");
   const data = await response.json();
   return data.sessionId;
 }
@@ -108,7 +106,7 @@ export async function getFaceLivenessSessionResults(sessionId: string): Promise<
   confidence: number;
 }> {
   const response = await fetch(
-    `http://192.168.1.69:44455/api/traveller-service/faceliveness/GetFaceLivenessSessionResults?sessionId=${sessionId}`,
+    `http://192.168.1.69:44455/api/traveller-service/rekognition/GetFaceLivenessSessionResults?sessionId=${sessionId}`,
   );
   const data = await response.json();
   const confidence = data?.confidence || 0;
@@ -116,4 +114,53 @@ export async function getFaceLivenessSessionResults(sessionId: string): Promise<
     isLive: confidence >= 70,
     confidence: confidence,
   };
+}
+
+export async function postCompareFaces(
+  sessionId: string,
+  sourceImageBase64: string,
+): Promise<{
+  data: object | null;
+  error?: string;
+}> {
+  try {
+    // Make sure the base64 image is properly formatted
+    let processedImageBase64 = sourceImageBase64;
+
+    // If the image is already in a data URL format, extract just the base64 part
+    if (sourceImageBase64.startsWith("data:image")) {
+      const matches = regex.exec(sourceImageBase64);
+      if (matches) {
+        processedImageBase64 = matches[2]; // Just the base64 part without the prefix
+      }
+    }
+
+    const response = await fetch("http://192.168.1.69:44455/api/traveller-service/rekognition/CompareFaces", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sessionId: sessionId,
+        sourceImageBase64: processedImageBase64,
+      }),
+    });
+
+    if (!response.ok) {
+      return {
+        data: null,
+        error: `HTTP Error: ${response.status} ${response.statusText}`,
+      };
+    }
+
+    const data = await response.json();
+    return {
+      data: data,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: error instanceof Error ? error.message : "Unknown error occurred",
+    };
+  }
 }
