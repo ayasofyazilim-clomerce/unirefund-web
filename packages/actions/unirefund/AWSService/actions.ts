@@ -30,7 +30,6 @@ export type AWSAuthConfig = {
   secretAccessKey: string;
 };
 
-
 const clientAuths = getAWSEnvoriment();
 
 const textractClient = new TextractClient(clientAuths);
@@ -70,6 +69,7 @@ export async function compareFaces(image: string, image2: string) {
     });
     const response = await rekognitionClient.send(command);
     const match = response.FaceMatches?.at(0);
+
     return match?.Similarity ?? 0;
   } catch {
     return 0;

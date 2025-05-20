@@ -275,6 +275,7 @@
   "LivenessDetection.Step2Description": "Yüzünüzü merkeze net bir şekilde yerleştirin",
   "LivenessDetection.Step3Description": "Yönlendirildiğinizde başınızı çevirmek için komutları izleyin",
   "LivenessDetection.MoveHead": "Başınızı Hareket Ettirin",
+  "LivenessDetection.PhotosensitivityWarning": "Bu kontrol renkli ışıklar görüntüler. Işığa karşı hassassanız dikkatli olun",
   "PassportOnboardingTitle": "Pasaport Doğrulama",
   "PassportOnboardingDescription": "Doğrulama için pasaportunuzu taratın",
   "PassportTip1": "Tüm metnin görünür ve okunabilir olduğundan emin olun",

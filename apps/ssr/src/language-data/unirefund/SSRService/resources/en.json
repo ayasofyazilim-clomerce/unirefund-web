@@ -275,6 +275,7 @@
   "LivenessDetection.Step2Description": "Position your face clearly in the center",
   "LivenessDetection.Step3Description": "Follow the prompts to turn your head when instructed",
   "LivenessDetection.MoveHead": "Move Your Head",
+  "LivenessDetection.PhotosensitivityWarning": "This check displays colored lights. Use caution if you are photosensitive.",
   "PassportOnboardingTitle": "Passport Verification",
   "PassportOnboardingDescription": "Scan your passport for verification",
   "PassportTip1": "Make sure all text is visible and readable",
