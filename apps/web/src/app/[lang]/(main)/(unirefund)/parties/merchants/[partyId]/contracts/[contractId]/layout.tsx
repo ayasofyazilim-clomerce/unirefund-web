@@ -21,9 +21,10 @@ export default async function Layout({
   await isUnauthorized({
     requiredPolicies: [
       "ContractService.ContractHeaderForMerchant",
-      "ContractService.ContractSetting.Edit",
-      "ContractService.RebateSetting.Edit",
       "ContractService.ContractHeaderForMerchant.Edit",
+      "ContractService.ContractHeaderForMerchant.UpSertRebateSetting",
+      "ContractService.ContractHeaderForMerchant.ContractStoreUpSert",
+      "ContractService.ContractHeaderForMerchant.ContractSettingEdit",
     ],
     lang,
   });

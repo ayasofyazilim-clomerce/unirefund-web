@@ -150,7 +150,7 @@ const rebateTableHeadersTable = (params: {
         cta: languageData["Contracts.Clone"],
         condition: (row) => {
           return (
-            isActionGranted(["ContractService.RebateTableHeader.CreateFromTemplate"], grantedPolicies) && row.isTemplate
+            isActionGranted(["ContractService.RebateTableHeader.CreateTemplate"], grantedPolicies) && row.isTemplate
           );
         },
         content: (row) => <CloneForm languageData={languageData} merchants={merchants} router={router} row={row} />,

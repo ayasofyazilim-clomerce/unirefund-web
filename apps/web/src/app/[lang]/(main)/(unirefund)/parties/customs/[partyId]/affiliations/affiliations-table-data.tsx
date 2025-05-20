@@ -135,7 +135,7 @@ function affiliationsRowActions(
   grantedPolicies: Record<Policy, boolean>,
 ): TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] {
   const actions: TanstackTableRowActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] = [];
-  if (isActionGranted(["CRMService.Individuals.CreateAbpUserAccount"], grantedPolicies)) {
+  if (isActionGranted(["CRMService.Individuals.CreateAbpUserRelation"], grantedPolicies)) {
     actions.push({
       type: "confirmation-dialog",
       cta: languageData["Merchants.Individual.Create.User"],
