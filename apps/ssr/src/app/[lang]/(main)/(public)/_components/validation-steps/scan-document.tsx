@@ -415,7 +415,7 @@ export default function ScanDocument({
       {scanStatus === "scanning" && (
         <Alert className="mt-4" variant="default">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Processing</AlertTitle>
+          <AlertTitle>{languageData["Document.Processing"]}</AlertTitle>
           <AlertDescription>
             {languageData["LivenessDetection.Processing"] || "Processing your document..."}
           </AlertDescription>
@@ -425,7 +425,7 @@ export default function ScanDocument({
       {back?.data ? (
         <Alert className="mt-4" variant="default">
           <CheckCircle className="h-4 w-4" />
-          <AlertTitle>Document Captured</AlertTitle>
+          <AlertTitle>{languageData.BackSideCaptured}</AlertTitle>
           <AlertDescription>{languageData.BackSideCaptured || "Back side captured"}</AlertDescription>
         </Alert>
       ) : null}
@@ -440,7 +440,15 @@ function getMRZ(blocks: Block[]): string[] {
     .filter((text): text is string => text !== undefined);
 }
 
-export function DisplayCaptured({document, title}: {document: DocumentData; title: string}) {
+export function DisplayCaptured({
+  document,
+  title,
+  languageData,
+}: {
+  document: DocumentData;
+  title: string;
+  languageData: SSRServiceResource;
+}) {
   return (
     <>
       {document ? (
@@ -460,7 +468,7 @@ export function DisplayCaptured({document, title}: {document: DocumentData; titl
 
               {document.data ? (
                 <div className="rounded-lg border border-black/10 bg-white/95 p-4 shadow-sm">
-                  <div className="mb-2 text-xs font-medium text-black/60">Machine Readable Zone (MRZ)</div>
+                  <div className="mb-2 text-xs font-medium text-black/60">{languageData.MachineReadableZone}</div>
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     {Object.keys(document.data).map((key) => {
                       if (!document.data) {
