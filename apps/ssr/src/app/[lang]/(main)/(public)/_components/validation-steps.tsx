@@ -253,6 +253,48 @@ function LivenessStep({
 
   if (!session) return null;
 
+  const handleAnalysisComplete = async (result: {isLive: boolean}) => {
+    if (!result.isLive || !front?.base64) {
+      failSession();
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const compareResult = await postCompareFaces(session, front.base64);
+      setIsLoading(false);
+
+      const responseData = compareResult.data as CompareFacesResponse | undefined;
+
+      if (!responseData || responseData.faceMatches.length === 0) {
+        failSession();
+        return;
+      }
+
+      const similarity = responseData.faceMatches[0].similarity;
+      const isSimilarityHigh = similarity > 80;
+
+      if (isSimilarityHigh) {
+        stepper.goTo("finish");
+      } else {
+        failSession();
+      }
+    } catch (error) {
+      setIsLoading(false);
+      failSession();
+    }
+  };
+
+  const handleError = () => {
+    setCanGoNext(false);
+    stepper.goTo("fail");
+  };
+
+  const failSession = () => {
+    setSession("");
+    stepper.goTo("fail");
+  };
+
   return (
     <div className="relative h-full w-full">
       {isLoading && (
@@ -265,50 +307,11 @@ function LivenessStep({
       <LivenessDetector
         languageData={languageData}
         sessionId={session}
-        onAnalysisComplete={(result) => {
-          void (async () => {
-            if (result.isLive) {
-              if (front?.base64) {
-                try {
-                  setIsLoading(true); // Show loading overlay
-                  const compareResult = await postCompareFaces(session, front.base64);
-                  setIsLoading(false); // Hide loading overlay
-
-                  if (compareResult.data) {
-                    const responseData = compareResult.data as CompareFacesResponse;
-                    const isSimilarityHigh =
-                      responseData.faceMatches.length > 0 && responseData.faceMatches[0].similarity > 80;
-
-                    if (isSimilarityHigh) {
-                      stepper.goTo("finish");
-                    } else {
-                      setSession("");
-                      stepper.goTo("fail");
-                    }
-                  } else {
-                    setSession("");
-                    stepper.goTo("fail");
-                  }
-                } catch (error) {
-                  setIsLoading(false); // Hide loading overlay in case of error
-                  setSession("");
-                  stepper.goTo("fail");
-                }
-              } else {
-                setSession("");
-                stepper.goTo("fail");
-              }
-            } else {
-              setSession("");
-              stepper.goTo("fail");
-            }
-          })();
-        }}
-        onError={() => {
-          setCanGoNext(false);
-          stepper.goTo("fail");
-        }}
         config={clientAuths}
+        onAnalysisComplete={(result) => {
+          void handleAnalysisComplete(result);
+        }}
+        onError={handleError}
       />
     </div>
   );
