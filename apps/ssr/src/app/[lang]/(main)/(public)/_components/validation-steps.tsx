@@ -10,7 +10,7 @@ import TakeSelfie from "./validation-steps/take-selfie";
 import SuccessModal from "./validation-steps/finish";
 import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
 import LivenessDetector from "./liveness-detector";
-import {AWSAuthConfig, createFaceLivenessSession} from "@repo/actions/unirefund/AWSService/actions";
+import {AWSAuthConfig, createFaceLivenessSession, postCompareFaces} from "@repo/actions/unirefund/AWSService/actions";
 
 // Define the type for stepper metadata
 interface StepperMetadata {
@@ -26,6 +26,12 @@ export type DocumentData = {
   base64: string | null;
   data: ParseResult["fields"] | null;
 } | null;
+
+interface CompareFacesResponse {
+  faceMatches: {
+    similarity: number;
+  }[];
+}
 
 // Updated steps with larger icons
 const GlobalScopper = defineStepper(
@@ -228,13 +234,16 @@ function LivenessStep({
   stepper,
   setCanGoNext,
   clientAuths,
+  front,
 }: {
   languageData: SSRServiceResource;
   stepper: ReturnType<typeof GlobalScopper.useStepper>;
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
+  front: DocumentData;
 }) {
   const [session, setSession] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     void createFaceLivenessSession().then((sessionId: string) => {
@@ -244,24 +253,65 @@ function LivenessStep({
 
   if (!session) return null;
 
+  const handleAnalysisComplete = async (result: {isLive: boolean}) => {
+    if (!result.isLive || !front?.base64) {
+      failSession();
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const compareResult = await postCompareFaces(session, front.base64);
+      setIsLoading(false);
+
+      const responseData = compareResult.data as CompareFacesResponse | undefined;
+
+      if (!responseData || responseData.faceMatches.length === 0) {
+        failSession();
+        return;
+      }
+
+      const similarity = responseData.faceMatches[0].similarity;
+      const isSimilarityHigh = similarity > 80;
+
+      if (isSimilarityHigh) {
+        stepper.goTo("finish");
+      } else {
+        failSession();
+      }
+    } catch (error) {
+      setIsLoading(false);
+      failSession();
+    }
+  };
+
+  const handleError = () => {
+    setCanGoNext(false);
+    stepper.goTo("fail");
+  };
+
+  const failSession = () => {
+    setSession("");
+    stepper.goTo("fail");
+  };
+
   return (
     <div className="relative h-full w-full">
+      {isLoading && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-neutral-900/70">
+          <div className="border-primary mb-4 h-12 w-12 animate-spin rounded-full border-4 border-t-transparent"></div>
+          <h3 className="text-lg font-semibold text-white">{languageData.VerifyingYourIdentity}</h3>
+          <p className="mt-2 text-sm text-neutral-200">{languageData.PleaseWaitWhileWeVerify}</p>
+        </div>
+      )}
       <LivenessDetector
         languageData={languageData}
         sessionId={session}
-        onAnalysisComplete={(result) => {
-          if (result.isLive) {
-            stepper.goTo("finish");
-          } else {
-            setSession("");
-            stepper.goTo("fail");
-          }
-        }}
-        onError={() => {
-          setCanGoNext(false);
-          stepper.goTo("fail");
-        }}
         config={clientAuths}
+        onAnalysisComplete={(result) => {
+          void handleAnalysisComplete(result);
+        }}
+        onError={handleError}
       />
     </div>
   );
@@ -339,6 +389,7 @@ function Steps({
           stepper={stepper}
           setCanGoNext={setCanGoNext}
           clientAuths={clientAuths}
+          front={front}
         />
       ))}
 

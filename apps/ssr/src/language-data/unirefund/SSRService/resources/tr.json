@@ -299,5 +299,7 @@
   "Tips": "İpuçları",
   "OpenMainMenu": "Ana Menü",
   "LivenessFailedDescription": "Canlılık kontrolü başarısız oldu. Lütfen tekrar deneyin",
+  "VerifyingYourIdentity": "Kimliğiniz doğrulanıyor...",
+  "PleaseWaitWhileWeVerify": "Yüzünüzü doğrularken lütfen bekleyin.",
   "TryAgain": "Tekrar Dene"
 }
