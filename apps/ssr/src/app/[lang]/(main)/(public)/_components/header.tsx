@@ -11,7 +11,13 @@ import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
-export default function Header({languageData}: {languageData: SSRServiceResource}) {
+export default function Header({
+  languageData,
+  availableLocals,
+}: {
+  languageData: SSRServiceResource;
+  availableLocals: string[];
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const params = useParams();
   const lang = params.lang as string;
@@ -23,38 +29,43 @@ export default function Header({languageData}: {languageData: SSRServiceResource
           <Image alt="UniRefund Logo" height={32} priority src={unirefundLogo.src} width={140} />
         </Link>
 
-        {/* Mobile menu button */}
-        <Button
-          className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none md:hidden"
-          onClick={() => {
-            setIsMenuOpen(!isMenuOpen);
-          }}
-          variant="outline">
-          <span className="sr-only">{languageData.OpenMainMenu}</span>
-          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+        {/* Mobile menu button and language selector */}
+        <div className="flex items-center space-x-2 md:hidden">
+          {/* Mobile language selector outside menu */}
+          <LanguageSelector availableLocals={availableLocals} lang={lang} />
+
+          <Button
+            className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none"
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            variant="outline">
+            <span className="sr-only">{languageData.OpenMainMenu}</span>
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex md:items-center md:space-x-8">
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href={`https://unirefund.com/about-us`}>
+            href="https://unirefund.com/about-us">
             {languageData.About}
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href={`https://unirefund.com/shoppers`}>
+            href="https://unirefund.com/shoppers">
             {languageData.Services}
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href={`https://unirefund.com//contact`}>
+            href="https://unirefund.com//contact">
             {languageData.Contact}
           </Link>
 
-          {/* LanguageSelector bileşeni ile dil seçici (Desktop - en sağda) */}
+          {/* LanguageSelector for desktop (far right) */}
           <div className="ml-4">
-            <LanguageSelector lang={lang} />
+            <LanguageSelector availableLocals={availableLocals} lang={lang} />
           </div>
         </nav>
 
@@ -66,7 +77,7 @@ export default function Header({languageData}: {languageData: SSRServiceResource
                 <div className="flex flex-col space-y-4">
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
-                    href={`https://unirefund.com/about-us`}
+                    href="https://unirefund.com/about-us"
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
@@ -74,7 +85,7 @@ export default function Header({languageData}: {languageData: SSRServiceResource
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
-                    href={`https://unirefund.com/shoppers`}
+                    href="https://unirefund.com/shoppers"
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
@@ -82,20 +93,12 @@ export default function Header({languageData}: {languageData: SSRServiceResource
                   </Link>
                   <Link
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
-                    href={`https://unirefund.com/contact`}
+                    href="https://unirefund.com/contact"
                     onClick={() => {
                       setIsMenuOpen(false);
                     }}>
                     {languageData.Contact}
                   </Link>
-
-                  {/* Mobil görünümde dil seçici */}
-                  <div className="border-t border-gray-100 pt-2">
-                    <p className="mb-2 text-sm text-gray-500">{languageData.SelectLanguage}:</p>
-                    <div className="flex items-center">
-                      <LanguageSelector lang={lang} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

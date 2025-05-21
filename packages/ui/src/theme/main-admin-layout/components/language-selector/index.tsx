@@ -8,22 +8,27 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {CheckIcon} from "lucide-react";
-import {useRouter} from "next/navigation";
+import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
-import {countries} from "./country-data";
-import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import { countries } from "./country-data";
+import { DropdownMenuSub } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
-function LanguageSelector({lang}: {lang: string}) {
+function LanguageSelector({ lang, availableLocals }: { lang: string; availableLocals?: string[] }) {
   const router = useRouter();
-  const selectedLanguageId =
-    countries.find((i) => i.cultureName === lang)?.id || "75fe277d-5138-285d-8088-3a1171b61635";
 
-  const selectedLanguage = countries.find((i) => i.id === selectedLanguageId);
+  const filteredCountries = countries.filter((country) => {
+    return availableLocals?.includes(country.cultureName);
+  }
+  );
+  const selectedLanguageId =
+    filteredCountries.find((i) => i.cultureName === lang)?.id || "75fe277d-5138-285d-8088-3a1171b61635";
+
+  const selectedLanguage = filteredCountries.find((i) => i.id === selectedLanguageId);
 
   function filterLanguages(value: string, search: string) {
     const searchValue = search.toLowerCase();
-    const item = countries.find((i) => i.id === value);
+    const item = filteredCountries.find((i) => i.id === value);
     if (!item) return 0;
 
     if (item.displayName.toLowerCase().includes(searchValue) || item.cultureName.toLowerCase().includes(searchValue)) {
@@ -51,12 +56,12 @@ function LanguageSelector({lang}: {lang: string}) {
             <CommandList>
               <CommandEmpty>No language found.</CommandEmpty>
               <CommandGroup>
-                {countries.map((label) => (
+                {filteredCountries.map((label) => (
                   <CommandItem
                     key={label.id}
                     value={label.id}
                     onSelect={(value) => {
-                      const selected = countries.find((i) => i.id === value);
+                      const selected = filteredCountries.find((i) => i.id === value);
                       const newUrl = selected?.cultureName + "/" + location.pathname.split("/").slice(2).join("/");
                       router.push("/" + newUrl);
                     }}>
