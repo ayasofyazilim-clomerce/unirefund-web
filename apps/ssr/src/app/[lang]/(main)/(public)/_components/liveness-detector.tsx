@@ -66,7 +66,11 @@ export default function LivenessDetector({
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="flex min-h-screen w-full max-w-2xl items-center justify-center border-none bg-transparent p-0 shadow-none">
+      <DialogContent
+        className="flex h-full max-h-screen min-h-screen w-full w-full max-w-2xl max-w-full items-center justify-center rounded-none border-none 
+                   bg-transparent 
+                   p-0 p-6 shadow-none sm:h-auto sm:w-auto 
+                   sm:max-w-[425px] sm:rounded-lg">
         <ThemeProvider theme={theme}>
           <FaceLivenessDetectorCore
             config={{
