@@ -3,14 +3,16 @@ import {Button} from "@/components/ui/button";
 import {defineStepper} from "@stepperize/react";
 import type {ParseResult} from "mrz";
 import {useState, useEffect} from "react";
+import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
+import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
+import {postCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {getCreateFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
 import TakeSelfie from "./validation-steps/take-selfie";
 import SuccessModal from "./validation-steps/finish";
-import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
 import LivenessDetector from "./liveness-detector";
-import {AWSAuthConfig, createFaceLivenessSession, postCompareFaces} from "@repo/actions/unirefund/AWSService/actions";
 
 // Define the type for stepper metadata
 interface StepperMetadata {
@@ -26,12 +28,6 @@ export type DocumentData = {
   base64: string | null;
   data: ParseResult["fields"] | null;
 } | null;
-
-interface CompareFacesResponse {
-  faceMatches: {
-    similarity: number;
-  }[];
-}
 
 // Updated steps with larger icons
 const GlobalScopper = defineStepper(
@@ -67,16 +63,16 @@ export default function ValidationSteps({
     <div className="mx-auto w-full max-w-3xl">
       <GlobalScopper.Scoped>
         <StepperContent
-          clientAuths={clientAuths}
-          languageData={languageData}
-          canGoNext={canGoNext}
-          setCanGoNext={setCanGoNext}
-          front={front}
           back={back}
-          setFront={setFront}
-          setBack={setBack}
-          updateProgress={updateProgress}
+          canGoNext={canGoNext}
+          clientAuths={clientAuths}
+          front={front}
+          languageData={languageData}
           progress={progress}
+          setBack={setBack}
+          setCanGoNext={setCanGoNext}
+          setFront={setFront}
+          updateProgress={updateProgress}
         />
       </GlobalScopper.Scoped>
     </div>
@@ -198,15 +194,16 @@ function StepperContent({
           <div className="h-2 w-full overflow-hidden rounded-full bg-black/10">
             <div
               className="bg-primary h-full rounded-full transition-all duration-500 ease-out"
-              style={{width: `${progress}%`}}></div>
+              style={{width: `${progress}%`}}
+            />
           </div>
         </div>
       )}
 
       {/* Step content */}
       <Steps
-        clientAuths={clientAuths}
         back={back}
+        clientAuths={clientAuths}
         front={front}
         languageData={languageData}
         setBack={setBack}
@@ -216,13 +213,13 @@ function StepperContent({
 
       {/* Navigation buttons */}
       <Actions
+        back={back}
         canGoNext={canGoNext}
+        front={front}
         languageData={languageData}
         setBack={setBack}
         setCanGoNext={setCanGoNext}
         setFront={setFront}
-        front={front}
-        back={back}
       />
     </div>
   );
@@ -242,12 +239,14 @@ function LivenessStep({
   clientAuths: AWSAuthConfig;
   front: DocumentData;
 }) {
-  const [session, setSession] = useState("");
+  const [session, setSession] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    void createFaceLivenessSession().then((sessionId: string) => {
-      setSession(sessionId);
+    void getCreateFaceLiveness().then((res) => {
+      if (res.type === "success") {
+        setSession(res.data.sessionId || null);
+      }
     });
   }, []);
 
@@ -261,17 +260,17 @@ function LivenessStep({
 
     try {
       setIsLoading(true);
-      const compareResult = await postCompareFaces(session, front.base64);
+      const requestBody = {
+        sessionId: session,
+        sourceImageBase64: front.base64.split(",").at(1),
+      };
+      const compareResult = await postCompareFaces({requestBody});
       setIsLoading(false);
-
-      const responseData = compareResult.data as CompareFacesResponse | undefined;
-
-      if (!responseData || responseData.faceMatches.length === 0) {
+      if (compareResult.type !== "success") {
         failSession();
         return;
       }
-
-      const similarity = responseData.faceMatches[0].similarity;
+      const similarity = compareResult.data.faceMatches?.[0]?.similarity || 0;
       const isSimilarityHigh = similarity > 80;
 
       if (isSimilarityHigh) {
@@ -297,21 +296,21 @@ function LivenessStep({
 
   return (
     <div className="relative h-full w-full">
-      {isLoading && (
+      {isLoading ? (
         <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-neutral-900/70">
-          <div className="border-primary mb-4 h-12 w-12 animate-spin rounded-full border-4 border-t-transparent"></div>
+          <div className="border-primary mb-4 h-12 w-12 animate-spin rounded-full border-4 border-t-transparent" />
           <h3 className="text-lg font-semibold text-white">{languageData.VerifyingYourIdentity}</h3>
           <p className="mt-2 text-sm text-neutral-200">{languageData.PleaseWaitWhileWeVerify}</p>
         </div>
-      )}
+      ) : null}
       <LivenessDetector
-        languageData={languageData}
-        sessionId={session}
         config={clientAuths}
+        languageData={languageData}
         onAnalysisComplete={(result) => {
           void handleAnalysisComplete(result);
         }}
         onError={handleError}
+        sessionId={session}
       />
     </div>
   );
@@ -385,11 +384,11 @@ function Steps({
 
       {stepper.when("liveness-detector", () => (
         <LivenessStep
-          languageData={languageData}
-          stepper={stepper}
-          setCanGoNext={setCanGoNext}
           clientAuths={clientAuths}
           front={front}
+          languageData={languageData}
+          setCanGoNext={setCanGoNext}
+          stepper={stepper}
         />
       ))}
 
@@ -453,6 +452,7 @@ function Actions({
     <div className="flex items-center justify-between">
       {!stepper.isFirst && (
         <Button
+          className="border-black/20 px-5 py-2.5 text-black hover:bg-black/5"
           disabled={stepper.isFirst}
           onClick={() => {
             // Özel yönlendirme kuralları
@@ -482,8 +482,7 @@ function Actions({
               setCanGoNext(false);
             }
           }}
-          variant="outline"
-          className="border-black/20 px-5 py-2.5 text-black hover:bg-black/5">
+          variant="outline">
           <ArrowLeft className="mr-2 h-5 w-5" />
           {languageData.Previous}
         </Button>
@@ -520,6 +519,7 @@ function Actions({
 
       {!stepper.isFirst && !stepper.when("start", () => true) && (
         <Button
+          className="bg-primary hover:bg-primary/90 px-5 py-2.5"
           disabled={!canGoNext}
           onClick={() => {
             // ID kartı akışında özel yönlendirme kuralları
@@ -534,8 +534,7 @@ function Actions({
               stepper.next();
             }
             setCanGoNext(false);
-          }}
-          className="bg-primary hover:bg-primary/90 px-5 py-2.5">
+          }}>
           {languageData.Next}
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
@@ -544,13 +543,13 @@ function Actions({
   ) : (
     <div className="flex items-center gap-3">
       <Button
+        className="bg-primary hover:bg-primary/90 px-5 py-2.5"
         onClick={() => {
           stepper.reset();
           setCanGoNext(false);
           setBack(null);
           setFront(null);
-        }}
-        className="bg-primary hover:bg-primary/90 px-5 py-2.5">
+        }}>
         <RotateCcw className="mr-2 h-5 w-5" />
         {languageData.Reset}
       </Button>

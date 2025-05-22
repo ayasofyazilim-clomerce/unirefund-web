@@ -1,13 +1,13 @@
 "use client";
 import type {FaceLivenessDetectorProps} from "@aws-amplify/ui-react-liveness";
 import {FaceLivenessDetectorCore} from "@aws-amplify/ui-react-liveness";
-import {getFaceLivenessSessionResults} from "@repo/actions/unirefund/AWSService/actions";
 import "@aws-amplify/ui-react/styles.css";
 import {ThemeProvider, useTheme} from "@aws-amplify/ui-react";
-import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import {useState} from "react";
-import {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import {getFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
 
 export default function LivenessDetector({
   languageData,
@@ -55,7 +55,7 @@ export default function LivenessDetector({
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <div>
           <OnboardingPage
@@ -81,9 +81,15 @@ export default function LivenessDetector({
             }}
             disableStartScreen
             onAnalysisComplete={async () => {
-              const result = await getFaceLivenessSessionResults(sessionId);
-              onAnalysisComplete(result);
-              setOpen(false);
+              const result = await getFaceLiveness(sessionId);
+              if (result.type === "success") {
+                onAnalysisComplete({
+                  isLive: (result.data.confidence ?? 0) > 70,
+                  confidence: result.data.confidence ?? 0,
+                });
+
+                setOpen(false);
+              }
             }}
             onError={onError}
             region={config.region}
