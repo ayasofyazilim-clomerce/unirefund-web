@@ -57,7 +57,7 @@ const DocumentConfig = {
 };
 
 // Scanner status alert component
-const ScannerStatusAlert = ({
+function ScannerStatusAlert({
   scanStatus,
   documentData,
   languageData,
@@ -67,27 +67,29 @@ const ScannerStatusAlert = ({
   documentData: DocumentData;
   languageData: SSRServiceResource;
   successMessage: string;
-}) => (
-  <>
-    {scanStatus === "scanning" && (
-      <Alert className="mt-4" variant="default">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>{languageData["Document.Processing"] || "Processing"}</AlertTitle>
-        <AlertDescription>
-          {languageData["LivenessDetection.Processing"] || "Processing your document..."}
-        </AlertDescription>
-      </Alert>
-    )}
+}) {
+  return (
+    <>
+      {scanStatus === "scanning" && (
+        <Alert className="mt-4" variant="default">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>{languageData["Document.Processing"] || "Processing"}</AlertTitle>
+          <AlertDescription>
+            {languageData["LivenessDetection.Processing"] || "Processing your document..."}
+          </AlertDescription>
+        </Alert>
+      )}
 
-    {documentData && (
-      <Alert className="mt-4" variant="default">
-        <CheckCircle className="h-4 w-4" />
-        <AlertTitle>{languageData["Document.Captured"] || "Document Captured"}</AlertTitle>
-        <AlertDescription>{successMessage}</AlertDescription>
-      </Alert>
-    )}
-  </>
-);
+      {scanStatus === "success" && documentData ? (
+        <Alert className="mt-4" variant="default">
+          <CheckCircle className="h-4 w-4" />
+          <AlertTitle>{languageData["Document.Captured"] || "Document Captured"}</AlertTitle>
+          <AlertDescription>{successMessage}</AlertDescription>
+        </Alert>
+      ) : null}
+    </>
+  );
+}
 
 export default function ScanDocument({
   languageData,
@@ -114,14 +116,14 @@ export default function ScanDocument({
   if (showOnboarding) {
     return (
       <DocumentOnboarding
-        type={type}
         imageSrc={config.image}
-        tips={config.tips(languageData)}
-        title={config.title(languageData)}
+        languageData={languageData}
         onContinue={() => {
           setShowOnboarding(false);
         }}
-        languageData={languageData}
+        tips={config.tips(languageData)}
+        title={config.title(languageData)}
+        type={type}
       />
     );
   }
@@ -293,9 +295,9 @@ export default function ScanDocument({
       </div>
 
       <ScannerStatusAlert
-        scanStatus={scanStatus}
         documentData={getCurrentDocumentData()}
         languageData={languageData}
+        scanStatus={scanStatus}
         successMessage={config.successMessage(languageData)}
       />
     </div>
