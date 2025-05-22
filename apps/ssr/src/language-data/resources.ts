@@ -1997,6 +1997,7 @@ export type TravellerServiceResources = {
   "UniRefund.TravellerService:010004": "Required fields are missing: {fields}";
   "UniRefund.TravellerService:010005": "Country name not found for personal identification of travel document number: {documentNumber}";
   "UniRefund.TravellerService:010006": "Single personal identification can not be deleted";
+  "UniRefund.TravellerService:010007": "Rekognition Service returned unsuccess HttpStatusCode : {httpStatusCode}";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
