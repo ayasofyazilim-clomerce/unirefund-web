@@ -1,7 +1,6 @@
 "use server";
-import {CompareFacesCommand, DetectFacesCommand, RekognitionClient} from "@aws-sdk/client-rekognition";
-import {AnalyzeIDCommand, TextractClient} from "@aws-sdk/client-textract";
-import {revalidatePath} from "next/cache";
+import { CompareFacesCommand, DetectFacesCommand, RekognitionClient } from "@aws-sdk/client-rekognition";
+import { AnalyzeIDCommand, TextractClient } from "@aws-sdk/client-textract";
 /* eslint prefer-named-capture-group: off -- We need to disable this rule */
 const regex = /^data:(.+);base64,(.+)$/;
 
@@ -64,8 +63,8 @@ export async function compareFaces(image: string, image2: string) {
     const buffer2 = Buffer.from(matches2[2], "base64");
     const img2 = new Uint8Array(buffer2);
     const command = new CompareFacesCommand({
-      SourceImage: {Bytes: img1},
-      TargetImage: {Bytes: img2},
+      SourceImage: { Bytes: img1 },
+      TargetImage: { Bytes: img2 },
     });
     const response = await rekognitionClient.send(command);
     const match = response.FaceMatches?.at(0);
@@ -83,7 +82,7 @@ export async function detectFace(image: string) {
     const buffer1 = Buffer.from(matches1[2], "base64");
     const img1 = new Uint8Array(buffer1);
     const command = new DetectFacesCommand({
-      Image: {Bytes: img1},
+      Image: { Bytes: img1 },
       Attributes: ["DEFAULT"],
     });
     const response = await rekognitionClient.send(command);
@@ -91,76 +90,5 @@ export async function detectFace(image: string) {
     return match?.Confidence ?? 0;
   } catch {
     return 0;
-  }
-}
-
-export async function createFaceLivenessSession() {
-  revalidatePath("");
-  const response = await fetch("http://192.168.1.69:44455/api/traveller-service/rekognition/CreateFaceLivenessSession");
-  const data = await response.json();
-  return data.sessionId;
-}
-
-export async function getFaceLivenessSessionResults(sessionId: string): Promise<{
-  isLive: boolean;
-  confidence: number;
-}> {
-  const response = await fetch(
-    `http://192.168.1.69:44455/api/traveller-service/rekognition/GetFaceLivenessSessionResults?sessionId=${sessionId}`,
-  );
-  const data = await response.json();
-  const confidence = data?.confidence || 0;
-  return {
-    isLive: confidence >= 70,
-    confidence: confidence,
-  };
-}
-
-export async function postCompareFaces(
-  sessionId: string,
-  sourceImageBase64: string,
-): Promise<{
-  data: object | null;
-  error?: string;
-}> {
-  try {
-    // Make sure the base64 image is properly formatted
-    let processedImageBase64 = sourceImageBase64;
-
-    // If the image is already in a data URL format, extract just the base64 part
-    if (sourceImageBase64.startsWith("data:image")) {
-      const matches = regex.exec(sourceImageBase64);
-      if (matches) {
-        processedImageBase64 = matches[2]; // Just the base64 part without the prefix
-      }
-    }
-
-    const response = await fetch("http://192.168.1.69:44455/api/traveller-service/rekognition/CompareFaces", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sessionId: sessionId,
-        sourceImageBase64: processedImageBase64,
-      }),
-    });
-
-    if (!response.ok) {
-      return {
-        data: null,
-        error: `HTTP Error: ${response.status} ${response.statusText}`,
-      };
-    }
-
-    const data = await response.json();
-    return {
-      data: data,
-    };
-  } catch (error) {
-    return {
-      data: null,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
-    };
   }
 }
