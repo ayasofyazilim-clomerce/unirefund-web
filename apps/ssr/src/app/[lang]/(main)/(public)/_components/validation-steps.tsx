@@ -134,7 +134,7 @@ function StepperContent({
       {/* Steps indicators - Show on all pages */}
 
       {!stepper.isFirst && (
-        <div className="-mb-2 md:mb-8">
+        <div className="-mb-2 lg:mb-8">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-black">
               {languageData[stepper.current.title as keyof SSRServiceResource] || stepper.current.title}
