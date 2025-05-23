@@ -13,7 +13,7 @@ export default async function Page({params}: {params: {contractId: string; lang:
   const {contractId, lang} = params;
   await isUnauthorized({
     requiredPolicies: [
-      "ContractService.ContractStore",
+      "ContractService.ContractHeaderForMerchant.ContractStoreUpSert",
       "ContractService.ContractHeaderForMerchant.ContractStoreUpSert",
     ],
     lang,
