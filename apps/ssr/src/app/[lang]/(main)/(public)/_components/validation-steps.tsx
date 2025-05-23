@@ -3,11 +3,14 @@ import {Button} from "@/components/ui/button";
 import {defineStepper} from "@stepperize/react";
 import type {ParseResult} from "mrz";
 import {useState, useEffect} from "react";
-import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight} from "lucide-react";
+import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, LogIn} from "lucide-react";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {postCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {getCreateFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import Link from "next/link";
+import {useParams} from "next/navigation";
+import {getBaseLink} from "@/utils";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
 import TakeSelfie from "./validation-steps/take-selfie";
@@ -433,6 +436,7 @@ function Actions({
   languageData: SSRServiceResource;
 }) {
   const stepper = GlobalScopper.useStepper();
+  const {lang} = useParams<{lang: string}>();
 
   return !stepper.isLast ? (
     <div className="flex items-center justify-between">
@@ -500,6 +504,15 @@ function Actions({
             <Camera className="mr-2 h-5 w-5" />
             {languageData.StartValidationWithIDCard}
           </Button>
+
+          <div className="mt-2 text-center">
+            <Link
+              href={getBaseLink("login", lang)}
+              className="hover:text-primary flex items-center  justify-center gap-1 text-sm text-gray-500">
+              {languageData.AlreadyHaveAnAccount}
+              <LogIn className="inline h-4 w-4" />
+            </Link>
+          </div>
         </div>
       ))}
 

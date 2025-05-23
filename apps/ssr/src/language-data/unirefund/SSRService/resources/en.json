@@ -304,5 +304,6 @@
   "LivenessFailedDescription": "We couldn't verify that you're a real person. Please try again.",
   "VerifyingYourIdentity": "Verifying your identity...",
   "PleaseWaitWhileWeVerify": "Please wait while we verify your face.",
-  "TryAgain": "Try Again"
+  "TryAgain": "Try Again",
+  "AlreadyHaveAnAccount": "Already have an account? Log in"
 }
