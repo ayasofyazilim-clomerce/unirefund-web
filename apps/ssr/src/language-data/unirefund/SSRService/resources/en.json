@@ -1,4 +1,7 @@
 {
+  "IdentityVerificationSuccessful": "Identity Verification Successful",
+  "IdentityVerificationSuccessfulDescription": "Your identity has been successfully verified. You can now register for an account.",
+  "Register": "Register",
   "Document.Processing": "Processing",
   "Document.Captured": "Document Captured",
   "NotImplemented": "Not implemented yet.",

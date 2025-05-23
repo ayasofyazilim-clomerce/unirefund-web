@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import {defineStepper} from "@stepperize/react";
 import type {ParseResult} from "mrz";
 import {useState, useEffect} from "react";
-import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, RotateCcw} from "lucide-react";
+import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight} from "lucide-react";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {postCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {getCreateFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
@@ -217,9 +217,7 @@ function StepperContent({
         canGoNext={canGoNext}
         front={front}
         languageData={languageData}
-        setBack={setBack}
         setCanGoNext={setCanGoNext}
-        setFront={setFront}
       />
     </div>
   );
@@ -415,15 +413,7 @@ function Steps({
       ))}
 
       {stepper.when("finish", () => (
-        <SuccessModal
-          languageData={languageData}
-          onRestart={() => {
-            stepper.reset();
-            setCanGoNext(false);
-            setBack(null);
-            setFront(null);
-          }}
-        />
+        <SuccessModal languageData={languageData} />
       ))}
     </div>
   );
@@ -432,16 +422,12 @@ function Steps({
 function Actions({
   canGoNext,
   setCanGoNext,
-  setFront,
-  setBack,
   front,
   back,
   languageData,
 }: {
   canGoNext: boolean;
   setCanGoNext: (value: boolean) => void;
-  setFront: (value: DocumentData) => void;
-  setBack: (value: DocumentData) => void;
   front: DocumentData;
   back: DocumentData;
   languageData: SSRServiceResource;
@@ -540,19 +526,5 @@ function Actions({
         </Button>
       )}
     </div>
-  ) : (
-    <div className="flex items-center gap-3">
-      <Button
-        className="bg-primary hover:bg-primary/90 px-5 py-2.5"
-        onClick={() => {
-          stepper.reset();
-          setCanGoNext(false);
-          setBack(null);
-          setFront(null);
-        }}>
-        <RotateCcw className="mr-2 h-5 w-5" />
-        {languageData.Reset}
-      </Button>
-    </div>
-  );
+  ) : null;
 }
