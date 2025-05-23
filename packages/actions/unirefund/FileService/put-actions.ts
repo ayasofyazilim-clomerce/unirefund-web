@@ -4,7 +4,7 @@ import {
   PutApiFileServiceFileRelationEntitiesByIdData,
   PutApiFileServiceFileRelationsByIdData,
   PutApiFileServiceFilesByIdMetaData,
-  PutApiFileServiceFilesByIdValidatedData,
+  PutApiFileServiceFilesByIdValidateOrInvalidateData,
   PutApiFileServiceFileTypeGroupsByIdData,
   PutApiFileServiceFileTypeMimeTypesByIdData,
   PutApiFileServiceFileTypesByIdData,
@@ -16,12 +16,12 @@ import {Session} from "@repo/utils/auth";
 import {getFileServiceClient} from "../lib";
 
 export async function putFileValidationByIdApi(
-  data: PutApiFileServiceFilesByIdValidatedData,
+  data: PutApiFileServiceFilesByIdValidateOrInvalidateData,
   session?: Session | null,
 ) {
   try {
     const client = await getFileServiceClient(session);
-    const dataResponse = await client.file.putApiFileServiceFilesByIdValidated(data);
+    const dataResponse = await client.file.putApiFileServiceFilesByIdValidateOrInvalidate(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

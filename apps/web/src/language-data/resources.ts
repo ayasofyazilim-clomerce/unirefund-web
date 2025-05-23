@@ -1997,6 +1997,7 @@ export type TravellerServiceResources = {
   "UniRefund.TravellerService:010004": "Required fields are missing: {fields}";
   "UniRefund.TravellerService:010005": "Country name not found for personal identification of travel document number: {documentNumber}";
   "UniRefund.TravellerService:010006": "Single personal identification can not be deleted";
+  "UniRefund.TravellerService:010007": "Rekognition Service returned unsuccess HttpStatusCode : {httpStatusCode}";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
@@ -2056,10 +2057,10 @@ export type FileServiceResources = {
   "Permission:FileTypeGroup.Update": "Update the FileTypeGroup";
   "Permission:FileTypeGroup.List": "List the FileTypeGroup";
   "Permission:File": "File";
-  "Permission:File.Save": "Saving the File";
-  "Permission:File.Delete": "Delete the File";
-  "Permission:File.Update": "Update the File";
-  "Permission:File.List": "List the File";
+  "Permission:File.Save": "Save a file";
+  "Permission:File.Delete": "Delete a file";
+  "Permission:File.Update": "Update a file";
+  "Permission:File.List": "List files";
   "Permission:File.Validated": "Validated the File";
   "Permission:FileType": "FileType";
   "Permission:FileType.Save": "Saving the FileType";
@@ -2095,8 +2096,20 @@ export type FileServiceResources = {
   "FileService:FS0007": "Error: FileTypeGroup could not be found for the namespace {namespaceName}. Please make sure you have entered a valid namespace.";
   "FileService:FS0008": "If the isMulti field is true, the maxFileCount value cannot be null.";
   "FileService:FS0009": "Duplicate record found.";
-  "Permission:File.ListWithRelation": "List the File with Relation";
+  "Permission:File.ListWithRelation": "List files with Relation";
   "FileService:FS0010": "This is Unstract unrelated file!";
+  "Permission:FileService": "File Service";
+  "Permission:File.View": "View a file";
+  "Permission:File.Download": "Download a file";
+  "Permission:File.ListForHumanValidation": "List files for Human Validation";
+  "Permission:File.TriggerFileUnstractProcess": "Trigger file Unstract process";
+  "Permission:File.ValidateOrInvalidate": "Validate or Invalidate a File";
+  "Permission:FileAIInfo": "File AI Info";
+  "Permission:FileAIInfo.GetFileAIInfoByFileId": "Get File AI Info";
+  "FileService:FS0011": "File that is currently being processed in AI can not be triggered right now!";
+  "FileService:FS0012": "File AI Info not found by given file!";
+  "FileService:FS0013": "File already validated: '{FileValidationStatus}'!";
+  "FileService:FS0014": "File validation is not required for this type of file!";
 };
 export type RlsConfigResources = {
   SamplePageMessage: "A sample page for the RlsConfig module";

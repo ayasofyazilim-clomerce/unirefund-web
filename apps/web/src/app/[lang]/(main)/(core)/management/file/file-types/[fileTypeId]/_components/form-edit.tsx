@@ -32,6 +32,8 @@ export default function EditForm({
       formData={{
         ...fileTypeData,
         fileTypeGroupNamespace: fileTypeGroupData.find((item) => item.id === fileTypeData.fileTypeGroupID)?.namespace,
+        isAIValidationRequired: false,
+        isHumanValidationRequired: false,
       }}
       onSubmit={({formData}) => {
         if (!formData) return;
