@@ -304,5 +304,6 @@
   "LivenessFailedDescription": "Canlılık kontrolü başarısız oldu. Lütfen tekrar deneyin",
   "VerifyingYourIdentity": "Kimliğiniz doğrulanıyor...",
   "PleaseWaitWhileWeVerify": "Yüzünüzü doğrularken lütfen bekleyin.",
-  "TryAgain": "Tekrar Dene"
+  "TryAgain": "Tekrar Dene",
+  "AlreadyHaveAnAccount": "Zaten hesabınız var mı? Giriş yapın"
 }

@@ -10,11 +10,13 @@ export default async function Page({params}: {params: {lang: string}}) {
   const isTenantDisabled = process.env.FETCH_TENANT !== "true";
 
   return (
-    <RegisterForm
-      isTenantDisabled={isTenantDisabled}
-      languageData={languageData}
-      onSubmitAction={signUpServerApi}
-      onTenantSearchAction={getTenantByNameApi}
-    />
+    <div className="w-full">
+      <RegisterForm
+        isTenantDisabled={isTenantDisabled}
+        languageData={languageData}
+        onSubmitAction={signUpServerApi}
+        onTenantSearchAction={getTenantByNameApi}
+      />
+    </div>
   );
 }
