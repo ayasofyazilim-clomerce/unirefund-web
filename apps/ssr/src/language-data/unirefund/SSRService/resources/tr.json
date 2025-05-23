@@ -1,4 +1,7 @@
 {
+  "IdentityVerificationSuccessful": "Kimlik Doğrulama Başarılı",
+  "IdentityVerificationSuccessfulDescription": "Kimliğiniz başarıyla doğrulandı. Artık hesap oluşturabilirsiniz.",
+  "Register": "Kayıt Ol",
   "Document.Processing": "İşleniyor",
   "Document.Captured": "Belge Yakalandı",
   "NotImplemented": "Geliştirme aşamasında.",

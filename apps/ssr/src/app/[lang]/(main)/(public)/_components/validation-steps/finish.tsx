@@ -1,8 +1,11 @@
 import React from "react";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import {getBaseLink} from "src/utils";
+import {CheckCircle, LogIn} from "lucide-react";
 
 interface SuccessModalProps {
-  onRestart: () => void;
   languageData: SSRServiceResource;
 }
 
@@ -10,18 +13,21 @@ const SuccessModal: React.FC<SuccessModalProps> = ({languageData}) => {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-8">
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-          <svg
-            className="h-10 w-10 text-green-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-          </svg>
+        <div className="bg-primary/10 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full">
+          <CheckCircle className="text-primary h-12 w-12" />
         </div>
-        <h3 className="mb-2 text-xl font-bold text-gray-900">{languageData.LivenessVerificationSuccessful}</h3>
-        <p className="mb-6 text-gray-600">{languageData.AllExpressionTestsCompleted}</p>
+
+        <div className="mb-6">
+          <h3 className="mb-3 text-2xl font-bold text-gray-900">{languageData.IdentityVerificationSuccessful}</h3>
+          <p className="text-gray-600">{languageData.IdentityVerificationSuccessfulDescription}</p>
+        </div>
+
+        <Button asChild className="bg-primary hover:bg-primary/90 gap-2 px-6 py-2 text-white" size="lg">
+          <Link href={getBaseLink("register")}>
+            <LogIn className="mr-2 h-5 w-5" />
+            {languageData.Register}
+          </Link>
+        </Button>
       </div>
     </div>
   );
