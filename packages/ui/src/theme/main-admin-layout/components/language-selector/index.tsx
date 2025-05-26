@@ -8,19 +8,18 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import { CheckIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import {CheckIcon} from "lucide-react";
+import {useRouter} from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
-import { countries } from "./country-data";
-import { DropdownMenuSub } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import {countries} from "./country-data";
+import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
-function LanguageSelector({ lang, availableLocals }: { lang: string; availableLocals?: string[] }) {
+function LanguageSelector({lang, availableLocals = []}: {lang: string; availableLocals?: string[]}) {
   const router = useRouter();
 
   const filteredCountries = countries.filter((country) => {
-    return availableLocals?.includes(country.cultureName);
-  }
-  );
+    return availableLocals.length === 0 ? true : availableLocals?.includes(country.cultureName);
+  });
   const selectedLanguageId =
     filteredCountries.find((i) => i.cultureName === lang)?.id || "75fe277d-5138-285d-8088-3a1171b61635";
 
