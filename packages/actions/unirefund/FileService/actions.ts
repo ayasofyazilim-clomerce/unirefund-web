@@ -3,6 +3,7 @@ import {
   GetApiFileServiceFileRelationEntitiesData,
   GetApiFileServiceFileRelationsData,
   GetApiFileServiceFilesData,
+  GetApiFileServiceFilesForHumanValidationData,
   GetApiFileServiceFileTypeGroupsData,
   GetApiFileServiceFileTypeGroupsRulesetData,
   GetApiFileServiceFileTypeMimeTypesData,
@@ -28,6 +29,27 @@ export async function getFileDownloadApi(id: string, session?: Session | null) {
     const client = await getFileServiceClient(session);
     const dataResponse = await client.file.getApiFileServiceFilesByIdDownload({id});
     return structuredSuccessResponse(dataResponse);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getFilesForHumanValidationApi(
+  data: GetApiFileServiceFilesForHumanValidationData["fileHumanValidationStatuses"],
+  session?: Session | null,
+) {
+  try {
+    const client = await getFileServiceClient(session);
+    const response = await client.file.getApiFileServiceFilesForHumanValidation({fileHumanValidationStatuses: data});
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getFileAiInfosApi(fileId: string, session?: Session | null) {
+  try {
+    const client = await getFileServiceClient(session);
+    const response = await client.fileAiInfo.getApiFileServiceFileAiInfosByFileId({fileId});
+    return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
   }

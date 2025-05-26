@@ -22,6 +22,15 @@ export async function postFileApi(data: PostApiFileServiceFilesData, session?: S
     return structuredError(error);
   }
 }
+export async function postFileTriggerAiProcess(id: string, session?: Session | null) {
+  try {
+    const client = await getFileServiceClient(session);
+    const dataResponse = await client.file.postApiFileServiceFilesByIdTriggerAiProcess({id});
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function postFileRelationsApi(data: PostApiFileServiceFileRelationsData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
