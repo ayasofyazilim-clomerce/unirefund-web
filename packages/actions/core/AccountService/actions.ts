@@ -7,6 +7,7 @@ import type {
 import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import {signIn} from "@repo/utils/auth/next-auth";
 import {getAccountServiceClient} from "../lib";
+import {Session} from "@repo/utils/auth";
 
 export async function getTenantByNameApi(name: string) {
   try {
@@ -189,13 +190,13 @@ export async function getSecurityLogsApi(data: GetApiAccountSecurityLogsData) {
     return structuredError(error);
   }
 }
-export async function getPersonalInfomationApi() {
+export async function getPersonalInfomationApi(session?: Session | null) {
   try {
-    const client = await getAccountServiceClient();
+    const client = await getAccountServiceClient(undefined, session);
     const dataResponse = await client.profile.getApiAccountMyProfile();
-    return structuredResponse(dataResponse);
+    return structuredSuccessResponse(dataResponse);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
   }
 }
 export async function getApplicationConfigurationApi(data: GetApiAbpApplicationConfigurationData) {
