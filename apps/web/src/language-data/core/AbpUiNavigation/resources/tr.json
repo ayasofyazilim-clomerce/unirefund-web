@@ -96,5 +96,6 @@
   "FileTypes": "Dosya Türleri",
   "FileTypeMimeTypes": "Dosya Türü Mime Türleri",
   "FileTypeGroups": "Dosya Türü Grupları",
-  "FileRelationEntities": "Dosya İlişki Varlıkları"
+  "FileRelationEntities": "Dosya İlişki Varlıkları",
+  "FileVerification": "Dosya Doğrulama"
 }

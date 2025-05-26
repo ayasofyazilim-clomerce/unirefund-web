@@ -13,6 +13,7 @@ import {
   ClipboardList,
   Container,
   DiamondPercent,
+  FileBadge,
   FileIcon,
   FileKey,
   FileSliders,
@@ -166,4 +167,5 @@ export const icons = {
   fileTypeGroups: <FileStack className="mr-1 size-4 text-gray-600" />,
   fileRelationEntities: <FileKey className="mr-1 size-4 text-gray-600" />,
   providers: <Server className="mr-1 size-4 text-gray-600" />,
+  fileVerification: <FileBadge className="mr-1 size-4 text-gray-600" />,
 };
