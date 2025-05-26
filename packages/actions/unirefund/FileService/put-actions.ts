@@ -36,6 +36,18 @@ export async function putFileMetaByIdApi(data: PutApiFileServiceFilesByIdMetaDat
     return structuredError(error);
   }
 }
+export async function putFileValidateOrInvalidateApi(
+  data: PutApiFileServiceFilesByIdValidateOrInvalidateData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getFileServiceClient(session);
+    const dataResponse = await client.file.putApiFileServiceFilesByIdValidateOrInvalidate(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
 export async function putFileRelationsByIdApi(data: PutApiFileServiceFileRelationsByIdData, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
