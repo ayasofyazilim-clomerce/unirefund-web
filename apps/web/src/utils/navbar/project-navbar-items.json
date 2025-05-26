@@ -357,6 +357,16 @@
     "requiredPolicies": ["FileService.FileRelationEntity"]
   },
   {
+    "key": "management/file/verification",
+    "displayName": "FileVerification",
+    "description": "Manage file verification.",
+    "href": "management/file/verification",
+    "icon": "fileVerification",
+    "parentNavbarItemKey": "management/file",
+    "displayOrder": 1,
+    "requiredPolicies": ["FileService.File"]
+  },
+  {
     "key": "settings",
     "displayName": "Settings",
     "description": "Access settings settings and tools.",

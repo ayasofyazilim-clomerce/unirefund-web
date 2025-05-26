@@ -91,5 +91,6 @@
   "FileTypes": "File Types",
   "FileTypeMimeTypes": "File Type Mime Types",
   "FileTypeGroups": "File Type Groups",
-  "FileRelationEntities": "File Relation Entities"
+  "FileRelationEntities": "File Relation Entities",
+  "FileVerification": "File Verification"
 }
