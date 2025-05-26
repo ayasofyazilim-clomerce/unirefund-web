@@ -1,7 +1,7 @@
 import {Card} from "@/components/ui/card";
-import ValidationSteps from "@/app/[lang]/(main)/(public)/_components/validation-steps";
-import {getResourceData} from "src/language-data/unirefund/SSRService";
 import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
+import {getResourceData} from "src/language-data/unirefund/SSRService";
+import ValidationSteps from "./_components/validation-steps";
 
 export default async function Home({
   params,
@@ -15,7 +15,7 @@ export default async function Home({
   const clientAuths = await getAWSEnvoriment();
   return (
     <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:mx-auto md:max-w-xl">
-      <ValidationSteps languageData={languageData} clientAuths={clientAuths} />
+      <ValidationSteps clientAuths={clientAuths} languageData={languageData} />
     </Card>
   );
 }

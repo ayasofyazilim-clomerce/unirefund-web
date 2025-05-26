@@ -7,9 +7,9 @@ import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, LogI
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {postCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {getCreateFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import Link from "next/link";
 import {useParams} from "next/navigation";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {getBaseLink} from "@/utils";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
@@ -507,8 +507,8 @@ function Actions({
 
           <div className="mt-2 text-center">
             <Link
-              href={getBaseLink("login", lang)}
-              className="hover:text-primary flex items-center  justify-center gap-1 text-sm text-gray-500">
+              className="hover:text-primary flex items-center  justify-center gap-1 text-sm text-gray-500"
+              href={getBaseLink("login", lang)}>
               {languageData.AlreadyHaveAnAccount}
               <LogIn className="inline h-4 w-4" />
             </Link>

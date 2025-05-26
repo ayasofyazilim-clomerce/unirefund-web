@@ -305,5 +305,6 @@
   "VerifyingYourIdentity": "Kimliğiniz doğrulanıyor...",
   "PleaseWaitWhileWeVerify": "Yüzünüzü doğrularken lütfen bekleyin.",
   "TryAgain": "Tekrar Dene",
-  "AlreadyHaveAnAccount": "Zaten hesabınız var mı? Giriş yapın"
+  "AlreadyHaveAnAccount": "Zaten hesabınız var mı? Giriş yapın",
+  "Logout": "Çıkış Yap"
 }

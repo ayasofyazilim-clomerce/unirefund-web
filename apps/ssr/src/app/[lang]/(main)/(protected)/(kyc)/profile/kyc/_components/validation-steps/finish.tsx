@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {CheckCircle, LogIn} from "lucide-react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {getBaseLink} from "src/utils";
-import {CheckCircle, LogIn} from "lucide-react";
 
 interface SuccessModalProps {
   languageData: SSRServiceResource;

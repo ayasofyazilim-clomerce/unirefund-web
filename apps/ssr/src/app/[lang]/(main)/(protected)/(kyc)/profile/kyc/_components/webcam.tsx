@@ -145,10 +145,10 @@ export function WebcamCapture({
           audio={false}
           className={cn("background-transparent h-auto w-full rounded-md")}
           mirrored={type === "selfie"}
+          onUserMedia={handleUserMedia}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           screenshotQuality={1}
-          onUserMedia={handleUserMedia}
           videoConstraints={{
             facingMode,
             width: 1080,
