@@ -34,12 +34,12 @@ export async function getFileDownloadApi(id: string, session?: Session | null) {
   }
 }
 export async function getFilesForHumanValidationApi(
-  data: GetApiFileServiceFilesForHumanValidationData,
+  data: GetApiFileServiceFilesForHumanValidationData["fileHumanValidationStatuses"],
   session?: Session | null,
 ) {
   try {
     const client = await getFileServiceClient(session);
-    const response = await client.file.getApiFileServiceFilesForHumanValidation(data);
+    const response = await client.file.getApiFileServiceFilesForHumanValidation({fileHumanValidationStatuses: data});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
