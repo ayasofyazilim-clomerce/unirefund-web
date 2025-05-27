@@ -18,10 +18,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {signOutServer} from "@repo/utils/auth";
+import {cn} from "@/lib/utils";
 import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
+const navigationItems = [
+  {
+    name: "Home",
+    href: "home",
+    icon: Home,
+  },
+  {
+    name: "Explore",
+    href: "explore",
+    icon: MapPin,
+  },
+  {
+    name: "Profile",
+    href: "profile",
+    icon: User,
+  },
+];
 export default function Header({
   languageData,
   availableLocals,
@@ -30,10 +48,8 @@ export default function Header({
   availableLocals: string[];
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const params = useParams();
-  const lang = params.lang as string;
+  const {lang} = useParams<{lang: string}>();
   const pathname = usePathname();
-
   const handleLogout = () => {
     void signOutServer();
   };
@@ -153,36 +169,33 @@ export default function Header({
       {/* Mobil için alt tab navigation */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-16 items-center justify-around border-t bg-white md:hidden">
         {/* Home Tab */}
-        <Link className="flex flex-1 flex-col items-center justify-center" href={getBaseLink("", lang)}>
-          <Home
-            className={`h-6 w-6 ${
-              pathname === `/${lang}` || pathname === `/${lang}/` || pathname === `/${lang}/home`
-                ? "text-red-600"
-                : "text-gray-700"
-            }`}
-          />
-          <span
-            className={`text-xs ${
-              pathname === `/${lang}` || pathname === `/${lang}/` || pathname === `/${lang}/home`
-                ? "text-red-600"
-                : "text-gray-700"
-            }`}>
-            {languageData.Home}
-          </span>
-        </Link>
-        {/* Ortadaki kırmızı buton */}
-        <Link className="relative -mt-8 flex flex-col items-center justify-center" href={getBaseLink("explore", lang)}>
-          <span className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-red-600 shadow-lg">
-            <MapPin className="h-8 w-8 text-white" />
-          </span>
-        </Link>
-        {/* Profil Tab */}
-        <Link className="flex flex-1 flex-col items-center justify-center" href={getBaseLink("profile", lang)}>
-          <User className={`h-6 w-6 ${pathname.includes("profile") ? "text-red-600" : "text-gray-700"}`} />
-          <span className={`text-xs ${pathname.includes("profile") ? "text-red-600" : "text-gray-700"}`}>
-            {languageData.Profile}
-          </span>
-        </Link>
+        {navigationItems.map((item) => {
+          if (item.href === "explore") {
+            return (
+              <Link
+                className="relative -mt-8 flex flex-col items-center justify-center"
+                href={getBaseLink("explore", lang)}
+                key={item.name}>
+                <span className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-red-600 shadow-lg">
+                  <item.icon className="h-8 w-8 text-white" />
+                </span>
+              </Link>
+            );
+          }
+          const isActive = pathname.startsWith(getBaseLink(item.href.padStart(1), lang));
+          return (
+            <Link
+              className={cn(
+                "flex flex-1 flex-col items-center justify-center",
+                isActive ? "text-primary" : "text-gray-700",
+              )}
+              href={getBaseLink(item.href, lang)}
+              key={item.name}>
+              <item.icon className="size-6" />
+              <span className="text-xs">{languageData[item.name as keyof SSRServiceResource]}</span>
+            </Link>
+          );
+        })}
       </nav>
     </>
   );
