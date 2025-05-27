@@ -6,7 +6,6 @@ import {Card, CardHeader, CardTitle, CardContent, CardDescription} from "@/compo
 import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "@/components/ui/dialog";
-import {Badge} from "@/components/ui/badge";
 import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, Pencil, IdCard} from "lucide-react";
 import {signOut} from "next-auth/react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
@@ -114,7 +113,7 @@ export default function Profile({
             </CardHeader>
             <CardContent className="pt-0">
               <div className="-mt-10 flex flex-col items-center">
-                <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
+                <Avatar className="h-20 w-20 border-4 border-white ">
                   <AvatarFallback className="bg-red-500 text-lg text-white">
                     {getInitials(
                       personalInformationData.name ?? undefined,
@@ -122,13 +121,8 @@ export default function Profile({
                     )}
                   </AvatarFallback>
                 </Avatar>
-                <h2 className="mt-4 text-xl font-semibold">
-                  {personalInformationData.name} {personalInformationData.surname}
-                </h2>
-                <p className="mt-1 text-sm text-gray-500">{personalInformationData.userName || "Kullanıcı"}</p>
-                <Badge className="mt-3" variant="outline">
-                  {personalInformationData.email}
-                </Badge>
+                <h2 className="mt-2 text-xl font-semibold">{personalInformationData.userName}</h2>
+                <p className="mt-1 text-sm text-gray-500">{personalInformationData.email}</p>
               </div>
             </CardContent>
           </Card>

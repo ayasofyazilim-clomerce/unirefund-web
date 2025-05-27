@@ -9,6 +9,7 @@ import {postCompareFaces} from "@repo/actions/unirefund/TravellerService/post-ac
 import {getCreateFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
 import Link from "next/link";
 import {useParams} from "next/navigation";
+import {useSession} from "@repo/utils/auth";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {getBaseLink} from "@/utils";
 import ScanDocument from "./validation-steps/scan-document";
@@ -437,7 +438,7 @@ function Actions({
 }) {
   const stepper = GlobalScopper.useStepper();
   const {lang} = useParams<{lang: string}>();
-
+  const {session} = useSession();
   return !stepper.isLast ? (
     <div className="flex items-center justify-between">
       {!stepper.isFirst && (
@@ -505,14 +506,16 @@ function Actions({
             {languageData.StartValidationWithIDCard}
           </Button>
 
-          <div className="mt-2 text-center">
-            <Link
-              className="hover:text-primary flex items-center  justify-center gap-1 text-sm text-gray-500"
-              href={getBaseLink("login", lang)}>
-              {languageData.AlreadyHaveAnAccount}
-              <LogIn className="inline h-4 w-4" />
-            </Link>
-          </div>
+          {!session && (
+            <div className="mt-2 text-center">
+              <Link
+                className="hover:text-primary flex items-center  justify-center gap-1 text-sm text-gray-500"
+                href={getBaseLink("login", lang)}>
+                {languageData.AlreadyHaveAnAccount}
+                <LogIn className="inline h-4 w-4" />
+              </Link>
+            </div>
+          )}
         </div>
       ))}
 
