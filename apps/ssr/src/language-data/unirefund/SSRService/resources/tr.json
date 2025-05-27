@@ -209,6 +209,7 @@
   "Services": "Hizmetlerimiz",
   "Contact": "İletişim",
   "SelectLanguage": "Dil Seçiniz",
+  "LanguagePreferences": "Dil Tercihleri",
   "FindYourTransaction": "İşleminizi Bulun",
   "SearchForYourTaxFreeRefunds": "Form bilgilerinizi kullanarak vergisiz iadelerinizi arayın",
   "EnterFormDetails": "Form Bilgilerini Girin",
@@ -360,5 +361,19 @@
   "Profile": "Profil",
   "ProfileQRCode": "Profil QR Kodu",
   "ProfileQRCodeDescription": "Bu QR kodu kullanarak profilinize hızlıca erişebilirsiniz.",
-  "QRCode": "QR Kodu"
+  "QRCode": "QR Kodu",
+  "Home": "Ana Sayfa",
+  "Explore": "Keşfet",
+  "Explore.Title": "Vergisiz Noktaları Keşfet",
+  "Explore.Description": "Yakınınızdaki vergisiz alışveriş noktalarını keşfedin",
+  "Explore.SearchPlaceholder": "Vergisiz noktalar için arayın...",
+  "Explore.NoResults": "Sonuç bulunamadı.",
+  "Explore.MapTab": "Harita",
+  "Explore.ListTab": "Liste",
+  "Explore.Loading": "Vergisiz noktalar yükleniyor...",
+  "Explore.Points": "nokta",
+  "Explore.Point": "nokta",
+  "Explore.Results": "sonuç",
+  "Explore.ShowOnMap": "Haritada göster",
+  "Explore.ShowOnList": "Listede göster"
 }

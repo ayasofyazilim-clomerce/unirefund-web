@@ -34,7 +34,7 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
   ];
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="mx-auto py-4 md:container md:py-8">
       {/* Welcome Section */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold">

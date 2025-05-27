@@ -37,5 +37,11 @@ export default async function Page({params}: {params: {lang: string}}) {
     );
   }
   const [response] = apiRequests.requiredRequests;
-  return <Profile languageData={languageData} personalInformationData={response.data} />;
+  return (
+    <Profile
+      availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
+      languageData={languageData}
+      personalInformationData={response.data}
+    />
+  );
 }

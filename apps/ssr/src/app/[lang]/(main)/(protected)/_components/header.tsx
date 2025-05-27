@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import {useState} from "react";
-import {Menu, X, User, LogOut} from "lucide-react";
+import {Menu, X, User, LogOut, Home, MapPin} from "lucide-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
-import {useParams} from "next/navigation";
+import {useParams, usePathname} from "next/navigation";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {
   DropdownMenu,
@@ -32,109 +32,158 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const params = useParams();
   const lang = params.lang as string;
+  const pathname = usePathname();
 
   const handleLogout = () => {
     void signOutServer();
   };
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-8">
-        <Link className="flex items-center space-x-2" href={getBaseLink("", lang)}>
-          <Image alt="UniRefund Logo" height={32} priority src={unirefundLogo.src} width={140} />
-        </Link>
+    <>
+      {/* Masaüstü için mevcut header */}
+      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 hidden w-full border-b backdrop-blur md:block">
+        <div className="container flex h-16 items-center justify-between px-4 md:px-8">
+          <Link className="flex items-center space-x-2" href={getBaseLink("", lang)}>
+            <Image alt="UniRefund Logo" height={32} priority src={unirefundLogo.src} width={140} />
+          </Link>
 
-        {/* Mobile menu button and language selector */}
-        <div className="flex items-center space-x-2 md:hidden">
-          {/* Mobile language selector outside menu */}
-          <LanguageSelector availableLocals={availableLocals} lang={lang} />
-
-          <Button
-            className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none"
-            onClick={() => {
-              setIsMenuOpen(!isMenuOpen);
-            }}
-            variant="outline">
-            <span className="sr-only">{languageData.OpenMainMenu}</span>
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex md:items-center md:space-x-8">
-          {/* LanguageSelector for desktop */}
-          <div className="mr-4">
+          {/* Mobile menu button and language selector */}
+          <div className="flex items-center space-x-2 md:hidden">
+            {/* Mobile language selector outside menu */}
             <LanguageSelector availableLocals={availableLocals} lang={lang} />
-          </div>{" "}
-          {/* Avatar with Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className="relative h-8 w-8 rounded-full" variant="ghost">
-                <Avatar>
-                  <AvatarImage src="" />
-                  <AvatarFallback>MG</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56" forceMount>
-              <DropdownMenuLabel>{languageData.MyAccount}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <Link href="/profile" passHref>
-                  <DropdownMenuItem>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>{languageData.Profile}</span>
-                  </DropdownMenuItem>
-                </Link>
-                <DropdownMenuItem onSelect={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>{languageData.Logout}</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </nav>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen ? (
-          <div className="absolute inset-x-0 top-16 z-50 origin-top-right transform p-2 transition md:hidden">
-            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-              <div className="px-5 pb-6 pt-5">
-                <div className="flex flex-col space-y-4">
-                  {" "}
-                  {/* Profile options for mobile */}
-                  <div className="space-y-1">
-                    <div className="px-2 text-sm font-semibold">{languageData.MyAccount}</div>
-                    <div className="flex flex-col space-y-1">
-                      <Link href="/profile" passHref>
+            <Button
+              className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none"
+              onClick={() => {
+                setIsMenuOpen(!isMenuOpen);
+              }}
+              variant="outline">
+              <span className="sr-only">{languageData.OpenMainMenu}</span>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex md:items-center md:space-x-8">
+            {/* Explore button (desktop) */}
+            <Link
+              className="mr-2 flex items-center justify-center"
+              href={getBaseLink("explore", lang)}
+              title={languageData.Explore}>
+              <p className=" hover:text-primary text-sm font-medium transition-colors">
+                <MapPin className="mr-1 inline h-4 w-4" />
+                {languageData.Explore}
+              </p>
+            </Link>
+            {/* LanguageSelector for desktop */}
+            <div className="mr-4">
+              <LanguageSelector availableLocals={availableLocals} lang={lang} />
+            </div>{" "}
+            {/* Avatar with Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="relative h-8 w-8 rounded-full" variant="ghost">
+                  <Avatar>
+                    <AvatarImage src="" />
+                    <AvatarFallback>MG</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56" forceMount>
+                <DropdownMenuLabel>{languageData.MyAccount}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <Link href="/profile" passHref>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{languageData.Profile}</span>
+                    </DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem onSelect={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>{languageData.Logout}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </nav>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen ? (
+            <div className="absolute inset-x-0 top-16 z-50 origin-top-right transform p-2 transition md:hidden">
+              <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="px-5 pb-6 pt-5">
+                  <div className="flex flex-col space-y-4">
+                    {" "}
+                    {/* Profile options for mobile */}
+                    <div className="space-y-1">
+                      <div className="px-2 text-sm font-semibold">{languageData.MyAccount}</div>
+                      <div className="flex flex-col space-y-1">
+                        <Link href="/profile" passHref>
+                          <Button
+                            className="w-full justify-start"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                            }}
+                            variant="ghost">
+                            <User className="mr-2 h-4 w-4" />
+                            <span>{languageData.Profile}</span>
+                          </Button>
+                        </Link>
                         <Button
                           className="w-full justify-start"
                           onClick={() => {
                             setIsMenuOpen(false);
+                            handleLogout();
                           }}
                           variant="ghost">
-                          <User className="mr-2 h-4 w-4" />
-                          <span>{languageData.Profile}</span>
+                          <LogOut className="mr-2 h-4 w-4" />
+                          <span>{languageData.Logout}</span>
                         </Button>
-                      </Link>
-                      <Button
-                        className="w-full justify-start"
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          handleLogout();
-                        }}
-                        variant="ghost">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>{languageData.Logout}</span>
-                      </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : null}
-      </div>
-    </header>
+          ) : null}
+        </div>
+      </header>
+
+      {/* Mobil için alt tab navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-16 items-center justify-around border-t bg-white md:hidden">
+        {/* Home Tab */}
+        <Link className="flex flex-1 flex-col items-center justify-center" href={getBaseLink("", lang)}>
+          <Home
+            className={`h-6 w-6 ${
+              pathname === `/${lang}` || pathname === `/${lang}/` || pathname === `/${lang}/home`
+                ? "text-red-600"
+                : "text-gray-700"
+            }`}
+          />
+          <span
+            className={`text-xs ${
+              pathname === `/${lang}` || pathname === `/${lang}/` || pathname === `/${lang}/home`
+                ? "text-red-600"
+                : "text-gray-700"
+            }`}>
+            {languageData.Home}
+          </span>
+        </Link>
+        {/* Ortadaki kırmızı buton */}
+        <Link className="relative -mt-8 flex flex-col items-center justify-center" href={getBaseLink("explore", lang)}>
+          <span className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-red-600 shadow-lg">
+            <MapPin className="h-8 w-8 text-white" />
+          </span>
+        </Link>
+        {/* Profil Tab */}
+        <Link className="flex flex-1 flex-col items-center justify-center" href={getBaseLink("profile", lang)}>
+          <User className={`h-6 w-6 ${pathname.includes("profile") ? "text-red-600" : "text-gray-700"}`} />
+          <span className={`text-xs ${pathname.includes("profile") ? "text-red-600" : "text-gray-700"}`}>
+            {languageData.Profile}
+          </span>
+        </Link>
+      </nav>
+    </>
   );
 }

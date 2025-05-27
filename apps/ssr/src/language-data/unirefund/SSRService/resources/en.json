@@ -360,5 +360,20 @@
   "VerifyingYourIdentity": "Verifying your identity...",
   "PleaseWaitWhileWeVerify": "Please wait while we verify your face.",
   "TryAgain": "Try Again",
-  "AlreadyHaveAnAccount": "Already have an account? Log in"
+  "AlreadyHaveAnAccount": "Already have an account? Log in",
+  "Home": "Home",
+  "LanguagePreferences": "Language Preferences",
+  "Explore": "Explore",
+  "Explore.Title": "Tax-Free Explore",
+  "Explore.Description": "Discover tax-free shopping points near you",
+  "Explore.SearchPlaceholder": "Search for tax-free points...",
+  "Explore.NoResults": "No results found.",
+  "Explore.MapTab": "Map",
+  "Explore.ListTab": "List",
+  "Explore.Loading": "Loading tax-free points...",
+  "Explore.Points": "points",
+  "Explore.Point": "point",
+  "Explore.Results": "results",
+  "Explore.ShowOnMap": "Show on map",
+  "Explore.ShowOnList": "Show on list"
 }
