@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {signOut} from "next-auth/react";
+import {signOutServer} from "@repo/utils/auth";
 import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
@@ -34,7 +34,7 @@ export default function Header({
   const lang = params.lang as string;
 
   const handleLogout = () => {
-    void signOut({callbackUrl: "/"});
+    void signOutServer();
   };
 
   return (
@@ -77,18 +77,18 @@ export default function Header({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56" forceMount>
-              <DropdownMenuLabel>Hesabım</DropdownMenuLabel>
+              <DropdownMenuLabel>{languageData.MyAccount}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <Link href="/profile" passHref>
                   <DropdownMenuItem>
                     <User className="mr-2 h-4 w-4" />
-                    <span>Profil</span>
+                    <span>{languageData.Profile}</span>
                   </DropdownMenuItem>
                 </Link>
                 <DropdownMenuItem onSelect={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Çıkış Yap</span>
+                  <span>{languageData.Logout}</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
@@ -104,7 +104,7 @@ export default function Header({
                   {" "}
                   {/* Profile options for mobile */}
                   <div className="space-y-1">
-                    <div className="px-2 text-sm font-semibold">Hesabım</div>
+                    <div className="px-2 text-sm font-semibold">{languageData.MyAccount}</div>
                     <div className="flex flex-col space-y-1">
                       <Link href="/profile" passHref>
                         <Button
@@ -114,7 +114,7 @@ export default function Header({
                           }}
                           variant="ghost">
                           <User className="mr-2 h-4 w-4" />
-                          <span>Profil</span>
+                          <span>{languageData.Profile}</span>
                         </Button>
                       </Link>
                       <Button
@@ -125,7 +125,7 @@ export default function Header({
                         }}
                         variant="ghost">
                         <LogOut className="mr-2 h-4 w-4" />
-                        <span>Çıkış Yap</span>
+                        <span>{languageData.Logout}</span>
                       </Button>
                     </div>
                   </div>

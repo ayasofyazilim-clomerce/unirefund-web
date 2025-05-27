@@ -7,7 +7,7 @@ import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "@/components/ui/dialog";
 import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, Pencil, IdCard} from "lucide-react";
-import {signOut} from "next-auth/react";
+import {signOutServer} from "@repo/utils/auth";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 export default function Profile({
@@ -28,48 +28,48 @@ export default function Profile({
   const accountItems = [
     {
       icon: <User className="h-4 w-4" />,
-      title: "Hesap bilgileri",
-      description: "Kişisel bilgilerinizi görüntüleyin ve düzenleyin",
+      title: languageData.AccountInformation || "Account Information",
+      description: languageData.ViewEditPersonalInfo || "View and edit your personal information",
       onClick: () => {
         router.push("/account/personal-information");
       },
     },
     {
       icon: <IdCard className="h-4 w-4" />,
-      title: "Kimlik doğrulama",
-      description: "İki faktörlü kimlik doğrulama ayarlarınızı yönetin",
+      title: languageData.IdentityVerification || "Identity Verification",
+      description: languageData.ManageTwoFactorAuth || "Manage your two-factor authentication settings",
       onClick: () => {
         router.push("profile/kyc");
       },
     },
     {
       icon: <KeyRound className="h-4 w-4" />,
-      title: "Şifre değiştir",
-      description: "Hesap güvenliğinizi güncelleyin",
+      title: languageData.ChangePassword || "Change Password",
+      description: languageData.UpdateAccountSecurity || "Update your account security",
       onClick: () => {
         router.push("/account/change-password");
       },
     },
     {
       icon: <Bell className="h-4 w-4" />,
-      title: "Bildirim tercihleri",
-      description: "Bildirim ayarlarınızı yönetin",
+      title: languageData.NotificationPreferences || "Notification Preferences",
+      description: languageData.ManageNotificationSettings || "Manage your notification settings",
       onClick: () => {
         router.push("/notifications");
       },
     },
     {
       icon: <Shield className="h-4 w-4" />,
-      title: "Güvenlik Ayarları",
-      description: "Hesap güvenliğinizi yapılandırın",
+      title: languageData.SecuritySettings || "Security Settings",
+      description: languageData.ConfigureAccountSecurity || "Configure your account security",
       onClick: () => {
         router.push("/account/security");
       },
     },
     {
       icon: <HelpCircle className="h-4 w-4" />,
-      title: "Destek",
-      description: "Yardım ve destek alın",
+      title: languageData.Support || "Support",
+      description: languageData.GetHelpSupport || "Get help and support",
       onClick: () => {
         router.push("/support");
       },
@@ -77,7 +77,7 @@ export default function Profile({
   ];
 
   const handleLogout = () => {
-    void signOut({callbackUrl: "/"});
+    void signOutServer();
   };
 
   return (
@@ -94,7 +94,7 @@ export default function Profile({
                     router.push("/account/personal-information");
                   }}
                   size="icon"
-                  title="Profili Düzenle"
+                  title={languageData.EditProfile || "Edit Profile"}
                   variant="ghost">
                   <Pencil className="h-5 w-5" />
                 </Button>
@@ -104,7 +104,7 @@ export default function Profile({
                     setShowQrCode(true);
                   }}
                   size="icon"
-                  title="QR Kod"
+                  title={languageData.QRCode || "QR Code"}
                   variant="ghost">
                   <QrCode className="h-5 w-5" />
                 </Button>
@@ -140,8 +140,10 @@ export default function Profile({
         {/* Ayarlar Kartı */}
         <Card>
           <CardHeader>
-            <CardTitle>Hesap Yönetimi</CardTitle>
-            <CardDescription>Profilinizi ve hesap tercihlerinizi yönetin</CardDescription>
+            <CardTitle>{languageData.AccountManagement || "Account Management"}</CardTitle>
+            <CardDescription>
+              {languageData.ManageProfileAndPreferences || "Manage your profile and account preferences"}
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {" "}
@@ -174,12 +176,14 @@ export default function Profile({
       <Dialog onOpenChange={setShowQrCode} open={showQrCode}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Profil QR Kodu</DialogTitle>
-            <DialogDescription>Bu QR kodu kullanarak profilinize hızlıca erişebilirsiniz.</DialogDescription>
+            <DialogTitle>{languageData.ProfileQRCode || "Profile QR Code"}</DialogTitle>
+            <DialogDescription>
+              {languageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
+            </DialogDescription>
           </DialogHeader>
           <div className="flex justify-center py-6">
             <div className="flex h-64 w-64 items-center justify-center rounded-md border bg-gray-100">
-              <span className="text-gray-500">QR Kodu</span>
+              <span className="text-gray-500">{languageData.QRCode || "QR Code"}</span>
             </div>
           </div>
         </DialogContent>
