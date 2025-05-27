@@ -12,12 +12,14 @@ export function toastOnSubmit(data: string | object) {
     },
     description: (
       <>
-        <pre className="mt-2 h-full w-full flex-1 rounded-md bg-slate-950 p-4">
+        <pre className="mt-2 flex h-full w-full flex-1  flex-col overflow-auto rounded-md bg-slate-950">
           <ScrollArea>
-            <code className=" text-white">{JSON.stringify(data, null, 2)}</code>
+            <code className="flex max-h-[50dvh] min-h-[500px] p-4 pb-6 text-white">
+              {JSON.stringify(data, null, 2)}
+            </code>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
-          <p className="text-muted-foreground">This submit was not connected to an API.</p>
+          <p className="text-muted-foreground pl-4">This submit was not connected to an API.</p>
         </pre>
       </>
     ),
@@ -27,5 +29,6 @@ export function toastOnSubmit(data: string | object) {
         navigator.clipboard.writeText(JSON.stringify(data, null, 2));
       },
     },
+    duration: 99999,
   });
 }
