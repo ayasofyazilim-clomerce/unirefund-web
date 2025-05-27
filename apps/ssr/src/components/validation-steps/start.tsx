@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import {useParams} from "next/navigation";
+import {ReceiptText} from "lucide-react";
 import {getBaseLink} from "@/utils";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import PassportMockup from "public/passport-mockup.png";
-import {ReceiptText} from "lucide-react";
 
 export default function Start({languageData}: {languageData: SSRServiceResource}) {
   const {lang} = useParams<{lang: string}>();

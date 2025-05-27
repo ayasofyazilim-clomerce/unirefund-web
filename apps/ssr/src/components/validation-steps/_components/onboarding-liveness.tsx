@@ -29,14 +29,14 @@ export default function OnboardingPage({
       </div>
       <div className="mb-4 flex justify-center">
         <Image
-          src={Straight}
-          height={180}
-          width={140}
           alt="Liveness onboarding illustration"
           className="rounded-lg object-contain"
+          height={180}
+          src={Straight}
+          width={140}
         />
       </div>
-      <Button className="bg-primary text-primary-foreground w-full" size="lg" onClick={onStartValidation}>
+      <Button className="bg-primary text-primary-foreground w-full" onClick={onStartValidation} size="lg">
         {languageData.StartValidation}
         <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
