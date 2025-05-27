@@ -3,6 +3,7 @@
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
 import {CircleDollarSign, FileUp, Clock, Store, PlusCircle, HelpCircle, BookOpen, Bell} from "lucide-react";
 import Link from "next/link";
+import {useSession} from "@repo/utils/auth";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
 interface HomePageClientProps {
@@ -10,8 +11,10 @@ interface HomePageClientProps {
 }
 
 export default function HomePageClient({languageData}: HomePageClientProps) {
+  const {session} = useSession();
+
   // In a real app, you would get this from your user context/session
-  const userName = "John";
+  const userName = session?.user?.userName;
   const recentActivities = [
     {
       id: 1,
@@ -34,7 +37,7 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
   ];
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="mx-auto py-4 md:container md:py-8">
       {/* Welcome Section */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold">

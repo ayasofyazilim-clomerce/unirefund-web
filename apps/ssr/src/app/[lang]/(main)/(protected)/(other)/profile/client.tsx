@@ -1,20 +1,23 @@
 "use client";
 import React from "react";
 import type {Volo_Abp_Account_ProfileDto} from "@ayasofyazilim/core-saas/AccountService";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {Card, CardHeader, CardTitle, CardContent, CardDescription} from "@/components/ui/card";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "@/components/ui/dialog";
 import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, Pencil, IdCard} from "lucide-react";
 import {signOutServer} from "@repo/utils/auth";
+import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 
 export default function Profile({
   languageData,
+  availableLocals,
   personalInformationData,
 }: {
   languageData: SSRServiceResource;
+  availableLocals: string[];
   personalInformationData: Volo_Abp_Account_ProfileDto;
 }) {
   const router = useRouter();
@@ -80,12 +83,15 @@ export default function Profile({
     void signOutServer();
   };
 
+  const params = useParams();
+  const lang = params.lang as string;
+
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8">
-      <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
+    <div className="mx-auto max-w-full py-4 md:container md:max-w-5xl md:px-4 md:py-8">
+      <div className="grid gap-4 md:gap-8 lg:grid-cols-[300px_1fr]">
         {/* Profil Kartı */}
         <div className="space-y-6">
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden ">
             <CardHeader className="relative bg-gradient-to-r from-red-500 to-red-600 p-0 text-white">
               <div className="absolute top-2 flex w-full justify-between px-2">
                 <Button
@@ -169,6 +175,16 @@ export default function Profile({
               </div>
             </div>
           </CardContent>
+        </Card>
+        <Card className="flex md:hidden">
+          <CardHeader className="w-full">
+            <CardTitle>{languageData.LanguagePreferences}</CardTitle>
+
+            <CardDescription className="flex w-full items-center justify-between">
+              {languageData.SelectLanguage}
+              <LanguageSelector availableLocals={availableLocals} lang={lang} />
+            </CardDescription>
+          </CardHeader>
         </Card>
       </div>
 
