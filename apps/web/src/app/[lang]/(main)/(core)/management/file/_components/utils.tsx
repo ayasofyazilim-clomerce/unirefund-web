@@ -1,5 +1,5 @@
 import {Button} from "@/components/ui/button";
-import {FileSliders, FileType2, Server} from "lucide-react";
+import {FileBadge, FileSliders, FileType2, Server} from "lucide-react";
 import Link from "next/link";
 import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 import {getBaseLink} from "@/utils";
@@ -11,6 +11,7 @@ export function checkIsFormReady({
   providerDataLength,
   mimeTypeDataLength,
   fileTypeDataLength,
+  filesForHumanValidationLength,
 }: {
   lang: string;
   languageData: FileServiceResource;
@@ -18,6 +19,7 @@ export function checkIsFormReady({
   providerDataLength?: number;
   mimeTypeDataLength?: number;
   fileTypeDataLength?: number;
+  filesForHumanValidationLength?: number;
 }) {
   if (fileTypeGroupDataLength !== undefined && fileTypeGroupDataLength === 0) {
     return {
@@ -63,7 +65,16 @@ export function checkIsFormReady({
       },
     };
   }
-
+  if (filesForHumanValidationLength !== undefined && filesForHumanValidationLength === 0) {
+    return {
+      isActive: true,
+      content: {
+        icon: <FileBadge className="size-20 text-gray-400" />,
+        title: languageData["Missing.FilesForHumanValidation.Title"],
+        message: languageData["Missing.FilesForHumanValidation.Message"],
+      },
+    };
+  }
   return {
     isActive: false,
     content: null,

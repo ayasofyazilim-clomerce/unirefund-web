@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "payable_amount": {
+      "type": "string"
+    },
+    "hesap_no": {
+      "type": "integer"
+    },
+    "tarife_tablosu": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Description": {"type": "string"},
+          "Fee (TL)": {"type": "number"},
+          "Fee Type Description": {"type": "string"},
+          "Product Quantity": {"type": "integer"},
+          "Service Number": {"type": "string"},
+          "Sub Service Type": {"type": "string"},
+          "Value Unit": {"type": "string"}
+        },
+        "required": [
+          "Description",
+          "Fee (TL)",
+          "Fee Type Description",
+          "Product Quantity",
+          "Service Number",
+          "Sub Service Type",
+          "Value Unit"
+        ]
+      }
+    },
+    "ucretler_tablosu": {
+      "type": "object",
+      "properties": {
+        "Service Number": {"type": "string"},
+        "Monthly Fees": {"type": "string"},
+        "Usage Fees": {"type": "string"},
+        "Other Fees": {"type": "string"},
+        "Discount Fees": {"type": "string"},
+        "Discounts": {"type": "string"},
+        "Amount Payable": {"type": "string"},
+        "Fees Table": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Service Number": {"type": "string"},
+              "Monthly Fees": {"type": "string"},
+              "Usage Fees": {"type": "string"},
+              "Other Fees": {"type": "string"},
+              "Discount Fees": {"type": "string"},
+              "Discounts": {"type": "string"},
+              "Amount Payable": {"type": "string"}
+            },
+            "required": [
+              "Service Number",
+              "Monthly Fees",
+              "Usage Fees",
+              "Other Fees",
+              "Discount Fees",
+              "Discounts",
+              "Amount Payable"
+            ]
+          }
+        }
+      },
+      "required": [
+        "Service Number",
+        "Monthly Fees",
+        "Usage Fees",
+        "Other Fees",
+        "Discount Fees",
+        "Discounts",
+        "Amount Payable",
+        "Fees Table"
+      ]
+    }
+  },
+  "required": ["payable_amount", "hesap_no", "tarife_tablosu", "ucretler_tablosu"]
+}
