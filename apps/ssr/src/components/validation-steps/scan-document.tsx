@@ -282,6 +282,7 @@ export default function ScanDocument({
         className={`overflow-hidden ${type !== "id-card-back" ? "rounded-xl border-black/10 shadow-sm md:border" : ""}`}>
         <div className="bg-white md:p-5">
           <WebcamCapture
+            allowCameraSwitch
             capturedImage={getCurrentDocumentData()?.base64}
             handleImage={(imageSrc) => {
               if (!imageSrc) return;
