@@ -1,16 +1,15 @@
 "use client";
-import {Button} from "@/components/ui/button";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {toastOnSubmit} from "@repo/ui/toast-on-submit";
-import {Separator} from "@/components/ui/separator";
 import type {
   UniRefund_FileService_FileAIInfos_FileAIInfoDto as FileAIInfoDto,
   UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto,
 } from "@ayasofyazilim/saas/FileService";
-import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {toastOnSubmit} from "@repo/ui/toast-on-submit";
 import {useState} from "react";
-import schema from "./schema.json";
 import data from "./data.json";
+import schema from "./schema.json";
+import type {ActionOption} from "./form-header";
+import FormHeader from "./form-header";
 
 export default function Form({
   fileDetails,
@@ -21,26 +20,71 @@ export default function Form({
   fileList: FileForHumanValidationDto[];
   selectedFile?: string;
 }) {
-  const output = JSON.parse(fileDetails?.unstract1OutputJson || JSON.stringify(data)) as object;
+  const output = data;
+  //  JSON.parse(fileDetails?.unstract1OutputJson || JSON.stringify(data)) as object;
+  const options = [
+    {
+      key: "approve",
+      label: "Approve",
+      description: "Approve the document for further processing",
+    },
+    {
+      key: "reject",
+      label: "Reject",
+      description: "Reject the document",
+    },
+    {
+      key: "approve_and_export",
+      label: "Approve and export validate",
+      description: "Approve the document and start export validation process",
+    },
+    {
+      key: "approve_and_create_tag",
+      label: "Approve and create tag",
+      description: "Approve the document and create a tag",
+    },
+  ];
+  const [selectedAction, setSelectedAction] = useState<ActionOption>(options[0]);
+
   return (
     <SchemaForm
       className="flex flex-col-reverse"
-      disabled={Object.keys(output).length === 0}
+      disabled={Object.keys(output).length === 0 || !fileDetails}
       formData={output}
       onSubmit={({formData: editedFormData}) => {
         toastOnSubmit({
-          title: "Form submitted",
-          description: editedFormData, //JSON.stringify(editedFormData, null, 2),
+          title: selectedAction.label,
+          description: editedFormData,
         });
       }}
       schema={schema}
       useDefaultSubmit={false}
       uiSchema={{
         "ui:className": "grid lg:grid-cols-2",
-        tarife_tablosu: {
+        merchant_vat_number: {
           "ui:className": "col-span-full",
         },
-
+        merchant_adress: {
+          "ui:className": "col-span-full",
+        },
+        traveller_full_name: {
+          "ui:className": "col-span-full",
+        },
+        traveller_permanent_adress: {
+          "ui:className": "col-span-full",
+        },
+        traveller_email: {
+          "ui:className": "col-span-full",
+        },
+        traveller_passport_no: {
+          "ui:className": "col-span-full",
+        },
+        description_of_goods: {
+          "ui:className": "col-span-full",
+        },
+        refund_amount: {
+          "ui:className": "col-span-full",
+        },
         ucretler_tablosu: {
           "ui:className": "col-span-full grid lg:grid-cols-2",
           "Fees Table": {
@@ -60,37 +104,13 @@ export default function Form({
       //   return errors;
       // }}
       useTableForArrayItems>
-      <ReviewDocumentHeader fileList={fileList} selectedFile={selectedFile} />
-    </SchemaForm>
-  );
-}
-
-function ReviewDocumentHeader({
-  fileList,
-  selectedFile,
-}: {
-  fileList: FileForHumanValidationDto[];
-  selectedFile?: string;
-}) {
-  const [selected, setSelected] = useState<FileForHumanValidationDto | null | undefined>(
-    fileList.find((item) => item.id === selectedFile),
-  );
-  return (
-    <div className="sticky top-0 mb-2 grid grid-cols-2 items-center gap-2 border-b bg-white pb-2 pt-2 md:flex md:pt-0">
-      <Combobox<FileForHumanValidationDto>
-        list={fileList}
-        onValueChange={setSelected}
-        selectIdentifier="id"
-        selectLabel="id"
-        value={selected}
+      <FormHeader
+        fileList={fileList}
+        options={options}
+        selectedAction={selectedAction}
+        selectedFile={selectedFile}
+        setSelectedAction={setSelectedAction}
       />
-      <span className="ml-auto text-nowrap text-sm font-bold">{selected?.id}</span>
-      <Separator className="hidden h-8 md:block" orientation="vertical" />
-      <Button disabled type="button" variant="outline">
-        History
-      </Button>
-
-      <Button className="">Approve</Button>
-    </div>
+    </SchemaForm>
   );
 }

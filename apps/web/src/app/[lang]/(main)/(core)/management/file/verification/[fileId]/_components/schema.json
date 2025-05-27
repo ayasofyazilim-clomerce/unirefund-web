@@ -1,83 +1,79 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tax Refund Document",
   "type": "object",
   "properties": {
-    "payable_amount": {
-      "type": "string"
+    "merchant_vat_number": {"type": "string"},
+    "merchant_adress": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "country": {"type": "string"},
+        "county": {"type": "string"},
+        "merchant_name": {"type": "string"},
+        "street": {"type": "string"}
+      },
+      "required": ["city", "country", "county", "merchant_name", "street"]
     },
-    "hesap_no": {
-      "type": "integer"
+    "total_price_included_vat": {"type": "number"},
+    "date_of_sale": {"type": "string", "format": "date"},
+    "traveller_full_name": {"type": "string"},
+    "traveller_permanent_adress": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "country": {"type": "string"},
+        "country_code": {"type": "string"},
+        "postal_code": {"type": "string"},
+        "street": {"type": "string"}
+      },
+      "required": ["city", "country", "country_code", "postal_code", "street"]
     },
-    "tarife_tablosu": {
+    "traveller_email": {"type": "string", "format": "email"},
+    "traveller_passport_no": {
+      "type": "object",
+      "properties": {
+        "IssuingCountry": {"type": "string"},
+        "PassportNo": {"type": "string"}
+      },
+      "required": ["IssuingCountry", "PassportNo"]
+    },
+    "arrived_in_the_eu": {"type": "string", "format": "date"},
+    "lave_in_the_eu": {"type": "string", "format": "date"},
+    "credit_card_number": {
+      "type": ["string", "null"]
+    },
+    "merchant_signature": {"type": "boolean"},
+    "customs_stamp": {"type": "boolean"},
+    "description_of_goods": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "Description": {"type": "string"},
-          "Fee (TL)": {"type": "number"},
-          "Fee Type Description": {"type": "string"},
-          "Product Quantity": {"type": "integer"},
-          "Service Number": {"type": "string"},
-          "Sub Service Type": {"type": "string"},
-          "Value Unit": {"type": "string"}
+          "description_of_goods": {"type": "string"},
+          "price_included_vat": {"type": "number"},
+          "quantity": {"type": "integer"},
+          "vat_base": {"type": ["number", "null"]},
+          "vat_rate": {"type": ["number", "null"]}
         },
-        "required": [
-          "Description",
-          "Fee (TL)",
-          "Fee Type Description",
-          "Product Quantity",
-          "Service Number",
-          "Sub Service Type",
-          "Value Unit"
-        ]
+        "required": ["description_of_goods", "price_included_vat", "quantity"]
       }
     },
-    "ucretler_tablosu": {
-      "type": "object",
-      "properties": {
-        "Service Number": {"type": "string"},
-        "Monthly Fees": {"type": "string"},
-        "Usage Fees": {"type": "string"},
-        "Other Fees": {"type": "string"},
-        "Discount Fees": {"type": "string"},
-        "Discounts": {"type": "string"},
-        "Amount Payable": {"type": "string"},
-        "Fees Table": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "Service Number": {"type": "string"},
-              "Monthly Fees": {"type": "string"},
-              "Usage Fees": {"type": "string"},
-              "Other Fees": {"type": "string"},
-              "Discount Fees": {"type": "string"},
-              "Discounts": {"type": "string"},
-              "Amount Payable": {"type": "string"}
-            },
-            "required": [
-              "Service Number",
-              "Monthly Fees",
-              "Usage Fees",
-              "Other Fees",
-              "Discount Fees",
-              "Discounts",
-              "Amount Payable"
-            ]
-          }
-        }
-      },
-      "required": [
-        "Service Number",
-        "Monthly Fees",
-        "Usage Fees",
-        "Other Fees",
-        "Discount Fees",
-        "Discounts",
-        "Amount Payable",
-        "Fees Table"
-      ]
-    }
+    "refund_amount": {"type": "number"}
   },
-  "required": ["payable_amount", "hesap_no", "tarife_tablosu", "ucretler_tablosu"]
+  "required": [
+    "merchant_vat_number",
+    "merchant_adress",
+    "total_price_included_vat",
+    "date_of_sale",
+    "traveller_full_name",
+    "traveller_permanent_adress",
+    "traveller_email",
+    "traveller_passport_no",
+    "arrived_in_the_eu",
+    "lave_in_the_eu",
+    "merchant_signature",
+    "customs_stamp",
+    "description_of_goods",
+    "refund_amount"
+  ]
 }
