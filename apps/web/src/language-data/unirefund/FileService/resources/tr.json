@@ -6,5 +6,8 @@
   "Missing.MimeType.Title": "Eksik mime türü",
   "Missing.MimeType.Message": "Devam etmek için lütfen en az bir mime türü oluşturun.",
   "Missing.FileType.Title": "Eksik dosya türü",
-  "Missing.FileType.Message": "Devam etmek için lütfen en az bir dosya türü oluşturun."
+  "Missing.FileType.Message": "Devam etmek için lütfen en az bir dosya türü oluşturun.",
+  "Missing.FilesForHumanValidation.Title": "Doğrulanacak dosya yok",
+  "Missing.FilesForHumanValidation.Message": "İnsan doğrulaması için kullanılabilir dosya yok.",
+  "NoFileToDisplay": "Gösterilecek dosya yok"
 }

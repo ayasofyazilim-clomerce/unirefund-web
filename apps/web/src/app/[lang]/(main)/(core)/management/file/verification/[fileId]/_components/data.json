@@ -1,0 +1,260 @@
+{
+  "payable_amount": "84.226,75 TL",
+  "hesap_no": 2011543018078,
+  "tarife_tablosu": [
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 9,
+      "Service Number": "200003745",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 3600,
+      "Service Number": "200003745",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 30,
+      "Service Number": "200011468",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 35,
+      "Service Number": "200011468",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 3600,
+      "Service Number": "200011468",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 3600,
+      "Service Number": "200011889",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 3600,
+      "Service Number": "200013238",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 8,
+      "Service Number": "200013703",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "PROVINCIAL CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 3600,
+      "Service Number": "200013703",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 5,
+      "Service Number": "200013925",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 4800,
+      "Service Number": "200013925",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 5,
+      "Service Number": "200014583",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 3600,
+      "Service Number": "200014583",
+      "Sub Service Type": "Interconnection",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 8,
+      "Service Number": "200015683",
+      "Sub Service Type": "VAE",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "PROVINCIAL CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 4800,
+      "Service Number": "200015683",
+      "Sub Service Type": "VAE",
+      "Value Unit": "Square centimeter"
+    },
+    {
+      "Description": "DC+GENERATOR+KLIMA (OTHER)",
+      "Fee (TL)": 74.02,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 110,
+      "Service Number": "200015691",
+      "Sub Service Type": "VAE",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "KGK+KLIMA (OTHER)",
+      "Fee (TL)": 82.76,
+      "Fee Type Description": "OYH Energy Fee",
+      "Product Quantity": 816,
+      "Service Number": "200015691",
+      "Sub Service Type": "VAE",
+      "Value Unit": "Watt"
+    },
+    {
+      "Description": "METROPOLITAN CENTERS-INSIDE BUILDING",
+      "Fee (TL)": 0.01,
+      "Fee Type Description": "Location Fee",
+      "Product Quantity": 6000,
+      "Service Number": "200015691",
+      "Sub Service Type": "VAE",
+      "Value Unit": "Square centimeter"
+    }
+  ],
+  "ucretler_tablosu": {
+    "Service Number": "HIZMET NO",
+    "Monthly Fees": "AYLIK ÜCRETLER(TL)",
+    "Usage Fees": "KULLANIM ÜCRETLERI(TL)",
+    "Other Fees": "DIGER ÜCRETLER(TL)",
+    "Discount Fees": "ISKONTO ÜCRETLERI(TL)",
+    "Discounts": "INDIRIMLER(TL)",
+    "Amount Payable": "ÖDENECEK TUTAR(TL)",
+    "Fees Table": [
+      {
+        "Service Number": "200015691",
+        "Monthly Fees": "63.102,12",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "75.722,54"
+      },
+      {
+        "Service Number": "200013238",
+        "Monthly Fees": "22,68",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "27,21"
+      },
+      {
+        "Service Number": "200013925",
+        "Monthly Fees": "375,09",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "450,10"
+      },
+      {
+        "Service Number": "200011889",
+        "Monthly Fees": "22,68",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "27,21"
+      },
+      {
+        "Service Number": "200014583",
+        "Monthly Fees": "367,53",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "441,03"
+      },
+      {
+        "Service Number": "200011468",
+        "Monthly Fees": "4.505,73",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "5.406,87"
+      },
+      {
+        "Service Number": "200015683",
+        "Monthly Fees": "578,16",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "693,79"
+      },
+      {
+        "Service Number": "200013703",
+        "Monthly Fees": "571,56",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "685,87"
+      },
+      {
+        "Service Number": "200003745",
+        "Monthly Fees": "643,41",
+        "Usage Fees": "0,00",
+        "Other Fees": "0,00",
+        "Discount Fees": "0,00",
+        "Discounts": "0,00",
+        "Amount Payable": "772,09"
+      }
+    ]
+  }
+}

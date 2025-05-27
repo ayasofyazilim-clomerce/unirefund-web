@@ -6,5 +6,8 @@
   "Missing.MimeType.Title": "Missing mime type",
   "Missing.MimeType.Message": "Please create at least one mime type to proceed.",
   "Missing.FileType.Title": "Missing file type",
-  "Missing.FileType.Message": "Please create at least one file type to proceed."
+  "Missing.FileType.Message": "Please create at least one file type to proceed.",
+  "Missing.FilesForHumanValidation.Title": "No file to validate",
+  "Missing.FilesForHumanValidation.Message": "There are no files available for human validation.",
+  "NoFileToDisplay": "No file to display"
 }
