@@ -23,6 +23,7 @@
   "GetHelpAndSupport": "Yardım ve destek alın",
   "IdentityVerificationSuccessful": "Kimlik Doğrulama Başarılı",
   "IdentityVerificationSuccessfulDescription": "Kimliğiniz başarıyla doğrulandı. Artık hesap oluşturabilirsiniz.",
+  "IdentityVerificationSuccessfulDescriptionSession": "Kimliğiniz başarıyla doğrulandı. Keşfetmeye başlayın.",
   "Register": "Kayıt Ol",
   "Document.Processing": "İşleniyor",
   "Document.Captured": "Belge Yakalandı",
