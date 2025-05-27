@@ -28,29 +28,29 @@ export function SelfieOnboarding({title, description, onContinue, tips, language
         <div className="flex flex-col items-center bg-white p-5">
           <div className="mb-4 rounded-lg border border-gray-200">
             <Image
-              src={Selfie}
-              width={500}
-              height={300}
               alt="ID Card back mockup"
               className="mx-auto h-auto max-w-full"
+              height={300}
+              src={Selfie}
+              width={500}
             />
           </div>
 
-          {tips && tips.length > 0 && (
+          {tips && tips.length > 0 ? (
             <div className="mb-6 w-full space-y-3">
               <h4 className="text-sm font-medium text-black/80">{languageData.Tips || "Tips"}:</h4>
               <ul className="space-y-2">
                 {tips.map((tip, index) => (
-                  <li key={index} className="flex items-start text-sm">
+                  <li className="flex items-start text-sm" key={index}>
                     <span className="text-primary mr-2">•</span>
                     <span>{tip}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          )}
+          ) : null}
 
-          <Button onClick={onContinue} className="w-full">
+          <Button className="w-full" onClick={onContinue}>
             {languageData.Continue || "Continue"} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
