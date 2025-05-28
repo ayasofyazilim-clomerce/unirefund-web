@@ -14,6 +14,7 @@ import {useIsMobile} from "@/components/hooks/useIsMobile";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 import PersonalInformation from "./_components/personal-information";
+import ChangePassword from "./_components/change-password";
 
 export default function Profile({
   languageData,
@@ -27,6 +28,7 @@ export default function Profile({
   const router = useRouter();
   const [showQrCode, setShowQrCode] = React.useState(false);
   const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
+  const [showChangePassword, setShowChangePassword] = React.useState(false);
   const isMobile = useIsMobile();
 
   const getInitials = (name?: string, surname?: string) => {
@@ -56,7 +58,7 @@ export default function Profile({
       title: languageData.ChangePassword || "Change Password",
       description: languageData.UpdateAccountSecurity || "Update your account security",
       onClick: () => {
-        router.push("/account/change-password");
+        setShowChangePassword(true);
       },
     },
     {
@@ -268,6 +270,32 @@ export default function Profile({
                 languageData={languageData as unknown as AccountServiceResource}
                 personalInformationData={personalInformationData}
               />
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : null}
+
+      {/* Change Password - Desktop için Dialog */}
+      {!isMobile && (
+        <Dialog onOpenChange={setShowChangePassword} open={showChangePassword}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>{languageData.ChangePassword || "Şifre Değiştir"}</DialogTitle>
+            </DialogHeader>
+            <ChangePassword languageData={languageData as unknown as AccountServiceResource} />
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Change Password - Mobil için Sheet (Drawer) */}
+      {isMobile ? (
+        <Sheet onOpenChange={setShowChangePassword} open={showChangePassword}>
+          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
+            <SheetHeader className="mb-4">
+              <SheetTitle>{languageData.ChangePassword || "Şifre Değiştir"}</SheetTitle>
+            </SheetHeader>
+            <div className="overflow-y-auto pb-8">
+              <ChangePassword languageData={languageData as unknown as AccountServiceResource} />
             </div>
           </SheetContent>
         </Sheet>
