@@ -6,10 +6,14 @@ import {Card, CardHeader, CardTitle, CardContent, CardDescription} from "@/compo
 import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "@/components/ui/dialog";
+import {Sheet, SheetContent, SheetHeader, SheetTitle} from "@/components/ui/sheet";
 import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, Pencil, IdCard} from "lucide-react";
 import {signOutServer} from "@repo/utils/auth";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
+import {useIsMobile} from "@/components/hooks/useIsMobile";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import type {AccountServiceResource} from "src/language-data/core/AccountService";
+import PersonalInformation from "./_components/personal-information";
 
 export default function Profile({
   languageData,
@@ -22,6 +26,8 @@ export default function Profile({
 }) {
   const router = useRouter();
   const [showQrCode, setShowQrCode] = React.useState(false);
+  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
+  const isMobile = useIsMobile();
 
   const getInitials = (name?: string, surname?: string) => {
     const firstInitial = name ? name[0].toUpperCase() : "";
@@ -97,7 +103,7 @@ export default function Profile({
                 <Button
                   className="h-8 w-8 p-0 text-white transition-transform duration-200 hover:scale-110 hover:bg-transparent hover:text-white"
                   onClick={() => {
-                    router.push("/account/personal-information");
+                    setShowPersonalInfo(true);
                   }}
                   size="icon"
                   title={languageData.EditProfile || "Edit Profile"}
@@ -119,7 +125,7 @@ export default function Profile({
             </CardHeader>
             <CardContent className="pt-0">
               <div className="-mt-10 flex flex-col items-center">
-                <Avatar className="h-20 w-20 border-4 border-white ">
+                <Avatar className="h-20 w-20 border-4 border-white">
                   <AvatarFallback className="bg-red-500 text-lg text-white">
                     {getInitials(
                       personalInformationData.name ?? undefined,
@@ -127,8 +133,15 @@ export default function Profile({
                     )}
                   </AvatarFallback>
                 </Avatar>
-                <h2 className="mt-2 text-xl font-semibold">{personalInformationData.userName}</h2>
-                <p className="mt-1 text-sm text-gray-500">{personalInformationData.email}</p>
+                <div className="mt-2 flex flex-col items-center space-y-2 text-center">
+                  <h2 className="text-xl font-semibold">
+                    {personalInformationData.name} {personalInformationData.surname}
+                  </h2>
+                  <div className="space-y-1">
+                    <p className="text-sm text-gray-600">@{personalInformationData.userName}</p>
+                    <p className="text-sm text-gray-500">{personalInformationData.email}</p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -188,22 +201,77 @@ export default function Profile({
         </Card>
       </div>
 
-      {/* QR Kod Dialog */}
-      <Dialog onOpenChange={setShowQrCode} open={showQrCode}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{languageData.ProfileQRCode || "Profile QR Code"}</DialogTitle>
-            <DialogDescription>
-              {languageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex justify-center py-6">
-            <div className="flex h-64 w-64 items-center justify-center rounded-md border bg-gray-100">
-              <span className="text-gray-500">{languageData.QRCode || "QR Code"}</span>
+      {/* QR Kod Dialog - Desktop için */}
+      {!isMobile && (
+        <Dialog onOpenChange={setShowQrCode} open={showQrCode}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>{languageData.ProfileQRCode || "Profile QR Code"}</DialogTitle>
+              <DialogDescription>
+                {languageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-center py-6">
+              <div className="flex h-64 w-64 items-center justify-center rounded-md border bg-gray-100">
+                <span className="text-gray-500">{languageData.QRCode || "QR Code"}</span>
+              </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* QR Kod Sheet - Mobil için */}
+      {isMobile ? (
+        <Sheet onOpenChange={setShowQrCode} open={showQrCode}>
+          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
+            <SheetHeader className="mb-4">
+              <SheetTitle>{languageData.ProfileQRCode || "Profile QR Code"}</SheetTitle>
+            </SheetHeader>
+            <div className="overflow-y-auto pb-8">
+              <div className="flex flex-col items-center">
+                <p className="mb-4 text-center text-sm text-gray-500">
+                  {languageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
+                </p>
+                <div className="flex h-64 w-64 items-center justify-center rounded-md border bg-gray-100">
+                  <span className="text-gray-500">{languageData.QRCode || "QR Code"}</span>
+                </div>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : null}
+
+      {/* Personal Information - Desktop için Dialog */}
+      {!isMobile && (
+        <Dialog onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
+          <DialogContent className="sm:max-w-xl">
+            <DialogHeader>
+              <DialogTitle>{languageData.EditProfile || "Kişisel Bilgiler"}</DialogTitle>
+            </DialogHeader>
+            <PersonalInformation
+              languageData={languageData as unknown as AccountServiceResource}
+              personalInformationData={personalInformationData}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Personal Information - Mobil için Sheet (Drawer) */}
+      {isMobile ? (
+        <Sheet onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
+          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
+            <SheetHeader className="mb-4">
+              <SheetTitle>{languageData.EditProfile || "Kişisel Bilgiler"}</SheetTitle>
+            </SheetHeader>
+            <div className="overflow-y-auto pb-8">
+              <PersonalInformation
+                languageData={languageData as unknown as AccountServiceResource}
+                personalInformationData={personalInformationData}
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : null}
     </div>
   );
 }
