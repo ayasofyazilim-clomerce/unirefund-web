@@ -9,5 +9,12 @@
   "Missing.FileType.Message": "Please create at least one file type to proceed.",
   "Missing.FilesForHumanValidation.Title": "No file to validate",
   "Missing.FilesForHumanValidation.Message": "There are no files available for human validation.",
-  "NoFileToDisplay": "No file to display"
+  "NoFileToDisplay": "No file to display",
+  "Verification.SchemaNotDefined.Title": "Schema not defined",
+  "Verification.SchemaNotDefined.Message": "Please define a schema for this file type.",
+  "Verification.NoFormDataExtracted.Title": "No form data extracted",
+  "Verification.NoFormDataExtracted.Message": "No form data was extracted from this document. You may want to proceed anyway or trigger AI processing again.",
+  "Verification.NoFormDataExtracted.TriggerAIProcess": "Trigger AI processing",
+  "Verification.NoFormDataExtracted.Proceed": "Proceed anyway",
+  "Verification.NoUISchemaDefined": " No UI Schema defined for this file type. You may encounter with form styling issues."
 }

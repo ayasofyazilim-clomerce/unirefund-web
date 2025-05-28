@@ -9,5 +9,12 @@
   "Missing.FileType.Message": "Devam etmek için lütfen en az bir dosya türü oluşturun.",
   "Missing.FilesForHumanValidation.Title": "Doğrulanacak dosya yok",
   "Missing.FilesForHumanValidation.Message": "İnsan doğrulaması için kullanılabilir dosya yok.",
-  "NoFileToDisplay": "Gösterilecek dosya yok"
+  "NoFileToDisplay": "Gösterilecek dosya yok",
+  "Verification.SchemaNotDefined.Title": "Şema tanımlı değil",
+  "Verification.SchemaNotDefined.Message": "Lütfen bu dosya türü için bir şema tanımlayın.",
+  "Verification.NoFormDataExtracted.Title": "Hiç form verisi çıkarılmadı",
+  "Verification.NoFormDataExtracted.Message": "Bu belgeden hiç form verisi çıkarılmadı. Yine de devam etmek isteyebilir veya AI işlemesini tekrar tetikleyebilirsiniz.",
+  "Verification.NoFormDataExtracted.TriggerAIProcess": "AI işlemesini tetikle",
+  "Verification.NoFormDataExtracted.Proceed": "Yine de devam et",
+  "Verification.NoUISchemaDefined": "Bu dosya türü için tanımlı bir UI Şeması yok. Form stil sorunlarıyla karşılaşabilirsiniz."
 }
