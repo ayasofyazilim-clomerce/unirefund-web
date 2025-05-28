@@ -11,22 +11,28 @@ import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, 
 import {signOutServer} from "@repo/utils/auth";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {useIsMobile} from "@/components/hooks/useIsMobile";
+import {QRCodeSVG} from "qrcode.react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
+import unirefundLogo from "public/unirefund-logo.png";
 import PersonalInformation from "./_components/personal-information";
+import ChangePassword from "./_components/change-password";
 
 export default function Profile({
-  languageData,
+  ssrLanguageData,
+  accountLanguageData,
   availableLocals,
   personalInformationData,
 }: {
-  languageData: SSRServiceResource;
+  ssrLanguageData: SSRServiceResource;
+  accountLanguageData: AccountServiceResource;
   availableLocals: string[];
   personalInformationData: Volo_Abp_Account_ProfileDto;
 }) {
   const router = useRouter();
   const [showQrCode, setShowQrCode] = React.useState(false);
   const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
+  const [showChangePassword, setShowChangePassword] = React.useState(false);
   const isMobile = useIsMobile();
 
   const getInitials = (name?: string, surname?: string) => {
@@ -37,48 +43,48 @@ export default function Profile({
   const accountItems = [
     {
       icon: <User className="h-4 w-4" />,
-      title: languageData.AccountInformation || "Account Information",
-      description: languageData.ViewEditPersonalInfo || "View and edit your personal information",
+      title: ssrLanguageData.AccountInformation || "Account Information",
+      description: ssrLanguageData.ViewEditPersonalInfo || "View and edit your personal information",
       onClick: () => {
-        router.push("/account/personal-information");
+        setShowPersonalInfo(true);
       },
     },
     {
       icon: <IdCard className="h-4 w-4" />,
-      title: languageData.IdentityVerification || "Identity Verification",
-      description: languageData.ManageTwoFactorAuth || "Manage your two-factor authentication settings",
+      title: ssrLanguageData.IdentityVerification || "Identity Verification",
+      description: ssrLanguageData.ManageTwoFactorAuth || "Manage your two-factor authentication settings",
       onClick: () => {
         router.push("profile/kyc");
       },
     },
     {
       icon: <KeyRound className="h-4 w-4" />,
-      title: languageData.ChangePassword || "Change Password",
-      description: languageData.UpdateAccountSecurity || "Update your account security",
+      title: ssrLanguageData.ChangePassword || "Change Password",
+      description: ssrLanguageData.UpdateAccountSecurity || "Update your account security",
       onClick: () => {
-        router.push("/account/change-password");
+        setShowChangePassword(true);
       },
     },
     {
       icon: <Bell className="h-4 w-4" />,
-      title: languageData.NotificationPreferences || "Notification Preferences",
-      description: languageData.ManageNotificationSettings || "Manage your notification settings",
+      title: ssrLanguageData.NotificationPreferences || "Notification Preferences",
+      description: ssrLanguageData.ManageNotificationSettings || "Manage your notification settings",
       onClick: () => {
         router.push("/notifications");
       },
     },
     {
       icon: <Shield className="h-4 w-4" />,
-      title: languageData.SecuritySettings || "Security Settings",
-      description: languageData.ConfigureAccountSecurity || "Configure your account security",
+      title: ssrLanguageData.SecuritySettings || "Security Settings",
+      description: ssrLanguageData.ConfigureAccountSecurity || "Configure your account security",
       onClick: () => {
         router.push("/account/security");
       },
     },
     {
       icon: <HelpCircle className="h-4 w-4" />,
-      title: languageData.Support || "Support",
-      description: languageData.GetHelpSupport || "Get help and support",
+      title: ssrLanguageData.Support || "Support",
+      description: ssrLanguageData.GetHelpSupport || "Get help and support",
       onClick: () => {
         router.push("/support");
       },
@@ -106,7 +112,7 @@ export default function Profile({
                     setShowPersonalInfo(true);
                   }}
                   size="icon"
-                  title={languageData.EditProfile || "Edit Profile"}
+                  title={ssrLanguageData.EditProfile || "Edit Profile"}
                   variant="ghost">
                   <Pencil className="h-5 w-5" />
                 </Button>
@@ -116,7 +122,7 @@ export default function Profile({
                     setShowQrCode(true);
                   }}
                   size="icon"
-                  title={languageData.QRCode || "QR Code"}
+                  title={ssrLanguageData.QRCode || "QR Code"}
                   variant="ghost">
                   <QrCode className="h-5 w-5" />
                 </Button>
@@ -145,23 +151,22 @@ export default function Profile({
               </div>
             </CardContent>
           </Card>
-
-          {/* Çıkış Yap butonu */}
+          {/* Çıkış Yap butonu */}{" "}
           <Button
             className="flex w-full items-center justify-center gap-2"
             onClick={handleLogout}
             variant="destructive">
             <LogOut className="h-4 w-4" />
-            {languageData.Logout || "Çıkış Yap"}
+            {ssrLanguageData.Logout || "Çıkış Yap"}
           </Button>
         </div>
 
         {/* Ayarlar Kartı */}
         <Card>
           <CardHeader>
-            <CardTitle>{languageData.AccountManagement || "Account Management"}</CardTitle>
+            <CardTitle>{ssrLanguageData.AccountManagement || "Account Management"}</CardTitle>
             <CardDescription>
-              {languageData.ManageProfileAndPreferences || "Manage your profile and account preferences"}
+              {ssrLanguageData.ManageProfileAndPreferences || "Manage your profile and account preferences"}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -191,10 +196,10 @@ export default function Profile({
         </Card>
         <Card className="flex md:hidden">
           <CardHeader className="w-full">
-            <CardTitle>{languageData.LanguagePreferences}</CardTitle>
+            <CardTitle>{ssrLanguageData.LanguagePreferences}</CardTitle>
 
             <CardDescription className="flex w-full items-center justify-between">
-              {languageData.SelectLanguage}
+              {ssrLanguageData.SelectLanguage}
               <LanguageSelector availableLocals={availableLocals} lang={lang} />
             </CardDescription>
           </CardHeader>
@@ -206,14 +211,30 @@ export default function Profile({
         <Dialog onOpenChange={setShowQrCode} open={showQrCode}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>{languageData.ProfileQRCode || "Profile QR Code"}</DialogTitle>
+              <DialogTitle>{ssrLanguageData.ProfileQRCode || "Profile QR Code"}</DialogTitle>
               <DialogDescription>
-                {languageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
+                {ssrLanguageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
               </DialogDescription>
             </DialogHeader>
             <div className="flex justify-center py-6">
-              <div className="flex h-64 w-64 items-center justify-center rounded-md border bg-gray-100">
-                <span className="text-gray-500">{languageData.QRCode || "QR Code"}</span>
+              <div className="flex h-64 w-64 items-center justify-center ">
+                <QRCodeSVG
+                  bgColor="#ffffff"
+                  className="h-full w-full"
+                  fgColor="#000000"
+                  imageSettings={{
+                    src: unirefundLogo.src,
+                    x: undefined,
+                    y: undefined,
+                    height: 48,
+                    width: 48,
+                    opacity: 1,
+                    excavate: true,
+                  }}
+                  level="L"
+                  size={256}
+                  value={JSON.stringify(personalInformationData)}
+                />
               </div>
             </div>
           </DialogContent>
@@ -225,15 +246,32 @@ export default function Profile({
         <Sheet onOpenChange={setShowQrCode} open={showQrCode}>
           <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
             <SheetHeader className="mb-4">
-              <SheetTitle>{languageData.ProfileQRCode || "Profile QR Code"}</SheetTitle>
+              <SheetTitle>{ssrLanguageData.ProfileQRCode || "Profile QR Code"}</SheetTitle>
             </SheetHeader>
             <div className="overflow-y-auto pb-8">
               <div className="flex flex-col items-center">
                 <p className="mb-4 text-center text-sm text-gray-500">
-                  {languageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
+                  {ssrLanguageData.ProfileQRCodeDescription ||
+                    "You can quickly access your profile using this QR code."}
                 </p>
-                <div className="flex h-64 w-64 items-center justify-center rounded-md border bg-gray-100">
-                  <span className="text-gray-500">{languageData.QRCode || "QR Code"}</span>
+                <div className="flex h-64 w-64 items-center justify-center ">
+                  <QRCodeSVG
+                    bgColor="#ffffff"
+                    className="h-full w-full"
+                    fgColor="#000000"
+                    imageSettings={{
+                      src: unirefundLogo.src,
+                      x: undefined,
+                      y: undefined,
+                      height: 48,
+                      width: 48,
+                      opacity: 1,
+                      excavate: true,
+                    }}
+                    level="L"
+                    size={256}
+                    value={JSON.stringify(personalInformationData)}
+                  />
                 </div>
               </div>
             </div>
@@ -246,12 +284,9 @@ export default function Profile({
         <Dialog onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
           <DialogContent className="sm:max-w-xl">
             <DialogHeader>
-              <DialogTitle>{languageData.EditProfile || "Kişisel Bilgiler"}</DialogTitle>
+              <DialogTitle>{ssrLanguageData.EditProfile || "Kişisel Bilgiler"}</DialogTitle>
             </DialogHeader>
-            <PersonalInformation
-              languageData={languageData as unknown as AccountServiceResource}
-              personalInformationData={personalInformationData}
-            />
+            <PersonalInformation languageData={accountLanguageData} personalInformationData={personalInformationData} />
           </DialogContent>
         </Dialog>
       )}
@@ -261,13 +296,39 @@ export default function Profile({
         <Sheet onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
           <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
             <SheetHeader className="mb-4">
-              <SheetTitle>{languageData.EditProfile || "Kişisel Bilgiler"}</SheetTitle>
+              <SheetTitle>{ssrLanguageData.EditProfile || "Kişisel Bilgiler"}</SheetTitle>
             </SheetHeader>
             <div className="overflow-y-auto pb-8">
               <PersonalInformation
-                languageData={languageData as unknown as AccountServiceResource}
+                languageData={accountLanguageData}
                 personalInformationData={personalInformationData}
               />
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : null}
+
+      {/* Change Password - Desktop için Dialog */}
+      {!isMobile && (
+        <Dialog onOpenChange={setShowChangePassword} open={showChangePassword}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>{ssrLanguageData.ChangePassword || "Şifre Değiştir"}</DialogTitle>
+            </DialogHeader>
+            <ChangePassword languageData={accountLanguageData} />
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Change Password - Mobil için Sheet (Drawer) */}
+      {isMobile ? (
+        <Sheet onOpenChange={setShowChangePassword} open={showChangePassword}>
+          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
+            <SheetHeader className="mb-4">
+              <SheetTitle>{ssrLanguageData.ChangePassword || "Şifre Değiştir"}</SheetTitle>
+            </SheetHeader>
+            <div className="overflow-y-auto pb-8">
+              <ChangePassword languageData={accountLanguageData} />
             </div>
           </SheetContent>
         </Sheet>

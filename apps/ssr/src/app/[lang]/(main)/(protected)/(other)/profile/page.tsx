@@ -5,7 +5,8 @@ import {getPersonalInfomationApi} from "@repo/actions/core/AccountService/action
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {signOutServer} from "@repo/utils/auth";
-import {getResourceData} from "src/language-data/unirefund/SSRService";
+import {getResourceData as ssrGetResourceData} from "src/language-data/unirefund/SSRService";
+import {getResourceData as accountGetResourceData} from "src/language-data/core/AccountService";
 import Profile from "./client";
 
 async function getApiRequests() {
@@ -22,14 +23,15 @@ async function getApiRequests() {
 }
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;
-  const {languageData} = await getResourceData(lang);
+  const {languageData: ssrLanguageData} = await ssrGetResourceData(lang);
+  const {languageData: accountLanguageData} = await accountGetResourceData(lang);
 
   const apiRequests = await getApiRequests();
 
   if ("message" in apiRequests) {
     return (
       <ErrorComponent
-        languageData={languageData}
+        languageData={ssrLanguageData}
         message={apiRequests.message}
         showHomeButton={false}
         signOutServer={signOutServer}
@@ -39,9 +41,10 @@ export default async function Page({params}: {params: {lang: string}}) {
   const [response] = apiRequests.requiredRequests;
   return (
     <Profile
+      accountLanguageData={accountLanguageData}
       availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
-      languageData={languageData}
       personalInformationData={response.data}
+      ssrLanguageData={ssrLanguageData}
     />
   );
 }

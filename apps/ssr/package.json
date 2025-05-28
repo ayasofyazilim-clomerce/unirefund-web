@@ -51,6 +51,7 @@
     "mrz": "^4.2.1",
     "next": "14.2.20",
     "next-auth": "5.0.0-beta.16",
+    "qrcode.react": "^4.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-leaflet": "^5.0.0",
