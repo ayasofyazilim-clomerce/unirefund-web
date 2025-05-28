@@ -42,7 +42,7 @@ export default function Profile({
       title: languageData.AccountInformation || "Account Information",
       description: languageData.ViewEditPersonalInfo || "View and edit your personal information",
       onClick: () => {
-        router.push("/account/personal-information");
+        setShowPersonalInfo(true);
       },
     },
     {
