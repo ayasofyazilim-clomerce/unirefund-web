@@ -63,3 +63,7 @@
 body {
   height: 100%;
 }
+
+*:has(> .form-ready-component) {
+  overflow: hidden;
+}
