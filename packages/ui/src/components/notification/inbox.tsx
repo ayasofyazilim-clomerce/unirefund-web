@@ -1,15 +1,8 @@
 "use client";
-import type { BaseProps as BaseNovuInboxProps, InboxContentProps } from "@novu/react";
-import { Bell, Inbox, InboxContent } from "@novu/react";
-import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from "@repo/ayasofyazilim-ui/atoms/popover";
-import { } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { cn } from "../utils";
+import type {BaseProps as BaseNovuInboxProps, InboxContentProps} from "@novu/react";
+import {Inbox, InboxContent} from "@novu/react";
+import {} from "lucide-react";
+import {useRouter} from "next/navigation";
 export type NotificationProps = {
   appId: string;
   appUrl: string;
@@ -19,11 +12,19 @@ export type NotificationProps = {
     sideOffset?: number;
     className?: string;
     style?: React.CSSProperties;
-  },
+  };
   inboxContentProps?: InboxContentProps;
 } & Omit<BaseNovuInboxProps, "applicationIdentifier">;
 
-export function Notification({ appId, appUrl, subscriberId, langugageData, tabs, appearance, popoverContentProps, inboxContentProps }: NotificationProps) {
+export function NotificationInbox({
+  appId,
+  appUrl,
+  subscriberId,
+  langugageData,
+  tabs,
+  appearance,
+  inboxContentProps,
+}: NotificationProps) {
   const router = useRouter();
 
   if (!appId || !appUrl || !subscriberId) return null;
@@ -43,8 +44,10 @@ export function Notification({ appId, appUrl, subscriberId, langugageData, tabs,
       notificationList: "w-full",
       notification: "flex gap-2 px-3 py-2 md:px-6 md:py-4 w-full",
       tabsList: "p-0 gap-0  overflow-hidden w-full [&+div]:m-0 [&+div]:border-t-gray-200 [&+div]:z-0 group",
-      tabsTrigger: "p-0 rounded-none px-4 h-9 data-[state=active]:bg-accent data-[state=active]:after:content-none data-[state=active]:text-primary",
-      moreTabs__button: "p-0 border-l rounded-none px-2 after:content-none after:border-b-primary group-has-[button[data-state=active]]:text-muted-foreground group-has-[button[data-state=active]]:bg-white bg-accent text-primary",
+      tabsTrigger:
+        "p-0 rounded-none px-4 h-9 data-[state=active]:bg-accent data-[state=active]:after:content-none data-[state=active]:text-primary",
+      moreTabs__button:
+        "p-0 border-l rounded-none px-2 after:content-none after:border-b-primary group-has-[button[data-state=active]]:text-muted-foreground group-has-[button[data-state=active]]:bg-white bg-accent text-primary",
       moreTabs__dropdownContent: "rounded-none border border-t-0 -mt-[9px]",
       moreTabs__dropdownItem: "has-[>svg]:bg-accent p-0 rounded-none h-9 px-2 text-sm",
       moreTabs__dropdownItemLabel: "has-[+svg]:text-primary [&+svg]:text-primary",
@@ -73,39 +76,21 @@ export function Notification({ appId, appUrl, subscriberId, langugageData, tabs,
       }}
       tabs={tabs}
       subscriberId={subscriberId}>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button className="relative" size="icon" variant="ghost">
-            <Bell />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          sideOffset={popoverContentProps?.sideOffset || 10}
-          className={cn("rounded-none p-0 max-w-[25rem] w-full h-[500px] overflow-hidden [&>div]:h-full [&>div>div]:h-full", popoverContentProps?.className)}
-          style={{
-            width: 'var(--radix-popover-content-available-width)',
-            height: 'var(--radix-popover-content-available-height)',
-            ...popoverContentProps?.style
-          }}>
-          <InboxContent
-            // onNotificationClick={(notification) => {
-            //   // your logic to handle notification click
-            //   toast.success(notification.subject || "");
-            // }}
-            // onPrimaryActionClick={(notification) => {
-            //   toast.success(notification.subject || "");
-            //   // your logic to handle primary action click
-            // }}
-            // onSecondaryActionClick={(notification) => {
-            //   toast.success(notification.subject || "");
-            //   // your logic to handle secondary action click
-            // }}
-            {...inboxContentProps}
-          />
-        </PopoverContent>
-      </Popover>
+      <InboxContent
+        // onNotificationClick={(notification) => {
+        //   // your logic to handle notification click
+        //   toast.success(notification.subject || "");
+        // }}
+        // onPrimaryActionClick={(notification) => {
+        //   toast.success(notification.subject || "");
+        //   // your logic to handle primary action click
+        // }}
+        // onSecondaryActionClick={(notification) => {
+        //   toast.success(notification.subject || "");
+        //   // your logic to handle secondary action click
+        // }}
+        {...inboxContentProps}
+      />
     </Inbox>
   );
 }
-
-

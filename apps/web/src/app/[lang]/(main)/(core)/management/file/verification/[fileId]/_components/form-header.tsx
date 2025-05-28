@@ -2,7 +2,7 @@
 import {Button} from "@/components/ui/button";
 import type {UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
-import {ChevronDownIcon} from "lucide-react";
+import {ChevronDownIcon, PaintbrushVertical, XIcon} from "lucide-react";
 import type {Dispatch, SetStateAction} from "react";
 import {useState} from "react";
 import {
@@ -12,6 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 
 export default function FormHeader({
   fileList,
@@ -19,15 +20,33 @@ export default function FormHeader({
   selectedAction,
   setSelectedAction,
   options,
+  showUISchemaWarning,
+  languageData,
 }: {
   fileList: FileForHumanValidationDto[];
   selectedFile?: string;
+  showUISchemaWarning?: boolean;
+  languageData: FileServiceResource;
 } & ActionProps) {
+  const [overrideshowUISchemaWarning, setOverrideShowUISchemaWarning] = useState(true);
   const [selected, setSelected] = useState<FileForHumanValidationDto | null | undefined>(
     fileList.find((item) => item.id === selectedFile),
   );
   return (
-    <div className="sticky top-0  z-10 mb-2 grid grid-cols-2 items-center gap-2 border-b bg-white pb-2 pt-2 md:flex md:pt-0">
+    <div className="sticky top-0 z-10  mb-2 flex flex-wrap items-center gap-2 border-b bg-white pb-2 pt-2 md:pt-0">
+      {overrideshowUISchemaWarning && showUISchemaWarning ? (
+        <div className="mb-2  flex w-full gap-2 rounded-md border border-orange-400 bg-orange-50 p-2 text-xs text-orange-500">
+          <PaintbrushVertical className="h-4 w-4" />
+          <span className="col-start-2">{languageData["Verification.NoUISchemaDefined"]}</span>
+          <XIcon
+            className="ml-auto size-4 cursor-pointer"
+            onClick={() => {
+              setOverrideShowUISchemaWarning(false);
+            }}
+            type="button"
+          />
+        </div>
+      ) : null}
       <Combobox<FileForHumanValidationDto>
         badges={{
           fileHumanValidationStatus: {
