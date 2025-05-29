@@ -39,9 +39,8 @@ const checkFormDataReadiness = (
   languageData: FileServiceResource,
 ) => {
   const isFormDataEmpty = Object.keys(formData).length === 0;
-
   return {
-    active: !isFormDataEmpty && overrideIsFormDataReady,
+    active: isFormDataEmpty && overrideIsFormDataReady,
     content: {
       icon: <FileSliders className="size-20 text-gray-400" />,
       title: languageData["Verification.NoFormDataExtracted.Title"],
@@ -64,13 +63,9 @@ const checkFormDataReadiness = (
 
 export default function Form({
   fileDetails,
-  fileList,
-  selectedFile,
   languageData,
 }: {
   fileDetails: FileForHumanValidationDto | null;
-  fileList: FileForHumanValidationDto[];
-  selectedFile?: string;
   languageData: FileServiceResource;
 }) {
   const [overrideIsFormDataReady, setOverrideIsFormDataReady] = useState(true);
@@ -97,9 +92,11 @@ export default function Form({
       description: "Approve the document and create a tag",
     },
   ];
-  const formData = JSON.parse(fileDetails?.fileAIOutputJson || "{}") as object;
-  const formSchema = JSON.parse(fileDetails?.fileJsonSchema || "{}") as object;
-  const formUiSchema = JSON.parse(fileDetails?.fileUIJsonSchema || "{}") as object;
+  // Safely parse JSON to prevent exceptions
+
+  const formData = safeJsonParse(fileDetails?.fileAIOutputJson);
+  const formSchema = safeJsonParse(fileDetails?.fileJsonSchema);
+  const formUiSchema = safeJsonParse(fileDetails?.fileUIJsonSchema);
   const [selectedAction, setSelectedAction] = useState<ActionOption>(options[0]);
   const schemaReadinessState = checkSchemaReadiness(formSchema, lang, languageData);
   const formDataReadinessState = checkFormDataReadiness(
@@ -168,11 +165,9 @@ export default function Form({
           // }}
           useTableForArrayItems>
           <FormHeader
-            fileList={fileList}
             languageData={languageData}
             options={options}
             selectedAction={selectedAction}
-            selectedFile={selectedFile}
             setSelectedAction={setSelectedAction}
             showUISchemaWarning={Object.keys(formUiSchema).length === 0}
           />
@@ -181,3 +176,12 @@ export default function Form({
     </FormReadyComponent>
   );
 }
+
+const safeJsonParse = (jsonString: string | undefined | null): object => {
+  if (!jsonString) return {};
+  try {
+    return JSON.parse(jsonString) as object;
+  } catch {
+    return {};
+  }
+};

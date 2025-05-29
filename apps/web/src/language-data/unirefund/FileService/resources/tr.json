@@ -16,5 +16,11 @@
   "Verification.NoFormDataExtracted.Message": "Bu belgeden hiç form verisi çıkarılmadı. Yine de devam etmek isteyebilir veya AI işlemesini tekrar tetikleyebilirsiniz.",
   "Verification.NoFormDataExtracted.TriggerAIProcess": "AI işlemesini tetikle",
   "Verification.NoFormDataExtracted.Proceed": "Yine de devam et",
-  "Verification.NoUISchemaDefined": "Bu dosya türü için tanımlı bir UI Şeması yok. Form stil sorunlarıyla karşılaşabilirsiniz."
+  "Verification.NoUISchemaDefined": "Bu dosya türü için tanımlı bir UI Şeması yok. Form stil sorunlarıyla karşılaşabilirsiniz.",
+  "Verification": "Doğrulama",
+  "ExportValidation": "Gümrük doğrulama",
+  "CreateTag": "Etiket oluştur",
+  "NextFile": "Sonraki Belge",
+  "PreviousFile": "Önceki Belge",
+  "DownloadFile": "Dosyayı indir"
 }
