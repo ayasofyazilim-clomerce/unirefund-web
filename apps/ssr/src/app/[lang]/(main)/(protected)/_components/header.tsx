@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {signOutServer} from "@repo/utils/auth";
 import {cn} from "@/lib/utils";
+import {NotificationPopover} from "@repo/ui/notification";
 import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
@@ -40,12 +41,20 @@ const navigationItems = [
     icon: User,
   },
 ];
+type NovuProps = {
+  appId: string;
+  appUrl: string;
+  subscriberId: string;
+};
+
 export default function Header({
   languageData,
   availableLocals,
+  novu,
 }: {
   languageData: SSRServiceResource;
   availableLocals: string[];
+  novu: NovuProps;
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {lang} = useParams<{lang: string}>();
@@ -80,8 +89,9 @@ export default function Header({
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex md:items-center md:space-x-8">
+          <nav className="hidden md:flex md:items-center md:gap-4">
             {/* Explore button (desktop) */}
+
             <Link
               className="mr-2 flex items-center justify-center"
               href={getBaseLink("explore", lang)}
@@ -92,9 +102,16 @@ export default function Header({
               </p>
             </Link>
             {/* LanguageSelector for desktop */}
-            <div className="mr-4">
-              <LanguageSelector availableLocals={availableLocals} lang={lang} />
-            </div>{" "}
+            <LanguageSelector availableLocals={availableLocals} lang={lang} />
+            <NotificationPopover
+              appearance={{}}
+              langugageData={languageData}
+              popoverContentProps={{
+                className: "h-[300px] max-h-[300px] max-w-[300px] rounded-lg",
+              }}
+              {...novu}
+            />
+
             {/* Avatar with Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -115,6 +132,7 @@ export default function Header({
                       <span>{languageData.Profile}</span>
                     </DropdownMenuItem>
                   </Link>
+
                   <DropdownMenuItem onSelect={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>{languageData.Logout}</span>
@@ -125,13 +143,11 @@ export default function Header({
           </nav>
 
           {/* Mobile Navigation */}
-          {isMenuOpen ? (
+          {/* {isMenuOpen ? (
             <div className="absolute inset-x-0 top-16 z-50 origin-top-right transform p-2 transition md:hidden">
               <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="px-5 pb-6 pt-5">
                   <div className="flex flex-col space-y-4">
-                    {" "}
-                    {/* Profile options for mobile */}
                     <div className="space-y-1">
                       <div className="px-2 text-sm font-semibold">{languageData.MyAccount}</div>
                       <div className="flex flex-col space-y-1">
@@ -162,7 +178,7 @@ export default function Header({
                 </div>
               </div>
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       </header>
 

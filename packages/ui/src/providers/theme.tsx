@@ -1,10 +1,10 @@
 "use client";
 
-import {NavbarItemsFromDB, ProfileMenuProps} from "@repo/ui/theme/types";
-import {StaticImport} from "next/dist/shared/lib/get-img-props";
-import {createContext, useContext} from "react";
-import {NotificationProps} from "../components/notification";
-import {SearchFromDB} from "./../theme/main-admin-layout/components/navbar-searchbar";
+import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { createContext, useContext } from "react";
+import { NotificationProps } from "../notification";
+import { SearchFromDB } from "./../theme/main-admin-layout/components/navbar-searchbar";
 
 interface ThemeProviderProps {
   appName: string;
@@ -14,7 +14,7 @@ interface ThemeProviderProps {
   profileMenu?: ProfileMenuProps;
   prefix: string;
   lang: string;
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
   children: JSX.Element;
   notification: NotificationProps;
   searchFromDB: SearchFromDB[];
@@ -27,7 +27,7 @@ interface ThemeContextProps {
   profileMenu?: ProfileMenuProps;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
   notification?: NotificationProps;
   searchFromDB?: SearchFromDB[];
 }

@@ -12,22 +12,31 @@ import {signOutServer} from "@repo/utils/auth";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {useIsMobile} from "@/components/hooks/useIsMobile";
 import {QRCodeSVG} from "qrcode.react";
+import {NotificationInbox} from "@repo/ui/notification";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
 import PersonalInformation from "./_components/personal-information";
 import ChangePassword from "./_components/change-password";
 
+type NovuProps = {
+  appId: string;
+  appUrl: string;
+  subscriberId: string;
+};
+
 export default function Profile({
   ssrLanguageData,
   accountLanguageData,
   availableLocals,
   personalInformationData,
+  novu,
 }: {
   ssrLanguageData: SSRServiceResource;
   accountLanguageData: AccountServiceResource;
   availableLocals: string[];
   personalInformationData: Volo_Abp_Account_ProfileDto;
+  novu: NovuProps;
 }) {
   const router = useRouter();
   const [showQrCode, setShowQrCode] = React.useState(false);
@@ -39,6 +48,9 @@ export default function Profile({
     const firstInitial = name ? name[0].toUpperCase() : "";
     const lastInitial = surname ? surname[0].toUpperCase() : "";
     return firstInitial + (lastInitial || "");
+  };
+  const handleLogout = () => {
+    void signOutServer();
   };
   const accountItems = [
     {
@@ -89,11 +101,13 @@ export default function Profile({
         router.push("/support");
       },
     },
+    {
+      icon: <LogOut className="h-4 w-4" />,
+      title: ssrLanguageData.Logout || "Logout",
+      description: ssrLanguageData.LogoutDescription,
+      onClick: handleLogout,
+    },
   ];
-
-  const handleLogout = () => {
-    void signOutServer();
-  };
 
   const params = useParams();
   const lang = params.lang as string;
@@ -102,7 +116,7 @@ export default function Profile({
     <div className="mx-auto max-w-full py-4 md:container md:max-w-5xl md:px-4 md:py-8">
       <div className="grid gap-4 md:gap-8 lg:grid-cols-[300px_1fr]">
         {/* Profil Kartı */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card className="overflow-hidden ">
             <CardHeader className="relative bg-gradient-to-r from-red-500 to-red-600 p-0 text-white">
               <div className="absolute top-2 flex w-full justify-between px-2">
@@ -151,14 +165,9 @@ export default function Profile({
               </div>
             </CardContent>
           </Card>
-          {/* Çıkış Yap butonu */}{" "}
-          <Button
-            className="flex w-full items-center justify-center gap-2"
-            onClick={handleLogout}
-            variant="destructive">
-            <LogOut className="h-4 w-4" />
-            {ssrLanguageData.Logout || "Çıkış Yap"}
-          </Button>
+          <Card>
+            <NotificationInbox langugageData={ssrLanguageData} {...novu} />
+          </Card>
         </div>
 
         {/* Ayarlar Kartı */}

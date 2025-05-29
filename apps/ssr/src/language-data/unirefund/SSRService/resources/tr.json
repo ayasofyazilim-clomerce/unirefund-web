@@ -358,6 +358,7 @@
   "TryAgain": "Tekrar Dene",
   "AlreadyHaveAnAccount": "Zaten hesabınız var mı? Giriş yapın",
   "Logout": "Çıkış Yap",
+  "LogoutDescription": "Hesabınızdan çıkış yapın",
   "MyAccount": "Hesabım",
   "Profile": "Profil",
   "ProfileQRCode": "Profil QR Kodu",

@@ -1,7 +1,7 @@
 "use client";
 
-import {NotificationProps} from "../../components/notification";
-import {ThemeProvider} from "../../providers/theme";
+import { NotificationProps } from "../../notification";
+import { ThemeProvider } from "../../providers/theme";
 import HeaderSection from "./header-section";
 
 function MainAdminLayout(props: {
