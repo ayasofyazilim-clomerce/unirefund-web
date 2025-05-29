@@ -4,10 +4,7 @@
   "exports": {
     "./*": "./src/*/index.tsx",
     "./utils": "./src/utils.ts",
-    "./components/*": [
-      "./src/components/*.tsx",
-      "./src/components/*/index.tsx"
-    ],
+    "./components/*": "./src/components/*.tsx",
     "./utils/table/*": "./utils/table/*.ts",
     "./utils/general/*": "./utils/general/*.ts",
     "./providers/*": "./src/providers/*.tsx"

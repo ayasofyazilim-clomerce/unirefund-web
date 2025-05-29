@@ -2111,6 +2111,7 @@ export type FileServiceResources = {
   "FileService:FS0013": "File already validated: '{FileValidationStatus}'!";
   "FileService:FS0014": "File validation is not required for this type of file!";
   "Permission:FileType.View": "View a FileType";
+  "Permission:File.ViewForHumanValidation": "View a file for human validation";
 };
 export type RlsConfigResources = {
   SamplePageMessage: "A sample page for the RlsConfig module";

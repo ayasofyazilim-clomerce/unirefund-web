@@ -5,6 +5,7 @@ import {getPersonalInfomationApi} from "@repo/actions/core/AccountService/action
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {signOutServer} from "@repo/utils/auth";
+import {auth} from "@repo/utils/auth/next-auth";
 import {getResourceData as ssrGetResourceData} from "src/language-data/unirefund/SSRService";
 import {getResourceData as accountGetResourceData} from "src/language-data/core/AccountService";
 import Profile from "./client";
@@ -28,6 +29,8 @@ export default async function Page({params}: {params: {lang: string}}) {
 
   const apiRequests = await getApiRequests();
 
+  const session = await auth();
+
   if ("message" in apiRequests) {
     return (
       <ErrorComponent
@@ -43,6 +46,11 @@ export default async function Page({params}: {params: {lang: string}}) {
     <Profile
       accountLanguageData={accountLanguageData}
       availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
+      novu={{
+        appId: process.env.NOVU_APP_IDENTIFIER || "",
+        appUrl: process.env.NOVU_APP_URL || "",
+        subscriberId: session?.user?.sub || "",
+      }}
       personalInformationData={response.data}
       ssrLanguageData={ssrLanguageData}
     />

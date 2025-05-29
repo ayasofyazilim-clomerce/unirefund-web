@@ -1,7 +1,4 @@
-import type {BaseProps as BaseNovuInboxProps, InboxContentProps} from "@novu/react";
-
-export * from "./inbox";
-export * from "./popover";
+import type { BaseProps as BaseNovuInboxProps, InboxContentProps } from "@novu/react";
 
 export type NotificationProps = {
   appId: string;
@@ -15,3 +12,6 @@ export type NotificationProps = {
   };
   inboxContentProps?: InboxContentProps;
 } & Omit<BaseNovuInboxProps, "applicationIdentifier">;
+
+export * from "./inbox";
+export * from "./popover";
