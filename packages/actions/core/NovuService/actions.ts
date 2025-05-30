@@ -2,6 +2,7 @@
 import {Novu} from "@novu/api";
 
 import {TriggerEventRequestDto} from "@novu/api/models/components";
+import {NotificationsControllerListNotificationsRequest} from "@novu/api/models/operations";
 import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 
 export type CoreWorkFlowIds = "workflow-1" | "workflow-2" | "workflow-3";
@@ -64,6 +65,23 @@ export async function postNovuBroadcast(workflowId: string, payload: {subject: s
     throw structuredError(error);
   }
 }
+export async function getNovuNotification(notificationId: string) {
+  try {
+    const result = await novu.notifications.retrieve(notificationId);
+    return structuredSuccessResponse(result.result);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getNovuNotifications(data: NotificationsControllerListNotificationsRequest) {
+  try {
+    const result = await novu.notifications.list(data);
+    return structuredSuccessResponse(result.result);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 export async function postNovuTrigger(
   workflowId: string,
   payload: {subject: string; message: string},
