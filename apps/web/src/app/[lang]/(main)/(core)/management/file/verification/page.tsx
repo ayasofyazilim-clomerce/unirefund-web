@@ -9,7 +9,14 @@ import {Table} from "./_components/table";
 async function getApiRequests() {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getFilesForHumanValidationApi(["NotConfirmed", "Waiting"], session)]);
+    const requiredRequests = await Promise.all([
+      getFilesForHumanValidationApi(
+        {
+          fileHumanValidationStatuses: ["NotConfirmed", "Waiting"],
+        },
+        session,
+      ),
+    ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -36,5 +43,5 @@ export default async function Page({
 
   const [fileResponse] = apiRequests.requiredRequests;
 
-  return <Table data={fileResponse.data.items || []} />;
+  return <Table data={fileResponse.data.items || []} languageData={languageData} />;
 }

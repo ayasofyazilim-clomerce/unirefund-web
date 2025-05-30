@@ -123,6 +123,10 @@ const config: Config = {
         fifth: "moveInCircle 20s ease infinite",
         aurora: "aurora 60s linear infinite",
       },
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
+      },
     },
   },
   plugins: [
