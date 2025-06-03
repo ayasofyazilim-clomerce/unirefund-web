@@ -24,7 +24,8 @@ export type Rule = {
   isTenant: boolean;
   originatorRequired: boolean;
   descriptionRequired: boolean;
-  isValidationRequired: boolean;
+  isAIValidationRequired: boolean;
+  isHumanValidationRequired: boolean;
   numberRequired: boolean;
   isFileTypeRequired: boolean;
   mimeTypes?: Array<{

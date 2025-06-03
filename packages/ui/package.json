@@ -17,7 +17,7 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@ayasofyazilim/saas": "0.0.152",
+    "@ayasofyazilim/saas": "0.0.153",
     "@ayasofyazilim/core-saas": "latest",
     "@repo/ayasofyazilim-ui": "workspace:*",
     "next": "14.1.1",
