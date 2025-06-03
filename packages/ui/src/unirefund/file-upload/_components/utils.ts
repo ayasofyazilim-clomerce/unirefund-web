@@ -1,13 +1,12 @@
-import {UpwithCrowd_Files_FileResponseListDto} from "@repo/actions/upwithcrowd/types";
 import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
-
+import {UniRefund_FileService_Files_FileResponseListDto} from "@ayasofyazilim/saas/FileService";
 export function handleFileDownload({
   response,
   file,
   actionType,
 }: {
   response: Response;
-  file: UpwithCrowd_Files_FileResponseListDto;
+  file: UniRefund_FileService_Files_FileResponseListDto;
   actionType: "open" | "download";
 }) {
   if (response.ok) {
