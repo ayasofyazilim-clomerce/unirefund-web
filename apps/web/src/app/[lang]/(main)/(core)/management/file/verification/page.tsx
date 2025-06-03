@@ -1,4 +1,4 @@
-import {getFilesForHumanValidationApi} from "@repo/actions/unirefund/FileService/actions";
+import {getFilesForHumanValidationApi, getFileTypesApi} from "@repo/actions/unirefund/FileService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -16,6 +16,7 @@ async function getApiRequests() {
         },
         session,
       ),
+      getFileTypesApi({isHumanValidationRequired: true}, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
@@ -41,7 +42,14 @@ export default async function Page({
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [fileResponse] = apiRequests.requiredRequests;
+  const [fileResponse, fileTypeResponse] = apiRequests.requiredRequests;
+  const fileTypes = fileTypeResponse.data.items
+    ? Array.from(new Map(fileTypeResponse.data.items.map((item) => [item.namespace, item])).values())
+    : [];
 
-  return <Table data={fileResponse.data.items || []} languageData={languageData} />;
+  return (
+    <div className="my-2">
+      <Table availableFileTypes={fileTypes} data={fileResponse.data.items || []} languageData={languageData} />
+    </div>
+  );
 }

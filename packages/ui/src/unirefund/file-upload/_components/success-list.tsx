@@ -8,9 +8,10 @@ export function SuccessedFileList({className}: {className?: string}) {
   if (successed.length === 0) return null;
   return (
     <div className={cn("flex flex-wrap gap-4 border-t p-4", className)}>
-      {successed.map((successedFiles) => {
+      {successed.map((successedFiles, index) => {
         return (
           <FileCard
+            key={successedFiles.data.file.size + successedFiles.data.file.name + index}
             file={successedFiles.data.file}
             classNames={{
               container: "bg-emerald-50 border-emerald-400 border text-emerald-500 w-[calc(33.33%-.7rem)]",
