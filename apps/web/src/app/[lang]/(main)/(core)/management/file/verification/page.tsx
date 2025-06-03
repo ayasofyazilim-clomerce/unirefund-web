@@ -48,7 +48,7 @@ export default async function Page({
     : [];
 
   return (
-    <div className="mt-2">
+    <div className="my-2">
       <Table availableFileTypes={fileTypes} data={fileResponse.data.items || []} languageData={languageData} />
     </div>
   );
