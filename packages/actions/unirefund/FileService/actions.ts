@@ -7,6 +7,7 @@ import {
   GetApiFileServiceFileTypeGroupsData,
   GetApiFileServiceFileTypeGroupsRulesetData,
   GetApiFileServiceFileTypeMimeTypesData,
+  GetApiFileServiceFileTypesByIdData,
   GetApiFileServiceFileTypesData,
   GetApiFileServiceMimeTypesData,
   GetApiFileServiceProvidersData,
@@ -88,6 +89,15 @@ export async function getFileTypesApi(data: GetApiFileServiceFileTypesData, sess
   try {
     const client = await getFileServiceClient(session);
     const response = await client.fileType.getApiFileServiceFileTypes(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getFileTypesByIdApi(id: string, session?: Session | null) {
+  try {
+    const client = await getFileServiceClient(session);
+    const response = await client.fileType.getApiFileServiceFileTypesById({id});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);

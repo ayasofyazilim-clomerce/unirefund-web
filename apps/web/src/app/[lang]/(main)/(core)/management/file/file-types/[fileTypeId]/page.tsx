@@ -1,6 +1,6 @@
 "use server";
 
-import {getFileTypeGroupsApi, getFileTypesApi, getProvidersApi} from "@repo/actions/unirefund/FileService/actions";
+import {getFileTypeGroupsApi, getFileTypesByIdApi, getProvidersApi} from "@repo/actions/unirefund/FileService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -16,7 +16,7 @@ async function getApiRequests(fileTypeId: string) {
     const requiredRequests = await Promise.all([
       getFileTypeGroupsApi({}, session),
       getProvidersApi({}, session),
-      fileTypeId !== "new" ? getFileTypesApi({id: fileTypeId}, session) : Promise.resolve({data: {items: []}}),
+      fileTypeId !== "new" ? getFileTypesByIdApi(fileTypeId, session) : Promise.resolve({data: null}),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
@@ -42,7 +42,7 @@ export default async function Page({params}: {params: {lang: string; fileTypeId:
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [fileTypeGroupResponse, providerResponse, fileTypeResponse] = apiRequests.requiredRequests;
-  const fileTypeData = fileTypeResponse.data.items?.[0];
+  const fileTypeData = fileTypeResponse.data;
   const fileTypeGroupData = fileTypeGroupResponse.data.items || [];
   const providerData = providerResponse.data.items || [];
 
