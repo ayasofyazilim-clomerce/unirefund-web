@@ -22,5 +22,12 @@
   "CreateTag": "Create tag",
   "NextFile": "Next document",
   "PreviousFile": "Previous document",
-  "DownloadFile": "Download file"
+  "DownloadFile": "Download file",
+  "UploadFile": "Upload file",
+  "FileUpload.NoFileTypeFound": "No file type found",
+  "FileUpload.PleaseSelectFileTypeToUpload": "Please select a file type to upload",
+  "FileUpload.Required": "Required",
+  "FileUpload.New": "New",
+  "FileUpload.UploadFile": "Upload file",
+  "FileUpload.Save": "Save"
 }

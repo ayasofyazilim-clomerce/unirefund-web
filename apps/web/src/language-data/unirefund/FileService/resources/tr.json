@@ -22,5 +22,12 @@
   "CreateTag": "Etiket oluştur",
   "NextFile": "Sonraki Belge",
   "PreviousFile": "Önceki Belge",
-  "DownloadFile": "Dosyayı indir"
+  "DownloadFile": "Dosyayı indir",
+  "UploadFile": "Dosya yükle",
+  "FileUpload.NoFileTypeFound": "Dosya tipi bulunamadı",
+  "FileUpload.PleaseSelectFileTypeToUpload": "Lütfen yüklemek için bir dosya tipi seçin",
+  "FileUpload.Required": "Gerekli",
+  "FileUpload.New": "Yeni",
+  "FileUpload.UploadFile": "Dosya yükle",
+  "FileUpload.Save": "Kaydet"
 }

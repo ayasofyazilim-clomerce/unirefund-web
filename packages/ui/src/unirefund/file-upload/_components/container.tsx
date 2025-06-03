@@ -4,7 +4,7 @@ import * as Hover from "@repo/ayasofyazilim-ui/atoms/hover-card";
 import {FileCard} from "@repo/ayasofyazilim-ui/organisms/file-uploader";
 import {FileQuestion} from "lucide-react";
 import {useState} from "react";
-import {Rule} from "../../file-upload";
+import {FileUploadResources, Rule} from "../../file-upload";
 import {FileUploaderProvider, useFileUploader} from "./file-provider";
 import {FileUploadBase, FileUploadBaseProps} from "./file-upload-base";
 import {FileFormData, Form} from "./form";
@@ -21,6 +21,7 @@ export type FileUploadContainerProps<T> = {
   onSuccess: FileUploadBaseProps<T>["onSuccess"];
   children?: React.ReactNode;
   disabled?: boolean;
+  languageData: FileUploadResources;
 };
 
 export function FileUploadContainer<T>({
@@ -30,6 +31,7 @@ export function FileUploadContainer<T>({
   onSuccess,
   children,
   disabled,
+  languageData,
 }: FileUploadContainerProps<T>) {
   const [formData, setFormData] = useState<Array<FileFormData> | null>(null);
   if (!rule || !rule.mimeTypes) return null;
@@ -53,6 +55,7 @@ export function FileUploadContainer<T>({
     <FileUploaderProvider>
       <FileUploadBase
         onSuccess={onSuccess}
+        languageData={languageData}
         key={rule.id}
         maxFileCount={config.maxFileCount}
         maxSize={config.maxSize}

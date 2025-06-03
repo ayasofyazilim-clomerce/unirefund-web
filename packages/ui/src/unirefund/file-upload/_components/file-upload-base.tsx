@@ -5,6 +5,7 @@ import {useState} from "react";
 import {useFileUploader} from "./file-provider";
 import {FileFormData} from "./form";
 import {cn} from "../../../utils";
+import {FileUploadResources} from "../../file-upload";
 
 export type FileUploadBaseProps<T> = Pick<
   BaseFileUploaderProps,
@@ -18,6 +19,7 @@ export type FileUploadBaseProps<T> = Pick<
     Property: string;
   };
   disabled?: boolean;
+  languageData: FileUploadResources;
 };
 
 export function FileUploadBase<T>({
@@ -33,6 +35,7 @@ export function FileUploadBase<T>({
   constantValues,
   onSuccess,
   disabled,
+  languageData,
 }: FileUploadBaseProps<T>) {
   const {pending, setPending, setProgress, setSuccessed, setFailed} = useFileUploader();
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -105,7 +108,7 @@ export function FileUploadBase<T>({
           className="w-full self-end sm:max-w-max"
           disabled={disabled || files.length === 0 || pending.length > 0}
           onClick={handleUpload}>
-          Kaydet
+          {languageData["FileUpload.Save"]}
         </Button>
       }>
       {children}
