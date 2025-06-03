@@ -18,6 +18,7 @@ export default function FormHeader({
   options,
   showUISchemaWarning,
   languageData,
+  disabled,
 }: {
   showUISchemaWarning?: boolean;
   languageData: FileServiceResource;
@@ -38,7 +39,12 @@ export default function FormHeader({
           />
         </div>
       ) : null}
-      <Actions options={options} selectedAction={selectedAction} setSelectedAction={setSelectedAction} />
+      <Actions
+        disabled={disabled}
+        options={options}
+        selectedAction={selectedAction}
+        setSelectedAction={setSelectedAction}
+      />
     </div>
   );
 }
@@ -49,12 +55,13 @@ export type ActionOption = {
   description?: string;
 };
 type ActionProps = {
+  disabled?: boolean;
   selectedAction: ActionOption;
   setSelectedAction: Dispatch<SetStateAction<ActionOption>>;
   options: ActionOption[];
 };
 
-function Actions({selectedAction, setSelectedAction, options}: ActionProps) {
+function Actions({disabled, selectedAction, setSelectedAction, options}: ActionProps) {
   return (
     <div className="shadow-xs ml-auto inline-flex rounded-md rtl:space-x-reverse">
       <Button
@@ -67,7 +74,9 @@ function Actions({selectedAction, setSelectedAction, options}: ActionProps) {
           <Button
             aria-label="Options"
             className="rounded-none border-l-0 shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
+            disabled={disabled}
             size="icon"
+            type="button"
             variant="outline">
             <ChevronDownIcon aria-hidden="true" size={16} />
           </Button>
