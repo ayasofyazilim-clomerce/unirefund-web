@@ -46,6 +46,16 @@ export type Rule = {
     required?: boolean;
   }> | null;
 };
+
+export type FileUploadResources = {
+  "FileUpload.NoFileTypeFound": string;
+  "FileUpload.PleaseSelectFileTypeToUpload": string;
+  "FileUpload.Required": string;
+  "FileUpload.New": string;
+  "FileUpload.UploadFile": string;
+  "FileUpload.Save": string;
+};
+
 export type Ruleset = Rule[];
 export type FileUploadProps<T> = {
   ruleset: Ruleset;
@@ -57,8 +67,17 @@ export type FileUploadProps<T> = {
   children?: React.ReactNode;
   onSuccess?: FileUploadBaseProps<T>["onSuccess"];
   disabled?: boolean;
+  languageData: FileUploadResources;
 };
-export function FileUpload<T>({ruleset, propertyId, classNames, children, onSuccess, disabled}: FileUploadProps<T>) {
+export function FileUpload<T>({
+  ruleset,
+  propertyId,
+  classNames,
+  children,
+  onSuccess,
+  disabled,
+  languageData,
+}: FileUploadProps<T>) {
   const clearedRules = ruleset.filter((rule) => rule.fileRelationsEntity?.length);
   const nonRequireds = clearedRules.map((rule) => !rule.isFileTypeRequired);
   const [visibleRuleIds, setVisibleRuleIds] = useState<string[]>(
@@ -67,7 +86,11 @@ export function FileUpload<T>({ruleset, propertyId, classNames, children, onSucc
       : clearedRules.filter((r) => r.isFileTypeRequired).map((r) => r.id),
   );
   if (clearedRules.length === 0)
-    return <div className="flex items-center justify-center rounded-md border p-4 text-sm">No file type found</div>;
+    return (
+      <div className="flex items-center justify-center rounded-md border p-4 text-sm">
+        {languageData["FileUpload.NoFileTypeFound"]}
+      </div>
+    );
   return (
     <div className={cn("flex flex-col gap-4", classNames?.container)}>
       {nonRequireds.length > 1 && (
@@ -81,18 +104,19 @@ export function FileUpload<T>({ruleset, propertyId, classNames, children, onSucc
             disabled: rule.isFileTypeRequired,
             children: rule.isFileTypeRequired && (
               <Badge className="ml-auto" variant="outline">
-                Required
+                {languageData["FileUpload.Required"]}
               </Badge>
             ),
           }))}
           onValueChange={setVisibleRuleIds}
-          placeholder="Please select file type to upload"
+          placeholder={languageData["FileUpload.PleaseSelectFileTypeToUpload"]}
         />
       )}
       {clearedRules.map((rule) => {
         if (!rule || !visibleRuleIds.includes(rule.id)) return null;
         return (
-          <FileUploadContainer
+          <FileUploadContainer<T>
+            languageData={languageData}
             disabled={disabled}
             onSuccess={onSuccess}
             rule={rule}

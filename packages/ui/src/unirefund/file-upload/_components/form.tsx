@@ -80,7 +80,7 @@ export function Form({
       }}
       extraErrors={extraErrors}
       onChange={({formData}) => {
-        if (!formData) return;
+        if (!formData || Object.keys(formData).length === 0) return;
         setFormData((prev) => {
           if (prev) {
             const newData = [...prev];
