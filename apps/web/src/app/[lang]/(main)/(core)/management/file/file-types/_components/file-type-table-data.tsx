@@ -98,7 +98,7 @@ function fileTypeTable(
     fillerColumn: "namespace",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "providerID", "fileTypeGroupID"],
+      columns: ["id", "providerID"],
     },
     columnOrder: ["name"],
     tableActions: fileTypeTableActions(router, languageData, locale),
