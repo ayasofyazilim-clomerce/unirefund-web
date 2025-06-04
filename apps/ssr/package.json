@@ -49,7 +49,7 @@
     "lucide-react": "0.445.0",
     "mini-svg-data-uri": "^1.4.4",
     "mrz": "^4.2.1",
-    "next": "14.2.20",
+    "next": "14.2.29",
     "next-auth": "5.0.0-beta.16",
     "qrcode.react": "^4.2.0",
     "react": "18.3.1",
