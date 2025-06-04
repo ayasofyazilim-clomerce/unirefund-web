@@ -85,7 +85,7 @@ export default async function Layout({
     <TabLayout
       classNames={{horizontal: {tabs: "pt-2", tabContent: "overflow-hidden m-0 flex flex-col gap-2 py-2"}}}
       orientation="horizontal"
-      tabList={tabList}>
+      tabList={tabList.filter((tab) => tab.href === `${baseLink}verify`)}>
       <FileVerificationActions
         fileTypes={fileTypeResponse.data.items || []}
         initialFileList={filterFileList({
