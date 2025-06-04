@@ -1,13 +1,14 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import type {UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
+import {putFileValidateOrInvalidateApi} from "@repo/actions/unirefund/FileService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {FormReadyComponent} from "@repo/ui/form-ready";
-import {toastOnSubmit} from "@repo/ui/toast-on-submit";
+import {handlePutResponse} from "@repo/utils/api";
 import {FileSliders} from "lucide-react";
 import Link from "next/link";
-import {useParams} from "next/navigation";
-import {useState} from "react";
+import {useParams, useRouter} from "next/navigation";
+import {useState, useTransition} from "react";
 import {getBaseLink} from "@/utils";
 import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 import type {ActionOption} from "./form-header";
@@ -68,9 +69,17 @@ export default function Form({
   fileDetails: FileForHumanValidationDto | null;
   languageData: FileServiceResource;
 }) {
+  const {fileId} = useParams<{fileId: string}>();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [overrideIsFormDataReady, setOverrideIsFormDataReady] = useState(true);
   const {lang} = useParams<{lang: string}>();
   const options = [
+    {
+      key: "save",
+      label: "Save",
+      description: "Save the document without status change",
+    },
     {
       key: "approve",
       label: "Approve",
@@ -80,16 +89,6 @@ export default function Form({
       key: "reject",
       label: "Reject",
       description: "Reject the document",
-    },
-    {
-      key: "approve_and_export",
-      label: "Approve and export validate",
-      description: "Approve the document and start export validation process",
-    },
-    {
-      key: "approve_and_create_tag",
-      label: "Approve and create tag",
-      description: "Approve the document and create a tag",
     },
   ];
   // Safely parse JSON to prevent exceptions
@@ -110,11 +109,27 @@ export default function Form({
       <FormReadyComponent {...formDataReadinessState}>
         <SchemaForm
           className="flex flex-col-reverse"
+          disableValidation={selectedAction.key === "save"}
+          disabled={isPending}
           formData={formData}
+          liveValidate={selectedAction.key !== "save"}
           onSubmit={({formData: editedFormData}) => {
-            toastOnSubmit({
-              title: selectedAction.label,
-              description: editedFormData,
+            startTransition(() => {
+              let isValidated = fileDetails?.isValidated || false;
+              if (selectedAction.key === "approve") {
+                isValidated = true;
+              } else if (selectedAction.key === "reject") {
+                isValidated = false;
+              }
+              void putFileValidateOrInvalidateApi({
+                id: fileId,
+                requestBody: {
+                  humanValidatedOutputJson: JSON.stringify(editedFormData),
+                  isValidated,
+                },
+              }).then((res) => {
+                handlePutResponse(res, router);
+              });
             });
           }}
           schema={formSchema}
@@ -165,6 +180,7 @@ export default function Form({
           // }}
           useTableForArrayItems>
           <FormHeader
+            disabled={isPending}
             languageData={languageData}
             options={options}
             selectedAction={selectedAction}
