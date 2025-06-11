@@ -43,9 +43,6 @@ export default function RefundPointContractHeaderCreateForm({
     status: {
       "ui:className": "md:col-span-full",
     },
-    earlyRefund: {
-      "ui:widget": "switch",
-    },
     refundFeeHeaders: {
       "ui:className": "md:col-span-full",
       "ui:field": "RefundFeeHeadersField",
