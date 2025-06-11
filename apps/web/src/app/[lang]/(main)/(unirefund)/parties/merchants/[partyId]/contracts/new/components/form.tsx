@@ -43,9 +43,6 @@ export default function MerchantContractHeaderCreateForm({
     status: {
       "ui:className": "md:col-span-full",
     },
-    earlyRefund: {
-      "ui:widget": "switch",
-    },
     refundTableHeaders: {
       "ui:className": "md:col-span-full",
       "ui:field": "RefundTableHeadersField",

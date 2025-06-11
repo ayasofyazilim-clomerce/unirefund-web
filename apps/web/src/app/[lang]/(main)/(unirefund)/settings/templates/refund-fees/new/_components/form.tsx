@@ -36,7 +36,6 @@ export default function RefundFeeHeaderCreateForm({
         maxFee: 0,
         minFee: 0,
         percentFeeValue: 0,
-        isForEarlyRefund: false,
         refundMethod: "All",
       },
     ],
