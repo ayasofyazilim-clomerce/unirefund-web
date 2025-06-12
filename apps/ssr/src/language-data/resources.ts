@@ -2090,7 +2090,7 @@ export type FileServiceResources = {
   "FileService:FS0001": "File could not be fetched from file storage!";
   "FileService:FS0002": "Error: FileType could not be found for the namespace {namespaceName}. Please make sure you have entered a valid namespace.";
   "FileService:FS0003": "Error: RelatedEntity could not be found for the relatedEntityName {relatedEntityName}. Please make sure you have entered a valid relatedEntityName.";
-  "FileService:FS0004": "You can only upload one file for this file type. Please select only one file and try again.";
+  "FileService:FS0004": "You can only upload one file per id for this file type. Please select only one file and try again.";
   "FileService:FS0005": "Input cannot be null for the property: '{PropertyName}'!";
   "FileService:FS0006": "Only files with the following extensions are allowed for {fileTypeName}: {mimeTypes}.The file type you attempted to upload: {fileContentType}.";
   "FileService:FS0007": "Error: FileTypeGroup could not be found for the namespace {namespaceName}. Please make sure you have entered a valid namespace.";
