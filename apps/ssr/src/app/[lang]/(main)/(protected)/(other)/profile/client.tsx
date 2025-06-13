@@ -247,7 +247,7 @@ export default function Profile({
             </div>
           </DialogContent>
         </Dialog>
-      )}{" "}
+      )}
       {/* QR Kod Drawer - Mobil için */}
       {isMobile ? (
         <Drawer onOpenChange={setShowQrCode} open={showQrCode}>
