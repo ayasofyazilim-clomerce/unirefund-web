@@ -93,7 +93,8 @@ export default function Form({
   ];
   // Safely parse JSON to prevent exceptions
 
-  const formData = safeJsonParse(fileDetails?.fileAIOutputJson);
+  let formData = safeJsonParse(fileDetails?.humanValidatedOutputJson);
+  if (Object.keys(formData).length === 0) formData = safeJsonParse(fileDetails?.fileAIOutputJson);
   const formSchema = safeJsonParse(fileDetails?.fileJsonSchema);
   const formUiSchema = safeJsonParse(fileDetails?.fileUIJsonSchema);
   const [selectedAction, setSelectedAction] = useState<ActionOption>(options[0]);

@@ -10,12 +10,7 @@ async function getApiRequests() {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([
-      getFilesForHumanValidationApi(
-        {
-          fileHumanValidationStatuses: ["NotConfirmed", "Waiting"],
-        },
-        session,
-      ),
+      getFilesForHumanValidationApi({}, session),
       getFileTypesApi({isHumanValidationRequired: true}, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);

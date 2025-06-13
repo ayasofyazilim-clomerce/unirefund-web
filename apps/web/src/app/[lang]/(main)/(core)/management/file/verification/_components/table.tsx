@@ -46,6 +46,9 @@ export function Table({
           "fileAIValidationStatus",
           "fileHumanValidationStatus",
           "isValidated",
+          "isHumanOutputEqualToAI",
+          "similarityRateForAIAndHumanOutput",
+          "llmChallengeAccuracy",
         ],
       }}
       columns={columns}
