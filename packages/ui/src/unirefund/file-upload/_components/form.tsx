@@ -3,6 +3,8 @@ import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {cn} from "../../../utils";
 import {Rule} from "../../file-upload";
+import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
 
 export type FileFormData = {
   file: FileWithPath;
@@ -42,9 +44,9 @@ export function Form({
     ...(rule.descriptionRequired ? ["fileDescription"] : []),
   ];
   const fields: Record<string, {type: string; format?: string}> = {};
-  if (rule.dateRequired) fields.DocumentDate = {type: "string", format: "date-time"};
-  if (rule.numberRequired) fields.DocumentNumber = {type: "string"};
-  if (rule.originatorRequired) fields.DocumentOriginator = {type: "string"};
+  if (rule.dateRequired) fields.documentDate = {type: "string", format: "date-time"};
+  if (rule.numberRequired) fields.documentNumber = {type: "string"};
+  if (rule.originatorRequired) fields.documentOriginator = {type: "string"};
   if (rule.descriptionRequired) fields.fileDescription = {type: "string"};
 
   const [extraErrors, setExtraErrors] = useState<Record<string, {__errors: string[]}> | undefined>(undefined);
@@ -65,7 +67,6 @@ export function Form({
       withScrollArea={false}
       className="p-px"
       formData={formData || undefined}
-      useDefaultSubmit={false}
       uiSchema={{
         "ui:className": cn("grid", Object.keys(fields).length === 1 ? "grid-cols-1" : "sm:grid-cols-2 gap-4"),
         isValidated: {
@@ -79,18 +80,27 @@ export function Form({
         properties: fields,
       }}
       extraErrors={extraErrors}
-      onChange={({formData}) => {
-        if (!formData || Object.keys(formData).length === 0) return;
+      useDefaultSubmit={false}
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
         setFormData((prev) => {
           if (prev) {
             const newData = [...prev];
-            newData[index] = formData;
+            newData[index] = editedFormData;
             return newData;
           }
-          return [formData];
+          return [editedFormData];
         });
-        setExtraErrors(undefined);
-      }}
-    />
+      }}>
+      <Button
+        className="mt-2 w-full"
+        variant="secondary"
+        onClick={() => {
+          setExtraErrors(undefined);
+          toast.success("File data saved.");
+        }}>
+        Save File Form
+      </Button>
+    </SchemaForm>
   );
 }
