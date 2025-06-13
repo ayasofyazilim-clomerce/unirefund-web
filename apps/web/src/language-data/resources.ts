@@ -1855,7 +1855,7 @@ export type RefundServiceResources = {
   "UniRefund.RefundService:001002": "Provided traveller does not exist";
   "UniRefund.RefundService:001003": "The provided traveller does not match with tags' traveller";
   "UniRefund.RefundService:001004": "Provided refund point does not exist";
-  "UniRefund.RefundService:001005": "Provided user device name does not exist";
+  "UniRefund.RefundService:001005": "Payout creation failed";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
