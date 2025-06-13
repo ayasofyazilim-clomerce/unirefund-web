@@ -6,7 +6,7 @@ import {Card, CardHeader, CardTitle, CardContent, CardDescription} from "@/compo
 import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "@/components/ui/dialog";
-import {Sheet, SheetContent, SheetHeader, SheetTitle} from "@/components/ui/sheet";
+import {Drawer, DrawerContent, DrawerHeader, DrawerTitle} from "@/components/ui/drawer";
 import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, Pencil, IdCard} from "lucide-react";
 import {signOutServer} from "@repo/utils/auth";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
@@ -214,7 +214,6 @@ export default function Profile({
           </CardHeader>
         </Card>
       </div>
-
       {/* QR Kod Dialog - Desktop için */}
       {!isMobile && (
         <Dialog onOpenChange={setShowQrCode} open={showQrCode}>
@@ -248,16 +247,15 @@ export default function Profile({
             </div>
           </DialogContent>
         </Dialog>
-      )}
-
-      {/* QR Kod Sheet - Mobil için */}
+      )}{" "}
+      {/* QR Kod Drawer - Mobil için */}
       {isMobile ? (
-        <Sheet onOpenChange={setShowQrCode} open={showQrCode}>
-          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
-            <SheetHeader className="mb-4">
-              <SheetTitle>{ssrLanguageData.ProfileQRCode || "Profile QR Code"}</SheetTitle>
-            </SheetHeader>
-            <div className="overflow-y-auto pb-8">
+        <Drawer onOpenChange={setShowQrCode} open={showQrCode}>
+          <DrawerContent className="h-[85vh]">
+            <DrawerHeader className="mb-4">
+              <DrawerTitle>{ssrLanguageData.ProfileQRCode || "Profile QR Code"}</DrawerTitle>
+            </DrawerHeader>
+            <div className="overflow-y-auto px-4 pb-8">
               <div className="flex flex-col items-center">
                 <p className="mb-4 text-center text-sm text-gray-500">
                   {ssrLanguageData.ProfileQRCodeDescription ||
@@ -284,10 +282,9 @@ export default function Profile({
                 </div>
               </div>
             </div>
-          </SheetContent>
-        </Sheet>
+          </DrawerContent>
+        </Drawer>
       ) : null}
-
       {/* Personal Information - Desktop için Dialog */}
       {!isMobile && (
         <Dialog onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
@@ -298,25 +295,23 @@ export default function Profile({
             <PersonalInformation languageData={accountLanguageData} personalInformationData={personalInformationData} />
           </DialogContent>
         </Dialog>
-      )}
-
-      {/* Personal Information - Mobil için Sheet (Drawer) */}
+      )}{" "}
+      {/* Personal Information - Mobil için Drawer */}
       {isMobile ? (
-        <Sheet onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
-          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
-            <SheetHeader className="mb-4">
-              <SheetTitle>{ssrLanguageData.EditProfile || "Kişisel Bilgiler"}</SheetTitle>
-            </SheetHeader>
-            <div className="overflow-y-auto pb-8">
+        <Drawer onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
+          <DrawerContent className="h-[85vh]">
+            <DrawerHeader className="mb-4">
+              <DrawerTitle>{ssrLanguageData.EditProfile || "Kişisel Bilgiler"}</DrawerTitle>
+            </DrawerHeader>
+            <div className="overflow-y-auto px-4 pb-8">
               <PersonalInformation
                 languageData={accountLanguageData}
                 personalInformationData={personalInformationData}
               />
             </div>
-          </SheetContent>
-        </Sheet>
+          </DrawerContent>
+        </Drawer>
       ) : null}
-
       {/* Change Password - Desktop için Dialog */}
       {!isMobile && (
         <Dialog onOpenChange={setShowChangePassword} open={showChangePassword}>
@@ -327,20 +322,19 @@ export default function Profile({
             <ChangePassword languageData={accountLanguageData} />
           </DialogContent>
         </Dialog>
-      )}
-
-      {/* Change Password - Mobil için Sheet (Drawer) */}
+      )}{" "}
+      {/* Change Password - Mobil için Drawer */}
       {isMobile ? (
-        <Sheet onOpenChange={setShowChangePassword} open={showChangePassword}>
-          <SheetContent className="h-[85vh] rounded-t-[20px]" side="bottom">
-            <SheetHeader className="mb-4">
-              <SheetTitle>{ssrLanguageData.ChangePassword || "Şifre Değiştir"}</SheetTitle>
-            </SheetHeader>
-            <div className="overflow-y-auto pb-8">
+        <Drawer onOpenChange={setShowChangePassword} open={showChangePassword}>
+          <DrawerContent className="h-[85vh]">
+            <DrawerHeader className="mb-4">
+              <DrawerTitle>{ssrLanguageData.ChangePassword || "Şifre Değiştir"}</DrawerTitle>
+            </DrawerHeader>
+            <div className="overflow-y-auto px-4 pb-8">
               <ChangePassword languageData={accountLanguageData} />
             </div>
-          </SheetContent>
-        </Sheet>
+          </DrawerContent>
+        </Drawer>
       ) : null}
     </div>
   );
