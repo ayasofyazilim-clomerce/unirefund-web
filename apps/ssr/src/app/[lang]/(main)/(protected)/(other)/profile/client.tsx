@@ -295,7 +295,7 @@ export default function Profile({
             <PersonalInformation languageData={accountLanguageData} personalInformationData={personalInformationData} />
           </DialogContent>
         </Dialog>
-      )}{" "}
+      )}
       {/* Personal Information - Mobil için Drawer */}
       {isMobile ? (
         <Drawer onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
