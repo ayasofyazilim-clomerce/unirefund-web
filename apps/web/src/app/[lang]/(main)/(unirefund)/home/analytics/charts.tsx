@@ -15,29 +15,35 @@ const issuingNationalities = [
   {
     name: "Saudi Arabia",
     value: 126,
-    className: "bg-green-500 text-white group-hover:bg-green-600",
+    className: "bg-blue-500 text-white group-hover:bg-blue-600",
   },
   {
     name: "Iran",
     value: 107,
-    className: "bg-green-400 text-white group-hover:bg-green-500",
+    className: "bg-blue-400 text-white group-hover:bg-blue-500",
   },
   {
     name: "Russian Federation",
     value: 98,
-    className: "bg-green-300 text-green-600 group-hover:bg-green-400",
+    className: "bg-blue-300 text-blue-600 group-hover:bg-blue-400",
   },
   {
     name: "Egypt",
     value: 79,
-    className: "bg-orange-300 text-orange-600 group-hover:bg-orange-400",
+    className: "bg-blue-200 text-blue-600 group-hover:bg-blue-300",
   },
   {
-    name: "United States of America",
-    value: 27,
-    className: "bg-orange-200 text-orange-600 group-hover:bg-orange-300",
+    name: "Ireland",
+    value: 60,
+    className: "bg-blue-100 text-blue-600 group-hover:bg-blue-200",
+  },
+  {
+    name: "United Arab Emirates",
+    value: 60,
+    className: "bg-blue-50 text-blue-600 group-hover:bg-blue-100",
   },
 ];
+
 const issuedTagsByTimeOfDay = [
   {
     date: "00:00",
@@ -383,6 +389,34 @@ const DashboardJson = {
       ),
       className: "",
     },
+    {
+      id: 6,
+      order: 6,
+      type: "areaChart",
+      title: "Sales Overview",
+      description: "Area chart showing sales trends",
+      data: [
+        {date: "Jan", SolarPanels: 1000, Inverters: 200},
+        {date: "Feb", SolarPanels: 1200, Inverters: 250},
+        {date: "Mar", SolarPanels: 1400, Inverters: 300},
+        {date: "Apr", SolarPanels: 1600, Inverters: 400},
+        {date: "May", SolarPanels: 2000, Inverters: 500},
+      ],
+    },
+    {
+      id: 7,
+      order: 7,
+      type: "lineChart",
+      title: "Monthly Spend",
+      description: "Line chart for monthly spend",
+      data: [
+        {date: "Jan", SolarPanels: 3000, Inverters: 700},
+        {date: "Feb", SolarPanels: 2800, Inverters: 750},
+        {date: "Mar", SolarPanels: 3200, Inverters: 800},
+        {date: "Apr", SolarPanels: 3600, Inverters: 820},
+        {date: "May", SolarPanels: 4000, Inverters: 850},
+      ],
+    },
   ],
 };
 
@@ -445,7 +479,7 @@ function BarChartHero({item}: any) {
         <BarChart
           categories={item.categories}
           className="h-60 w-full"
-          colors={["emerald"]}
+          colors={["blue"]}
           data={item.data}
           index={item.index}
           valueFormatter={(number: number) => Intl.NumberFormat("us").format(number).toString()}
