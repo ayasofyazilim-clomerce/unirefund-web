@@ -23,6 +23,7 @@ import {
 } from "@repo/actions/unirefund/ContractService/put-actions";
 import {postRefundPointContractHeaderValidateByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {deleteRefundPointContractHeadersById} from "@repo/actions/unirefund/ContractService/delete-actions";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundFeeHeadersField} from "../../../_components/refund-fee-headers-field";
 
@@ -42,6 +43,7 @@ export default function RefundPointContractHeaderUpdateForm({
     partyId: string;
     contractId: string;
   }>();
+  const {grantedPolicies} = useGrantedPolicies();
   const [isPending, startTransition] = useTransition();
   const uiSchema = {
     "ui:className": "md:grid md:gap-2 md:grid-cols-2",
@@ -67,16 +69,19 @@ export default function RefundPointContractHeaderUpdateForm({
   validFrom.setUTCHours(0, 0, 0, 0);
   const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;
   validTo?.setUTCHours(0, 0, 0, 0);
+  const hasEditPermission = isActionGranted(["ContractService.ContractHeaderForRefundPoint.Edit"], grantedPolicies);
   return (
     <div className="space-y-2">
-      <ContractActions
-        contractDetails={contractHeaderDetails}
-        isPending={isPending}
-        languageData={languageData}
-        startTransition={startTransition}
-      />
+      {hasEditPermission ? (
+        <ContractActions
+          contractDetails={contractHeaderDetails}
+          isPending={isPending}
+          languageData={languageData}
+          startTransition={startTransition}
+        />
+      ) : null}
       <SchemaForm<ContractHeaderForRefundPointUpdateDto>
-        disabled={isPending}
+        disabled={!hasEditPermission || isPending}
         fields={{
           RefundFeeHeadersField: RefundFeeHeadersField({
             refundFeeHeaders,

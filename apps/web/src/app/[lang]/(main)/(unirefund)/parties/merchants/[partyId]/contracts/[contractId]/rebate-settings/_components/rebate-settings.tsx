@@ -21,6 +21,7 @@ import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {PlusCircle} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
@@ -42,6 +43,7 @@ export function RebateSettings({
   contractId: string;
 }) {
   const router = useRouter();
+  const {grantedPolicies} = useGrantedPolicies();
   const [isPending, startTransition] = useTransition();
   const uiSchema = createUiSchemaWithResource({
     schema: $RebateSettingUpSertDto,
@@ -87,10 +89,14 @@ export function RebateSettings({
       validTo: validTo ? validTo.toISOString() : undefined,
     };
   });
+  const hasEditPermission = isActionGranted(
+    ["ContractService.ContractHeaderForMerchant.UpSertRebateSetting"],
+    grantedPolicies,
+  );
 
   return (
     <SchemaForm<RebateSettingUpSertDto>
-      disabled={isPending}
+      disabled={!hasEditPermission || isPending}
       fields={{
         RebateTableField: RebateTableField(rebateTableFormData, languageData, rebateTableHeaders),
         MinimumNetCommissionsField: MinimumNetCommissionsField(

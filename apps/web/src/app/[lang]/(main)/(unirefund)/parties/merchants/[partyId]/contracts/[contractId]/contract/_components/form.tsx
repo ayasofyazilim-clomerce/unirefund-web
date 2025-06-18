@@ -23,6 +23,7 @@ import {
   putMerchantContractHeadersByIdApi,
   putMerchantsContractHeadersByIdMakePassiveApi,
 } from "@repo/actions/unirefund/ContractService/put-actions";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import {RefundTableHeadersField} from "../../../_components/refund-table-headers-field";
 
@@ -42,6 +43,7 @@ export function MerchantContractHeaderUpdateForm({
     lang: string;
     contractId: string;
   }>();
+  const {grantedPolicies} = useGrantedPolicies();
   const [isPending, startTransition] = useTransition();
   const uiSchema = {
     "ui:config": {
@@ -76,16 +78,19 @@ export function MerchantContractHeaderUpdateForm({
   validFrom.setUTCHours(0, 0, 0, 0);
   const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;
   validTo?.setUTCHours(0, 0, 0, 0);
+  const hasEditPermission = isActionGranted(["ContractService.ContractHeaderForMerchant.Edit"], grantedPolicies);
   return (
     <div className="space-y-2">
-      <ContractActions
-        contractDetails={contractHeaderDetails}
-        isPending={isPending}
-        languageData={languageData}
-        startTransition={startTransition}
-      />
+      {hasEditPermission ? (
+        <ContractActions
+          contractDetails={contractHeaderDetails}
+          isPending={isPending}
+          languageData={languageData}
+          startTransition={startTransition}
+        />
+      ) : null}
       <SchemaForm<ContractHeaderForMerchantUpdateDto>
-        disabled={isPending}
+        disabled={!hasEditPermission || isPending}
         fields={{
           RefundTableHeadersField: RefundTableHeadersField({
             refundTableHeaders,

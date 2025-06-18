@@ -56,6 +56,7 @@ export async function getRefundableTagsApi(data: GetApiTagServiceTagTagsRefundDa
   await isUnauthorized({
     requiredPolicies: ["TagService.Tags", "TagService.Tags.ViewForRefund", "TagService.Tags.View"],
     lang: "en",
+    redirect: false,
   });
   try {
     const client = await getTagServiceClient();

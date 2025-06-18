@@ -56,7 +56,10 @@ export default async function Page({
   const {languageData} = await getResourceData(lang);
 
   await isUnauthorized({
-    requiredPolicies: ["ContractService.ContractHeaderForRefundPoint.Edit"],
+    requiredPolicies: [
+      "ContractService.ContractHeaderForRefundPoint.Detail",
+      "ContractService.RefundFeeHeader.GetAssignablesByRefundPointId",
+    ],
     lang,
   });
 

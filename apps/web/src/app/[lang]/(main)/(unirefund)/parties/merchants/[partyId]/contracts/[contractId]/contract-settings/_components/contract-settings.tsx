@@ -26,6 +26,7 @@ import {
 } from "@repo/actions/unirefund/ContractService/put-actions";
 import {postMerchantContractHeaderContractSettingsByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {deleteMerchantContractContractSettingsByIdApi} from "@repo/actions/unirefund/ContractService/delete-actions";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 interface ContractSettingsTable {
@@ -61,6 +62,7 @@ export function ContractSettings({
   addressList: AddressCommonDataDto[];
   lang: string;
 }) {
+  const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [settings, setSettings] = useState<ContractSettingsTable[]>(
@@ -184,6 +186,12 @@ export function ContractSettings({
         },
       ]
     : undefined;
+
+  const hasEditPermission = isActionGranted(
+    ["ContractService.ContractHeaderForMerchant.ContractSettingEdit"],
+    grantedPolicies,
+  );
+
   if (settings.length > 0) {
     return (
       <TanstackTable
@@ -205,7 +213,7 @@ export function ContractSettings({
       formData={{}}
       handleFetch={handleFetch}
       languageData={languageData}
-      loading={loading}
+      loading={!hasEditPermission || loading}
       setLoading={setLoading}
       submitId={contractHeaderDetails.id}
       type="create"
@@ -332,13 +340,16 @@ function SchemaFormForContractSettings({
       withScrollArea>
       <div className="sticky bottom-0 z-50 flex justify-end gap-2 bg-white py-4">
         <DeleteDialog
+          disabled={loading}
           handleFetch={handleFetch}
           languageData={languageData}
           setLoading={setLoading}
           setTempSettings={setTempSettings}
           submitId={type === "temp" ? "$temp" : submitId}
         />
-        <Button type="submit">{type === "edit" ? languageData["Edit.Save"] : languageData.Save}</Button>
+        <Button disabled={loading} type="submit">
+          {type === "edit" ? languageData["Edit.Save"] : languageData.Save}
+        </Button>
       </div>
     </SchemaForm>
   );
@@ -350,12 +361,14 @@ function DeleteDialog({
   setLoading,
   setTempSettings,
   handleFetch,
+  disabled,
 }: {
   submitId: string;
   languageData: ContractServiceResource;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setTempSettings?: Dispatch<SetStateAction<ContractSettingsTable | undefined>>;
   handleFetch: () => Promise<void>;
+  disabled: boolean;
 }) {
   const router = useRouter();
   return (
@@ -383,6 +396,7 @@ function DeleteDialog({
       description={languageData["Delete.Assurance"]}
       title={languageData.Delete}
       triggerProps={{
+        disabled,
         type: "button",
         variant: "outline",
         children: languageData.Delete,

@@ -15,10 +15,7 @@ export default async function Layout({
   const {lang} = params;
 
   await isUnauthorized({
-    requiredPolicies: [
-      "ContractService.ContractHeaderForRefundPoint",
-      "ContractService.ContractHeaderForRefundPoint.Edit",
-    ],
+    requiredPolicies: ["ContractService.ContractHeaderForRefundPoint"],
     lang,
   });
 

@@ -3,6 +3,7 @@ import type {
   GetApiContractServiceMerchantsByIdContractsContractHeadersData,
   GetApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData,
   GetApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData,
+  GetApiContractServiceRebateTableHeadersAssignablesByMerchantData,
   GetApiContractServiceRebateTableHeadersData,
   GetApiContractServiceRefundFeeHeadersAssignablesByRefundPointData,
   GetApiContractServiceRefundFeeHeadersData,
@@ -107,6 +108,19 @@ export async function getRebateTableHeadersApi(
   try {
     const client = await getContractServiceClient(session);
     return structuredSuccessResponse(await client.rebateTableHeader.getApiContractServiceRebateTableHeaders(data));
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getRebateTableHeadersAssignablesByMerchantIdApi(
+  data: GetApiContractServiceRebateTableHeadersAssignablesByMerchantData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getContractServiceClient(session);
+    return structuredSuccessResponse(
+      await client.rebateTableHeader.getApiContractServiceRebateTableHeadersAssignablesByMerchant(data),
+    );
   } catch (error) {
     throw structuredError(error);
   }

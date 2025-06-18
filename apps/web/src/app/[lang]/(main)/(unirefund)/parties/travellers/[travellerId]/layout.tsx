@@ -4,6 +4,7 @@ import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
+import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/unirefund/TravellerService";
 import {getBaseLink} from "src/utils";
 
@@ -59,14 +60,30 @@ export default async function Layout({
             label: languageData["Travellers.Personal.Identifications"],
             href: `${baseLink}personal-identifications`,
           },
-          {
-            label: languageData["Travellers.Personal.Preferences"],
-            href: `${baseLink}personal-preferences`,
-          },
-          {
-            label: languageData["Travellers.Personal.Summary"],
-            href: `${baseLink}personal-summary`,
-          },
+          ...((await isUnauthorized({
+            requiredPolicies: ["TravellerService.Travellers.UpsertPersonalPreferences"],
+            lang,
+            redirect: false,
+          }))
+            ? []
+            : [
+                {
+                  label: languageData["Travellers.Personal.Preferences"],
+                  href: `${baseLink}personal-preferences`,
+                },
+              ]),
+          ...((await isUnauthorized({
+            requiredPolicies: ["TravellerService.Travellers.UpsertPersonalSummary"],
+            lang,
+            redirect: false,
+          }))
+            ? []
+            : [
+                {
+                  label: languageData["Travellers.Personal.Summary"],
+                  href: `${baseLink}personal-summary`,
+                },
+              ]),
         ]}
         variant="simple">
         {children}

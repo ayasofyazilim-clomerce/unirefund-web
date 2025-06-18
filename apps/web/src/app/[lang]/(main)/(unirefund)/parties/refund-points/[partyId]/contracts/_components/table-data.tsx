@@ -2,8 +2,13 @@ import {toast} from "@/components/ui/sonner";
 import type {UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractsForRefundPointDto} from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as $ContractsForRefundPointDto} from "@ayasofyazilim/saas/ContractService";
 import {OpenInNewWindowIcon} from "@radix-ui/react-icons";
-import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {
+  TanstackTableCreationProps,
+  TanstackTableTableActionsType,
+} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData as columnsByData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
@@ -69,32 +74,37 @@ const contractsTable = (props: {
   languageData: CRMServiceServiceResource & ContractServiceResource;
   partyId: string;
   router: AppRouterInstance;
+  grantedPolicies: Record<Policy, boolean>;
 }) => {
   const {languageData, partyId, router} = props;
+  const actions: TanstackTableTableActionsType[] = [];
+  const canCreate = isActionGranted(["ContractService.ContractHeaderForRefundPoint.Create"], props.grantedPolicies);
+  if (canCreate) {
+    actions.push({
+      type: "simple",
+      actionLocation: "table",
+      cta: languageData["Contracts.New"],
+      onClick: () => {
+        router.push(getBaseLink(`/parties/refund-points/${partyId}/contracts/new/`));
+      },
+    });
+  }
+  actions.push({
+    type: "simple",
+    actionLocation: "table",
+    cta: languageData.ExportCSV,
+    onClick: () => {
+      toast.warning("Not implemented yet");
+    },
+  });
+
   const table: TanstackTableCreationProps<ContractsForRefundPointDto> = {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
       columns: ["name", "validFrom", "validTo"],
     },
-    tableActions: [
-      {
-        type: "simple",
-        actionLocation: "table",
-        cta: languageData["Contracts.New"],
-        onClick: () => {
-          router.push(getBaseLink(`/parties/refund-points/${partyId}/contracts/new/`));
-        },
-      },
-      {
-        type: "simple",
-        actionLocation: "table",
-        cta: languageData.ExportCSV,
-        onClick: () => {
-          toast.warning("Not implemented yet");
-        },
-      },
-    ],
+    tableActions: actions,
   };
   return table;
 };

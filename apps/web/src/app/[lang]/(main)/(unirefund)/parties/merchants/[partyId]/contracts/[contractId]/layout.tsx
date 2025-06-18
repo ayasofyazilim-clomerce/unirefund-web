@@ -1,5 +1,6 @@
 "use server";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import {getGrantedPoliciesApi} from "@repo/utils/api";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "src/utils";
@@ -17,39 +18,60 @@ export default async function Layout({
 }) {
   const {lang, contractId, partyId} = params;
   const {languageData} = await getResourceData(lang);
+  const grantedPolicies = await getGrantedPoliciesApi();
 
-  await isUnauthorized({
-    requiredPolicies: [
-      "ContractService.ContractHeaderForMerchant",
-      "ContractService.ContractHeaderForMerchant.Edit",
-      "ContractService.ContractHeaderForMerchant.UpSertRebateSetting",
-      "ContractService.ContractHeaderForMerchant.ContractStoreUpSert",
-      "ContractService.ContractHeaderForMerchant.ContractSettingEdit",
-    ],
-    lang,
-  });
+  const permissions = {
+    Contract: await isUnauthorized({
+      requiredPolicies: ["ContractService.ContractHeaderForMerchant.Detail"],
+      grantedPolicies,
+      lang,
+      redirect: false,
+    }),
+    RebateSettings: await isUnauthorized({
+      requiredPolicies: ["ContractService.ContractHeaderForMerchant.ViewRebateSetting"],
+      grantedPolicies,
+      lang,
+      redirect: false,
+    }),
+    Stores: await isUnauthorized({
+      requiredPolicies: ["ContractService.ContractHeaderForMerchant.ContractStoreUpSert"],
+      redirect: false,
+      grantedPolicies,
+      lang,
+    }),
+    Settings: await isUnauthorized({
+      requiredPolicies: ["ContractService.ContractHeaderForMerchant.ConractSettingView"],
+      redirect: false,
+      grantedPolicies,
+      lang,
+    }),
+  };
+
   const baseLink = getBaseLink(`parties/merchants/${partyId}/contracts/${contractId}/`, lang);
-  return (
-    <TabLayout
-      tabList={[
-        {
-          label: languageData["Contracts.Contract"],
-          href: `${baseLink}contract`,
-        },
-        {
-          label: languageData["Contracts.RebateSettings"],
-          href: `${baseLink}rebate-settings`,
-        },
-        {
-          label: languageData["Contracts.Stores"],
-          href: `${baseLink}stores`,
-        },
-        {
-          label: languageData["Contracts.Settings"],
-          href: `${baseLink}contract-settings`,
-        },
-      ]}>
-      {children}
-    </TabLayout>
-  );
+  const tabListItems = [];
+  if (!permissions.Contract) {
+    tabListItems.push({
+      label: languageData["Contracts.Contract"],
+      href: `${baseLink}contract`,
+    });
+  }
+  if (!permissions.RebateSettings) {
+    tabListItems.push({
+      label: languageData["Contracts.RebateSettings"],
+      href: `${baseLink}rebate-settings`,
+    });
+  }
+  if (!permissions.Stores) {
+    tabListItems.push({
+      label: languageData["Contracts.Stores"],
+      href: `${baseLink}stores`,
+    });
+  }
+  if (!permissions.Settings) {
+    tabListItems.push({
+      label: languageData["Contracts.Settings"],
+      href: `${baseLink}contract-settings`,
+    });
+  }
+  return <TabLayout tabList={tabListItems}>{children}</TabLayout>;
 }
