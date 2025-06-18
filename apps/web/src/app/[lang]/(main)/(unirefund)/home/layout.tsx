@@ -3,7 +3,7 @@ import {getBaseLink} from "@/utils";
 
 export default function Layout({children, params}: {children: React.ReactNode; params: {lang: string}}) {
   const {lang} = params;
-  const baseLink = getBaseLink("", lang);
+  const baseLink = getBaseLink("home", lang);
   const supersetUrl = process.env.SUPERSET_URL;
   const dashboardId = process.env.SUPERSET_DASHBOARD_ID;
   return (
@@ -11,13 +11,13 @@ export default function Layout({children, params}: {children: React.ReactNode; p
       tabList={[
         {
           label: "Analitycs",
-          href: `${baseLink}analytics`,
+          href: `${baseLink}/analytics`,
         },
         ...(supersetUrl && dashboardId
           ? [
               {
                 label: "Realtime",
-                href: `${baseLink}realtime`,
+                href: `${baseLink}/realtime`,
               },
             ]
           : []),
