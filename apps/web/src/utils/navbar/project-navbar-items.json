@@ -12,7 +12,7 @@
     "key": "home",
     "displayName": "Home",
     "description": "View and manage your Home settings.",
-    "href": "/home",
+    "href": "home/analytics",
     "icon": "home",
     "parentNavbarItemKey": "/",
     "displayOrder": -1
