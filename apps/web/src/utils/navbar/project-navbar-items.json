@@ -651,7 +651,12 @@
     "icon": "plane",
     "parentNavbarItemKey": "parties",
     "displayOrder": 1,
-    "requiredPolicies": ["TravellerService.Travellers"]
+    "requiredPolicies": [
+      "TravellerService.Travellers",
+      "TravellerService.Travellers.ViewList",
+      "LocationService.Countries",
+      "LocationService.Countries.ViewList"
+    ]
   },
   {
     "key": "parties/travellers/new",
@@ -680,7 +685,7 @@
     "icon": "new",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
-    "requiredPolicies": ["TagService.Tags"]
+    "requiredPolicies": ["TagService.Tags", "TagService.Tags.Create"]
   },
   {
     "key": "operations/tax-free-tags",

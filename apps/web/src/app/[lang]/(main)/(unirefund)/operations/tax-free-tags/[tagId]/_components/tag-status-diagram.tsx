@@ -87,7 +87,7 @@ export default function TagStatusDiagram({
           // link={`/operations/refunds/${tagDetail.refundId}`}
           message={[
             `Refund Location: ${tagRefundDetail.refundPoint.name}`,
-            `Refund Method: ${tagRefundDetail.refundType}`,
+            `Refund Method: ${tagRefundDetail.refundTypeEnum}`,
           ]}
           title="Refund"
         />

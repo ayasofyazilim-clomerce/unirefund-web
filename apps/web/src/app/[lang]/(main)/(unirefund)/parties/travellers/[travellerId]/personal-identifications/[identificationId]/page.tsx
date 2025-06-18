@@ -32,7 +32,7 @@ async function getApiRequests(travellerId: string) {
 export default async function Page({params}: {params: {travellerId: string; lang: string; identificationId: string}}) {
   const {lang, travellerId, identificationId} = params;
   await isUnauthorized({
-    requiredPolicies: ["TravellerService.Travellers.Edit"],
+    requiredPolicies: ["TravellerService.Travellers.UpdatePersonalIdentification"],
     lang,
   });
   const {languageData} = await getResourceData(params.lang);

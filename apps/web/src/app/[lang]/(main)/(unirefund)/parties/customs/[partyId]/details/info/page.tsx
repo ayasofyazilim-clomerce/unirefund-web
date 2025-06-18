@@ -2,7 +2,7 @@
 
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getCustomByIdApi, getCustomsApi, getTaxOfficesApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getCustomByIdApi, getCustomsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import CustomForm from "./form";
 
@@ -12,7 +12,7 @@ async function getApiRequests({partyId}: {partyId: string}) {
     const apiRequests = await Promise.all([
       getCustomsApi({}, session),
       getCustomByIdApi(partyId, session),
-      getTaxOfficesApi({}, session),
+      // getTaxOfficesApi({}, session),
     ]);
     return {
       type: "success" as const,
@@ -42,10 +42,10 @@ export default async function Page({
     return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
 
-  const [customsResponse, customDetailResponse, taxOfficesResponse] = apiRequests.data;
+  const [customsResponse, customDetailResponse] = apiRequests.data;
   const customs = customsResponse.data;
   const customDetail = customDetailResponse.data;
-  const taxOffices = taxOfficesResponse.data;
+  // const taxOffices = taxOfficesResponse.data;
 
   const customList = customs.items?.filter((custom) => custom.id !== partyId) || [];
 
@@ -55,7 +55,7 @@ export default async function Page({
       customList={customList}
       languageData={languageData}
       partyId={partyId}
-      taxOfficeList={taxOffices.items || []}
+      // taxOfficeList={taxOffices.items || []}
     />
   );
 }

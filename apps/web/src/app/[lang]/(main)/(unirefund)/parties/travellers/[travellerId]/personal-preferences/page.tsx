@@ -33,7 +33,7 @@ export default async function Page({
 }) {
   const {lang, travellerId} = params;
   await isUnauthorized({
-    requiredPolicies: ["TravellerService.Travellers.Edit"],
+    requiredPolicies: ["TravellerService.Travellers.UpsertPersonalPreferences"],
     lang,
   });
   const {languageData} = await getResourceData(lang);

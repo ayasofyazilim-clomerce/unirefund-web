@@ -39,7 +39,7 @@ export default async function Page({
 }) {
   const {lang, contractId, partyId} = params;
   await isUnauthorized({
-    requiredPolicies: ["ContractService.ContractHeaderForMerchant.ContractSettingEdit"],
+    requiredPolicies: ["ContractService.ContractHeaderForMerchant.ConractSettingView"],
     lang,
   });
 

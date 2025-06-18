@@ -1,24 +1,24 @@
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
 import {Button} from "@/components/ui/button";
-import {FormReadyComponent} from "@repo/ui/form-ready";
-import {FileText} from "lucide-react";
-import Link from "next/link";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
-  getRebateTableHeadersApi,
+  getRebateTableHeadersAssignablesByMerchantIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
 import {getMerchantAffiliationByIdApi, getMerchantSubStoresByIdApi} from "@repo/actions/unirefund/CrmService/actions";
-import {getResourceData} from "src/language-data/unirefund/ContractService";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {FileText} from "lucide-react";
+import Link from "next/link";
 import {getBaseLink} from "@/utils";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {RebateSettings} from "./_components/rebate-settings";
 
 async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
     const apiRequests = await Promise.all([
-      getRebateTableHeadersApi({}, session),
+      getRebateTableHeadersAssignablesByMerchantIdApi({merchantId: partyId}, session),
       getMerchantSubStoresByIdApi(
         {
           id: partyId,
@@ -56,7 +56,7 @@ export default async function Page({
 }) {
   const {lang, partyId, contractId} = params;
   await isUnauthorized({
-    requiredPolicies: ["ContractService.ContractHeaderForMerchant.UpSertRebateSetting"],
+    requiredPolicies: ["ContractService.ContractHeaderForMerchant.ViewRebateSetting"],
     lang,
   });
 
@@ -69,7 +69,7 @@ export default async function Page({
   const rebateSettingsResponse = await getMerchantContractHeaderRebateSettingsByHeaderIdApi(contractId);
   return (
     <FormReadyComponent
-      active={!rebateTablesResponse.data.items || rebateTablesResponse.data.items.length < 1}
+      active={!rebateTablesResponse.data.length}
       content={{
         icon: <FileText className="size-20 text-gray-400" />,
         title: languageData["Missing.RebateTableHeaders.Title"],
@@ -85,7 +85,7 @@ export default async function Page({
         individuals={individualsResponse.data.items || []}
         languageData={languageData}
         rebateSettings={rebateSettingsResponse.type === "success" ? rebateSettingsResponse.data : undefined}
-        rebateTableHeaders={rebateTablesResponse.data.items || []}
+        rebateTableHeaders={rebateTablesResponse.data}
         subMerchants={subMerchantsResponse.data.items || []}
       />
     </FormReadyComponent>

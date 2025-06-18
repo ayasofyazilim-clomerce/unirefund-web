@@ -3,7 +3,7 @@
 import type {
   UniRefund_CRMService_Customss_CustomsProfileDto,
   UniRefund_CRMService_Customss_UpdateCustomsDto,
-  UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
+  // UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto,
 } from "@ayasofyazilim/saas/CRMService";
 import {$UniRefund_CRMService_Customss_UpdateCustomsDto} from "@ayasofyazilim/saas/CRMService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
@@ -18,13 +18,13 @@ import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMSer
 function CustomForm({
   languageData,
   partyId,
-  taxOfficeList,
+  // taxOfficeList,
   customList,
   customDetail,
 }: {
   languageData: CRMServiceServiceResource;
   partyId: string;
-  taxOfficeList: UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto[];
+  // taxOfficeList: UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto[];
   customList: UniRefund_CRMService_Customss_CustomsProfileDto[];
   customDetail: UniRefund_CRMService_Customss_CustomsProfileDto;
 }) {
@@ -76,18 +76,18 @@ function CustomForm({
     <AutoForm
       dependencies={dependencies}
       fieldConfig={{
-        taxOfficeId: {
-          renderer: (props: AutoFormInputComponentProps) => {
-            return (
-              <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
-                childrenProps={props}
-                list={taxOfficeList}
-                selectIdentifier="id"
-                selectLabel="name"
-              />
-            );
-          },
-        },
+        // taxOfficeId: {
+        //   renderer: (props: AutoFormInputComponentProps) => {
+        //     return (
+        //       <CustomCombobox<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>
+        //         childrenProps={props}
+        //         list={taxOfficeList}
+        //         selectIdentifier="id"
+        //         selectLabel="name"
+        //       />
+        //     );
+        //   },
+        // },
         parentId: {
           renderer: (props: AutoFormInputComponentProps) => {
             return (

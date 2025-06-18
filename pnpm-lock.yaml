@@ -55,8 +55,8 @@ importers:
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/saas':
-        specifier: 0.0.157
-        version: 0.0.157(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.158
+        version: 0.0.158(magicast@0.3.5)(openapi-types@12.1.3)
       '@radix-ui/react-icons':
         specifier: ^1.3.0
         version: 1.3.2(react@18.3.1)
@@ -188,8 +188,8 @@ importers:
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/saas':
-        specifier: 0.0.157
-        version: 0.0.157(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.158
+        version: 0.0.158(magicast@0.3.5)(openapi-types@12.1.3)
       '@radix-ui/react-icons':
         specifier: ^1.3.0
         version: 1.3.0(react@18.3.1)
@@ -309,8 +309,8 @@ importers:
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/saas':
-        specifier: 0.0.157
-        version: 0.0.157(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.158
+        version: 0.0.158(magicast@0.3.5)(openapi-types@12.1.3)
       '@novu/api':
         specifier: latest
         version: 1.3.0(zod@3.24.2)
@@ -898,8 +898,8 @@ importers:
         specifier: latest
         version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
       '@ayasofyazilim/saas':
-        specifier: 0.0.157
-        version: 0.0.157(magicast@0.3.5)(openapi-types@12.1.3)
+        specifier: 0.0.158
+        version: 0.0.158(magicast@0.3.5)(openapi-types@12.1.3)
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1515,8 +1515,8 @@ packages:
   '@ayasofyazilim/core-saas@0.0.4':
     resolution: {integrity: sha512-x6gJsYW9BKWt5XV32kkXhGEAyUfphhA/ZZhZY/HIilvEh14eOtdOST7NHM6ds1GxZ2bwM9WO5jQDCEo4LfVskA==}
 
-  '@ayasofyazilim/saas@0.0.157':
-    resolution: {integrity: sha512-L8UAwZ2/MUMtLYiXXh+8GzpUoV2bfCQqzOtkpiWkhLLzAugDePfQ+NpSYQgA8STQ0CtsMc9yRLHhLVL51olLhQ==}
+  '@ayasofyazilim/saas@0.0.158':
+    resolution: {integrity: sha512-m/iPXUkSySs4mRmRruhefx9qcVik2prSi5ODNLF6TS6+88igWuZ63OwH4425u/j8LYeMhSG3/QCq2eUsz0lpWA==}
 
   '@ayasofyazilim/sdk_generator@0.0.13':
     resolution: {integrity: sha512-Iof0t+ZKdIEJS2ddm2HBqSMncalBNyKsYYlMq1tkH8vQHgtG7kZMPy2YTRHP6WlH/CKcHC3R5ulOf8xmC2H3UA==}
@@ -13947,7 +13947,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/saas@0.0.157(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.158(magicast@0.3.5)(openapi-types@12.1.3)':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.1.0

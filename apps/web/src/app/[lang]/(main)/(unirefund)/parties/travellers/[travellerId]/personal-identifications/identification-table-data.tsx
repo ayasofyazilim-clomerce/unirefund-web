@@ -6,10 +6,10 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {PlusCircle} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
 type IdentificationsTable =
@@ -48,7 +48,7 @@ function identificationsColumns(
   grantedPolicies: Record<Policy, boolean>,
   travellerId: string,
 ) {
-  if (isActionGranted(["TravellerService.Travellers.Edit"], grantedPolicies)) {
+  if (isActionGranted(["TravellerService.Travellers.UpdatePersonalIdentification"], grantedPolicies)) {
     links.travelDocumentNumber = {
       prefix: `/parties/travellers/${travellerId}/personal-identifications`,
       targetAccessorKey: "id",

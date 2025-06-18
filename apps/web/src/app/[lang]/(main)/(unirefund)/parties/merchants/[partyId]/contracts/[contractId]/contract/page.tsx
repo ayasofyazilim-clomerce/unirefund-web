@@ -50,8 +50,12 @@ export default async function Page({
   const {languageData} = await getResourceData(lang);
 
   await isUnauthorized({
-    requiredPolicies: ["ContractService.ContractHeaderForMerchant.Edit"],
+    requiredPolicies: [
+      "ContractService.ContractHeaderForMerchant.Detail",
+      "ContractService.RefundTableHeader.GetAssignablesByMerchantId",
+    ],
     lang,
+    redirect: false,
   });
   const apiRequests = await getApiRequests(partyId, contractId);
   if (apiRequests.type === "error") {
