@@ -12,6 +12,7 @@ import {getVatStatementHeadersByIdApi} from "@repo/actions/unirefund/FinanceServ
 import {getRefundDetailByIdApi} from "@repo/actions/unirefund/RefundService/actions";
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getTagByIdApi} from "@repo/actions/unirefund/TagService/actions";
+import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import {getBaseLink} from "src/utils";
 import {dateToString, getStatusColor} from "../../_components/utils";
@@ -45,9 +46,7 @@ async function getApiRequests(tagId: string) {
 export default async function Page({params}: {params: {tagId: string; lang: string}}) {
   const {tagId, lang} = params;
   const {languageData} = await getResourceData(lang);
-
   const apiRequests = await getApiRequests(tagId);
-
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
@@ -60,6 +59,18 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
   const vatStatementHeader = vatStatementResponse.status === "fulfilled" ? vatStatementResponse.value.data : null;
   const refundDetail = refundDetailResponse.status === "fulfilled" ? refundDetailResponse.value.data : null;
 
+  const hasGrant = {
+    TravellerDetail: await isUnauthorized({
+      requiredPolicies: ["TravellerService.Travellers.Detail"],
+      lang,
+      redirect: false,
+    }),
+    MerchantDetail: await isUnauthorized({
+      requiredPolicies: ["CRMService.Merchants.Detail"],
+      lang,
+      redirect: false,
+    }),
+  };
   return (
     <FormReadyComponent
       active={!isThereAProductGroup}
@@ -100,7 +111,9 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               {
                 name: languageData.FullName,
                 value: `${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`,
-                link: getBaseLink(`parties/travellers/${tagDetail.traveller?.id}/personal-identifications`),
+                link: hasGrant.TravellerDetail
+                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}/personal-identifications`)
+                  : undefined,
               },
               {
                 name: languageData.DocumentNo,
@@ -123,7 +136,9 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               {
                 name: languageData.StoreName,
                 value: tagDetail.merchant?.name || "",
-                link: getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details/info`),
+                link: hasGrant.MerchantDetail
+                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details/info`)
+                  : undefined,
               },
               {
                 name: languageData.Address,

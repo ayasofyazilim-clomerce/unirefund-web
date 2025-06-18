@@ -651,7 +651,11 @@
     "icon": "plane",
     "parentNavbarItemKey": "parties",
     "displayOrder": 1,
-    "requiredPolicies": ["TravellerService.Travellers"]
+    "requiredPolicies": [
+      "TravellerService.Travellers",
+      "LocationService.Countries",
+      "LocationService.Countries.ViewList"
+    ]
   },
   {
     "key": "parties/travellers/new",

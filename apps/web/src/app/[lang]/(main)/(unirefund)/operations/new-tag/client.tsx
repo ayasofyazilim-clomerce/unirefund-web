@@ -88,7 +88,7 @@ export default function ClientPage({
         merchant: {
           vatNumber: merchantInfoResponse.data.taxpayerId || "",
           countryCode: "TR",
-          branchId: merchantInfoResponse.data.customerNumber || "",
+          branchId: merchantInfoResponse.data.customerNumber || "0",
         },
         traveller: {
           travelDocumentNumber: travellerInfoResponse.data.personalIdentifications[0].travelDocumentNumber,
