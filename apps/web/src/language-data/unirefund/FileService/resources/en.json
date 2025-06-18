@@ -29,5 +29,18 @@
   "FileUpload.Required": "Required",
   "FileUpload.New": "New",
   "FileUpload.UploadFile": "Upload file",
-  "FileUpload.Save": "Save"
+  "FileUpload.Save": "Save",
+
+  "fileName": "File Name",
+  "fileTypeNamespace": "File Type Namespace",
+  "fileTypeGroup": "File Type Group",
+  "fileType": "File Type",
+  "mimeType": "Mime Type",
+  "provider": "Provider",
+  "fileAIValidationStatus": "File AI Validation Status",
+  "fileHumanValidationStatus": "File Human Validation Status",
+  "isValidated": "Is Validated",
+  "isHumanOutputEqualToAI": "Is Human Output Equal to AI",
+  "llmChallengeAccuracy": "LLM Challenge Accuracy",
+  "similarityRateForAIAndHumanOutput": "Similarity Rate for AI and Human Output"
 }

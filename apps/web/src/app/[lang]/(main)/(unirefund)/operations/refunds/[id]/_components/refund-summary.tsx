@@ -25,7 +25,7 @@ export function RefundSummary({refundDetails}: {refundDetails: RefundDetailDto})
             text="Amount"
           />
           <TextWithSubText orientation="vertical" subText={refundDetails.status} text="Status" />
-          <TextWithSubText orientation="vertical" subText={refundDetails.refundType} text="Refund method" />
+          <TextWithSubText orientation="vertical" subText={refundDetails.refundTypeEnum} text="Refund method" />
           <TextWithSubText
             className="ml-auto"
             orientation="vertical"

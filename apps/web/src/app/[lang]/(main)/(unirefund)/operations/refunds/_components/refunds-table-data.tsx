@@ -46,7 +46,7 @@ function refundsTable(languageData: TagServiceResource): RefundsTable {
         "paidDate",
         "processedDate",
         "referenceNumber",
-        "refundType",
+        "refundTypeEnum",
         "refundAmount",
         "refundCurrency",
         "travellerDocumentNumber",
@@ -56,7 +56,7 @@ function refundsTable(languageData: TagServiceResource): RefundsTable {
     columnOrder: [
       "referenceNumber",
       "travellerDocumentNumber",
-      "refundType",
+      "refundTypeEnum",
       "refundAmount",
       "travellerFeeAmount",
       "refundCurrency",

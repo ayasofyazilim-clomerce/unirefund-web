@@ -7,7 +7,10 @@ import type {
 import {$UniRefund_FileService_Files_FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
 import {getApiFileTypeGroupsRulesetApi} from "@repo/actions/unirefund/FileService/actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {
+  BooleanOptions,
+  tanstackTableCreateColumnsByRowData,
+} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {Ruleset} from "@repo/ui/unirefund/file-upload/index";
 import {FileUpload} from "@repo/ui/unirefund/file-upload/index";
 import {DownloadIcon, UploadCloudIcon} from "lucide-react";
@@ -28,7 +31,7 @@ export function Table({
   availableFileTypes: UniRefund_FileService_FileTypes_FileTypeListDto[];
 }) {
   const {lang} = useParams<{lang: string}>();
-  const columns = tableColumns(lang);
+  const columns = tableColumns(lang, languageData);
   return (
     <TanstackTable<TableType, TableType>
       columnOrder={[
@@ -85,8 +88,9 @@ export function Table({
   );
 }
 
-function tableColumns(lang: string) {
+function tableColumns(lang: string, languageData: FileServiceResource) {
   return tanstackTableCreateColumnsByRowData<TableType>({
+    languageData,
     rows: $UniRefund_FileService_Files_FileForHumanValidationDto.properties,
     links: {
       fileName: {
@@ -94,6 +98,20 @@ function tableColumns(lang: string) {
         targetAccessorKey: "id",
         suffix: "verify",
       },
+    },
+    custom: {
+      llmChallengeAccuracy: {
+        showHeader: true,
+        content: (row) => <>{parseInt(row.llmChallengeAccuracy?.toString() || "0")}%</>,
+      },
+      similarityRateForAIAndHumanOutput: {
+        showHeader: true,
+        content: (row) => <>{parseInt(row.similarityRateForAIAndHumanOutput?.toString() || "0")}%</>,
+      },
+    },
+    faceted: {
+      isValidated: BooleanOptions,
+      isHumanOutputEqualToAI: BooleanOptions,
     },
   });
 }
