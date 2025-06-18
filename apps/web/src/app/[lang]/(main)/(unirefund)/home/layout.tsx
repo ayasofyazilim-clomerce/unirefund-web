@@ -11,13 +11,13 @@ export default function Layout({children, params}: {children: React.ReactNode; p
       tabList={[
         {
           label: "Analitycs",
-          href: `${baseLink}/analytics`,
+          href: `${baseLink}analytics`,
         },
         ...(supersetUrl && dashboardId
           ? [
               {
                 label: "Realtime",
-                href: `${baseLink}/realtime`,
+                href: `${baseLink}realtime`,
               },
             ]
           : []),
