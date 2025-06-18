@@ -1,9 +1,9 @@
 "use server";
 
+import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
 import {getResourceData} from "src/language-data/unirefund/TravellerService";
 import Table from "./table";
 
@@ -33,7 +33,12 @@ export default async function Page({
 }) {
   const {lang, travellerId} = params;
   await isUnauthorized({
-    requiredPolicies: ["TravellerService.Travellers.Edit"],
+    requiredPolicies: [
+      "TravellerService.Travellers.UpdatePersonalIdentification",
+      "TravellerService.Travellers.UpsertPersonalPreferences",
+      "TravellerService.Travellers.UpsertPersonalSummary",
+      "TravellerService.Travellers.Detail",
+    ],
     lang,
   });
   const {languageData} = await getResourceData(lang);

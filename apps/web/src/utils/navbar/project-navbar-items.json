@@ -653,6 +653,7 @@
     "displayOrder": 1,
     "requiredPolicies": [
       "TravellerService.Travellers",
+      "TravellerService.Travellers.ViewList",
       "LocationService.Countries",
       "LocationService.Countries.ViewList"
     ]
@@ -684,7 +685,7 @@
     "icon": "new",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
-    "requiredPolicies": ["TagService.Tags"]
+    "requiredPolicies": ["TagService.Tags", "TagService.Tags.Create"]
   },
   {
     "key": "operations/tax-free-tags",
