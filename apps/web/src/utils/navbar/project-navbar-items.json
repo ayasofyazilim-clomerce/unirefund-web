@@ -287,16 +287,6 @@
     "requiredPolicies": ["FileService.File"]
   },
   {
-    "key": "management/file/list",
-    "displayName": "FileList",
-    "description": "Manage files.",
-    "href": "management/file/list",
-    "icon": "fileList",
-    "parentNavbarItemKey": "management/file",
-    "displayOrder": 1,
-    "requiredPolicies": ["FileService.File"]
-  },
-  {
     "key": "management/file/providers",
     "displayName": "Providers",
     "description": "Manage providers.",
