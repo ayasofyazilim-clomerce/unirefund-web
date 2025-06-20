@@ -54,6 +54,6 @@ export async function putApiTravellerServiceEvidenceSessionById(
     const response = await client.evidenceSession.putApiTravellerServiceEvidenceSessionById(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
