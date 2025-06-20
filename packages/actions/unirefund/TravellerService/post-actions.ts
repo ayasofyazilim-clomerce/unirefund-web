@@ -42,7 +42,7 @@ export async function postCreateEvidenceSession(
     const response = await client.evidenceSession.postApiTravellerServiceEvidenceSession(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 
@@ -55,7 +55,7 @@ export async function postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz
     const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 
@@ -68,7 +68,7 @@ export async function postApiTravellerServiceEvidenceSessionValidateNfc(
     const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionValidateNfc(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 
@@ -81,6 +81,6 @@ export async function postApiEvidenceSessionLivenessCompareFaces(
     const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionLivenessCompareFaces(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
