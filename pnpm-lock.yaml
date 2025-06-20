@@ -335,9 +335,6 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      web:
-        specifier: link:apps/web
-        version: link:apps/web
     devDependencies:
       '@types/negotiator':
         specifier: 0.6.3
