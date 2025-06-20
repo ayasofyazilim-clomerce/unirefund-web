@@ -45,7 +45,7 @@ export async function putTravellerPersonalSummaryApi(
   }
 }
 
-export async function putApiTravellerServiceEvidenceSessionById(
+export async function putApiEvidenceSessionById(
   data: PutApiTravellerServiceEvidenceSessionByIdData,
   session?: Session | null,
 ) {
