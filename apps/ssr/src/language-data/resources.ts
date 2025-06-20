@@ -1998,6 +1998,15 @@ export type TravellerServiceResources = {
   "UniRefund.TravellerService:010005": "Country name not found for personal identification of travel document number: {documentNumber}";
   "UniRefund.TravellerService:010006": "Single personal identification can not be deleted";
   "UniRefund.TravellerService:010007": "Rekognition Service returned unsuccess HttpStatusCode : {httpStatusCode}";
+  "UniRefund.TravellerService:010008": "Evidence session already validated for the type: '{type}'!";
+  "UniRefund.TravellerService:010009": "Valid MRZ info could not be found in the given photo!";
+  "UniRefund.TravellerService:010010": "An error occurred during MRZ analysis.";
+  "UniRefund.TravellerService:010011": "Evidence session validation is not required for the type: '{type}'!";
+  "UniRefund.TravellerService:010012": "Invalid base64 data!";
+  "UniRefund.TravellerService:010013": "EvidenceSession not found by liveness SessionId!";
+  "UniRefund.TravellerService:010014": "Liveness Session has not started, firstly start a liveness session!";
+  "Permission:TravellerService": "Traveller Service";
+  "Permission:EvidenceSessions": "Evidence Sessions";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
