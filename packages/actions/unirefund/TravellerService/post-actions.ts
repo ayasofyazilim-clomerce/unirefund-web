@@ -1,11 +1,15 @@
 "use server";
 import type {
-  PostApiTravellerServiceRekognitionCompareFacesData,
+  PostApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrzData,
+  PostApiTravellerServiceEvidenceSessionData,
+  PostApiTravellerServiceEvidenceSessionLivenessCompareFacesData,
+  PostApiTravellerServiceEvidenceSessionValidateNfcData,
   PostApiTravellerServiceTravellersByIdCreatePersonalIdentificationData,
   PostApiTravellerServiceTravellersData,
 } from "@ayasofyazilim/saas/TravellerService";
-import { structuredError, structuredResponse } from "@repo/utils/api";
-import { getTravellersServiceClient } from "../lib";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
+import {getTravellersServiceClient} from "../lib";
+import type {Session} from "@repo/utils/auth";
 
 export async function postTravellerApi(data: PostApiTravellerServiceTravellersData) {
   try {
@@ -29,12 +33,54 @@ export async function postTravellerIdentificationApi(
   }
 }
 
-export async function postCompareFaces(data: PostApiTravellerServiceRekognitionCompareFacesData) {
+export async function postCreateEvidenceSession(
+  data: PostApiTravellerServiceEvidenceSessionData,
+  session?: Session | null,
+) {
   try {
-    const client = await getTravellersServiceClient();
-    const response = await client.rekognition.postApiTravellerServiceRekognitionCompareFaces(data);
-    return structuredResponse(response);
+    const client = await getTravellersServiceClient(session);
+    const response = await client.evidenceSession.postApiTravellerServiceEvidenceSession(data);
+    return structuredSuccessResponse(response);
   } catch (error) {
-    return structuredError(error);
+    throw structuredError(error);
+  }
+}
+
+export async function postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz(
+  data: PostApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrzData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getTravellersServiceClient(session);
+    const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
+export async function postApiTravellerServiceEvidenceSessionValidateNfc(
+  data: PostApiTravellerServiceEvidenceSessionValidateNfcData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getTravellersServiceClient(session);
+    const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionValidateNfc(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
+export async function postApiEvidenceSessionLivenessCompareFaces(
+  data: PostApiTravellerServiceEvidenceSessionLivenessCompareFacesData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getTravellersServiceClient(session);
+    const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionLivenessCompareFaces(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }

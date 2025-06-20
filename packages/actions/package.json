@@ -14,7 +14,7 @@
     "@aws-sdk/client-rekognition": "^3.799.0",
     "@aws-sdk/client-textract": "^3.798.0",
     "@ayasofyazilim/core-saas": "latest",
-    "@ayasofyazilim/saas": "0.0.158",
+    "@ayasofyazilim/saas": "0.0.159",
     "@novu/api": "latest",
     "@repo/utils": "workspace:*",
     "@types/react": "18.3.18",
@@ -22,7 +22,8 @@
     "next": "14.2.29",
     "next-auth": "5.0.0-beta.16",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "web": "link:apps/web"
   },
   "devDependencies": {
     "@types/negotiator": "0.6.3"

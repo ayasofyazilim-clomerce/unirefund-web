@@ -1,11 +1,13 @@
 "use server";
 import type {
+  PutApiTravellerServiceEvidenceSessionByIdData,
   PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,
   PutApiTravellerServiceTravellersByIdUpsertPersonalPreferenceData,
   PutApiTravellerServiceTravellersByIdUpsertPersonalSummaryData,
 } from "@ayasofyazilim/saas/TravellerService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
+import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import {getTravellersServiceClient} from "../lib";
+import {Session} from "@repo/utils/auth";
 
 export async function putTravellerPersonalIdentificationApi(
   data: PutApiTravellerServiceTravellersByIdUpdatePersonalIdentificationData,
@@ -40,5 +42,18 @@ export async function putTravellerPersonalSummaryApi(
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
+  }
+}
+
+export async function putApiTravellerServiceEvidenceSessionById(
+  data: PutApiTravellerServiceEvidenceSessionByIdData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getTravellersServiceClient(session);
+    const response = await client.evidenceSession.putApiTravellerServiceEvidenceSessionById(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
   }
 }
