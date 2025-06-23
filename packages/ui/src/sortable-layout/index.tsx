@@ -11,25 +11,33 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import {SyntheticListenerMap} from "@dnd-kit/core/dist/hooks/utilities";
 import {
   SortableContext,
-  arrayMove,
   arraySwap,
-  rectSortingStrategy,
   rectSwappingStrategy,
   sortableKeyboardCoordinates,
   useSortable,
 } from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
-import {GripVertical} from "lucide-react";
-import {useCallback, useState} from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import {ChevronDownIcon, ChevronUpIcon, GripVertical, MoreVertical} from "lucide-react";
+import {useCallback, useEffect, useState} from "react";
 import {cn} from "../utils";
 
-type Item<T> = {
+type SortableItemProps<T> = {
   id: string;
   order: number;
   className?: string;
+  colSpan?: number;
 } & T;
 
 export function SortableLayout<T>({
@@ -39,9 +47,9 @@ export function SortableLayout<T>({
   getLatestList,
   className,
 }: {
-  items: Array<Item<T>>;
-  getLatestList?: (items: Array<Item<T>>) => void;
-  renderItem: (item: Item<T>) => JSX.Element;
+  items: Array<SortableItemProps<T>>;
+  getLatestList?: (items: Array<SortableItemProps<T>>) => void;
+  renderItem: (item: SortableItemProps<T>) => JSX.Element;
   editMode: boolean;
   className?: string;
 }) {
@@ -59,11 +67,11 @@ export function Sortable<T>({
   handle,
   renderItem,
 }: {
-  initalItems: Array<Item<T>>;
-  getLatestList?: (items: Array<Item<T>>) => void;
+  initalItems: Array<SortableItemProps<T>>;
+  getLatestList?: (items: Array<SortableItemProps<T>>) => void;
   editable: boolean;
   handle?: boolean;
-  renderItem: (item: Item<T>) => JSX.Element;
+  renderItem: (item: SortableItemProps<T>) => JSX.Element;
 }) {
   const [listItems, setItems] = useState(initalItems.map((item) => ({...item, order: item.order + 1})));
   const [activeId, setActiveId] = useState<number | null>(null);
@@ -99,6 +107,10 @@ export function Sortable<T>({
     setActiveId(null);
   }, []);
 
+  useEffect(() => {
+    if (getLatestList) getLatestList(listItems);
+  }, [listItems]);
+
   return (
     <DndContext
       sensors={sensors}
@@ -108,18 +120,41 @@ export function Sortable<T>({
       onDragEnd={handleDragEnd}>
       <SortableContext items={listItems} strategy={rectSwappingStrategy}>
         {listItems.map((item) => (
-          <SortableItem key={item.id} id={item.order} handle={handle} editable={editable} className={item.className}>
+          <SortableItem<T>
+            key={item.id}
+            id={item.order}
+            handle={handle}
+            colSpan={item.colSpan}
+            onItemSizeChange={(size, type) => {
+              setItems((items) =>
+                items.map((i) =>
+                  i.order === item.order ? {...item, className: cn(item.className, `${type}-span-${size}`)} : i,
+                ),
+              );
+            }}
+            editable={editable}
+            className={cn(item.className)}>
             {renderItem(item)}
           </SortableItem>
         ))}
       </SortableContext>
       <DragOverlay adjustScale style={{transformOrigin: "0 0 "}}>
         {activeId ? (
-          <SortableItem
+          <SortableItem<T>
+            onItemSizeChange={(size, type) => {
+              setItems((items) =>
+                items.map((i) =>
+                  i.order === activeId ? {...i, className: cn(i.className, `${type}-span-${size}`)} : i,
+                ),
+              );
+            }}
             id={activeId}
             handle={handle}
             editable={editable}
-            className="h-full w-full opacity-90 shadow-lg">
+            className={cn(
+              "h-full w-full opacity-90 shadow-lg",
+              listItems.find((item) => item.order === activeId)?.className,
+            )}>
             {renderItem(listItems.find((item) => item.order === activeId)!)}
           </SortableItem>
         ) : null}
@@ -128,18 +163,22 @@ export function Sortable<T>({
   );
 }
 
-export function SortableItem({
+export function SortableItem<T>({
   id,
   children,
   handle,
   editable = true,
   className,
+  onItemSizeChange,
+  colSpan = 1,
 }: {
   id: string | number;
   children: JSX.Element | string;
   handle?: boolean;
   editable: boolean;
   className?: string;
+  colSpan?: number;
+  onItemSizeChange: (size: string, type: "col" | "row") => void;
 }) {
   const {attributes, isOver, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
 
@@ -147,7 +186,6 @@ export function SortableItem({
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
   return (
     <div
       ref={setNodeRef}
@@ -163,13 +201,81 @@ export function SortableItem({
       )}>
       {children}
       {handle && editable ? (
-        <Button
-          {...(handle ? listeners : {})}
-          variant={"secondary"}
-          className="absolute right-2 top-2 z-10 h-6 w-6 cursor-grab px-0">
-          <GripVertical className="text-muted-foreground w-4" />
-        </Button>
+        <Controller handle={handle} colSpan={colSpan} listeners={listeners} onItemSizeChange={onItemSizeChange} />
       ) : null}
     </div>
+  );
+}
+
+function Controller({
+  handle,
+  colSpan,
+  listeners,
+  onItemSizeChange,
+}: {
+  handle: boolean;
+  colSpan?: number;
+  listeners: SyntheticListenerMap | undefined;
+  onItemSizeChange: (size: string, type: "col" | "row") => void;
+}) {
+  // return (
+  //   <Button variant={"ghost"} size={"icon"} className="absolute right-2 top-2 z-10" {...(handle ? listeners : {})}>
+  //     <GripVertical className="w-4" />
+  //   </Button>
+  // );
+  const [colCount, setColCount] = useState(colSpan || 1);
+  useEffect(() => {
+    onItemSizeChange(colCount.toString(), "col");
+  }, [colCount]);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" className="absolute right-2 top-2 z-10 h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreVertical className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem {...(handle ? listeners : {})}>
+          <GripVertical className="w-4" />
+          <span className="ml-2">Hold to reorder</span>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="" asChild>
+          <div className="flex items-center gap-2 text-nowrap">
+            Column span
+            <div className="shadow-xs inline-flex w-full -space-x-px rounded-md rtl:space-x-reverse">
+              <Button
+                className="min-w-9 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
+                variant="outline"
+                size="icon"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setColCount((prev) => Math.max(1, prev - 1));
+                }}
+                aria-label="Downvote">
+                <ChevronDownIcon size={16} aria-hidden="true" />
+              </Button>
+              <span className="border-input flex w-full min-w-9 items-center justify-center border px-3 text-sm font-medium">
+                {colCount}
+              </span>
+              <Button
+                className="min-w-9 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
+                variant="outline"
+                size="icon"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setColCount((prev) => Math.min(12, prev + 1));
+                }}
+                aria-label="Upvote">
+                <ChevronUpIcon size={16} aria-hidden="true" />
+              </Button>
+            </div>
+          </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
