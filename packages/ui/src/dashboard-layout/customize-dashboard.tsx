@@ -43,7 +43,7 @@ export function CustomizeDashboard({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size={"icon"} className="ml-auto">
+        <Button variant="outline" size={"icon"} className="ml-auto min-h-9 min-w-9">
           <LayoutDashboard className="size-4" />
         </Button>
       </SheetTrigger>
