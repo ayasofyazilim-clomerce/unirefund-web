@@ -1,23 +1,25 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import {defineStepper} from "@stepperize/react";
-import type {ParseResult} from "mrz";
-import {useState, useEffect} from "react";
-import {CheckCircle, Camera, FileText, Shield, User, ArrowLeft, ArrowRight, LogIn} from "lucide-react";
+import type {
+  UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
+  UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
+} from "@ayasofyazilim/saas/TravellerService";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
-import {postCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
-import {getCreateFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
+import {getApiEvidenceSessionCreateFaceLivenessSession} from "@repo/actions/unirefund/TravellerService/actions";
+import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {useSession} from "@repo/utils/auth";
+import {defineStepper} from "@stepperize/react";
+import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, LogIn, Shield} from "lucide-react";
+import type {ParseResult} from "mrz";
 import Link from "next/link";
 import {useParams} from "next/navigation";
-import {useSession} from "@repo/utils/auth";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import {useEffect, useState} from "react";
 import {getBaseLink} from "@/utils";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import LivenessDetector from "./liveness-detector";
+import SuccessModal from "./validation-steps/finish";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
-import TakeSelfie from "./validation-steps/take-selfie";
-import SuccessModal from "./validation-steps/finish";
-import LivenessDetector from "./liveness-detector";
-
 // Define the type for stepper metadata
 interface StepperMetadata {
   documentType?: "id-card" | "passport";
@@ -39,7 +41,6 @@ const GlobalScopper = defineStepper(
   {id: "scan-front", title: "IDCardFront", icon: <Camera className="h-5 w-5" />},
   {id: "scan-back", title: "IDCardBack", icon: <Camera className="h-5 w-5" />},
   {id: "scan-passport", title: "ScanPassport", icon: <Camera className="h-5 w-5" />},
-  {id: "take-selfie", title: "TakeSelfie", icon: <User className="h-5 w-5" />},
   {id: "liveness-detector", title: "LivenessDetector", icon: <Shield className="h-5 w-5" />},
   {id: "fail", title: "LivenessFailed", icon: <Shield className="h-5 w-5" />},
   {id: "finish", title: "Continue", icon: <CheckCircle className="h-5 w-5" />},
@@ -48,14 +49,20 @@ const GlobalScopper = defineStepper(
 export default function ValidationSteps({
   languageData,
   clientAuths,
+  requireSteps,
+  responseCreateEvidence,
 }: {
   languageData: SSRServiceResource;
   clientAuths: AWSAuthConfig;
+  requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
+  responseCreateEvidence: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
 }) {
   const [canGoNext, setCanGoNext] = useState(false);
   const [front, setFront] = useState<DocumentData>(null);
   const [back, setBack] = useState<DocumentData>(null);
   const [progress, setProgress] = useState(0);
+  // Extract session ID from API response
+  const [session, setSession] = useState<string | null>(responseCreateEvidence.id || null);
 
   // Update progress based on current step
   const updateProgress = (currentStep: number, totalSteps: number) => {
@@ -73,9 +80,12 @@ export default function ValidationSteps({
           front={front}
           languageData={languageData}
           progress={progress}
+          requireSteps={requireSteps}
+          session={session}
           setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
+          setSession={setSession}
           updateProgress={updateProgress}
         />
       </GlobalScopper.Scoped>
@@ -95,6 +105,9 @@ function StepperContent({
   setBack,
   updateProgress,
   progress,
+  requireSteps,
+  session,
+  setSession,
 }: {
   clientAuths: AWSAuthConfig;
   languageData: SSRServiceResource;
@@ -106,6 +119,9 @@ function StepperContent({
   setBack: (value: DocumentData) => void;
   updateProgress: (currentStep: number, totalSteps: number) => void;
   progress: number;
+  requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
+  session: string | null;
+  setSession: (value: string | null) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
 
@@ -136,7 +152,6 @@ function StepperContent({
     <div className="space-y-6">
       {/* Progress indicator - Hide only on first step */}
       {/* Steps indicators - Show on all pages */}
-
       {!stepper.isFirst && (
         <div className="-mb-2 lg:mb-8">
           <div className="flex items-center justify-between">
@@ -203,24 +218,26 @@ function StepperContent({
           </div>
         </div>
       )}
-
-      {/* Step content */}
+      {/* Step content */}{" "}
       <Steps
         back={back}
         clientAuths={clientAuths}
         front={front}
         languageData={languageData}
+        requireSteps={requireSteps}
+        session={session}
         setBack={setBack}
         setCanGoNext={setCanGoNext}
         setFront={setFront}
+        setSession={setSession}
       />
-
-      {/* Navigation buttons */}
+      {/* Navigation buttons */}{" "}
       <Actions
         back={back}
         canGoNext={canGoNext}
         front={front}
         languageData={languageData}
+        requireSteps={requireSteps}
         setCanGoNext={setCanGoNext}
       />
     </div>
@@ -234,23 +251,26 @@ function LivenessStep({
   setCanGoNext,
   clientAuths,
   front,
+  session,
+  setSession,
 }: {
   languageData: SSRServiceResource;
   stepper: ReturnType<typeof GlobalScopper.useStepper>;
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
   front: DocumentData;
+  session: string | null;
+  setSession: (value: string | null) => void;
 }) {
-  const [session, setSession] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  // Use existing session from props if available
   useEffect(() => {
-    void getCreateFaceLiveness().then((res) => {
-      if (res.type === "success") {
+    if (!session) {
+      void getApiEvidenceSessionCreateFaceLivenessSession().then((res) => {
         setSession(res.data.sessionId || null);
-      }
-    });
-  }, []);
+      });
+    }
+  }, [session, setSession]);
 
   if (!session) return null;
 
@@ -266,7 +286,7 @@ function LivenessStep({
         sessionId: session,
         sourceImageBase64: front.base64.split(",").at(1),
       };
-      const compareResult = await postCompareFaces({requestBody});
+      const compareResult = await postApiEvidenceSessionLivenessCompareFaces({requestBody});
       setIsLoading(false);
       if (compareResult.type !== "success") {
         failSession();
@@ -326,6 +346,9 @@ function Steps({
   languageData,
   setCanGoNext,
   clientAuths,
+  requireSteps,
+  session,
+  setSession,
 }: {
   front: DocumentData;
   back: DocumentData;
@@ -334,66 +357,74 @@ function Steps({
   languageData: SSRServiceResource;
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
+  requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
+  session: string | null;
+  setSession: (value: string | null) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
+  // Determine which steps to show based on requireSteps
+  const showMRZSteps = requireSteps.isMRZRequired !== false;
+  const showLivenessStep = requireSteps.isLivenessRequired !== false;
 
   return (
     <div>
       {stepper.when("start", () => (
         <Start languageData={languageData} />
       ))}
-
-      {stepper.when("scan-front", () => (
-        <ScanDocument
-          back={back}
-          front={front}
-          languageData={languageData}
-          setBack={setBack}
-          setCanGoNext={setCanGoNext}
-          setFront={setFront}
-          type="id-card-front"
-        />
-      ))}
-
-      {stepper.when("scan-back", () => (
-        <ScanDocument
-          back={back}
-          front={front}
-          languageData={languageData}
-          setBack={setBack}
-          setCanGoNext={setCanGoNext}
-          setFront={setFront}
-          type="id-card-back"
-        />
-      ))}
-
-      {stepper.when("scan-passport", () => (
-        <ScanDocument
-          back={back}
-          front={front}
-          languageData={languageData}
-          setBack={setBack}
-          setCanGoNext={setCanGoNext}
-          setFront={setFront}
-          type="passport"
-        />
-      ))}
-
-      {stepper.when("take-selfie", () => {
-        if (!front?.base64) return null;
-        return <TakeSelfie documentSrc={front.base64} languageData={languageData} setCanGoNext={setCanGoNext} />;
-      })}
-
-      {stepper.when("liveness-detector", () => (
-        <LivenessStep
-          clientAuths={clientAuths}
-          front={front}
-          languageData={languageData}
-          setCanGoNext={setCanGoNext}
-          stepper={stepper}
-        />
-      ))}
-
+      {/* Show MRZ steps only if isMRZRequired is true */}
+      {showMRZSteps
+        ? stepper.when("scan-front", () => (
+            <ScanDocument
+              back={back}
+              front={front}
+              languageData={languageData}
+              setBack={setBack}
+              setCanGoNext={setCanGoNext}
+              setFront={setFront}
+              type="id-card-front"
+            />
+          ))
+        : null}
+      {showMRZSteps
+        ? stepper.when("scan-back", () => (
+            <ScanDocument
+              back={back}
+              front={front}
+              languageData={languageData}
+              setBack={setBack}
+              setCanGoNext={setCanGoNext}
+              setFront={setFront}
+              type="id-card-back"
+            />
+          ))
+        : null}{" "}
+      {showMRZSteps
+        ? stepper.when("scan-passport", () => (
+            <ScanDocument
+              back={back}
+              front={front}
+              languageData={languageData}
+              setBack={setBack}
+              setCanGoNext={setCanGoNext}
+              setFront={setFront}
+              type="passport"
+            />
+          ))
+        : null}
+      {/* Show liveness detector only if isLivenessRequired is true */}
+      {showLivenessStep
+        ? stepper.when("liveness-detector", () => (
+            <LivenessStep
+              clientAuths={clientAuths}
+              front={front}
+              languageData={languageData}
+              session={session}
+              setCanGoNext={setCanGoNext}
+              setSession={setSession}
+              stepper={stepper}
+            />
+          ))
+        : null}
       {stepper.when("fail", () => (
         <div className="flex flex-col items-center justify-center space-y-6 p-4">
           <div className="rounded-full bg-red-50 p-4">
@@ -415,7 +446,6 @@ function Steps({
           </Button>
         </div>
       ))}
-
       {stepper.when("finish", () => (
         <SuccessModal languageData={languageData} />
       ))}
@@ -429,16 +459,21 @@ function Actions({
   front,
   back,
   languageData,
+  requireSteps,
 }: {
   canGoNext: boolean;
   setCanGoNext: (value: boolean) => void;
   front: DocumentData;
   back: DocumentData;
   languageData: SSRServiceResource;
+  requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
 }) {
   const stepper = GlobalScopper.useStepper();
   const {lang} = useParams<{lang: string}>();
   const {session} = useSession();
+  // Determine which steps to show based on requireSteps
+  const showMRZSteps = requireSteps.isMRZRequired !== false;
+  const showLivenessStep = requireSteps.isLivenessRequired !== false;
   return !stepper.isLast ? (
     <div className="flex items-center justify-between">
       {!stepper.isFirst && (
@@ -452,14 +487,14 @@ function Actions({
               // ID kartı ön yüzü taranmışsa, ileri butonunu aktif bırak
               setCanGoNext(Boolean(front?.base64));
             } else if (
-              stepper.current.id === "take-selfie" &&
+              stepper.current.id === "liveness-detector" &&
               (stepper.metadata as StepperMetadata).documentType === "id-card"
             ) {
               stepper.goTo("scan-back");
               // ID kartı arka yüzü taranmışsa, ileri butonunu aktif bırak
               setCanGoNext(Boolean(back?.base64));
             } else if (
-              stepper.current.id === "take-selfie" &&
+              stepper.current.id === "liveness-detector" &&
               (stepper.metadata as StepperMetadata).documentType === "passport"
             ) {
               stepper.goTo("scan-passport");
@@ -477,34 +512,48 @@ function Actions({
           <ArrowLeft className="mr-2 h-5 w-5" />
           {languageData.Previous}
         </Button>
-      )}
-
+      )}{" "}
       {stepper.when("start", () => (
         <div className="flex w-full flex-col gap-3 md:items-center md:justify-center">
-          <Button
-            className="bg-primary hover:bg-primary/90 w-full px-5 py-2.5 md:w-full"
-            onClick={() => {
-              stepper.goTo("scan-passport");
-              // Type-safe way to set metadata
-              const typedSetMetadata = stepper.setMetadata as unknown as (value: Partial<StepperMetadata>) => void;
-              typedSetMetadata({documentType: "passport"});
-            }}>
-            <FileText className="mr-2 h-5 w-5" />
-            {languageData.StartValidationWithPassport}
-          </Button>
+          {/* Only show document scan options if MRZ is required */}
+          {showMRZSteps ? (
+            <>
+              <Button
+                className="bg-primary hover:bg-primary/90 w-full px-5 py-2.5 md:w-full"
+                onClick={() => {
+                  stepper.goTo("scan-passport");
+                  // Type-safe way to set metadata
+                  const typedSetMetadata = stepper.setMetadata as unknown as (value: Partial<StepperMetadata>) => void;
+                  typedSetMetadata({documentType: "passport"});
+                }}>
+                <FileText className="mr-2 h-5 w-5" />
+                {languageData.StartValidationWithPassport}
+              </Button>
 
-          <Button
-            className="border-primary text-primary hover:bg-primary/5 w-full px-5 py-2.5 md:w-full"
-            onClick={() => {
-              stepper.goTo("scan-front");
-              // Type-safe way to set metadata
-              const typedSetMetadata = stepper.setMetadata as unknown as (value: Partial<StepperMetadata>) => void;
-              typedSetMetadata({documentType: "id-card"});
-            }}
-            variant="outline">
-            <Camera className="mr-2 h-5 w-5" />
-            {languageData.StartValidationWithIDCard}
-          </Button>
+              <Button
+                className="border-primary text-primary hover:bg-primary/5 w-full px-5 py-2.5 md:w-full"
+                onClick={() => {
+                  stepper.goTo("scan-front");
+                  // Type-safe way to set metadata
+                  const typedSetMetadata = stepper.setMetadata as unknown as (value: Partial<StepperMetadata>) => void;
+                  typedSetMetadata({documentType: "id-card"});
+                }}
+                variant="outline">
+                <Camera className="mr-2 h-5 w-5" />
+                {languageData.StartValidationWithIDCard}
+              </Button>
+            </>
+          ) : (
+            // If MRZ not required, show a single button to proceed directly to liveness detector
+            <Button
+              className="bg-primary hover:bg-primary/90 w-full px-5 py-2.5 md:w-full"
+              onClick={() => {
+                stepper.goTo("liveness-detector");
+              }}>
+              <Shield className="mr-2 h-5 w-5" />
+              {languageData.StartValidation}
+            </Button>
+          )}
 
           {!session && (
             <div className="mt-2 text-center">
@@ -518,20 +567,26 @@ function Actions({
           )}
         </div>
       ))}
-
       {!stepper.isFirst && !stepper.when("start", () => true) && (
         <Button
           className="bg-primary hover:bg-primary/90 px-5 py-2.5"
           disabled={!canGoNext}
           onClick={() => {
-            // ID kartı akışında özel yönlendirme kuralları
-            if (
+            // Handle navigation based on requireSteps and current step
+            if (!showMRZSteps && stepper.current.id === "start") {
+              // Skip MRZ steps if not required
+              stepper.goTo("liveness-detector");
+            } else if (
               stepper.current.id === "scan-front" &&
               (stepper.metadata as StepperMetadata).documentType === "id-card"
             ) {
               stepper.goTo("scan-back");
             } else if (stepper.current.id === "scan-back" || stepper.current.id === "scan-passport") {
-              stepper.goTo("take-selfie");
+              // Go directly to liveness detector after document scan
+              stepper.goTo("liveness-detector");
+            } else if (!showLivenessStep) {
+              // Skip liveness detection if not required
+              stepper.goTo("finish");
             } else {
               stepper.next();
             }
