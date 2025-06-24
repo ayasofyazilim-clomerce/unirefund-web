@@ -7,19 +7,17 @@ import type {
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {getApiEvidenceSessionCreateFaceLivenessSession} from "@repo/actions/unirefund/TravellerService/actions";
 import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
-import {useSession} from "@repo/utils/auth";
 import {defineStepper} from "@stepperize/react";
-import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, LogIn, Shield} from "lucide-react";
+import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, Shield} from "lucide-react";
 import type {ParseResult} from "mrz";
-import Link from "next/link";
-import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
-import {getBaseLink} from "@/utils";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import LivenessDetector from "./liveness-detector";
 import SuccessModal from "./validation-steps/finish";
+import RegisterChoice from "./validation-steps/register-choice";
 import ScanDocument from "./validation-steps/scan-document";
 import Start from "./validation-steps/start";
+
 // Define the type for stepper metadata
 interface StepperMetadata {
   documentType?: "id-card" | "passport";
@@ -37,6 +35,7 @@ export type DocumentData = {
 
 // Updated steps with larger icons
 const GlobalScopper = defineStepper(
+  {id: "register-choice", title: "ChooseRegistration", icon: <FileText className="h-5 w-5" />},
   {id: "start", title: "StartValidation", icon: <FileText className="h-5 w-5" />},
   {id: "scan-front", title: "IDCardFront", icon: <Camera className="h-5 w-5" />},
   {id: "scan-back", title: "IDCardBack", icon: <Camera className="h-5 w-5" />},
@@ -149,7 +148,7 @@ function StepperContent({
   }, [stepper.current.id, stepper, updateProgress]);
 
   return (
-    <div className="space-y-6">
+    <div className="">
       {/* Progress indicator - Hide only on first step */}
       {/* Steps indicators - Show on all pages */}
       {!stepper.isFirst && (
@@ -365,11 +364,13 @@ function Steps({
   // Determine which steps to show based on requireSteps
   const showMRZSteps = requireSteps.isMRZRequired !== false;
   const showLivenessStep = requireSteps.isLivenessRequired !== false;
-
   return (
     <div>
+      {stepper.when("register-choice", () => (
+        <RegisterChoice languageData={languageData} stepper={stepper} />
+      ))}
       {stepper.when("start", () => (
-        <Start languageData={languageData} />
+        <Start />
       ))}
       {/* Show MRZ steps only if isMRZRequired is true */}
       {showMRZSteps
@@ -469,17 +470,16 @@ function Actions({
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
 }) {
   const stepper = GlobalScopper.useStepper();
-  const {lang} = useParams<{lang: string}>();
-  const {session} = useSession();
+
   // Determine which steps to show based on requireSteps
   const showMRZSteps = requireSteps.isMRZRequired !== false;
   const showLivenessStep = requireSteps.isLivenessRequired !== false;
   return !stepper.isLast ? (
     <div className="flex items-center justify-between">
-      {!stepper.isFirst && (
+      {" "}
+      {!stepper.isFirst && stepper.current.id !== "start" && (
         <Button
           className="border-black/20 px-5 py-2.5 text-black hover:bg-black/5"
-          disabled={stepper.isFirst}
           onClick={() => {
             // Özel yönlendirme kuralları
             if (stepper.current.id === "scan-back") {
@@ -503,6 +503,9 @@ function Actions({
             } else if (stepper.current.id === "scan-passport") {
               stepper.goTo("start");
               setCanGoNext(false);
+            } else if (stepper.current.id === "start") {
+              stepper.goTo("register-choice");
+              setCanGoNext(false);
             } else {
               stepper.prev();
               setCanGoNext(false);
@@ -513,13 +516,19 @@ function Actions({
           {languageData.Previous}
         </Button>
       )}{" "}
+      {stepper.when(
+        "register-choice",
+        () =>
+          // No buttons for register-choice - they are in the component
+          null,
+      )}
       {stepper.when("start", () => (
         <div className="flex w-full flex-col gap-3 md:items-center md:justify-center">
           {/* Only show document scan options if MRZ is required */}
           {showMRZSteps ? (
             <>
               <Button
-                className="bg-primary hover:bg-primary/90 w-full px-5 py-2.5 md:w-full"
+                className="w-full bg-red-600 px-5 py-2.5 text-white hover:bg-red-700 md:w-full"
                 onClick={() => {
                   stepper.goTo("scan-passport");
                   // Type-safe way to set metadata
@@ -527,11 +536,11 @@ function Actions({
                   typedSetMetadata({documentType: "passport"});
                 }}>
                 <FileText className="mr-2 h-5 w-5" />
-                {languageData.StartValidationWithPassport}
+                {languageData.StartValidationWithPassport || "Start validation with passport"}
               </Button>
 
               <Button
-                className="border-primary text-primary hover:bg-primary/5 w-full px-5 py-2.5 md:w-full"
+                className="w-full border-red-600 px-5 py-2.5 text-red-600 hover:bg-red-50 md:w-full"
                 onClick={() => {
                   stepper.goTo("scan-front");
                   // Type-safe way to set metadata
@@ -540,7 +549,7 @@ function Actions({
                 }}
                 variant="outline">
                 <Camera className="mr-2 h-5 w-5" />
-                {languageData.StartValidationWithIDCard}
+                {languageData.StartValidationWithIDCard || "Start validation with ID card"}
               </Button>
             </>
           ) : (
@@ -555,7 +564,7 @@ function Actions({
             </Button>
           )}
 
-          {!session && (
+          {/* {!session && (
             <div className="mt-2 text-center">
               <Link
                 className="hover:text-primary flex items-center  justify-center gap-1 text-sm text-gray-500"
@@ -564,7 +573,7 @@ function Actions({
                 <LogIn className="inline h-4 w-4" />
               </Link>
             </div>
-          )}
+          )} */}
         </div>
       ))}
       {!stepper.isFirst && !stepper.when("start", () => true) && (

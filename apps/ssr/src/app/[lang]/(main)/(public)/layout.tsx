@@ -1,5 +1,5 @@
 import {getResourceData} from "src/language-data/unirefund/SSRService";
-import Header from "./_components/header";
+import Header from "./evidence/_components/header";
 
 export default async function Layout({children, params}: {children: React.ReactNode; params: {lang: string}}) {
   const {lang} = params;

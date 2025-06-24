@@ -37,7 +37,7 @@ export default async function Home({
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
   const requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {
-    isMRZRequired: false,
+    isMRZRequired: true,
     isNFCRequired: false,
     isLivenessRequired: true,
   };
