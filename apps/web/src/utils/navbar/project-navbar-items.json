@@ -354,7 +354,8 @@
     "icon": "fileVerification",
     "parentNavbarItemKey": "management/file",
     "displayOrder": 1,
-    "requiredPolicies": ["FileService.File"]
+    "requiredPolicies": ["FileService.File"],
+    "split": "top"
   },
   {
     "key": "settings",
