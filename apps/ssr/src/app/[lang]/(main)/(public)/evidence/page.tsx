@@ -1,19 +1,22 @@
 import {Card} from "@/components/ui/card";
-import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
-import {postCreateEvidenceSession} from "@repo/actions/unirefund/TravellerService/post-actions";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {structuredError} from "@repo/utils/api";
 import type {
-  PostApiTravellerServiceEvidenceSessionData,
+  UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
 } from "@ayasofyazilim/saas/TravellerService";
+import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
+import {postCreateEvidenceSession} from "@repo/actions/unirefund/TravellerService/post-actions";
 import ErrorComponent from "@repo/ui/components/error-component";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {redirect} from "next/navigation";
 import ValidationSteps from "components/validation-steps";
+import {getBaseLink} from "@/utils";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 
-async function getApiRequests(reqSteps: PostApiTravellerServiceEvidenceSessionData = {}) {
+async function getApiRequests(reqSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {}) {
   try {
-    const requiredRequests = await Promise.all([postCreateEvidenceSession(reqSteps)]);
+    const requiredRequests = await Promise.all([postCreateEvidenceSession({requestBody: reqSteps})]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -33,16 +36,18 @@ export default async function Home({
 }) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
-
-  // Define required steps for KYC page
-  const requireSteps = {
-    isMRZRequired: false,
+  const requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {
+    isMRZRequired: true,
     isNFCRequired: false,
     isLivenessRequired: true,
   };
+  const apiRequests = await getApiRequests(requireSteps);
+  const clientAuths = await getAWSEnvoriment();
+  const session = await auth();
 
-  const apiRequests = await getApiRequests({requireSteps} as PostApiTravellerServiceEvidenceSessionData);
-  const clientAuths = await getAWSEnvoriment(); // Define the properly-typed evidence response based on the ValidationSteps component requirements
+  if (session) {
+    redirect(getBaseLink("home", lang));
+  }
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;

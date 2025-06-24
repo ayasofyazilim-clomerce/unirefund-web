@@ -1,12 +1,12 @@
 "use client";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import {ThemeProvider, useTheme} from "@aws-amplify/ui-react";
 import type {FaceLivenessDetectorProps} from "@aws-amplify/ui-react-liveness";
 import {FaceLivenessDetectorCore} from "@aws-amplify/ui-react-liveness";
 import "@aws-amplify/ui-react/styles.css";
-import {ThemeProvider, useTheme} from "@aws-amplify/ui-react";
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import {getApiEvidenceSessionGetFaceLivenessSessionResults} from "@repo/actions/unirefund/TravellerService/actions";
 import {useState} from "react";
-import {getFaceLiveness} from "@repo/actions/unirefund/TravellerService/actions";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
 
 export default function LivenessDetector({
@@ -73,23 +73,17 @@ export default function LivenessDetector({
                    sm:max-w-[425px] sm:rounded-lg">
         <ThemeProvider theme={theme}>
           <FaceLivenessDetectorCore
-            config={{
-              credentialProvider: async () => {
-                await Promise.resolve();
-                return config;
-              },
-            }}
             disableStartScreen
             onAnalysisComplete={async () => {
-              const result = await getFaceLiveness(sessionId);
-              if (result.type === "success") {
-                onAnalysisComplete({
-                  isLive: (result.data.confidence ?? 0) > 70,
-                  confidence: result.data.confidence ?? 0,
-                });
+              // The sessionId from props is the AWS Rekognition session ID
+              // The API function takes an optional auth session, not a liveness session ID
+              const result = await getApiEvidenceSessionGetFaceLivenessSessionResults();
+              onAnalysisComplete({
+                isLive: (result.data.confidence ?? 0) > 70,
+                confidence: result.data.confidence ?? 0,
+              });
 
-                setOpen(false);
-              }
+              setOpen(false);
             }}
             onError={onError}
             region={config.region}
