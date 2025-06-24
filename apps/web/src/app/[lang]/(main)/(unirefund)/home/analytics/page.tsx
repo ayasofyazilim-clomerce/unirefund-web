@@ -49,6 +49,7 @@ export default function Page() {
             vat: {label: "VAT", color: "var(--chart-3)"},
             atv: {label: "ATV", color: "var(--chart-4)"},
           },
+          valueSuffix: "TL",
           polarKey: "name",
           title: "Top 10 Chains",
         },
@@ -71,6 +72,7 @@ export default function Page() {
           chartStyle: "donut",
           innerRadius: 60,
           data: issuedTagsByRefundMethod,
+          valuePrefix: "%",
           title: "Refunded Tags by Refund Method",
         },
         {
@@ -80,7 +82,13 @@ export default function Page() {
           type: "table",
           data: topChains,
           config: {
-            headerKeys: ["Name", "Tags", "Sales", "VAT", "ATV"],
+            headerKeys: {
+              name: "Chain Name",
+              tags: "Tags",
+              sales: "Sales",
+              vat: "VAT",
+              atv: "ATV",
+            },
           },
         },
       ]}

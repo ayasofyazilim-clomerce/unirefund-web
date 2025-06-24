@@ -19,6 +19,7 @@ export type DashboardItemConfig = {
   id: string;
   order: number;
   className?: string;
+  style?: React.CSSProperties;
   colSpan?: number;
 } & (
   | DashboardPieChartItem
@@ -48,7 +49,7 @@ type DashboardTableItem = {
   type: "table";
   data: Array<Record<string, string | number>>;
   config: {
-    headerKeys: string[];
+    headerKeys: Record<string, string>;
   };
 };
 
@@ -87,8 +88,12 @@ export function DashboardLayout({items: initialItems, layoutClassName, cols, onS
         }
       />
       <SortableLayout<DashboardItemConfig>
-        className={cn("bg-border gap-px", layoutClassName, `grid-cols-${layout.cols}`)}
+        className={cn("bg-border gap-px", layoutClassName)}
+        style={{
+          gridTemplateColumns: `repeat(${layout.cols}, minmax(0, 1fr))`,
+        }}
         editMode={true}
+        maxColSpan={layout.cols}
         items={initialItems}
         getLatestList={(latestItems) => setList(latestItems)}
         renderItem={(item) => {
@@ -109,21 +114,21 @@ export function DashboardLayout({items: initialItems, layoutClassName, cols, onS
               <Table wrapperClassName="p-4 bg-white h-full">
                 <TableHeader>
                   <TableRow>
-                    {item.config.headerKeys.map((key) => (
-                      <TableHead key={key}>{key}</TableHead>
+                    {Object.entries(item.config.headerKeys).map(([key, value]) => (
+                      <TableHead key={key}>{value}</TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {item.data.map((items) => (
-                    <TableRow key={items.id}>
-                      {Object.entries(items).map(([key, value]) => (
-                        <TableCell key={key} className="text-sm">
-                          {value}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
+                  {item.data.map((items) => {
+                    return (
+                      <TableRow key={items.id}>
+                        {Object.keys(item.config.headerKeys).map((key) => {
+                          return <TableCell key={key}>{items[key]}</TableCell>;
+                        })}
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             );
