@@ -25,7 +25,6 @@ import {postRefundPointContractHeaderValidateByHeaderIdApi} from "@repo/actions/
 import {deleteRefundPointContractHeadersById} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {RefundFeeHeadersField} from "../../../_components/refund-fee-headers-field";
 
 export default function RefundPointContractHeaderUpdateForm({
   addressList,
@@ -49,9 +48,9 @@ export default function RefundPointContractHeaderUpdateForm({
     "ui:className": "md:grid md:gap-2 md:grid-cols-2",
     webSite: {
       "ui:className": "md:col-span-full",
-      "ui:options": {
-        inputType: "url",
-      },
+    },
+    earlyRefund: {
+      "ui:widget": "switch",
     },
     addressCommonDataId: {
       "ui:className": "row-start-2",
@@ -63,6 +62,14 @@ export default function RefundPointContractHeaderUpdateForm({
     refundFeeHeaders: {
       "ui:className": "md:col-span-full",
       "ui:field": "RefundFeeHeadersField",
+      items: {
+        refundFeeHeaderId: {
+          "ui:widget": "refundFeeHeaders",
+        },
+        isDefault: {
+          "ui:widget": "switch",
+        },
+      },
     },
   };
   const validFrom = new Date(contractHeaderDetails.validFrom);
@@ -82,16 +89,6 @@ export default function RefundPointContractHeaderUpdateForm({
       ) : null}
       <SchemaForm<ContractHeaderForRefundPointUpdateDto>
         disabled={!hasEditPermission || isPending}
-        fields={{
-          RefundFeeHeadersField: RefundFeeHeadersField({
-            refundFeeHeaders,
-            data: contractHeaderDetails.refundFeeHeaders.map((x) => ({
-              refundFeeHeaderId: x.id,
-              ...x,
-            })),
-            languageData,
-          }),
-        }}
         formData={{
           ...contractHeaderDetails,
           validFrom: validFrom.toISOString(),
@@ -118,12 +115,19 @@ export default function RefundPointContractHeaderUpdateForm({
         }}
         schema={$ContractHeaderForRefundPointUpdateDto}
         uiSchema={uiSchema}
+        useTableForArrayItems
         widgets={{
           address: CustomComboboxWidget<AddressTypeDto>({
             list: addressList,
             languageData,
             selectIdentifier: "id",
             selectLabel: "fullAddress",
+          }),
+          refundFeeHeaders: CustomComboboxWidget<AssignableRefundFeeHeaders>({
+            list: refundFeeHeaders,
+            languageData,
+            selectIdentifier: "id",
+            selectLabel: "name",
           }),
         }}
       />

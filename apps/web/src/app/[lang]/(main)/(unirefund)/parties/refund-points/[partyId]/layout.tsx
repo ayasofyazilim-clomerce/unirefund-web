@@ -1,11 +1,12 @@
 "use server";
 
-import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import {auth} from "@repo/utils/auth/next-auth";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {getRefundPointDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {auth} from "@repo/utils/auth/next-auth";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
+import PartyHeader from "../../_components/party-header";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
@@ -42,29 +43,31 @@ export default async function Layout({
     return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [refundPointDetailsResponse] = apiRequests.data;
+
   const isHeadquarter = refundPointDetailsResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
+      <PartyHeader
+        lang={lang}
+        link={`${baseLink}details/info`}
+        name={refundPointDetailsResponse.data.entityInformations?.[0]?.organizations?.[0]?.name}
+        parentId={refundPointDetailsResponse.data.parentId}
+      />
       <TabLayout
         orientation="vertical"
         tabList={[
           {
-            label: "Details",
+            label: languageData["Merchants.Details"],
             href: `${baseLink}details/info`,
           },
-          {
-            label: languageData["Merchants.SubOrganization"],
-            href: `${baseLink}sub-stores`,
-          },
+          ...(!isHeadquarter
+            ? []
+            : [{label: languageData["Merchants.SubOrganization"], href: `${baseLink}sub-stores`}]),
           {
             label: languageData.Affiliations,
             href: `${baseLink}affiliations`,
           },
-          {
-            label: "Contracts",
-            href: `${baseLink}contracts`,
-            disabled: !isHeadquarter,
-          },
+          ...(!isHeadquarter ? [] : [{label: languageData["Merchants.Contracts"], href: `${baseLink}contracts`}]),
         ]}
         variant="simple">
         {children}

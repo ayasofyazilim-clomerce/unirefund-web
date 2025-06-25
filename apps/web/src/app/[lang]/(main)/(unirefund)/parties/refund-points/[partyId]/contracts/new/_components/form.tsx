@@ -12,7 +12,6 @@ import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {postRefundPointContractHeadersByIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {RefundFeeHeadersField} from "../../_components/refund-fee-headers-field";
 
 export default function RefundPointContractHeaderCreateForm({
   addressList,
@@ -45,7 +44,14 @@ export default function RefundPointContractHeaderCreateForm({
     },
     refundFeeHeaders: {
       "ui:className": "md:col-span-full",
-      "ui:field": "RefundFeeHeadersField",
+      items: {
+        isDefault: {
+          "ui:widget": "switch",
+        },
+        refundFeeHeaderId: {
+          "ui:widget": "refundFeeHeaders",
+        },
+      },
     },
   };
   const today = new Date();
@@ -53,19 +59,6 @@ export default function RefundPointContractHeaderCreateForm({
   return (
     <SchemaForm<ContractHeaderForRefundPointCreateDto>
       disabled={isPending}
-      fields={{
-        RefundFeeHeadersField: RefundFeeHeadersField({
-          refundFeeHeaders,
-          data: [
-            {
-              validFrom: today.toISOString(),
-              refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
-              isDefault: true,
-            },
-          ],
-          languageData,
-        }),
-      }}
       formData={{
         validFrom: today.toISOString(),
         refundFeeHeaders: [
@@ -94,12 +87,19 @@ export default function RefundPointContractHeaderCreateForm({
       }}
       schema={$ContractHeaderForRefundPointCreateDto}
       uiSchema={uiSchema}
+      useTableForArrayItems
       widgets={{
         address: CustomComboboxWidget<AddressTypeDto>({
           list: addressList,
           languageData,
           selectIdentifier: "id",
           selectLabel: "fullAddress",
+        }),
+        refundFeeHeaders: CustomComboboxWidget<AssignableRefundFeeHeaders>({
+          list: refundFeeHeaders,
+          languageData,
+          selectIdentifier: "id",
+          selectLabel: "name",
         }),
       }}
     />

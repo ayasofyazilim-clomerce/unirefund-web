@@ -20,6 +20,8 @@
   "Merchants.Edit.Fail": "An error occurred while updating the store.",
   "Merchants.Fetch.Success": "Merchants fetched successfully.",
   "Merchants.Fetch.Fail": "An error occurred while fetching merchants.",
+  "Merchants.Details": "Details",
+  "Merchants.Contracts": "Contracts",
   "Merchants.SubOrganization": "Stores",
   "Merchants.SubOrganization.Description": "You can view sub stores related to the main store from here.",
   "Merchants.SubOrganization.New": "New Sub Store",
