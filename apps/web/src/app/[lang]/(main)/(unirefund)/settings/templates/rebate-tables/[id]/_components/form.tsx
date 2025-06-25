@@ -1,19 +1,17 @@
 "use client";
 
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {useParams, useRouter} from "next/navigation";
-import {useTransition} from "react";
 import type {
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto,
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as RebateTableHeaderUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto as $RebateTableHeaderUpdateDto} from "@ayasofyazilim/saas/ContractService";
-import {handlePutResponse} from "@repo/utils/api";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {putRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/put-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {handlePutResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import {useTransition} from "react";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
-import {RebateTableDetailsField} from "../../_components/rebate-table-details-field";
 
 export default function RebateTableHeaderUpdateForm({
   languageData,
@@ -30,20 +28,9 @@ export default function RebateTableHeaderUpdateForm({
     schema: $RebateTableHeaderUpdateDto,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "grid md:grid-cols-1 p-2 my-6 border rounded-md md:p-6",
-      name: {
-        "ui:className": "h-max flex justify-center",
-        "ui:options": {
-          classNames: {
-            root: "flex justify-center w-full",
-            label: "flex justify-center",
-          },
-        },
-      },
-
       calculateNetCommissionInsteadOfRefund: {
         "ui:widget": "switch",
-        "ui:className": "h-max flex justify-center md:col-span-2",
+        "ui:className": "border px-2 rounded-md h-max self-end",
         "ui:test": languageData.Address,
       },
       isTemplate: {
@@ -53,6 +40,9 @@ export default function RebateTableHeaderUpdateForm({
       rebateTableDetails: {
         "ui:field": "RebateTableDetailsField",
         "ui:className": "md:col-span-full",
+        "ui:options": {
+          copyable: true,
+        },
       },
       processingFeeDetails: {
         "ui:field": "ProcessingFeeDetailsField",
@@ -62,17 +52,8 @@ export default function RebateTableHeaderUpdateForm({
   });
   return (
     <SchemaForm<RebateTableHeaderUpdateDto>
+      className="mx-auto max-w-4xl"
       disabled={isPending}
-      fields={{
-        RebateTableDetailsField: RebateTableDetailsField({
-          data: formData.rebateTableDetails !== null ? formData.rebateTableDetails : [],
-          languageData,
-        }),
-        ProcessingFeeDetailsField: ProcessingFeeDetailsField({
-          data: formData.processingFeeDetails !== null ? formData.processingFeeDetails : [],
-          languageData,
-        }),
-      }}
       formData={formData}
       onSubmit={({formData: editedFormData}) => {
         startTransition(() => {
@@ -87,6 +68,7 @@ export default function RebateTableHeaderUpdateForm({
       schema={$RebateTableHeaderUpdateDto}
       submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
+      useTableForArrayItems
     />
   );
 }

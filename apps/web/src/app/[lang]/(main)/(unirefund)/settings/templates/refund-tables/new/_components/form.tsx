@@ -12,7 +12,6 @@ import {useState, useTransition} from "react";
 import {postRefundTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
-import {RefundTableDetailsField} from "../../_components/refund-table-details-field";
 
 export default function RefundTableHeaderCreateForm({
   languageData,
@@ -35,19 +34,17 @@ export default function RefundTableHeaderCreateForm({
     resources: languageData,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "flex flex-col items-center justify-center border  rounded-md md:p-6 p-2 my-6 gap-0",
-      name: {"ui:className": "max-w-xl"},
       isTemplate: {
         "ui:widget": "switch",
-        "ui:className": "max-w-xl",
+        "ui:className": "border px-2 rounded-md h-max self-end",
       },
       isDefault: {
         "ui:widget": "switch",
-        "ui:className": "max-w-xl",
+        "ui:className": "border px-2 rounded-md h-max self-end",
       },
       isBundling: {
         "ui:widget": "switch",
-        "ui:className": "max-w-xl",
+        "ui:className": "border px-2 rounded-md h-max self-end",
       },
       merchantId: {
         "ui:className": "col-span-full",
@@ -68,19 +65,16 @@ export default function RefundTableHeaderCreateForm({
       refundTableDetails: {
         "ui:field": "RefundTableDetailsField",
         "ui:className": "border-none p-0 w-full",
+        "ui:options": {
+          copyable: true,
+        },
       },
     },
   });
   return (
     <SchemaForm<RefundTableHeaderCreateDto>
-      className="flex flex-col  justify-center pr-0"
+      className="mx-auto flex  max-w-4xl flex-col justify-center pr-0"
       disabled={isPending}
-      fields={{
-        RefundTableDetailsField: RefundTableDetailsField({
-          data: formData.refundTableDetails !== null ? formData.refundTableDetails : [],
-          languageData,
-        }),
-      }}
       formData={formData}
       onChange={({formData: editedFormData}) => {
         if (!editedFormData) return;
@@ -101,6 +95,7 @@ export default function RefundTableHeaderCreateForm({
       submitText={languageData.Save}
       uiSchema={uiSchema}
       useDependency
+      useTableForArrayItems
       widgets={{
         MerchantsWidget: CustomComboboxWidget<MerchantProfileDto>({
           languageData,

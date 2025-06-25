@@ -7,6 +7,8 @@ import type {
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
 import type {UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import {getRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/action";
+import {postRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -16,12 +18,8 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
-import {postRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
-import {getRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/action";
-import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
-import {ProcessingFeeDetailsField} from "../../_components/processing-fee-details";
-import {RebateTableDetailsField} from "../../_components/rebate-table-details-field";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
 export default function RebateTableHeaderCreateForm({
   languageData,
@@ -46,25 +44,22 @@ export default function RebateTableHeaderCreateForm({
     schema: $RebateTableHeaderCreateDto,
     name: "Contracts.Form",
     extend: {
-      "ui:className": "flex flex-col items-center justify-center border rounded-md md:p-6 p-2",
-      name: {
-        "ui:className": "max-w-xl",
-      },
       calculateNetCommissionInsteadOfRefund: {
         "ui:widget": "switch",
-        "ui:className": "max-w-xl",
+        "ui:className": " border px-2 rounded-md",
       },
       isTemplate: {
         "ui:widget": "switch",
-        "ui:className": "max-w-xl",
+        "ui:className": " border px-2 rounded-md",
       },
       rebateTableDetails: {
         "ui:field": "RebateTableDetailsField",
-        "ui:className": "md:col-span-full border-none w-full",
+        "ui:options": {
+          copyable: true,
+        },
       },
       processingFeeDetails: {
         "ui:field": "ProcessingFeeDetailsField",
-        "ui:className": "md:col-span-full border-none  w-full",
       },
       merchantId: {
         "ui:widget": "MerchantsWidget",
@@ -85,10 +80,10 @@ export default function RebateTableHeaderCreateForm({
   });
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <ActionList className="mb-4 mt-6 flex w-full flex-col items-center justify-center rounded-md border p-6">
+    <div className="flex w-full flex-col gap-2 overflow-hidden">
+      <ActionList className="mx-auto w-full max-w-4xl border-none p-0">
         <Combobox<RebateTableHeaderListDto>
-          classNames={{container: "w-full max-w-xl"}}
+          classNames={{container: "w-full "}}
           emptyValue={languageData["Select.EmptyValue"]}
           label={languageData["Contracts.FillFrom"]}
           list={rebateTables}
@@ -112,18 +107,8 @@ export default function RebateTableHeaderCreateForm({
         />
       </ActionList>
       <SchemaForm<RebateTableHeaderCreateDto>
-        className="pr-0"
+        className="mx-auto w-full max-w-4xl pr-0"
         disabled={isPending}
-        fields={{
-          RebateTableDetailsField: RebateTableDetailsField({
-            data: formData.rebateTableDetails !== null ? formData.rebateTableDetails : [],
-            languageData,
-          }),
-          ProcessingFeeDetailsField: ProcessingFeeDetailsField({
-            data: formData.processingFeeDetails !== null ? formData.processingFeeDetails : [],
-            languageData,
-          }),
-        }}
         formData={formData}
         key={selectedRebateTable}
         onChange={({formData: editedFormData}) => {
@@ -145,6 +130,7 @@ export default function RebateTableHeaderCreateForm({
         submitText={languageData.Save}
         uiSchema={uiSchema}
         useDependency
+        useTableForArrayItems
         widgets={{
           MerchantsWidget: CustomComboboxWidget<MerchantProfileDto>({
             languageData,

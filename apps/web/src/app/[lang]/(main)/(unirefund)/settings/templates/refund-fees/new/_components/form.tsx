@@ -12,7 +12,6 @@ import {useState, useTransition} from "react";
 import {postRefundFeeHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {getBaseLink} from "@/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
 
 export default function RefundFeeHeaderCreateForm({
   refundPoints,
@@ -45,17 +44,14 @@ export default function RefundFeeHeaderCreateForm({
     name: "Contracts.Form",
     resources: languageData,
     extend: {
-      "ui:className": "flex align-center items-center flex-col gap-0  border rounded-md md:p-6 p-2 my-6 mx-auto w-full",
       isTemplate: {
         "ui:widget": "switch",
-        "ui:className": "max-w-xl",
+        "ui:className": "border px-2 rounded-md h-max self-end",
       },
       isActive: {
         "ui:widget": "switch",
-        "ui:className": "   max-w-xl",
+        "ui:className": "border px-2 rounded-md h-max self-end",
       },
-      name: {"ui:className": "max-w-xl w-full "},
-
       refundPointId: {
         "ui:widget": "RefundPointWidget",
         dependencies: [
@@ -74,19 +70,16 @@ export default function RefundFeeHeaderCreateForm({
       refundFeeDetails: {
         "ui:field": "RefundFeeDetailsField",
         "ui:className": "border-none p-0 w-full",
+        "ui:options": {
+          copyable: true,
+        },
       },
     },
   });
   return (
     <SchemaForm<RefundFeeHeaderCreateDto>
-      className="pr-0"
+      className="mx-auto flex  max-w-4xl flex-col justify-center pr-0"
       disabled={isPending}
-      fields={{
-        RefundFeeDetailsField: RefundFeeDetailsField({
-          data: formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
-          languageData,
-        }),
-      }}
       formData={formData}
       onChange={({formData: editedFormData}) => {
         if (!editedFormData) return;
@@ -109,6 +102,7 @@ export default function RefundFeeHeaderCreateForm({
       submitText={languageData.Save}
       uiSchema={uiSchema}
       useDependency
+      useTableForArrayItems
       widgets={{
         RefundPointWidget: CustomComboboxWidget<RefundPointProfileDto>({
           languageData,

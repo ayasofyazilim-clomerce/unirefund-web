@@ -10,7 +10,6 @@ import {useParams, useRouter} from "next/navigation";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {putRefundFeeHeadersByIdApi} from "@repo/actions/unirefund/ContractService/put-actions";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {RefundFeeDetailsField} from "../../_components/refund-fee-details-field";
 
 export default function RefundFeeHeaderUpdateForm({
   formData,
@@ -26,41 +25,22 @@ export default function RefundFeeHeaderUpdateForm({
     name: "Contracts.Form",
     resources: languageData,
     extend: {
-      "ui:className": "md:grid md:grid-cols-2 md:p-6 p-2 my-6 border rounded-md",
-      name: {
-        "ui:className": "h-max flex justify-center md:col-span-2",
-        "ui:options": {
-          classNames: {
-            root: "flex justify-center w-full",
-            label: "flex justify-center",
-          },
-        },
-      },
       isActive: {
         "ui:widget": "switch",
-        "ui:className": "h-max md:col-span-2 justify-center",
-        "ui:options": {
-          inline: true,
-          classNames: {
-            root: "flex items-center",
-            label: "mr-2",
-          },
-        },
+        "ui:className": "border px-2 rounded-md h-max self-end",
       },
       refundFeeDetails: {
         "ui:field": "RefundFeeDetailsField",
         "ui:className": "border-none p-0 md:col-span-full",
+        "ui:options": {
+          copyable: true,
+        },
       },
     },
   });
   return (
     <SchemaForm<RefundFeeHeaderUpdateDto>
-      fields={{
-        RefundFeeDetailsField: RefundFeeDetailsField({
-          data: formData.refundFeeDetails !== null ? formData.refundFeeDetails : [],
-          languageData,
-        }),
-      }}
+      className="mx-auto flex  max-w-4xl flex-col justify-center pr-0"
       formData={formData}
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;
@@ -74,6 +54,7 @@ export default function RefundFeeHeaderUpdateForm({
       schema={$RefundFeeHeaderUpdateDto}
       submitText={languageData["Edit.Save"]}
       uiSchema={uiSchema}
+      useTableForArrayItems
     />
   );
 }
