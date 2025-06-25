@@ -5,6 +5,7 @@ import {LogOut, RefreshCw, Home} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {motion} from "framer-motion";
 import Link from "next/link";
+import {useEffect} from "react";
 
 export default function ErrorComponent({
   message,
@@ -28,6 +29,14 @@ export default function ErrorComponent({
       router.push("/en");
     }
   };
+
+  useEffect(() => {
+    if (signOutServer) {
+      void signOutServer().then(() => {
+        router.push("/login");
+      });
+    }
+  }, [signOutServer]);
 
   return (
     <section className="from-muted to-muted/50 relative flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br via-white px-4 py-12">

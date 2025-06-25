@@ -89,6 +89,11 @@ export default function Page() {
               vat: "VAT",
               atv: "ATV",
             },
+            format: {
+              sales: (value) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`,
+              vat: (value) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`,
+              atv: (value) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`,
+            },
           },
         },
       ]}
