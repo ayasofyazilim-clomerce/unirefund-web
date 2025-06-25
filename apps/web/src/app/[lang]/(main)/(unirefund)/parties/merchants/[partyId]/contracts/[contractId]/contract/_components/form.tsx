@@ -25,7 +25,6 @@ import {
 } from "@repo/actions/unirefund/ContractService/put-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
-import {RefundTableHeadersField} from "../../../_components/refund-table-headers-field";
 
 export function MerchantContractHeaderUpdateForm({
   contractHeaderDetails,
@@ -68,10 +67,14 @@ export function MerchantContractHeaderUpdateForm({
     },
     refundTableHeaders: {
       "ui:className": "md:col-span-full",
-      "ui:field": "RefundTableHeadersField",
-    },
-    validFrom: {
-      "ui:options": {},
+      items: {
+        isDefault: {
+          "ui:widget": "switch",
+        },
+        refundTableHeaderId: {
+          "ui:widget": "refundTableHeader",
+        },
+      },
     },
   };
   const validFrom = new Date(contractHeaderDetails.validFrom);
@@ -91,26 +94,14 @@ export function MerchantContractHeaderUpdateForm({
       ) : null}
       <SchemaForm<ContractHeaderForMerchantUpdateDto>
         disabled={!hasEditPermission || isPending}
-        fields={{
-          RefundTableHeadersField: RefundTableHeadersField({
-            refundTableHeaders,
-            data: contractHeaderDetails.refundTableHeaders.map((x) => ({
-              ...x,
-              refundTableHeaderId: x.id,
-            })),
-            languageData,
-          }),
-        }}
         formData={{
           ...contractHeaderDetails,
           validFrom: validFrom.toISOString(),
           validTo: validTo ? validTo.toISOString() : undefined,
-          refundTableHeaders: {
-            ...contractHeaderDetails.refundTableHeaders.map((x) => ({
-              ...x,
-              refundTableHeaderId: x.id,
-            })),
-          },
+          refundTableHeaders: contractHeaderDetails.refundTableHeaders.map((x) => ({
+            ...x,
+            refundTableHeaderId: x.id,
+          })),
         }}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
@@ -125,12 +116,19 @@ export function MerchantContractHeaderUpdateForm({
         }}
         schema={$ContractHeaderForMerchantUpdateDto}
         uiSchema={uiSchema}
+        useTableForArrayItems
         widgets={{
           address: CustomComboboxWidget<AddressTypeDto>({
             list: addressList,
             languageData,
             selectIdentifier: "id",
             selectLabel: "fullAddress",
+          }),
+          refundTableHeader: CustomComboboxWidget<AssignableRefundTableHeaders>({
+            list: refundTableHeaders,
+            languageData,
+            selectIdentifier: "id",
+            selectLabel: "name",
           }),
         }}
       />

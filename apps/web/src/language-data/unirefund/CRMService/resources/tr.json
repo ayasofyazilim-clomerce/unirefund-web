@@ -20,6 +20,8 @@
   "Merchants.Edit.Fail": "Mağaza güncellenirken bir hata oluştu.",
   "Merchants.Fetch.Success": "Mağazalar basarıyla getirildi.",
   "Merchants.Fetch.Fail": "Mağazalar getirilirken bir hata oluştu.",
+  "Merchants.Details": "Detaylar",
+  "Merchants.Contracts": "Sözleşmeler",
   "Merchants.SubOrganization": "Mağazalar",
   "Merchants.SubOrganization.Description": "Buradan mağazaya bağlı alt mağazaları görüntüleyebilirsiniz.",
   "Merchants.SubOrganization.New": "Yeni Alt Mağaza",
