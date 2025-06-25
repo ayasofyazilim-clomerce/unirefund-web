@@ -40,6 +40,7 @@ export default async function Home({
     isMRZRequired: true,
     isNFCRequired: false,
     isLivenessRequired: true,
+    source: "SSR",
   };
   const apiRequests = await getApiRequests(requireSteps);
   const clientAuths = await getAWSEnvoriment();
