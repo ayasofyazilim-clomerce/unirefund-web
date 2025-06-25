@@ -1,108 +1,83 @@
-"use client";
+import {createClient} from "@clickhouse/client"; // or '@clickhouse/client-web'
+import type {IssuedTagsByTimeOfWeekday, IssuingNationalities} from "./client";
+import Client from "./client";
 
-import {toast} from "@/components/ui/sonner";
-import {DashboardLayout} from "@repo/ui/dashboard-layout";
-import {
-  issuedTagsByRefundMethod,
-  issuedTagsByTimeOfDay,
-  issuedTagsByTimeOfWeekday,
-  issuingNationalities,
-  topChains,
-} from "./data";
+const client = createClient({
+  url: process.env.CLICKHOUSE_URL,
+  username: process.env.CLICKHOUSE_USERNAME,
+  password: process.env.CLICKHOUSE_PASSWORD,
+  database: process.env.CLICKHOUSE_DATABASE,
+});
 
-const formatCurrency = (value: unknown) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`;
+async function getTagsByWeekday(): Promise<IssuedTagsByTimeOfWeekday> {
+  const resultSet = await client.query({
+    query: `SELECT
+          CASE toDayOfWeek(IssueDate)
+              WHEN 1 THEN 'Monday'
+              WHEN 2 THEN 'Tuesday'
+              WHEN 3 THEN 'Wednesday'
+              WHEN 4 THEN 'Thursday'
+              WHEN 5 THEN 'Friday'
+              WHEN 6 THEN 'Saturday'
+              WHEN 7 THEN 'Sunday'
+          END AS label,
+          count(*) AS tags
+      FROM default.tag_mv_tags
+      WHERE IssueDate IS NOT NULL
+      GROUP BY label, toDayOfWeek(IssueDate)
+      ORDER BY toDayOfWeek(IssueDate)`,
+    format: "JSON",
+  });
 
-export default function Page() {
-  return (
-    <DashboardLayout
-      cols={4}
-      items={[
-        {
-          id: "b1a7c9e3-4f2d-4c9e-9c1a-3f8e6e1a7c9e",
-          order: 0,
-          colSpan: 1,
-          type: "area",
-          data: issuedTagsByTimeOfDay,
-          config: {
-            tags: {label: "Tags", color: "var(--chart-1)"},
-          },
-          title: "Tags by Time of Day",
-        },
-        {
-          id: "c2b8d4f5-5e3f-4d8f-9d2b-4f9e7e2b8d4f",
-          order: 1,
-          colSpan: 1,
-          type: "bar",
-          config: {tags: {label: "Tags", color: "var(--chart-1)"}},
-          xAxisKey: "label",
-          title: "Tags by Weekday",
-          layout: "horizontal",
-          data: issuedTagsByTimeOfWeekday,
-        },
-        {
-          id: "d3c9e5f6-6f4g-5e9g-9e3c-5g0f8e3c9e5f",
-          order: 2,
-          colSpan: 1,
-          type: "radar",
-          data: topChains,
-          config: {
-            tags: {label: "Tags", color: "var(--chart-1)"},
-            sales: {label: "Sales", color: "var(--chart-2)"},
-            vat: {label: "VAT", color: "var(--chart-3)"},
-            atv: {label: "ATV", color: "var(--chart-4)"},
-          },
-          valueSuffix: "TL",
-          polarKey: "name",
-          title: "Top 10 Chains",
-        },
-        {
-          id: "e4d0f6g7-7g5h-6f0h-9d4e-6h1g9d4e0f6g",
-          order: 3,
-          colSpan: 1,
-          type: "pie",
-          innerRadius: 60,
-          data: issuingNationalities,
-          title: "Issuing Nationalities",
-          totalLabel: "Tags",
-          chartStyle: "pie",
-        },
-        {
-          id: "f5e1g7h8-8h6i-7g1i-9e5f-7i2h9e5f1g7h",
-          order: 4,
-          colSpan: 1,
-          type: "pie",
-          chartStyle: "donut",
-          innerRadius: 60,
-          data: issuedTagsByRefundMethod,
-          valuePrefix: "%",
-          title: "Refunded Tags by Refund Method",
-        },
-        {
-          id: "g6f2h8i9-9i7j-8h2j-9f6g-8j3i9f6g2h8i",
-          order: 5,
-          colSpan: 3,
-          type: "table",
-          data: topChains,
-          config: {
-            headerKeys: {
-              name: "Chain Name",
-              tags: "Tags",
-              sales: "Sales",
-              vat: "VAT",
-              atv: "ATV",
-            },
-            format: {
-              sales: formatCurrency,
-              vat: formatCurrency,
-              atv: formatCurrency,
-            },
-          },
-        },
-      ]}
-      layoutClassName="h-full"
-      onSave={() => {
-        toast.success("Saved");
-      }}
-    />
-  );
+  const rows = await resultSet.json();
+  return rows.data as IssuedTagsByTimeOfWeekday;
+}
+
+async function getIssuignNationalities(): Promise<IssuingNationalities> {
+  const resultSet = await client.query({
+    query: `
+SELECT
+    json_object
+FROM (
+    SELECT
+        '{' || arrayStringConcat(
+            groupArray(
+                '"' || key || '":' ||
+                '{"label":"' || label || '","value":' || toString(value) || '}'
+            ),
+            ','
+        ) || '}' AS json_object
+    FROM (
+        SELECT
+            lower(COUNTRY) AS key,
+            argMax(COUNTRY, COUNT) AS label,
+            max(COUNT) AS value
+        FROM default.vw_top_nationalities_by_period
+        WHERE COUNTRY IS NOT NULL
+        GROUP BY lower(COUNTRY)
+        ORDER BY value DESC
+        LIMIT 6
+    )
+)
+
+
+`,
+    format: "JSON",
+  });
+
+  const rows = await resultSet.json();
+  const dataArray = rows.data as {json_object: string}[];
+  const data = JSON.parse(dataArray[0].json_object) as IssuingNationalities; // Explicitly type the parsed JSON
+  return data;
+}
+
+export default async function Page() {
+  const ping = await client.ping();
+
+  if (!ping.success) {
+    return <div>ClickHouse is not reachable</div>;
+  }
+  const tagsByWeekday = await getTagsByWeekday();
+  const issuingNationalities = await getIssuignNationalities();
+  return <Client issuedTagsByTimeOfWeekday={tagsByWeekday} issuingNationalities={issuingNationalities} />;
 }
