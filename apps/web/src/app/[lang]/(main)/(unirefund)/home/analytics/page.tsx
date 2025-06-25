@@ -10,6 +10,8 @@ import {
   topChains,
 } from "./data";
 
+const formatCurrency = (value: unknown) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`;
+
 export default function Page() {
   return (
     <DashboardLayout
@@ -88,6 +90,11 @@ export default function Page() {
               sales: "Sales",
               vat: "VAT",
               atv: "ATV",
+            },
+            format: {
+              sales: formatCurrency,
+              vat: formatCurrency,
+              atv: formatCurrency,
             },
           },
         },

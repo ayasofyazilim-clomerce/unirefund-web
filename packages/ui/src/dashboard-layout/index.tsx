@@ -50,6 +50,7 @@ type DashboardTableItem = {
   data: Array<Record<string, string | number>>;
   config: {
     headerKeys: Record<string, string>;
+    format: Record<string, (value: unknown) => JSX.Element | string | number>;
   };
 };
 
@@ -124,7 +125,11 @@ export function DashboardLayout({items: initialItems, layoutClassName, cols, onS
                     return (
                       <TableRow key={items.id}>
                         {Object.keys(item.config.headerKeys).map((key) => {
-                          return <TableCell key={key}>{items[key]}</TableCell>;
+                          return (
+                            <TableCell key={key}>
+                              {item.config.format?.[key] ? item.config.format[key](items[key]) : items[key]}
+                            </TableCell>
+                          );
                         })}
                       </TableRow>
                     );
