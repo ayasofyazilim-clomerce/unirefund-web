@@ -90,9 +90,9 @@ export default function Page() {
               atv: "ATV",
             },
             format: {
-              sales: (value) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`,
-              vat: (value) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`,
-              atv: (value) => `${Intl.NumberFormat("tr").format(Number(value)).toString()}₺`,
+              sales: formatCurrency,
+              vat: formatCurrency,
+              atv: formatCurrency,
             },
           },
         },
