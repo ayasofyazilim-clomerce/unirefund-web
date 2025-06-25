@@ -376,6 +376,7 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-front", () => (
             <ScanDocument
+              session={session || ""}
               back={back}
               front={front}
               languageData={languageData}
@@ -389,6 +390,7 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-back", () => (
             <ScanDocument
+              session={session || ""}
               back={back}
               front={front}
               languageData={languageData}
@@ -402,6 +404,7 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-passport", () => (
             <ScanDocument
+              session={session || ""}
               back={back}
               front={front}
               languageData={languageData}

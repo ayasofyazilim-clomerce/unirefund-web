@@ -1,10 +1,8 @@
 "use client";
 import {toast} from "@/components/ui/sonner";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import type {Block} from "@aws-sdk/client-textract";
-import {parse} from "mrz";
 import {useState} from "react";
-import {detectFace, textractIt} from "@repo/actions/unirefund/AWSService/actions";
+import {detectFace} from "@repo/actions/unirefund/AWSService/actions";
 import {CheckCircle, AlertCircle} from "lucide-react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import IDCardMRZ from "public/ID-Back.png";
@@ -13,6 +11,7 @@ import IdCardFront from "public/ID-Front.png";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 import DocumentOnboarding from "./_components/document-onboarding";
+import {postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
 
 type DocumentType = "passport" | "id-card-front" | "id-card-back";
 
@@ -99,6 +98,7 @@ export default function ScanDocument({
   setFront,
   back,
   setBack,
+  session,
 }: {
   languageData: SSRServiceResource;
   type: DocumentType;
@@ -107,6 +107,7 @@ export default function ScanDocument({
   setFront: (value: DocumentData) => void;
   back: DocumentData;
   setBack: (value: DocumentData) => void;
+  session: string;
 }) {
   const [scanStatus, setScanStatus] = useState<"idle" | "scanning" | "success" | "error">("idle");
   const [showOnboarding, setShowOnboarding] = useState(true);
@@ -143,26 +144,25 @@ export default function ScanDocument({
   // Process passport image
   const handlePassportImage = (imageSrc: string) => {
     setScanStatus("scanning");
-    void textractIt(imageSrc).then((res) => {
-      if (res?.Blocks) {
-        const mrz = getMRZ(res.Blocks);
-        try {
-          const parsedMRZ = parse(mrz);
-          if (parsedMRZ.format === "TD3") {
-            setFront({
-              base64: imageSrc,
-              data: parsedMRZ.fields,
-            });
-            toast.success(languageData["Toast.MRZ.Detected"] || "MRZ detected successfully.");
-            setScanStatus("success");
-            setCanGoNext(true);
-          } else {
-            toast.error(languageData["Toast.MRZ.InvalidFormat"] || "Invalid MRZ format.");
-            setFront(null);
-            setScanStatus("error");
-            setCanGoNext(false);
-          }
+    const base64Data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
 
+    void postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz({
+      requestBody: {
+        evidenceSessionId: session,
+        documentImageBase64: base64Data,
+      },
+    })
+      .then((res) => {
+        if (res.type === "success") {
+          setFront({
+            base64: imageSrc,
+            data: res.data,
+          });
+          toast.success(languageData["Toast.MRZ.Detected"] || "MRZ detected successfully.");
+          setScanStatus("success");
+          setCanGoNext(true);
+
+          // Yüz tespiti
           void detectFace(imageSrc).then((faceDetection) => {
             if (faceDetection < 80) {
               toast.error(
@@ -176,17 +176,19 @@ export default function ScanDocument({
               setCanGoNext(false);
             }
           });
-        } catch {
-          toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while parsing MRZ.");
-          setFront(null);
+        } else {
+          toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+
           setScanStatus("error");
           setCanGoNext(false);
         }
-      } else {
+      })
+      .catch(() => {
+        toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+        setFront(null);
         setScanStatus("error");
         setCanGoNext(false);
-      }
-    });
+      });
   };
 
   // Process ID card front image
@@ -212,45 +214,36 @@ export default function ScanDocument({
   // Process ID card back image
   const handleIDCardBackImage = (imageSrc: string) => {
     setScanStatus("scanning");
-    void textractIt(imageSrc).then((res) => {
-      if (res?.Blocks) {
-        const mrz = getMRZ(res.Blocks);
-        try {
-          const parsedMRZ = parse(mrz);
-          if (parsedMRZ.format !== "TD3" && parsedMRZ.format !== "SWISS_DRIVING_LICENSE") {
-            setBack({
-              base64: imageSrc,
-              data: parsedMRZ.fields,
-            });
-            setScanStatus("success");
-            setCanGoNext(true);
-          } else {
-            toast.error(languageData["Toast.MRZ.InvalidFormat"] || "Invalid MRZ format.");
-            setBack({
-              base64: imageSrc,
-              data: null,
-            });
-            setScanStatus("error");
-            setCanGoNext(false);
-          }
-        } catch (e) {
-          toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while parsing MRZ.");
+    const base64Data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
+
+    void postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz({
+      requestBody: {
+        evidenceSessionId: session,
+        documentImageBase64: base64Data,
+      },
+    })
+      .then((res) => {
+        if (res.type === "success") {
           setBack({
             base64: imageSrc,
-            data: null,
+            data: res.data,
           });
-          setCanGoNext(false);
+          toast.success(languageData["Toast.MRZ.Detected"] || "MRZ detected successfully.");
+          setScanStatus("success");
+          setCanGoNext(true);
+        } else {
+          toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+
           setScanStatus("error");
+          setCanGoNext(false);
         }
-      } else {
-        setBack({
-          base64: imageSrc,
-          data: null,
-        });
+      })
+      .catch(() => {
+        toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+        setBack(null);
         setScanStatus("error");
         setCanGoNext(false);
-      }
-    });
+      });
   };
 
   // Get the appropriate image handler based on document type
@@ -303,13 +296,6 @@ export default function ScanDocument({
       />
     </div>
   );
-}
-
-function getMRZ(blocks: Block[]): string[] {
-  return blocks
-    .filter((x) => x.BlockType === "WORD" && typeof x.Text === "string" && x.Text.includes("<"))
-    .map((y) => y.Text)
-    .filter((text): text is string => text !== undefined);
 }
 
 export function DisplayCaptured({
