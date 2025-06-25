@@ -240,7 +240,7 @@ export default function ScanDocument({
       })
       .catch(() => {
         toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
-        setFront(null);
+        setBack(null);
         setScanStatus("error");
         setCanGoNext(false);
       });
