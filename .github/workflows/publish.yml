@@ -1,16 +1,16 @@
 name: Publish apps
-run-name: ${{ github.actor }} is publishing projects to dev 🚀
+run-name: ${{ github.actor }} is publishing projects. 🚀
 on:
   workflow_dispatch:
     inputs:
-      release-type:
-        description: "Release type (one of): dev, prod"
+      env:
+        description: "Release type (one of): uat,dev"
         required: true
-        default: "dev"
+        default: "uat"
         type: choice
         options:
+          - uat
           - dev
-        # - prod
       app:
         description: "App to publish (one of): ssr, web"
         required: true
@@ -19,11 +19,6 @@ on:
         options:
           - ssr
           - web
-  workflow_call:
-    inputs:
-      release-type:
-        default: "dev"
-        type: string
 jobs:
   publish_dev:
     timeout-minutes: 60
@@ -31,5 +26,25 @@ jobs:
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - name: Determine port
+        id: determine-port
+        run: |
+          if [[ "${{ github.event.inputs.env }}" == "uat" && "${{ github.event.inputs.app }}" == "web" ]]; then
+            echo "PORT=1453" >> $GITHUB_ENV
+          elif [[ "${{ github.event.inputs.env }}" == "dev" && "${{ github.event.inputs.app }}" == "web" ]]; then
+            echo "PORT=1454" >> $GITHUB_ENV
+          elif [[ "${{ github.event.inputs.env }}" == "uat" && "${{ github.event.inputs.app }}" == "ssr" ]]; then
+            echo "PORT=1455" >> $GITHUB_ENV
+          else
+            echo "Invalid combination of env and app" && exit 1
+          fi
       - name: Run a publish script
-        run: ssh ubuntu "cd ~/frontend/deployment/unirefund/${{ github.event.inputs.release-type }} && npx -y @deployit/cli@latest deployit --project Unirefund --app ${{ github.event.inputs.app }} --env ${{ github.event.inputs.release-type }} --sync true --port ${{ github.event.inputs.app == 'web' && '14530' || '14540' }}"
+        run: |
+          ssh ubuntu "
+            cd ~/frontend/deployment/unirefund/${{ github.event.inputs.env }} &&
+            npx -y @deployit/cli@latest deployit \
+              --project Unirefund \
+              --app ${{ github.event.inputs.app }} \
+              --env ${{ github.event.inputs.env }} \
+              --sync true \
+              --port $PORT"
