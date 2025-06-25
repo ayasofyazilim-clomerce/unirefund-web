@@ -17,8 +17,8 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@ayasofyazilim/saas": "0.0.159",
     "@ayasofyazilim/core-saas": "latest",
+    "@ayasofyazilim/saas": "0.0.159",
     "@repo/ayasofyazilim-ui": "workspace:*",
     "next": "14.1.1",
     "react": "18.3.1",
@@ -50,6 +50,7 @@
     "lucide-react": "^0.445.0",
     "mini-svg-data-uri": "^1.4.4",
     "react-hook-form": "7.53.0",
-    "simplex-noise": "^4.0.1"
+    "simplex-noise": "^4.0.1",
+    "web": "link:apps/web"
   }
 }
