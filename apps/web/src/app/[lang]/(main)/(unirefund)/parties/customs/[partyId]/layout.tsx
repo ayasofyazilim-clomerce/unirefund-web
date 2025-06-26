@@ -6,6 +6,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {getCustomDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
+import PartyHeader from "../../_components/party-header";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
@@ -46,6 +47,11 @@ export default async function Layout({
 
   return (
     <>
+      <PartyHeader
+        link={`${baseLink}details/info`}
+        name={customDetailsResponse.data.entityInformations?.[0]?.organizations?.[0]?.name}
+        parentId={customDetailsResponse.data.parentId}
+      />
       <TabLayout
         classNames={{
           vertical: {
