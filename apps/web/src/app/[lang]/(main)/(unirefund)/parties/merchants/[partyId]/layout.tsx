@@ -49,7 +49,6 @@ export default async function Layout({
   return (
     <>
       <PartyHeader
-        lang={lang}
         link={`${baseLink}details/info`}
         name={merchantDetails?.entityInformations?.[0]?.organizations?.[0]?.name}
         parentId={merchantDetails?.parentId}
