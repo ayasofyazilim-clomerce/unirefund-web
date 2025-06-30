@@ -53,7 +53,7 @@ export async function getApiEvidenceSessionCreateFaceLivenessSession(id: string,
     });
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    return structuredError(error);
   }
 }
 

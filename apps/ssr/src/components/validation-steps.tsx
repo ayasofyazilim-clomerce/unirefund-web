@@ -59,7 +59,7 @@ export default function ValidationSteps({
   const [back, setBack] = useState<DocumentData>(null);
   const [progress, setProgress] = useState(0);
   // Extract session ID from API response
-  const [evidenceSession, setEvidenceSession] = useState<string | null>(responseCreateEvidence.id || null);
+  const [evidenceSession, _setEvidenceSession] = useState<string | null>(responseCreateEvidence.id || null);
 
   // Update progress based on current step
   const updateProgress = (currentStep: number, totalSteps: number) => {
@@ -82,7 +82,6 @@ export default function ValidationSteps({
           setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
-          setEvidenceSession={setEvidenceSession}
           updateProgress={updateProgress}
         />
       </GlobalScopper.Scoped>
@@ -104,7 +103,6 @@ function StepperContent({
   progress,
   requireSteps,
   evidenceSession,
-  setEvidenceSession,
 }: {
   clientAuths: AWSAuthConfig;
   languageData: SSRServiceResource;
@@ -118,7 +116,6 @@ function StepperContent({
   progress: number;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   evidenceSession: string | null;
-  setEvidenceSession: (value: string | null) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
 
@@ -226,7 +223,6 @@ function StepperContent({
         setBack={setBack}
         setCanGoNext={setCanGoNext}
         setFront={setFront}
-        setEvidenceSession={setEvidenceSession}
       />
       {/* Navigation buttons */}{" "}
       <Actions
@@ -245,36 +241,24 @@ function StepperContent({
 function LivenessStep({
   languageData,
   stepper,
-  setCanGoNext,
   clientAuths,
   front,
   evidenceSession,
-  setEvidenceSession,
 }: {
   languageData: SSRServiceResource;
   stepper: ReturnType<typeof GlobalScopper.useStepper>;
-  setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
   front: DocumentData;
   evidenceSession: string | null;
-  setEvidenceSession: (value: string | null) => void;
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  if (!evidenceSession) return;
 
-  if (!evidenceSession) return <div>test</div>;
-
-  const handleAnalysisComplete = async (result: {isLive: boolean}) => {
+  const handleAnalysisComplete = (result: {isLive: boolean}) => {
     if (!result.isLive || !front?.base64) {
       failSession();
-      return <div>test2</div>;
+      return;
     }
-    // ...isteğe bağlı: burada yüz karşılaştırma işlemi yapılabilir...
     stepper.goTo("finish");
-  };
-
-  const handleError = () => {
-    setCanGoNext(false);
-    stepper.goTo("fail");
   };
 
   const failSession = () => {
@@ -283,19 +267,11 @@ function LivenessStep({
 
   return (
     <div className="relative h-full w-full">
-      {isLoading ? (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-neutral-900/70">
-          <div className="border-primary mb-4 h-12 w-12 animate-spin rounded-full border-4 border-t-transparent" />
-          <h3 className="text-lg font-semibold text-white">{languageData.VerifyingYourIdentity}</h3>
-          <p className="mt-2 text-sm text-neutral-200">{languageData.PleaseWaitWhileWeVerify}</p>
-        </div>
-      ) : null}
-      sdfsd
       <LivenessDetector
         config={clientAuths}
         languageData={languageData}
         onAnalysisComplete={(result) => {
-          void handleAnalysisComplete(result);
+          handleAnalysisComplete(result);
         }}
         evidenceSessionId={evidenceSession}
         frontImageBase64={front?.base64 || null}
@@ -314,7 +290,6 @@ function Steps({
   clientAuths,
   requireSteps,
   evidenceSession,
-  setEvidenceSession,
 }: {
   front: DocumentData;
   back: DocumentData;
@@ -325,7 +300,6 @@ function Steps({
   clientAuths: AWSAuthConfig;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   evidenceSession: string | null;
-  setEvidenceSession: (value: string | null) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
   // Determine which steps to show based on requireSteps
@@ -390,8 +364,6 @@ function Steps({
               front={front}
               languageData={languageData}
               evidenceSession={evidenceSession}
-              setCanGoNext={setCanGoNext}
-              setEvidenceSession={setEvidenceSession}
               stepper={stepper}
             />
           ))
@@ -549,7 +521,7 @@ function Actions({
       {!stepper.isFirst && !stepper.when("start", () => true) && (
         <Button
           className="bg-primary hover:bg-primary/90 px-5 py-2.5"
-          // disabled={!canGoNext}
+          disabled={!canGoNext}
           onClick={() => {
             // Handle navigation based on requireSteps and current step
             if (!showMRZSteps && stepper.current.id === "start") {

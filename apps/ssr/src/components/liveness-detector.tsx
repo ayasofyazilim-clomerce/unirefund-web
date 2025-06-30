@@ -64,15 +64,13 @@ export default function LivenessDetector({
             languageData={languageData}
             onStartValidation={() => {
               if (evidenceSessionId) {
-                void getApiEvidenceSessionCreateFaceLivenessSession(evidenceSessionId)
-                  .then((res) => {
-                    if (res.type === "success" && res.data.sessionId) {
-                      setSessionId(res.data.sessionId);
-                    }
-                  })
-                  .then(() => {
-                    setOpen(true);
-                  });
+                void getApiEvidenceSessionCreateFaceLivenessSession(evidenceSessionId).then((res) => {
+                  if (res.type === "success") {
+                    setSessionId(res.data.sessionId || null);
+                    ("");
+                    setOpen(true); // sadece başarılıysa açık
+                  }
+                });
               }
             }}
           />
@@ -88,14 +86,14 @@ export default function LivenessDetector({
             <FaceLivenessDetectorCore
               disableStartScreen
               onAnalysisComplete={async () => {
-                // sessionId prop'u ile liveness sonucu API'den alınır
                 const result = await getApiEvidenceSessionGetFaceLivenessSessionResults(sessionId);
                 if (result.type !== "success") {
                   return;
                 }
-                const confidence = result?.data?.confidence ?? 0;
+
+                const confidence = result.data.confidence ?? 0;
+
                 if (confidence > 70 && frontImageBase64) {
-                  // Compare işlemi
                   const compareResult = await postApiEvidenceSessionLivenessCompareFaces({
                     requestBody: {
                       sessionId,
@@ -110,6 +108,7 @@ export default function LivenessDetector({
                 } else {
                   onAnalysisComplete({isLive: false, confidence});
                 }
+
                 setOpen(false);
               }}
               config={{
