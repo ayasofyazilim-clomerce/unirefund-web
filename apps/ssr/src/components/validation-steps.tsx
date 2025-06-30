@@ -1,17 +1,15 @@
 "use client";
 import {Button} from "@/components/ui/button";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
 } from "@ayasofyazilim/saas/TravellerService";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
-import {getApiEvidenceSessionCreateFaceLivenessSession} from "@repo/actions/unirefund/TravellerService/actions";
-import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {defineStepper} from "@stepperize/react";
 import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, Shield} from "lucide-react";
 import type {ParseResult} from "mrz";
 import {useEffect, useState} from "react";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import LivenessDetector from "./liveness-detector";
 import SuccessModal from "./validation-steps/finish";
 import RegisterChoice from "./validation-steps/register-choice";
@@ -61,7 +59,7 @@ export default function ValidationSteps({
   const [back, setBack] = useState<DocumentData>(null);
   const [progress, setProgress] = useState(0);
   // Extract session ID from API response
-  const [session, setSession] = useState<string | null>(responseCreateEvidence.id || null);
+  const [evidenceSession, setEvidenceSession] = useState<string | null>(responseCreateEvidence.id || null);
 
   // Update progress based on current step
   const updateProgress = (currentStep: number, totalSteps: number) => {
@@ -80,11 +78,11 @@ export default function ValidationSteps({
           languageData={languageData}
           progress={progress}
           requireSteps={requireSteps}
-          session={session}
+          evidenceSession={evidenceSession}
           setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
-          setSession={setSession}
+          setEvidenceSession={setEvidenceSession}
           updateProgress={updateProgress}
         />
       </GlobalScopper.Scoped>
@@ -105,8 +103,8 @@ function StepperContent({
   updateProgress,
   progress,
   requireSteps,
-  session,
-  setSession,
+  evidenceSession,
+  setEvidenceSession,
 }: {
   clientAuths: AWSAuthConfig;
   languageData: SSRServiceResource;
@@ -119,8 +117,8 @@ function StepperContent({
   updateProgress: (currentStep: number, totalSteps: number) => void;
   progress: number;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
-  session: string | null;
-  setSession: (value: string | null) => void;
+  evidenceSession: string | null;
+  setEvidenceSession: (value: string | null) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
 
@@ -224,11 +222,11 @@ function StepperContent({
         front={front}
         languageData={languageData}
         requireSteps={requireSteps}
-        session={session}
+        evidenceSession={evidenceSession}
         setBack={setBack}
         setCanGoNext={setCanGoNext}
         setFront={setFront}
-        setSession={setSession}
+        setEvidenceSession={setEvidenceSession}
       />
       {/* Navigation buttons */}{" "}
       <Actions
@@ -250,59 +248,28 @@ function LivenessStep({
   setCanGoNext,
   clientAuths,
   front,
-  session,
-  setSession,
+  evidenceSession,
+  setEvidenceSession,
 }: {
   languageData: SSRServiceResource;
   stepper: ReturnType<typeof GlobalScopper.useStepper>;
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
   front: DocumentData;
-  session: string | null;
-  setSession: (value: string | null) => void;
+  evidenceSession: string | null;
+  setEvidenceSession: (value: string | null) => void;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  // Use existing session from props if available
-  useEffect(() => {
-    if (!session) {
-      void getApiEvidenceSessionCreateFaceLivenessSession().then((res) => {
-        setSession(res.data.sessionId || null);
-      });
-    }
-  }, [session, setSession]);
 
-  if (!session) return null;
+  if (!evidenceSession) return <div>test</div>;
 
   const handleAnalysisComplete = async (result: {isLive: boolean}) => {
     if (!result.isLive || !front?.base64) {
       failSession();
-      return;
+      return <div>test2</div>;
     }
-
-    try {
-      setIsLoading(true);
-      const requestBody = {
-        sessionId: session,
-        sourceImageBase64: front.base64.split(",").at(1),
-      };
-      const compareResult = await postApiEvidenceSessionLivenessCompareFaces({requestBody});
-      setIsLoading(false);
-      if (compareResult.type !== "success") {
-        failSession();
-        return;
-      }
-      const similarity = compareResult.data.faceMatches?.[0]?.similarity || 0;
-      const isSimilarityHigh = similarity > 80;
-
-      if (isSimilarityHigh) {
-        stepper.goTo("finish");
-      } else {
-        failSession();
-      }
-    } catch (error) {
-      setIsLoading(false);
-      failSession();
-    }
+    // ...isteğe bağlı: burada yüz karşılaştırma işlemi yapılabilir...
+    stepper.goTo("finish");
   };
 
   const handleError = () => {
@@ -311,7 +278,6 @@ function LivenessStep({
   };
 
   const failSession = () => {
-    setSession("");
     stepper.goTo("fail");
   };
 
@@ -324,14 +290,15 @@ function LivenessStep({
           <p className="mt-2 text-sm text-neutral-200">{languageData.PleaseWaitWhileWeVerify}</p>
         </div>
       ) : null}
+      sdfsd
       <LivenessDetector
         config={clientAuths}
         languageData={languageData}
         onAnalysisComplete={(result) => {
           void handleAnalysisComplete(result);
         }}
-        onError={handleError}
-        sessionId={session}
+        evidenceSessionId={evidenceSession}
+        frontImageBase64={front?.base64 || null}
       />
     </div>
   );
@@ -346,8 +313,8 @@ function Steps({
   setCanGoNext,
   clientAuths,
   requireSteps,
-  session,
-  setSession,
+  evidenceSession,
+  setEvidenceSession,
 }: {
   front: DocumentData;
   back: DocumentData;
@@ -357,8 +324,8 @@ function Steps({
   setCanGoNext: (value: boolean) => void;
   clientAuths: AWSAuthConfig;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
-  session: string | null;
-  setSession: (value: string | null) => void;
+  evidenceSession: string | null;
+  setEvidenceSession: (value: string | null) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
   // Determine which steps to show based on requireSteps
@@ -376,7 +343,7 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-front", () => (
             <ScanDocument
-              session={session || ""}
+              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
@@ -390,7 +357,7 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-back", () => (
             <ScanDocument
-              session={session || ""}
+              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
@@ -404,7 +371,7 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-passport", () => (
             <ScanDocument
-              session={session || ""}
+              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
@@ -422,9 +389,9 @@ function Steps({
               clientAuths={clientAuths}
               front={front}
               languageData={languageData}
-              session={session}
+              evidenceSession={evidenceSession}
               setCanGoNext={setCanGoNext}
-              setSession={setSession}
+              setEvidenceSession={setEvidenceSession}
               stepper={stepper}
             />
           ))
@@ -582,7 +549,7 @@ function Actions({
       {!stepper.isFirst && !stepper.when("start", () => true) && (
         <Button
           className="bg-primary hover:bg-primary/90 px-5 py-2.5"
-          disabled={!canGoNext}
+          // disabled={!canGoNext}
           onClick={() => {
             // Handle navigation based on requireSteps and current step
             if (!showMRZSteps && stepper.current.id === "start") {

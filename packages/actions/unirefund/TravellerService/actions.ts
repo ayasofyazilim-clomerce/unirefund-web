@@ -45,22 +45,28 @@ export async function getApiEvidenceSessionById(id: string, session?: Session | 
   }
 }
 
-export async function getApiEvidenceSessionCreateFaceLivenessSession(session?: Session | null) {
+export async function getApiEvidenceSessionCreateFaceLivenessSession(id: string, session?: Session | null) {
   try {
     const client = await getTravellersServiceClient(session);
-    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionCreateFaceLivenessSession();
+    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionCreateFaceLivenessSession({
+      evidenceSessionId: id,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
   }
 }
 
-export async function getApiEvidenceSessionGetFaceLivenessSessionResults(session?: Session | null) {
+export async function getApiEvidenceSessionGetFaceLivenessSessionResults(id: string, session?: Session | null) {
   try {
     const client = await getTravellersServiceClient(session);
-    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionGetFaceLivenessSessionResults();
+    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionGetFaceLivenessSessionResults({
+      sessionId: id,
+    });
+    console.log("getApiEvidenceSessionGetFaceLivenessSessionResults response:", response);
     return structuredSuccessResponse(response);
   } catch (error) {
-    throw structuredError(error);
+    console.error("Error in getApiEvidenceSessionGetFaceLivenessSessionResults:", error);
+    return structuredError(error);
   }
 }
