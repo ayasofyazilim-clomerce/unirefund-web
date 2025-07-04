@@ -55,7 +55,7 @@ type DashboardTableItem = {
 };
 
 const cardClassNames = {
-  container: "p-0 shadow-none rounded-none border-0 bg-white flex flex-col h-full",
+  container: "p-0 shadow-none rounded-none border-0 bg-white flex flex-col h-full min-h-max",
   header: "p-4 pb-2 items-start",
   content: "p-4 py-0 my-auto items-center",
   footer: "p-4 pt-2 justify-center",

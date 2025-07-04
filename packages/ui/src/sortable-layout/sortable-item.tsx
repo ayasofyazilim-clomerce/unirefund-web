@@ -50,7 +50,7 @@ export function SortableItem({
       {...(handle ? {} : listeners)}
       tabIndex={handle ? -1 : undefined}
       className={cn(
-        `relative overflow-hidden ${editable ? "cursor-default select-none" : "cursor-default select-all"}`,
+        `relative min-h-max overflow-hidden ${editable ? "cursor-default select-none" : "cursor-default select-all"}`,
         isDragging && "opacity-50",
         isOver && "bg-muted",
         className,

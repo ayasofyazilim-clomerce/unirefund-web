@@ -89,6 +89,7 @@ export default function Client({
           order: 5,
           colSpan: 3,
           type: "table",
+          className: "sm:!col-span-2",
           data: topChains,
           config: {
             headerKeys: {
@@ -106,7 +107,7 @@ export default function Client({
           },
         },
       ]}
-      layoutClassName="h-full"
+      layoutClassName="h-full flex flex-col sm:grid sm:!grid-cols-2 sm:auto-rows-max overflow-auto md:!grid-cols-3 lg:!grid-cols-4"
       onSave={() => {
         toast.success("Saved");
       }}
