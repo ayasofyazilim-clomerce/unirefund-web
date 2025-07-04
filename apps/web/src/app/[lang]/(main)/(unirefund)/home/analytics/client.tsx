@@ -89,7 +89,7 @@ export default function Client({
           order: 5,
           colSpan: 3,
           type: "table",
-          className: "sm:!col-span-2",
+          className: "col-span-2",
           data: topChains,
           config: {
             headerKeys: {
