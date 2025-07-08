@@ -19,6 +19,9 @@ export async function generateViewport() {
   return {
     width: "device-width",
     initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: "cover",
   };
 }
 export async function generateMetadata(): Promise<Metadata> {
