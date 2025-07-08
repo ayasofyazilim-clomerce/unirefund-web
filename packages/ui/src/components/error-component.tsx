@@ -12,6 +12,7 @@ export default function ErrorComponent({
   languageData,
   signOutServer,
   showHomeButton = true,
+  redirectPath = "/login",
 }: {
   message?: string;
   languageData: {SomethingWentWrong: string};
@@ -19,6 +20,7 @@ export default function ErrorComponent({
     error: string;
   }>;
   showHomeButton?: boolean;
+  redirectPath?: string;
 }) {
   const router = useRouter();
 
@@ -33,7 +35,7 @@ export default function ErrorComponent({
   useEffect(() => {
     if (signOutServer) {
       void signOutServer().then(() => {
-        router.push("/login");
+        router.push(redirectPath);
       });
     }
   }, [signOutServer]);

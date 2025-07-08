@@ -38,6 +38,7 @@ export default async function Page({params}: {params: {lang: string}}) {
         message={apiRequests.message}
         showHomeButton={false}
         signOutServer={signOutServer}
+        redirectPath="/evidence/login"
       />
     );
   }
