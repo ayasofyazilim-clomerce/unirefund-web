@@ -63,10 +63,8 @@ export async function getApiEvidenceSessionGetFaceLivenessSessionResults(id: str
     const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionGetFaceLivenessSessionResults({
       sessionId: id,
     });
-    console.log("getApiEvidenceSessionGetFaceLivenessSessionResults response:", response);
     return structuredSuccessResponse(response);
   } catch (error) {
-    console.error("Error in getApiEvidenceSessionGetFaceLivenessSessionResults:", error);
     return structuredError(error);
   }
 }
