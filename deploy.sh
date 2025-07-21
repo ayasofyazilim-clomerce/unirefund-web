@@ -32,8 +32,6 @@ PORT=${PORTS["${APP}_${ENV}"]}
 
 echo "Deploying $APP on $ENV environment at port $PORT..."
 
-cd ~/monorepo || { echo "monorepo dizini bulunamadı"; exit 1; }
-
 git fetch origin
 
 # Öncelikle hedef branch varsa geçiş yap
