@@ -20,13 +20,12 @@ else
 fi
 
 # Dependencies yükle
-pnpm install --prefix "apps/$APP"
+pnpm install
 
 # Build işlemi
 pnpm build --prefix "apps/$APP"
 
 # pm2 process name
-PM2_NAME="${APP}-${ENV}"
 
 # Port belirle
 case "${APP}-${ENV}" in
@@ -42,6 +41,7 @@ case "${APP}-${ENV}" in
     ;;
 esac
 
+PM2_NAME="${PORT}-${APP}-${ENV}"
 # pm2 process kontrol et, varsa reload et yoksa start et
 pm2 describe "$PM2_NAME" > /dev/null 2>&1
 if [ $? -eq 0 ]; then
