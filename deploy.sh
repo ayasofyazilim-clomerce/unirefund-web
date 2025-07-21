@@ -1,55 +1,62 @@
 #!/bin/bash
-set -e  # Hata olursa scripti durdur
 
-APP=$1    # web veya ssr
-ENV=$2    # dev, uat, prod
+set -e
+
+APP=$1
+ENV=$2
 
 if [[ -z "$APP" || -z "$ENV" ]]; then
-  echo "Usage: ./deploy.sh [web|ssr] [dev|uat|prod]"
+  echo "Usage: ./deploy.sh <web|ssr> <dev|uat|prod>"
   exit 1
 fi
 
 echo "Deploying app: $APP to environment: $ENV"
 
-# .env dosyasını uygun ortam dosyasıyla değiştir
-if [[ -f "apps/$APP/.env.$ENV" ]]; then
-  cp "apps/$APP/.env.$ENV" "apps/$APP/.env"
+### 1. Submodule güncelle
+echo "Updating git submodules..."
+git submodule update --init --recursive
+git submodule foreach git pull origin $(git rev-parse --abbrev-ref HEAD)
+
+### 2. Ortama özel .env dosyasını kopyala
+ENV_FILE="./apps/$APP/.env.$ENV"
+TARGET_ENV_FILE="./apps/$APP/.env"
+
+if [[ -f "$ENV_FILE" ]]; then
+  cp "$ENV_FILE" "$TARGET_ENV_FILE"
   echo ".env file set for $ENV environment"
 else
-  echo "Warning: .env.$ENV file not found for $APP"
+  echo "Warning: $ENV_FILE not found for $APP"
 fi
 
-# Dependencies yükle
-pnpm install
+### 3. Bağımlılıkları yükle (lockfile güncelliği zorlanmaz)
+pnpm install --no-frozen-lockfile
 
-# Build işlemi
-pnpm build --prefix "apps/$APP"
+### 4. Build
+pnpm build --filter "apps/$APP"
 
-# pm2 process name
-
-# Port belirle
+### 5. Port belirle
 case "${APP}-${ENV}" in
-  web-dev) PORT=1000 ;;
-  web-uat) PORT=1002 ;;
-  web-prod) PORT=1001 ;;
-  ssr-dev) PORT=2000 ;;
-  ssr-uat) PORT=2002 ;;
-  ssr-prod) PORT=2001 ;;
-  *)
-    echo "Unknown app-env combination: $APP-$ENV"
-    exit 1
-    ;;
+  web-dev)   PORT=1000 ;;
+  web-uat)   PORT=1001 ;;
+  web-prod)  PORT=1002 ;;
+  ssr-dev)   PORT=2000 ;;
+  ssr-uat)   PORT=2001 ;;
+  ssr-prod)  PORT=2002 ;;
+  *)         echo "Invalid app/environment combination"; exit 1 ;;
 esac
 
-PM2_NAME="${PORT}-${APP}-${ENV}"
-# pm2 process kontrol et, varsa reload et yoksa start et
-pm2 describe "$PM2_NAME" > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-  echo "Reloading existing pm2 process: $PM2_NAME"
-  pm2 reload "$PM2_NAME"
-else
-  echo "Starting new pm2 process: $PM2_NAME"
-  pm2 start pnpm --name "$PM2_NAME" -- run --prefix "apps/$APP" start -- --port "$PORT"
-fi
+### 6. PM2 ile restart
+PROCESS_NAME="${APP}-${ENV}"
 
-echo "Deployment completed: $APP on $ENV environment at port $PORT"
+echo "Restarting with PM2 as: $PROCESS_NAME on port $PORT"
+
+pm2 delete "$PROCESS_NAME" >/dev/null 2>&1 || true
+
+PORT=$PORT pm2 start "apps/$APP" \
+  --name "$PROCESS_NAME" \
+  --interpreter bash \
+  -- start
+
+### 7. Durumu göster
+pm2 save
+pm2 status "$PROCESS_NAME"
