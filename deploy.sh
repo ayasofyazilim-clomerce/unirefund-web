@@ -1,61 +1,55 @@
 #!/bin/bash
-set -ex
+set -e  # Hata olursa scripti durdur
 
-APP=$1
-ENV=$2
+APP=$1    # web veya ssr
+ENV=$2    # dev, uat, prod
 
 if [[ -z "$APP" || -z "$ENV" ]]; then
-  echo "Usage: $0 [web|ssr] [dev|uat|prod]"
+  echo "Usage: ./deploy.sh [web|ssr] [dev|uat|prod]"
   exit 1
 fi
 
-if [[ "$APP" != "web" && "$APP" != "ssr" ]]; then
-  echo "Invalid app: $APP. Must be 'web' or 'ssr'."
-  exit 1
-fi
+echo "Deploying app: $APP to environment: $ENV"
 
-if [[ "$ENV" != "dev" && "$ENV" != "uat" && "$ENV" != "prod" ]]; then
-  echo "Invalid env: $ENV. Must be 'dev', 'uat', or 'prod'."
-  exit 1
-fi
-
-declare -A PORTS=(
-  ["web_dev"]=1000
-  ["web_uat"]=1001
-  ["web_prod"]=1002
-  ["ssr_dev"]=2000
-  ["ssr_uat"]=2001
-  ["ssr_prod"]=2002
-)
-
-PORT=${PORTS["${APP}_${ENV}"]}
-
-echo "Deploying $APP on $ENV environment at port $PORT..."
-
-git fetch origin
-
-# Öncelikle hedef branch varsa geçiş yap
-if git show-ref --verify --quiet refs/heads/$ENV; then
-  git checkout $ENV
+# .env dosyasını uygun ortam dosyasıyla değiştir
+if [[ -f "apps/$APP/.env.$ENV" ]]; then
+  cp "apps/$APP/.env.$ENV" "apps/$APP/.env"
+  echo ".env file set for $ENV environment"
 else
-  echo "Branch $ENV bulunamadı, main branch’e geçiliyor"
-  git checkout main
+  echo "Warning: .env.$ENV file not found for $APP"
 fi
 
-git pull origin $ENV || git pull origin main
+# Dependencies yükle
+pnpm install --prefix "apps/$APP"
 
-pnpm install
-cd apps/$APP
-pnpm build
+# Build işlemi
+pnpm build --prefix "apps/$APP"
 
+# pm2 process name
 PM2_NAME="${APP}-${ENV}"
 
-if pm2 describe "$PM2_NAME" > /dev/null 2>&1; then
-  echo "pm2 process $PM2_NAME reload ediliyor..."
+# Port belirle
+case "${APP}-${ENV}" in
+  web-dev) PORT=1000 ;;
+  web-uat) PORT=1002 ;;
+  web-prod) PORT=1001 ;;
+  ssr-dev) PORT=2000 ;;
+  ssr-uat) PORT=2002 ;;
+  ssr-prod) PORT=2001 ;;
+  *)
+    echo "Unknown app-env combination: $APP-$ENV"
+    exit 1
+    ;;
+esac
+
+# pm2 process kontrol et, varsa reload et yoksa start et
+pm2 describe "$PM2_NAME" > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  echo "Reloading existing pm2 process: $PM2_NAME"
   pm2 reload "$PM2_NAME"
 else
-  echo "pm2 process $PM2_NAME başlatılıyor..."
-  pm2 start pnpm --name "$PM2_NAME" -- run --prefix apps/$APP start -- --port $PORT
+  echo "Starting new pm2 process: $PM2_NAME"
+  pm2 start pnpm --name "$PM2_NAME" -- run --prefix "apps/$APP" start -- --port "$PORT"
 fi
 
-echo "Deploy tamamlandı."
+echo "Deployment completed: $APP on $ENV environment at port $PORT"
