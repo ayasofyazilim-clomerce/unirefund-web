@@ -45,6 +45,7 @@ fi
 git pull origin $ENV || git pull origin main
 
 pnpm install
+cd apps/$APP
 pnpm build
 
 PM2_NAME="${APP}-${ENV}"
