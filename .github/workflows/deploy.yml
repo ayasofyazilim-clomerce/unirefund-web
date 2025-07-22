@@ -40,11 +40,6 @@ jobs:
           echo "📦 App: ${{ github.event.inputs.app }}"
           echo "🖥️  OS: ${{ runner.os }}"
 
-      - name: Debug environment values
-        run: |
-          echo "WEB_PORT: ${{ vars.WEB_PORT }}"
-          echo "SSR_PORT: ${{ vars.SSR_PORT }}"
-
       - name: Set PORT from environment
         run: |
           if [[ "${{ github.event.inputs.app }}" == "web" ]]; then
@@ -61,7 +56,6 @@ jobs:
             exit 1
           fi
 
-          echo "✅ PORT value is $PORT_VALUE"
           echo "PORT=$PORT_VALUE" >> $GITHUB_ENV
 
       - name: Run publish script
