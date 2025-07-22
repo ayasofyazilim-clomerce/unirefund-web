@@ -1,4 +1,4 @@
-name: Publish apps
+name: Deploy Unirefund Apps
 run-name: >
   🚀 ${{ github.actor }} is deploying [${{ github.event.inputs.env }}]
   Unirefund-${{ github.event.inputs.app }}
@@ -42,15 +42,15 @@ jobs:
 
       - name: Debug environment values
         run: |
-          echo "WEB_PORT: ${{ env.WEB_PORT }}"
-          echo "SSR_PORT: ${{ env.SSR_PORT }}"
+          echo "WEB_PORT: ${{ vars.WEB_PORT }}"
+          echo "SSR_PORT: ${{ vars.SSR_PORT }}"
 
       - name: Set PORT from environment
         run: |
           if [[ "${{ github.event.inputs.app }}" == "web" ]]; then
-            PORT_VALUE="${{ env.WEB_PORT }}"
+            PORT_VALUE="${{ vars.WEB_PORT }}"
           elif [[ "${{ github.event.inputs.app }}" == "ssr" ]]; then
-            PORT_VALUE="${{ env.SSR_PORT }}"
+            PORT_VALUE="${{ vars.SSR_PORT }}"
           else
             echo "❌ Invalid app type: ${{ github.event.inputs.app }}"
             exit 1
