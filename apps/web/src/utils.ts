@@ -15,7 +15,7 @@ export type ResourceResult = Record<
 
 export async function getLocalizationResources(languageCode = "en"): Promise<ResourceResult> {
   try {
-    const response = await fetch(`http://${process.env.HOSTNAME}:${process.env.PORT}/api/?lang=${languageCode}`);
+    const response = await fetch(`/api/?lang=${languageCode}`);
     return (
       ((await response.json()) as Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationDto)
         .resources || {}

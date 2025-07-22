@@ -3,9 +3,6 @@
   "globalDependencies": [".env.local", ".env"],
   "globalEnv": [
     "NODE_ENV",
-
-    "HOSTNAME",
-    "PORT",
     "BASE_URL",
     "TOKEN_URL",
     "NEXT_PUBLIC_PRIMARY_COLOR",
