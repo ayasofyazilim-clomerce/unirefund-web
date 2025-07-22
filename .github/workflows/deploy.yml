@@ -1,6 +1,7 @@
-name: Deploy Unirefund Apps
+name: Publish apps
 run-name: >
-  🚀 ${{ github.actor }} is deploying [${{ github.event.inputs.env }}] ${{ github.event.inputs.app }}
+  🚀 ${{ github.actor }} is deploying [${{ github.event.inputs.env }}]
+  Unirefund-${{ github.event.inputs.app }}
 
 on:
   workflow_dispatch:
@@ -15,43 +16,52 @@ on:
           - dev
           - prod
       app:
-        description: "App to publish (one of): ssr, web"
+        description: "App to publish (one of): web, ssr"
         required: true
-        default: "ssr"
+        default: "web"
         type: choice
         options:
-          - ssr
           - web
+          - ssr
 
 jobs:
   publish:
     runs-on: self-hosted
     timeout-minutes: 60
-    environment: ${{ github.event.inputs.env }} # Connect to GitHub Environment
+
+    # ✅ Environment bağlamını ekliyoruz ki env vars çalışsın
+    environment: ${{ github.event.inputs.env }}
+
     steps:
-      - name: Show context
+      - name: Show build context
         run: |
-          echo "🎉 Triggered by: ${{ github.event_name }}"
-          echo "🖥️  Running on: ${{ runner.os }}"
+          echo "🎉 Triggered by: ${{ github.actor }}"
           echo "🌍 Environment: ${{ github.event.inputs.env }}"
           echo "📦 App: ${{ github.event.inputs.app }}"
+          echo "🖥️  OS: ${{ runner.os }}"
+
+      - name: Debug environment values
+        run: |
+          echo "WEB_PORT: ${{ env.WEB_PORT }}"
+          echo "SSR_PORT: ${{ env.SSR_PORT }}"
 
       - name: Set PORT from environment
         run: |
           if [[ "${{ github.event.inputs.app }}" == "web" ]]; then
-          PORT_VALUE="${{ env.WEB_PORT }}"
+            PORT_VALUE="${{ env.WEB_PORT }}"
           elif [[ "${{ github.event.inputs.app }}" == "ssr" ]]; then
-          PORT_VALUE="${{ env.SSR_PORT }}"
+            PORT_VALUE="${{ env.SSR_PORT }}"
           else
-          echo "❌ Invalid app type: ${{ github.event.inputs.app }}"
-          exit 1
+            echo "❌ Invalid app type: ${{ github.event.inputs.app }}"
+            exit 1
           fi
 
           if [[ -z "$PORT_VALUE" ]]; then
-          echo "❌ PORT value is empty! Did you define WEB_PORT/SSR_PORT in the GitHub Environment?"
-          exit 1
+            echo "❌ PORT value is empty! Did you define WEB_PORT/SSR_PORT in the GitHub Environment?"
+            exit 1
           fi
 
+          echo "✅ PORT value is $PORT_VALUE"
           echo "PORT=$PORT_VALUE" >> $GITHUB_ENV
 
       - name: Run publish script
