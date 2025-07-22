@@ -15,10 +15,9 @@ interface RootLayoutProps {
 const appName = process.env.APPLICATION_NAME || "UNIREFUND";
 
 const title =
-  process.env.NODE_ENV === "development"
-    ? `[${process.env.NODE_ENV.substring(0, 3).toUpperCase()}] ${appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase()}`
+  process.env.STAGE !== "PROD"
+    ? `[${process.env.STAGE?.substring(0, 3).toUpperCase()}] ${appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase()}`
     : appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase();
-
 export async function generateViewport() {
   await Promise.resolve();
   return {
