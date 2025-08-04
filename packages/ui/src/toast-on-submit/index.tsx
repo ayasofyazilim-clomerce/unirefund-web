@@ -4,7 +4,7 @@ import ScrollArea from "@repo/ayasofyazilim-ui/molecules/scroll-area";
 import {Copy} from "lucide-react";
 
 export function toastOnSubmit(data: string | object) {
-  toast("You submitted the following values:", {
+  toast.message("You submitted the following values:", {
     classNames: {
       content: "w-full",
       description: "w-full h-full",
