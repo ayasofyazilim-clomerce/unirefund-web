@@ -19,11 +19,11 @@ export default function Page() {
             verified tax-free shopping platform.
           </p>
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="bg-red-600 px-8 py-3 text-lg hover:bg-red-700">
+            <Button className="bg-red-600 px-8 py-3 text-lg hover:bg-red-700" size="lg">
               Start Shopping Tax-Free
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg" className="bg-transparent px-8 py-3 text-lg">
+            <Button className="bg-transparent px-8 py-3 text-lg" size="lg" variant="outline">
               View Demo
             </Button>
           </div>
@@ -66,7 +66,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="features" className="px-4 py-20">
+      <section className="px-4 py-20" id="features">
         <div className="container mx-auto">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-4xl font-bold text-gray-900">Why Choose Unirefund?</h2>
@@ -148,7 +148,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="testimonials" className="px-4 py-20">
+      <section className="px-4 py-20" id="testimonials">
         <div className="container mx-auto">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-4xl font-bold text-gray-900">What Our Customers Say</h2>
@@ -157,16 +157,16 @@ export default function Page() {
             <Card className="border-0 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" key={Math.random() + i} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">
-                  "Saved over $500 in my first month! The verification process was super quick and the savings are
-                  real."
+                  &quot;Saved over $500 in my first month! The verification process was super quick and the savings are
+                  real.&quot;
                 </p>
                 <div className="flex items-center">
-                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-300"></div>
+                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-300" />
                   <div>
                     <div className="font-semibold">Sarah Johnson</div>
                     <div className="text-sm text-gray-500">Small Business Owner</div>
@@ -177,16 +177,16 @@ export default function Page() {
             <Card className="border-0 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" key={Math.random() + i} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">
-                  "Finally, a legitimate way to shop tax-free! The platform is easy to use and customer service is
-                  excellent."
+                  &quot;Finally, a legitimate way to shop tax-free! The platform is easy to use and customer service is
+                  excellent.&quot;
                 </p>
                 <div className="flex items-center">
-                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-300"></div>
+                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-300" />
                   <div>
                     <div className="font-semibold">Mike Chen</div>
                     <div className="text-sm text-gray-500">Entrepreneur</div>
@@ -197,16 +197,16 @@ export default function Page() {
             <Card className="border-0 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" key={Math.random() + i} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">
-                  "The savings add up quickly! I've saved thousands on business equipment purchases. Highly
-                  recommended."
+                  &quot;The savings add up quickly! I&apos;ve saved thousands on business equipment purchases. Highly
+                  recommended.&quot;
                 </p>
                 <div className="flex items-center">
-                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-300"></div>
+                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-300" />
                   <div>
                     <div className="font-semibold">Lisa Rodriguez</div>
                     <div className="text-sm text-gray-500">Consultant</div>
@@ -217,7 +217,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="pricing" className="bg-gray-50 px-4 py-20">
+      <section className="bg-gray-50 px-4 py-20" id="pricing">
         <div className="container mx-auto">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-4xl font-bold text-gray-900">Simple, Transparent Pricing</h2>
@@ -327,14 +327,14 @@ export default function Page() {
             Join thousands of smart shoppers who are already saving money with tax-free purchases.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="bg-white px-8 py-3 text-lg text-red-600 hover:bg-gray-100">
+            <Button className="bg-white px-8 py-3 text-lg text-red-600 hover:bg-gray-100" size="lg">
               Start Your Free Trial
               <TrendingUp className="ml-2 h-5 w-5" />
             </Button>
             <Button
-              variant="outline"
+              className="border-white bg-transparent px-8 py-3 text-lg text-white hover:bg-white hover:text-red-600"
               size="lg"
-              className="border-white bg-transparent px-8 py-3 text-lg text-white hover:bg-white hover:text-red-600">
+              variant="outline">
               Schedule Demo
             </Button>
           </div>
@@ -356,17 +356,17 @@ export default function Page() {
               <h4 className="mb-4 font-semibold">Product</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Features">
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Pricing">
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#API">
                     API
                   </a>
                 </li>
@@ -376,17 +376,17 @@ export default function Page() {
               <h4 className="mb-4 font-semibold">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#About">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Blog">
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Careers">
                     Careers
                   </a>
                 </li>
@@ -396,17 +396,17 @@ export default function Page() {
               <h4 className="mb-4 font-semibold">Support</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Help">
                     Help Center
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Contact">
                     Contact
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <a className="transition-colors hover:text-white" href="#Legal">
                     Legal
                   </a>
                 </li>
