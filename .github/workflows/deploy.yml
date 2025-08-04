@@ -1,22 +1,23 @@
 name: Deploy Unirefund Apps
+
 run-name: >
-  🚀 ${{ github.actor }} is deploying [${{ github.event.inputs.env }}]
-  Unirefund-${{ github.event.inputs.app }}
+  🚀 ${{ github.actor }} is deploying [${{ inputs.env }}]
+  Unirefund-${{ inputs.app }}
 
 on:
   workflow_dispatch:
     inputs:
       env:
-        description: "Release type (one of): uat, dev, prod"
+        description: "Release type (one of): dev, uat, prod"
         required: true
         default: "uat"
         type: choice
         options:
-          - uat
           - dev
+          - uat
           - prod
       app:
-        description: "App to publish (one of): web, ssr"
+        description: "App to publish (web or ssr)"
         required: true
         default: "web"
         type: choice
@@ -29,42 +30,75 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
 
-    # ✅ Environment bağlamını ekliyoruz ki env vars çalışsın
-    environment: ${{ github.event.inputs.env }}
+    # ✅ Activates GitHub Environment for secrets/vars
+    environment: ${{ inputs.env }}
 
     steps:
       - name: Show build context
         run: |
           echo "🎉 Triggered by: ${{ github.actor }}"
-          echo "🌍 Environment: ${{ github.event.inputs.env }}"
-          echo "📦 App: ${{ github.event.inputs.app }}"
+          echo "🌍 Environment: ${{ inputs.env }}"
+          echo "📦 App: ${{ inputs.app }}"
           echo "🖥️  OS: ${{ runner.os }}"
+          echo "🔁 Branch: ${{ github.ref_name }}"
 
-      - name: Set PORT from environment
+      - name: Validate branch ↔️ environment match
         run: |
-          if [[ "${{ github.event.inputs.app }}" == "web" ]]; then
-            PORT_VALUE="${{ vars.WEB_PORT }}"
-          elif [[ "${{ github.event.inputs.app }}" == "ssr" ]]; then
-            PORT_VALUE="${{ vars.SSR_PORT }}"
-          else
-            echo "❌ Invalid app type: ${{ github.event.inputs.app }}"
+          case "${{ inputs.env }}" in
+            dev)
+              EXPECTED_BRANCH="dev"
+              ;;
+            uat)
+              EXPECTED_BRANCH="uat"
+              ;;
+            prod)
+              EXPECTED_BRANCH="prod"
+              ;;
+            *)
+              echo "❌ Invalid environment selected."
+              exit 1
+              ;;
+          esac
+
+          if [[ "${{ github.ref_name }}" != "$EXPECTED_BRANCH" ]]; then
+            echo "❌ You can only deploy '${{ inputs.env }}' from the '$EXPECTED_BRANCH' branch."
             exit 1
           fi
 
+          echo "✅ Branch and environment match."
+
+      - name: Set port from environment variable
+        run: |
+          case "${{ inputs.app }}" in
+            web)
+              PORT_VALUE="${{ vars.WEB_PORT }}"
+              ;;
+            ssr)
+              PORT_VALUE="${{ vars.SSR_PORT }}"
+              ;;
+            *)
+              echo "❌ Invalid app type: ${{ inputs.app }}"
+              exit 1
+              ;;
+          esac
+
           if [[ -z "$PORT_VALUE" ]]; then
-            echo "❌ PORT value is empty! Did you define WEB_PORT/SSR_PORT in the GitHub Environment?"
+            echo "❌ PORT value is missing! Did you define WEB_PORT or SSR_PORT in the GitHub Environment?"
             exit 1
           fi
 
           echo "PORT=$PORT_VALUE" >> $GITHUB_ENV
 
-      - name: Run publish script
-        run: |
-          ssh ubuntu "
-            cd ~/frontend/deployment/unirefund/${{ github.event.inputs.env }} &&
+      - name: Deploy via SSH
+        env:
+          SSH_COMMAND: |
+            cd ~/frontend/deployment/unirefund/${{ inputs.env }} &&
             npx -y @deployit/cli@latest deployit \
               --project Unirefund \
-              --app ${{ github.event.inputs.app }} \
-              --env ${{ github.event.inputs.env }} \
+              --app ${{ inputs.app }} \
+              --env ${{ inputs.env }} \
               --sync true \
-              --port $PORT"
+              --port $PORT
+        run: |
+          echo "Running remote deploy command..."
+          ssh ubuntu "${SSH_COMMAND}"

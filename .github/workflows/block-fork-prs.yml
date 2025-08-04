@@ -1,0 +1,26 @@
+name: Block Fork PRs to Protected Branches
+
+on:
+  pull_request:
+    branches:
+      - uat
+      - main
+
+jobs:
+  reject-fork-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block PRs from Forks
+        run: |
+          BASE="${{ github.event.pull_request.base.ref }}"
+          HEAD_REPO="${{ github.event.pull_request.head.repo.full_name }}"
+          BASE_REPO="${{ github.repository }}"
+
+          echo "🔒 Checking fork status: $HEAD_REPO vs $BASE_REPO"
+
+          if [[ "$HEAD_REPO" != "$BASE_REPO" ]]; then
+            echo "❌ PRs from forks to '$BASE' are not allowed."
+            exit 1
+          fi
+
+          echo "✅ PR is from same repo. Allowed."
