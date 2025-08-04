@@ -2007,6 +2007,15 @@ export type TravellerServiceResources = {
   "UniRefund.TravellerService:010014": "Liveness Session has not started, firstly start a liveness session!";
   "Permission:TravellerService": "Traveller Service";
   "Permission:EvidenceSessions": "Evidence Sessions";
+  "Permission:Create": "Create";
+  "Permission:Edit": "Edit";
+  "Permission:ViewList": "View List";
+  "Permission:View": "View";
+  "Permission:Delete": "Delete";
+  "Permission:AnalyzeDocumentByMRZWithoutES": "Use of MRZ Extraction";
+  "UniRefund.TravellerService:010015": "Input Base64 has unsupported document format!";
+  "UniRefund.TravellerService:010016": "Image could not be processed due to a technical issue!";
+  "UniRefund.TravellerService:010017": "MRZ in the image violates the universal standards!";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
