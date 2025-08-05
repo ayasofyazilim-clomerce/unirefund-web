@@ -68,8 +68,6 @@ export async function postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumen
       await client.evidenceSessionPublic.postApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrz(data);
     return structuredSuccessResponse(response);
   } catch (error) {
-    console.error("Error in postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz:", error);
-
     return structuredError(error);
   }
 }
