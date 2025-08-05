@@ -193,7 +193,7 @@ export default function LoginForm({
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <PasswordInput passwordLength={8} {...field} />
+                    <PasswordInput passwordLength={6} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
