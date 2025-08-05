@@ -270,7 +270,7 @@ export default function ScanDocument({
 
   // Main document scanner UI
   return (
-    <div className="mx-auto  max-w-md space-y-4 py-4">
+    <div className="mx-auto max-w-md space-y-4 py-4">
       <div
         className={`overflow-hidden ${type !== "id-card-back" ? "rounded-xl border-black/10 shadow-sm md:border" : ""}`}>
         <WebcamCapture
