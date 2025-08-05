@@ -1,53 +1,60 @@
 "use server";
 
 import type {GetApiCrmServiceCustomsData} from "@ayasofyazilim/saas/CRMService";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {getCustomsApi} from "@repo/actions/unirefund/CrmService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import CustomsTable from "./table";
+import CustomsTable from "./_components/table";
 
 interface SearchParamType {
+  ids?: string;
+  name?: string;
   maxResultCount?: number;
   skipCount?: number;
   sorting?: string;
-  name?: string;
+  typeCode?: string;
 }
 
-async function getApiRequests(filter: GetApiCrmServiceCustomsData) {
+async function getApiRequests(filters: GetApiCrmServiceCustomsData) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getCustomsApi(filter, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getCustomsApi(filters, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 
 export default async function Page({params, searchParams}: {params: {lang: string}; searchParams?: SearchParamType}) {
   const {lang} = params;
-  await isUnauthorized({
-    requiredPolicies: ["CRMService.Customs"],
-    lang,
-  });
+  // await isUnauthorized({
+  //   requiredPolicies: ["CRMService.Customs"],
+  //   lang,
+  // });
   const {languageData} = await getResourceData(lang);
+
   const apiRequests = await getApiRequests({
+    typeCodes: searchParams?.typeCode?.split(",") || [],
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
   } as GetApiCrmServiceCustomsData);
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
-  }
-  const [customsResponse] = apiRequests.data;
 
-  return <CustomsTable languageData={languageData} response={customsResponse.data} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+  }
+  const [customResponse] = apiRequests.requiredRequests;
+
+  return (
+    <div className="mt-6 rounded-lg border border-gray-200 p-6">
+      <CustomsTable languageData={languageData} customs={customResponse.data} newLink="refund-points/new" />
+    </div>
+  );
 }

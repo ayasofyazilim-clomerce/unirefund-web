@@ -1,43 +1,43 @@
 "use server";
 
 import type {GetApiCrmServiceRefundPointsData} from "@ayasofyazilim/saas/CRMService";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import RefundPointsTable from "./table";
+import RefundPointsTable from "./_components/table";
 
 interface SearchParamType {
+  ids?: string;
+  name?: string;
   maxResultCount?: number;
   skipCount?: number;
   sorting?: string;
-  name?: string;
   typeCode?: string;
 }
 
 async function getApiRequests(filters: GetApiCrmServiceRefundPointsData) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getRefundPointsApi(filters, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getRefundPointsApi(filters, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
+
 export default async function Page({params, searchParams}: {params: {lang: string}; searchParams?: SearchParamType}) {
   const {lang} = params;
-  await isUnauthorized({
-    requiredPolicies: ["CRMService.RefundPoints"],
-    lang,
-  });
+  // await isUnauthorized({
+  //   requiredPolicies: ["CRMService.RefundPoints"],
+  //   lang,
+  // });
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
@@ -47,14 +47,18 @@ export default async function Page({params, searchParams}: {params: {lang: strin
     skipCount: searchParams?.skipCount || 0,
   } as GetApiCrmServiceRefundPointsData);
 
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
+  const [refundPointResponse] = apiRequests.requiredRequests;
 
-  const [refundPointResponse] = apiRequests.data;
   return (
     <div className="mt-6 rounded-lg border border-gray-200 p-6">
-      <RefundPointsTable languageData={languageData} response={refundPointResponse.data} />
+      <RefundPointsTable
+        languageData={languageData}
+        refundPoints={refundPointResponse.data}
+        newLink="refund-points/new"
+      />
     </div>
   );
 }

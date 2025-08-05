@@ -137,7 +137,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: languageData.StoreName,
                 value: tagDetail.merchant?.name || "",
                 link: !hasGrant.MerchantDetail
-                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details/info`)
+                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details`)
                   : undefined,
               },
               {

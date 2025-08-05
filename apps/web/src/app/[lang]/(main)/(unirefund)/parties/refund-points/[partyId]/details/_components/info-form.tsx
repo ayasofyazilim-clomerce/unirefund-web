@@ -1,0 +1,112 @@
+"use client";
+
+import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {cn} from "@/lib/utils";
+import {
+  $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto as $UpdateRefundPointDto,
+  UniRefund_CRMService_RefundPoints_UpdateRefundPointDto as UpdateRefundPointDto,
+  UniRefund_CRMService_RefundPoints_RefundPointDto as RefundPointDto,
+  UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {putRefundPointByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handlePutResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import {useTransition} from "react";
+
+export function RefundPointForm({
+  languageData,
+  refundPointDetails,
+  taxOffices,
+}: {
+  languageData: CRMServiceServiceResource;
+  refundPointDetails: RefundPointDto;
+  taxOffices: TaxOfficeDto[];
+}) {
+  const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const uiSchema = createUiSchemaWithResource({
+    resources: languageData,
+    name: "Form.RefundPoint",
+    schema: $UpdateRefundPointDto,
+    extend: {
+      "ui:className": "grid md:grid-cols-2 gap-4 items-end",
+      taxOfficeId: {
+        "ui:widget": "taxOfficeWidget",
+      },
+      telephone: {
+        "ui:className": "col-span-full",
+        "ui:field": "phone",
+      },
+      address: {
+        "ui:field": "address",
+      },
+      email: {
+        "ui:className": "col-span-full",
+        "ui:field": "email",
+      },
+      typeCode: {
+        "ui:options": {
+          readOnly: true,
+          disabled: true,
+        },
+      },
+      parentId: {
+        "ui:options": {
+          readOnly: true,
+          disabled: true,
+        },
+      },
+    },
+  });
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  return (
+    <SchemaForm<UpdateRefundPointDto>
+      className="sticky top-0 h-fit"
+      schema={{
+        ...$UpdateRefundPointDto,
+        properties: {
+          ...$UpdateRefundPointDto.properties,
+          parentId: {
+            type: "string",
+          },
+        },
+      }}
+      locale={lang}
+      formData={{
+        ...refundPointDetails,
+        parentId: refundPointDetails.parentName || "",
+        name: refundPointDetails.name!,
+      }}
+      disabled={isPending}
+      withScrollArea={false}
+      defaultSubmitClassName="[&>button]:w-full"
+      submitText={languageData["Form.RefundPoint.Update"]}
+      uiSchema={uiSchema}
+      widgets={{
+        taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
+          languageData,
+          list: taxOffices,
+          selectIdentifier: "id",
+          selectLabel: "name",
+        }),
+      }}
+      onSubmit={({formData}) => {
+        if (!formData) return;
+        startTransition(() => {
+          void putRefundPointByIdApi({
+            refundPointId: partyId,
+            requestBody: {
+              ...formData,
+              parentId: refundPointDetails.parentId,
+            },
+          }).then((res) => {
+            handlePutResponse(res, router);
+          });
+        });
+      }}
+    />
+  );
+}

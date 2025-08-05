@@ -1,30 +1,28 @@
 "use server";
 
+import {getTaxOfficeByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
-import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getTaxOfficeDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {auth} from "@repo/utils/auth/next-auth";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
 import PartyHeader from "../../_components/party-header";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getTaxOfficeDetailsByIdApi(partyId, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getTaxOfficeByIdApi(partyId, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
-
 export default async function Layout({
   children,
   params,
@@ -40,51 +38,41 @@ export default async function Layout({
   const baseLink = getBaseLink(`parties/tax-offices/${partyId}/`, lang);
 
   const apiRequests = await getApiRequests({partyId});
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
-  }
-  const [taxOfficeDetailsResponse] = apiRequests.data;
 
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+  }
+  const [taxFreeDetailResponse] = apiRequests.requiredRequests;
+  const isHeadquarter = taxFreeDetailResponse?.data?.typeCode === "HEADQUARTER";
   return (
     <>
       <PartyHeader
-        link={`${baseLink}details/info`}
-        name={taxOfficeDetailsResponse.data.entityInformations?.[0]?.organizations?.[0]?.name}
-        parentId={taxOfficeDetailsResponse.data.parentId}
+        link={`${baseLink}details`}
+        name={taxFreeDetailResponse?.data?.name}
+        parentId={taxFreeDetailResponse?.data?.parentId}
       />
       <TabLayout
+        orientation="vertical"
         classNames={{
           vertical: {
-            tabs: "my-6 flex items-center lg:items-start flex-col lg:flex-row overflow-auto gap-4 lg:gap-0 w-full",
-            tabContent: "border rounded-md p-6 [&>div]:h-max",
-            tabList:
-              "border rounded-md py-6 pr-0 px-6 border-gray-200 h-max w-full max-w-full   lg:w-1/6 text-center lg:text-left",
+            tabs: "overflow-hidden",
+            tabContent: "overflow-hidden",
           },
         }}
-        orientation="vertical"
         tabList={[
           {
-            label: "Details",
-            href: `${baseLink}details/info`,
+            label: languageData["CRM.Details"],
+            href: `${baseLink}details`,
           },
+          ...(!isHeadquarter ? [] : [{label: languageData["CRM.SubOrganization"], href: `${baseLink}sub-stores`}]),
           {
-            label: languageData["Merchants.SubOrganization"],
-            href: `${baseLink}sub-stores`,
-          },
-          {
-            label: languageData.Affiliations,
+            label: languageData["CRM.Affiliations"],
             href: `${baseLink}affiliations`,
           },
         ]}
         variant="simple">
         {children}
       </TabLayout>
-      <div className="hidden" id="page-title">
-        {`${languageData.TaxOffice} (${taxOfficeDetailsResponse.data.entityInformations?.[0]?.organizations?.[0]?.name})`}
-      </div>
-      <div className="hidden" id="page-description">
-        {languageData["TaxOffices.Edit.Description"]}
-      </div>
     </>
   );
 }

@@ -1,31 +1,30 @@
 "use server";
 
-import type {GetApiCrmServiceMerchantsByIdSubMerchantsData} from "@ayasofyazilim/saas/CRMService";
-import {auth} from "@repo/utils/auth/next-auth";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantSubStoresByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import SubStoresTable from "./table";
+import SubStoresTable from "../../_components/table";
+import {GetApiCrmServiceMerchantsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 
 interface SearchParamType {
   maxResultCount?: number;
   skipCount?: number;
 }
 
-async function getApiRequests(filters: GetApiCrmServiceMerchantsByIdSubMerchantsData) {
+async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getMerchantSubStoresByIdApi(filters, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getMerchantsApi(filters, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 export default async function Page({
@@ -42,16 +41,15 @@ export default async function Page({
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
-    id: partyId,
+    parentId: partyId,
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
   });
-
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [subStoresResponse] = apiRequests.data;
+  const [subStoresResponse] = apiRequests.requiredRequests;
 
-  return <SubStoresTable languageData={languageData} response={subStoresResponse.data} />;
+  return <SubStoresTable languageData={languageData} merchants={subStoresResponse.data} newLink="sub-stores/new" />;
 }
