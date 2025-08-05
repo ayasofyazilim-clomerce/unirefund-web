@@ -1,6 +1,7 @@
 name: Lint
 run-name: Linting the Pull request 🚀
 on:
+  workflow_dispatch:
   pull_request_target:
     branches: [main, uat, dev]
     types:
@@ -42,9 +43,9 @@ jobs:
       - name: Set condition variables
         id: conditions
         run: |
-          echo "web_changed=${{ steps.changes.outputs.changes.web == 'true' }}" >> $GITHUB_OUTPUT
-          echo "ssr_changed=${{ steps.changes.outputs.changes.ssr == 'true' }}" >> $GITHUB_OUTPUT
-          echo "any_changed=${{ (steps.changes.outputs.changes.web == 'true') || (steps.changes.outputs.changes.ssr == 'true') }}" >> $GITHUB_OUTPUT
+          echo "web_changed=${{ steps.changes.outputs.web == 'true' }}" >> $GITHUB_OUTPUT
+          echo "ssr_changed=${{ steps.changes.outputs.ssr == 'true' }}" >> $GITHUB_OUTPUT
+          echo "any_changed=${{ (steps.changes.outputs.web == 'true') || (steps.changes.outputs.ssr == 'true') }}" >> $GITHUB_OUTPUT
       - uses: pnpm/action-setup@v2
         with:
           version: 9.7.1
