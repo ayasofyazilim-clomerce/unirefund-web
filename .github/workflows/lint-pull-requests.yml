@@ -2,7 +2,7 @@ name: Lint
 run-name: Linting the Pull request 🚀
 on:
   pull_request_target:
-    branches: [main, uat, dev]
+    branches: [main]
     types:
       - opened
       - synchronize
