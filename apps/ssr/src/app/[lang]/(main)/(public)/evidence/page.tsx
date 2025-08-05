@@ -1,22 +1,22 @@
 import {Card} from "@/components/ui/card";
+import {getBaseLink} from "@/utils";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
 } from "@ayasofyazilim/saas/TravellerService";
 import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
-import {postCreateEvidenceSession} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
+import ValidationSteps from "components/validation-steps";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {redirect} from "next/navigation";
-import ValidationSteps from "components/validation-steps";
-import {getBaseLink} from "@/utils";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 
 async function getApiRequests(reqSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {}) {
   try {
-    const requiredRequests = await Promise.all([postCreateEvidenceSession({requestBody: reqSteps})]);
+    const requiredRequests = await Promise.all([postCreateEvidenceSessionPublic({requestBody: reqSteps})]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -57,7 +57,7 @@ export default async function Home({
   const data = responseCreateEvidence.data as UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
 
   return (
-    <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:mx-auto md:max-w-xl">
+    <Card className="mx-4 flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:mx-auto md:max-w-xl">
       <ValidationSteps
         clientAuths={clientAuths}
         languageData={languageData}

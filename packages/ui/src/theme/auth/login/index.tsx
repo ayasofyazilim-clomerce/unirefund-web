@@ -90,7 +90,13 @@ export default function LoginForm({
   function onSubmit(values: z.infer<typeof formSchema>) {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("redirectTo");
-    const redirectTo = redirect ? decodeURIComponent(redirect) : `/${window.location.pathname.split("/")[1]}`;
+
+    // Improved default redirect logic - use home page instead of just language code
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const language = pathParts[0] || "en";
+    const defaultRedirect = `/${language}/home`;
+    const redirectTo = redirect ? decodeURIComponent(redirect) : defaultRedirect;
+
     startTransition(() => {
       onSubmitAction({
         tenantId: tenantData.tenantId || "",
@@ -187,7 +193,7 @@ export default function LoginForm({
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="*******" type="password" autoComplete="true" {...field} />
+                    <PasswordInput passwordLength={8} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

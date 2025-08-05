@@ -11,7 +11,7 @@ import IdCardFront from "public/ID-Front.png";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 import DocumentOnboarding from "./_components/document-onboarding";
-import {postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
 
 type DocumentType = "passport" | "id-card-front" | "id-card-back";
 
@@ -146,7 +146,7 @@ export default function ScanDocument({
     setScanStatus("scanning");
     const base64Data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
 
-    void postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz({
+    void postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz({
       requestBody: {
         evidenceSessionId: session,
         documentImageBase64: base64Data,
@@ -216,7 +216,7 @@ export default function ScanDocument({
     setScanStatus("scanning");
     const base64Data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
 
-    void postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz({
+    void postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz({
       requestBody: {
         evidenceSessionId: session,
         documentImageBase64: base64Data,
@@ -270,22 +270,20 @@ export default function ScanDocument({
 
   // Main document scanner UI
   return (
-    <div className="mx-auto max-w-md space-y-4 md:pb-12">
+    <div className="mx-auto  max-w-md space-y-4 py-4">
       <div
         className={`overflow-hidden ${type !== "id-card-back" ? "rounded-xl border-black/10 shadow-sm md:border" : ""}`}>
-        <div className="bg-white md:p-5">
-          <WebcamCapture
-            allowCameraSwitch
-            capturedImage={getCurrentDocumentData()?.base64}
-            handleImage={(imageSrc) => {
-              if (!imageSrc) return;
-              getImageHandler()(imageSrc);
-            }}
-            languageData={languageData}
-            placeholder={renderPlaceholder(config.placeholder(languageData))}
-            type="document"
-          />
-        </div>
+        <WebcamCapture
+          allowCameraSwitch
+          capturedImage={getCurrentDocumentData()?.base64}
+          handleImage={(imageSrc) => {
+            if (!imageSrc) return;
+            getImageHandler()(imageSrc);
+          }}
+          languageData={languageData}
+          placeholder={renderPlaceholder(config.placeholder(languageData))}
+          type="document"
+        />
       </div>
 
       <ScannerStatusAlert

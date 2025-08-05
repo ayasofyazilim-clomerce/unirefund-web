@@ -99,7 +99,7 @@ export default function RegisterForm({
           return;
         }
         toast.success("You can now log in to your account.");
-        router.replace(`/${location.pathname.split("/").slice(1)}/login/${location.search}`);
+        router.replace(`/${location.pathname.split("/").slice(1, 3).join("/")}/login${location.search}`);
       });
     });
   }
@@ -197,7 +197,7 @@ export default function RegisterForm({
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="*******" type="password" autoComplete="true" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
