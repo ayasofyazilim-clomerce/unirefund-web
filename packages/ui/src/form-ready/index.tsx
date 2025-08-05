@@ -1,6 +1,6 @@
 import {cva} from "class-variance-authority";
 
-const containerVariants = cva("form-ready-component relative size-full", {
+const containerVariants = cva("form-ready-component relative size-full overflow-hidden", {
   variants: {
     variant: {
       default: "",
@@ -12,10 +12,10 @@ const containerVariants = cva("form-ready-component relative size-full", {
   },
 });
 
-const childrenWrapperVariants = cva("", {
+const childrenWrapperVariants = cva("h-full overflow-hidden [&_*]:z-[0]", {
   variants: {
     variant: {
-      default: "pointer-events-none [&_*]:-z-10",
+      default: "pointer-events-none ",
       compact: "pointer-events-none bg-transparent",
     },
   },
@@ -25,7 +25,7 @@ const childrenWrapperVariants = cva("", {
 });
 
 const contentWrapperVariants = cva(
-  "absolute inset-0 z-10 flex size-full flex-col items-center justify-center text-center",
+  "absolute inset-0 z-10 flex size-full flex-col items-center justify-center text-center overflow-hidden",
   {
     variants: {
       variant: {
@@ -63,11 +63,11 @@ const messageVariants = cva("font-light text-gray-500", {
   },
 });
 
-const overlayVariants = cva("absolute inset-0", {
+const overlayVariants = cva("absolute overflow-hidden inset-0", {
   variants: {
     variant: {
-      default: "z-9 bg-white opacity-90",
-      compact: "z-9 bg-white opacity-50",
+      default: "z-[9] bg-white opacity-90",
+      compact: "z-[9] bg-white opacity-50",
     },
   },
   defaultVariants: {
@@ -82,7 +82,7 @@ type FormReadyComponentProps = {
     icon: JSX.Element;
     title: string;
     message: string;
-    action?: JSX.Element;
+    action?: JSX.Element | null;
   } | null;
   variant?: "default" | "compact";
 };
