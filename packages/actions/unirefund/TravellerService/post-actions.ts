@@ -1,9 +1,6 @@
 "use server";
 import type {
-<<<<<<< HEAD
   PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData,
-=======
->>>>>>> uni/dev
   PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData,
   PostApiTravellerServicePublicEvidenceSessionsData,
   PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesData,
@@ -35,11 +32,7 @@ export async function postTravellerDocumentApi(data: PostApiTravellerServiceTrav
   }
 }
 
-<<<<<<< HEAD
 export async function postCreateEvidenceSessionPublic(
-=======
-export async function postCreateEvidenceSession(
->>>>>>> uni/dev
   data: PostApiTravellerServicePublicEvidenceSessionsData,
   session?: Session | null,
 ) {
@@ -53,39 +46,24 @@ export async function postCreateEvidenceSession(
 }
 
 export async function postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz(
-<<<<<<< HEAD
   data: PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData,
-=======
-  data: PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData,
->>>>>>> uni/dev
   session?: Session | null,
 ) {
   try {
     const client = await getTravellersServiceClient(session);
-<<<<<<< HEAD
     const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrz(data);
-=======
-    const response =
-      await client.evidenceSessionPublic.postApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrz(data);
->>>>>>> uni/dev
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
 
-<<<<<<< HEAD
 export async function postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz(
   data: PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData,
-=======
-export async function postApiTravellerServiceEvidenceSessionValidateNfc(
-  data: PostApiTravellerServicePublicEvidenceSessionsValidateNfcData,
->>>>>>> uni/dev
   session?: Session | null,
 ) {
   try {
     const client = await getTravellersServiceClient(session);
-<<<<<<< HEAD
     const response =
       await client.evidenceSessionPublic.postApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrz(data);
     return structuredSuccessResponse(response);
@@ -100,8 +78,6 @@ export async function postApiTravellerServiceEvidenceSessionPublicValidateNfc(
 ) {
   try {
     const client = await getTravellersServiceClient(session);
-=======
->>>>>>> uni/dev
     const response = await client.evidenceSessionPublic.postApiTravellerServicePublicEvidenceSessionsValidateNfc(data);
     return structuredSuccessResponse(response);
   } catch (error) {
