@@ -4,13 +4,13 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as ContractHeaderForMerchantCreateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {postMerchantContractHeadersByMerchantIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {RefundTableHeadersField} from "../../_components/refund-table-headers-field";
 
@@ -19,7 +19,7 @@ export default function MerchantContractHeaderCreateForm({
   languageData,
   refundTableHeaders,
 }: {
-  addressList: AddressTypeDto[];
+  addressList: UniRefund_CRMService_Addresses_AddressDto[];
   languageData: ContractServiceResource;
   refundTableHeaders: AssignableRefundTableHeaders[];
 }) {
@@ -74,7 +74,8 @@ export default function MerchantContractHeaderCreateForm({
           },
         ],
         merchantClassification: "Satisfactory",
-        addressCommonDataId: addressList[0].id,
+
+        addressCommonDataId: addressList[0].id || "",
       }}
       onSubmit={({formData}) => {
         if (!formData) return;
@@ -94,11 +95,11 @@ export default function MerchantContractHeaderCreateForm({
       schema={$ContractHeaderForMerchantCreateDto}
       uiSchema={uiSchema}
       widgets={{
-        address: CustomComboboxWidget<AddressTypeDto>({
+        address: CustomComboboxWidget<UniRefund_CRMService_Addresses_AddressDto>({
           list: addressList,
           languageData,
           selectIdentifier: "id",
-          selectLabel: "fullAddress",
+          selectLabel: "addressLine",
         }),
       }}
     />

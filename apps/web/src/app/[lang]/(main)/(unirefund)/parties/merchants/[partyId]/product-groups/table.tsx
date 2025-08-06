@@ -10,17 +10,17 @@ import {tableData} from "./product-group-table-data";
 
 export default function ProductGroups({
   languageData,
-  response,
+  productGroupListByMerchant,
   productGroupList,
 }: {
   languageData: CRMServiceServiceResource;
-  response: UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto[];
+  productGroupListByMerchant: UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto[];
   productGroupList: UniRefund_SettingService_ProductGroups_ProductGroupDto[];
 }) {
   const router = useRouter();
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const {grantedPolicies} = useGrantedPolicies();
-  const productGroupAssign = response.filter((productGroup) => productGroup.isAssign);
+  const productGroupAssign = productGroupListByMerchant.filter((productGroup) => productGroup.isAssign);
 
   const columns = tableData.productGroups.columns(languageData, grantedPolicies, lang);
   const table = tableData.productGroups.table(languageData, router, productGroupList, partyId, grantedPolicies);

@@ -50,5 +50,21 @@
   "Form.name": "Ad",
   "Form.surname": "Soyad",
   "Form.email": "E-posta",
-  "Form.phoneNumber": "Telefon Numarası"
+  "Form.phoneNumber": "Telefon Numarası",
+  "Login.Tenant": "Müşteri",
+  "Login.Placeholder": "Ev sahibi olarak giriş yapılıyor",
+  "Login.Clear": "Temizle",
+  "Login.LeaveOrEmpty": "Ev sahibi için boş bırakın.",
+  "Login.TenantPlaceholder": "örneğin, unirefund",
+  "Login.UsernameOrEmailLabel": "Kullanıcı adı veya e-posta adresi",
+  "Login.UsernameOrEmailDescription": "Kullanıcı adı veya e-posta adresi.",
+  "Login.PasswordLabel": "Şifre",
+  "Login.ForgotPassword": "Şifremi unuttum?",
+  "Login.Login": "Giriş Yap",
+  "Login.HaveAnAccount": "Hesabınız yok mu?",
+  "Login.Register": "Kaydol",
+  "Register.EmailAddressLabel": "E-posta Adresi",
+  "Register.UsernameLabel": "Kullanıcı Adı",
+  "Register.UsernameDescription": "Kullanıcı adı.",
+  "Register.DoYouHaveAccount": "Hesabınız var mı?"
 }

@@ -1,5 +1,5 @@
-import type {UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto} from "@ayasofyazilim/saas/TravellerService";
-import {$UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto} from "@ayasofyazilim/saas/TravellerService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -13,13 +13,10 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
 type IdentificationsTable =
-  TanstackTableCreationProps<UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto>;
+  TanstackTableCreationProps<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto>;
 
 const links: Partial<
-  Record<
-    keyof UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto,
-    TanstackTableColumnLink
-  >
+  Record<keyof UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto, TanstackTableColumnLink>
 > = {};
 
 function identificationsTableActions(
@@ -28,7 +25,8 @@ function identificationsTableActions(
   grantedPolicies: Record<Policy, boolean>,
   travellerId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto>[] =
+    [];
   if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
@@ -48,26 +46,24 @@ function identificationsColumns(
   grantedPolicies: Record<Policy, boolean>,
   travellerId: string,
 ) {
-  if (isActionGranted(["TravellerService.Travellers.UpdatePersonalIdentification"], grantedPolicies)) {
+  if (isActionGranted(["TravellerService.Travellers.UpdateTravellerDocument"], grantedPolicies)) {
     links.travelDocumentNumber = {
       prefix: `/parties/travellers/${travellerId}/personal-identifications`,
       targetAccessorKey: "id",
     };
   }
 
-  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto>(
-    {
-      rows: $UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto.properties,
-      languageData: {
-        languageData,
-        constantKey: "Form.personalIdentification",
-      },
-      config: {
-        locale,
-      },
-      links,
+  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto>({
+    rows: $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto.properties,
+    languageData: {
+      languageData,
+      constantKey: "Form.personalIdentification",
     },
-  );
+    config: {
+      locale,
+    },
+    links,
+  });
 }
 
 export function identificationsTable(
@@ -80,13 +76,12 @@ export function identificationsTable(
     fillerColumn: "travelDocumentNumber",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "nationalityCountryCode2", "residenceCountryCode2", "fullName"],
+      columns: ["nationalityCountryCode2", "residenceCountryCode2", "fullName"],
     },
     tableActions: identificationsTableActions(languageData, router, grantedPolicies, travellerId),
     columnOrder: [
       "travelDocumentNumber",
       "firstName",
-      "middleName",
       "lastName",
       "nationalityCountryName",
       "residenceCountryName",

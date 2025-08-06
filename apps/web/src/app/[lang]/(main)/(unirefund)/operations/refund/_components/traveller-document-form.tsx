@@ -3,7 +3,7 @@
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useState, useTransition} from "react";
@@ -14,7 +14,7 @@ export default function TravellerDocumentForm({
   accessibleRefundPoints,
 }: {
   languageData: TagServiceResource;
-  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointProfileDto[];
+  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointListResponseDto[];
 }) {
   const router = useRouter();
   const pathName = usePathname();
@@ -27,7 +27,7 @@ export default function TravellerDocumentForm({
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] = useState(travellerDocumentNo);
   const [tagIdInput, setTagIdInput] = useState(tagIds);
   const [refundPointIdInput, setRefundPointIdInput] = useState<
-    UniRefund_CRMService_RefundPoints_RefundPointProfileDto | null | undefined
+    UniRefund_CRMService_RefundPoints_RefundPointListResponseDto | null | undefined
   >(accessibleRefundPoints.find((i) => i.id === refundPointId) || null);
   const [isPending, startTransition] = useTransition();
 
@@ -80,7 +80,7 @@ export default function TravellerDocumentForm({
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="refund-point">{languageData.RefundPoint}</Label>
-        <Combobox<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>
+        <Combobox<UniRefund_CRMService_RefundPoints_RefundPointListResponseDto>
           list={accessibleRefundPoints}
           onValueChange={setRefundPointIdInput}
           selectIdentifier="id"

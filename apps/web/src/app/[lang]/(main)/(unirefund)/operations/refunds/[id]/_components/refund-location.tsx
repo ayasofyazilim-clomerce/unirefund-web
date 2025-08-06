@@ -15,7 +15,7 @@ export function RefundLocation({refundPointDetails}: {refundPointDetails: Refund
       <div className="mt-2 grid gap-6">
         <TextWithSubText
           subText={
-            isActionGranted(["CRMService.RefundPoints.Detail"], grantedPolicies) ? (
+            isActionGranted(["CRMService.RefundPoints.View"], grantedPolicies) ? (
               <Link
                 className="font-semibold text-blue-500"
                 href={getBaseLink(`parties/refund-points/${refundPointDetails.id}`)}>

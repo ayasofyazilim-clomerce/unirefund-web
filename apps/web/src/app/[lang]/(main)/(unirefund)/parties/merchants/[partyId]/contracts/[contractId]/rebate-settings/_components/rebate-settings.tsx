@@ -7,9 +7,9 @@ import {
   type UniRefund_ContractService_Rebates_RebateSettings_RebateSettingUpSertDto as RebateSettingUpSertDto,
 } from "@ayasofyazilim/saas/ContractService";
 import type {
-  UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto as AffiliationTypeDetailDto,
-  UniRefund_CRMService_Merchants_StoreProfileDto as StoreProfileDto,
-} from "@ayasofyazilim/saas/CRMService";
+  UniRefund_CRMService_Affiliations_AffiliationListResponseDto,
+  UniRefund_CRMService_Merchants_MerchantDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {postMerchantContractHeaderRebateSettingByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
@@ -31,8 +31,8 @@ export function RebateSettings({
   languageData: ContractServiceResource;
   rebateSettings: RebateSettingDto | undefined;
   rebateTableHeaders: AssignableRebateTableHeaders[];
-  subMerchants: StoreProfileDto[];
-  individuals: AffiliationTypeDetailDto[];
+  subMerchants: UniRefund_CRMService_Merchants_MerchantDto[];
+  individuals: UniRefund_CRMService_Affiliations_AffiliationListResponseDto[];
   contractId: string;
 }) {
   const router = useRouter();
@@ -100,13 +100,13 @@ export function RebateSettings({
       uiSchema={uiSchema}
       useTableForArrayItems
       widgets={{
-        Individuals: CustomComboboxWidget<AffiliationTypeDetailDto>({
+        Individuals: CustomComboboxWidget<UniRefund_CRMService_Affiliations_AffiliationListResponseDto>({
           languageData,
           selectLabel: "name",
           selectIdentifier: "id",
           list: individuals,
           badges: {
-            codeName: {
+            roleName: {
               className: "",
             },
           },
@@ -117,7 +117,7 @@ export function RebateSettings({
           selectIdentifier: "id",
           selectLabel: "name",
         }),
-        subMerchants: CustomComboboxWidget<StoreProfileDto>({
+        subMerchants: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantDto>({
           list: subMerchants,
           languageData,
           selectIdentifier: "id",

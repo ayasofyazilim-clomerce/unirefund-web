@@ -46,7 +46,7 @@ export default async function Page({params}: {params: {travellerId: string; lang
     <>
       <Form countryList={countriesResponse.data.items || []} languageData={languageData} travellerId={travellerId} />
       <div className="hidden" id="page-title">
-        {`${languageData.Traveller} (${travellerDetailResponse.data.personalIdentifications[0].fullName})`}
+        {`${languageData.Traveller} (${travellerDetailResponse.data.travellerDocuments?.[0].fullName})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Travellers.Create.Identification.Description"]}

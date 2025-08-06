@@ -1,4 +1,4 @@
-import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {UniRefund_TagService_Tags_TagListItemDto} from "@ayasofyazilim/saas/TagService";
 
 export function getTotals(totalType: string, selectedRows: UniRefund_TagService_Tags_TagListItemDto[]) {
@@ -14,7 +14,7 @@ export function getTotals(totalType: string, selectedRows: UniRefund_TagService_
 
 export function isUnauthorizedRefundPoint(
   refundPointId: string | undefined,
-  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointProfileDto[],
+  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointListResponseDto[],
 ) {
   if (accessibleRefundPoints.length === 0 || !refundPointId) return false;
 

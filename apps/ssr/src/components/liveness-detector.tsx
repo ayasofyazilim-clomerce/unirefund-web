@@ -11,6 +11,7 @@ import {
 import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {useState} from "react";
 import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
+
 export default function LivenessDetector({
   languageData,
   evidenceSessionId,
@@ -82,8 +83,14 @@ export default function LivenessDetector({
                    p-0 p-6 shadow-none sm:h-auto sm:w-auto 
                    sm:max-w-[425px] sm:rounded-lg">
         <ThemeProvider theme={theme}>
-          {sessionId && (
+          {sessionId ? (
             <FaceLivenessDetectorCore
+              config={{
+                credentialProvider: async () => {
+                  await Promise.resolve();
+                  return config;
+                },
+              }}
               disableStartScreen
               onAnalysisComplete={async () => {
                 const result = await getApiEvidenceSessionPublicGetFaceLivenessSessionResults(sessionId);
@@ -111,16 +118,10 @@ export default function LivenessDetector({
 
                 setOpen(false);
               }}
-              config={{
-                credentialProvider: async () => {
-                  await Promise.resolve();
-                  return config;
-                },
-              }}
               region={config.region}
               sessionId={sessionId}
             />
-          )}
+          ) : null}
         </ThemeProvider>
       </DialogContent>
     </Dialog>
