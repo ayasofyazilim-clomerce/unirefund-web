@@ -1,7 +1,7 @@
 import {Badge} from "@/components/ui/badge";
 import type {UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as RebateTableHeaderDto} from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as $RebateTableHeaderDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -149,9 +149,7 @@ const rebateTableHeadersTable = (params: {
         type: "custom-dialog",
         cta: languageData["Contracts.Clone"],
         condition: (row) => {
-          return (
-            isActionGranted(["ContractService.RebateTableHeader.CreateTemplate"], grantedPolicies) && row.isTemplate
-          );
+          return isActionGranted(["ContractService.RebateTableHeader.Create"], grantedPolicies) && row.isTemplate;
         },
         content: (row) => <CloneForm languageData={languageData} merchants={merchants} router={router} row={row} />,
         title: (row) => (

@@ -1,6 +1,6 @@
 "use client";
 
-import type {UniRefund_TravellerService_Travellers_TravellerDetailProfileDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto} from "@ayasofyazilim/saas/TravellerService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";
@@ -11,7 +11,7 @@ function PersonalIdentificationTable({
   response,
   languageData,
 }: {
-  response: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto["personalIdentifications"];
+  response: UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto[];
   languageData: TravellerServiceResource;
 }) {
   const {grantedPolicies} = useGrantedPolicies();

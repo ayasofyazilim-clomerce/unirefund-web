@@ -32,7 +32,7 @@ async function getApiRequests(travellerId: string) {
 export default async function Page({params}: {params: {travellerId: string; lang: string; identificationId: string}}) {
   const {lang, travellerId, identificationId} = params;
   await isUnauthorized({
-    requiredPolicies: ["TravellerService.Travellers.UpdatePersonalIdentification"],
+    requiredPolicies: ["TravellerService.Travellers.UpdateTravellerDocument"],
     lang,
   });
   const {languageData} = await getResourceData(params.lang);
@@ -54,7 +54,7 @@ export default async function Page({params}: {params: {travellerId: string; lang
         travellerId={travellerId}
       />
       <div className="hidden" id="page-title">
-        {`${languageData["Travellers.Personal.Identification"]} (${travellerDataResponse.data.personalIdentifications[0].travelDocumentNumber})`}
+        {`${languageData["Travellers.Personal.Identification"]} (${travellerDataResponse.data.travellerDocuments?.[0].travelDocumentNumber})`}
       </div>
       <div className="hidden" id="page-description">
         {languageData["Travellers.Identifications.Edit.Description"]}

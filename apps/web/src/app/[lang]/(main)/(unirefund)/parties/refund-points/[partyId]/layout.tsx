@@ -43,7 +43,8 @@ export default async function Layout({
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [refundPointDetailResponse] = apiRequests.requiredRequests;
-  const isHeadquarter = refundPointDetailResponse.data.typeCode === "HEADQUARTER";
+  const isHeadquarter =
+    refundPointDetailResponse.data.parentId === null || refundPointDetailResponse.data.parentId === "";
   return (
     <>
       <PartyHeader

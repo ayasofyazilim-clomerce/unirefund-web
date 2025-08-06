@@ -26,7 +26,7 @@ function tenantsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<Volo_Saas_Host_Dtos_SaasTenantDto>[] = [];
   if (isActionGranted(["Saas.Tenants.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

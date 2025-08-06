@@ -5,10 +5,9 @@ import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as RefundPointListResponseDto,
-  UniRefund_CRMService_RefundPoints_RefundPointStatus as RefundPointStatus} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {
-  $UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as $RefundPointListResponseDto
+  UniRefund_CRMService_RefundPoints_RefundPointStatus as RefundPointStatus,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as $RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
@@ -81,7 +80,7 @@ function refundPointColumns(locale: string, languageData: CRMServiceServiceResou
             <div className="flex items-center gap-1 bg-transparent">
               {row.typeCode === "HEADQUARTER" && <Building2 className="size-4 text-gray-500" />}
               {row.typeCode === "REFUNDPOINT" && <Store className="size-4 text-gray-500" />}
-              {languageData[(`Form.RefundPoint.typeCode.${  row.typeCode}`) as keyof typeof languageData]}
+              {languageData[`Form.RefundPoint.typeCode.${row.typeCode}` as keyof typeof languageData]}
             </div>
           );
         },
@@ -90,7 +89,8 @@ function refundPointColumns(locale: string, languageData: CRMServiceServiceResou
         content: (row) => {
           return (
             <>
-              {row.parentId ? <Tooltip>
+              {row.parentId ? (
+                <Tooltip>
                   <TooltipTrigger>
                     <Button asChild className="h-6 items-center p-1" size="sm" variant="outline">
                       <Link href={`${baseLink}/${row.parentId}/details`}>
@@ -100,7 +100,8 @@ function refundPointColumns(locale: string, languageData: CRMServiceServiceResou
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>{languageData["CRM.openHeadquarter"]}</TooltipContent>
-                </Tooltip> : null}
+                </Tooltip>
+              ) : null}
             </>
           );
         },
@@ -187,7 +188,7 @@ function BadgeByStatus({
   }
   return (
     <Badge className={cn("px-1", className)}>
-      {languageData[(`CRM.PartyStatus.${  status}`) as keyof typeof languageData]}
+      {languageData[`CRM.PartyStatus.${status}` as keyof typeof languageData]}
     </Badge>
   );
 }

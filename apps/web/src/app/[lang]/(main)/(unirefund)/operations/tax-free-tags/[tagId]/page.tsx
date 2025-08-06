@@ -66,7 +66,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
       redirect: false,
     }),
     MerchantDetail: await isUnauthorized({
-      requiredPolicies: ["CRMService.Merchants.Detail"],
+      requiredPolicies: ["CRMService.Merchants.View"],
       lang,
       redirect: false,
     }),

@@ -47,7 +47,7 @@ export default async function Layout({
     <>
       <PartyHeader
         link={`${baseLink}details`}
-        name={`${taxFreeDetailResponse.data.firstname  } ${  taxFreeDetailResponse.data.lastname}`}
+        name={`${taxFreeDetailResponse.data.firstname} ${taxFreeDetailResponse.data.lastname}`}
       />
       <TabLayout
         classNames={{

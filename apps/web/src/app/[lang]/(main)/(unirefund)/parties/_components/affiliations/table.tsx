@@ -1,6 +1,9 @@
 "use client";
 
-import type {PagedResultDto_AffiliationListResponseDto,UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {
+  PagedResultDto_AffiliationListResponseDto,
+  UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";
@@ -12,7 +15,6 @@ import {useState} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {tableData} from "./table-data";
 import {AffiliationDrawer} from "./drawer";
-
 
 function AffiliationsTable({
   affiliations,
@@ -40,7 +42,7 @@ function AffiliationsTable({
   const {lang} = useParams<{lang: string}>();
   const [open, setOpen] = useState(false);
 
-  const columns = tableData.affiliations.columns(lang, languageData, router, grantedPolicies);
+  const columns = tableData.affiliations.columns(lang, languageData);
   const table = tableData.affiliations.table(
     languageData,
     router,

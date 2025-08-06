@@ -91,12 +91,12 @@ export default function ClientPage({
           branchId: merchantInfoResponse.data.chainCodeId || "0",
         },
         traveller: {
-          travelDocumentNumber: travellerInfoResponse.data.personalIdentifications[0].travelDocumentNumber,
-          nationalityCountryCode2: travellerInfoResponse.data.personalIdentifications[0].nationalityCountryCode2,
-          firstName: travellerInfoResponse.data.personalIdentifications[0].firstName,
-          lastName: travellerInfoResponse.data.personalIdentifications[0].lastName,
-          residenceCountryCode2: travellerInfoResponse.data.personalIdentifications[0].residenceCountryCode2,
-          expirationDate: travellerInfoResponse.data.personalIdentifications[0].expirationDate,
+          travelDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travelDocumentNumber || "",
+          nationalityCountryCode2: travellerInfoResponse.data.travellerDocuments?.[0].nationalityCountryCode2 || "",
+          firstName: travellerInfoResponse.data.firstName || "",
+          lastName: travellerInfoResponse.data.lastName || "",
+          residenceCountryCode2: travellerInfoResponse.data.travellerDocuments?.[0].residenceCountryCode2 || "",
+          expirationDate: travellerInfoResponse.data.travellerDocuments?.[0].expirationDate,
         },
         invoices: [
           {

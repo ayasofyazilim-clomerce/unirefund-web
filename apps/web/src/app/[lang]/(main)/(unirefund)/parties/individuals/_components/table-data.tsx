@@ -1,9 +1,6 @@
 "use client";
-import type {
-  UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {
-  $UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
@@ -45,7 +42,7 @@ function individualColumns(locale: string, languageData: CRMServiceServiceResour
   return tanstackTableCreateColumnsByRowData<IndividualListResponseDto>({
     rows: $IndividualListResponseDto.properties,
     languageData: {
-      firstname: `${languageData["Form.Individual.firstname"]  } ${  languageData["Form.Individual.lastname"]}`,
+      firstname: `${languageData["Form.Individual.firstname"]} ${languageData["Form.Individual.lastname"]}`,
       lastname: languageData["Form.Individual.lastname"],
       gender: languageData["Form.Individual.gender"],
       identificationNumber: languageData["Form.Individual.identificationNumber"],

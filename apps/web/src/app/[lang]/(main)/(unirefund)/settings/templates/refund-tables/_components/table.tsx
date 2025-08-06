@@ -1,6 +1,6 @@
 "use client";
 import type {PagedResultDto_RefundTableHeaderListDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_CRMService_Merchants_MerchantProfileDto as MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useRouter} from "next/navigation";

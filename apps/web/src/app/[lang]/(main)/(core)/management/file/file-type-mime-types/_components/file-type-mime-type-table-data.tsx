@@ -37,7 +37,7 @@ function fileTypeMimeTypesTableActions(
   mimeTypeData: UniRefund_FileService_MimeTypes_MimeTypeListDto[],
   fileTypeData: UniRefund_FileService_FileTypes_FileTypeListDto[],
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto>[] = [];
   const isFormReady = checkIsFormReady({
     lang,
     languageData,

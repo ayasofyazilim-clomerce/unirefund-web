@@ -5,10 +5,9 @@ import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_Customs_CustomListResponseDto as CustomListResponseDto,
-  UniRefund_CRMService_Customs_CustomStatus as CustomStatus} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {
-  $UniRefund_CRMService_Customs_CustomListResponseDto as $CustomListResponseDto
+  UniRefund_CRMService_Customs_CustomStatus as CustomStatus,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Customs_CustomListResponseDto as $CustomListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
@@ -81,7 +80,7 @@ function customColumns(locale: string, languageData: CRMServiceServiceResource) 
             <div className="flex items-center gap-1 bg-transparent">
               {row.typeCode === "HEADQUARTER" && <Building2 className="size-4 text-gray-500" />}
               {row.typeCode === "CUSTOM" && <Store className="size-4 text-gray-500" />}
-              {languageData[(`Form.Custom.typeCode.${  row.typeCode}`) as keyof typeof languageData]}
+              {languageData[`Form.Custom.typeCode.${row.typeCode}` as keyof typeof languageData]}
             </div>
           );
         },
@@ -90,7 +89,8 @@ function customColumns(locale: string, languageData: CRMServiceServiceResource) 
         content: (row) => {
           return (
             <>
-              {row.parentId ? <Tooltip>
+              {row.parentId ? (
+                <Tooltip>
                   <TooltipTrigger>
                     <Button asChild className="h-6 items-center p-1" size="sm" variant="outline">
                       <Link href={`${baseLink}/${row.parentId}/details`}>
@@ -100,7 +100,8 @@ function customColumns(locale: string, languageData: CRMServiceServiceResource) 
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>{languageData["CRM.openHeadquarter"]}</TooltipContent>
-                </Tooltip> : null}
+                </Tooltip>
+              ) : null}
             </>
           );
         },
@@ -187,7 +188,7 @@ function BadgeByStatus({
   }
   return (
     <Badge className={cn("px-1", className)}>
-      {languageData[(`CRM.PartyStatus.${  status}`) as keyof typeof languageData]}
+      {languageData[`CRM.PartyStatus.${status}` as keyof typeof languageData]}
     </Badge>
   );
 }

@@ -1,5 +1,5 @@
-import type {UniRefund_TravellerService_Travellers_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
-import {$UniRefund_TravellerService_Travellers_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_Travellers_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_Travellers_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -13,18 +13,17 @@ import {isActionGranted} from "@repo/utils/policies";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 import type {CountryDto} from "@/utils/address-hook/types";
 
-type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListProfileDto>;
+type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListDto>;
 
-const links: Partial<
-  Record<keyof UniRefund_TravellerService_Travellers_TravellerListProfileDto, TanstackTableColumnLink>
-> = {};
+const links: Partial<Record<keyof UniRefund_TravellerService_Travellers_TravellerListDto, TanstackTableColumnLink>> =
+  {};
 
 function travellersTableActions(
   languageData: TravellerServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_TravellerService_Travellers_TravellerListDto>[] = [];
   if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
@@ -51,8 +50,8 @@ function travellersColumns(
     };
   }
 
-  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_Travellers_TravellerListProfileDto>({
-    rows: $UniRefund_TravellerService_Travellers_TravellerListProfileDto.properties,
+  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_Travellers_TravellerListDto>({
+    rows: $UniRefund_TravellerService_Travellers_TravellerListDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.personalIdentification",
@@ -74,20 +73,10 @@ export function travellersTable(
     fillerColumn: "fullName",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "hasUserAccount", "nationalityCountryCode2", "residenceCountryCode2", "userAccountId"],
+      columns: ["id", "hasUserAccount", "nationalityCountryCode2", "userAccountId"],
     },
     tableActions: travellersTableActions(languageData, router, grantedPolicies),
-    columnOrder: [
-      "firstName",
-      "middleName",
-      "lastName",
-      "travelDocumentNumber",
-      "nationalityCountryName",
-      "residenceCountryName",
-      "birthDate",
-      "expirationDate",
-      "identificationType",
-    ],
+    columnOrder: ["firstName", "lastName", "nationalityCountryName", "birthDate", "identificationType"],
     pinColumns: ["fullName"],
     filters: {
       textFilters: ["fullName", "travelDocumentNumber"],

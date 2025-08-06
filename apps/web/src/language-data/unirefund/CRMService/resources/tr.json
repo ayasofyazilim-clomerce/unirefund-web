@@ -47,6 +47,15 @@
   "Form.Merchant.affiliation.individuals": "Kişiler",
   "Form.Merchant.affiliation.or": "veya",
 
+  "Form.Merchant.productGroup": "Ürün Grubu",
+  "Form.Merchant.productGroups": "Ürün Grupları",
+  "Form.Merchant.productGroup.update": "Ürün Grubunu Güncelle",
+  "Form.Merchant.productGroup.default": "Varsayılan Ürün Grubunu Ayarla",
+  "Form.Merchant.productGroup.default.description": "Bu ürün grubunu varsayılan ürün grubun olarak ayarla",
+  "Form.Merchant.productGroup.create": "Ürün Grubu Ekle",
+  "Form.Merchant.productGroup.delete": "Ürün Grubunu Sil",
+  "Form.Merchant.productGroup.delete.confirm": "Bu ürün grubunu silmek istediğinize emin misiniz?",
+
   "Form.Merchant.Create": "Mağazayı Oluştur",
   "Form.Merchant.Update": "Mağazayı Güncelle",
 
