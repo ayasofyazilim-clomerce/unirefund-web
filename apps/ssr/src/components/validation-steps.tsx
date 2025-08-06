@@ -147,7 +147,7 @@ function StepperContent({
       {/* Progress indicator - Hide only on first step */}
       {/* Steps indicators - Show on all pages */}
       {!stepper.isFirst && (
-        <div className="-mb-2 lg:mb-8">
+        <div className="mb-2">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-black">
               {languageData[stepper.current.title as keyof SSRServiceResource] || stepper.current.title}
@@ -266,7 +266,7 @@ function LivenessStep({
   };
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative mb-4 h-full w-full">
       <LivenessDetector
         config={clientAuths}
         evidenceSessionId={evidenceSession}

@@ -50,5 +50,21 @@
   "Form.email": "Email",
   "Form.phoneNumber": "Phone Number",
   "Form.name": "Name",
-  "Form.surname": "Surname"
+  "Form.surname": "Surname",
+  "Login.Tenant": "Tenant",
+  "Login.Placeholder": "Logging in as host",
+  "Login.Clear": "Clear",
+  "Login.LeaveOrEmpty": "Leave empty for host.",
+  "Login.TenantPlaceholder": "e.g. unirefund",
+  "Login.UsernameOrEmailLabel": "Username or email address",
+  "Login.UsernameOrEmailDescription": "User name or email address.",
+  "Login.PasswordLabel": "Password",
+  "Login.ForgotPassword": "Forgot password?",
+  "Login.Login": "Login",
+  "Login.HaveAnAccount": "Don't you have an account?",
+  "Login.Register": "Register",
+  "Register.EmailAddressLabel": "Email Address",
+  "Register.UsernameLabel": "Username",
+  "Register.UsernameDescription": "User name.",
+  "Register.DoYouHaveAccount": "Do you have an account?"
 }

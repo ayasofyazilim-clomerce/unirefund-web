@@ -4,7 +4,7 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {useState} from "react";
 import {detectFace} from "@repo/actions/unirefund/AWSService/actions";
 import {CheckCircle, AlertCircle} from "lucide-react";
-import {postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import IDCardMRZ from "public/ID-Back.png";
 import PassportMRZ from "public/Passport.png";
@@ -146,7 +146,7 @@ export default function ScanDocument({
     setScanStatus("scanning");
     const base64Data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
 
-    void postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz({
+    void postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz({
       requestBody: {
         evidenceSessionId: session,
         documentImageBase64: base64Data,
@@ -216,7 +216,7 @@ export default function ScanDocument({
     setScanStatus("scanning");
     const base64Data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
 
-    void postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz({
+    void postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz({
       requestBody: {
         evidenceSessionId: session,
         documentImageBase64: base64Data,
@@ -270,22 +270,20 @@ export default function ScanDocument({
 
   // Main document scanner UI
   return (
-    <div className="mx-auto max-w-md space-y-4 md:pb-12">
+    <div className="mx-auto max-w-md space-y-4 py-4">
       <div
         className={`overflow-hidden ${type !== "id-card-back" ? "rounded-xl border-black/10 shadow-sm md:border" : ""}`}>
-        <div className="bg-white md:p-5">
-          <WebcamCapture
-            allowCameraSwitch
-            capturedImage={getCurrentDocumentData()?.base64}
-            handleImage={(imageSrc) => {
-              if (!imageSrc) return;
-              getImageHandler()(imageSrc);
-            }}
-            languageData={languageData}
-            placeholder={renderPlaceholder(config.placeholder(languageData))}
-            type="document"
-          />
-        </div>
+        <WebcamCapture
+          allowCameraSwitch
+          capturedImage={getCurrentDocumentData()?.base64}
+          handleImage={(imageSrc) => {
+            if (!imageSrc) return;
+            getImageHandler()(imageSrc);
+          }}
+          languageData={languageData}
+          placeholder={renderPlaceholder(config.placeholder(languageData))}
+          type="document"
+        />
       </div>
 
       <ScannerStatusAlert

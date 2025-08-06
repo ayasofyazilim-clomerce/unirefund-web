@@ -49,14 +49,12 @@ function LanguageSelector({
       title={"Languages"}
       triggerContent={
         <div className="flex items-center px-2">
-          {showFlag ? (
+          {showFlag && (
             <img
               className="mr-2 h-5 w-5 rounded-full object-cover"
               src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${selectedLanguage?.flagIcon}.svg`}
               alt={selectedLanguage?.displayName}
             />
-          ) : (
-            <Badge className="mr-2 px-1 py-0 text-xs">{selectedLanguage?.flagIcon?.toUpperCase() || "N/A"}</Badge>
           )}
           <span className="hidden md:block">{selectedLanguage?.displayName}</span>
         </div>
@@ -82,14 +80,12 @@ function LanguageSelector({
                     ) : (
                       <div className="mr-2 h-4 w-4" />
                     )}
-                    {showFlag ? (
+                    {showFlag && (
                       <img
                         className="mr-2 h-5 w-5 rounded-full object-cover"
                         src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.flagIcon}.svg`}
                         alt={label.displayName}
                       />
-                    ) : (
-                      <Badge className="mr-2 px-1 py-0 text-xs">{label.flagIcon?.toUpperCase() || "N/A"}</Badge>
                     )}
                     {label.displayName}
                   </CommandItem>
