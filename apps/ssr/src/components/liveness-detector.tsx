@@ -5,8 +5,8 @@ import {ThemeProvider, useTheme} from "@aws-amplify/ui-react";
 import {FaceLivenessDetectorCore} from "@aws-amplify/ui-react-liveness";
 import "@aws-amplify/ui-react/styles.css";
 import {
-  getApiEvidenceSessionCreateFaceLivenessSession,
-  getApiEvidenceSessionGetFaceLivenessSessionResults,
+  getApiEvidenceSessionPublicCreateFaceLivenessSession,
+  getApiEvidenceSessionPublicGetFaceLivenessSessionResults,
 } from "@repo/actions/unirefund/TravellerService/actions";
 import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {useState} from "react";
@@ -65,7 +65,7 @@ export default function LivenessDetector({
             languageData={languageData}
             onStartValidation={() => {
               if (evidenceSessionId) {
-                void getApiEvidenceSessionCreateFaceLivenessSession(evidenceSessionId).then((res) => {
+                void getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId).then((res) => {
                   if (res.type === "success") {
                     setSessionId(res.data.sessionId || null);
                     ("");
@@ -93,7 +93,7 @@ export default function LivenessDetector({
               }}
               disableStartScreen
               onAnalysisComplete={async () => {
-                const result = await getApiEvidenceSessionGetFaceLivenessSessionResults(sessionId);
+                const result = await getApiEvidenceSessionPublicGetFaceLivenessSessionResults(sessionId);
                 if (result.type !== "success") {
                   return;
                 }

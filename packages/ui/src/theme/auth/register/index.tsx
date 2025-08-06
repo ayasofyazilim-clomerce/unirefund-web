@@ -35,6 +35,25 @@ export interface RegisterCredentials {
   password: string;
 }
 
+export interface RegisterFormLanguageData {
+  Login: string;
+  Register: string;
+  Tenant: string;
+  InvalidToken: string;
+  "Login.TenantPlaceholder": string;
+  "Login.Clear": string;
+  "Login.LeaveOrEmpty": string;
+  "Login.UsernameOrEmailLabel": string;
+  "Login.UsernameOrEmailDescription": string;
+  "Login.PasswordLabel": string;
+  "Login.Login": string;
+  "Login.HaveAnAccount": string;
+  "Register.EmailAddressLabel": string;
+  "Register.UsernameLabel": string;
+  "Register.UsernameDescription": string;
+  "Register.DoYouHaveAccount": string;
+}
+
 export default function RegisterForm({
   languageData,
   defaultTenant = "",
@@ -42,12 +61,7 @@ export default function RegisterForm({
   isTenantDisabled,
   onTenantSearchAction,
 }: {
-  languageData: {
-    Login: string;
-    Register: string;
-    Tenant: string;
-    InvalidToken: string;
-  };
+  languageData: RegisterFormLanguageData;
   defaultTenant?: string;
   isTenantDisabled: boolean;
   onSubmitAction: (values: RegisterCredentials) => Promise<{
@@ -99,7 +113,7 @@ export default function RegisterForm({
           return;
         }
         toast.success("You can now log in to your account.");
-        router.replace(`/${location.pathname.split("/").slice(1)}/login/${location.search}`);
+        router.replace(`/${location.pathname.split("/").slice(1, 3).join("/")}/login${location.search}`);
       });
     });
   }
@@ -126,7 +140,7 @@ export default function RegisterForm({
                 disabled={isPending}
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Tenant</FormLabel>
+                    <FormLabel>{languageData.Tenant}</FormLabel>
                     <FormControl>
                       <div className="relative w-full max-w-sm">
                         <Input
@@ -140,7 +154,7 @@ export default function RegisterForm({
                           onKeyUp={(e) => {
                             if (e.key === "Enter") searchForTenant(form.getValues("tenant") || "");
                           }}
-                          placeholder="Logging in as host"
+                          placeholder={languageData["Login.TenantPlaceholder"]}
                           autoFocus
                         />
                         <Button
@@ -153,11 +167,11 @@ export default function RegisterForm({
                             form.setValue("tenant", "");
                           }}>
                           <XIcon className="h-4 w-4" />
-                          <span className="sr-only">Clear</span>
+                          <span className="sr-only">{languageData["Login.Clear"]}</span>
                         </Button>
                       </div>
                     </FormControl>
-                    <FormDescription>Leave empty for host.</FormDescription>
+                    <FormDescription>{languageData["Login.LeaveOrEmpty"]}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -168,7 +182,7 @@ export default function RegisterForm({
               name="email"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Email Address</FormLabel>
+                  <FormLabel>{languageData["Register.EmailAddressLabel"]}</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -181,11 +195,11 @@ export default function RegisterForm({
               name="username"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{languageData["Register.UsernameLabel"]}</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>User name.</FormDescription>
+                  <FormDescription>{languageData["Register.UsernameDescription"]}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -195,9 +209,9 @@ export default function RegisterForm({
               name="password"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{languageData["Login.PasswordLabel"]}</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="*******" type="password" autoComplete="true" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -215,13 +229,13 @@ export default function RegisterForm({
       <div className="flex items-center justify-center">
         <span className="bg-muted h-px w-full"></span>
         <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">
-          Do you have an account?
+          {languageData["Register.DoYouHaveAccount"]}
         </span>
         <span className="bg-muted h-px w-full"></span>
       </div>
       <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Login
+          {languageData["Login.Login"]}
         </Button>
       </Link>
     </div>

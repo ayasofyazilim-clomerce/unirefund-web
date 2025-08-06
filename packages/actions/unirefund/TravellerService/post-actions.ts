@@ -1,5 +1,6 @@
 "use server";
 import type {
+  PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData,
   PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData,
   PostApiTravellerServicePublicEvidenceSessionsData,
   PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesData,
@@ -31,7 +32,7 @@ export async function postTravellerDocumentApi(data: PostApiTravellerServiceTrav
   }
 }
 
-export async function postCreateEvidenceSession(
+export async function postCreateEvidenceSessionPublic(
   data: PostApiTravellerServicePublicEvidenceSessionsData,
   session?: Session | null,
 ) {
@@ -45,6 +46,19 @@ export async function postCreateEvidenceSession(
 }
 
 export async function postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz(
+  data: PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData,
+  session?: Session | null,
+) {
+  try {
+    const client = await getTravellersServiceClient(session);
+    const response = await client.evidenceSession.postApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrz(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz(
   data: PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData,
   session?: Session | null,
 ) {
@@ -58,7 +72,7 @@ export async function postApiTravellerServiceEvidenceSessionAnalyzeDocumentByMrz
   }
 }
 
-export async function postApiTravellerServiceEvidenceSessionValidateNfc(
+export async function postApiTravellerServiceEvidenceSessionPublicValidateNfc(
   data: PostApiTravellerServicePublicEvidenceSessionsValidateNfcData,
   session?: Session | null,
 ) {

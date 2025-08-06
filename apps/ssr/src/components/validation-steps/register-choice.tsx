@@ -26,24 +26,24 @@ export default function RegisterChoice({languageData, stepper}: {languageData: S
   const {lang} = useParams<{lang: string}>();
 
   return (
-    <div className="md:h-auto">
+    <div className="md:h-auto ">
       <div className="space-y-4 text-center">
-        <h2 className="text-xl font-semibold text-gray-900">Choose Registration Method</h2>
+        <h2 className="text-xl font-semibold text-gray-900">{languageData["RegisterChoice.Title"]}</h2>
 
-        <div className="rounded-lg bg-blue-50 p-4 text-left">
-          <h3 className="mb-2 font-medium text-gray-900">Why verify your identity?</h3>
+        <div className="rounded-lg bg-gray-50 p-4 text-left">
+          <h3 className="mb-2 font-medium text-gray-900">{languageData["RegisterChoice.Subtitle"]}</h3>
           <ul className="space-y-2">
-            <li className="flex items-start gap-2">
-              <CheckIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
-              <span className="text-sm text-gray-700">Get your refunds faster with priority processing</span>
+            <li className="flex items-center gap-2">
+              <CheckIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-black" />
+              <span className="text-sm text-gray-700">{languageData["RegisterChoice.Description1"]}</span>
             </li>
-            <li className="flex items-start gap-2">
-              <ShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
-              <span className="text-sm text-gray-700">Enhanced security for your transactions and personal data</span>
+            <li className="flex items-center gap-2">
+              <ShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-black" />
+              <span className="text-sm text-gray-700">{languageData["RegisterChoice.Description2"]}</span>
             </li>
-            <li className="flex items-start gap-2">
-              <Clock className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
-              <span className="text-sm text-gray-700">One-time process for all future refunds</span>
+            <li className="flex items-center gap-2">
+              <Clock className="mt-0.5 h-5 w-5 flex-shrink-0 text-black" />
+              <span className="text-sm text-gray-700">{languageData["RegisterChoice.Description3"]}</span>
             </li>
           </ul>
         </div>
@@ -54,16 +54,16 @@ export default function RegisterChoice({languageData, stepper}: {languageData: S
             onClick={() => {
               stepper.goTo("start");
             }}>
-            Verify and Register
+            {languageData["RegisterChoice.VerifyandRegisterButton"]}
           </Button>
           <Button
             className="border-primary text-primary hover:bg-primary/5 w-full"
             onClick={() => {
               // Navigate to registration without verification
-              window.location.href = getBaseLink("register", lang);
+              window.location.href = getBaseLink("evidence/register", lang);
             }}
             variant="outline">
-            Register Without Verification
+            {languageData["RegisterChoice.RegisterWithoutVerificationButton"]}
           </Button>
         </div>
       </div>
