@@ -7,8 +7,8 @@ import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
-import ValidationSteps from "components/validation-steps";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import ValidationSteps from "components/validation-steps";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 
 async function getApiRequests(reqSteps: PostApiTravellerServicePublicEvidenceSessionsData = {}) {

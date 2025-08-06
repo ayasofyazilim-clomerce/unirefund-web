@@ -1,5 +1,4 @@
 import {Card} from "@/components/ui/card";
-import {getBaseLink} from "@/utils";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
@@ -9,9 +8,10 @@ import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/Traveller
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
-import ValidationSteps from "components/validation-steps";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {redirect} from "next/navigation";
+import ValidationSteps from "components/validation-steps";
+import {getBaseLink} from "@/utils";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 
 async function getApiRequests(reqSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {}) {

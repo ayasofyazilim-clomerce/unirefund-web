@@ -26,16 +26,16 @@ export default async function Page({params}: {params: {lang: string}}) {
           </p>
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
             <Link href="/evidence">
-              <Button size="lg" className="w-full bg-red-600 px-8 py-3 text-lg hover:bg-red-700 sm:w-auto">
+              <Button className="w-full bg-red-600 px-8 py-3 text-lg hover:bg-red-700 sm:w-auto" size="lg">
                 {languageData["Landing.StartRefundProcess"]}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/evidence/login">
               <Button
-                variant="outline"
+                className="w-full border-red-600 bg-transparent px-8 py-3 text-lg text-red-600 hover:bg-red-50 sm:w-auto"
                 size="lg"
-                className="w-full border-red-600 bg-transparent px-8 py-3 text-lg text-red-600 hover:bg-red-50 sm:w-auto">
+                variant="outline">
                 {languageData["Landing.AlreadyHaveAccount"]}
               </Button>
             </Link>
@@ -157,7 +157,7 @@ export default async function Page({params}: {params: {lang: string}}) {
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
                   {Array.from({length: 5}).map((_, i) => (
-                    <CheckCircle key={i} className="h-5 w-5 text-yellow-400" />
+                    <CheckCircle className="h-5 w-5 text-yellow-400" key={i} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">&quot;{languageData["Landing.Testimonial1"]}&quot;</p>
@@ -174,7 +174,7 @@ export default async function Page({params}: {params: {lang: string}}) {
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
                   {Array.from({length: 5}).map((_, i) => (
-                    <CheckCircle key={i} className="h-5 w-5 text-yellow-400" />
+                    <CheckCircle className="h-5 w-5 text-yellow-400" key={i} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">&quot;{languageData["Landing.Testimonial2"]}&quot;</p>
@@ -191,7 +191,7 @@ export default async function Page({params}: {params: {lang: string}}) {
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
                   {Array.from({length: 5}).map((_, i) => (
-                    <CheckCircle key={i} className="h-5 w-5 text-yellow-400" />
+                    <CheckCircle className="h-5 w-5 text-yellow-400" key={i} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">&quot;{languageData["Landing.Testimonial3"]}&quot;</p>
@@ -215,16 +215,16 @@ export default async function Page({params}: {params: {lang: string}}) {
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link href="/evidence">
-              <Button size="lg" className="w-full bg-white px-8 py-3 text-lg text-red-600 hover:bg-gray-100 sm:w-auto">
+              <Button className="w-full bg-white px-8 py-3 text-lg text-red-600 hover:bg-gray-100 sm:w-auto" size="lg">
                 {languageData["Landing.StartRefund"]}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/evidence/login">
               <Button
-                variant="outline"
+                className="w-full border-white bg-transparent px-8 py-3 text-lg text-white hover:bg-white hover:text-red-600 sm:w-auto"
                 size="lg"
-                className="w-full border-white bg-transparent px-8 py-3 text-lg text-white hover:bg-white hover:text-red-600 sm:w-auto">
+                variant="outline">
                 {languageData["Landing.LoginToAccount"]}
               </Button>
             </Link>
