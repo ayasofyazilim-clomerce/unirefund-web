@@ -34,7 +34,6 @@ interface FormResponse {
 // Constants
 export const STEP_KEYS = ["select-individual", "select-user-and-role", "fill-details"] as const;
 export const INITIAL_STEP = 0;
-export const MAX_DRAWER_HEIGHT = 500;
 
 type StepKey = (typeof STEP_KEYS)[number];
 
@@ -203,7 +202,7 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
       <DrawerContent
         aria-describedby="individual-drawer-description"
         aria-labelledby="individual-drawer-title"
-        className={`bottom-4 mx-auto h-full max-h-[${MAX_DRAWER_HEIGHT}px] max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden`}
+        className="bottom-4 mx-auto h-full max-h-[80dvh] max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
         role="dialog">
         <DrawerHeader>
           <h2 className="text-lg font-semibold" id="individual-drawer-title">

@@ -4,16 +4,21 @@ import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/type
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
+type UISchema = {
+  "ui:className"?: string;
+};
 export function PhoneWithTypeField({languageData}: {languageData: CRMServiceServiceResource}) {
   function Field(props: FieldProps) {
+    const {uiSchema: _uiSchema} = props;
+    const uiSchema = _uiSchema as unknown as UISchema;
     return (
       <SchemaForm
-        className={cn("p-px", props.className)}
+        className={cn("p-px", props.className, uiSchema["ui:className"])}
         formData={props.formData as object}
-        onChange={({formData}) => {
+        onChange={({formData: editedFormData}) => {
           props.onChange({
             ...props.formData,
-            ...formData,
+            ...editedFormData,
           });
         }}
         schema={props.schema}
@@ -31,7 +36,7 @@ export function PhoneWithTypeField({languageData}: {languageData: CRMServiceServ
               "ui:widget": "phone-2",
             },
             type: {
-              "ui:className": " [&_button]:whitespace-normal",
+              "ui:className": " [&_button]:whitespace-normal  [&_button]:p-1",
             },
           },
         })}
