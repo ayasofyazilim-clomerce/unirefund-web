@@ -56,13 +56,13 @@ export default async function Page({
   return (
     <CreateSubTaxFreeForm
       customList={customResponse.data.items || []}
-      languageData={languageData}
-      typeCode="CUSTOM"
       formData={{
         name: " ",
         typeCode: "CUSTOM",
         parentId: partyId,
       }}
+      languageData={languageData}
+      typeCode="CUSTOM"
     />
   );
 }

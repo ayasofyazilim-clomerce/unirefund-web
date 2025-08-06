@@ -48,14 +48,14 @@ export default async function Page({
   const taxOfficeList = taxOfficeResponse.status === "fulfilled" ? taxOfficeResponse.value.data.items || [] : [];
   return (
     <CreateSubMerchantForm
-      languageData={languageData}
-      taxOfficeList={taxOfficeList}
-      typeCode="STORE"
       formData={{
         name: " ",
         typeCode: "STORE",
         parentId: partyId,
       }}
+      languageData={languageData}
+      taxOfficeList={taxOfficeList}
+      typeCode="STORE"
     />
   );
 }

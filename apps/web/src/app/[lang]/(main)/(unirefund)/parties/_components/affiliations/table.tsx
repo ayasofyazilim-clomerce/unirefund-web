@@ -1,18 +1,18 @@
 "use client";
 
-import {PagedResultDto_AffiliationListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {PagedResultDto_AffiliationListResponseDto,UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import {tableData} from "./table-data";
-import {
+import type {
   Volo_Abp_Identity_IdentityRoleDto,
   Volo_Abp_Identity_IdentityUserDto,
 } from "@ayasofyazilim/core-saas/IdentityService";
 import {useState} from "react";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {tableData} from "./table-data";
 import {AffiliationDrawer} from "./drawer";
-import {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+
 
 function AffiliationsTable({
   affiliations,
@@ -55,13 +55,13 @@ function AffiliationsTable({
     <div>
       <TanstackTable {...table} columns={columns} data={affiliations.items || []} rowCount={affiliations.totalCount} />
       <AffiliationDrawer
-        isIndividualsAvailable={isIndividualsAvailable}
         individuals={individuals}
-        open={open}
-        setOpen={setOpen}
+        isIndividualsAvailable={isIndividualsAvailable}
         languageData={languageData}
-        users={users}
+        open={open}
         roles={roles}
+        setOpen={setOpen}
+        users={users}
       />
     </div>
   );

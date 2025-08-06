@@ -1,11 +1,11 @@
 "use client";
 
 import {useTransition} from "react";
-import {CreateIndividualForm as IndividualForm} from "../../_components/individual-form";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {useRouter} from "next/navigation";
-import {getBaseLink} from "@/utils";
 import {toast} from "@/components/ui/sonner";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {getBaseLink} from "@/utils";
+import {CreateIndividualForm as IndividualForm} from "../../_components/individual-form";
 
 export function CreateIndividualForm({languageData}: {languageData: CRMServiceServiceResource}) {
   const router = useRouter();
@@ -13,15 +13,15 @@ export function CreateIndividualForm({languageData}: {languageData: CRMServiceSe
   return (
     <IndividualForm
       languageData={languageData}
-      useDefaultSubmit={true}
-      startTransition={startTransition}
       onSubmit={(response) => {
         if (response.type === "success") {
-          router.push(getBaseLink(`parties/individuals/${response.data.id!}/details`));
-        } else if(response.type === "api-error") {
+          router.push(getBaseLink(`parties/individuals/${response.data.id || "undefined"}/details`));
+        } else {
           toast.error(response.message);
         }
       }}
+      startTransition={startTransition}
+      useDefaultSubmit
     />
   );
 }

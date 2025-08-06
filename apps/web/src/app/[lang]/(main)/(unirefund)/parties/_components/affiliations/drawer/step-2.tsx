@@ -1,8 +1,5 @@
-import {IndividualDrawer} from ".";
-import {Label} from "@/components/ui/label";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
+import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export interface SelectUserAndRoleStepProps {
   languageData: CRMServiceServiceResource;
@@ -14,8 +11,9 @@ export interface SelectUserAndRoleStepProps {
 
 export function SelectUserAndRoleStep({languageData, selectedIndividual}: SelectUserAndRoleStepProps) {
   return (
-    <>
-      <div className="flex w-full flex-col gap-2"></div>
-    </>
+    <div className="flex w-full flex-col gap-2">
+      {selectedIndividual ? <p>{selectedIndividual.firstname}</p> : null}
+      {languageData.Back}
+    </div>
   );
 }

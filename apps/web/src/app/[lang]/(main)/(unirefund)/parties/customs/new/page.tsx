@@ -52,5 +52,5 @@ export default async function Page({
   const [customResponse] = apiRequests.optionalRequests;
 
   const customList = customResponse.status === "fulfilled" ? customResponse.value.data.items || [] : [];
-  return <CreateCustomForm languageData={languageData} customList={customList} />;
+  return <CreateCustomForm customList={customList} languageData={languageData} />;
 }

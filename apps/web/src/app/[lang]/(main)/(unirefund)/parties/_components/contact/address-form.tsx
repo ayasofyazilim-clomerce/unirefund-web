@@ -2,24 +2,22 @@
 
 import {toast} from "@/components/ui/sonner";
 import {AddressField} from "@repo/ui/components/address/field";
-
 import {Switch} from "@/components/ui/switch";
-import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  UniRefund_CRMService_Addresses_AddressDto as AddressDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Addresses_AddressDto as AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Addresses_AddressDto as $AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {putMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams} from "next/navigation";
-import {TransitionStartFunction, useTransition} from "react";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+
 export function AddressForm({
   languageData,
   addresses,
@@ -47,7 +45,7 @@ export function AddressForm({
       },
       type: {
         showHeader: true,
-        content: (row) => <div> {(row.type && languageData[`CRM.address.type.${row.type}`]) || row.type}</div>,
+        content: (row) => TypeRow({row, languageData}),
       },
     },
     expandRowTrigger: "addressLine",
@@ -68,7 +66,7 @@ export function AddressForm({
       fields: {
         address: AddressField({
           className: "col-span-full p-4 border rounded-md",
-          languageData: languageData,
+          languageData,
           hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
         }),
       },
@@ -89,22 +87,25 @@ export function AddressForm({
 
   return (
     <TanstackTable
-      title={languageData["CRM.addresses"]}
+      columnOrder={["addressLine", "type", "isPrimary"]}
       columnVisibility={{
         columns: ["addressLine", "type", "isPrimary"],
         type: "show",
       }}
       columns={columns}
       data={addresses}
-      columnOrder={["addressLine", "type", "isPrimary"]}
       expandedRowComponent={(row) => EditForm({row, languageData, partyId, isPending, startTransition})}
       fillerColumn="addressLine"
       showPagination={false}
       tableActions={tableActions}
+      title={languageData["CRM.addresses"]}
     />
   );
 }
 
+function TypeRow({row, languageData}: {row: AddressDto; languageData: CRMServiceServiceResource}) {
+  return <div> {(row.type && languageData[`CRM.address.type.${row.type}`]) || row.type}</div>;
+}
 function EditForm({
   row,
   partyId,
@@ -120,29 +121,18 @@ function EditForm({
 }) {
   return (
     <SchemaForm<AddressDto>
-      key={JSON.stringify(row)}
-      schema={$AddressDto}
+      defaultSubmitClassName="p-2 pt-0"
+      disabled={isPending}
       fields={{
         address: AddressField({
           className: "col-span-full p-2 bg-white",
-          languageData: languageData,
+          languageData,
           hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
         }),
       }}
-      withScrollArea={false}
-      defaultSubmitClassName="p-2 pt-0"
-      uiSchema={createUiSchemaWithResource({
-        resources: languageData,
-        schema: $AddressDto,
-        name: "CRM.address",
-        extend: {
-          "ui:field": "address",
-        },
-      })}
-      disabled={isPending}
       filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
-      submitText={languageData["CRM.address.update"]}
+      key={JSON.stringify(row)}
       onSubmit={({formData}) => {
         if (!formData) return;
         startTransition(() => {
@@ -154,6 +144,17 @@ function EditForm({
           });
         });
       }}
+      schema={$AddressDto}
+      submitText={languageData["CRM.address.update"]}
+      uiSchema={createUiSchemaWithResource({
+        resources: languageData,
+        schema: $AddressDto,
+        name: "CRM.address",
+        extend: {
+          "ui:field": "address",
+        },
+      })}
+      withScrollArea={false}
     />
   );
 }
@@ -175,8 +176,8 @@ function IsPrimaryAction({
 }) {
   const switchComponent = (
     <Switch
-      disabled={isActive || isPending}
       checked={row.isPrimary === true}
+      disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {
           void putMerchantAddressesByMerchantIdApi({

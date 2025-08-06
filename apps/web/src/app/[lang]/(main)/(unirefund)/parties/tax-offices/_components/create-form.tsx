@@ -1,24 +1,23 @@
 "use client";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto as $CreateTaxOfficeDto,
+import type {
   UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto as CreateTaxOfficeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
+  $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto as $CreateTaxOfficeDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {postTaxOfficeApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {
-  applyFieldDependencies,
-  createUiSchemaWithResource,
-  DependencyConfig,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
@@ -88,7 +87,7 @@ export default function CreateTaxOfficeForm({
   const fields = {
     address: AddressField({
       className: "col-span-full p-4 border rounded-md",
-      languageData: languageData,
+      languageData,
       hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
     }),
     email: EmailWithTypeField({languageData}),
@@ -131,23 +130,19 @@ export default function CreateTaxOfficeForm({
   const transformedSchema = applyFieldDependencies($CreateTaxOfficeDto, dependencies);
   return (
     <SchemaForm<CreateTaxOfficeDto>
-      schema={transformedSchema}
-      fields={fields}
-      widgets={widgets}
+      defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
       disabled={isPending}
-      locale={lang}
+      fields={fields}
       filter={{
         type: "exclude",
         keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
       }}
       formData={formData}
-      uiSchema={uiSchema}
-      defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
-      submitText={languageData["Form.TaxOffice.Create"]}
-      onSubmit={({formData}) => {
-        if (!formData) return;
+      locale={lang}
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
         startTransition(() => {
-          void postTaxOfficeApi(formData).then((response) => {
+          void postTaxOfficeApi(editedFormData).then((response) => {
             handlePostResponse(response, router, {
               prefix: getBaseLink("parties/tax-offices"),
               suffix: "details",
@@ -155,6 +150,10 @@ export default function CreateTaxOfficeForm({
           });
         });
       }}
+      schema={transformedSchema}
+      submitText={languageData["Form.TaxOffice.Create"]}
+      uiSchema={uiSchema}
+      widgets={widgets}
     />
   );
 }

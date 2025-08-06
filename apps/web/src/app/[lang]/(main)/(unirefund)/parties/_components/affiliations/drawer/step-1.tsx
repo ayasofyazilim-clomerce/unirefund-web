@@ -1,8 +1,8 @@
-import {IndividualDrawer} from ".";
 import {Label} from "@/components/ui/label";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {IndividualDrawer} from ".";
 
 export interface SelectIndividualStepProps {
   languageData: CRMServiceServiceResource;
@@ -24,21 +24,21 @@ export function SelectIndividualStep({
   return (
     <>
       <div className="flex w-full flex-col gap-2">
-        <Label htmlFor="individuals-combobox" className="text-slate-600">
+        <Label className="text-slate-600" htmlFor="individuals-combobox">
           {languageData["Form.Merchant.affiliation.individuals"]}
         </Label>
         <Combobox<IndividualListResponseDto>
+          aria-describedby="individuals-help"
+          disabled={!isIndividualsAvailable}
           id="individuals-combobox"
-          value={selectedIndividual}
           list={individualList}
+          onValueChange={onIndividualSelect}
           selectIdentifier="id"
           selectLabel="firstname"
-          onValueChange={onIndividualSelect}
-          disabled={!isIndividualsAvailable}
-          aria-describedby="individuals-help"
+          value={selectedIndividual}
         />
         {!isIndividualsAvailable && (
-          <p id="individuals-help" className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm" id="individuals-help">
             No individuals available to select
           </p>
         )}

@@ -3,14 +3,12 @@ import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_Merchants_MerchantListResponseDto as $MerchantListResponseDto,
+import type {
   UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantListResponseDto,
   UniRefund_CRMService_Merchants_MerchantStatus as MerchantStatus,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Merchants_MerchantListResponseDto as $MerchantListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
-  TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
@@ -20,6 +18,7 @@ import type {Policy} from "@repo/utils/policies";
 import {Building2, HousePlus, PlusCircle, Store, User} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
+import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type MerchantTable = TanstackTableCreationProps<MerchantListResponseDto>;
@@ -65,21 +64,21 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
           return (
             <div className="flex items-center gap-2">
               <Link
-                href={`${baseLink}/${row.id}/details`}
-                className="flex items-center gap-1 font-medium text-blue-700">
+                className="flex items-center gap-1 font-medium text-blue-700"
+                href={`${baseLink}/${row.id}/details`}>
                 {row.name}
-                {row.isPersonalCompany && (
+                {row.isPersonalCompany ? (
                   <Tooltip>
                     <TooltipTrigger>
-                      <Button variant="outline" className="size-6 p-1" asChild>
+                      <Button asChild className="size-6 p-1" variant="outline">
                         <User className="size-4 text-blue-700" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>{languageData["Merchant.personalCompany"]}</TooltipContent>
                   </Tooltip>
-                )}
+                ) : null}
               </Link>
-              <BadgeByStatus status={row.status} languageData={languageData} />
+              <BadgeByStatus languageData={languageData} status={row.status} />
             </div>
           );
         },
@@ -92,7 +91,7 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
               {row.typeCode === "HEADQUARTER" && <Building2 className="size-4 text-gray-500" />}
               {row.typeCode === "STORE" && <Store className="size-4 text-gray-500" />}
               {row.typeCode === "FRANCHISE" && <HousePlus className="size-4 text-gray-500" />}
-              {languageData[("MerchantTypeCode." + row.typeCode) as keyof typeof languageData]}
+              {languageData[`MerchantTypeCode.${row.typeCode}` as keyof typeof languageData]}
             </div>
           );
         },
@@ -101,10 +100,10 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
         content: (row) => {
           return (
             <>
-              {row.parentId && (
+              {row.parentId ? (
                 <Tooltip>
                   <TooltipTrigger>
-                    <Button variant="outline" size="sm" className="h-6 items-center p-1" asChild>
+                    <Button asChild className="h-6 items-center p-1" size="sm" variant="outline">
                       <Link href={`${baseLink}/${row.parentId}/details`}>
                         <Building2 className="mr-1 size-4" />
                         {row.parentName}
@@ -113,7 +112,7 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
                   </TooltipTrigger>
                   <TooltipContent>{languageData["CRM.openHeadquarter"]}</TooltipContent>
                 </Tooltip>
-              )}
+              ) : null}
             </>
           );
         },
@@ -205,7 +204,7 @@ function BadgeByStatus({
   }
   return (
     <Badge className={cn("px-1", className)}>
-      {languageData[("CRM.PartyStatus." + status) as keyof typeof languageData]}
+      {languageData[`CRM.PartyStatus.${status}` as keyof typeof languageData]}
     </Badge>
   );
 }

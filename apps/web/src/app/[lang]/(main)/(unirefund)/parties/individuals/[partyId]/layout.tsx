@@ -4,11 +4,11 @@ import {getIndividualByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
 import PartyHeader from "../../_components/party-header";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {structuredError} from "@repo/utils/api";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
@@ -47,16 +47,16 @@ export default async function Layout({
     <>
       <PartyHeader
         link={`${baseLink}details`}
-        name={taxFreeDetailResponse?.data?.firstname + " " + taxFreeDetailResponse?.data?.lastname}
+        name={`${taxFreeDetailResponse.data.firstname  } ${  taxFreeDetailResponse.data.lastname}`}
       />
       <TabLayout
-        orientation="vertical"
         classNames={{
           vertical: {
             tabs: "overflow-hidden",
             tabContent: "overflow-hidden",
           },
         }}
+        orientation="vertical"
         tabList={[
           {
             label: languageData["CRM.Details"],

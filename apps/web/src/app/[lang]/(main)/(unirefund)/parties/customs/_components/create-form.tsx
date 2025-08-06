@@ -1,24 +1,23 @@
 "use client";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  $UniRefund_CRMService_Customs_CreateCustomDto as $CreateCustomDto,
+import type {
   UniRefund_CRMService_Customs_CreateCustomDto as CreateCustomDto,
   UniRefund_CRMService_Customs_CustomDto as CustomDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
+  $UniRefund_CRMService_Customs_CreateCustomDto as $CreateCustomDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {postCustomApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {
-  applyFieldDependencies,
-  createUiSchemaWithResource,
-  DependencyConfig,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
@@ -90,7 +89,7 @@ export default function CreateCustomForm({
   const fields = {
     address: AddressField({
       className: "col-span-full p-4 border rounded-md",
-      languageData: languageData,
+      languageData,
       hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
     }),
     email: EmailWithTypeField({languageData}),
@@ -133,23 +132,19 @@ export default function CreateCustomForm({
   const transformedSchema = applyFieldDependencies($CreateCustomDto, dependencies);
   return (
     <SchemaForm<CreateCustomDto>
-      schema={transformedSchema}
-      fields={fields}
-      widgets={widgets}
+      defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
       disabled={isPending}
-      locale={lang}
+      fields={fields}
       filter={{
         type: "exclude",
         keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
       }}
       formData={formData}
-      uiSchema={uiSchema}
-      defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
-      submitText={languageData["Form.Custom.Create"]}
-      onSubmit={({formData}) => {
-        if (!formData) return;
+      locale={lang}
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
         startTransition(() => {
-          void postCustomApi(formData).then((response) => {
+          void postCustomApi(editedFormData).then((response) => {
             handlePostResponse(response, router, {
               prefix: getBaseLink("parties/customs"),
               suffix: "details",
@@ -157,6 +152,10 @@ export default function CreateCustomForm({
           });
         });
       }}
+      schema={transformedSchema}
+      submitText={languageData["Form.Custom.Create"]}
+      uiSchema={uiSchema}
+      widgets={widgets}
     />
   );
 }

@@ -49,14 +49,14 @@ export default async function Page({
   const taxOfficeList = taxOfficeResponse.status === "fulfilled" ? taxOfficeResponse.value.data.items || [] : [];
   return (
     <CreateSubTaxFreeForm
-      languageData={languageData}
-      taxOfficeList={taxOfficeList}
-      typeCode="TAXFREE"
       formData={{
         name: " ",
         typeCode: "TAXFREE",
         parentId: partyId,
       }}
+      languageData={languageData}
+      taxOfficeList={taxOfficeList}
+      typeCode="TAXFREE"
     />
   );
 }

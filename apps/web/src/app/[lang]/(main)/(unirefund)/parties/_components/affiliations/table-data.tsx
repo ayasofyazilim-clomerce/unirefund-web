@@ -1,10 +1,10 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import {Volo_Abp_Identity_IdentityRoleDto as RoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {Volo_Abp_Identity_IdentityRoleDto as RoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {UniRefund_CRMService_Affiliations_AffiliationListResponseDto as AffiliationListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {
   $UniRefund_CRMService_Affiliations_AffiliationListResponseDto as $AffiliationListResponseDto,
   $UniRefund_CRMService_Affiliations_UpdateAffiliationDto as $UpdateAffiliationDto,
-  UniRefund_CRMService_Affiliations_AffiliationListResponseDto as AffiliationListResponseDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {deleteMerchantAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {putMerchantAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
@@ -23,10 +23,11 @@ import {isActionGranted} from "@repo/utils/policies";
 import {PlusCircle, Trash2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams} from "next/navigation";
-import {Dispatch, TransitionStartFunction, useTransition} from "react";
+import type {Dispatch, TransitionStartFunction} from "react";
+import {useTransition} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
-type AffiliationTable = TanstackTableCreationProps<AffiliationListResponseDto>;
+type AffiliationTableType = TanstackTableCreationProps<AffiliationListResponseDto>;
 
 function affiliationTableActions(
   languageData: CRMServiceServiceResource,
@@ -43,7 +44,9 @@ function affiliationTableActions(
       icon: PlusCircle,
       condition: () =>
         isActionGranted(["CRMService.Merchants.Create"], grantedPolicies) && isUsersAvailable && isRolesAvailable,
-      onClick: () => setOpen(true),
+      onClick: () => {
+        setOpen(true);
+      },
     },
   ];
 
@@ -53,8 +56,8 @@ function affiliationTableActions(
 function affiliationColumns(
   locale: string,
   languageData: CRMServiceServiceResource,
-  router: AppRouterInstance,
-  grantedPolicies: Record<Policy, boolean>,
+  // router: AppRouterInstance,
+  // grantedPolicies: Record<Policy, boolean>,
 ) {
   return tanstackTableCreateColumnsByRowData<AffiliationListResponseDto>({
     rows: $AffiliationListResponseDto.properties,
@@ -69,7 +72,7 @@ function affiliationColumns(
   });
 }
 
-function affiliationTable(
+function AffiliationTable(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
@@ -78,10 +81,10 @@ function affiliationTable(
   isUsersAvailable: boolean,
   setOpen: Dispatch<React.SetStateAction<boolean>>,
 ) {
-  const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const {partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
 
-  const table: AffiliationTable = {
+  const table: AffiliationTableType = {
     tableActions: affiliationTableActions(languageData, grantedPolicies, isUsersAvailable, isRolesAvailable, setOpen),
     filters: {
       textFilters: ["name"],
@@ -90,8 +93,8 @@ function affiliationTable(
             roleName: {
               title: languageData["CRM.roleName"],
               options: roles.map((role) => ({
-                label: role.name!,
-                value: role.name!,
+                label: role.name || "",
+                value: role.name || "",
               })),
             },
           }
@@ -118,7 +121,7 @@ function affiliationTable(
 export const tableData = {
   affiliations: {
     columns: affiliationColumns,
-    table: affiliationTable,
+    table: AffiliationTable,
   },
 };
 
@@ -141,10 +144,28 @@ function EditForm({
 }) {
   return (
     <SchemaForm<AffiliationListResponseDto>
+      disabled={isPending}
+      filter={{type: "include", sort: true, keys: ["abpRoleId", "isPrimary", "startDate", "endDate"]}}
+      formData={row}
       key={JSON.stringify(row)}
+      onSubmit={({formData}) => {
+        if (!formData) return;
+        startTransition(() => {
+          void putMerchantAffiliationByIdApi({
+            affiliationId: row.id || "",
+            merchantId: partyId,
+            requestBody: {
+              abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
+              isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
+              startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
+              endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
+            },
+          }).then((res) => {
+            handlePutResponse(res, router);
+          });
+        });
+      }}
       schema={$UpdateAffiliationDto}
-      withScrollArea={false}
-      useDefaultSubmit={false}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
         schema: $UpdateAffiliationDto,
@@ -161,6 +182,7 @@ function EditForm({
           },
         },
       })}
+      useDefaultSubmit={false}
       widgets={{
         roleWidget: CustomComboboxWidget<RoleDto>({
           languageData,
@@ -170,46 +192,29 @@ function EditForm({
           selectLabel: "name",
         }),
       }}
-      disabled={isPending}
-      filter={{type: "include", sort: true, keys: ["abpRoleId", "isPrimary", "startDate", "endDate"]}}
-      formData={row}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        startTransition(() => {
-          void putMerchantAffiliationByIdApi({
-            affiliationId: row.id!,
-            merchantId: partyId,
-            requestBody: {
-              abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
-              isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
-              startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
-              endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
-            },
-          }).then((res) => {
-            handlePutResponse(res, router);
-          });
-        });
-      }}>
+      withScrollArea={false}>
       <div className="flex justify-end gap-2 bg-white px-2 pb-2">
         <ConfirmDialog
-          title={languageData["Form.Merchant.affiliation.delete"]}
-          description={languageData["Form.Merchant.affiliation.delete.confirm"]}
-          loading={isPending}
-          closeProps={{children: languageData["Cancel"]}}
+          closeProps={{children: languageData.Cancel}}
           confirmProps={{
             type: "button",
             children: languageData["Form.Merchant.affiliation.delete"],
             closeAfterConfirm: true,
             onConfirm: () => {
               startTransition(() => {
-                void deleteMerchantAffiliationByIdApi({merchantId: partyId, affiliationId: row.id!}).then((res) => {
-                  handleDeleteResponse(res, router);
-                });
+                void deleteMerchantAffiliationByIdApi({merchantId: partyId, affiliationId: row.id || ""}).then(
+                  (res) => {
+                    handleDeleteResponse(res, router);
+                  },
+                );
               });
             },
           }}
+          description={languageData["Form.Merchant.affiliation.delete.confirm"]}
+          loading={isPending}
+          title={languageData["Form.Merchant.affiliation.delete"]}
           type="without-trigger">
-          <Button type="button" variant="outline" className="">
+          <Button className="" type="button" variant="outline">
             <Trash2Icon className="mr-2 size-4" />
             {languageData["Form.Merchant.affiliation.delete"]}
           </Button>

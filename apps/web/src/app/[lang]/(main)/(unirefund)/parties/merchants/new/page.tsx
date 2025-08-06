@@ -54,5 +54,5 @@ export default async function Page({
 
   const taxOfficeList = taxOfficeResponse.status === "fulfilled" ? taxOfficeResponse.value.data.items || [] : [];
   const merchantList = merchantResponse.status === "fulfilled" ? merchantResponse.value.data.items || [] : [];
-  return <CreateMerchantForm languageData={languageData} taxOfficeList={taxOfficeList} merchantList={merchantList} />;
+  return <CreateMerchantForm languageData={languageData} merchantList={merchantList} taxOfficeList={taxOfficeList} />;
 }

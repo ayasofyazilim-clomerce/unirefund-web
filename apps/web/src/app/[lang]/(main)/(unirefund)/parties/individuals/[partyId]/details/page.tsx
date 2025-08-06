@@ -57,45 +57,45 @@ export default async function Page({
 
   return (
     <div className="grid h-full gap-4 overflow-auto md:grid-cols-2">
-      <IndividualForm languageData={languageData} individualDetails={individualDetailResponse.data} />
+      <IndividualForm individualDetails={individualDetailResponse.data} languageData={languageData} />
       <div className="grid gap-4 self-start">
         <FormReadyComponent
-          variant="compact"
-          active={phoneResponse?.status !== "fulfilled"}
+          active={phoneResponse.status !== "fulfilled"}
           content={{
             icon: <OctagonAlert className="size-10 text-gray-400" />,
             title: languageData["CRM.Messages.PhonesError.Title"],
             message: languageData["CRM.Messages.PhonesError.Message"],
-          }}>
+          }}
+          variant="compact">
           <PhoneForm
             languageData={languageData}
-            phones={phoneResponse?.status === "fulfilled" ? phoneResponse.value.data : []}
+            phones={phoneResponse.status === "fulfilled" ? phoneResponse.value.data : []}
           />
         </FormReadyComponent>
         <FormReadyComponent
-          variant="compact"
-          active={emailResponse?.status !== "fulfilled"}
+          active={emailResponse.status !== "fulfilled"}
           content={{
             icon: <OctagonAlert className="size-10 text-gray-400" />,
             title: languageData["CRM.Messages.EmailsError.Title"],
             message: languageData["CRM.Messages.EmailsError.Message"],
-          }}>
+          }}
+          variant="compact">
           <EmailForm
+            emails={emailResponse.status === "fulfilled" ? emailResponse.value.data : []}
             languageData={languageData}
-            emails={emailResponse?.status === "fulfilled" ? emailResponse.value.data : []}
           />
         </FormReadyComponent>
         <FormReadyComponent
-          variant="compact"
-          active={addressResponse?.status !== "fulfilled"}
+          active={addressResponse.status !== "fulfilled"}
           content={{
             icon: <OctagonAlert className="size-10 text-gray-400" />,
             title: languageData["CRM.Messages.AddressesError.Title"],
             message: languageData["CRM.Messages.AddressesError.Message"],
-          }}>
+          }}
+          variant="compact">
           <AddressForm
+            addresses={addressResponse.status === "fulfilled" ? addressResponse.value.data : []}
             languageData={languageData}
-            addresses={addressResponse?.status === "fulfilled" ? addressResponse.value.data : []}
           />
         </FormReadyComponent>
       </div>

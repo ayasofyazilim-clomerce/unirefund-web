@@ -22,13 +22,13 @@ export default async function Page({
 
   return (
     <CreateSubTaxOfficeForm
-      languageData={languageData}
-      typeCode="TAXOFFICE"
       formData={{
         name: " ",
         typeCode: "TAXOFFICE",
         parentId: partyId,
       }}
+      languageData={languageData}
+      typeCode="TAXOFFICE"
     />
   );
 }

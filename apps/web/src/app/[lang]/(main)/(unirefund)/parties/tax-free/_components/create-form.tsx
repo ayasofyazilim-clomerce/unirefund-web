@@ -1,29 +1,28 @@
 "use client";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as $CreateTaxFreeDto,
+import type {
   UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as CreateTaxFreeDto,
   UniRefund_CRMService_TaxFrees_TaxFreeDto as TaxFreeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
+  $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as $CreateTaxFreeDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {postTaxFreeApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {
-  applyFieldDependencies,
-  createUiSchemaWithResource,
-  DependencyConfig,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
-import {checkIsFormReady} from "../../_components/is-form-ready";
-import {FormReadyComponent} from "@repo/ui/form-ready";
+import {CheckIsFormReady} from "../../_components/is-form-ready";
 
 export default function CreateTaxFreeForm({
   taxOfficeList,
@@ -102,7 +101,7 @@ export default function CreateTaxFreeForm({
   const fields = {
     address: AddressField({
       className: "col-span-full p-4 border rounded-md",
-      languageData: languageData,
+      languageData,
       hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
     }),
     email: EmailWithTypeField({languageData}),
@@ -149,7 +148,7 @@ export default function CreateTaxFreeForm({
     },
   };
   const transformedSchema = applyFieldDependencies($CreateTaxFreeDto, dependencies);
-  const isFormReady = checkIsFormReady({
+  const isFormReady = CheckIsFormReady({
     lang,
     languageData,
     taxOfficeListLength: taxOfficeList.length,
@@ -157,23 +156,19 @@ export default function CreateTaxFreeForm({
   return (
     <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
       <SchemaForm<CreateTaxFreeDto>
-        schema={transformedSchema}
-        fields={fields}
-        widgets={widgets}
+        defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
         disabled={isPending}
-        locale={lang}
+        fields={fields}
         filter={{
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
         formData={formData}
-        uiSchema={uiSchema}
-        defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
-        submitText={languageData["Form.TaxFree.Create"]}
-        onSubmit={({formData}) => {
-          if (!formData) return;
+        locale={lang}
+        onSubmit={({formData: editedFormData}) => {
+          if (!editedFormData) return;
           startTransition(() => {
-            void postTaxFreeApi(formData).then((response) => {
+            void postTaxFreeApi(editedFormData).then((response) => {
               handlePostResponse(response, router, {
                 prefix: getBaseLink("parties/tax-free"),
                 suffix: "details",
@@ -181,6 +176,10 @@ export default function CreateTaxFreeForm({
             });
           });
         }}
+        schema={transformedSchema}
+        submitText={languageData["Form.TaxFree.Create"]}
+        uiSchema={uiSchema}
+        widgets={widgets}
       />
     </FormReadyComponent>
   );

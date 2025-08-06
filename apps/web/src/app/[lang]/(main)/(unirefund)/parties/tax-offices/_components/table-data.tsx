@@ -3,11 +3,11 @@ import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto as $TaxOfficeListResponseDto,
+import type {
   UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto as TaxOfficeListResponseDto,
-  UniRefund_CRMService_TaxOffices_TaxOfficeStatus as TaxOfficeStatus,
+  UniRefund_CRMService_TaxOffices_TaxOfficeStatus as TaxOfficeStatus} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  $UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto as $TaxOfficeListResponseDto
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   TanstackTableCreationProps,
@@ -19,6 +19,7 @@ import type {Policy} from "@repo/utils/policies";
 import {Building2, PlusCircle, Store} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
+import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type TaxOfficeTable = TanstackTableCreationProps<TaxOfficeListResponseDto>;
@@ -64,11 +65,11 @@ function taxOfficeColumns(locale: string, languageData: CRMServiceServiceResourc
           return (
             <div className="flex items-center gap-2">
               <Link
-                href={`${baseLink}/${row.id}/details`}
-                className="flex items-center gap-1 font-medium text-blue-700">
+                className="flex items-center gap-1 font-medium text-blue-700"
+                href={`${baseLink}/${row.id}/details`}>
                 {row.name}
               </Link>
-              <BadgeByStatus status={row.status} languageData={languageData} />
+              <BadgeByStatus languageData={languageData} status={row.status} />
             </div>
           );
         },
@@ -80,7 +81,7 @@ function taxOfficeColumns(locale: string, languageData: CRMServiceServiceResourc
             <div className="flex items-center gap-1 bg-transparent">
               {row.typeCode === "HEADQUARTER" && <Building2 className="size-4 text-gray-500" />}
               {row.typeCode === "TAXOFFICE" && <Store className="size-4 text-gray-500" />}
-              {languageData[("Form.TaxOffice.typeCode." + row.typeCode) as keyof typeof languageData]}
+              {languageData[(`Form.TaxOffice.typeCode.${  row.typeCode}`) as keyof typeof languageData]}
             </div>
           );
         },
@@ -89,10 +90,9 @@ function taxOfficeColumns(locale: string, languageData: CRMServiceServiceResourc
         content: (row) => {
           return (
             <>
-              {row.parentId && (
-                <Tooltip>
+              {row.parentId ? <Tooltip>
                   <TooltipTrigger>
-                    <Button variant="outline" size="sm" className="h-6 items-center p-1" asChild>
+                    <Button asChild className="h-6 items-center p-1" size="sm" variant="outline">
                       <Link href={`${baseLink}/${row.parentId}/details`}>
                         <Building2 className="mr-1 size-4" />
                         {row.parentName}
@@ -100,8 +100,7 @@ function taxOfficeColumns(locale: string, languageData: CRMServiceServiceResourc
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>{languageData["CRM.openHeadquarter"]}</TooltipContent>
-                </Tooltip>
-              )}
+                </Tooltip> : null}
             </>
           );
         },
@@ -188,7 +187,7 @@ function BadgeByStatus({
   }
   return (
     <Badge className={cn("px-1", className)}>
-      {languageData[("CRM.PartyStatus." + status) as keyof typeof languageData]}
+      {languageData[(`CRM.PartyStatus.${  status}`) as keyof typeof languageData]}
     </Badge>
   );
 }

@@ -5,9 +5,9 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import type {GetApiCrmServiceRefundpointsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import SubStoresTable from "../../_components/table";
-import {GetApiCrmServiceRefundpointsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 
 interface SearchParamType {
   maxResultCount?: number;
@@ -51,5 +51,5 @@ export default async function Page({
 
   const [subStoresResponse] = apiRequests.requiredRequests;
 
-  return <SubStoresTable languageData={languageData} refundPoints={subStoresResponse.data} newLink="sub-stores/new" />;
+  return <SubStoresTable languageData={languageData} newLink="sub-stores/new" refundPoints={subStoresResponse.data} />;
 }

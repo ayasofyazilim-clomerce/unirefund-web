@@ -8,11 +8,11 @@ import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {getMerchantProductGroupByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "@/utils";
 import ProductGroups from "./table";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {structuredError} from "@repo/utils/api";
 
 async function getApiRequests(partyId: string) {
   try {
@@ -42,7 +42,6 @@ export default async function Page({
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests(partyId);
-  console.log("apiRequests", apiRequests);
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }

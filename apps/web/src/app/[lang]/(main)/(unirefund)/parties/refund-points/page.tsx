@@ -56,8 +56,8 @@ export default async function Page({params, searchParams}: {params: {lang: strin
     <div className="mt-6 rounded-lg border border-gray-200 p-6">
       <RefundPointsTable
         languageData={languageData}
-        refundPoints={refundPointResponse.data}
         newLink="refund-points/new"
+        refundPoints={refundPointResponse.data}
       />
     </div>
   );

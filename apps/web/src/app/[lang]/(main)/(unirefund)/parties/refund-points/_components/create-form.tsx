@@ -1,29 +1,28 @@
 "use client";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  $UniRefund_CRMService_RefundPoints_CreateRefundPointDto as $CreateRefundPointDto,
+import type {
   UniRefund_CRMService_RefundPoints_CreateRefundPointDto as CreateRefundPointDto,
   UniRefund_CRMService_RefundPoints_RefundPointDto as RefundPointDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
+  $UniRefund_CRMService_RefundPoints_CreateRefundPointDto as $CreateRefundPointDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {postRefundPointApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {
-  applyFieldDependencies,
-  createUiSchemaWithResource,
-  DependencyConfig,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
-import {checkIsFormReady} from "../../_components/is-form-ready";
-import {FormReadyComponent} from "@repo/ui/form-ready";
+import {CheckIsFormReady} from "../../_components/is-form-ready";
 
 export default function CreateRefundPointForm({
   taxOfficeList,
@@ -101,7 +100,7 @@ export default function CreateRefundPointForm({
   const fields = {
     address: AddressField({
       className: "col-span-full p-4 border rounded-md",
-      languageData: languageData,
+      languageData,
       hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
     }),
     email: EmailWithTypeField({languageData}),
@@ -150,7 +149,7 @@ export default function CreateRefundPointForm({
   };
 
   const transformedSchema = applyFieldDependencies($CreateRefundPointDto, dependencies);
-  const isFormReady = checkIsFormReady({
+  const isFormReady = CheckIsFormReady({
     lang,
     languageData,
     taxOfficeListLength: taxOfficeList.length,
@@ -158,23 +157,19 @@ export default function CreateRefundPointForm({
   return (
     <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
       <SchemaForm<CreateRefundPointDto>
-        schema={transformedSchema}
-        fields={fields}
-        widgets={widgets}
+        defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
         disabled={isPending}
-        locale={lang}
+        fields={fields}
         filter={{
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
         formData={formData}
-        uiSchema={uiSchema}
-        defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
-        submitText={languageData["Form.RefundPoint.Create"]}
-        onSubmit={({formData}) => {
-          if (!formData) return;
+        locale={lang}
+        onSubmit={({formData: editedFormData}) => {
+          if (!editedFormData) return;
           startTransition(() => {
-            void postRefundPointApi(formData).then((response) => {
+            void postRefundPointApi(editedFormData).then((response) => {
               handlePostResponse(response, router, {
                 prefix: getBaseLink("parties/refund-points"),
                 suffix: "details",
@@ -182,6 +177,10 @@ export default function CreateRefundPointForm({
             });
           });
         }}
+        schema={transformedSchema}
+        submitText={languageData["Form.RefundPoint.Create"]}
+        uiSchema={uiSchema}
+        widgets={widgets}
       />
     </FormReadyComponent>
   );

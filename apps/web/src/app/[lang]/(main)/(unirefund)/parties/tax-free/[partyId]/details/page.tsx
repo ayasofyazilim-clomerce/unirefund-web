@@ -11,13 +11,13 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {OctagonAlert} from "lucide-react";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import {TaxFreeForm} from "./_components/info-form";
 import {PhoneForm} from "../../../_components/contact/phone-form";
 import {EmailForm} from "../../../_components/contact/email-form";
 import {AddressForm} from "../../../_components/contact/address-form";
-import {FormReadyComponent} from "@repo/ui/form-ready";
-import {OctagonAlert} from "lucide-react";
+import {TaxFreeForm} from "./_components/info-form";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
@@ -65,42 +65,42 @@ export default async function Page({
       />
       <div className="grid gap-4 self-start">
         <FormReadyComponent
-          variant="compact"
-          active={phoneResponse?.status !== "fulfilled"}
+          active={phoneResponse.status !== "fulfilled"}
           content={{
             icon: <OctagonAlert className="size-10 text-gray-400" />,
             title: languageData["CRM.Messages.PhonesError.Title"],
             message: languageData["CRM.Messages.PhonesError.Message"],
-          }}>
+          }}
+          variant="compact">
           <PhoneForm
             languageData={languageData}
-            phones={phoneResponse?.status === "fulfilled" ? phoneResponse.value.data : []}
+            phones={phoneResponse.status === "fulfilled" ? phoneResponse.value.data : []}
           />
         </FormReadyComponent>
         <FormReadyComponent
-          variant="compact"
-          active={emailResponse?.status !== "fulfilled"}
+          active={emailResponse.status !== "fulfilled"}
           content={{
             icon: <OctagonAlert className="size-10 text-gray-400" />,
             title: languageData["CRM.Messages.EmailsError.Title"],
             message: languageData["CRM.Messages.EmailsError.Message"],
-          }}>
+          }}
+          variant="compact">
           <EmailForm
+            emails={emailResponse.status === "fulfilled" ? emailResponse.value.data : []}
             languageData={languageData}
-            emails={emailResponse?.status === "fulfilled" ? emailResponse.value.data : []}
           />
         </FormReadyComponent>
         <FormReadyComponent
-          variant="compact"
-          active={addressResponse?.status !== "fulfilled"}
+          active={addressResponse.status !== "fulfilled"}
           content={{
             icon: <OctagonAlert className="size-10 text-gray-400" />,
             title: languageData["CRM.Messages.AddressesError.Title"],
             message: languageData["CRM.Messages.AddressesError.Message"],
-          }}>
+          }}
+          variant="compact">
           <AddressForm
+            addresses={addressResponse.status === "fulfilled" ? addressResponse.value.data : []}
             languageData={languageData}
-            addresses={addressResponse?.status === "fulfilled" ? addressResponse.value.data : []}
           />
         </FormReadyComponent>
       </div>

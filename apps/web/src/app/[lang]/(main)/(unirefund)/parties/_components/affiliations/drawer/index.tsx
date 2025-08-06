@@ -1,18 +1,19 @@
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTrigger} from "@/components/ui/drawer";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {
+import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
   UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {Dispatch, SetStateAction, useCallback, useMemo, useState, useTransition} from "react";
-import {CreateIndividualForm} from "../../individual-form";
-import {StepperFooter} from "./footer";
-import {SelectIndividualStep} from "./step-1";
-import {
+import type {Dispatch, SetStateAction} from "react";
+import {useCallback, useMemo, useState, useTransition} from "react";
+import type {
   Volo_Abp_Identity_IdentityUserDto,
   Volo_Abp_Identity_IdentityRoleDto,
 } from "@ayasofyazilim/core-saas/IdentityService";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {CreateIndividualForm} from "../../individual-form";
+import {StepperFooter} from "./footer";
+import {SelectIndividualStep} from "./step-1";
 
 // Types
 interface AffiliationDrawerProps {
@@ -53,9 +54,6 @@ export function AffiliationDrawer({
   languageData,
   individuals,
   isIndividualsAvailable,
-
-  users,
-  roles,
 }: AffiliationDrawerProps) {
   // State management
   const [currentStep, setCurrentStep] = useState(INITIAL_STEP);
@@ -114,48 +112,48 @@ export function AffiliationDrawer({
   }, []);
 
   const handleIndividualUpdate = useCallback((newIndividual: IndividualListResponseDto) => {
-    setIndividualId(newIndividual.id!);
+    setIndividualId(newIndividual.id || null);
     setIndividualList((prev) => [...prev, newIndividual]);
     setCurrentStep((prev) => prev + 1);
   }, []);
 
   return (
-    <Drawer dismissible={false} open={open} nested onOpenChange={handleDrawerOpenChange}>
+    <Drawer dismissible={false} nested onOpenChange={handleDrawerOpenChange} open={open}>
       <DrawerContent
-        className="bottom-4 mx-auto max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
-        role="dialog"
+        aria-describedby="drawer-description"
         aria-labelledby="drawer-title"
-        aria-describedby="drawer-description">
+        className="bottom-4 mx-auto max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
+        role="dialog">
         <DrawerHeader>
-          <h2 id="drawer-title" className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold" id="drawer-title">
             {currentStepTitle}
           </h2>
-          <p id="drawer-description" className="sr-only">
+          <p className="sr-only" id="drawer-description">
             Step {currentStep + 1} of {STEP_KEYS.length}: {currentStepTitle}
           </p>
         </DrawerHeader>
 
         <div className="content flex flex-col items-center justify-between gap-2 p-4 pt-0">
-          {isFirstStep && (
+          {isFirstStep ? (
             <SelectIndividualStep
-              languageData={languageData}
               individualList={individualList}
-              selectedIndividual={selectedIndividual}
+              isIndividualsAvailable={isIndividualsAvailable}
+              languageData={languageData}
               onIndividualSelect={handleIndividualSelect}
               onIndividualUpdate={handleIndividualUpdate}
-              isIndividualsAvailable={isIndividualsAvailable}
+              selectedIndividual={selectedIndividual}
             />
-          )}
+          ) : null}
           {}
         </div>
 
         <StepperFooter
-          currentStep={currentStep}
-          languageData={languageData}
           buttonText={buttonText}
+          currentStep={currentStep}
           isNextStepDisabled={isNextStepDisabled}
-          onPreviousStep={handlePreviousStep}
+          languageData={languageData}
           onNextStep={handleNextStep}
+          onPreviousStep={handlePreviousStep}
           onStepChange={handleStepChange}
         />
       </DrawerContent>
@@ -195,43 +193,43 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
   const cancelText = languageData.Cancel || "Cancel";
 
   return (
-    <Drawer open={open} onOpenChange={handleOpenChange}>
+    <Drawer onOpenChange={handleOpenChange} open={open}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-full" disabled={isPending} aria-label="Create new individual">
+        <Button aria-label="Create new individual" className="w-full" disabled={isPending} variant="outline">
           {createButtonText}
         </Button>
       </DrawerTrigger>
 
       <DrawerContent
-        className={`bottom-4 mx-auto h-full max-h-[${MAX_DRAWER_HEIGHT}px] max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden`}
-        role="dialog"
+        aria-describedby="individual-drawer-description"
         aria-labelledby="individual-drawer-title"
-        aria-describedby="individual-drawer-description">
+        className={`bottom-4 mx-auto h-full max-h-[${MAX_DRAWER_HEIGHT}px] max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden`}
+        role="dialog">
         <DrawerHeader>
-          <h2 id="individual-drawer-title" className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold" id="individual-drawer-title">
             {createButtonText}
           </h2>
-          <p id="individual-drawer-description" className="sr-only">
+          <p className="sr-only" id="individual-drawer-description">
             Form to create a new individual
           </p>
         </DrawerHeader>
 
         <CreateIndividualForm
-          languageData={languageData}
           className="rounded-none border-none p-4 pt-0"
           isPending={isPending}
+          languageData={languageData}
           onSubmit={handleFormSubmit}
           startTransition={startTransition}>
           <div className="sticky bottom-0 flex items-center justify-between gap-2 border-t bg-white p-2">
             <Button
-              type="button"
-              onClick={handleClose}
-              variant="outline"
+              aria-label="Cancel individual creation"
               disabled={isPending}
-              aria-label="Cancel individual creation">
+              onClick={handleClose}
+              type="button"
+              variant="outline">
               {cancelText}
             </Button>
-            <Button type="submit" disabled={isPending} aria-label="Submit individual creation form">
+            <Button aria-label="Submit individual creation form" disabled={isPending} type="submit">
               {isPending ? "Creating..." : createButtonText}
             </Button>
           </div>

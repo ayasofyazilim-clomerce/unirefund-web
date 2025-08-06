@@ -2,23 +2,22 @@
 
 import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
-import {
-  $UniRefund_CRMService_Telephones_TelephoneDto as $TelephoneDto,
-  UniRefund_CRMService_Telephones_TelephoneDto as TelephoneDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Telephones_TelephoneDto as TelephoneDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Telephones_TelephoneDto as $TelephoneDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {putMerchantTelephonesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {PhoneWithTypeField} from "./phone-with-type";
-
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
-import {TransitionStartFunction, useTransition} from "react";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {PhoneWithTypeField} from "./phone-with-type";
+
 export function PhoneForm({languageData, phones}: {languageData: CRMServiceServiceResource; phones: TelephoneDto[]}) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
@@ -40,7 +39,7 @@ export function PhoneForm({languageData, phones}: {languageData: CRMServiceServi
       },
       type: {
         showHeader: true,
-        content: (row) => <div> {(row.type && languageData[`CRM.telephone.type.${row.type}`]) || row.type}</div>,
+        content: (row) => TypeRow({row, languageData}),
       },
     },
     expandRowTrigger: "number",
@@ -77,7 +76,6 @@ export function PhoneForm({languageData, phones}: {languageData: CRMServiceServi
   ];
   return (
     <TanstackTable
-      title={languageData["CRM.telephones"]}
       columnVisibility={{
         columns: ["id"],
         type: "hide",
@@ -88,8 +86,13 @@ export function PhoneForm({languageData, phones}: {languageData: CRMServiceServi
       fillerColumn="number"
       showPagination={false}
       tableActions={tableActions}
+      title={languageData["CRM.telephones"]}
     />
   );
+}
+
+function TypeRow({row, languageData}: {row: TelephoneDto; languageData: CRMServiceServiceResource}) {
+  return <div> {(row.type && languageData[`CRM.telephone.type.${row.type}`]) || row.type}</div>;
 }
 
 function EditForm({
@@ -110,14 +113,33 @@ function EditForm({
   const router = useRouter();
   return (
     <SchemaForm<TelephoneDto>
-      key={JSON.stringify(row)}
-      locale={lang}
-      schema={$TelephoneDto}
+      defaultSubmitClassName="p-2 pt-0"
+      disabled={isPending}
       fields={{
         telephone: PhoneWithTypeField({languageData}),
       }}
-      withScrollArea={false}
-      defaultSubmitClassName="p-2 pt-0"
+      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
+      formData={row}
+      key={JSON.stringify(row)}
+      locale={lang}
+      onSubmit={({formData}) => {
+        if (!formData) return;
+        const data = {
+          merchantId: partyId,
+          requestBody: {
+            id: row.id,
+            number: formData.number !== row.number ? formData.number : undefined,
+            type: formData.type !== row.type ? formData.type : undefined,
+          },
+        };
+        startTransition(() => {
+          void putMerchantTelephonesByMerchantIdApi(data).then((response) => {
+            handlePutResponse(response, router);
+          });
+        });
+      }}
+      schema={$TelephoneDto}
+      submitText={languageData["CRM.telephone.update"]}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
         schema: $TelephoneDto,
@@ -127,26 +149,7 @@ function EditForm({
           "ui:field": "telephone",
         },
       })}
-      disabled={isPending}
-      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
-      formData={row}
-      submitText={languageData["CRM.telephone.update"]}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        const data = {
-          merchantId: partyId,
-          requestBody: {
-            id: row.id,
-            number: formData.number != row.number ? formData.number : undefined,
-            type: formData.type != row.type ? formData.type : undefined,
-          },
-        };
-        startTransition(() => {
-          void putMerchantTelephonesByMerchantIdApi(data).then((response) => {
-            handlePutResponse(response, router);
-          });
-        });
-      }}
+      withScrollArea={false}
     />
   );
 }
@@ -168,8 +171,8 @@ function IsPrimaryAction({
 }) {
   const switchComponent = (
     <Switch
-      disabled={isActive || isPending}
       checked={row.isPrimary === true}
+      disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {
           void putMerchantTelephonesByMerchantIdApi({

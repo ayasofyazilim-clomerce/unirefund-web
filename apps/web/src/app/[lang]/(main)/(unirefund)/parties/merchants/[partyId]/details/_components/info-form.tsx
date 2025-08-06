@@ -1,13 +1,12 @@
 "use client";
 
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {cn} from "@/lib/utils";
-import {
-  $UniRefund_CRMService_Merchants_UpdateMerchantDto as $UpdateMerchantDto,
+import type {
   UniRefund_CRMService_Merchants_UpdateMerchantDto as UpdateMerchantDto,
   UniRefund_CRMService_Merchants_MerchantDto as MerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Merchants_UpdateMerchantDto as $UpdateMerchantDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {putMerchantByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
@@ -15,6 +14,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export function MerchantForm({
   languageData,
@@ -72,36 +72,16 @@ export function MerchantForm({
   return (
     <SchemaForm<UpdateMerchantDto>
       className="sticky top-0 h-fit"
-      schema={{
-        ...$UpdateMerchantDto,
-        properties: {
-          ...$UpdateMerchantDto.properties,
-          parentId: {
-            type: "string",
-          },
-        },
-      }}
-      locale={lang}
+      defaultSubmitClassName="[&>button]:w-full"
+      disabled={isPending}
+      filter={merchantDetails.typeCode === "STORE" ? {type: "exclude", keys: ["vatNumber"]} : undefined}
       formData={{
         ...merchantDetails,
         parentId: merchantDetails.parentName || "",
-        name: merchantDetails.name!,
-        typeCode: merchantDetails.typeCode!,
+        name: merchantDetails.name || "",
+        typeCode: merchantDetails.typeCode || "HEADQUARTER",
       }}
-      disabled={isPending}
-      withScrollArea={false}
-      defaultSubmitClassName="[&>button]:w-full"
-      submitText={languageData["Form.Merchant.Update"]}
-      filter={merchantDetails.typeCode === "STORE" ? {type: "exclude", keys: ["vatNumber"]} : undefined}
-      uiSchema={uiSchema}
-      widgets={{
-        taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
-          languageData,
-          list: taxOffices,
-          selectIdentifier: "id",
-          selectLabel: "name",
-        }),
-      }}
+      locale={lang}
       onSubmit={({formData}) => {
         if (!formData) return;
         startTransition(() => {
@@ -116,6 +96,26 @@ export function MerchantForm({
           });
         });
       }}
+      schema={{
+        ...$UpdateMerchantDto,
+        properties: {
+          ...$UpdateMerchantDto.properties,
+          parentId: {
+            type: "string",
+          },
+        },
+      }}
+      submitText={languageData["Form.Merchant.Update"]}
+      uiSchema={uiSchema}
+      widgets={{
+        taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
+          languageData,
+          list: taxOffices,
+          selectIdentifier: "id",
+          selectLabel: "name",
+        }),
+      }}
+      withScrollArea={false}
     />
   );
 }

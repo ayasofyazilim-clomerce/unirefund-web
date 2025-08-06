@@ -1,16 +1,23 @@
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {cn} from "@/lib/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export function PhoneWithTypeField({languageData}: {languageData: CRMServiceServiceResource}) {
-  const Field = (props: FieldProps) => {
+  function Field(props: FieldProps) {
     return (
       <SchemaForm
-        withScrollArea={false}
-        className={cn("p-px", props.uiSchema?.["ui:className"], props.className)}
+        className={cn("p-px", props.className)}
+        formData={props.formData as object}
+        onChange={({formData}) => {
+          props.onChange({
+            ...props.formData,
+            ...formData,
+          });
+        }}
         schema={props.schema}
+        tagName="div"
         uiSchema={createUiSchemaWithResource({
           resources: languageData,
           name: "CRM.telephone",
@@ -28,17 +35,10 @@ export function PhoneWithTypeField({languageData}: {languageData: CRMServiceServ
             },
           },
         })}
-        onChange={({formData}) => {
-          props.onChange({
-            ...props.formData,
-            ...formData,
-          });
-        }}
-        formData={props.formData}
         useDefaultSubmit={false}
-        tagName={"div"}
+        withScrollArea={false}
       />
     );
-  };
+  }
   return Field;
 }

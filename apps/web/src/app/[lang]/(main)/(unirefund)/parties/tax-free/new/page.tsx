@@ -54,5 +54,5 @@ export default async function Page({
 
   const taxOfficeList = taxOfficeResponse.status === "fulfilled" ? taxOfficeResponse.value.data.items || [] : [];
   const taxFreeList = taxFreeResponse.status === "fulfilled" ? taxFreeResponse.value.data.items || [] : [];
-  return <CreateTaxFreeForm languageData={languageData} taxOfficeList={taxOfficeList} taxFreeList={taxFreeList} />;
+  return <CreateTaxFreeForm languageData={languageData} taxFreeList={taxFreeList} taxOfficeList={taxOfficeList} />;
 }

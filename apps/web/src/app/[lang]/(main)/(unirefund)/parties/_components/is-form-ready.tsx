@@ -1,11 +1,11 @@
 import {Button} from "@/components/ui/button";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {FileSliders} from "lucide-react";
 import Link from "next/link";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
-export function checkIsFormReady({
+export function CheckIsFormReady({
   lang,
   languageData,
   taxOfficeListLength,
@@ -24,11 +24,7 @@ export function checkIsFormReady({
         title: languageData["CRM.Messages.MissingTaxOffice.Title"],
         message: languageData["CRM.Messages.MissingTaxOffice.Message"],
         action: isActionGranted(["CRMService.TaxOffices.Create"], grantedPolicies) ? (
-          <Action
-            languageData={languageData}
-            link={getBaseLink("parties/tax-offices/new", lang)}
-            label={languageData["Form.TaxOffice.Create"]}
-          />
+          <Action label={languageData["Form.TaxOffice.Create"]} link={getBaseLink("parties/tax-offices/new", lang)} />
         ) : null,
       },
     };
@@ -39,7 +35,7 @@ export function checkIsFormReady({
   };
 }
 
-function Action({languageData, link, label}: {languageData: CRMServiceServiceResource; link: string; label: string}) {
+function Action({link, label}: {link: string; label: string}) {
   return (
     <Button asChild className="text-blue-500" variant="link">
       <Link href={link}>{label}</Link>

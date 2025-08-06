@@ -1,14 +1,14 @@
 "use server";
 
-import {GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {getIndividualsApi, getTaxFreeAffiliationsByTaxFreeIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isErrorOnRequest, structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "../../../_components/affiliations/table";
-import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 
 async function getApiRequests(filters: GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData) {
   try {
@@ -59,13 +59,13 @@ export default async function Page({
 
   return (
     <AffiliationsTable
-      isIndividualsAvailable={isIndividualsAvailable}
-      individuals={individualsResponse.status === "fulfilled" ? individualsResponse.value.data.items || [] : []}
-      languageData={languageData}
       affiliations={affiliationsResponse.data}
-      roles={isRolesAvailable ? roleResponse.data.items || [] : []}
+      individuals={individualsResponse.status === "fulfilled" ? individualsResponse.value.data.items || [] : []}
+      isIndividualsAvailable={isIndividualsAvailable}
       isRolesAvailable={isRolesAvailable}
       isUsersAvailable={isUsersAvailable}
+      languageData={languageData}
+      roles={isRolesAvailable ? roleResponse.data.items || [] : []}
       users={isUsersAvailable ? usersResponse.data.items || [] : []}
     />
   );

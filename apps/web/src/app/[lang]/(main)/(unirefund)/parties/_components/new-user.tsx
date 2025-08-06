@@ -2,55 +2,76 @@ import {Label} from "@/components/ui/label";
 import {Switch} from "@/components/ui/switch";
 import {cn} from "@/lib/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import {mergeUISchemaObjects} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useState, useCallback} from "react";
+import {useCallback, useState} from "react";
 
-export function NewUserField(props: FieldProps & {label: string}) {
-  const {label, ...fieldProps} = props;
+// Define proper types for the data structures
+type FormData = Record<string, unknown>;
+
+interface UISchema {
+  "ui:className"?: string;
+  "ui:title"?: string;
+
+  newUser?: {
+    "ui:title"?: string;
+  };
+}
+
+// Extend FieldProps with proper typing
+interface TypedFieldProps extends Omit<FieldProps, "formData" | "uiSchema" | "onChange" | "className" | "schema"> {
+  formData?: FormData;
+  uiSchema?: UISchema;
+  onChange: (formData: FormData | undefined) => void;
+  className?: string;
+  schema: object;
+}
+
+export function NewUserField(props: TypedFieldProps & {label: string}) {
+  const {label, onChange, formData, className, uiSchema, schema} = props;
   const [createNewUser, setCreateNewUser] = useState(false);
 
   const handleSwitchChange = useCallback(
     (checked: boolean) => {
-      fieldProps.onChange({newUser: {}});
+      onChange({newUser: {}});
       setCreateNewUser(checked);
     },
-    [fieldProps],
+    [onChange],
   );
 
   const handleFormChange = useCallback(
-    (params: Parameters<FieldProps["onChange"]>[0]) => {
-      fieldProps.onChange({
-        ...props.formData,
-        ...params.formData,
+    (data: object) => {
+      onChange({
+        ...formData,
+        ...data,
       });
     },
-    [fieldProps],
+    [onChange, formData],
   );
 
   return (
     <div className="col-span-full grid gap-2">
       <div className="flex items-center gap-2 rounded-md border p-2">
-        <Switch id="create-new-user" checked={createNewUser} onCheckedChange={handleSwitchChange} />
-        <Label htmlFor="create-new-user" className="text-slate-600">
+        <Switch checked={createNewUser} id="create-new-user" onCheckedChange={handleSwitchChange} />
+        <Label className="text-slate-600" htmlFor="create-new-user">
           {label}
         </Label>
       </div>
-      {createNewUser && (
+      {createNewUser ? (
         <SchemaForm
-          withScrollArea={false}
-          className={cn("p-px", fieldProps.uiSchema?.["ui:className"], fieldProps.className)}
-          schema={fieldProps.schema}
-          uiSchema={mergeUISchemaObjects(fieldProps.uiSchema || {}, {
-            "ui:className": "grid grid-cols-2",
-            "ui:title": fieldProps.uiSchema?.newUser?.["ui:title"],
-          })}
+          className={cn("p-px", uiSchema?.["ui:className"], className)}
+          formData={formData}
           onChange={handleFormChange}
-          formData={fieldProps.formData}
+          schema={schema}
+          tagName="div"
+          uiSchema={mergeUISchemaObjects(uiSchema || {}, {
+            "ui:className": "grid grid-cols-2",
+            "ui:title": uiSchema?.newUser?.["ui:title"],
+          })}
           useDefaultSubmit={false}
-          tagName={"div"}
+          withScrollArea={false}
         />
-      )}
+      ) : null}
     </div>
   );
 }

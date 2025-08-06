@@ -1,25 +1,23 @@
 "use client";
 
 import {toast} from "@/components/ui/sonner";
-import {EmailWithTypeField} from "./email-with-type";
-
 import {Switch} from "@/components/ui/switch";
-import {
-  $UniRefund_CRMService_Emails_EmailDto as $EmailDto,
-  UniRefund_CRMService_Emails_EmailDto as EmailDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Emails_EmailDto as EmailDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Emails_EmailDto as $EmailDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {putMerchantEmailsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams} from "next/navigation";
-import {TransitionStartFunction, useTransition} from "react";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {EmailWithTypeField} from "./email-with-type";
+
 export function EmailForm({languageData, emails}: {languageData: CRMServiceServiceResource; emails: EmailDto[]}) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
@@ -41,7 +39,7 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
       },
       type: {
         showHeader: true,
-        content: (row) => <div> {(row.type && languageData[`CRM.email.type.${row.type}`]) || row.type}</div>,
+        content: (row) => TypeRow({row, languageData}),
       },
     },
     expandRowTrigger: "emailAddress",
@@ -93,6 +91,9 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
     />
   );
 }
+function TypeRow({row, languageData}: {row: EmailDto; languageData: CRMServiceServiceResource}) {
+  return <div> {(row.type && languageData[`CRM.email.type.${row.type}`]) || row.type}</div>;
+}
 
 function EditForm({
   row,
@@ -109,13 +110,32 @@ function EditForm({
 }) {
   return (
     <SchemaForm<EmailDto>
-      key={JSON.stringify(row)}
-      schema={$EmailDto}
+      defaultSubmitClassName="p-2 pt-0"
+      disabled={isPending}
       fields={{
         email: EmailWithTypeField({languageData}),
       }}
-      withScrollArea={false}
-      defaultSubmitClassName="p-2 pt-0"
+      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
+      formData={row}
+      key={JSON.stringify(row)}
+      onSubmit={({formData}) => {
+        if (!formData) return;
+        const data = {
+          merchantId: partyId,
+          requestBody: {
+            id: row.id,
+            emailAddress: formData.emailAddress !== row.emailAddress ? formData.emailAddress : undefined,
+            type: formData.type !== row.type ? formData.type : undefined,
+          },
+        };
+        startTransition(() => {
+          void putMerchantEmailsByMerchantIdApi(data).then((response) => {
+            handlePutResponse(response);
+          });
+        });
+      }}
+      schema={$EmailDto}
+      submitText={languageData["CRM.email.update"]}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
         schema: $EmailDto,
@@ -125,26 +145,7 @@ function EditForm({
           "ui:field": "email",
         },
       })}
-      disabled={isPending}
-      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
-      formData={row}
-      submitText={languageData["CRM.email.update"]}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        const data = {
-          merchantId: partyId,
-          requestBody: {
-            id: row.id,
-            emailAddress: formData.emailAddress != row.emailAddress ? formData.emailAddress : undefined,
-            type: formData.type != row.type ? formData.type : undefined,
-          },
-        };
-        startTransition(() => {
-          void putMerchantEmailsByMerchantIdApi(data).then((response) => {
-            handlePutResponse(response);
-          });
-        });
-      }}
+      withScrollArea={false}
     />
   );
 }
@@ -166,8 +167,8 @@ function IsPrimaryAction({
 }) {
   const switchComponent = (
     <Switch
-      disabled={isActive || isPending}
       checked={row.isPrimary === true}
+      disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {
           void putMerchantEmailsByMerchantIdApi({

@@ -1,17 +1,17 @@
 "use client";
 
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {
-  $UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto as $UpdateTaxOfficeDto,
+import type {
   UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto as UpdateTaxOfficeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto as $UpdateTaxOfficeDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {putTaxOfficeByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export function TaxOfficeForm({
   languageData,
@@ -57,26 +57,14 @@ export function TaxOfficeForm({
   return (
     <SchemaForm<UpdateTaxOfficeDto>
       className="sticky top-0 h-fit"
-      schema={{
-        ...$UpdateTaxOfficeDto,
-        properties: {
-          ...$UpdateTaxOfficeDto.properties,
-          parentId: {
-            type: "string",
-          },
-        },
-      }}
-      locale={lang}
+      defaultSubmitClassName="[&>button]:w-full"
+      disabled={isPending}
       formData={{
         ...taxOfficeDetails,
         parentId: taxOfficeDetails.parentName || "",
-        name: taxOfficeDetails.name!,
+        name: taxOfficeDetails.name || "",
       }}
-      disabled={isPending}
-      withScrollArea={false}
-      defaultSubmitClassName="[&>button]:w-full"
-      submitText={languageData["Form.TaxOffice.Update"]}
-      uiSchema={uiSchema}
+      locale={lang}
       onSubmit={({formData}) => {
         if (!formData) return;
         startTransition(() => {
@@ -91,6 +79,18 @@ export function TaxOfficeForm({
           });
         });
       }}
+      schema={{
+        ...$UpdateTaxOfficeDto,
+        properties: {
+          ...$UpdateTaxOfficeDto.properties,
+          parentId: {
+            type: "string",
+          },
+        },
+      }}
+      submitText={languageData["Form.TaxOffice.Update"]}
+      uiSchema={uiSchema}
+      withScrollArea={false}
     />
   );
 }

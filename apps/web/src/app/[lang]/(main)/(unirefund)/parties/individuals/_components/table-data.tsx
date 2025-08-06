@@ -1,8 +1,8 @@
 "use client";
-import {getBaseLink} from "@/utils";
+import type {
+  UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {
-  $UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto,
-  UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
+  $UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   TanstackTableCreationProps,
@@ -14,6 +14,7 @@ import type {Policy} from "@repo/utils/policies";
 import {PlusCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
+import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type IndividualTable = TanstackTableCreationProps<IndividualListResponseDto>;
@@ -44,7 +45,7 @@ function individualColumns(locale: string, languageData: CRMServiceServiceResour
   return tanstackTableCreateColumnsByRowData<IndividualListResponseDto>({
     rows: $IndividualListResponseDto.properties,
     languageData: {
-      firstname: languageData["Form.Individual.firstname"] + " " + languageData["Form.Individual.lastname"],
+      firstname: `${languageData["Form.Individual.firstname"]  } ${  languageData["Form.Individual.lastname"]}`,
       lastname: languageData["Form.Individual.lastname"],
       gender: languageData["Form.Individual.gender"],
       identificationNumber: languageData["Form.Individual.identificationNumber"],
@@ -59,8 +60,8 @@ function individualColumns(locale: string, languageData: CRMServiceServiceResour
           return (
             <div className="flex items-center gap-2">
               <Link
-                href={`${baseLink}/${row.id}/details`}
-                className="flex items-center gap-1 font-medium text-blue-700">
+                className="flex items-center gap-1 font-medium text-blue-700"
+                href={`${baseLink}/${row.id}/details`}>
                 {row.firstname} {row.lastname}
               </Link>
             </div>

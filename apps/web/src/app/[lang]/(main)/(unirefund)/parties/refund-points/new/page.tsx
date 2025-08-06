@@ -57,8 +57,8 @@ export default async function Page({
   return (
     <CreateRefundPointForm
       languageData={languageData}
-      taxOfficeList={taxOfficeList}
       refundPointList={refundPointList}
+      taxOfficeList={taxOfficeList}
     />
   );
 }

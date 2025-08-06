@@ -1,30 +1,28 @@
 "use client";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {getBaseLink} from "@/utils";
-import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  $UniRefund_CRMService_Merchants_CreateMerchantDto as $CreateMerchantDto,
+import type {
   UniRefund_CRMService_Merchants_CreateMerchantDto as CreateMerchantDto,
   UniRefund_CRMService_Merchants_MerchantDto as MerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
+  $UniRefund_CRMService_Merchants_CreateMerchantDto as $CreateMerchantDto,
+} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {postMerchantApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {DependencyType} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import {
-  applyFieldDependencies,
-  createUiSchemaWithResource,
-  DependencyConfig,
-} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {checkIsFormReady} from "../../_components/is-form-ready";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
+import {CheckIsFormReady} from "../../_components/is-form-ready";
 
 export default function CreateMerchantForm({
   taxOfficeList,
@@ -108,7 +106,7 @@ export default function CreateMerchantForm({
   const fields = {
     address: AddressField({
       className: "col-span-full p-4 border rounded-md",
-      languageData: languageData,
+      languageData,
       hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
     }),
     email: EmailWithTypeField({languageData}),
@@ -156,7 +154,7 @@ export default function CreateMerchantForm({
   };
 
   const transformedSchema = applyFieldDependencies($CreateMerchantDto, dependencies);
-  const isFormReady = checkIsFormReady({
+  const isFormReady = CheckIsFormReady({
     lang,
     languageData,
     taxOfficeListLength: taxOfficeList.length,
@@ -164,23 +162,19 @@ export default function CreateMerchantForm({
   return (
     <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
       <SchemaForm<CreateMerchantDto>
-        schema={transformedSchema}
-        fields={fields}
-        widgets={widgets}
+        defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
         disabled={isPending}
-        locale={lang}
+        fields={fields}
         filter={{
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
         formData={formData}
-        uiSchema={uiSchema}
-        defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
-        submitText={languageData["Form.Merchant.Create"]}
-        onSubmit={({formData}) => {
-          if (!formData) return;
+        locale={lang}
+        onSubmit={({formData: editedFormData}) => {
+          if (!editedFormData) return;
           startTransition(() => {
-            void postMerchantApi(formData).then((response) => {
+            void postMerchantApi(editedFormData).then((response) => {
               handlePostResponse(response, router, {
                 prefix: getBaseLink("parties/merchants"),
                 suffix: "details",
@@ -188,6 +182,10 @@ export default function CreateMerchantForm({
             });
           });
         }}
+        schema={transformedSchema}
+        submitText={languageData["Form.Merchant.Create"]}
+        uiSchema={uiSchema}
+        widgets={widgets}
       />
     </FormReadyComponent>
   );

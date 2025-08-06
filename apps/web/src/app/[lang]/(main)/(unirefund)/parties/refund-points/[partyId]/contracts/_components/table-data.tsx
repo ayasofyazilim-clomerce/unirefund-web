@@ -83,7 +83,7 @@ const contractsTable = (props: {
     actions.push({
       type: "simple",
       actionLocation: "table",
-      cta: languageData["Contracts.New"],
+      cta: languageData.New,
       onClick: () => {
         router.push(getBaseLink(`/parties/refund-points/${partyId}/contracts/new/`));
       },

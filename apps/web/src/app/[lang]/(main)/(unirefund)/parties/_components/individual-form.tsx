@@ -1,20 +1,18 @@
 import {cn} from "@/lib/utils";
-import {EmailWithTypeField} from "./contact/email-with-type";
-import {PhoneWithTypeField} from "./contact/phone-with-type";
-import {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {
-  $UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto,
-  UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {$UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {AddressField} from "@repo/ui/components/address/field";
 import {useParams, useRouter} from "next/navigation";
-import {NewUserField} from "@/app/[lang]/(main)/(unirefund)/parties/_components/new-user";
-import {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import {TransitionStartFunction} from "react";
+import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import type {TransitionStartFunction} from "react";
 import {postIndividualApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {handlePostResponse} from "@repo/utils/api";
+import {NewUserField} from "@/app/[lang]/(main)/(unirefund)/parties/_components/new-user";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {PhoneWithTypeField} from "./contact/phone-with-type";
+import {EmailWithTypeField} from "./contact/email-with-type";
 
 export function CreateIndividualForm({
   languageData,
@@ -79,29 +77,26 @@ export function CreateIndividualForm({
   const fields = {
     address: AddressField({
       className: "col-span-full p-4 border rounded-md",
-      languageData: languageData,
+      languageData,
       hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
     }),
     email: EmailWithTypeField({languageData}),
     phone: PhoneWithTypeField({languageData}),
-    newUser: (props: FieldProps) => <NewUserField {...props} label={languageData["Form.Individual.createAccount"]} />,
+    newUser: (props: FieldProps) => NewUserField({...props, label: languageData["Form.Individual.createAccount"]}),
   };
 
   return (
     <SchemaForm<CreateIndividualDto>
       className="p-0"
-      schema={$CreateIndividualDto}
-      fields={fields}
       disabled={isPending}
-      locale={lang}
+      fields={fields}
       filter={{
         type: "exclude",
         keys: ["id", "email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
       }}
-      uiSchema={uiSchema}
+      locale={lang}
       onSubmit={({formData}) => {
         if (!formData) return;
-        console.log(formData);
         startTransition(() => {
           void postIndividualApi(formData).then((response) => {
             if (onSubmit) {
@@ -118,6 +113,8 @@ export function CreateIndividualForm({
           });
         });
       }}
+      schema={$CreateIndividualDto}
+      uiSchema={uiSchema}
       useDefaultSubmit={useDefaultSubmit}>
       {children}
     </SchemaForm>

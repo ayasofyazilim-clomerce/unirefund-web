@@ -49,14 +49,14 @@ export default async function Page({
   const taxOfficeList = taxOfficeResponse.status === "fulfilled" ? taxOfficeResponse.value.data.items || [] : [];
   return (
     <CreateSubRefundPointForm
-      languageData={languageData}
-      taxOfficeList={taxOfficeList}
-      typeCode="REFUNDPOINT"
       formData={{
         name: " ",
         typeCode: "REFUNDPOINT",
         parentId: partyId,
       }}
+      languageData={languageData}
+      taxOfficeList={taxOfficeList}
+      typeCode="REFUNDPOINT"
     />
   );
 }

@@ -54,7 +54,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
 
   return (
     <div className="mt-6 rounded-lg border border-gray-200 p-6">
-      <CustomsTable languageData={languageData} customs={customResponse.data} newLink="refund-points/new" />
+      <CustomsTable customs={customResponse.data} languageData={languageData} newLink="refund-points/new" />
     </div>
   );
 }
