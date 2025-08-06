@@ -1,6 +1,5 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
@@ -10,6 +9,7 @@ import {defineStepper} from "@stepperize/react";
 import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, Shield} from "lucide-react";
 import type {ParseResult} from "mrz";
 import {useEffect, useState} from "react";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import LivenessDetector from "./liveness-detector";
 import SuccessModal from "./validation-steps/finish";
 import RegisterChoice from "./validation-steps/register-choice";
@@ -74,11 +74,11 @@ export default function ValidationSteps({
           back={back}
           canGoNext={canGoNext}
           clientAuths={clientAuths}
+          evidenceSession={evidenceSession}
           front={front}
           languageData={languageData}
           progress={progress}
           requireSteps={requireSteps}
-          evidenceSession={evidenceSession}
           setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
@@ -216,10 +216,10 @@ function StepperContent({
       <Steps
         back={back}
         clientAuths={clientAuths}
+        evidenceSession={evidenceSession}
         front={front}
         languageData={languageData}
         requireSteps={requireSteps}
-        evidenceSession={evidenceSession}
         setBack={setBack}
         setCanGoNext={setCanGoNext}
         setFront={setFront}
@@ -269,12 +269,12 @@ function LivenessStep({
     <div className="relative h-full w-full">
       <LivenessDetector
         config={clientAuths}
+        evidenceSessionId={evidenceSession}
+        frontImageBase64={front?.base64 || null}
         languageData={languageData}
         onAnalysisComplete={(result) => {
           handleAnalysisComplete(result);
         }}
-        evidenceSessionId={evidenceSession}
-        frontImageBase64={front?.base64 || null}
       />
     </div>
   );
@@ -317,10 +317,10 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-front", () => (
             <ScanDocument
-              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
+              session={evidenceSession || ""}
               setBack={setBack}
               setCanGoNext={setCanGoNext}
               setFront={setFront}
@@ -331,10 +331,10 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-back", () => (
             <ScanDocument
-              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
+              session={evidenceSession || ""}
               setBack={setBack}
               setCanGoNext={setCanGoNext}
               setFront={setFront}
@@ -345,10 +345,10 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-passport", () => (
             <ScanDocument
-              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
+              session={evidenceSession || ""}
               setBack={setBack}
               setCanGoNext={setCanGoNext}
               setFront={setFront}
@@ -361,9 +361,9 @@ function Steps({
         ? stepper.when("liveness-detector", () => (
             <LivenessStep
               clientAuths={clientAuths}
+              evidenceSession={evidenceSession}
               front={front}
               languageData={languageData}
-              evidenceSession={evidenceSession}
               stepper={stepper}
             />
           ))

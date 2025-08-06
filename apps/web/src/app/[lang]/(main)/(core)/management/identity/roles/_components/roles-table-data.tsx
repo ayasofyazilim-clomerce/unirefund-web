@@ -26,7 +26,7 @@ function rolesTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<Volo_Abp_Identity_IdentityRoleDto>[] = [];
   if (isActionGranted(["AbpIdentity.Roles.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

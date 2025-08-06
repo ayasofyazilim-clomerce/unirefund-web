@@ -1,12 +1,13 @@
 "use server";
 
 import type {GetApiCrmServiceMerchantsData} from "@ayasofyazilim/saas/CRMService";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import MerchantsTable from "./table";
+import MerchantsTable from "./_components/table";
 
 interface SearchParamType {
   ids?: string;
@@ -20,26 +21,23 @@ interface SearchParamType {
 async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getMerchantsApi(filters, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getMerchantsApi(filters, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 
 export default async function Page({params, searchParams}: {params: {lang: string}; searchParams?: SearchParamType}) {
   const {lang} = params;
-  await isUnauthorized({
-    requiredPolicies: ["CRMService.Merchants"],
-    lang,
-  });
+  // await isUnauthorized({
+  //   requiredPolicies: ["CRMService.Merchants"],
+  //   lang,
+  // });
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
@@ -49,15 +47,14 @@ export default async function Page({params, searchParams}: {params: {lang: strin
     skipCount: searchParams?.skipCount || 0,
   } as GetApiCrmServiceMerchantsData);
 
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-
-  const [merchantResponse] = apiRequests.data;
+  const [merchantResponse] = apiRequests.requiredRequests;
 
   return (
     <div className="mt-6 rounded-lg border border-gray-200 p-6">
-      <MerchantsTable languageData={languageData} response={merchantResponse.data} />
+      <MerchantsTable languageData={languageData} merchants={merchantResponse.data} newLink="merchants/new" />
     </div>
   );
 }

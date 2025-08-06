@@ -28,7 +28,7 @@ export async function getTravellersApi(data: GetApiTravellerServiceTravellersDat
 export async function getApiEvidenceSession(session?: Session | null) {
   try {
     const client = await getTravellersServiceClient(session);
-    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSession();
+    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessions();
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -38,7 +38,7 @@ export async function getApiEvidenceSession(session?: Session | null) {
 export async function getApiEvidenceSessionById(id: string, session?: Session | null) {
   try {
     const client = await getTravellersServiceClient(session);
-    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionById({id});
+    const response = await client.evidenceSessionPublic.getApiTravellerServicePublicEvidenceSessionsById({id});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -48,9 +48,10 @@ export async function getApiEvidenceSessionById(id: string, session?: Session | 
 export async function getApiEvidenceSessionCreateFaceLivenessSession(id: string, session?: Session | null) {
   try {
     const client = await getTravellersServiceClient(session);
-    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionCreateFaceLivenessSession({
-      evidenceSessionId: id,
-    });
+    const response =
+      await client.evidenceSessionPublic.getApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSession({
+        evidenceSessionId: id,
+      });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -60,9 +61,10 @@ export async function getApiEvidenceSessionCreateFaceLivenessSession(id: string,
 export async function getApiEvidenceSessionGetFaceLivenessSessionResults(id: string, session?: Session | null) {
   try {
     const client = await getTravellersServiceClient(session);
-    const response = await client.evidenceSession.getApiTravellerServiceEvidenceSessionGetFaceLivenessSessionResults({
-      sessionId: id,
-    });
+    const response =
+      await client.evidenceSessionPublic.getApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResults({
+        sessionId: id,
+      });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);

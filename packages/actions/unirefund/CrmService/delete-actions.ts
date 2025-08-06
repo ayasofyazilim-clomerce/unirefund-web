@@ -1,104 +1,140 @@
 "use server";
-import type {
-  DeleteApiCrmServiceCustomsByIdAffiliationsByAffiliationIdData,
-  DeleteApiCrmServiceMerchantsByIdAffiliationsByAffiliationIdData,
-  DeleteApiCrmServiceMerchantsByIdProductGroupsData,
-  DeleteApiCrmServiceRefundPointsByIdAffiliationsByAffiliationIdData,
-  DeleteApiCrmServiceTaxFreesByIdAffiliationsByAffiliationIdData,
-  DeleteApiCrmServiceTaxOfficesByIdAffiliationsByAffiliationIdData,
-} from "@ayasofyazilim/saas/CRMService";
-import {structuredSuccessResponse, structuredError, structuredResponse} from "@repo/utils/api";
+import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {getCRMServiceClient} from "../lib";
 
-export async function deleteAffiliationCodesByIdApi(id: number, session?: Session | null) {
+/*Merchant */
+export async function deleteMerchantByMerchantIdApi({
+  merchantId,
+  session,
+}: {
+  merchantId: string;
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.affiliationCode.deleteApiCrmServiceAffiliationCodesById({
-      id,
+    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByMerchantId({
+      merchantId,
     });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function deleteMerchantsByIdAffiliationsByAffiliationIdApi(
-  data: DeleteApiCrmServiceMerchantsByIdAffiliationsByAffiliationIdData,
-  session?: Session | null,
-) {
+export async function deleteMerchantAffiliationByIdApi({
+  merchantId,
+  affiliationId,
+  session,
+}: {
+  merchantId: string;
+  affiliationId: string;
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByIdAffiliationsByAffiliationId(data);
+    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationId({
+      merchantId,
+      affiliationId,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function deleteRefundPointsByIdAffiliationsByAffiliationIdApi(
-  data: DeleteApiCrmServiceRefundPointsByIdAffiliationsByAffiliationIdData,
-  session?: Session | null,
-) {
+export async function deleteMerchantProductGroupsByMerchantIdApi({
+  merchantId,
+  productGroupIds,
+  session,
+}: {
+  merchantId: string;
+  productGroupIds: string[];
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.deleteApiCrmServiceRefundPointsByIdAffiliationsByAffiliationId(data);
+    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByMerchantIdProductGroups({
+      merchantId,
+      requestBody: productGroupIds,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function deleteCustomsByIdAffiliationsByAffiliationIdApi(
-  data: DeleteApiCrmServiceCustomsByIdAffiliationsByAffiliationIdData,
-  session?: Session | null,
-) {
+
+/*RefundPoint */
+export async function deleteRefundPointByRefundPointIdApi({
+  refundPointId,
+  session,
+}: {
+  refundPointId: string;
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.customs.deleteApiCrmServiceCustomsByIdAffiliationsByAffiliationId(data);
+    const response = await crmClient.refundPoint.deleteApiCrmServiceRefundpointsByRefundPointId({
+      refundPointId,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function deleteTaxFreesByIdAffiliationsByAffiliationIdApi(
-  data: DeleteApiCrmServiceTaxFreesByIdAffiliationsByAffiliationIdData,
-  session?: Session | null,
-) {
+export async function deleteRefundPointAffiliationByIdApi({
+  refundPointId,
+  affiliationId,
+  session,
+}: {
+  refundPointId: string;
+  affiliationId: string;
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.deleteApiCrmServiceTaxFreesByIdAffiliationsByAffiliationId(data);
+    const response =
+      await crmClient.refundPoint.deleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationId({
+        refundPointId,
+        affiliationId,
+      });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function deleteTaxOfficesByIdAffiliationsByAffiliationIdApi(
-  data: DeleteApiCrmServiceTaxOfficesByIdAffiliationsByAffiliationIdData,
-  session?: Session | null,
-) {
+/*TaxOffice */
+export async function deleteTaxOfficeByTaxOfficeIdApi({
+  taxOfficeId,
+  session,
+}: {
+  taxOfficeId: string;
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByIdAffiliationsByAffiliationId(data);
+    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxofficesByTaxOfficeId({
+      taxOfficeId,
+    });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
-export async function deleteIndividualsByIdApi(id: string, session?: Session | null) {
+export async function deleteTaxOfficeAffiliationByIdApi({
+  taxOfficeId,
+  affiliationId,
+  session,
+}: {
+  taxOfficeId: string;
+  affiliationId: string;
+  session?: Session | null;
+}) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.deleteApiCrmServiceIndividualsById({id});
+    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationId({
+      taxOfficeId,
+      affiliationId,
+    });
     return structuredSuccessResponse(response);
-  } catch (error) {
-    return structuredError(error);
-  }
-}
-export async function deleteMerchantsByIdProductGroupsApi(
-  data: DeleteApiCrmServiceMerchantsByIdProductGroupsData,
-  session?: Session | null,
-) {
-  try {
-    const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByIdProductGroups(data);
-    return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
   }

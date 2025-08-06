@@ -3,37 +3,32 @@ import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getMerchantContractHeaderByIdApi,
-  // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
-import {getMerchantAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {structuredError} from "@repo/utils/api";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {MerchantContractHeaderUpdateForm} from "./_components/form";
 
 async function getApiRequests(partyId: string, contractId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
+    const requiredRequests = await Promise.all([
       getRefundTableHeadersAssignablesByMerchantIdApi({
         merchantId: partyId,
       }),
-      // getMerchantContractHeadersByMerchantIdApi({
-      //   id: partyId,
-      //   isDraft: false,
-      // }),
+
       getMerchantContractHeaderByIdApi(contractId),
-      getMerchantAddressByIdApi(partyId, session),
+      getMerchantAddressesByMerchantIdApi(partyId, session),
     ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 
@@ -51,22 +46,23 @@ export default async function Page({
 
   await isUnauthorized({
     requiredPolicies: [
-      "ContractService.ContractHeaderForMerchant.Detail",
+      "ContractService.ContractHeaderForMerchant.ViewDetail",
       "ContractService.RefundTableHeader.GetAssignablesByMerchantId",
     ],
     lang,
     redirect: false,
   });
   const apiRequests = await getApiRequests(partyId, contractId);
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [
     refundTableHeadersResponse,
     // otherContractHeadersResponse,
     contractHeaderDetailsResponse,
     addressListResponse,
-  ] = apiRequests.data;
+  ] = apiRequests.requiredRequests;
 
   // const contractHeaders = otherContractHeadersResponse.data.items;
   // const activeContract = contractHeaders?.find((i) => i.isActive === true);

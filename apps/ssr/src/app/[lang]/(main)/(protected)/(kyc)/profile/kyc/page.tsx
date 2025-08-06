@@ -4,14 +4,14 @@ import {postCreateEvidenceSession} from "@repo/actions/unirefund/TravellerServic
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {structuredError} from "@repo/utils/api";
 import type {
-  PostApiTravellerServiceEvidenceSessionData,
+  PostApiTravellerServicePublicEvidenceSessionsData,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
 } from "@ayasofyazilim/saas/TravellerService";
 import ErrorComponent from "@repo/ui/components/error-component";
 import ValidationSteps from "components/validation-steps";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 
-async function getApiRequests(reqSteps: PostApiTravellerServiceEvidenceSessionData = {}) {
+async function getApiRequests(reqSteps: PostApiTravellerServicePublicEvidenceSessionsData = {}) {
   try {
     const requiredRequests = await Promise.all([postCreateEvidenceSession(reqSteps)]);
     const optionalRequests = await Promise.allSettled([]);
@@ -41,7 +41,7 @@ export default async function Home({
     isLivenessRequired: true,
   };
 
-  const apiRequests = await getApiRequests({requireSteps} as PostApiTravellerServiceEvidenceSessionData);
+  const apiRequests = await getApiRequests({requireSteps} as PostApiTravellerServicePublicEvidenceSessionsData);
   const clientAuths = await getAWSEnvoriment(); // Define the properly-typed evidence response based on the ValidationSteps component requirements
 
   if ("message" in apiRequests) {

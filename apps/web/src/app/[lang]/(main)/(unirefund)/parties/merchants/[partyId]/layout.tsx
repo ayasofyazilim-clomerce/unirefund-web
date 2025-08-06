@@ -1,9 +1,11 @@
 "use server";
 
-import {getMerchantDetailByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
 import PartyHeader from "../../_components/party-header";
@@ -11,20 +13,16 @@ import PartyHeader from "../../_components/party-header";
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getMerchantDetailByIdApi(partyId, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getMerchantByIdApi(partyId, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
-
 export default async function Layout({
   children,
   params,
@@ -40,51 +38,46 @@ export default async function Layout({
   const baseLink = getBaseLink(`parties/merchants/${partyId}/`, lang);
 
   const apiRequests = await getApiRequests({partyId});
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const [merchantDetailsResponse] = apiRequests.data;
-  const merchantDetails = merchantDetailsResponse.data.merchant;
-  const isHeadquarter = merchantDetails?.typeCode === "HEADQUARTER";
+  const [merchantDetailResponse] = apiRequests.requiredRequests;
+  const isHeadquarter = merchantDetailResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
       <PartyHeader
-        link={`${baseLink}details/info`}
-        name={merchantDetails?.entityInformations?.[0]?.organizations?.[0]?.name}
-        parentId={merchantDetails?.parentId}
+        link={`${baseLink}details`}
+        name={merchantDetailResponse.data.name}
+        parentId={merchantDetailResponse.data.parentId}
       />
       <TabLayout
+        classNames={{
+          vertical: {
+            tabs: "overflow-hidden",
+            tabContent: "overflow-hidden",
+          },
+        }}
         orientation="vertical"
         tabList={[
           {
-            label: languageData["Merchants.Details"],
-            href: `${baseLink}details/info`,
+            label: languageData["CRM.Details"],
+            href: `${baseLink}details`,
           },
-          ...(!isHeadquarter
-            ? []
-            : [{label: languageData["Merchants.SubOrganization"], href: `${baseLink}sub-stores`}]),
+          ...(!isHeadquarter ? [] : [{label: languageData["CRM.SubOrganization"], href: `${baseLink}sub-stores`}]),
           {
-            label: languageData.ProductGroups,
+            label: languageData["CRM.ProductGroups"],
             href: `${baseLink}product-groups`,
           },
           {
-            label: languageData.Affiliations,
+            label: languageData["CRM.Affiliations"],
             href: `${baseLink}affiliations`,
           },
-          ...(!isHeadquarter ? [] : [{label: languageData["Merchants.Contracts"], href: `${baseLink}contracts`}]),
+          ...(!isHeadquarter ? [] : [{label: languageData["CRM.Contracts"], href: `${baseLink}contracts`}]),
         ]}
         variant="simple">
         {children}
       </TabLayout>
-      <div className="hidden" id="page-title">
-        {`${languageData.Merchant} (${
-          merchantDetails?.entityInformations?.[0]?.organizations?.[0]?.name ||
-          `${merchantDetails?.entityInformations?.[0]?.individuals?.[0]?.name?.firstName} ${merchantDetails?.entityInformations?.[0]?.individuals?.[0]?.name?.lastName}`
-        })`}
-      </div>
-      <div className="hidden" id="page-description">
-        {languageData["Merchants.Edit.Description"]}
-      </div>
     </>
   );
 }

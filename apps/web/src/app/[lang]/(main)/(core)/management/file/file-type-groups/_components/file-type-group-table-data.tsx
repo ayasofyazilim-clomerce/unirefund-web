@@ -25,7 +25,7 @@ import type {DefaultResource} from "@/language-data/core/Default";
 type FileTypeGroupTable = TanstackTableCreationProps<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>;
 
 function fileTypeGroupTableActions(router: AppRouterInstance) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>[] = [];
   actions.push({
     type: "custom-dialog",
     actionLocation: "table",

@@ -1,16 +1,32 @@
 "use server";
 
 import type {GetApiTagServiceTagTagsRefundData} from "@ayasofyazilim/saas/TagService";
-import {redirect} from "next/navigation";
-import {isUnauthorized} from "@repo/utils/policies";
-import {isErrorOnRequest} from "@repo/utils/api";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {getAccessibleRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getRefundableTagsApi} from "@repo/actions/unirefund/TagService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {isErrorOnRequest, structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {redirect} from "next/navigation";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import TravellerDocumentForm from "../_components/traveller-document-form";
 import ClientPage from "./client-page";
 import {isUnauthorizedRefundPoint} from "./utils";
+
+async function getApiRequests() {
+  try {
+    const session = await auth();
+    const requiredRequests = await Promise.all([getRefundPointsApi({}, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
+  } catch (error) {
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
+  }
+}
 
 export default async function Page({
   params,
@@ -34,12 +50,14 @@ export default async function Page({
 
   const {languageData} = await getResourceData(lang);
 
-  const accessibleRefundPointsResponse = await getAccessibleRefundPointsApi();
-  if (isErrorOnRequest(accessibleRefundPointsResponse, lang, false)) {
-    return <ErrorComponent languageData={languageData} message={accessibleRefundPointsResponse.message} />;
-  }
+  const apiRequests = await getApiRequests();
 
-  const accessibleRefundPoints = accessibleRefundPointsResponse.data.items || [];
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+  }
+  const [refundPointResponse] = apiRequests.requiredRequests;
+
+  const accessibleRefundPoints = refundPointResponse.data.items || [];
 
   if (isUnauthorizedRefundPoint(refundPointId, accessibleRefundPoints)) {
     return redirect(`/${lang}/unauthorized`);

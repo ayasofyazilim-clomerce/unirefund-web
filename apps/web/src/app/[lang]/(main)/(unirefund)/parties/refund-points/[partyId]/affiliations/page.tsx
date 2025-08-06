@@ -1,30 +1,29 @@
 "use server";
 
-import type {GetApiCrmServiceRefundPointsByIdAffiliationsData} from "@ayasofyazilim/saas/CRMService";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
+import type {GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  getIndividualsApi,
+  getRefundPointAffiliationsByRefundPointIdApi,
+} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getAffiliationCodeApi, getRefundPointAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {isErrorOnRequest, structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import AffiliationsTable from "./table";
+import AffiliationsTable from "../../../_components/affiliations/table";
 
-async function getApiRequests(filters: GetApiCrmServiceRefundPointsByIdAffiliationsData) {
+async function getApiRequests(filters: GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getRefundPointAffiliationByIdApi(filters, session),
-      getAffiliationCodeApi({entityPartyTypeCode: "REFUNDPOINT", maxResultCount: 1000}, session),
-    ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getRefundPointAffiliationsByRefundPointIdApi(filters, session)]);
+    const optionalRequests = await Promise.allSettled([getIndividualsApi(filters, session)]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 export default async function Page({
@@ -35,33 +34,42 @@ export default async function Page({
     partyId: string;
     lang: string;
   };
-  searchParams?: GetApiCrmServiceRefundPointsByIdAffiliationsData;
+  searchParams?: GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData;
 }) {
   const {lang, partyId} = params;
   const {languageData} = await getResourceData(lang);
-  await isUnauthorized({
-    requiredPolicies: ["CRMService.RefundPoints.ViewAffiliationList"],
-    lang,
-  });
 
   const apiRequests = await getApiRequests({
-    ...searchParams,
-    id: partyId,
+    refundPointId: partyId,
+    name: searchParams?.name || "",
+    roleName: searchParams?.roleName || "",
+    maxResultCount: searchParams?.maxResultCount || 10,
+    skipCount: searchParams?.skipCount || 0,
   });
-
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [subStoresResponse, affiliationCodesResponse] = apiRequests.data;
+  const [affiliationsResponse] = apiRequests.requiredRequests;
+  const [individualsResponse] = apiRequests.optionalRequests;
+
+  const roleResponse = await getRolesApi({});
+  const usersResponse = await getUsersApi({});
+
+  const isRolesAvailable = !isErrorOnRequest(roleResponse, lang, false);
+  const isUsersAvailable = !isErrorOnRequest(usersResponse, lang, false);
+  const isIndividualsAvailable = individualsResponse.status !== "rejected";
 
   return (
     <AffiliationsTable
-      affiliationCodes={affiliationCodesResponse.data.items || []}
+      affiliations={affiliationsResponse.data}
+      individuals={individualsResponse.status === "fulfilled" ? individualsResponse.value.data.items || [] : []}
+      isIndividualsAvailable={isIndividualsAvailable}
+      isRolesAvailable={isRolesAvailable}
+      isUsersAvailable={isUsersAvailable}
       languageData={languageData}
-      locale={lang}
-      partyId={partyId}
-      response={subStoresResponse.data}
+      roles={isRolesAvailable ? roleResponse.data.items || [] : []}
+      users={isUsersAvailable ? usersResponse.data.items || [] : []}
     />
   );
 }

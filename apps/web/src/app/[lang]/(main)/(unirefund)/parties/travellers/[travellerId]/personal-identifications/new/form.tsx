@@ -1,14 +1,14 @@
 "use client";
 
-import type {UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
-import {$UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto} from "@ayasofyazilim/saas/TravellerService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import {handlePostResponse} from "@repo/utils/api";
-import {postTravellerIdentificationApi} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {postTravellerDocumentApi} from "@repo/actions/unirefund/TravellerService/post-actions";
 import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
@@ -25,7 +25,7 @@ export default function Form({
   const [isPending, startTransition] = useTransition();
 
   const uiSchema = createUiSchemaWithResource({
-    schema: $UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto,
+    schema: $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto,
     resources: languageData,
     name: "Form.personalIdentification",
     extend: {
@@ -41,7 +41,7 @@ export default function Form({
   });
 
   return (
-    <SchemaForm<UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto>
+    <SchemaForm<UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto>
       className="flex flex-col gap-4"
       disabled={isPending}
       filter={{
@@ -62,7 +62,7 @@ export default function Form({
       }}
       onSubmit={({formData}) => {
         startTransition(() => {
-          void postTravellerIdentificationApi({
+          void postTravellerDocumentApi({
             id: travellerId,
             requestBody: formData,
           }).then((res) => {
@@ -70,7 +70,7 @@ export default function Form({
           });
         });
       }}
-      schema={$UniRefund_TravellerService_PersonalIdentificationCommonDatas_CreatePersonalIdentificationDto}
+      schema={$UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto}
       submitText={languageData.Save}
       uiSchema={uiSchema}
       widgets={{
