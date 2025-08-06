@@ -1777,7 +1777,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011011": "Given Merchant '{id}' is not a HEADQUARTER!";
   "UniRefund.CRMService:013002": "There are records associated with this AffiliationCode. In order to delete the AffiliationCode, the records must be deleted first.";
   "UniRefund.CRMService:013003": "A record with this name already exists: {name}";
-  "UniRefund.CRMService:010007": "Vatnumber must be unique. Such a record exists: {vatNumber}";
+  "UniRefund.CRMService:010007": "Taxpayer Id must be unique. Such a record exists: {taxpayerId}";
   "UniRefund.CRMService:015001": "Abp User Account already exists.";
   "UniRefund.CRMService:011012": "No merchant found with VAT Number: '{vATNumber}', Country Code: '{countryCode}', Customer Number: '{customerNumber}'!";
   "UniRefund.CRMService:011013": "Given Merchant '{id}' is not a {wantedTypeCode}, is {existingTypeCode}!";
