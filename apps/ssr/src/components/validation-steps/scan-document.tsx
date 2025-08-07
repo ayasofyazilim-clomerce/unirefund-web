@@ -193,7 +193,7 @@ export default function ScanDocument({
         setScanStatus("success");
         setCanGoNext(true);
       } else {
-        toast.error(languageData["Toast.Face.NotDetected"]);
+        toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", `${res}%`));
         setFront(null);
         setScanStatus("error");
         setCanGoNext(false);
