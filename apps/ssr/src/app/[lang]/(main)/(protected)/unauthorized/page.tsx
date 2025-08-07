@@ -1,4 +1,3 @@
-"use client";
 import {FileLock2} from "lucide-react";
 import Link from "next/link";
 import {getResourceData} from "src/language-data/unirefund/SSRService";

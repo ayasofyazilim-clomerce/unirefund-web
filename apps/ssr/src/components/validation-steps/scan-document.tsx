@@ -1,14 +1,14 @@
 "use client";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {toast} from "@/components/ui/sonner";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {detectFace} from "@repo/actions/unirefund/AWSService/actions";
 import {postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {AlertCircle, CheckCircle} from "lucide-react";
+import {useState} from "react";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import IDCardMRZ from "public/ID-Back.png";
 import IdCardFront from "public/ID-Front.png";
 import PassportMRZ from "public/Passport.png";
-import {useState} from "react";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 import DocumentOnboarding from "./_components/document-onboarding";
