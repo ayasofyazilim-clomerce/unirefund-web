@@ -1,0 +1,22 @@
+export type LanguageData = {
+  "Auth.Tenant": string;
+  "Auth.TenantNotFound": string;
+  "Auth.CheckYourEmail": string;
+  "Auth.Placeholder": string;
+  "Auth.Clear": string;
+  "Auth.LeaveOrEmpty": string;
+  "Auth.TenantPlaceholder": string;
+  "Auth.UsernameOrEmailLabel": string;
+  "Auth.UsernameOrEmailDescription": string;
+  "Auth.PasswordLabel": string;
+  "Auth.ForgotPassword": string;
+  "Auth.ResetPassword": string;
+  "Auth.Login": string;
+  "Auth.HaveAnAccount": string;
+  "Auth.Register": string;
+  "Auth.EmailAddressLabel": string;
+  "Auth.UsernameLabel": string;
+  "Auth.UsernameDescription": string;
+  "Auth.DoYouHaveAccount": string;
+  "Auth.RegisterSuccess": string;
+};
