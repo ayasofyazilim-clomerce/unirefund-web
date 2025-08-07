@@ -4,7 +4,7 @@ import {cn} from "@/lib/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import {mergeUISchemaObjects} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useCallback, useState} from "react";
+import {useState, useCallback} from "react";
 
 // Define proper types for the data structures
 type FormData = Record<string, unknown>;
@@ -28,25 +28,25 @@ interface TypedFieldProps extends Omit<FieldProps, "formData" | "uiSchema" | "on
 }
 
 export function NewUserField(props: TypedFieldProps & {label: string}) {
-  const {label, onChange, formData, className, uiSchema, schema} = props;
+  const {label, ...fieldProps} = props;
   const [createNewUser, setCreateNewUser] = useState(false);
 
   const handleSwitchChange = useCallback(
     (checked: boolean) => {
-      onChange({newUser: {}});
+      fieldProps.onChange({newUser: {}});
       setCreateNewUser(checked);
     },
-    [onChange],
+    [fieldProps],
   );
 
   const handleFormChange = useCallback(
-    (data: object) => {
-      onChange({
-        ...formData,
-        ...data,
+    (data: {formData: FormData | undefined}) => {
+      fieldProps.onChange({
+        ...props.formData,
+        ...data.formData,
       });
     },
-    [onChange, formData],
+    [fieldProps],
   );
 
   return (
@@ -59,14 +59,16 @@ export function NewUserField(props: TypedFieldProps & {label: string}) {
       </div>
       {createNewUser ? (
         <SchemaForm
-          className={cn("p-px", uiSchema?.["ui:className"], className)}
-          formData={formData}
-          onChange={handleFormChange}
-          schema={schema}
+          className={cn("p-px", fieldProps.uiSchema?.["ui:className"], fieldProps.className)}
+          formData={fieldProps.formData}
+          onChange={({formData}) => {
+            handleFormChange({formData});
+          }}
+          schema={fieldProps.schema}
           tagName="div"
-          uiSchema={mergeUISchemaObjects(uiSchema || {}, {
+          uiSchema={mergeUISchemaObjects(fieldProps.uiSchema || {}, {
             "ui:className": "grid grid-cols-2",
-            "ui:title": uiSchema?.newUser?.["ui:title"],
+            "ui:title": fieldProps.uiSchema?.newUser?.["ui:title"],
           })}
           useDefaultSubmit={false}
           withScrollArea={false}

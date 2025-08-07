@@ -19,6 +19,7 @@ import {Input} from "@repo/ayasofyazilim-ui/atoms/input";
 import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
 import {z, zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {PasswordInput} from "@repo/ayasofyazilim-ui/molecules/password-input";
+import {LanguageData} from "../types";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -36,22 +37,6 @@ export interface LoginCredentials {
   password: string;
   redirectTo: string;
 }
-
-export interface LoginFormLanguageData {
-  Login: string;
-  Tenant: string;
-  "Login.TenantPlaceholder": string;
-  "Login.Clear": string;
-  "Login.LeaveOrEmpty": string;
-  "Login.UsernameOrEmailLabel": string;
-  "Login.UsernameOrEmailDescription": string;
-  "Login.PasswordLabel": string;
-  "Login.ForgotPassword": string;
-  "Login.Login": string;
-  "Login.HaveAnAccount": string;
-  "Login.Register": string;
-}
-
 export default function LoginForm({
   languageData,
   isTenantDisabled,
@@ -59,7 +44,7 @@ export default function LoginForm({
   onTenantSearchAction,
   onSubmitAction,
 }: {
-  languageData: LoginFormLanguageData;
+  languageData: LanguageData;
   isTenantDisabled: boolean;
   defaultTenant?: string;
   onTenantSearchAction?: (name: string) => Promise<{
@@ -133,7 +118,7 @@ export default function LoginForm({
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-2 p-5 sm:w-[350px]">
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">{languageData.Login}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{languageData["Auth.Login"]}</h1>
       </div>
       <div className="grid space-y-2">
         <FormProvider {...form}>
@@ -145,7 +130,7 @@ export default function LoginForm({
                 disabled={isPending}
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>{languageData.Tenant}</FormLabel>
+                    <FormLabel>{languageData["Auth.Tenant"]}</FormLabel>
                     <FormControl>
                       <div className="relative w-full max-w-sm">
                         <Input
@@ -159,7 +144,7 @@ export default function LoginForm({
                           onKeyUp={(e) => {
                             if (e.key === "Enter") searchForTenant(form.getValues("tenant") || "");
                           }}
-                          placeholder={languageData["Login.TenantPlaceholder"]}
+                          placeholder={languageData["Auth.TenantPlaceholder"]}
                           autoFocus
                         />
                         <Button
@@ -172,11 +157,11 @@ export default function LoginForm({
                             form.setValue("tenant", "");
                           }}>
                           <XIcon className="h-4 w-4" />
-                          <span className="sr-only">{languageData["Login.Clear"]}</span>
+                          <span className="sr-only">{languageData["Auth.Clear"]}</span>
                         </Button>
                       </div>
                     </FormControl>
-                    <FormDescription>{languageData["Login.LeaveOrEmpty"]}</FormDescription>
+                    <FormDescription>{languageData["Auth.LeaveOrEmpty"]}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -188,11 +173,11 @@ export default function LoginForm({
               name="username"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>{languageData["Login.UsernameOrEmailLabel"]}</FormLabel>
+                  <FormLabel>{languageData["Auth.UsernameOrEmailLabel"]}</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>{languageData["Login.UsernameOrEmailDescription"]}</FormDescription>
+                  <FormDescription>{languageData["Auth.UsernameOrEmailDescription"]}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -202,7 +187,7 @@ export default function LoginForm({
               name="password"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>{languageData["Login.PasswordLabel"]}</FormLabel>
+                  <FormLabel>{languageData["Auth.PasswordLabel"]}</FormLabel>
                   <FormControl>
                     <PasswordInput {...field} />
                   </FormControl>
@@ -212,12 +197,12 @@ export default function LoginForm({
             />
             <div className="text-right">
               <Link href="reset-password" className="text-muted-foreground mt-1 text-xs hover:underline">
-                {languageData["Login.ForgotPassword"]}
+                {languageData["Auth.ForgotPassword"]}
               </Link>
             </div>
             <div>
               <Button disabled={isPending || isSubmitDisabled} className="my-2 w-full">
-                {languageData["Login.Login"]}
+                {languageData["Auth.Login"]}
               </Button>
             </div>
           </form>
@@ -226,13 +211,13 @@ export default function LoginForm({
       <div className="flex items-center justify-center">
         <span className="bg-muted h-px w-full"></span>
         <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">
-          {languageData["Login.HaveAnAccount"]}
+          {languageData["Auth.HaveAnAccount"]}
         </span>
         <span className="bg-muted h-px w-full"></span>
       </div>
       <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          {languageData["Login.Register"]}
+          {languageData["Auth.Register"]}
         </Button>
       </Link>
     </div>

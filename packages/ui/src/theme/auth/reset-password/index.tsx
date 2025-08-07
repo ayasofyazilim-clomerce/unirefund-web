@@ -19,6 +19,7 @@ import {XIcon} from "lucide-react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {FormProvider, useForm} from "react-hook-form";
+import {LanguageData} from "../types";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -37,11 +38,7 @@ export default function ResetPasswordForm({
   onTenantSearchAction,
   onSubmitAction,
 }: {
-  languageData: {
-    Login: string;
-    ResetPassword: string;
-    Tenant: string;
-  };
+  languageData: LanguageData;
   isTenantDisabled: boolean;
   defaultTenant?: string;
   onTenantSearchAction?: (name: string) => Promise<{
@@ -69,7 +66,7 @@ export default function ResetPasswordForm({
     startTransition(() => {
       onTenantSearchAction(name).then((response) => {
         if (response.type !== "success" || !response.data.success) {
-          form.setError("tenant", {type: "manual", message: "Tenant not found."}, {shouldFocus: true});
+          form.setError("tenant", {type: "manual", message: languageData["Auth.TenantNotFound"]}, {shouldFocus: true});
           return;
         }
         form.clearErrors("tenant");
@@ -88,7 +85,7 @@ export default function ResetPasswordForm({
           toast.error(response?.message);
           return;
         }
-        toast.success("Check your email to continue.");
+        toast.success(languageData["Auth.CheckYourEmail"]);
         router.replace(`/login${location.search}`);
       });
     });
@@ -96,7 +93,7 @@ export default function ResetPasswordForm({
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-2 p-5 sm:w-[350px]">
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">{languageData.ResetPassword}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{languageData["Auth.ResetPassword"]}</h1>
       </div>
       <div className="grid space-y-2">
         <FormProvider {...form}>
@@ -108,13 +105,13 @@ export default function ResetPasswordForm({
                 disabled={isPending}
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Tenant</FormLabel>
+                    <FormLabel>{languageData["Auth.Tenant"]}</FormLabel>
                     <FormControl>
                       <div className="relative w-full max-w-sm">
                         <Input
                           {...field}
                           onBlur={(e) => searchForTenant(e.target.value)}
-                          placeholder="Logging in as host"
+                          placeholder={languageData["Auth.TenantPlaceholder"]}
                           autoFocus
                         />
                         <Button
@@ -127,11 +124,11 @@ export default function ResetPasswordForm({
                             form.setValue("tenant", "");
                           }}>
                           <XIcon className="h-4 w-4" />
-                          <span className="sr-only">Clear</span>
+                          <span className="sr-only">{languageData["Auth.Clear"]}</span>
                         </Button>
                       </div>
                     </FormControl>
-                    <FormDescription>Leave empty for host.</FormDescription>
+                    <FormDescription>{languageData["Auth.LeaveOrEmpty"]}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -143,11 +140,11 @@ export default function ResetPasswordForm({
               name="email"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Email address</FormLabel>
+                  <FormLabel>{languageData["Auth.UsernameOrEmailLabel"]}</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>User name or email address.</FormDescription>
+                  <FormDescription>{languageData["Auth.UsernameOrEmailDescription"]}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -155,7 +152,7 @@ export default function ResetPasswordForm({
 
             <div>
               <Button disabled={isPending} className="my-2 w-full">
-                Reset Password
+                {languageData["Auth.ResetPassword"]}
               </Button>
             </div>
           </form>
@@ -168,12 +165,12 @@ export default function ResetPasswordForm({
       </div>
       <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Login
+          {languageData["Auth.Login"]}
         </Button>
       </Link>
       <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Register
+          {languageData["Auth.Register"]}
         </Button>
       </Link>
     </div>
