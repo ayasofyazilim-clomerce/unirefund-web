@@ -221,6 +221,8 @@
   "EnterFormDetails": "Enter Form Details",
   "ProvideYourTaxFreeFormInfo": "Provide your tax free form information",
   "GoHomePage": "Go Home Page",
+  "AuthenticationRequired": "Sorry, the page you are trying to access either does not exist or you are not authorized to view it. If you think this is a mistake, please contact your manager.",
+  "Wrong": "Something went wrong!",
   "TaxFreeFormNumber": "Tax Free Form Number (Doc-ID)",
   "DocIdPlaceholder": "e.g. 1234567890",
   "DocIdHelp": "The Doc-ID is printed below the barcode on your form",

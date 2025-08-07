@@ -1,14 +1,14 @@
 "use client";
-import {toast} from "@/components/ui/sonner";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {useState} from "react";
-import {detectFace} from "@repo/actions/unirefund/AWSService/actions";
-import {CheckCircle, AlertCircle} from "lucide-react";
-import {postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {toast} from "@/components/ui/sonner";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import {detectFace} from "@repo/actions/unirefund/AWSService/actions";
+import {postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
+import {AlertCircle, CheckCircle} from "lucide-react";
 import IDCardMRZ from "public/ID-Back.png";
-import PassportMRZ from "public/Passport.png";
 import IdCardFront from "public/ID-Front.png";
+import PassportMRZ from "public/Passport.png";
+import {useState} from "react";
 import type {DocumentData} from "../validation-steps";
 import {WebcamCapture} from "../webcam";
 import DocumentOnboarding from "./_components/document-onboarding";
@@ -20,38 +20,35 @@ const DocumentConfig = {
   passport: {
     image: PassportMRZ,
     tips: (languageData: SSRServiceResource) => [
-      languageData.PassportTip1 || "Make sure all text is clearly visible",
-      languageData.PassportTip2 || "Position inside the frame completely",
-      languageData.PassportTip3 || "Avoid glare and shadows",
+      languageData.PassportTip1,
+      languageData.PassportTip2,
+      languageData.PassportTip3,
     ],
-    title: (languageData: SSRServiceResource) => languageData.PassportOnboardingTitle || "Scan Passport",
-    placeholder: (languageData: SSRServiceResource) =>
-      languageData.PositionDocumentWithinMarkers || "Align your passport with the frame",
-    successMessage: (languageData: SSRServiceResource) => languageData.PassportCaptured || "Passport captured",
+    title: (languageData: SSRServiceResource) => languageData.PassportOnboardingTitle,
+    placeholder: (languageData: SSRServiceResource) => languageData.PositionDocumentWithinMarkers,
+    successMessage: (languageData: SSRServiceResource) => languageData.PassportCaptured,
   },
   "id-card-front": {
     image: IdCardFront,
     tips: (languageData: SSRServiceResource) => [
-      languageData.IDCardFrontTip1 || "Make sure all text is clearly visible",
-      languageData.IDCardFrontTip2 || "Position inside the frame completely",
-      languageData.IDCardFrontTip3 || "Avoid glare and shadows",
+      languageData.IDCardFrontTip1,
+      languageData.IDCardFrontTip2,
+      languageData.IDCardFrontTip3,
     ],
-    title: (languageData: SSRServiceResource) => languageData.IDCardFrontOnboardingTitle || "Scan ID Card Front",
-    placeholder: (languageData: SSRServiceResource) =>
-      languageData.CaptureIDCardFront || "Position the front of your ID card",
-    successMessage: (languageData: SSRServiceResource) => languageData.FrontSideCaptured || "Front side captured",
+    title: (languageData: SSRServiceResource) => languageData.IDCardFrontOnboardingTitle,
+    placeholder: (languageData: SSRServiceResource) => languageData.CaptureIDCardFront,
+    successMessage: (languageData: SSRServiceResource) => languageData.FrontSideCaptured,
   },
   "id-card-back": {
     image: IDCardMRZ,
     tips: (languageData: SSRServiceResource) => [
-      languageData.IDCardBackTip1 || "Make sure MRZ area is fully visible",
-      languageData.IDCardBackTip2 || "Position inside the frame completely",
-      languageData.IDCardBackTip3 || "Avoid glare and shadows",
+      languageData.IDCardBackTip1,
+      languageData.IDCardBackTip2,
+      languageData.IDCardBackTip3,
     ],
-    title: (languageData: SSRServiceResource) => languageData.IDCardBackOnboardingTitle || "Scan ID Card Back",
-    placeholder: (languageData: SSRServiceResource) =>
-      languageData.CaptureIDCardBack || "Position the back of your ID card",
-    successMessage: (languageData: SSRServiceResource) => languageData.BackSideCaptured || "Back side captured",
+    title: (languageData: SSRServiceResource) => languageData.IDCardBackOnboardingTitle,
+    placeholder: (languageData: SSRServiceResource) => languageData.CaptureIDCardBack,
+    successMessage: (languageData: SSRServiceResource) => languageData.BackSideCaptured,
   },
 };
 
@@ -72,17 +69,15 @@ function ScannerStatusAlert({
       {scanStatus === "scanning" && (
         <Alert className="mt-4" variant="default">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>{languageData["Document.Processing"] || "Processing"}</AlertTitle>
-          <AlertDescription>
-            {languageData["LivenessDetection.Processing"] || "Processing your document..."}
-          </AlertDescription>
+          <AlertTitle>{languageData["Document.Processing"]}</AlertTitle>
+          <AlertDescription>{languageData["LivenessDetection.Processing"]}</AlertDescription>
         </Alert>
       )}
 
       {scanStatus === "success" && documentData ? (
         <Alert className="mt-4" variant="default">
           <CheckCircle className="h-4 w-4" />
-          <AlertTitle>{languageData["Document.Captured"] || "Document Captured"}</AlertTitle>
+          <AlertTitle>{languageData["Document.Captured"]}</AlertTitle>
           <AlertDescription>{successMessage}</AlertDescription>
         </Alert>
       ) : null}
@@ -158,33 +153,28 @@ export default function ScanDocument({
             base64: imageSrc,
             data: res.data,
           });
-          toast.success(languageData["Toast.MRZ.Detected"] || "MRZ detected successfully.");
+          toast.success(languageData["Toast.MRZ.Detected"]);
           setScanStatus("success");
           setCanGoNext(true);
 
           // Yüz tespiti
           void detectFace(imageSrc).then((faceDetection) => {
             if (faceDetection < 80) {
-              toast.error(
-                (languageData["Toast.Face.NotDetected"] || "Face not detected: {0}").replace(
-                  "{0}",
-                  `${faceDetection}%`,
-                ),
-              );
+              toast.error(languageData["Toast.Face.NotDetected"].replace("{0}", `${faceDetection}%`));
               setFront(null);
               setScanStatus("error");
               setCanGoNext(false);
             }
           });
         } else {
-          toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+          toast.error(languageData["Toast.MRZ.Error"]);
 
           setScanStatus("error");
           setCanGoNext(false);
         }
       })
       .catch(() => {
-        toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+        toast.error(languageData["Toast.MRZ.Error"]);
         setFront(null);
         setScanStatus("error");
         setCanGoNext(false);
@@ -203,7 +193,7 @@ export default function ScanDocument({
         setScanStatus("success");
         setCanGoNext(true);
       } else {
-        toast.error((languageData["Toast.Face.NotDetected"] || "Face not detected: {0}").replace("{0}", `${res}%`));
+        toast.error(languageData["Toast.Face.NotDetected"]);
         setFront(null);
         setScanStatus("error");
         setCanGoNext(false);
@@ -228,18 +218,18 @@ export default function ScanDocument({
             base64: imageSrc,
             data: res.data,
           });
-          toast.success(languageData["Toast.MRZ.Detected"] || "MRZ detected successfully.");
+          toast.success(languageData["Toast.MRZ.Detected"]);
           setScanStatus("success");
           setCanGoNext(true);
         } else {
-          toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+          toast.error(languageData["Toast.MRZ.Error"]);
 
           setScanStatus("error");
           setCanGoNext(false);
         }
       })
       .catch(() => {
-        toast.error(languageData["Toast.MRZ.Error"] || "An error occurred while analyzing MRZ.");
+        toast.error(languageData["Toast.MRZ.Error"]);
         setBack(null);
         setScanStatus("error");
         setCanGoNext(false);

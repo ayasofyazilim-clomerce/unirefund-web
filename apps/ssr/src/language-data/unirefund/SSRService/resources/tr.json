@@ -216,6 +216,8 @@
   "EnterFormDetails": "Form Bilgilerini Girin",
   "ProvideYourTaxFreeFormInfo": "Vergi iade formu bilgilerinizi sağlayın",
   "GoHomePage": "Ana Sayfaya Git",
+  "Wrong": "Bir şeyler yanlış gitti!",
+  "AuthenticationRequired": "Üzgünüz, erişmeye çalıştığınız sayfa mevcut değil veya görüntüleme yetkiniz yok. Bunun bir hata olduğunu düşünüyorsanız, lütfen yöneticinizle iletişime geçin.",
   "TaxFreeFormNumber": "Vergi İade Formu Numarası (Doc-ID)",
   "DocIdPlaceholder": "örn. 1234567890",
   "DocIdHelp": "Doc-ID, formunuzdaki barkodun altında basılıdır",
