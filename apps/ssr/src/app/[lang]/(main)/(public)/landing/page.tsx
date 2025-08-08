@@ -3,9 +3,9 @@ import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {CheckCircle, Shield, Globe, FileText, ArrowRight, CreditCard, Smartphone} from "lucide-react";
-import {getResourceData} from "@/language-data/unirefund/SSRService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {redirect} from "next/navigation";
+import {getResourceData} from "@/language-data/unirefund/SSRService";
 
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;

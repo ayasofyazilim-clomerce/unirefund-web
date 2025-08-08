@@ -44,7 +44,5 @@ export default async function Page({
     );
   }
 
-  return (
-    <PasswordClient lang={lang} languageData={languageData} searchParams={searchParams} />
-  );
+  return <PasswordClient lang={lang} languageData={languageData} searchParams={searchParams} />;
 }
