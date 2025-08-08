@@ -1,16 +1,11 @@
 "use server";
 
+import {resetPasswordApi, verifyPasswordResetTokenApi} from "@repo/actions/core/AccountService/actions";
 import NewPasswordForm from "@repo/ui/theme/auth/new-password";
-import ResetPasswordForm from "@repo/ui/theme/auth/reset-password";
 import {redirect} from "next/navigation";
-import {
-  getTenantByNameApi,
-  resetPasswordApi,
-  sendPasswordResetCodeApi,
-  verifyPasswordResetTokenApi,
-} from "@repo/actions/core/AccountService/actions";
 import {getResourceData} from "src/language-data/core/AccountService";
 import {getBaseLink} from "src/utils";
+import PasswordClient from "./client";
 
 export default async function Page({
   params,
@@ -27,7 +22,6 @@ export default async function Page({
   const {lang} = params;
   const {userId, resetToken, __tenant} = searchParams;
   const {languageData} = await getResourceData(lang);
-  const isTenantDisabled = process.env.FETCH_TENANT !== "true";
 
   if (userId && resetToken) {
     const verifyPasswordResetTokenResponse = await verifyPasswordResetTokenApi({
@@ -51,11 +45,6 @@ export default async function Page({
   }
 
   return (
-    <ResetPasswordForm
-      isTenantDisabled={isTenantDisabled}
-      languageData={languageData}
-      onSubmitAction={sendPasswordResetCodeApi}
-      onTenantSearchAction={getTenantByNameApi}
-    />
+    <PasswordClient lang={lang} languageData={languageData} searchParams={searchParams} />
   );
 }
