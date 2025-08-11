@@ -66,39 +66,10 @@ jobs:
           fi
 
           echo "✅ Branch and environment match."
-
-      - name: Set port from environment variable
-        run: |
-          case "${{ inputs.app }}" in
-            web)
-              PORT_VALUE="${{ vars.WEB_PORT }}"
-              ;;
-            ssr)
-              PORT_VALUE="${{ vars.SSR_PORT }}"
-              ;;
-            *)
-              echo "❌ Invalid app type: ${{ inputs.app }}"
-              exit 1
-              ;;
-          esac
-
-          if [[ -z "$PORT_VALUE" ]]; then
-            echo "❌ PORT value is missing! Did you define WEB_PORT or SSR_PORT in the GitHub Environment?"
-            exit 1
-          fi
-
-          echo "PORT=$PORT_VALUE" >> $GITHUB_ENV
-
       - name: Deploy via SSH
         env:
           SSH_COMMAND: |
-            cd ~/frontend/deployment/unirefund/${{ inputs.env }} &&
-            npx -y @deployit/cli@latest deployit \
-              --project Unirefund \
-              --app ${{ inputs.app }} \
-              --env ${{ inputs.env }} \
-              --sync true \
-              --port $PORT
+            deploy Unirefund ${{inputs.app}} ${{inputs.env}}
         run: |
           echo "Running remote deploy command..."
           ssh ubuntu "${SSH_COMMAND}"
