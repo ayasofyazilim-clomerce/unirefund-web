@@ -1,0 +1,132 @@
+name: Deploy Unirefund Apps
+run-name: >
+  🚀 ${{ github.actor }} is deploying [${{ inputs.env }}]
+  Unirefund-${{ inputs.app }} from tag ${{ inputs.tag }}
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: "Release type (one of): dev, uat, prod"
+        required: true
+        default: "uat"
+        type: choice
+        options:
+          - dev
+          - uat
+          - prod
+      app:
+        description: "App to publish (web or ssr)"
+        required: true
+        default: "web"
+        type: choice
+        options:
+          - web
+          - ssr
+      tag:
+        description: "Git tag to deploy (e.g., uat-v1.0.0, prod-v1.0.0)"
+        required: true
+        type: string
+jobs:
+  publish:
+    runs-on: self-hosted
+    timeout-minutes: 60
+    # ✅ Activates GitHub Environment for secrets/vars
+    environment: ${{ inputs.env }}
+    steps:
+      - name: Show build context
+        run: |
+          echo "🎉 Triggered by: ${{ github.actor }}"
+          echo "🌍 Environment: ${{ inputs.env }}"
+          echo "📦 App: ${{ inputs.app }}"
+          echo "🏷️  Tag: ${{ inputs.tag }}"
+          echo "🖥️  OS: ${{ runner.os }}"
+
+      - name: Validate tag ↔️ environment match
+        run: |
+          TAG="${{ inputs.tag }}"
+          ENV="${{ inputs.env }}"
+          
+          echo "🔍 Validating tag '$TAG' for environment '$ENV'"
+          
+          case "$ENV" in
+            dev)
+              # Dev can deploy any tag
+              echo "✅ Dev environment can deploy any tag"
+              ;;
+            uat)
+              # UAT requires tag to start with 'uat'
+              if [[ ! "$TAG" =~ ^uat.* ]]; then
+                echo "❌ UAT environment requires tag to start with 'uat'. Got: $TAG"
+                echo "   Example valid tags: uat-v1.0.0, uat-hotfix-1.2.3"
+                exit 1
+              fi
+              echo "✅ Tag '$TAG' is valid for UAT environment"
+              ;;
+            prod)
+              # Prod requires tag to start with 'prod'
+              if [[ ! "$TAG" =~ ^prod.* ]]; then
+                echo "❌ Production environment requires tag to start with 'prod'. Got: $TAG"
+                echo "   Example valid tags: prod-v1.0.0, prod-release-1.2.3"
+                exit 1
+              fi
+              echo "✅ Tag '$TAG' is valid for Production environment"
+              ;;
+            *)
+              echo "❌ Invalid environment selected: $ENV"
+              exit 1
+              ;;
+          esac
+
+      - name: Checkout code at specific tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+
+      - name: Verify tag exists
+        run: |
+          if ! git tag -l | grep -q "^${{ inputs.tag }}$"; then
+            echo "❌ Tag '${{ inputs.tag }}' does not exist in the repository"
+            echo "📋 Available tags:"
+            git tag -l | head -10
+            if [[ $(git tag -l | wc -l) -gt 10 ]]; then
+              echo "   ... and $(($(git tag -l | wc -l) - 10)) more"
+            fi
+            exit 1
+          fi
+          echo "✅ Tag '${{ inputs.tag }}' exists and checked out successfully"
+
+      - name: Set port from environment variable
+        run: |
+          case "${{ inputs.app }}" in
+            web)
+              PORT_VALUE="${{ vars.WEB_PORT }}"
+              ;;
+            ssr)
+              PORT_VALUE="${{ vars.SSR_PORT }}"
+              ;;
+            *)
+              echo "❌ Invalid app type: ${{ inputs.app }}"
+              exit 1
+              ;;
+          esac
+          if [[ -z "$PORT_VALUE" ]]; then
+            echo "❌ PORT value is missing! Did you define WEB_PORT or SSR_PORT in the GitHub Environment?"
+            exit 1
+          fi
+          echo "PORT=$PORT_VALUE" >> $GITHUB_ENV
+
+      - name: Deploy via SSH
+        env:
+          SSH_COMMAND: |
+            cd ~/frontend/deployment/unirefund/${{ inputs.env }} &&
+            npx -y @deployit/cli@latest deployit \
+              --project Unirefund \
+              --app ${{ inputs.app }} \
+              --env ${{ inputs.env }} \
+              --tag ${{ inputs.tag }} \
+              --sync true \
+              --port $PORT
+        run: |
+          echo "Running remote deploy command for tag ${{ inputs.tag }}..."
+          ssh frontend "${SSH_COMMAND}"
