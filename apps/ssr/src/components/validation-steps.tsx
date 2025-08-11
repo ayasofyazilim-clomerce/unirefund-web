@@ -48,11 +48,15 @@ export default function ValidationSteps({
   clientAuths,
   requireSteps,
   responseCreateEvidence,
+  initialStep = "register-choice",
+  onStepChange,
 }: {
   languageData: SSRServiceResource;
   clientAuths: AWSAuthConfig;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   responseCreateEvidence: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
+  initialStep?: "register-choice" | "start" | "scan-front" | "scan-back" | "scan-passport" | "liveness-detector";
+  onStepChange?: (stepId: string) => void;
 }) {
   const [canGoNext, setCanGoNext] = useState(false);
   const [front, setFront] = useState<DocumentData>(null);
@@ -76,7 +80,9 @@ export default function ValidationSteps({
           clientAuths={clientAuths}
           evidenceSession={evidenceSession}
           front={front}
+          initialStep={initialStep}
           languageData={languageData}
+          onStepChange={onStepChange}
           progress={progress}
           requireSteps={requireSteps}
           setBack={setBack}
@@ -103,6 +109,8 @@ function StepperContent({
   progress,
   requireSteps,
   evidenceSession,
+  initialStep,
+  onStepChange,
 }: {
   clientAuths: AWSAuthConfig;
   languageData: SSRServiceResource;
@@ -116,8 +124,24 @@ function StepperContent({
   progress: number;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   evidenceSession: string | null;
+  initialStep?: "register-choice" | "start" | "scan-front" | "scan-back" | "scan-passport" | "liveness-detector";
+  onStepChange?: (stepId: string) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
+
+  // Navigate to initial step on component mount
+  useEffect(() => {
+    if (initialStep && stepper.current.id !== initialStep) {
+      stepper.goTo(initialStep);
+    }
+  }, [initialStep]);
+
+  // Notify parent component about step changes
+  useEffect(() => {
+    if (onStepChange) {
+      onStepChange(stepper.current.id);
+    }
+  }, [stepper.current.id, onStepChange]);
 
   // Update progress when step changes
   useEffect(() => {
@@ -341,7 +365,7 @@ function Steps({
               type="id-card-back"
             />
           ))
-        : null}{" "}
+        : null}
       {showMRZSteps
         ? stepper.when("scan-passport", () => (
             <ScanDocument
@@ -418,7 +442,6 @@ function Actions({
   const showLivenessStep = requireSteps.isLivenessRequired !== false;
   return !stepper.isLast ? (
     <div className="flex items-center justify-between">
-      {" "}
       {!stepper.isFirst && stepper.current.id !== "start" && (
         <Button
           className="border-black/20 px-5 py-2.5 text-black hover:bg-black/5"
@@ -457,7 +480,7 @@ function Actions({
           <ArrowLeft className="mr-2 h-5 w-5" />
           {languageData.Previous}
         </Button>
-      )}{" "}
+      )}
       {stepper.when(
         "register-choice",
         () =>

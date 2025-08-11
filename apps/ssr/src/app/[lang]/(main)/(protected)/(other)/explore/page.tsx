@@ -12,7 +12,7 @@ export default async function ExplorePage({params}: {params: {lang: string}}) {
   const {languageData} = await getResourceData(params.lang);
 
   return (
-    <Suspense fallback={<div>Loading tax-free points...</div>}>
+    <Suspense fallback={<div>{languageData["Explore.Loading"]}</div>}>
       <ExploreClient initialPoints={taxFreePoints} languageData={languageData} />
     </Suspense>
   );

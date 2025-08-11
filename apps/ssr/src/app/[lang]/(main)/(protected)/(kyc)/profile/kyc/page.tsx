@@ -36,9 +36,9 @@ export default async function Home({
 
   // Define required steps for KYC page
   const requireSteps = {
-    isMRZRequired: false,
-    isNFCRequired: false,
-    isLivenessRequired: true,
+    isMRZRequired: true,
+    isNFCRequired: true,
+    isLivenessRequired: false,
   };
 
   const apiRequests = await getApiRequests({requireSteps} as PostApiTravellerServicePublicEvidenceSessionsData);
@@ -54,6 +54,7 @@ export default async function Home({
     <Card className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:mx-auto md:max-w-xl">
       <ValidationSteps
         clientAuths={clientAuths}
+        initialStep="start"
         languageData={languageData}
         requireSteps={requireSteps}
         responseCreateEvidence={data}
