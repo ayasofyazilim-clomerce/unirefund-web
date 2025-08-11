@@ -1,0 +1,141 @@
+name: Auto Deploy on Release
+run-name: >
+  🚀 Auto deploying release ${{ github.event.release.tag_name }} 
+  to ${{ github.event.release.prerelease && 'UAT' || 'PROD' }}
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  determine-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      env: ${{ steps.env-check.outputs.env }}
+      app: ${{ steps.env-check.outputs.app }}
+      should-deploy: ${{ steps.env-check.outputs.should-deploy }}
+    steps:
+      - name: Determine environment and app from release tag
+        id: env-check
+        run: |
+          TAG_NAME="${{ github.event.release.tag_name }}"
+          RELEASE_NAME="${{ github.event.release.name }}"
+          IS_PRERELEASE="${{ github.event.release.prerelease }}"
+
+          echo "🏷️  Release tag: $TAG_NAME"
+          echo "📝 Release name: $RELEASE_NAME"
+
+          # Initialize variables
+          ENV=""
+          APP=""
+          SHOULD_DEPLOY="false"
+
+          # Determine environment based on tag prefix
+          if [[ "$TAG_NAME" =~ ^uat-.* ]]; then
+            ENV="uat"
+            SHOULD_DEPLOY="true"
+            echo "✅ UAT deployment detected from tag prefix 'uat-'"
+          elif [[ "$TAG_NAME" =~ ^prod-.* ]]; then
+            ENV="prod"
+            SHOULD_DEPLOY="true"
+            echo "✅ PROD deployment detected from tag prefix 'prod-'"
+          else
+            echo "❌ Cannot determine environment from tag '$TAG_NAME'"
+            echo "   Expected formats:"
+            echo "   - uat-v1.0.0 (for UAT)"
+            echo "   - prod-v1.0.0 (for PROD)"
+            SHOULD_DEPLOY="false"
+          fi
+
+          # Determine app type from tag or default to web
+          if [[ "$TAG_NAME" =~ .*-ssr-.* ]] || [[ "$RELEASE_NAME" =~ .*ssr.* ]]; then
+            APP="ssr"
+            echo "📦 SSR app detected from tag/release name"
+          else
+            APP="web"
+            echo "📦 Web app selected (default)"
+          fi
+
+          # Set outputs
+          echo "env=$ENV" >> $GITHUB_OUTPUT
+          echo "app=$APP" >> $GITHUB_OUTPUT
+          echo "should-deploy=$SHOULD_DEPLOY" >> $GITHUB_OUTPUT
+
+          echo ""
+          echo "🎯 Deployment Summary:"
+          echo "   Environment: $ENV"
+          echo "   App: $APP"
+          echo "   Should Deploy: $SHOULD_DEPLOY"
+
+  deploy:
+    needs: determine-environment
+    runs-on: self-hosted
+    timeout-minutes: 60
+    if: needs.determine-environment.outputs.should-deploy == 'true'
+    environment: ${{ needs.determine-environment.outputs.env }}
+    steps:
+      - name: Show deployment context
+        run: |
+          echo "🎉 Auto deployment triggered by release"
+          echo "🏷️  Release tag: ${{ github.event.release.tag_name }}"
+          echo "📝 Release name: ${{ github.event.release.name }}"
+          echo "🌍 Environment: ${{ needs.determine-environment.outputs.env }}"
+          echo "📦 App: ${{ needs.determine-environment.outputs.app }}"
+          echo "🖥️  OS: ${{ runner.os }}"
+          echo "👤 Released by: ${{ github.event.release.author.login }}"
+          echo "🔗 Release URL: ${{ github.event.release.html_url }}"
+
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Verify release tag
+        run: |
+          CURRENT_TAG=$(git describe --tags --exact-match)
+          EXPECTED_TAG="${{ github.event.release.tag_name }}"
+
+          if [[ "$CURRENT_TAG" != "$EXPECTED_TAG" ]]; then
+            echo "❌ Tag mismatch! Expected: $EXPECTED_TAG, Got: $CURRENT_TAG"
+            exit 1
+          fi
+
+          echo "✅ Successfully checked out release tag: $CURRENT_TAG"
+
+      - name: Deploy via SSH
+        env:
+          SSH_COMMAND: |
+            deploy Unirefund ${{inputs.app}} ${{inputs.env}}
+        run: |
+          echo "Running remote deploy command..."
+          ssh frontend "${SSH_COMMAND}"
+
+      - name: Update deployment status
+        if: always()
+        run: |
+          if [[ "${{ job.status }}" == "success" ]]; then
+            echo "✅ Deployment completed successfully!"
+            echo "🎯 Environment: ${{ needs.determine-environment.outputs.env }}"
+            echo "📦 App: ${{ needs.determine-environment.outputs.app }}"
+            echo "🏷️  Tag: ${{ github.event.release.tag_name }}"
+          else
+            echo "❌ Deployment failed!"
+            echo "Check the logs above for details."
+          fi
+
+  notify-skipped:
+    needs: determine-environment
+    runs-on: ubuntu-latest
+    if: needs.determine-environment.outputs.should-deploy == 'false'
+    steps:
+      - name: Notify deployment skipped
+        run: |
+          echo "⏭️  Deployment skipped for release: ${{ github.event.release.tag_name }}"
+          echo ""
+          echo "❓ Possible reasons:"
+          echo "   - Tag doesn't start with 'uat-' or 'prod-'"
+          echo "   - Release type couldn't be determined"
+          echo ""
+          echo "💡 To enable auto-deployment:"
+          echo "   - Use tag format: uat-v1.0.0 or prod-v1.0.0"
