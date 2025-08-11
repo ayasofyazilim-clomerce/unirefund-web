@@ -170,7 +170,7 @@ export default function PasswordClient({languageData, lang, searchParams}: Passw
             type="button">
             {showPasswordForm ? (
               <>
-                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
                   {
                     holder: "{0}",
                     replacement: <span className="text-primary font-medium">{languageData.ResetPassword}</span>,
