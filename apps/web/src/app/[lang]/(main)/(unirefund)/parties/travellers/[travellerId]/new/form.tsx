@@ -66,7 +66,7 @@ export default function Form({
             id: travellerId,
             requestBody: formData,
           }).then((res) => {
-            handlePostResponse(res, router, "../personal-identifications");
+            handlePostResponse(res, router, "../");
           });
         });
       }}

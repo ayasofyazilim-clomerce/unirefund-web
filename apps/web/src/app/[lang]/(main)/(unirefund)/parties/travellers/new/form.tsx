@@ -27,7 +27,10 @@ export default function TravellerNewForm({
     resources: languageData,
     extend: {
       "ui:className": "md:grid md:grid-cols-2 border rounded-md md:p-6 p-2 my-6 gap-y-6 gap-x-4",
-      personalIdentification: {
+      nationalityCountryCode2: {
+        "ui:widget": "countryWidget",
+      },
+      travellerDocument: {
         "ui:className": "md:grid md:grid-cols-2 md:gap-4 md:col-span-full",
         residenceCountryCode2: {
           "ui:widget": "countryWidget",

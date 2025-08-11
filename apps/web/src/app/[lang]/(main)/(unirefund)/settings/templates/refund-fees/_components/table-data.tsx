@@ -86,9 +86,9 @@ const refundFeeHeadersColumns = (
     custom: {
       refundPointId: {
         content(row) {
-          if (!row.refundPointId) return <></>;
+          if (!row.refundPointId) return null;
           const refundPoint = refundPoints.find((rp) => rp.id === row.refundPointId);
-          if (!refundPoint) return <></>;
+          if (!refundPoint) return null;
           return (
             <Link href={getBaseLink(`parties/refund-points/${row.refundPointId}/details`, locale)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{refundPoint.name}</Badge>
