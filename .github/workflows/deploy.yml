@@ -72,4 +72,4 @@ jobs:
             deploy Unirefund ${{inputs.app}} ${{inputs.env}}
         run: |
           echo "Running remote deploy command..."
-          ssh ubuntu "${SSH_COMMAND}"
+          ssh frontend "${SSH_COMMAND}"
