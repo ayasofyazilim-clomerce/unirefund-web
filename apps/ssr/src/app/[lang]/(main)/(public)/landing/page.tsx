@@ -31,20 +31,20 @@ export default async function Page({params}: {params: {lang: string}}) {
             {languageData["Landing.MainDescription"]}
           </p>
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="/evidence">
+            <Link href="/evidence/register">
               <Button className="w-full bg-red-600 px-8 py-3 text-lg hover:bg-red-700 sm:w-auto" size="lg">
                 {languageData["Landing.StartRefundProcess"]}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="/evidence/login">
+            {/* <Link href="/evidence/login">
               <Button
                 className="w-full border-red-600 bg-transparent px-8 py-3 text-lg text-red-600 hover:bg-red-50 sm:w-auto"
                 size="lg"
                 variant="outline">
                 {languageData["Landing.AlreadyHaveAccount"]}
               </Button>
-            </Link>
+            </Link> */}
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
             <div className="flex items-center">

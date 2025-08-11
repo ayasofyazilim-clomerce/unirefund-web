@@ -14,7 +14,7 @@ import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
-
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 interface EvidenceData {
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   responseCreateEvidence: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
@@ -83,7 +83,9 @@ export default function LoginClient({languageData, lang}: LoginClientProps) {
             <div className="flex items-center justify-center p-8">
               <div className="text-center">
                 <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600" />
-                <p>Evidence verileri yükleniyor...</p>
+                <div className="flex flex-col items-center">
+                  <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
+                </div>
               </div>
             </div>
           ) : null}
@@ -117,11 +119,21 @@ export default function LoginClient({languageData, lang}: LoginClientProps) {
             type="button">
             {showLoginForm ? (
               <>
-                Doğrulama yaparak <span className="text-primary font-medium">giriş</span> yapmak istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.Login}</span>,
+                  },
+                ])}
               </>
             ) : (
               <>
-                Doğrulama yapmadan <span className="text-primary font-medium">giriş</span> yapmak istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.Login}</span>,
+                  },
+                ])}
               </>
             )}
           </button>

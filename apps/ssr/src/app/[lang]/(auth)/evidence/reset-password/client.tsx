@@ -22,6 +22,7 @@ import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
 import {getResourceData} from "src/language-data/core/AccountService";
 import {getBaseLink} from "src/utils";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 
 interface EvidenceData {
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
@@ -169,11 +170,21 @@ export default function PasswordClient({languageData, lang, searchParams}: Passw
             type="button">
             {showPasswordForm ? (
               <>
-                Doğrulama yaparak <span className="text-primary font-medium">şifremi sıfırlamak</span> istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.ResetPassword}</span>,
+                  },
+                ])}
               </>
             ) : (
               <>
-                Doğrulama yapmadan <span className="text-primary font-medium">şifremi sıfırlamak</span> istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.ResetPassword}</span>,
+                  },
+                ])}
               </>
             )}
           </button>

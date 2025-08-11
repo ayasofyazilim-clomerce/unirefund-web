@@ -51,7 +51,6 @@
   "Form.phoneNumber": "Phone Number",
   "Form.name": "Name",
   "Form.surname": "Surname",
-
   "Auth.Tenant": "Tenant",
   "Auth.TenantNotFound": "Tenant not found.",
   "Auth.CheckYourEmail": "Check your email to continue.",
@@ -71,5 +70,7 @@
   "Auth.UsernameLabel": "Username",
   "Auth.UsernameDescription": "User name.",
   "Auth.DoYouHaveAccount": "Do you have an account?",
-  "Auth.RegisterSuccess": "You can now log in to your account."
+  "Auth.RegisterSuccess": "You can now log in to your account.",
+  "Auth.{0}.WithoutValidation": "{0} without validation!",
+  "Auth.{0}.WithValidation": "{0} with validation!"
 }

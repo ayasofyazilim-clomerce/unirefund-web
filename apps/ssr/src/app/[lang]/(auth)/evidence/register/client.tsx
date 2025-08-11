@@ -14,6 +14,7 @@ import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
 import {getResourceData} from "src/language-data/core/AccountService";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 
 interface EvidenceData {
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
@@ -117,11 +118,21 @@ export default function RegisterClient({languageData, lang}: RegisterClientProps
             type="button">
             {showRegisterForm ? (
               <>
-                Doğrulama yaparak <span className="text-primary font-medium">kayıt</span> olmak istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.Register}</span>,
+                  },
+                ])}
               </>
             ) : (
               <>
-                Doğrulama yapmadan <span className="text-primary font-medium">kayıt</span> olmak istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.Register}</span>,
+                  },
+                ])}
               </>
             )}
           </button>

@@ -3,8 +3,14 @@ import Link from "next/link";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {getBaseLink} from "src/utils";
 import unirefundLogo from "public/unirefund.png";
+import {auth} from "@repo/utils/auth/next-auth";
+import {redirect} from "next/navigation";
 
-export default function Layout({children, params}: {children: JSX.Element; params: {lang: string}}) {
+export default async function Layout({children, params}: {children: JSX.Element; params: {lang: string}}) {
+  const session = await auth();
+  if (session) {
+    redirect(getBaseLink("home", params.lang));
+  }
   return (
     <div className="flex min-h-dvh w-full flex-col">
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
