@@ -127,7 +127,7 @@ export default function RegisterClient({languageData, lang}: RegisterClientProps
               </>
             ) : (
               <>
-                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
+                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
                   {
                     holder: "{0}",
                     replacement: <span className="text-primary font-medium">{languageData.Register}</span>,
