@@ -64,3 +64,4 @@ jobs:
           
           # Push the tag
           git push origin "$new_version"
+          
