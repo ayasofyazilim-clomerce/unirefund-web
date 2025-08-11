@@ -1,19 +1,19 @@
 import {Card} from "@/components/ui/card";
-import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
-import {postCreateEvidenceSession} from "@repo/actions/unirefund/TravellerService/post-actions";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {structuredError} from "@repo/utils/api";
 import type {
-  PostApiTravellerServiceEvidenceSessionData,
+  PostApiTravellerServicePublicEvidenceSessionsData,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
 } from "@ayasofyazilim/saas/TravellerService";
+import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
+import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
 import ErrorComponent from "@repo/ui/components/error-component";
+import {structuredError} from "@repo/utils/api";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import ValidationSteps from "components/validation-steps";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 
-async function getApiRequests(reqSteps: PostApiTravellerServiceEvidenceSessionData = {}) {
+async function getApiRequests(reqSteps: PostApiTravellerServicePublicEvidenceSessionsData = {}) {
   try {
-    const requiredRequests = await Promise.all([postCreateEvidenceSession(reqSteps)]);
+    const requiredRequests = await Promise.all([postCreateEvidenceSessionPublic(reqSteps)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -41,7 +41,7 @@ export default async function Home({
     isLivenessRequired: true,
   };
 
-  const apiRequests = await getApiRequests({requireSteps} as PostApiTravellerServiceEvidenceSessionData);
+  const apiRequests = await getApiRequests({requireSteps} as PostApiTravellerServicePublicEvidenceSessionsData);
   const clientAuths = await getAWSEnvoriment(); // Define the properly-typed evidence response based on the ValidationSteps component requirements
 
   if ("message" in apiRequests) {

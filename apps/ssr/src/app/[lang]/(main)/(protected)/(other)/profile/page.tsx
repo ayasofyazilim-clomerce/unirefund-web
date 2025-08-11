@@ -36,9 +36,9 @@ export default async function Page({params}: {params: {lang: string}}) {
       <ErrorComponent
         languageData={ssrLanguageData}
         message={apiRequests.message}
+        redirectPath="/evidence/login"
         showHomeButton={false}
         signOutServer={signOutServer}
-        redirectPath="/evidence/login"
       />
     );
   }

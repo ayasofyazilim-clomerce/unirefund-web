@@ -22,7 +22,7 @@ function applicationsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>[] = [];
   if (isActionGranted(["OpenIddictPro.Application.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

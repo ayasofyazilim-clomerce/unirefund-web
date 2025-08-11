@@ -1,15 +1,14 @@
+import {Button} from "@/components/ui/button";
+import {getRefundFeeHeadersAssignablesByRefundPointIdApi} from "@repo/actions/unirefund/ContractService/action";
+import {getRefundPointAddressesByRefundPointIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import {FormReadyComponent} from "@repo/ui/form-ready";
 import {FileText} from "lucide-react";
-import {Button} from "@/components/ui/button";
+import {isRedirectError} from "next/dist/client/components/redirect";
 import Link from "next/link";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {
-  getRefundFeeHeadersAssignablesByRefundPointIdApi,
-  // getRefundPointContractHeadersByRefundPointIdApi,
-} from "@repo/actions/unirefund/ContractService/action";
-import {getRefundPointDetailsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "src/utils";
 import RefundPointContractHeaderCreateForm from "./_components/form";
@@ -17,8 +16,7 @@ import RefundPointContractHeaderCreateForm from "./_components/form";
 async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getRefundPointDetailsByIdApi(partyId, session),
+    const requiredRequests = await Promise.all([
       getRefundFeeHeadersAssignablesByRefundPointIdApi(
         {
           refundPointId: partyId,
@@ -26,24 +24,15 @@ async function getApiRequests(partyId: string) {
         },
         session,
       ),
-      // getRefundPointContractHeadersByRefundPointIdApi(
-      //   {
-      //     id: partyId,
-      //     sorting: "validTo desc",
-      //   },
-      //   session,
-      // ),
+      getRefundPointAddressesByRefundPointIdApi(partyId, session),
     ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 
@@ -63,17 +52,10 @@ export default async function Page({
 
   const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests(partyId);
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const [
-    refundPointDetailsResponse,
-    refundFeeHeadersResponse,
-    // otherContractHeaders,
-  ] = apiRequests.data;
-
-  const refundPointDetailsSummary = refundPointDetailsResponse.data.entityInformations?.at(0)?.organizations?.at(0);
-  // const biggestContractHeader = otherContractHeaders.data.items?.at(0);
+  const [refundFeeHeadersResponse, refundPointAddressesResponse] = apiRequests.requiredRequests;
 
   return (
     <FormReadyComponent
@@ -89,7 +71,7 @@ export default async function Page({
         ),
       }}>
       <RefundPointContractHeaderCreateForm
-        addressList={refundPointDetailsSummary?.contactInformations?.at(0)?.addresses || []}
+        addressList={refundPointAddressesResponse.data}
         languageData={languageData}
         refundFeeHeaders={refundFeeHeadersResponse.data}
       />

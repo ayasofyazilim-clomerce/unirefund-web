@@ -24,10 +24,9 @@ export default function DocumentOnboarding({type, imageSrc, tips, title, onConti
 
   return (
     <div className={`mx-auto w-full ${containerClass}`}>
-      <div className={`mb-5 rounded-xl ${type === "passport" ? " lg:p-6 " : "lg:p-6"}`}>
-        <h2 className="mb-2 hidden text-xl font-bold text-gray-900 lg:block">{title}</h2>
-
-        <div className="mb-6 space-y-3 text-sm">
+      <div
+        className={`mb-4 rounded-xl lg:mb-2 ${type === "passport" ? " lg:px-4 lg:pb-6 lg:pt-2 " : "lg:px-4 lg:pb-6 lg:pt-2"}`}>
+        <div className="mb-2 space-y-3 text-sm">
           {tips.map((tip, index) => (
             <div className="flex items-center gap-2" key={index}>
               <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />

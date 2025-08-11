@@ -46,5 +46,5 @@ export default async function Page({
 
   const [travellerDataResponse] = apiRequests.data;
 
-  return <Table languageData={languageData} response={travellerDataResponse.data.personalIdentifications} />;
+  return <Table languageData={languageData} response={travellerDataResponse.data.travellerDocuments || []} />;
 }

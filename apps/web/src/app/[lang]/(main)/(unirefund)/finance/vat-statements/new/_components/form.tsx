@@ -2,7 +2,7 @@
 import {Button} from "@/components/ui/button";
 import {toast} from "@/components/ui/sonner";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import type {UniRefund_CRMService_Merchants_MerchantProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Merchants_MerchantDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto,
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto,
@@ -27,7 +27,7 @@ export default function VatStatementForm({
   merchantList,
 }: {
   languageData: FinanceServiceResource;
-  merchantList: UniRefund_CRMService_Merchants_MerchantProfileDto[];
+  merchantList: UniRefund_CRMService_Merchants_MerchantDto[];
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -100,7 +100,7 @@ export default function VatStatementForm({
                   }}
                   useDefaultSubmit={false}
                   widgets={{
-                    Merchant: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantProfileDto>({
+                    Merchant: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantDto>({
                       languageData,
                       list: merchantList,
                       selectIdentifier: "id",

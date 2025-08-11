@@ -10,9 +10,6 @@ export default async function Page({params}: {params: {lang: string; type: strin
     requiredPolicies: [
       "ContractService.RebateTableHeader.Create",
       "ContractService.RebateTableHeader.Edit",
-      "ContractService.RebateTableHeader.Delete",
-      "ContractService.RebateTableHeader.Detail",
-      "ContractService.RebateTableHeader.View",
       "ContractService.RebateTableHeader.ViewDetail",
     ],
     lang: params.lang,

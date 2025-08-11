@@ -19,7 +19,8 @@ type FileRelationEntityTable =
   TanstackTableCreationProps<UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto>;
 
 function fileRelationEntityTableActions(router: AppRouterInstance, languageData: DefaultResource, locale: string) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto>[] =
+    [];
   actions.push({
     type: "simple",
     actionLocation: "table",

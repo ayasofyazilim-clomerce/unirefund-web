@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {getBaseLink} from "src/utils";
 import unirefundLogo from "public/unirefund.png";
-import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 
 export default function Layout({children, params}: {children: JSX.Element; params: {lang: string}}) {
   return (
@@ -19,7 +19,7 @@ export default function Layout({children, params}: {children: JSX.Element; param
         </div>
       </header>
 
-      <main className="flex flex-1 items-start overflow-y-auto bg-gray-50 px-3 py-3 md:items-center md:px-6 md:py-6">
+      <main className="flex flex-1 items-center overflow-y-auto bg-gray-50 px-3 py-3 md:px-6 md:py-6">
         <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-3 shadow-md md:p-5">
           {children}
         </div>

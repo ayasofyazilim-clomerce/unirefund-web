@@ -7,7 +7,6 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
@@ -24,6 +23,7 @@ import {
   putMerchantsContractHeadersByIdMakePassiveApi,
 } from "@repo/actions/unirefund/ContractService/put-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 export function MerchantContractHeaderUpdateForm({
@@ -33,7 +33,7 @@ export function MerchantContractHeaderUpdateForm({
   refundTableHeaders,
 }: {
   contractHeaderDetails: ContractHeaderDetailForMerchantDto;
-  addressList: AddressTypeDto[];
+  addressList: UniRefund_CRMService_Addresses_AddressDto[];
   refundTableHeaders: AssignableRefundTableHeaders[];
   languageData: ContractServiceResource;
 }) {
@@ -118,11 +118,11 @@ export function MerchantContractHeaderUpdateForm({
         uiSchema={uiSchema}
         useTableForArrayItems
         widgets={{
-          address: CustomComboboxWidget<AddressTypeDto>({
+          address: CustomComboboxWidget<UniRefund_CRMService_Addresses_AddressDto>({
             list: addressList,
             languageData,
             selectIdentifier: "id",
-            selectLabel: "fullAddress",
+            selectLabel: "addressLine",
           }),
           refundTableHeader: CustomComboboxWidget<AssignableRefundTableHeaders>({
             list: refundTableHeaders,

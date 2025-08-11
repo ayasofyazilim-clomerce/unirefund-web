@@ -42,7 +42,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({languageData}) => {
           </Button>
         ) : (
           <Button asChild className="bg-primary hover:bg-primary/90 gap-2 px-6 py-2 text-white" size="lg">
-            <Link href={getBaseLink("register")}>
+            <Link href={getBaseLink("evidence/register")}>
               <LogIn className="mr-2 h-5 w-5" />
               {languageData.Register}
             </Link>

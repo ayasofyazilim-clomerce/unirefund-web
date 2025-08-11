@@ -6,8 +6,10 @@ import {FileText} from "lucide-react";
 import Link from "next/link";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantsByIdProductGroupApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantProductGroupByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "@/utils";
 import ProductGroups from "./table";
@@ -15,25 +17,17 @@ import ProductGroups from "./table";
 async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      await getMerchantsByIdProductGroupApi(partyId, session),
-      await getProductGroupsApi(
-        {
-          maxResultCount: 1000,
-        },
-        session,
-      ),
+    const requiredRequests = await Promise.all([
+      getMerchantProductGroupByMerchantIdApi(partyId, session),
+      getProductGroupsApi({}),
     ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 export default async function Page({
@@ -48,12 +42,11 @@ export default async function Page({
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests(partyId);
-
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [productGroupsResponse, productGroupListResponse] = apiRequests.data;
+  const [merchantProductGroupsResponse, productGroupListResponse] = apiRequests.requiredRequests;
   return (
     <FormReadyComponent
       active={!productGroupListResponse.data.items || productGroupListResponse.data.items.length < 1}
@@ -70,7 +63,7 @@ export default async function Page({
       <ProductGroups
         languageData={languageData}
         productGroupList={productGroupListResponse.data.items || []}
-        response={productGroupsResponse.data}
+        productGroupListByMerchant={merchantProductGroupsResponse.data}
       />
     </FormReadyComponent>
   );
