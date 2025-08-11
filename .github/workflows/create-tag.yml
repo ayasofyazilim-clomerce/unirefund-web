@@ -3,19 +3,22 @@ name: Auto Tag on PR Merge
 on:
   pull_request:
     types: [closed]
-    branches: [dev] # Adjust branches as needed
+    branches: [dev]
 
 jobs:
   auto-tag:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch all history for tags
-          token: ${{ secrets.PAT_TOKEN }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get latest tag
         id: get_tag
