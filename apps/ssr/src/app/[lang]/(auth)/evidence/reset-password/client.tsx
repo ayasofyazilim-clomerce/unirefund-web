@@ -17,12 +17,12 @@ import NewPasswordForm from "@repo/ui/theme/auth/new-password";
 import ResetPasswordForm from "@repo/ui/theme/auth/reset-password";
 import {redirect} from "next/navigation";
 import {useEffect, useState} from "react";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
 import {getResourceData} from "src/language-data/core/AccountService";
 import {getBaseLink} from "src/utils";
-import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 
 interface EvidenceData {
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;

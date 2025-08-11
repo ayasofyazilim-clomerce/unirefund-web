@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
-import {getBaseLink} from "src/utils";
-import unirefundLogo from "public/unirefund.png";
 import {auth} from "@repo/utils/auth/next-auth";
 import {redirect} from "next/navigation";
+import {getBaseLink} from "src/utils";
+import unirefundLogo from "public/unirefund.png";
 
 export default async function Layout({children, params}: {children: JSX.Element; params: {lang: string}}) {
   const session = await auth();

@@ -10,11 +10,11 @@ import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
 import RegisterForm from "@repo/ui/theme/auth/register";
 import {useState} from "react";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
 import {getResourceData} from "src/language-data/core/AccountService";
-import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 
 interface EvidenceData {
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
