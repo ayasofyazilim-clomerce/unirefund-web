@@ -112,7 +112,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: languageData.FullName,
                 value: `${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`,
                 link: !hasGrant.TravellerDetail
-                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}/personal-identifications`)
+                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}`)
                   : undefined,
               },
               {
