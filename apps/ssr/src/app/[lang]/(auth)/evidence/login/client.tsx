@@ -10,6 +10,7 @@ import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
 import LoginForm from "@repo/ui/theme/auth/login";
 import {useState} from "react";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
@@ -83,7 +84,6 @@ export default function LoginClient({languageData, lang}: LoginClientProps) {
             <div className="flex items-center justify-center p-8">
               <div className="text-center">
                 <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600" />
-                <p>Evidence verileri yükleniyor...</p>
               </div>
             </div>
           ) : null}
@@ -117,11 +117,21 @@ export default function LoginClient({languageData, lang}: LoginClientProps) {
             type="button">
             {showLoginForm ? (
               <>
-                Doğrulama yaparak <span className="text-primary font-medium">giriş</span> yapmak istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.Login}</span>,
+                  },
+                ])}
               </>
             ) : (
               <>
-                Doğrulama yapmadan <span className="text-primary font-medium">giriş</span> yapmak istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.Login}</span>,
+                  },
+                ])}
               </>
             )}
           </button>
