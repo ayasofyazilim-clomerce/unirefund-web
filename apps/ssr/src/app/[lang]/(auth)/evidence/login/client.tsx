@@ -119,7 +119,7 @@ export default function LoginClient({languageData, lang}: LoginClientProps) {
             type="button">
             {showLoginForm ? (
               <>
-                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
                   {
                     holder: "{0}",
                     replacement: <span className="text-primary font-medium">{languageData.Login}</span>,
