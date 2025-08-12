@@ -1,4 +1,4 @@
-name: Deploy Unirefund Apps
+name: Manual Deploy Unirefund Development
 
 run-name: 🚀 ${{ github.actor }} is deploying [${{ inputs.env }}] Unirefund-${{ inputs.app }}
 
