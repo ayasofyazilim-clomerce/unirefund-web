@@ -24,7 +24,7 @@ function languagesTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<Volo_Abp_LanguageManagement_Dto_LanguageDto>[] = [];
   if (isActionGranted(["LanguageManagement.Languages.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
