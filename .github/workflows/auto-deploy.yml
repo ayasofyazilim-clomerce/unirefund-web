@@ -1,3 +1,101 @@
+
+name: Auto Deploy on Release
+run-name: 🚀 Auto deploying release
+
+on:
+  release:
+    types: [created] # runs when a release is first created
+
+jobs:
+  determine-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      env: ${{ steps.env-check.outputs.env }}
+      app: ${{ steps.env-check.outputs.app }}
+      should-deploy: ${{ steps.env-check.outputs.should-deploy }}
+    steps:
+      - name: Determine environment and app from release title
+        id: env-check
+        run: |
+          RELEASE_TITLE="${{ github.event.release.name }}"
+          echo "📝 Release title: $RELEASE_TITLE"
+
+          ENV=""
+          APP=""
+          SHOULD_DEPLOY="false"
+
+          # Determine environment from title prefix
+          if [[ "$RELEASE_TITLE" =~ ^uat-.* ]]; then
+            ENV="uat"
+            SHOULD_DEPLOY="true"
+            echo "✅ UAT deployment detected from release title"
+          elif [[ "$RELEASE_TITLE" =~ ^prod-.* ]]; then
+            ENV="prod"
+            SHOULD_DEPLOY="true"
+            echo "✅ PROD deployment detected from release title"
+          else
+            echo "❌ Cannot determine environment from release title"
+            echo "   Expected formats:"
+            echo "   - uat-v1.0.0"
+            echo "   - prod-v1.0.0"
+          fi
+
+          # Determine app type from title (default web)
+          if [[ "$RELEASE_TITLE" =~ ssr ]]; then
+            APP="ssr"
+            echo "📦 SSR app detected from title"
+          else
+            APP="web"
+            echo "📦 Web app selected (default)"
+          fi
+
+          echo "env=$ENV" >> $GITHUB_OUTPUT
+          echo "app=$APP" >> $GITHUB_OUTPUT
+          echo "should-deploy=$SHOULD_DEPLOY" >> $GITHUB_OUTPUT
+
+          echo ""
+          echo "🎯 Deployment Summary:"
+          echo "   Environment: $ENV"
+          echo "   App: $APP"
+          echo "   Should Deploy: $SHOULD_DEPLOY"
+
+  deploy:
+    needs: determine-environment
+    runs-on: self-hosted
+    timeout-minutes: 60
+    if: needs.determine-environment.outputs.should-deploy == 'true'
+    environment: ${{ needs.determine-environment.outputs.env }}
+    steps:
+      - name: Show deployment context
+        run: |
+          echo "🎉 Auto deployment triggered by release"
+          echo "📝 Release title: ${{ github.event.release.name }}"
+          echo "🌍 Environment: ${{ needs.determine-environment.outputs.env }}"
+          echo "📦 App: ${{ needs.determine-environment.outputs.app }}"
+          echo "👤 Released by: ${{ github.event.release.author.login }}"
+          echo "🔗 Release URL: ${{ github.event.release.html_url }}"
+
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Deploy via SSH
+        run: |
+          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{ needs.determine-environment.outputs.env }}"
+
+  notify-skipped:
+    needs: determine-environment
+    runs-on: ubuntu-latest
+    if: needs.determine-environment.outputs.should-deploy == 'false'
+    steps:
+      - run: |
+          echo "⏭️  Deployment skipped for release: ${{ github.event.release.name }}"
+          echo "💡 To enable auto-deployment, name the release like:"
+          echo "   uat-v1.0.0"
+          echo "   prod-v1.0.0"
+
 name: Publish Staging (105)
 run-name: ${{ github.actor }} is Publishing the API to Staging (105) 🚀
 on:
@@ -11,3 +109,4 @@ jobs:
     steps:
     - name: Update Deployment
       run: echo "asd"
+
