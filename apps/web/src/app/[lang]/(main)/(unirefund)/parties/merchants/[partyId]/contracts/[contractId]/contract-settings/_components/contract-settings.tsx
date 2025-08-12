@@ -174,7 +174,7 @@ export function ContractSettings({
     expandRowTrigger: "name",
   });
 
-  const tableActions: TanstackTableTableActionsType[] | undefined = !tempSettings
+  const tableActions: TanstackTableTableActionsType<ContractSettingsTable>[] | undefined = !tempSettings
     ? [
         {
           actionLocation: "table",
