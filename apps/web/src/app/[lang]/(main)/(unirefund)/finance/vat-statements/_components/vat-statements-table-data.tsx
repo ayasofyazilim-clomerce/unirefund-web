@@ -84,7 +84,7 @@ function vatStatementTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>[] = [];
   if (isActionGranted(["FinanceService.VATStatementHeaders.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
