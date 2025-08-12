@@ -1,3 +1,4 @@
+
 name: Auto Deploy on Release
 run-name: 🚀 Auto deploying release
 
@@ -94,3 +95,18 @@ jobs:
           echo "💡 To enable auto-deployment, name the release like:"
           echo "   uat-v1.0.0"
           echo "   prod-v1.0.0"
+
+name: Publish Staging (105)
+run-name: ${{ github.actor }} is Publishing the API to Staging (105) 🚀
+on:
+  release:
+    types: [created]
+jobs:
+  build_project:
+    timeout-minutes: 60
+    runs-on:
+      labels: self-hosted
+    steps:
+    - name: Update Deployment
+      run: echo "asd"
+
