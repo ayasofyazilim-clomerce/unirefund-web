@@ -82,7 +82,7 @@ jobs:
 
       - name: Deploy via SSH
         run: |
-          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{ needs.determine-environment.outputs.env }}"
+          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{ needs.determine-environment.outputs.env }} ${{github.event.release.name}}"
 
   notify-skipped:
     needs: determine-environment

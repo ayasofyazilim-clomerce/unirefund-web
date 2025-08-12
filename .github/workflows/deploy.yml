@@ -1,8 +1,6 @@
-name: Deploy Unirefund Apps
+name: Manual Deploy Unirefund Development
 
-run-name: >
-  🚀 ${{ github.actor }} is deploying [${{ inputs.env }}]
-  Unirefund-${{ inputs.app }}
+run-name: 🚀 ${{ github.actor }} is deploying [${{ inputs.env }}] Unirefund-${{ inputs.app }}
 
 on:
   workflow_dispatch:
@@ -14,8 +12,8 @@ on:
         type: choice
         options:
           - dev
-          - uat
-          - prod
+          # - uat
+          # - prod
       app:
         description: "App to publish (web or ssr)"
         required: true
@@ -41,31 +39,6 @@ jobs:
           echo "📦 App: ${{ inputs.app }}"
           echo "🖥️  OS: ${{ runner.os }}"
           echo "🔁 Branch: ${{ github.ref_name }}"
-
-      - name: Validate branch ↔️ environment match
-        run: |
-          case "${{ inputs.env }}" in
-            dev)
-              EXPECTED_BRANCH="dev"
-              ;;
-            uat)
-              EXPECTED_BRANCH="uat"
-              ;;
-            prod)
-              EXPECTED_BRANCH="prod"
-              ;;
-            *)
-              echo "❌ Invalid environment selected."
-              exit 1
-              ;;
-          esac
-
-          if [[ "${{ github.ref_name }}" != "$EXPECTED_BRANCH" ]]; then
-            echo "❌ You can only deploy '${{ inputs.env }}' from the '$EXPECTED_BRANCH' branch."
-            exit 1
-          fi
-
-          echo "✅ Branch and environment match."
       - name: Deploy via SSH
         env:
           SSH_COMMAND: |
