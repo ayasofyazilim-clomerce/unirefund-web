@@ -1,23 +1,25 @@
-import type { DefaultResource } from "@/language-data/core/Default";
-import type { UniRefund_FileService_FileTypes_FileTypeListDto } from "@ayasofyazilim/saas/FileService";
-import { $UniRefund_FileService_FileTypes_FileTypeListDto } from "@ayasofyazilim/saas/FileService";
-import { deleteFileTypesByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
+import type {UniRefund_FileService_FileTypes_FileTypeListDto} from "@ayasofyazilim/saas/FileService";
+import {$UniRefund_FileService_FileTypes_FileTypeListDto} from "@ayasofyazilim/saas/FileService";
+import {deleteFileTypesByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import type {
+  TanstackTableCreationProps,
   TanstackTableRowActionsType,
-  TanstackTableTableActionsType
+  TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {
   BooleanOptions,
   tanstackTableCreateColumnsByRowData,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { handleDeleteResponse } from "@repo/utils/api";
-import { isActionGranted, type Policy } from "@repo/utils/policies";
-import { Edit, Trash } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {handleDeleteResponse} from "@repo/utils/api";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
+import {Edit, Trash} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {DefaultResource} from "@/language-data/core/Default";
 
+type FileTypeTable = TanstackTableCreationProps<UniRefund_FileService_FileTypes_FileTypeListDto>;
 
 function fileTypeTableActions(router: AppRouterInstance, languageData: DefaultResource, locale: string) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_FileTypes_FileTypeListDto>[] = [];
   actions.push({
     type: "simple",
     actionLocation: "table",
@@ -91,8 +93,8 @@ function fileTypeTable(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
   locale: string,
-) {
-  const table = {
+): FileTypeTable {
+  const table: FileTypeTable = {
     fillerColumn: "namespace",
     columnVisibility: {
       type: "hide",

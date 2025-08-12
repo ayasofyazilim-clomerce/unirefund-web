@@ -1,29 +1,31 @@
-import type { DefaultResource } from "@/language-data/core/Default";
 import {
-  $UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
   $UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto,
   $UniRefund_FileService_FileTypeGroups_FileTypeGroupUpdateDto,
-  type UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
   type UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto,
   type UniRefund_FileService_FileTypeGroups_FileTypeGroupUpdateDto,
+  type UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
+  $UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
 } from "@ayasofyazilim/saas/FileService";
-import { deleteFileTypeGroupsByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
-import { postFileTypeGroupsApi } from "@repo/actions/unirefund/FileService/post-actions";
-import { putFileTypeGroupsByIdApi } from "@repo/actions/unirefund/FileService/put-actions";
+import {deleteFileTypeGroupsByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
+import {postFileTypeGroupsApi} from "@repo/actions/unirefund/FileService/post-actions";
+import {putFileTypeGroupsByIdApi} from "@repo/actions/unirefund/FileService/put-actions";
 import type {
+  TanstackTableCreationProps,
   TanstackTableRowActionsType,
-  TanstackTableTableActionsType
+  TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { handleDeleteResponse, handlePostResponse, handlePutResponse } from "@repo/utils/api";
-import { isActionGranted, type Policy } from "@repo/utils/policies";
-import { Edit, Plus, Trash } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
+import {Edit, Plus, Trash} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {DefaultResource} from "@/language-data/core/Default";
 
+type FileTypeGroupTable = TanstackTableCreationProps<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>;
 
 function fileTypeGroupTableActions(router: AppRouterInstance) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>[] = [];
   actions.push({
     type: "custom-dialog",
     actionLocation: "table",
@@ -118,8 +120,8 @@ function fileTypeGroupTable(
   languageData: DefaultResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
-) {
-  const table = {
+): FileTypeGroupTable {
+  const table: FileTypeGroupTable = {
     fillerColumn: "namespace",
     columnVisibility: {
       type: "hide",

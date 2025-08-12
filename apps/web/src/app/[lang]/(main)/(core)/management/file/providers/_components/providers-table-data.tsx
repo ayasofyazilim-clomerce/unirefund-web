@@ -22,9 +22,10 @@ import {Edit, Plus, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
 
+type ProvidersTable = TanstackTableCreationProps<UniRefund_FileService_Providers_ProviderListDto>;
 
 function providersTableActions(router: AppRouterInstance) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_Providers_ProviderListDto>[] = [];
   actions.push({
     type: "custom-dialog",
     actionLocation: "table",
@@ -119,8 +120,8 @@ function providersTable(
   languageData: DefaultResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
-) {
-  const table = {
+): ProvidersTable {
+  const table: ProvidersTable = {
     fillerColumn: "type",
     columnVisibility: {
       type: "hide",
