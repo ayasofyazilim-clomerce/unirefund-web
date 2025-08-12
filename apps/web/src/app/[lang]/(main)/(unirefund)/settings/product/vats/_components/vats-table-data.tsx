@@ -21,7 +21,7 @@ function vatsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_SettingService_Vats_VatDto>[] = [];
   if (isActionGranted(["SettingService.Vats.Add"], grantedPolicies)) {
     actions.push({
       type: "simple",

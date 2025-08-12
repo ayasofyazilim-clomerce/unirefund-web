@@ -21,7 +21,7 @@ function taxOfficesTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_TaxOffices_TaxOfficeProfileDto>[] = [];
   if (isActionGranted(["CRMService.TaxOffices.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

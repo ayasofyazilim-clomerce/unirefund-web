@@ -39,7 +39,7 @@ function productGroupsTableActions(
   productGroupsList: UniRefund_SettingService_ProductGroups_ProductGroupDto[],
   partyId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>[] = [];
   if (isActionGranted(["SettingService.ProductGroupMerchants.Add"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",

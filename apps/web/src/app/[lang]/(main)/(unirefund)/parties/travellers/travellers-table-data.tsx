@@ -24,7 +24,7 @@ function travellersTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_TravellerService_Travellers_TravellerListProfileDto>[] = [];
   if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

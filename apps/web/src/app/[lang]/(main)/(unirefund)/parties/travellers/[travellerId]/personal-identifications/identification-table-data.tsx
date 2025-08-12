@@ -28,7 +28,7 @@ function identificationsTableActions(
   grantedPolicies: Record<Policy, boolean>,
   travellerId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto>[] = [];
   if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
