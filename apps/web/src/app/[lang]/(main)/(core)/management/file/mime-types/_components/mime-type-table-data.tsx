@@ -1,30 +1,28 @@
+import type { DefaultResource } from "@/language-data/core/Default";
+import type {
+  UniRefund_FileService_MimeTypes_MimeTypeCreateDto,
+  UniRefund_FileService_MimeTypes_MimeTypeListDto,
+  UniRefund_FileService_MimeTypes_MimeTypeUpdateDto,
+} from "@ayasofyazilim/saas/FileService";
 import {
   $UniRefund_FileService_MimeTypes_MimeTypeCreateDto,
   $UniRefund_FileService_MimeTypes_MimeTypeListDto,
   $UniRefund_FileService_MimeTypes_MimeTypeUpdateDto,
 } from "@ayasofyazilim/saas/FileService";
+import { deleteMimeTypeByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
+import { postMimeTypesApi } from "@repo/actions/unirefund/FileService/post-actions";
+import { putMimeTypeApi } from "@repo/actions/unirefund/FileService/put-actions";
 import type {
-  UniRefund_FileService_MimeTypes_MimeTypeCreateDto,
-  UniRefund_FileService_MimeTypes_MimeTypeUpdateDto,
-  UniRefund_FileService_MimeTypes_MimeTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
-import {deleteMimeTypeByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
-import {postMimeTypesApi} from "@repo/actions/unirefund/FileService/post-actions";
-import {putMimeTypeApi} from "@repo/actions/unirefund/FileService/put-actions";
-import type {
-  TanstackTableCreationProps,
   TanstackTableRowActionsType,
-  TanstackTableTableActionsType,
+  TanstackTableTableActionsType
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
-import {isActionGranted, type Policy} from "@repo/utils/policies";
-import {Edit, Plus, Trash} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type {DefaultResource} from "@/language-data/core/Default";
+import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { handleDeleteResponse, handlePostResponse, handlePutResponse } from "@repo/utils/api";
+import { isActionGranted, type Policy } from "@repo/utils/policies";
+import { Edit, Plus, Trash } from "lucide-react";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-type MimeTypesTable = TanstackTableCreationProps<UniRefund_FileService_MimeTypes_MimeTypeListDto>;
 
 function mimeTypesTableActions(router: AppRouterInstance) {
   const actions: TanstackTableTableActionsType[] = [];
@@ -122,8 +120,8 @@ function mimeTypesTable(
   languageData: DefaultResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
-): MimeTypesTable {
-  const table: MimeTypesTable = {
+) {
+  const table = {
     fillerColumn: "mimeTypeCode",
     columnVisibility: {
       type: "hide",

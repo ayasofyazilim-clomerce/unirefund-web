@@ -1,3 +1,4 @@
+import type { FileServiceResource } from "@/language-data/unirefund/FileService";
 import {
   $UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeCreateDto,
   $UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto,
@@ -8,27 +9,23 @@ import {
   type UniRefund_FileService_FileTypes_FileTypeListDto,
   type UniRefund_FileService_MimeTypes_MimeTypeListDto,
 } from "@ayasofyazilim/saas/FileService";
-import {deleteFileTypeMimeTypesByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
-import {postFileTypeMimeTypesApi} from "@repo/actions/unirefund/FileService/post-actions";
-import {putFileTypeMimeTypesApi} from "@repo/actions/unirefund/FileService/put-actions";
+import { deleteFileTypeMimeTypesByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
+import { postFileTypeMimeTypesApi } from "@repo/actions/unirefund/FileService/post-actions";
+import { putFileTypeMimeTypesApi } from "@repo/actions/unirefund/FileService/put-actions";
 import type {
-  TanstackTableCreationProps,
   TanstackTableRowActionsType,
-  TanstackTableTableActionsType,
+  TanstackTableTableActionsType
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
-import {isActionGranted, type Policy} from "@repo/utils/policies";
-import {Edit, Plus, Trash} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {FormReadyComponent} from "@repo/ui/form-ready";
-import type {FileServiceResource} from "@/language-data/unirefund/FileService";
-import {checkIsFormReady} from "../../_components/utils";
+import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { handleDeleteResponse, handlePostResponse, handlePutResponse } from "@repo/utils/api";
+import { isActionGranted, type Policy } from "@repo/utils/policies";
+import { Edit, Plus, Trash } from "lucide-react";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { checkIsFormReady } from "../../_components/utils";
 
-type FileRelationEntityTable =
-  TanstackTableCreationProps<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto>;
 
 function fileTypeMimeTypesTableActions(
   lang: string,
@@ -187,8 +184,8 @@ function fileTypeMimeTypesTable(
   grantedPolicies: Record<Policy, boolean>,
   mimeTypeData: UniRefund_FileService_MimeTypes_MimeTypeListDto[],
   fileTypeData: UniRefund_FileService_FileTypes_FileTypeListDto[],
-): FileRelationEntityTable {
-  const table: FileRelationEntityTable = {
+) {
+  const table = {
     fillerColumn: "fileTypeName",
     columnVisibility: {
       type: "hide",
