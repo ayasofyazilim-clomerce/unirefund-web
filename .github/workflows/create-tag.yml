@@ -1,0 +1,67 @@
+name: Auto Tag on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [dev]  # Adjust branches as needed
+
+jobs:
+  auto-tag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+          token: ${{ secrets.PAT_TOKEN }}
+      
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          # Get the latest tag, or default to v0.0.0 if no tags exist
+          latest_tag=$(git tag -l --sort=-version:refname | head -n 1)
+          
+          if [ -z "$latest_tag" ]; then
+            latest_tag="v0.0.0"
+          fi
+          
+          echo "Latest tag: $latest_tag"
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+      
+      - name: Increment version
+        id: increment
+        run: |
+          latest_tag="${{ steps.get_tag.outputs.latest_tag }}"
+          
+          # Remove 'v' prefix if it exists
+          version=${latest_tag#v}
+          
+          # Split version into parts
+          IFS='.' read -ra VERSION_PARTS <<< "$version"
+          major=${VERSION_PARTS[0]:-0}
+          minor=${VERSION_PARTS[1]:-0}
+          patch=${VERSION_PARTS[2]:-0}
+          
+          # Increment patch version (you can modify this logic as needed)
+          new_patch=$((patch + 1))
+          new_version="v${major}.${minor}.${new_patch}"
+          
+          echo "New version: $new_version"
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+      
+      - name: Create and push tag
+        run: |
+          new_version="${{ steps.increment.outputs.new_version }}"
+          
+          # Configure git
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # Create annotated tag with PR information
+          git tag -a "$new_version" -m "Auto-generated tag $new_version from PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
+          
+          # Push the tag
+          git push origin "$new_version"
+          

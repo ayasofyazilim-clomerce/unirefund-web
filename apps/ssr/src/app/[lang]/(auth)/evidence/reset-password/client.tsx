@@ -17,6 +17,7 @@ import NewPasswordForm from "@repo/ui/theme/auth/new-password";
 import ResetPasswordForm from "@repo/ui/theme/auth/reset-password";
 import {redirect} from "next/navigation";
 import {useEffect, useState} from "react";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "@/language-data/core/AccountService";
@@ -169,11 +170,21 @@ export default function PasswordClient({languageData, lang, searchParams}: Passw
             type="button">
             {showPasswordForm ? (
               <>
-                Doğrulama yaparak <span className="text-primary font-medium">şifremi sıfırlamak</span> istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.ResetPassword}</span>,
+                  },
+                ])}
               </>
             ) : (
               <>
-                Doğrulama yapmadan <span className="text-primary font-medium">şifremi sıfırlamak</span> istiyorum!
+                {replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
+                  {
+                    holder: "{0}",
+                    replacement: <span className="text-primary font-medium">{languageData.ResetPassword}</span>,
+                  },
+                ])}
               </>
             )}
           </button>

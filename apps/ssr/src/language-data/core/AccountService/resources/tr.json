@@ -51,7 +51,6 @@
   "Form.surname": "Soyad",
   "Form.email": "E-posta",
   "Form.phoneNumber": "Telefon Numarası",
-
   "Auth.Tenant": "Müşteri",
   "Auth.TenantNotFound": "Müşteri bulunamadı.",
   "Auth.CheckYourEmail": "Devam etmek için e-postanızı kontrol ediniz.",
@@ -71,5 +70,7 @@
   "Auth.UsernameLabel": "Kullanıcı Adı",
   "Auth.UsernameDescription": "Kullanıcı adı.",
   "Auth.DoYouHaveAccount": "Hesabınız var mı?",
-  "Auth.RegisterSuccess": "Hesabınız oluşturuldu. Giriş yapabilirsiniz."
+  "Auth.RegisterSuccess": "Hesabınız oluşturuldu. Giriş yapabilirsiniz.",
+  "Auth.{0}.WithoutValidation": "Doğrulama yapmadan {0}!",
+  "Auth.{0}.WithValidation": "Doğrulama yaparak {0}!"
 }

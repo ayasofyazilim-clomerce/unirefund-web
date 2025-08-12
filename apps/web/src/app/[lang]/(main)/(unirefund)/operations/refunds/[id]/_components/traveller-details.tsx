@@ -16,7 +16,7 @@ export function TravellerDetails({
   traveller: TravellerDetailProfileDto & {travellerDocumentNumber: string};
   lang: string;
 }) {
-  const travellerLink = getBaseLink(`parties/travellers/${traveller.id}/personal-identifications`, lang);
+  const travellerLink = getBaseLink(`parties/travellers/${traveller.id}`, lang);
   return (
     <div className="grid max-h-full overflow-y-auto p-4 pb-[50%]">
       <IconWithTitle icon={User} title="Traveller details" />
