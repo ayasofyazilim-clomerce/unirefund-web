@@ -1,7 +1,7 @@
 import {Badge} from "@/components/ui/badge";
 import type {UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto} from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto as RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as RefundPointProfileDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -86,11 +86,11 @@ const refundFeeHeadersColumns = (
     custom: {
       refundPointId: {
         content(row) {
-          if (!row.refundPointId) return <></>;
+          if (!row.refundPointId) return null;
           const refundPoint = refundPoints.find((rp) => rp.id === row.refundPointId);
-          if (!refundPoint) return <></>;
+          if (!refundPoint) return null;
           return (
-            <Link href={getBaseLink(`parties/refund-points/${row.refundPointId}/details/info`, locale)}>
+            <Link href={getBaseLink(`parties/refund-points/${row.refundPointId}/details`, locale)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{refundPoint.name}</Badge>
             </Link>
           );

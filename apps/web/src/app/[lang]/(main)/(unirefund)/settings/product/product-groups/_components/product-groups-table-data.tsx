@@ -25,7 +25,7 @@ function productGroupsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_SettingService_ProductGroups_ProductGroupDto>[] = [];
   if (isActionGranted(["SettingService.ProductGroups.Add"], grantedPolicies)) {
     actions.push({
       type: "simple",

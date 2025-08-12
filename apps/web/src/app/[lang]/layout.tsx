@@ -41,7 +41,9 @@ export default async function RootLayout({children, params}: RootLayoutProps) {
   const resources = await getLocalizationResources(lang);
   return (
     <html className="h-full" lang={lang}>
-      <body className={`overflow-hidden ${GeistSans.className}`} data-app-name={appName}>
+      <body
+        className={`overflow-hidden [&:has(>div[data-state=open])>main]:m-2 ${GeistSans.className}`}
+        data-app-name={appName}>
         <Suspense fallback={<div>Loading...</div>}>
           <Toaster richColors />
           <Tooltip>

@@ -134,6 +134,7 @@ dist
 .turbo
 apps/web/tests/apps/web/playwright/.auth/user.json
 apps/web/lint-output.txt
+apps/ssr/lint-output.txt
 playwright/.auth/user.json
 apps/web/tests/playwright/.auth/user.json
 apps/web/tests/apps/web/tests/playwright/.auth/user.json

@@ -1794,6 +1794,8 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011015": "Only Headquarter merchants can have a relationship with ProductGroup. This merchant is not of the Headquarter type.";
   "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
   "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
+  "UniRefund.CRMService:011018": "A merchant without a filled ParentId cannot be of type headquarters";
+  "UniRefund.CRMService:011019": "ExternalStoreIdentifier cannot be empty";
 };
 export type SettingServiceResources = {
   "UniRefund.SettingService:011001": "The default product group for this merchant cannot be deleted. Ensure that at least one product group is marked as default: {id}";

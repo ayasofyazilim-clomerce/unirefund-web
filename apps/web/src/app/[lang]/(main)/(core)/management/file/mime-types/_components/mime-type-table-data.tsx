@@ -27,7 +27,7 @@ import type {DefaultResource} from "@/language-data/core/Default";
 type MimeTypesTable = TanstackTableCreationProps<UniRefund_FileService_MimeTypes_MimeTypeListDto>;
 
 function mimeTypesTableActions(router: AppRouterInstance) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_MimeTypes_MimeTypeListDto>[] = [];
   actions.push({
     type: "custom-dialog",
     actionLocation: "table",

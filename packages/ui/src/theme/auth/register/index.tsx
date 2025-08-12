@@ -36,6 +36,25 @@ export interface RegisterCredentials {
   password: string;
 }
 
+export interface RegisterFormLanguageData {
+  Login: string;
+  Register: string;
+  Tenant: string;
+  InvalidToken: string;
+  "Login.TenantPlaceholder": string;
+  "Login.Clear": string;
+  "Login.LeaveOrEmpty": string;
+  "Login.UsernameOrEmailLabel": string;
+  "Login.UsernameOrEmailDescription": string;
+  "Login.PasswordLabel": string;
+  "Login.Login": string;
+  "Login.HaveAnAccount": string;
+  "Register.EmailAddressLabel": string;
+  "Register.UsernameLabel": string;
+  "Register.UsernameDescription": string;
+  "Register.DoYouHaveAccount": string;
+}
+
 export default function RegisterForm({
   languageData,
   defaultTenant = "",

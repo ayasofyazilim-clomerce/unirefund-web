@@ -7,7 +7,6 @@ import type {
   UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as ContractHeaderForRefundPointUpdateDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderForRefundPointUpdateDto as $ContractHeaderForRefundPointUpdateDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressTypeDto} from "@ayasofyazilim/saas/LocationService";
 import {ActionButton, ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -24,6 +23,7 @@ import {
 import {postRefundPointContractHeaderValidateByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {deleteRefundPointContractHeadersById} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
 export default function RefundPointContractHeaderUpdateForm({
@@ -32,7 +32,7 @@ export default function RefundPointContractHeaderUpdateForm({
   refundFeeHeaders,
   contractHeaderDetails,
 }: {
-  addressList: AddressTypeDto[];
+  addressList: UniRefund_CRMService_Addresses_AddressDto[];
   languageData: ContractServiceResource;
   refundFeeHeaders: AssignableRefundFeeHeaders[];
   contractHeaderDetails: ContractHeaderDetailForRefundPointDto;
@@ -117,11 +117,11 @@ export default function RefundPointContractHeaderUpdateForm({
         uiSchema={uiSchema}
         useTableForArrayItems
         widgets={{
-          address: CustomComboboxWidget<AddressTypeDto>({
+          address: CustomComboboxWidget<UniRefund_CRMService_Addresses_AddressDto>({
             list: addressList,
             languageData,
             selectIdentifier: "id",
-            selectLabel: "fullAddress",
+            selectLabel: "addressLine",
           }),
           refundFeeHeaders: CustomComboboxWidget<AssignableRefundFeeHeaders>({
             list: refundFeeHeaders,

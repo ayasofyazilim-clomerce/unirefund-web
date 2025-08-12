@@ -66,7 +66,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
       redirect: false,
     }),
     MerchantDetail: await isUnauthorized({
-      requiredPolicies: ["CRMService.Merchants.Detail"],
+      requiredPolicies: ["CRMService.Merchants.View"],
       lang,
       redirect: false,
     }),
@@ -112,7 +112,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: languageData.FullName,
                 value: `${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`,
                 link: !hasGrant.TravellerDetail
-                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}/personal-identifications`)
+                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}`)
                   : undefined,
               },
               {
@@ -137,7 +137,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: languageData.StoreName,
                 value: tagDetail.merchant?.name || "",
                 link: !hasGrant.MerchantDetail
-                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details/info`)
+                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details`)
                   : undefined,
               },
               {

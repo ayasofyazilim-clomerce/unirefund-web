@@ -11,7 +11,6 @@ export default async function Page({params}: {params: {lang: string; id: string}
       "ContractService.RefundTableHeader.Create",
       "ContractService.RefundTableHeader.Edit",
       "ContractService.RefundTableHeader.Delete",
-      "ContractService.RefundTableHeader.View",
       "ContractService.RefundTableHeader.ViewDetail",
     ],
     lang: params.lang,

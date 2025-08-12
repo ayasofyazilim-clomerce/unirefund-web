@@ -1,6 +1,5 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
@@ -10,6 +9,7 @@ import {defineStepper} from "@stepperize/react";
 import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, Shield} from "lucide-react";
 import type {ParseResult} from "mrz";
 import {useEffect, useState} from "react";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import LivenessDetector from "./liveness-detector";
 import SuccessModal from "./validation-steps/finish";
 import RegisterChoice from "./validation-steps/register-choice";
@@ -48,11 +48,15 @@ export default function ValidationSteps({
   clientAuths,
   requireSteps,
   responseCreateEvidence,
+  initialStep = "register-choice",
+  onStepChange,
 }: {
   languageData: SSRServiceResource;
   clientAuths: AWSAuthConfig;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   responseCreateEvidence: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
+  initialStep?: "register-choice" | "start" | "scan-front" | "scan-back" | "scan-passport" | "liveness-detector";
+  onStepChange?: (stepId: string) => void;
 }) {
   const [canGoNext, setCanGoNext] = useState(false);
   const [front, setFront] = useState<DocumentData>(null);
@@ -74,11 +78,13 @@ export default function ValidationSteps({
           back={back}
           canGoNext={canGoNext}
           clientAuths={clientAuths}
+          evidenceSession={evidenceSession}
           front={front}
+          initialStep={initialStep}
           languageData={languageData}
+          onStepChange={onStepChange}
           progress={progress}
           requireSteps={requireSteps}
-          evidenceSession={evidenceSession}
           setBack={setBack}
           setCanGoNext={setCanGoNext}
           setFront={setFront}
@@ -103,6 +109,8 @@ function StepperContent({
   progress,
   requireSteps,
   evidenceSession,
+  initialStep,
+  onStepChange,
 }: {
   clientAuths: AWSAuthConfig;
   languageData: SSRServiceResource;
@@ -116,8 +124,24 @@ function StepperContent({
   progress: number;
   requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
   evidenceSession: string | null;
+  initialStep?: "register-choice" | "start" | "scan-front" | "scan-back" | "scan-passport" | "liveness-detector";
+  onStepChange?: (stepId: string) => void;
 }) {
   const stepper = GlobalScopper.useStepper();
+
+  // Navigate to initial step on component mount
+  useEffect(() => {
+    if (initialStep && stepper.current.id !== initialStep) {
+      stepper.goTo(initialStep);
+    }
+  }, [initialStep]);
+
+  // Notify parent component about step changes
+  useEffect(() => {
+    if (onStepChange) {
+      onStepChange(stepper.current.id);
+    }
+  }, [stepper.current.id, onStepChange]);
 
   // Update progress when step changes
   useEffect(() => {
@@ -147,7 +171,7 @@ function StepperContent({
       {/* Progress indicator - Hide only on first step */}
       {/* Steps indicators - Show on all pages */}
       {!stepper.isFirst && (
-        <div className="-mb-2 lg:mb-8">
+        <div className="mb-2">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-black">
               {languageData[stepper.current.title as keyof SSRServiceResource] || stepper.current.title}
@@ -216,10 +240,10 @@ function StepperContent({
       <Steps
         back={back}
         clientAuths={clientAuths}
+        evidenceSession={evidenceSession}
         front={front}
         languageData={languageData}
         requireSteps={requireSteps}
-        evidenceSession={evidenceSession}
         setBack={setBack}
         setCanGoNext={setCanGoNext}
         setFront={setFront}
@@ -266,15 +290,15 @@ function LivenessStep({
   };
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative mb-4 h-full w-full">
       <LivenessDetector
         config={clientAuths}
+        evidenceSessionId={evidenceSession}
+        frontImageBase64={front?.base64 || null}
         languageData={languageData}
         onAnalysisComplete={(result) => {
           handleAnalysisComplete(result);
         }}
-        evidenceSessionId={evidenceSession}
-        frontImageBase64={front?.base64 || null}
       />
     </div>
   );
@@ -317,10 +341,10 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-front", () => (
             <ScanDocument
-              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
+              session={evidenceSession || ""}
               setBack={setBack}
               setCanGoNext={setCanGoNext}
               setFront={setFront}
@@ -331,24 +355,24 @@ function Steps({
       {showMRZSteps
         ? stepper.when("scan-back", () => (
             <ScanDocument
-              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
+              session={evidenceSession || ""}
               setBack={setBack}
               setCanGoNext={setCanGoNext}
               setFront={setFront}
               type="id-card-back"
             />
           ))
-        : null}{" "}
+        : null}
       {showMRZSteps
         ? stepper.when("scan-passport", () => (
             <ScanDocument
-              session={evidenceSession || ""}
               back={back}
               front={front}
               languageData={languageData}
+              session={evidenceSession || ""}
               setBack={setBack}
               setCanGoNext={setCanGoNext}
               setFront={setFront}
@@ -361,9 +385,9 @@ function Steps({
         ? stepper.when("liveness-detector", () => (
             <LivenessStep
               clientAuths={clientAuths}
+              evidenceSession={evidenceSession}
               front={front}
               languageData={languageData}
-              evidenceSession={evidenceSession}
               stepper={stepper}
             />
           ))
@@ -418,7 +442,6 @@ function Actions({
   const showLivenessStep = requireSteps.isLivenessRequired !== false;
   return !stepper.isLast ? (
     <div className="flex items-center justify-between">
-      {" "}
       {!stepper.isFirst && stepper.current.id !== "start" && (
         <Button
           className="border-black/20 px-5 py-2.5 text-black hover:bg-black/5"
@@ -457,7 +480,7 @@ function Actions({
           <ArrowLeft className="mr-2 h-5 w-5" />
           {languageData.Previous}
         </Button>
-      )}{" "}
+      )}
       {stepper.when(
         "register-choice",
         () =>

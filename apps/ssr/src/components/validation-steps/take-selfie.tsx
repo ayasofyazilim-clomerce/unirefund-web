@@ -27,15 +27,15 @@ export default function TakeSelfie({
         <div className="mb-6 space-y-3 text-sm">
           <div className="flex items-center gap-2">
             <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
-            <p>{languageData.SelfieTip1 || "Make sure your face is well-lit"}</p>
+            <p>{languageData.SelfieTip1}</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
-            <p>{languageData.SelfieTip2 || "Look directly at the camera"}</p>
+            <p>{languageData.SelfieTip2}</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
-            <p>{languageData.SelfieTip3 || "Keep a neutral expression"}</p>
+            <p>{languageData.SelfieTip3}</p>
           </div>
         </div>
 
@@ -81,9 +81,7 @@ export default function TakeSelfie({
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full p-2 text-center md:p-6">
                 <div className="border-primary mx-auto mb-2 flex h-48 w-40 items-center justify-center rounded-full border-4 border-dashed md:h-64 md:w-56" />
-                <p className="text-sm font-medium text-white">
-                  {languageData.SelfieInstructions || "Position your face within the frame"}
-                </p>
+                <p className="text-sm font-medium text-white">{languageData.SelfieInstructions}</p>
               </div>
             </div>
           </div>
@@ -94,13 +92,9 @@ export default function TakeSelfie({
       {similarity !== -1 && (
         <Alert className="mt-4" variant={similarity < 80 ? "destructive" : "default"}>
           <ScanFace className="h-4 w-4" />
-          <AlertTitle>
-            {languageData["Face.Similarity"].replace("{0}", similarity.toString()) || `Similarity: ${similarity}%`}
-          </AlertTitle>
+          <AlertTitle>{languageData["Face.Similarity"].replace("{0}", similarity.toString())}</AlertTitle>
           <AlertDescription>
-            {similarity > 80
-              ? languageData["Face.Matches"] || "Your face matches with the ID document"
-              : languageData["Face.DoesNotMatch"] || "Your face doesn't match with the ID document"}
+            {similarity > 80 ? languageData["Face.Matches"] : languageData["Face.DoesNotMatch"]}
           </AlertDescription>
         </Alert>
       )}
