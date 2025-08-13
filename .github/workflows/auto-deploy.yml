@@ -47,7 +47,7 @@ jobs:
             APP="web"
             echo "📦 Web app selected (default)"
           else
-            APP=""
+            APP="all"
             echo "📦All apps selected (default)"
           fi
 
