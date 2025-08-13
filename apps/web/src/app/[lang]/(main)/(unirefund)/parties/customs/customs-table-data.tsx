@@ -21,7 +21,7 @@ function customsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_Customss_CustomsProfileDto>[] = [];
   if (isActionGranted(["CRMService.Customs.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

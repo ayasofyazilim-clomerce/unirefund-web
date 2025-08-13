@@ -47,7 +47,7 @@ function affiliationsTableActions(
   affiliationCodes: UniRefund_CRMService_AffiliationCodes_AffiliationCodeDto[],
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_AffiliationTypes_AffiliationTypeDetailDto>[] = [];
   if (isActionGranted(["CRMService.RefundPoints.CreateAffiliation"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",

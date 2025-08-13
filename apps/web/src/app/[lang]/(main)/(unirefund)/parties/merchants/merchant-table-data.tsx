@@ -22,7 +22,7 @@ function merchantTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_Merchants_MerchantProfileDto>[] = [];
   if (isActionGranted(["CRMService.Merchants.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

@@ -24,7 +24,7 @@ function subStoreTableActions(
   grantedPolicies: Record<Policy, boolean>,
   partyId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_TaxFrees_TaxFreeProfileDto>[] = [];
   if (isActionGranted(["CRMService.TaxFrees.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

@@ -24,7 +24,7 @@ function subStoreTableActions(
   grantedPolicies: Record<Policy, boolean>,
   partyId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_Merchants_StoreProfileDto>[] = [];
   if (isActionGranted(["CRMService.Merchants.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

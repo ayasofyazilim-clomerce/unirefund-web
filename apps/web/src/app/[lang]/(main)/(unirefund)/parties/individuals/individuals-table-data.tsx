@@ -34,7 +34,7 @@ function individualsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_Individuals_IndividualProfileDto>[] = [];
   if (isActionGranted(["CRMService.Individuals.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

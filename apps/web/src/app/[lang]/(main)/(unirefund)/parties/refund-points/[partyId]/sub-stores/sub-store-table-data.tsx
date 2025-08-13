@@ -25,7 +25,7 @@ function subStoreTableActions(
   grantedPolicies: Record<Policy, boolean>,
   partyId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>[] = [];
   if (isActionGranted(["CRMService.RefundPoints.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

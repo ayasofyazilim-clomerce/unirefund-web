@@ -22,7 +22,7 @@ function refundPointsTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_CRMService_RefundPoints_RefundPointProfileDto>[] = [];
   if (isActionGranted(["CRMService.RefundPoints.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

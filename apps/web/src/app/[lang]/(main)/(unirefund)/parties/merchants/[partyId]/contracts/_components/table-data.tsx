@@ -77,7 +77,7 @@ const contractsTable = (props: {
   grantedPolicies: Record<Policy, boolean>;
 }) => {
   const {languageData, partyId, router} = props;
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<ContractsForMerchantDto>[] = [];
   const canCreate = isActionGranted(["ContractService.ContractHeaderForRefundPoint.Create"], props.grantedPolicies);
   if (canCreate) {
     actions.push({
