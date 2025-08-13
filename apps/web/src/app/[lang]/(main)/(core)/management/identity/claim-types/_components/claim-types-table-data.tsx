@@ -21,7 +21,7 @@ function claimTypesTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<Volo_Abp_Identity_ClaimTypeDto>[] = [];
   if (isActionGranted(["AbpIdentity.ClaimTypes.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
