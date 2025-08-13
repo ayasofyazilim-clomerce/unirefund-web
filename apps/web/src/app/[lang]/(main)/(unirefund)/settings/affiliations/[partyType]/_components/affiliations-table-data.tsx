@@ -40,7 +40,7 @@ function affiliationsTableActions(
   router: AppRouterInstance,
   partyType: Exclude<PartyNameType, "individuals">,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<AffiliationCodeDto>[] = [];
   if (isActionGranted(["CRMService.AffiliationCodes.Create"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",
