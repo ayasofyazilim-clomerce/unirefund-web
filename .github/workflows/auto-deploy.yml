@@ -39,13 +39,16 @@ jobs:
             echo "   - prod-v1.0.0"
           fi
 
-          # Determine app type from title (default web)
+          # Determine app type from title (default all)
           if [[ "$RELEASE_TITLE" =~ ssr ]]; then
             APP="ssr"
             echo "📦 SSR app detected from title"
-          else
+          elif [[ "$RELEASE_TITLE" =~ web ]]; then
             APP="web"
             echo "📦 Web app selected (default)"
+          else
+            APP=""
+            echo "📦All apps selected (default)"
           fi
 
           echo "env=$ENV" >> $GITHUB_OUTPUT
@@ -82,8 +85,7 @@ jobs:
 
       - name: Deploy via SSH
         run: |
-          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{ needs.determine-environment.outputs.env }} ${{github.event.release.name}}"
-
+          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{github.event.release.name}}"
   notify-skipped:
     needs: determine-environment
     runs-on: ubuntu-latest
