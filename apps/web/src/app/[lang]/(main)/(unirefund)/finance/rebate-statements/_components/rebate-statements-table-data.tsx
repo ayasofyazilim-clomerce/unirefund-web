@@ -68,7 +68,7 @@ function rebateStatementTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto>[] = [];
   if (isActionGranted(["FinanceService.RebateStatementHeaders.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
