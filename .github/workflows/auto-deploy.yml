@@ -47,7 +47,7 @@ jobs:
             APP="web"
             echo "📦 Web app selected (default)"
           else
-            APP=""
+            APP="all"
             echo "📦All apps selected (default)"
           fi
 
@@ -83,9 +83,16 @@ jobs:
           ref: ${{ github.event.release.tag_name }}
           fetch-depth: 0
 
-      - name: Deploy via SSH
+      - name: Deploy specific
+        if: needs.determine-environment.outputs.app != 'all'
         run: |
-          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{github.event.release.name}}"
+          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{ github.event.release.name }}"
+
+      - name: Deploy all apps
+        if: needs.determine-environment.outputs.app == 'all'
+        run: |
+          ssh frontend "deploy Unirefund ${{ github.event.release.name }}"
+
   notify-skipped:
     needs: determine-environment
     runs-on: ubuntu-latest
