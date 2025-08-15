@@ -1,156 +1,34 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
-import type {AccountServiceResource} from "@/language-data/core/AccountService";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
-import type {
-  UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
-  UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-} from "@ayasofyazilim/saas/TravellerService";
 import {getTenantByNameApi, signUpServerApi} from "@repo/actions/core/AccountService/actions";
-import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
-import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
-import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
-import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import RegisterForm from "@repo/ui/theme/auth/register";
-import ValidationSteps from "components/validation-steps";
-import {IdCard, LogIn} from "lucide-react";
-import {useRouter, useSearchParams} from "next/navigation";
-import {useCallback, useEffect, useMemo, useState} from "react";
-import {getResourceData} from "src/language-data/core/AccountService";
-
-interface EvidenceData {
-  requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto;
-  responseCreateEvidence: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
-}
+import type {AccountServiceResource} from "@/language-data/core/AccountService";
+import {useEvidenceValidation, EvidenceValidationWrapper, ValidationToggleButtons, useAuthTexts} from "../index";
 
 interface RegisterClientProps {
   languageData: AccountServiceResource;
-  showRegisterFormOnStart?: boolean;
   lang: string;
 }
 
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center p-8">
-    <div className="text-center">
-      <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600" />
-    </div>
-  </div>
-);
+export default function RegisterClient({languageData, lang}: RegisterClientProps) {
+  const {
+    showMainForm,
+    evidenceData,
+    clientAuths,
+    evidenceLanguageData,
+    loading,
+    currentStep,
+    isValidationDataReady,
+    isTenantDisabled,
+    setCurrentStep,
+  } = useEvidenceValidation(lang);
 
-export default function RegisterClient({languageData, lang, showRegisterFormOnStart}: RegisterClientProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // URL'den startValidation parametresini al
-  const startValidation = searchParams.get("startValidation") === "true";
-
-  const [showRegisterForm, setShowRegisterForm] = useState(!startValidation);
-  const [evidenceData, setEvidenceData] = useState<EvidenceData | null>(null);
-  const [clientAuths, setClientAuths] = useState<AWSAuthConfig | null>(null);
-  const [evidenceLanguageData, setEvidenceLanguageData] = useState<unknown>(null);
-  const [loading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState<string>("start");
-
-  // Memoize environment config
-  const isTenantDisabled = useMemo(() => process.env.FETCH_TENANT !== "true", []);
-
-  // Memoize require steps to prevent recreation on every render
-  const requireSteps = useMemo<UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto>(
-    () => ({
-      isMRZRequired: true,
-      isNFCRequired: false,
-      isLivenessRequired: true,
-      source: "SSR",
-    }),
-    [],
-  );
-
-  const initializeEvidenceData = useCallback(async () => {
-    setLoading(true);
-
-    try {
-      const [evidenceResponse, authsResponse, ssrLanguageData] = await Promise.all([
-        postCreateEvidenceSessionPublic({requestBody: requireSteps}),
-        getAWSEnvoriment(),
-        getResourceData(lang),
-      ]);
-
-      setEvidenceData({
-        requireSteps,
-        responseCreateEvidence: evidenceResponse.data as UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-      });
-      setClientAuths(authsResponse as AWSAuthConfig);
-      setEvidenceLanguageData(ssrLanguageData.languageData as unknown as SSRServiceResource);
-    } catch (error) {
-      console.error("Error initializing evidence data:", error);
-      // You might want to add error handling/display here
-    } finally {
-      setLoading(false);
-    }
-  }, [requireSteps, lang]);
-
-  useEffect(() => {
-    if (startValidation) {
-      // Evidence moduna geçerken verileri yükle
-      void initializeEvidenceData();
-    }
-  }, [startValidation, initializeEvidenceData]);
-
-  // URL parametresi değiştiğinde state'i güncelle
-  useEffect(() => {
-    setShowRegisterForm(!startValidation);
-  }, [startValidation]);
-
-  const handleToggle = async () => {
-    if (showRegisterForm) {
-      // Evidence moduna geçerken verileri yükle
-      await initializeEvidenceData();
-    }
-    setShowRegisterForm(!showRegisterForm);
-  };
-
-  // if (!searchParams) {
-  //   return null;
-  // }
-
-  // Memoize login text replacement
-  const loginTextWithValidation = useMemo(
-    () =>
-      replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
-        {
-          holder: "{0}",
-          replacement: <span className="font-medium">{languageData.Login}</span>,
-        },
-      ]),
-    [languageData],
-  );
-  const registerTextWithoutValidation = useMemo(
-    () =>
-      replacePlaceholders(languageData["Auth.{0}.WithoutValidation"], [
-        {
-          holder: "{0}",
-          replacement: <span className="font-medium">{languageData.Register}</span>,
-        },
-      ]),
-    [languageData],
-  );
-
-  // Memoize register text replacement
-  const registerTextWithValidation = useMemo(
-    () =>
-      replacePlaceholders(languageData["Auth.{0}.WithValidation"], [
-        {
-          holder: "{0}",
-          replacement: <span className="font-medium">{languageData.Register}</span>,
-        },
-      ]),
-    [languageData],
-  );
+  const {registerTextWithValidation, registerTextWithoutValidation, loginTextWithValidation} =
+    useAuthTexts(languageData);
 
   return (
     <div className="w-full">
-      {showRegisterForm ? (
+      {showMainForm ? (
         <RegisterForm
           isTenantDisabled={isTenantDisabled}
           languageData={languageData}
@@ -158,84 +36,27 @@ export default function RegisterClient({languageData, lang, showRegisterFormOnSt
           onTenantSearchAction={getTenantByNameApi}
         />
       ) : (
-        <>
-          {loading && <LoadingSpinner />}
-
-          {!loading && evidenceData && clientAuths && evidenceLanguageData ? (
-            <ValidationSteps
-              clientAuths={clientAuths}
-              initialStep="start"
-              languageData={evidenceLanguageData as SSRServiceResource}
-              onStepChange={setCurrentStep}
-              requireSteps={evidenceData.requireSteps}
-              responseCreateEvidence={evidenceData.responseCreateEvidence}
-            />
-          ) : null}
-        </>
+        <EvidenceValidationWrapper
+          clientAuths={clientAuths}
+          evidenceData={evidenceData}
+          evidenceLanguageData={evidenceLanguageData}
+          isValidationDataReady={isValidationDataReady}
+          loading={loading}
+          onStepChange={setCurrentStep}
+        />
       )}
 
-      {/* Show toggle button only when on register form or on start step */}
-      {showRegisterForm || currentStep === "start" ? (
-        <div>
-          {showRegisterForm ? (
-            <div className="mx-auto mb-5 flex w-full flex-col items-center gap-3 px-5 sm:w-[350px]">
-              {/* Ayırıcı çizgi ve metin */}
-              <div className="flex w-full items-center gap-2">
-                <span className="bg-muted h-px min-w-[20px] flex-1"></span>
-                <span className="text-muted-foreground max-w-[200px] text-center text-xs uppercase leading-tight">
-                  {languageData["Auth.WithDocument"]}
-                </span>
-                <span className="bg-muted h-px min-w-[20px] flex-1"></span>
-              </div>
-
-              {/* Ana kimlik doğrulama butonu */}
-              <Button
-                disabled={loading}
-                className="mt-1 w-full gap-1 shadow-sm"
-                type="button"
-                onClick={() => {
-                  router.push("register?startValidation=true");
-                }}>
-                <IdCard className="h-5 w-5" />
-                {registerTextWithValidation}
-              </Button>
-
-              <Button
-                onClick={() => {
-                  router.push("login?startValidation=true");
-                }}
-                disabled={loading}
-                className="text-muted-foreground w-full gap-1 "
-                variant={"outline"}>
-                <IdCard className="h-5 w-5" />
-                {loginTextWithValidation}
-              </Button>
-            </div>
-          ) : (
-            <div>
-              {/* Geri dönüş için ayırıcı ve buton */}
-              <div className="mt-4 flex w-full items-center gap-2">
-                <span className="bg-muted h-px min-w-[20px] flex-1"></span>
-                <span className="text-muted-foreground max-w-[200px] text-center text-xs uppercase leading-tight">
-                  {languageData["Auth.WithoutDocument"]}
-                </span>
-                <span className="bg-muted h-px min-w-[20px] flex-1"></span>
-              </div>
-
-              <Button
-                disabled={loading}
-                className="mt-2 w-full gap-1 shadow-sm"
-                type="button"
-                onClick={() => {
-                  router.push("register");
-                }}>
-                <LogIn className="h-5 w-5" />
-                {registerTextWithoutValidation}
-              </Button>
-            </div>
-          )}
-        </div>
-      ) : null}
+      <ValidationToggleButtons
+        alternativeActionText={loginTextWithValidation}
+        alternativePath="login"
+        currentStep={currentStep}
+        languageData={languageData}
+        loading={loading}
+        mainActionText={registerTextWithValidation}
+        mainActionWithoutValidationText={registerTextWithoutValidation}
+        mainPath="register"
+        showMainForm={showMainForm}
+      />
     </div>
   );
 }
