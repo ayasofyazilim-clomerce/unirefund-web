@@ -71,6 +71,8 @@
   "Auth.UsernameDescription": "User name.",
   "Auth.DoYouHaveAccount": "Do you have an account?",
   "Auth.RegisterSuccess": "You can now log in to your account.",
-  "Auth.{0}.WithoutValidation": "{0} without validation!",
-  "Auth.{0}.WithValidation": "{0} with validation!"
+  "Auth.{0}.WithoutValidation": "{0} without ID/Passport",
+  "Auth.{0}.WithValidation": "{0} with ID/Passport",
+  "Auth.WithDocument": "Do you have your passport or ID card with you?",
+  "Auth.WithoutDocument": "Don't have your passport or ID card with you?"
 }

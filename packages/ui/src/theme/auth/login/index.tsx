@@ -177,7 +177,7 @@ export default function LoginForm({
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>{languageData["Auth.UsernameOrEmailDescription"]}</FormDescription>
+                  {/* <FormDescription>{languageData["Auth.UsernameOrEmailDescription"]}</FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -196,26 +196,20 @@ export default function LoginForm({
               )}
             />
             <div className="text-right">
-              <Link href="reset-password" className="text-muted-foreground mt-1 text-xs hover:underline">
+              <Link href="reset-password" className="text-muted-foreground text-xs hover:underline">
                 {languageData["Auth.ForgotPassword"]}
               </Link>
             </div>
             <div>
-              <Button disabled={isPending || isSubmitDisabled} className="my-2 w-full">
+              <Button disabled={isPending || isSubmitDisabled} className="mb-1 mt-2 w-full">
                 {languageData["Auth.Login"]}
               </Button>
             </div>
           </form>
         </FormProvider>
       </div>
-      <div className="flex items-center justify-center">
-        <span className="bg-muted h-px w-full"></span>
-        <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">
-          {languageData["Auth.HaveAnAccount"]}
-        </span>
-        <span className="bg-muted h-px w-full"></span>
-      </div>
-      <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
+
+      <Link href="register" className="text-muted-foreground text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
           {languageData["Auth.Register"]}
         </Button>
