@@ -92,7 +92,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.tag_name.outputs.tag_name }}
+          tag_name: "${{ steps.tag_name.outputs.tag_name }}-${{inputs.app}}"
           release_name: "Deployment ${{ steps.tag_name.outputs.tag_name }}"
           body: |
             🚀 **Deployment Details**
