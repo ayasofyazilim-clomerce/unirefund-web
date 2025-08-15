@@ -24,7 +24,7 @@ function BreadcrumbIcon({item}: {item: NavbarItemsFromDB}) {
 
 function RenderLinkOrTrigger({href, children}: {href?: string | null; children: React.ReactNode}) {
   return href ? (
-    <Link href={"/" + href || "#"} className="flex items-center gap-1">
+    <Link href={"/" + href || "#"} className="flex w-full items-center gap-1">
       {children}
     </Link>
   ) : (

@@ -131,8 +131,8 @@ function refundPointTable(
               icon: Building2,
             },
             {
-              label: languageData["Form.RefundPoint.typeCode.STORE"],
-              value: "STORE",
+              label: languageData["Form.RefundPoint.typeCode.REFUNDPOINT"],
+              value: "REFUNDPOINT",
               icon: Store,
             },
           ],
