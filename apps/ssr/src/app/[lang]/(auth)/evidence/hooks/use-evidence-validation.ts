@@ -27,21 +27,21 @@ interface UseEvidenceValidationReturn {
   loading: boolean;
   currentStep: string;
   startValidation: boolean;
-  
+
   // Computed
   isValidationDataReady: boolean;
   isTenantDisabled: boolean;
-  
+
   // Handlers
   setCurrentStep: (step: string) => void;
 }
 
 export function useEvidenceValidation(lang: string): UseEvidenceValidationReturn {
   const searchParams = useSearchParams();
-  
+
   // URL'den startValidation parametresini al
   const startValidation = searchParams.get("startValidation") === "true";
-  
+
   const [showMainForm, setShowMainForm] = useState(!startValidation);
   const [evidenceData, setEvidenceData] = useState<EvidenceData | null>(null);
   const [clientAuths, setClientAuths] = useState<AWSAuthConfig | null>(null);
@@ -99,7 +99,8 @@ export function useEvidenceValidation(lang: string): UseEvidenceValidationReturn
   }, [startValidation]);
 
   // Check if all required data is loaded for ValidationSteps
-  const isValidationDataReady = !loading && Boolean(evidenceData) && Boolean(clientAuths) && Boolean(evidenceLanguageData);
+  const isValidationDataReady =
+    !loading && Boolean(evidenceData) && Boolean(clientAuths) && Boolean(evidenceLanguageData);
 
   return {
     showMainForm,

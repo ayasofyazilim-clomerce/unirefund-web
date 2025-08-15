@@ -73,7 +73,8 @@ export function ValidationToggleButtons({
           </Button>
 
           {/* Alternative action button (isteğe bağlı) */}
-          {alternativeActionText && alternativePath ? <Button
+          {alternativeActionText && alternativePath ? (
+            <Button
               className="text-muted-foreground w-full gap-1"
               disabled={loading}
               onClick={() => {
@@ -82,7 +83,8 @@ export function ValidationToggleButtons({
               variant="outline">
               <IdCard className="h-5 w-5" />
               {alternativeActionText}
-            </Button> : null}
+            </Button>
+          ) : null}
         </div>
       ) : (
         <div>
