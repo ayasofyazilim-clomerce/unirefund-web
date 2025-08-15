@@ -15,7 +15,6 @@ import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholde
 import LoginForm from "@repo/ui/theme/auth/login";
 import ValidationSteps from "components/validation-steps";
 import {IdCard, LogIn} from "lucide-react";
-import Link from "next/link";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useCallback, useMemo, useState, useEffect} from "react";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
