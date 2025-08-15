@@ -1,7 +1,5 @@
 name: Unirefund Development Deploy
-
 run-name: 🚀 ${{ github.actor }} is deploying [${{ inputs.env }}] Unirefund-${{ inputs.app }}
-
 on:
   workflow_dispatch:
     inputs:
@@ -20,16 +18,18 @@ on:
         options:
           - web
           - ssr
-
 jobs:
   publish:
     runs-on: self-hosted
     timeout-minutes: 60
-
     # ✅ Activates GitHub Environment for secrets/vars
     environment: ${{ inputs.env }}
-
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for proper tagging
+
       - name: Show build context
         run: |
           echo "🎉 Triggered by: ${{ github.actor }}"
@@ -37,6 +37,7 @@ jobs:
           echo "📦 App: ${{ inputs.app }}"
           echo "🖥️  OS: ${{ runner.os }}"
           echo "🔁 Branch: ${{ github.ref_name }}"
+
       - name: Deploy via SSH
         env:
           SSH_COMMAND: |
@@ -44,3 +45,64 @@ jobs:
         run: |
           echo "Running remote deploy command..."
           ssh frontend "${SSH_COMMAND}"
+
+      - name: Generate next version tag
+        id: tag_name
+        run: |
+          # Get the latest tag in semantic version format
+          LATEST_TAG=$(git tag -l "v*.*.*" | sort -V | tail -n1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            # No existing tags, start with v0.0.1
+            NEW_TAG="v0.0.1"
+            echo "🏷️  No existing tags found, starting with: ${NEW_TAG}"
+          else
+            echo "📋 Latest tag found: ${LATEST_TAG}"
+            
+            # Extract version numbers (remove 'v' prefix)
+            VERSION=${LATEST_TAG#v}
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+            
+            # Increment patch version
+            PATCH=$((PATCH + 1))
+            NEW_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+            echo "🏷️  Generated next tag: ${NEW_TAG}"
+          fi
+
+          echo "tag_name=${NEW_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        if: success() # Only run if previous steps succeeded
+        run: |
+          # Configure Git (use GitHub token for authentication)
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Create the tag
+          TAG_NAME="${{ steps.tag_name.outputs.tag_name }}"
+          git tag -a "${TAG_NAME}" -m "Release ${TAG_NAME}: ${{ inputs.env }} environment - ${{ inputs.app }} app - deployed by ${{ github.actor }}"
+
+          # Push the tag
+          git push origin "${TAG_NAME}"
+          echo "✅ Successfully created and pushed tag: ${TAG_NAME}"
+
+      - name: Create GitHub Release (Optional)
+        if: success()
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_name.outputs.tag_name }}
+          release_name: "Deployment ${{ steps.tag_name.outputs.tag_name }}"
+          body: |
+            🚀 **Deployment Details**
+
+            - **Environment**: ${{ inputs.env }}
+            - **Application**: ${{ inputs.app }}
+            - **Deployed by**: ${{ github.actor }}
+            - **Branch**: ${{ github.ref_name }}
+            - **Timestamp**: ${{ github.run_id }}
+
+            This release was automatically created after successful deployment.
+          draft: false
+          prerelease: ${{ inputs.env != 'prod' }}
