@@ -68,7 +68,7 @@
   "Form.RefundPoint.typeCode": " Type",
   "Form.RefundPoint.typeCode.ui:placeholder": "Select type",
   "Form.RefundPoint.typeCode.HEADQUARTER": "Headquarter",
-  "Form.RefundPoint.typeCode.STORE": "Store",
+  "Form.RefundPoint.typeCode.REFUNDPOINT": "Refund point",
 
   "Form.RefundPoint.affiliation": "Affiliation",
   "Form.RefundPoint.affiliations": "Affiliations",

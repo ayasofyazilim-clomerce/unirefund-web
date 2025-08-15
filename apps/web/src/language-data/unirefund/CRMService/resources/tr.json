@@ -67,8 +67,8 @@
 
   "Form.RefundPoint.typeCode": "Tip",
   "Form.RefundPoint.typeCode.ui:placeholder": "Tip seçin",
-  "Form.RefundPoint.typeCode.HEADQUARTER": "Genel Merkez",
-  "Form.RefundPoint.typeCode.STORE": "Mağaza",
+  "Form.RefundPoint.typeCode.HEADQUARTER": "Genel merkez",
+  "Form.RefundPoint.typeCode.REFUNDPOINT": "İade noktası",
 
   "Form.RefundPoint.affiliation": "Bağlılık",
   "Form.RefundPoint.affiliations": "Bağlılıklar",
