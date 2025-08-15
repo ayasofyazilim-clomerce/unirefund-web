@@ -1,4 +1,4 @@
-name: Manual Deploy Unirefund Development
+name: Unirefund Development Deploy
 
 run-name: 🚀 ${{ github.actor }} is deploying [${{ inputs.env }}] Unirefund-${{ inputs.app }}
 
@@ -6,14 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       env:
-        description: "Release type (one of): dev, uat, prod"
+        description: "Release type dev"
         required: true
         default: "uat"
         type: choice
         options:
           - dev
-          # - uat
-          # - prod
       app:
         description: "App to publish (web or ssr)"
         required: true
