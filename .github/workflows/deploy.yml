@@ -85,24 +85,3 @@ jobs:
           # Push the tag
           git push origin "${TAG_NAME}"
           echo "✅ Successfully created and pushed tag: ${TAG_NAME}"
-
-      - name: Create GitHub Release (Optional)
-        if: success()
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "${{ steps.tag_name.outputs.tag_name }}-${{inputs.app}}"
-          release_name: "Deployment ${{ steps.tag_name.outputs.tag_name }}"
-          body: |
-            🚀 **Deployment Details**
-
-            - **Environment**: ${{ inputs.env }}
-            - **Application**: ${{ inputs.app }}
-            - **Deployed by**: ${{ github.actor }}
-            - **Branch**: ${{ github.ref_name }}
-            - **Timestamp**: ${{ github.run_id }}
-
-            This release was automatically created after successful deployment.
-          draft: false
-          prerelease: ${{ inputs.env != 'prod' }}
