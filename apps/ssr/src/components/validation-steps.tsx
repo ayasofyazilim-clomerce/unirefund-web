@@ -493,7 +493,7 @@ function Actions({
           {showMRZSteps ? (
             <>
               <Button
-                className="w-full bg-red-600 px-5 py-2.5 text-white hover:bg-red-700 md:w-full"
+                className="bg-primary w-full px-5 py-2.5 text-white hover:bg-red-700 md:w-full"
                 onClick={() => {
                   stepper.goTo("scan-passport");
                   // Type-safe way to set metadata

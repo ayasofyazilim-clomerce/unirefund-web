@@ -200,7 +200,6 @@ export default function RegisterForm({
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>{languageData["Auth.UsernameDescription"]}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -220,21 +219,21 @@ export default function RegisterForm({
             />
 
             <div>
-              <Button disabled={isPending || isSubmitDisabled} className="my-2 w-full">
+              <Button disabled={isPending || isSubmitDisabled} className="mb-1 mt-2 w-full">
                 {languageData["Auth.Register"]}
               </Button>
             </div>
           </form>
         </FormProvider>
       </div>
-      <div className="flex items-center justify-center">
+      {/* <div className="flex items-center justify-center">
         <span className="bg-muted h-px w-full"></span>
         <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">
           {languageData["Auth.DoYouHaveAccount"]}
         </span>
         <span className="bg-muted h-px w-full"></span>
-      </div>
-      <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
+      </div> */}
+      <Link href="login" className="text-muted-foreground text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
           {languageData["Auth.Login"]}
         </Button>
