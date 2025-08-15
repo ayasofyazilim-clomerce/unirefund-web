@@ -3,7 +3,7 @@ run-name: Linting the Pull request 🚀
 on:
   workflow_dispatch:
   pull_request_target:
-    branches: [main, uat, dev]
+    branches: [main]
     types:
       - opened
       - synchronize
