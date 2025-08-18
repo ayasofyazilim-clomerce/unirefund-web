@@ -174,18 +174,18 @@ export default function ClientPage({
 
   return (
     <FilterComponent
+      applyFilterText={languageData.Apply}
       asyncSelect={filterData.asyncSelect}
       className={className}
       customField={filterData.customFields}
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
       disabled={isPending}
+      filtersText={languageData.Filters}
       isCollapsible={false}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
-      filtersText={languageData.Filters}
       searchText={languageData.Search}
-      applyFilterText={languageData.Apply}
     />
   );
 }

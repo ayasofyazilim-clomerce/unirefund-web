@@ -13,7 +13,8 @@ import {getRefundDetailByIdApi} from "@repo/actions/unirefund/RefundService/acti
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getTagByIdApi} from "@repo/actions/unirefund/TagService/actions";
 import {isUnauthorized} from "@repo/utils/policies";
-import {getResourceData, TagServiceResource} from "src/language-data/unirefund/TagService";
+import type { TagServiceResource} from "src/language-data/unirefund/TagService";
+import {getResourceData} from "src/language-data/unirefund/TagService";
 import {getBaseLink} from "src/utils";
 import {dateToString, getStatusColor} from "../../_components/utils";
 import Invoices from "./_components/invoices";
@@ -95,7 +96,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.Status,
-                value: languageData[("TagStatus." + tagDetail.status) as keyof TagServiceResource],
+                value: languageData[(`TagStatus.${  tagDetail.status}`) as keyof TagServiceResource],
                 className: getStatusColor(tagDetail.status),
               },
               {

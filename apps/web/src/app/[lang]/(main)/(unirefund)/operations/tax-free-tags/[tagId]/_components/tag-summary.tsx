@@ -28,7 +28,7 @@ function TagSummary({
           <div className="flex flex-row text-gray-500">
             <div className="w-1/3 text-sm text-gray-500">{languageData.Status}</div>
             <div className={`${getStatusColor(tagDetail.status)} w-2/3 font-semibold`}>
-              {languageData[("TagStatus." + tagDetail.status) as keyof TagServiceResource] || tagDetail.status}
+              {languageData[(`TagStatus.${  tagDetail.status}`) as keyof TagServiceResource] || tagDetail.status}
             </div>
           </div>
           <div className="flex flex-row text-gray-500">

@@ -4,7 +4,6 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {TagServiceResource} from "@/language-data/unirefund/TagService";
 import type {
   UniRefund_RefundService_Refunds_CreateRefundCardInfoDto as CardInfoDto,
   UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto as IbanInfoDto,
@@ -24,6 +23,7 @@ import {AlertCircle, Banknote, CreditCard} from "lucide-react";
 import {useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useState, useTransition} from "react";
+import type {TagServiceResource} from "@/language-data/unirefund/TagService";
 
 export function RefundForm({
   refundPointId,
@@ -102,12 +102,12 @@ export function RefundForm({
         <RefundMethodForm
           canRefundable={canRefundable}
           isPending={isPending}
+          languageData={languageData}
           refundMethod={refundMethod}
           refundPointId={refundPointId}
           router={router}
           selectedRows={selectedRows}
           startTransition={startTransition}
-          languageData={languageData}
         />
       </div>
     </>
