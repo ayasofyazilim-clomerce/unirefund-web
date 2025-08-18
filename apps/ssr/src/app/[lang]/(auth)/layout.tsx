@@ -23,7 +23,7 @@ export default async function Layout({children, params}: {children: JSX.Element;
             <LanguageSelector
               availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
               lang={params.lang}
-              showEarthIcon={true}
+              showEarthIcon
             />
           </div>
         </div>
