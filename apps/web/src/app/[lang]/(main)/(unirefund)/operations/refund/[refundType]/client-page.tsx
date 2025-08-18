@@ -83,7 +83,7 @@ export default function ClientPage({
                 "h-full overflow-hidden rounded-lg border border-gray-200 p-7 shadow-sm md:col-span-4",
                 selectedRows.length ? "" : "pointer-events-none opacity-30",
               )}>
-              <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} />
+              <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} languageData={languageData} />
             </div>
           </div>
         </TabLayout>

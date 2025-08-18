@@ -13,7 +13,7 @@ import {getRefundDetailByIdApi} from "@repo/actions/unirefund/RefundService/acti
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getTagByIdApi} from "@repo/actions/unirefund/TagService/actions";
 import {isUnauthorized} from "@repo/utils/policies";
-import {getResourceData} from "src/language-data/unirefund/TagService";
+import {getResourceData, TagServiceResource} from "src/language-data/unirefund/TagService";
 import {getBaseLink} from "src/utils";
 import {dateToString, getStatusColor} from "../../_components/utils";
 import Invoices from "./_components/invoices";
@@ -95,11 +95,11 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.Status,
-                value: tagDetail.status,
+                value: languageData[("TagStatus." + tagDetail.status) as keyof TagServiceResource],
                 className: getStatusColor(tagDetail.status),
               },
               {
-                name: "Issue Date",
+                name: languageData.IssueDate,
                 value: dateToString(tagDetail.issueDate || "", "tr"),
               },
             ]}
@@ -152,7 +152,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
             title={languageData.MerchantDetails}
           />
           <div className="col-span-4 row-span-2 h-full overflow-hidden">
-            <TagCard icon={<ReceiptText className="size-5" />} title="Invoices">
+            <TagCard icon={<ReceiptText className="size-5" />} title={languageData.Invoices}>
               <Invoices languageData={languageData} tagDetail={tagDetail} />
             </TagCard>
           </div>
@@ -165,7 +165,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                   value: `${total.amount} ${total.currency}`,
                 })) || []
               }
-              title="Totals"
+              title={languageData.Totals}
             />
           </div>
           <div className="col-span-2">
@@ -177,7 +177,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                   value: `${earning.amount} ${earning.currency}`,
                 })) || []
               }
-              title="Earnings"
+              title={languageData.Earnings}
             />
           </div>
         </div>

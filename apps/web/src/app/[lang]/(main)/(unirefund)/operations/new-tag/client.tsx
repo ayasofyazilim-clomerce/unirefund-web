@@ -130,6 +130,7 @@ export default function ClientPage({
     multiSelect: [
       {
         title: languageData.ProductGroups,
+        placeholder: languageData["ProductGroups.Select"],
         value: productGroupIds,
         options: productGroupList.map((pg) => ({
           value: pg.productGroupId,
@@ -182,6 +183,9 @@ export default function ClientPage({
       isCollapsible={false}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
+      filtersText={languageData.Filters}
+      searchText={languageData.Search}
+      applyFilterText={languageData.Apply}
     />
   );
 }

@@ -42,11 +42,11 @@ export default function Invoices({
             <Label htmlFor="product-group">{languageData.ProductGroups}</Label>
             <Select defaultValue={line.productGroup?.id} name="product-group">
               <SelectTrigger>
-                <SelectValue placeholder="Select a product group" />
+                <SelectValue placeholder={languageData["ProductGroups.Select"]} />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Product Groups</SelectLabel>
+                  <SelectLabel>{languageData.ProductGroups}</SelectLabel>
                   {tagDetail.merchant?.productGroups?.map((productGroup) => (
                     <SelectItem key={productGroup.id || ""} value={productGroup.id || ""}>
                       {productGroup.description || ""}

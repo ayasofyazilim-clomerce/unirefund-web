@@ -4,32 +4,35 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
+import {TagServiceResource} from "@/language-data/unirefund/TagService";
 import type {
-  UniRefund_TagService_Tags_Enums_RefundType as RefundTypeEnum,
-  UniRefund_TagService_Tags_TagListItemDto,
-} from "@ayasofyazilim/saas/TagService";
-import {AlertCircle, Banknote, CreditCard} from "lucide-react";
-import {useRouter} from "next/navigation";
-import type {TransitionStartFunction} from "react";
-import {useState, useTransition} from "react";
-import {handlePostResponse} from "@repo/utils/api";
-import {postRefundApi} from "@repo/actions/unirefund/RefundService/post-actions";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type {
-  UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto as IbanInfoDto,
   UniRefund_RefundService_Refunds_CreateRefundCardInfoDto as CardInfoDto,
+  UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto as IbanInfoDto,
 } from "@ayasofyazilim/saas/RefundService";
 import {
   $UniRefund_RefundService_Refunds_CreateRefundCardInfoDto as $CardInfoDto,
   $UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto as $IbanInfoDto,
 } from "@ayasofyazilim/saas/RefundService";
+import type {
+  UniRefund_TagService_Tags_Enums_RefundType as RefundTypeEnum,
+  UniRefund_TagService_Tags_TagListItemDto,
+} from "@ayasofyazilim/saas/TagService";
+import {postRefundApi} from "@repo/actions/unirefund/RefundService/post-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {handlePostResponse} from "@repo/utils/api";
+import {AlertCircle, Banknote, CreditCard} from "lucide-react";
+import {useRouter} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useState, useTransition} from "react";
 
 export function RefundForm({
   refundPointId,
   selectedRows,
+  languageData,
 }: {
   selectedRows: Pick<UniRefund_TagService_Tags_TagListItemDto, "id" | "travellerDocumentNumber">[];
   refundPointId: string;
+  languageData: TagServiceResource;
 }) {
   const router = useRouter();
   const [refundMethod, setRefundMethod] = useState<RefundTypeEnum>("Cash");
@@ -41,20 +44,18 @@ export function RefundForm({
   return (
     <>
       <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-2 text-center">
-        {selectedRows.length} transaction selected
+        {selectedRows.length} {languageData.TransactionSelected}
       </div>
       {!canRefundable && (
         <Alert className="my-3" variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            You can not have transactions from different travellers in the same refund.
-          </AlertDescription>
+          <AlertTitle>{languageData.error}</AlertTitle>
+          <AlertDescription>{languageData.NoTransactionsFromDifferentTravellers}</AlertDescription>
         </Alert>
       )}
       <div className="my-3 flex flex-col space-y-1.5 text-center">
-        <div className="font-semibold leading-none">Payment Method</div>
-        <div className="text-muted-foreground text-sm">Select a payment method.</div>
+        <div className="font-semibold leading-none">{languageData.RefundMethod}</div>
+        <div className="text-muted-foreground text-sm">{languageData.RefundMethodHelp}</div>
       </div>
       <div className="my-3 grid gap-6">
         <RadioGroup
@@ -69,7 +70,7 @@ export function RefundForm({
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
               htmlFor="card">
               <CreditCard className="mb-3 h-6 w-6" />
-              Card
+              {languageData["RefundMethod.CreditCard"]}
             </Label>
           </div>
           <div>
@@ -78,7 +79,7 @@ export function RefundForm({
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
               htmlFor="cash">
               <Banknote className="mb-3 h-6 w-6" />
-              Cash
+              {languageData["RefundMethod.Cash"]}
             </Label>
           </div>
           <div>
@@ -92,7 +93,7 @@ export function RefundForm({
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
               htmlFor="bank-transfer">
               <Banknote className="mb-3 h-6 w-6" />
-              Bank Transfer
+              {languageData["RefundMethod.BankTransfer"]}
             </Label>
           </div>
         </RadioGroup>
@@ -106,6 +107,7 @@ export function RefundForm({
           router={router}
           selectedRows={selectedRows}
           startTransition={startTransition}
+          languageData={languageData}
         />
       </div>
     </>
@@ -119,6 +121,7 @@ export function RefundMethodForm({
   isPending,
   canRefundable,
   startTransition,
+  languageData,
 }: {
   refundMethod: RefundTypeEnum;
   selectedRows: Pick<UniRefund_TagService_Tags_TagListItemDto, "id">[];
@@ -127,6 +130,7 @@ export function RefundMethodForm({
   isPending: boolean;
   canRefundable: boolean;
   startTransition: TransitionStartFunction;
+  languageData: TagServiceResource;
 }) {
   function handleSubmit(formData: IbanInfoDto | CardInfoDto | null) {
     startTransition(() => {
@@ -157,7 +161,7 @@ export function RefundMethodForm({
           useDefaultSubmit={false}>
           <div className="mt-4 flex items-center">
             <Button className="w-full" disabled={!canRefundable || isPending || selectedRows.length === 0}>
-              Continue
+              {languageData.Continue}
             </Button>
           </div>
         </SchemaForm>
@@ -172,7 +176,7 @@ export function RefundMethodForm({
           useDefaultSubmit={false}>
           <div className="mt-4 flex items-center">
             <Button className="w-full" disabled={!canRefundable || isPending || selectedRows.length === 0}>
-              Continue
+              {languageData.Continue}
             </Button>
           </div>
         </SchemaForm>
@@ -185,7 +189,7 @@ export function RefundMethodForm({
           onClick={() => {
             handleSubmit(null);
           }}>
-          Continue
+          {languageData.Continue}
         </Button>
       );
   }
