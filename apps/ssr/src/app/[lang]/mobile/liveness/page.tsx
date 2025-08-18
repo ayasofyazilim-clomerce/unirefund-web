@@ -107,7 +107,7 @@ export default function MobileLivenessPage() {
     return (
       <div className="flex min-h-screen w-full items-center justify-center bg-black">
         <div className="flex flex-col items-center space-y-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent" />
           <div className="text-lg text-white">Yükleniyor...</div>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function MobileLivenessPage() {
                   className={`h-2 rounded-full transition-all duration-500 ${
                     analysisResult.confidence > 70 ? "bg-green-500" : "bg-red-500"
                   }`}
-                  style={{width: `${Math.min(analysisResult.confidence, 100)}%`}}></div>
+                  style={{width: `${Math.min(analysisResult.confidence, 100)}%`}} />
               </div>
             </div>
 
