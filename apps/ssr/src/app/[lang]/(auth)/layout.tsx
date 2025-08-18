@@ -20,7 +20,11 @@ export default async function Layout({children, params}: {children: JSX.Element;
           </Link>
 
           <div className="flex items-center space-x-2">
-            <LanguageSelector availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []} lang={params.lang} />
+            <LanguageSelector
+              availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
+              lang={params.lang}
+              showEarthIcon
+            />
           </div>
         </div>
       </header>
