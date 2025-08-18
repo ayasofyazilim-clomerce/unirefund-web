@@ -66,46 +66,46 @@ export default function TagStatusDiagram({
       <ValidStatus
         date={dateToString(tagDetail.issueDate, "tr")}
         link={`/operations/tax-free-tags/${tagDetail.id}`}
-        title="Issue"
+        title={languageData.Issue}
       />
       {tagDetail.exportValidation ? (
         <ValidStatus
           date={dateToString(tagDetail.exportValidation.exportDate, "tr")}
           link={`/operations/export-validations/${tagDetail.exportValidation.id}`}
           message={[
-            `Customs: ${tagDetail.exportValidation.customsName}`,
-            `Reference Id: ${tagDetail.exportValidation.referenceId}`,
+            `${languageData.CustomTitle}: ${tagDetail.exportValidation.customsName}`,
+            `${languageData.ReferenceId}: ${tagDetail.exportValidation.referenceId}`,
           ]}
-          title="Export Validation"
+          title={languageData.ExportValidation}
         />
       ) : (
-        <ValidStatus title="Tag awaits export validation" />
+        <ValidStatus title={languageData.WaitingExportValidation} />
       )}
       {tagRefundDetail ? (
         <ValidStatus
           date={dateToString(tagRefundDetail.paidDate, "tr")}
           // link={`/operations/refunds/${tagDetail.refundId}`}
           message={[
-            `Refund Location: ${tagRefundDetail.refundPoint.name}`,
-            `Refund Method: ${tagRefundDetail.refundTypeEnum}`,
+            `${languageData.RefundPoint}: ${tagRefundDetail.refundPoint.name}`,
+            `${languageData.RefundMethod}: ${tagRefundDetail.refundTypeEnum}`,
           ]}
-          title="Refund"
+          title={languageData.Refund}
         />
       ) : (
-        <ValidStatus title="Refund" />
+        <ValidStatus title={languageData.Refund} />
       )}
       {tagVatStatementHeader?.id ? (
         <ValidStatus
           date={dateToString(tagVatStatementHeader.vatStatementDate, "tr")}
           link={`/finance/vat-statements/${tagVatStatementHeader.id}/information`}
           message={[
-            `Invoice Number: ${tagVatStatementHeader.invoiceNumber}`,
-            `Merchant Name: ${tagVatStatementHeader.merchantName}`,
+            `${languageData.InvoiceNumber}: ${tagVatStatementHeader.invoiceNumber}`,
+            `${languageData.MerchantTitle}: ${tagVatStatementHeader.merchantName}`,
           ]}
-          title="Vat Statement"
+          title={languageData.VatStatement}
         />
       ) : (
-        <ValidStatus title="Vat Statement" />
+        <ValidStatus title={languageData.VatStatement} />
       )}
       <TagActions languageData={languageData} refundPoint tagDetail={tagDetail} />
     </div>

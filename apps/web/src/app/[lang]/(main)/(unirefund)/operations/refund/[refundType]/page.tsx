@@ -53,7 +53,7 @@ export default async function Page({
   const apiRequests = await getApiRequests();
 
   if ("message" in apiRequests) {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
+    return null;
   }
   const [refundPointResponse] = apiRequests.requiredRequests;
 

@@ -130,6 +130,7 @@ export default function ClientPage({
     multiSelect: [
       {
         title: languageData.ProductGroups,
+        placeholder: languageData["ProductGroups.Select"],
         value: productGroupIds,
         options: productGroupList.map((pg) => ({
           value: pg.productGroupId,
@@ -173,15 +174,18 @@ export default function ClientPage({
 
   return (
     <FilterComponent
+      applyFilterText={languageData.Apply}
       asyncSelect={filterData.asyncSelect}
       className={className}
       customField={filterData.customFields}
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
       disabled={isPending}
+      filtersText={languageData.Filters}
       isCollapsible={false}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
+      searchText={languageData.Search}
     />
   );
 }
