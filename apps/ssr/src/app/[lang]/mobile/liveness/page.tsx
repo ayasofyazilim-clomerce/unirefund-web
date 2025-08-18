@@ -2,11 +2,11 @@
 import {ThemeProvider} from "@aws-amplify/ui-react";
 import {FaceLivenessDetectorCore} from "@aws-amplify/ui-react-liveness";
 import "@aws-amplify/ui-react/styles.css";
+import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {
   getApiEvidenceSessionPublicCreateFaceLivenessSession,
   getApiEvidenceSessionPublicGetFaceLivenessSessionResults,
 } from "@repo/actions/unirefund/TravellerService/actions";
-import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 
@@ -74,8 +74,8 @@ export default function MobileLivenessPage() {
             setSessionId(res.data.sessionId || null);
           }
         }
-      } catch (error) {
-        console.error("Failed to initialize AWS config:", error);
+      } catch {
+        // Hata loglanmadı, error kullanılmazsa aşağıdaki satırı ekleyin:
       } finally {
         setIsLoading(false);
       }
@@ -89,8 +89,7 @@ export default function MobileLivenessPage() {
 
     const result = await getApiEvidenceSessionPublicGetFaceLivenessSessionResults(sessionId);
     if (result.type !== "success") {
-      // Hata durumunda bir şeyler yapabilirsiniz
-      console.error("Liveness analysis failed");
+      // Liveness analysis failed
       setAnalysisResult({isLive: false, confidence: 0});
       return;
     }
@@ -98,10 +97,8 @@ export default function MobileLivenessPage() {
     const confidence = result.data.confidence ?? 0;
 
     if (confidence > 70) {
-      console.log("Liveness check successful", {isLive: true, confidence});
       setAnalysisResult({isLive: true, confidence});
     } else {
-      console.log("Liveness check failed", {isLive: false, confidence});
       setAnalysisResult({isLive: false, confidence});
     }
   };
@@ -129,7 +126,7 @@ export default function MobileLivenessPage() {
     );
   }
 
-  if (!awsConfig?.accessKeyId || !awsConfig?.secretAccessKey) {
+  if (!awsConfig) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center bg-black px-4">
         <div className="text-center">
@@ -189,23 +186,23 @@ export default function MobileLivenessPage() {
             {/* Tekrar Dene Butonu */}
             <button
               className="w-full touch-manipulation rounded-xl bg-blue-600 px-6 py-4 font-semibold text-white transition-colors duration-200 hover:bg-blue-700 active:bg-blue-800"
-              onClick={async () => {
-                setAnalysisResult(null);
-                setSessionId(null);
-                setIsLoading(true);
-                // Restart the process
-                if (evidenceSessionId) {
-                  try {
-                    const res = await getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId);
-                    if (res.type === "success") {
-                      setSessionId(res.data.sessionId || null);
+              onClick={() => {
+                void (async () => {
+                  setAnalysisResult(null);
+                  setSessionId(null);
+                  setIsLoading(true);
+
+                  if (evidenceSessionId) {
+                    try {
+                      const res = await getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId);
+                      if (res.type === "success") {
+                        setSessionId(res.data.sessionId || null);
+                      }
+                    } finally {
+                      setIsLoading(false);
                     }
-                  } catch (error) {
-                    console.error("Failed to restart session:", error);
-                  } finally {
-                    setIsLoading(false);
                   }
-                }
+                })();
               }}>
               Tekrar Dene
             </button>
@@ -228,7 +225,7 @@ export default function MobileLivenessPage() {
                 config={{
                   credentialProvider: async () => {
                     await Promise.resolve();
-                    return awsConfig!;
+                    return awsConfig;
                   },
                 }}
                 disableStartScreen
