@@ -13,7 +13,6 @@ import {useRouter} from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
 import {countries} from "./country-data";
 import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
-import {Badge} from "@repo/ayasofyazilim-ui/atoms/badge";
 
 function LanguageSelector({
   lang,
