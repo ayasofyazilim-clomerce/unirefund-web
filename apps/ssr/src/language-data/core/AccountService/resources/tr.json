@@ -1,5 +1,5 @@
 {
-  "Login": "Giriş",
+  "Login": "Giriş Yap",
   "Tenant": "Tenant",
   "ResetPassword": "Şifreni Sıfırla",
   "Register": "Kayıt Ol",
@@ -65,12 +65,14 @@
   "Auth.ResetPassword": "Şifre Sıfırla",
   "Auth.Login": "Giriş Yap",
   "Auth.HaveAnAccount": "Hesabınız yok mu?",
-  "Auth.Register": "Kaydol",
+  "Auth.Register": "Kayıt Ol",
   "Auth.EmailAddressLabel": "E-posta Adresi",
   "Auth.UsernameLabel": "Kullanıcı Adı",
   "Auth.UsernameDescription": "Kullanıcı adı.",
   "Auth.DoYouHaveAccount": "Hesabınız var mı?",
   "Auth.RegisterSuccess": "Hesabınız oluşturuldu. Giriş yapabilirsiniz.",
-  "Auth.{0}.WithoutValidation": "Doğrulama yapmadan {0}!",
-  "Auth.{0}.WithValidation": "Doğrulama yaparak {0}!"
+  "Auth.{0}.WithoutValidation": "Kimlik/Pasaport olmadan {0}",
+  "Auth.{0}.WithValidation": "Kimlik/Pasaport ile {0}",
+  "Auth.WithDocument": "Pasaport veya kimlik kartın yanında mı?",
+  "Auth.WithoutDocument": "Pasaport veya kimlik kartın yanında değil mi?"
 }
