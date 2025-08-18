@@ -179,7 +179,8 @@ export default function MobileLivenessPage() {
                   className={`h-2 rounded-full transition-all duration-500 ${
                     analysisResult.confidence > 70 ? "bg-green-500" : "bg-red-500"
                   }`}
-                  style={{width: `${Math.min(analysisResult.confidence, 100)}%`}} />
+                  style={{width: `${Math.min(analysisResult.confidence, 100)}%`}}
+                />
               </div>
             </div>
 
