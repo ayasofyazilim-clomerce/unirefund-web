@@ -32,7 +32,7 @@ export default function Header({
         {/* Mobile menu button and language selector */}
         <div className="flex items-center space-x-2 md:hidden">
           {/* Mobile language selector outside menu */}
-          <LanguageSelector availableLocals={availableLocals} lang={lang} />
+          <LanguageSelector availableLocals={availableLocals} lang={lang} showEarthIcon={true} />
 
           <Button
             className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none"

@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {CheckIcon} from "lucide-react";
+import {CheckIcon, Globe} from "lucide-react";
 import {useRouter} from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
 import {countries} from "./country-data";
@@ -19,10 +19,12 @@ function LanguageSelector({
   lang,
   availableLocals = [],
   showFlag,
+  showEarthIcon,
 }: {
   lang: string;
   availableLocals?: string[];
   showFlag?: boolean;
+  showEarthIcon?: boolean;
 }) {
   const router = useRouter();
 
@@ -49,6 +51,7 @@ function LanguageSelector({
       title={"Languages"}
       triggerContent={
         <div className="flex items-center px-2">
+          {showEarthIcon && <Globe className="-mr-2 h-4 w-4 text-gray-600 md:hidden" />}
           {showFlag && (
             <img
               className="mr-2 h-5 w-5 rounded-full object-cover"
