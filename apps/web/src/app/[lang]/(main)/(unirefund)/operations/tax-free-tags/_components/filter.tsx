@@ -66,7 +66,7 @@ export default function Filter({
         onChange: setIssuedDate,
         value: issuedDate,
         options: rangeItems.map((item) => ({
-          label: languageData[(`Range.${  item}`) as keyof TagServiceResource],
+          label: languageData[`Range.${item}` as keyof TagServiceResource],
           value: item,
         })),
       },
@@ -76,7 +76,7 @@ export default function Filter({
         onChange: setExportDate,
         value: exportDate,
         options: rangeItems.map((item) => ({
-          label: languageData[(`Range.${  item}`) as keyof TagServiceResource],
+          label: languageData[`Range.${item}` as keyof TagServiceResource],
           value: item,
         })),
       },
@@ -86,7 +86,7 @@ export default function Filter({
         onChange: setPaidDate,
         value: paidDate,
         options: rangeItems.map((item) => ({
-          label: languageData[(`Range.${  item}`) as keyof TagServiceResource],
+          label: languageData[`Range.${item}` as keyof TagServiceResource],
           value: item,
         })),
       },
@@ -98,7 +98,7 @@ export default function Filter({
         placeholder: languageData["TagStatus.Placeholder"],
         options: $UniRefund_TagService_Tags_TagStatusType.enum.map((status) => ({
           value: status,
-          label: languageData[(`TagStatus.${  status}`) as keyof TagServiceResource],
+          label: languageData[`TagStatus.${status}` as keyof TagServiceResource],
         })),
         onChange: setStatuses,
       },
@@ -108,7 +108,7 @@ export default function Filter({
         placeholder: languageData["RefundMethod.Placeholder"],
         options: $UniRefund_TagService_Tags_Enums_RefundType.enum.map((status) => ({
           value: status,
-          label: languageData[(`RefundMethod.${  status}`) as keyof TagServiceResource],
+          label: languageData[`RefundMethod.${status}` as keyof TagServiceResource],
         })),
         onChange: setRefundTypes,
       },
