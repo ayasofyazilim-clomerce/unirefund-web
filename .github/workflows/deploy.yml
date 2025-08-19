@@ -41,7 +41,7 @@ jobs:
       - name: Deploy via SSH
         env:
           SSH_COMMAND: |
-            deploy Unirefund ${{inputs.app}} ${{inputs.env}}
+            deploy Unirefund ${{inputs.env}} ${{inputs.app}}
         run: |
           echo "Running remote deploy command..."
           ssh frontend "${SSH_COMMAND}"
