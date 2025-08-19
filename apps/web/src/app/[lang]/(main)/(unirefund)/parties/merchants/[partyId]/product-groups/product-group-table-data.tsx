@@ -27,9 +27,9 @@ import {
   postMerchantProductGroupByProductGroupIdDefaultApi,
   postMerchantProductGroupsApi,
 } from "@repo/actions/unirefund/CrmService/post-actions";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {Badge} from "@/components/ui/badge";
 import {cn} from "@/lib/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type ProductGroupsTable =
   TanstackTableCreationProps<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>;
@@ -79,7 +79,6 @@ function productGroupsTableActions(
               },
             },
           })}
-          withScrollArea={false}
           widgets={{
             productGroup: CustomComboboxWidget<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
               languageData,
@@ -89,6 +88,7 @@ function productGroupsTableActions(
               selectLabel: "name",
             }),
           }}
+          withScrollArea={false}
         />
       ),
     });
@@ -102,7 +102,7 @@ function ProductGroupListItem(
   return (
     <div className="flex w-full items-center justify-between">
       {value.name}
-      <Badge variant="outline" className={cn(value.active ? "text-green-500" : "text-muted-foreground")}>
+      <Badge className={cn(value.active ? "text-green-500" : "text-muted-foreground")} variant="outline">
         {value.active
           ? languageData["Form.Merchant.productGroup.active"]
           : languageData["Form.Merchant.productGroup.inactive"]}
