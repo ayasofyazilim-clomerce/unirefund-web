@@ -6,7 +6,7 @@ on:
       env:
         description: "Release type dev"
         required: true
-        default: "uat"
+        default: "dev"
         type: choice
         options:
           - dev
@@ -49,15 +49,15 @@ jobs:
       - name: Generate next version tag
         id: tag_name
         run: |
-          # Get the latest tag in semantic version format
-          LATEST_TAG=$(git tag -l "v*.*.*" | sort -V | tail -n1)
+          # Get the latest version from any environment and app tag
+          LATEST_TAG=$(git tag -l "*-v*.*.*-*" | sed 's/^[^-]*-\(v[0-9]*\.[0-9]*\.[0-9]*\)-.*$/\1/' | sort -V | tail -n1)
 
           if [ -z "$LATEST_TAG" ]; then
             # No existing tags, start with v0.0.1
-            NEW_TAG="v0.0.1"
-            echo "🏷️  No existing tags found, starting with: ${NEW_TAG}"
+            NEW_VERSION="v0.0.1"
+            echo "🏷️  No existing tags found, starting with: ${NEW_VERSION}"
           else
-            echo "📋 Latest tag found: ${LATEST_TAG}"
+            echo "📋 Latest version found: ${LATEST_TAG}"
             
             # Extract version numbers (remove 'v' prefix)
             VERSION=${LATEST_TAG#v}
@@ -65,23 +65,35 @@ jobs:
             
             # Increment patch version
             PATCH=$((PATCH + 1))
-            NEW_TAG="v${MAJOR}.${MINOR}.${PATCH}"
-            echo "🏷️  Generated next tag: ${NEW_TAG}"
+            NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+            echo "🏷️  Generated next version: ${NEW_VERSION}"
           fi
 
-          echo "tag_name=${NEW_TAG}" >> $GITHUB_OUTPUT
+          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
 
-      - name: Create and push tag
+      - name: Create and push tags
         if: success() # Only run if previous steps succeeded
         run: |
           # Configure Git (use GitHub token for authentication)
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
 
-          # Create the tag
-          TAG_NAME="${{ steps.tag_name.outputs.tag_name }}"
-          git tag -a "${TAG_NAME}" -m "Release ${TAG_NAME}: ${{ inputs.env }} environment - ${{ inputs.app }} app - deployed by ${{ github.actor }}"
+          # Get the version and app from previous steps
+          VERSION="${{ steps.tag_name.outputs.version }}"
+          APP="${{ inputs.app }}"
 
-          # Push the tag
-          git push origin "${TAG_NAME}"
-          echo "✅ Successfully created and pushed tag: ${TAG_NAME}"
+          # Create both UAT and PROD tags with app suffix
+          UAT_TAG="uat-${VERSION}-${APP}"
+          PROD_TAG="prod-${VERSION}-${APP}"
+
+          # Create UAT tag
+          git tag -a "${UAT_TAG}" -m "Release ${UAT_TAG} for ${{ inputs.app }} app - deployed by ${{ github.actor }}"
+
+          # Create PROD tag  
+          git tag -a "${PROD_TAG}" -m "Release ${PROD_TAG} for ${{ inputs.app }} app - deployed by ${{ github.actor }}"
+
+          # Push both tags
+          git push origin "${UAT_TAG}"
+          git push origin "${PROD_TAG}"
+
+          echo "✅ Successfully created and pushed tags: ${UAT_TAG}, ${PROD_TAG}"

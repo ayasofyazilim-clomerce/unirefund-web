@@ -13,42 +13,39 @@ jobs:
       app: ${{ steps.env-check.outputs.app }}
       should-deploy: ${{ steps.env-check.outputs.should-deploy }}
     steps:
-      - name: Determine environment and app from release title
+      - name: Determine environment and app from release tag
         id: env-check
         run: |
-          RELEASE_TITLE="${{ github.event.release.name }}"
-          echo "📝 Release title: $RELEASE_TITLE"
+          RELEASE_TAG="${{ github.event.release.tag_name }}"
+          echo "📝 Release tag: $RELEASE_TAG"
 
           ENV=""
           APP=""
           SHOULD_DEPLOY="false"
 
-          # Determine environment from title prefix
-          if [[ "$RELEASE_TITLE" =~ ^uat-.* ]]; then
+          # Determine environment from tag prefix
+          if [[ "$RELEASE_TAG" =~ ^uat-.* ]]; then
             ENV="uat"
             SHOULD_DEPLOY="true"
-            echo "✅ UAT deployment detected from release title"
-          elif [[ "$RELEASE_TITLE" =~ ^prod-.* ]]; then
+            echo "✅ UAT deployment detected from release tag"
+          elif [[ "$RELEASE_TAG" =~ ^prod-.* ]]; then
             ENV="prod"
             SHOULD_DEPLOY="true"
-            echo "✅ PROD deployment detected from release title"
+            echo "✅ PROD deployment detected from release tag"
           else
-            echo "❌ Cannot determine environment from release title"
+            echo "❌ Cannot determine environment from release tag"
             echo "   Expected formats:"
             echo "   - uat-v1.0.0"
             echo "   - prod-v1.0.0"
           fi
 
-          # Determine app type from title (default all)
-          if [[ "$RELEASE_TITLE" =~ ssr ]]; then
+          # Determine app type from tag (default web)
+          if [[ "$RELEASE_TAG" =~ ssr ]]; then
             APP="ssr"
-            echo "📦 SSR app detected from title"
-          elif [[ "$RELEASE_TITLE" =~ web ]]; then
+            echo "📦 SSR app detected from tag"
+          else
             APP="web"
             echo "📦 Web app selected (default)"
-          else
-            APP="all"
-            echo "📦All apps selected (default)"
           fi
 
           echo "env=$ENV" >> $GITHUB_OUTPUT
@@ -71,7 +68,7 @@ jobs:
       - name: Show deployment context
         run: |
           echo "🎉 Auto deployment triggered by release"
-          echo "📝 Release title: ${{ github.event.release.name }}"
+          echo "📝 Release tag: ${{ github.event.release.tag_name }}"
           echo "🌍 Environment: ${{ needs.determine-environment.outputs.env }}"
           echo "📦 App: ${{ needs.determine-environment.outputs.app }}"
           echo "👤 Released by: ${{ github.event.release.author.login }}"
@@ -83,15 +80,9 @@ jobs:
           ref: ${{ github.event.release.tag_name }}
           fetch-depth: 0
 
-      - name: Deploy specific
-        if: needs.determine-environment.outputs.app != 'all'
+      - name: Deploy app
         run: |
-          ssh frontend "deploy Unirefund  ${{ github.event.release.name }} ${{ needs.determine-environment.outputs.app }}"
-
-      - name: Deploy all apps
-        if: needs.determine-environment.outputs.app == 'all'
-        run: |
-          ssh frontend "deploy Unirefund ${{ github.event.release.name }}"
+          ssh frontend "deploy Unirefund  ${{ github.event.release.tag_name }} ${{ needs.determine-environment.outputs.app }}"
 
   notify-skipped:
     needs: determine-environment
@@ -99,9 +90,9 @@ jobs:
     if: needs.determine-environment.outputs.should-deploy == 'false'
     steps:
       - run: |
-          echo "⏭️  Deployment skipped for release: ${{ github.event.release.name }}"
-          echo "💡 To enable auto-deployment, name the release like:"
+          echo "⏭️  Deployment skipped for release: ${{ github.event.release.tag_name }}"
+          echo "💡 To enable auto-deployment, name the release tag like:"
           echo "   uat-v1.0.0"
           echo "   prod-v1.0.0"
-          echo "::error::Deployment was skipped due to invalid release name format"
+          echo "::error::Deployment was skipped due to invalid release tag format"
           exit 1
