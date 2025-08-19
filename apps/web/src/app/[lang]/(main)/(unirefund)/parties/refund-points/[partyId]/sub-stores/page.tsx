@@ -1,48 +1,55 @@
 "use server";
 
-import type {GetApiCrmServiceRefundPointsByIdSubRefundPointsData} from "@ayasofyazilim/saas/CRMService";
-import {auth} from "@repo/utils/auth/next-auth";
+import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getRefundPointSubStoresByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import type {GetApiCrmServiceRefundpointsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
-import SubStoresTable from "./table";
+import SubStoresTable from "../../_components/table";
 
-async function getApiRequests(filters: GetApiCrmServiceRefundPointsByIdSubRefundPointsData) {
+interface SearchParamType {
+  maxResultCount?: number;
+  skipCount?: number;
+}
+
+async function getApiRequests(filters: GetApiCrmServiceRefundpointsData) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getRefundPointSubStoresByIdApi(filters, session)]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const requiredRequests = await Promise.all([getRefundPointsApi(filters, session)]);
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: {
     partyId: string;
     lang: string;
   };
+  searchParams?: SearchParamType;
 }) {
   const {lang, partyId} = params;
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
-    id: partyId,
+    parentId: partyId,
+    maxResultCount: searchParams?.maxResultCount || 10,
+    skipCount: searchParams?.skipCount || 0,
   });
-
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [subStoresResponse] = apiRequests.data;
+  const [subStoresResponse] = apiRequests.requiredRequests;
 
-  return <SubStoresTable languageData={languageData} response={subStoresResponse.data} />;
+  return <SubStoresTable languageData={languageData} newLink="sub-stores/new" refundPoints={subStoresResponse.data} />;
 }

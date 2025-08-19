@@ -13,6 +13,7 @@ import {getRefundDetailByIdApi} from "@repo/actions/unirefund/RefundService/acti
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {getTagByIdApi} from "@repo/actions/unirefund/TagService/actions";
 import {isUnauthorized} from "@repo/utils/policies";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import {getBaseLink} from "src/utils";
 import {dateToString, getStatusColor} from "../../_components/utils";
@@ -66,7 +67,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
       redirect: false,
     }),
     MerchantDetail: await isUnauthorized({
-      requiredPolicies: ["CRMService.Merchants.Detail"],
+      requiredPolicies: ["CRMService.Merchants.View"],
       lang,
       redirect: false,
     }),
@@ -95,11 +96,11 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.Status,
-                value: tagDetail.status,
+                value: languageData[`TagStatus.${tagDetail.status}` as keyof TagServiceResource],
                 className: getStatusColor(tagDetail.status),
               },
               {
-                name: "Issue Date",
+                name: languageData.IssueDate,
                 value: dateToString(tagDetail.issueDate || "", "tr"),
               },
             ]}
@@ -112,7 +113,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: languageData.FullName,
                 value: `${tagDetail.traveller?.firstname} ${tagDetail.traveller?.lastname}`,
                 link: !hasGrant.TravellerDetail
-                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}/personal-identifications`)
+                  ? getBaseLink(`parties/travellers/${tagDetail.traveller?.id}`)
                   : undefined,
               },
               {
@@ -137,7 +138,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                 name: languageData.StoreName,
                 value: tagDetail.merchant?.name || "",
                 link: !hasGrant.MerchantDetail
-                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details/info`)
+                  ? getBaseLink(`parties/merchants/${tagDetail.merchant?.id}/details`)
                   : undefined,
               },
               {
@@ -152,7 +153,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
             title={languageData.MerchantDetails}
           />
           <div className="col-span-4 row-span-2 h-full overflow-hidden">
-            <TagCard icon={<ReceiptText className="size-5" />} title="Invoices">
+            <TagCard icon={<ReceiptText className="size-5" />} title={languageData.Invoices}>
               <Invoices languageData={languageData} tagDetail={tagDetail} />
             </TagCard>
           </div>
@@ -165,7 +166,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                   value: `${total.amount} ${total.currency}`,
                 })) || []
               }
-              title="Totals"
+              title={languageData.Totals}
             />
           </div>
           <div className="col-span-2">
@@ -177,7 +178,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
                   value: `${earning.amount} ${earning.currency}`,
                 })) || []
               }
-              title="Earnings"
+              title={languageData.Earnings}
             />
           </div>
         </div>

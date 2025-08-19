@@ -22,11 +22,13 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handleDeleteResponse, handlePostResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {deleteMerchantsByIdProductGroupsApi} from "@repo/actions/unirefund/CrmService/delete-actions";
+import {deleteMerchantProductGroupsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {
-  postMerchantsByIdProductGroupByProductGroupIdDefaultApi,
-  postMerchantsByIdProductGroupsApi,
+  postMerchantProductGroupByProductGroupIdDefaultApi,
+  postMerchantProductGroupsApi,
 } from "@repo/actions/unirefund/CrmService/post-actions";
+import {Badge} from "@/components/ui/badge";
+import {cn} from "@/lib/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type ProductGroupsTable =
@@ -39,20 +41,21 @@ function productGroupsTableActions(
   productGroupsList: UniRefund_SettingService_ProductGroups_ProductGroupDto[],
   partyId: string,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>[] =
+    [];
   if (isActionGranted(["SettingService.ProductGroupMerchants.Add"], grantedPolicies)) {
     actions.push({
       type: "custom-dialog",
       actionLocation: "table",
-      cta: languageData["Merchant.ProductGroup.Add"],
-      title: languageData["Merchant.ProductGroup.Add"],
+      cta: languageData["Form.Merchant.productGroup.create"],
+      title: languageData["Form.Merchant.productGroup.create"],
       icon: Plus,
       content: (
         <SchemaForm<UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto>
           onSubmit={({formData}) => {
             if (!formData) return;
-            void postMerchantsByIdProductGroupsApi({
-              id: partyId,
+            void postMerchantProductGroupsApi({
+              merchantId: partyId,
               requestBody: [formData],
             }).then((res) => {
               handlePostResponse(res, router);
@@ -65,29 +68,48 @@ function productGroupsTableActions(
             resources: languageData,
             name: "Form.Merchant.productGroup",
             extend: {
+              "ui:className": "border-0 p-0",
+              displayLabel: false,
               productGroupId: {
                 "ui:widget": "productGroup",
               },
               isDefault: {
                 "ui:widget": "switch",
+                "ui:className": "px-2 border rounded-md",
               },
             },
           })}
           widgets={{
             productGroup: CustomComboboxWidget<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
               languageData,
+              customItemRenderer: (value) => ProductGroupListItem(value, languageData),
               list: productGroupsList,
               selectIdentifier: "id",
               selectLabel: "name",
             }),
           }}
+          withScrollArea={false}
         />
       ),
     });
   }
   return actions;
 }
-
+function ProductGroupListItem(
+  value: UniRefund_SettingService_ProductGroups_ProductGroupDto,
+  languageData: CRMServiceServiceResource,
+) {
+  return (
+    <div className="flex w-full items-center justify-between">
+      {value.name}
+      <Badge className={cn(value.active ? "text-green-500" : "text-muted-foreground")} variant="outline">
+        {value.active
+          ? languageData["Form.Merchant.productGroup.active"]
+          : languageData["Form.Merchant.productGroup.inactive"]}
+      </Badge>
+    </div>
+  );
+}
 function productGroupsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
@@ -100,16 +122,16 @@ function productGroupsRowActions(
     actions.push({
       type: "confirmation-dialog",
       actionLocation: "row",
-      cta: languageData["Merchant.ProductGroup.Default"],
-      title: languageData["Merchant.ProductGroup.Default"],
+      cta: languageData["Form.Merchant.productGroup.default"],
+      title: languageData["Form.Merchant.productGroup.default"],
       condition: (row) => !row.isDefault,
       confirmationText: languageData.Save,
       cancelText: languageData.Cancel,
-      description: languageData["Merchant.ProductGroup.Default.Description"],
+      description: languageData["Form.Merchant.productGroup.default.description"],
       icon: Star,
       onConfirm: (row) => {
-        void postMerchantsByIdProductGroupByProductGroupIdDefaultApi({
-          id: partyId,
+        void postMerchantProductGroupByProductGroupIdDefaultApi({
+          merchantId: partyId,
           productGroupId: row.productGroupId,
         }).then((response) => {
           handlePostResponse(response, router);
@@ -122,15 +144,15 @@ function productGroupsRowActions(
       type: "confirmation-dialog",
       actionLocation: "row",
       cta: languageData.Delete,
-      title: languageData["Merchant.ProductGroup.Delete"],
+      title: languageData["Form.Merchant.productGroup.delete"],
       confirmationText: languageData.Delete,
       cancelText: languageData.Cancel,
-      description: languageData["Merchant.ProductGroup.Delete.Description"],
+      description: languageData["Form.Merchant.productGroup.delete.confirm"],
       icon: Trash,
       onConfirm: (row) => {
-        void deleteMerchantsByIdProductGroupsApi({
-          id: partyId,
-          requestBody: [row.productGroupId],
+        void deleteMerchantProductGroupsByMerchantIdApi({
+          merchantId: partyId,
+          productGroupIds: [row.productGroupId],
         }).then((response) => {
           handleDeleteResponse(response, router);
         });

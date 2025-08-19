@@ -8,13 +8,23 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {CheckIcon} from "lucide-react";
+import {CheckIcon, Globe} from "lucide-react";
 import {useRouter} from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
 import {countries} from "./country-data";
 import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
-function LanguageSelector({lang, availableLocals = []}: {lang: string; availableLocals?: string[]}) {
+function LanguageSelector({
+  lang,
+  availableLocals = [],
+  showFlag,
+  showEarthIcon,
+}: {
+  lang: string;
+  availableLocals?: string[];
+  showFlag?: boolean;
+  showEarthIcon?: boolean;
+}) {
   const router = useRouter();
 
   const filteredCountries = countries.filter((country) => {
@@ -39,12 +49,15 @@ function LanguageSelector({lang, availableLocals = []}: {lang: string; available
     <NavbarDropdown
       title={"Languages"}
       triggerContent={
-        <div className="flex items-center">
-          <img
-            className="h-5 w-5 rounded-full object-cover md:mr-2"
-            src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${selectedLanguage?.flagIcon}.svg`}
-            alt={selectedLanguage?.displayName}
-          />
+        <div className="flex items-center px-2">
+          {showEarthIcon && <Globe className="-mr-2 h-4 w-4 text-gray-600 md:hidden" />}
+          {showFlag && (
+            <img
+              className="mr-2 h-5 w-5 rounded-full object-cover"
+              src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${selectedLanguage?.flagIcon}.svg`}
+              alt={selectedLanguage?.displayName}
+            />
+          )}
           <span className="hidden md:block">{selectedLanguage?.displayName}</span>
         </div>
       }
@@ -69,11 +82,13 @@ function LanguageSelector({lang, availableLocals = []}: {lang: string; available
                     ) : (
                       <div className="mr-2 h-4 w-4" />
                     )}
-                    <img
-                      className="mr-2 h-5 w-5 rounded-full object-cover"
-                      src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.flagIcon}.svg`}
-                      alt={label.displayName}
-                    />
+                    {showFlag && (
+                      <img
+                        className="mr-2 h-5 w-5 rounded-full object-cover"
+                        src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.flagIcon}.svg`}
+                        alt={label.displayName}
+                      />
+                    )}
                     {label.displayName}
                   </CommandItem>
                 ))}

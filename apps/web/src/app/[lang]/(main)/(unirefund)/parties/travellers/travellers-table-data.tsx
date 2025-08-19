@@ -1,41 +1,36 @@
-import type {UniRefund_TravellerService_Travellers_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
-import {$UniRefund_TravellerService_Travellers_TravellerListProfileDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_Travellers_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
+import {$UniRefund_TravellerService_Travellers_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
 import type {
-  TanstackTableColumnLink,
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {PlusCircle} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import {PlusCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {CountryDto} from "@/utils/address-hook/types";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
-type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListProfileDto>;
-
-const links: Partial<
-  Record<keyof UniRefund_TravellerService_Travellers_TravellerListProfileDto, TanstackTableColumnLink>
-> = {};
+type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListDto>;
 
 function travellersTableActions(
   languageData: TravellerServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
-  if (isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies)) {
-    actions.push({
+  const actions: TanstackTableTableActionsType<UniRefund_TravellerService_Travellers_TravellerListDto>[] = [
+    {
       type: "simple",
       actionLocation: "table",
       cta: languageData["Travellers.New"],
       icon: PlusCircle,
+      condition: () => isActionGranted(["TravellerService.Travellers.Create"], grantedPolicies),
       onClick() {
         router.push("travellers/new");
       },
-    });
-  }
+    },
+  ];
   return actions;
 }
 function travellersColumns(
@@ -43,24 +38,38 @@ function travellersColumns(
   languageData: TravellerServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  if (isActionGranted(["TravellerService.Travellers.Edit"], grantedPolicies)) {
-    links.fullName = {
-      prefix: "/parties/travellers",
-      targetAccessorKey: "id",
-      suffix: "personal-identifications",
-    };
-  }
-
-  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_Travellers_TravellerListProfileDto>({
-    rows: $UniRefund_TravellerService_Travellers_TravellerListProfileDto.properties,
+  return tanstackTableCreateColumnsByRowData<UniRefund_TravellerService_Travellers_TravellerListDto>({
+    rows: $UniRefund_TravellerService_Travellers_TravellerListDto.properties,
     languageData: {
       languageData,
-      constantKey: "Form.personalIdentification",
+      constantKey: "Form",
     },
     config: {
       locale,
     },
-    links,
+    links: {
+      fullName: {
+        prefix: "/parties/travellers",
+        targetAccessorKey: "id",
+        conditions: [
+          {
+            when: () => isActionGranted(["TravellerService.Travellers.Edit"], grantedPolicies),
+            conditionAccessorKey: "fullName",
+          },
+        ],
+      },
+    },
+    custom: {
+      gender: {
+        showHeader: true,
+        content: (row) => languageData[`Form.gender.${row.gender}` as keyof typeof languageData] || "",
+      },
+      identificationType: {
+        showHeader: true,
+        content: (row) =>
+          languageData[`Form.identificationType.${row.identificationType}` as keyof typeof languageData] || "",
+      },
+    },
   });
 }
 
@@ -74,20 +83,10 @@ export function travellersTable(
     fillerColumn: "fullName",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "hasUserAccount", "nationalityCountryCode2", "residenceCountryCode2", "userAccountId"],
+      columns: ["id", "firstName", "lastName", "hasUserAccount", "nationalityCountryCode2", "userAccountId"],
     },
     tableActions: travellersTableActions(languageData, router, grantedPolicies),
-    columnOrder: [
-      "firstName",
-      "middleName",
-      "lastName",
-      "travelDocumentNumber",
-      "nationalityCountryName",
-      "residenceCountryName",
-      "birthDate",
-      "expirationDate",
-      "identificationType",
-    ],
+    columnOrder: ["fullName", "nationalityCountryName", "birthDate", "identificationType"],
     pinColumns: ["fullName"],
     filters: {
       textFilters: ["fullName", "travelDocumentNumber"],

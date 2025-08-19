@@ -6,7 +6,7 @@ import {
   getMerchantContractHeaderByIdApi,
   getMerchantContractHeaderContractSettingsByHeaderIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
-import {getMerchantAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {ContractSettings} from "./_components/contract-settings";
 
@@ -14,7 +14,7 @@ async function getApiRequests(session: Session | null, partyId: string, contract
   try {
     const apiRequests = await Promise.all([
       getMerchantContractHeaderByIdApi(contractId, session),
-      getMerchantAddressByIdApi(partyId, session),
+      getMerchantAddressesByMerchantIdApi(partyId, session),
     ]);
     return {
       type: "success" as const,

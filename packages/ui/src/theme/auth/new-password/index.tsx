@@ -10,6 +10,7 @@ import {PasswordInput} from "@repo/ayasofyazilim-ui/molecules/password-input";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {FormProvider, useForm} from "react-hook-form";
+import {LanguageData} from "../types";
 
 const formSchema = z.object({
   password: z.string().min(6, {
@@ -31,11 +32,7 @@ export default function NewPasswordForm({
   resetToken,
   onSubmitAction,
 }: {
-  languageData: {
-    Login: string;
-    ResetPassword: string;
-    Tenant: string;
-  };
+  languageData: LanguageData;
   tenantId: string;
   userId: string;
   resetToken: string;
@@ -73,7 +70,7 @@ export default function NewPasswordForm({
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-2 p-5 sm:w-[350px]">
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">{languageData.ResetPassword}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{languageData["Auth.ResetPassword"]}</h1>
       </div>
       <div className="grid space-y-2">
         <FormProvider {...form}>
@@ -83,9 +80,9 @@ export default function NewPasswordForm({
               name="password"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{languageData["Auth.PasswordLabel"]}</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="*******" type="password" autoComplete="true" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,12 +103,12 @@ export default function NewPasswordForm({
       </div>
       <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Login
+          {languageData["Auth.Login"]}
         </Button>
       </Link>
       <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Register
+          {languageData["Auth.Register"]}
         </Button>
       </Link>
     </div>

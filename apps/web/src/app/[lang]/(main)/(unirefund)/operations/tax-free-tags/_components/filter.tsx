@@ -62,39 +62,53 @@ export default function Filter({
     dateSelect: [
       {
         title: languageData.IssueDate,
+        placeholder: languageData["IssueDate.Placeholder"],
         onChange: setIssuedDate,
         value: issuedDate,
-        options: rangeItems,
+        options: rangeItems.map((item) => ({
+          label: languageData[`Range.${item}` as keyof TagServiceResource],
+          value: item,
+        })),
       },
       {
         title: languageData.ExportDate,
+        placeholder: languageData["ExportDate.Placeholder"],
         onChange: setExportDate,
         value: exportDate,
-        options: rangeItems,
+        options: rangeItems.map((item) => ({
+          label: languageData[`Range.${item}` as keyof TagServiceResource],
+          value: item,
+        })),
       },
       {
         title: languageData.PaidDate,
+        placeholder: languageData["PaidDate.Placeholder"],
         onChange: setPaidDate,
         value: paidDate,
-        options: rangeItems,
+        options: rangeItems.map((item) => ({
+          label: languageData[`Range.${item}` as keyof TagServiceResource],
+          value: item,
+        })),
       },
     ],
     multiSelect: [
       {
         title: languageData.Status,
         value: statuses,
+        placeholder: languageData["TagStatus.Placeholder"],
         options: $UniRefund_TagService_Tags_TagStatusType.enum.map((status) => ({
           value: status,
-          label: status,
+          label: languageData[`TagStatus.${status}` as keyof TagServiceResource],
         })),
         onChange: setStatuses,
       },
       {
         title: languageData.RefundMethod,
         value: refundTypes,
+        placeholder: languageData["RefundMethod.Placeholder"],
         options: $UniRefund_TagService_Tags_Enums_RefundType.enum.map((status) => ({
           value: status,
-          label: status,
+          label: languageData[`RefundMethod.${status}` as keyof TagServiceResource],
         })),
         onChange: setRefundTypes,
       },
@@ -111,11 +125,13 @@ export default function Filter({
 
   return (
     <FilterComponent
+      applyFilterText={languageData.Apply}
       asyncSelect={filterData.asyncSelect}
       cardClassName="mx-none w-full"
       className={className}
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
+      filtersText={languageData.Filters}
       isCollapsible={isCollapsible}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}

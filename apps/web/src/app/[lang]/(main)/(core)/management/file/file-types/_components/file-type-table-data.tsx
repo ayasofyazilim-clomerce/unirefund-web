@@ -19,7 +19,7 @@ import type {DefaultResource} from "@/language-data/core/Default";
 type FileTypeTable = TanstackTableCreationProps<UniRefund_FileService_FileTypes_FileTypeListDto>;
 
 function fileTypeTableActions(router: AppRouterInstance, languageData: DefaultResource, locale: string) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<UniRefund_FileService_FileTypes_FileTypeListDto>[] = [];
   actions.push({
     type: "simple",
     actionLocation: "table",

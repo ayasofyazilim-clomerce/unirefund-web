@@ -1,6 +1,6 @@
 import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationService";
 import {ContractServiceClient} from "@ayasofyazilim/saas/ContractService";
-import {CRMServiceClient} from "@ayasofyazilim/saas/CRMService";
+import {CRMServiceClient} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
 import {FileServiceClient} from "@ayasofyazilim/saas/FileService";
 import {FinanceServiceClient} from "@ayasofyazilim/saas/FinanceService";

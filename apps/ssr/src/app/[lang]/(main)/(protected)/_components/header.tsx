@@ -68,7 +68,7 @@ export default function Header({
       {/* Masaüstü için mevcut header */}
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 hidden w-full border-b backdrop-blur md:block">
         <div className="container flex h-16 items-center justify-between px-4 md:px-8">
-          <Link className="flex items-center space-x-2" href={getBaseLink("", lang)}>
+          <Link className="flex items-center space-x-2" href={getBaseLink("home", lang)}>
             <Image alt="UniRefund Logo" height={32} priority src={unirefundLogo.src} width={140} />
           </Link>
 

@@ -1,6 +1,7 @@
 name: Lint
 run-name: Linting the Pull request 🚀
 on:
+  workflow_dispatch:
   pull_request_target:
     branches: [main]
     types:
@@ -21,38 +22,99 @@ jobs:
       contents: write
     steps:
       - run: echo "🎉 The job is linting the project"
+
       - uses: actions/checkout@v4
         with:
           submodules: true
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          base: ${{ github.event.pull_request.base.sha }}
+          filters: |
+            web:
+              - 'apps/web/**'
+            ssr:
+              - 'apps/ssr/**'
+
+      - name: Set condition variables
+        id: conditions
+        run: |
+          echo "web_changed=${{ steps.changes.outputs.web == 'true' }}" >> $GITHUB_OUTPUT
+          echo "ssr_changed=${{ steps.changes.outputs.ssr == 'true' }}" >> $GITHUB_OUTPUT
+          echo "any_changed=${{ (steps.changes.outputs.web == 'true') || (steps.changes.outputs.ssr == 'true') }}" >> $GITHUB_OUTPUT
       - uses: pnpm/action-setup@v2
         with:
           version: 9.7.1
+        if: steps.conditions.outputs.any_changed == 'true'
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
+        if: steps.conditions.outputs.any_changed == 'true'
+
       - name: Install dependencies
         run: |
           npm install -g pnpm
           pnpm install
-      - name: format
+        if: steps.conditions.outputs.any_changed == 'true'
+
+      # Web app steps
+      - name: Format web app
         run: |
           cd apps/web
           pnpm format
-      - name: lint
+        if: steps.conditions.outputs.web_changed == 'true'
+        continue-on-error: false
+
+      - name: Lint web app
         run: |
           cd apps/web 
           pnpm lint:fix
-      - name: Check types
+        if: steps.conditions.outputs.web_changed == 'true'
+        continue-on-error: false
+
+      - name: Check types web app
         run: |
           cd apps/web
-          pnpm type-check 
-          git diff --name-only 
-      - name: commit
+          pnpm type-check
+        if: steps.conditions.outputs.web_changed == 'true'
+        continue-on-error: false
+
+      # SSR app steps
+      - name: Format SSR app
+        run: |
+          cd apps/ssr
+          pnpm format
+        if: steps.conditions.outputs.ssr_changed == 'true'
+        continue-on-error: false
+
+      - name: Lint SSR app
+        run: |
+          cd apps/ssr 
+          pnpm lint:fix
+        if: steps.conditions.outputs.ssr_changed == 'true'
+        continue-on-error: false
+
+      - name: Check types SSR app
+        run: |
+          cd apps/ssr
+          pnpm type-check
+        if: steps.conditions.outputs.ssr_changed == 'true'
+        continue-on-error: false
+
+      - name: Show git diff
+        run: git diff --name-only
+        if: steps.conditions.outputs.any_changed == 'true'
+
+      - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
+          message: "chore: lint and format apps"
           push: true
+        if: steps.conditions.outputs.any_changed == 'true'

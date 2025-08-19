@@ -2,30 +2,34 @@
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {ThemeProvider, useTheme} from "@aws-amplify/ui-react";
-import type {FaceLivenessDetectorProps} from "@aws-amplify/ui-react-liveness";
 import {FaceLivenessDetectorCore} from "@aws-amplify/ui-react-liveness";
 import "@aws-amplify/ui-react/styles.css";
-import {getApiEvidenceSessionGetFaceLivenessSessionResults} from "@repo/actions/unirefund/TravellerService/actions";
+import {
+  getApiEvidenceSessionPublicCreateFaceLivenessSession,
+  getApiEvidenceSessionPublicGetFaceLivenessSessionResults,
+} from "@repo/actions/unirefund/TravellerService/actions";
+import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {useState} from "react";
 import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
 
 export default function LivenessDetector({
   languageData,
-  sessionId,
+  evidenceSessionId,
   config,
   onAnalysisComplete,
-  onError,
+  frontImageBase64,
 }: {
   languageData: SSRServiceResource;
-  sessionId: string;
+  evidenceSessionId: string;
   config: {
     accessKeyId: string;
     secretAccessKey: string;
     region: string;
   };
   onAnalysisComplete: (result: {isLive: boolean; confidence: number}) => void;
-  onError: FaceLivenessDetectorProps["onError"];
+  frontImageBase64: string | null;
 }) {
+  const [sessionId, setSessionId] = useState<string | null>(null);
   // Amplify'ın default token'larını alıyoruz
   const {tokens} = useTheme();
   // Kendi temamızı tanımlıyoruz
@@ -53,7 +57,6 @@ export default function LivenessDetector({
   };
 
   const [open, setOpen] = useState(false);
-
   return (
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
@@ -61,7 +64,15 @@ export default function LivenessDetector({
           <OnboardingPage
             languageData={languageData}
             onStartValidation={() => {
-              setOpen(true);
+              if (evidenceSessionId) {
+                void getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId).then((res) => {
+                  if (res.type === "success") {
+                    setSessionId(res.data.sessionId || null);
+                    ("");
+                    setOpen(true); // sadece başarılıysa açık
+                  }
+                });
+              }
             }}
           />
         </div>
@@ -72,23 +83,45 @@ export default function LivenessDetector({
                    p-0 p-6 shadow-none sm:h-auto sm:w-auto 
                    sm:max-w-[425px] sm:rounded-lg">
         <ThemeProvider theme={theme}>
-          <FaceLivenessDetectorCore
-            disableStartScreen
-            onAnalysisComplete={async () => {
-              // The sessionId from props is the AWS Rekognition session ID
-              // The API function takes an optional auth session, not a liveness session ID
-              const result = await getApiEvidenceSessionGetFaceLivenessSessionResults();
-              onAnalysisComplete({
-                isLive: (result.data.confidence ?? 0) > 70,
-                confidence: result.data.confidence ?? 0,
-              });
+          {sessionId ? (
+            <FaceLivenessDetectorCore
+              config={{
+                credentialProvider: async () => {
+                  await Promise.resolve();
+                  return config;
+                },
+              }}
+              disableStartScreen
+              onAnalysisComplete={async () => {
+                const result = await getApiEvidenceSessionPublicGetFaceLivenessSessionResults(sessionId);
+                if (result.type !== "success") {
+                  return;
+                }
 
-              setOpen(false);
-            }}
-            onError={onError}
-            region={config.region}
-            sessionId={sessionId}
-          />
+                const confidence = result.data.confidence ?? 0;
+
+                if (confidence > 70 && frontImageBase64) {
+                  const compareResult = await postApiEvidenceSessionLivenessCompareFaces({
+                    requestBody: {
+                      sessionId,
+                      sourceImageBase64: frontImageBase64.split(",").at(1),
+                    },
+                  });
+                  if (compareResult.type === "success") {
+                    onAnalysisComplete({isLive: true, confidence});
+                  } else {
+                    onAnalysisComplete({isLive: false, confidence});
+                  }
+                } else {
+                  onAnalysisComplete({isLive: false, confidence});
+                }
+
+                setOpen(false);
+              }}
+              region={config.region}
+              sessionId={sessionId}
+            />
+          ) : null}
         </ThemeProvider>
       </DialogContent>
     </Dialog>

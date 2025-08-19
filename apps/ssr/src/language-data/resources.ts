@@ -1794,6 +1794,8 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011015": "Only Headquarter merchants can have a relationship with ProductGroup. This merchant is not of the Headquarter type.";
   "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
   "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
+  "UniRefund.CRMService:011018": "A merchant without a filled ParentId cannot be of type headquarters";
+  "UniRefund.CRMService:011019": "ExternalStoreIdentifier cannot be empty";
 };
 export type SettingServiceResources = {
   "UniRefund.SettingService:011001": "The default product group for this merchant cannot be deleted. Ensure that at least one product group is marked as default: {id}";
@@ -2007,6 +2009,15 @@ export type TravellerServiceResources = {
   "UniRefund.TravellerService:010014": "Liveness Session has not started, firstly start a liveness session!";
   "Permission:TravellerService": "Traveller Service";
   "Permission:EvidenceSessions": "Evidence Sessions";
+  "Permission:Create": "Create";
+  "Permission:Edit": "Edit";
+  "Permission:ViewList": "View List";
+  "Permission:View": "View";
+  "Permission:Delete": "Delete";
+  "Permission:AnalyzeDocumentByMRZWithoutES": "Use of MRZ Extraction";
+  "UniRefund.TravellerService:010015": "Input Base64 has unsupported document format!";
+  "UniRefund.TravellerService:010016": "Image could not be processed due to a technical issue!";
+  "UniRefund.TravellerService:010017": "MRZ in the image violates the universal standards!";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";

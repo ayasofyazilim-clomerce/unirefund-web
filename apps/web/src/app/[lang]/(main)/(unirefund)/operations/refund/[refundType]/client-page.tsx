@@ -1,7 +1,7 @@
 "use client";
 
 import {cn} from "@/lib/utils";
-import type {UniRefund_CRMService_RefundPoints_RefundPointProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {
   PagedResultDto_TagListItemDto,
   UniRefund_TagService_Tags_TagListItemDto,
@@ -27,7 +27,7 @@ export default function ClientPage({
   locale: string;
   response: PagedResultDto_TagListItemDto;
   languageData: TagServiceResource;
-  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointProfileDto[];
+  accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointListResponseDto[];
 }) {
   const [selectedRows, setSelectedRows] = useState<UniRefund_TagService_Tags_TagListItemDto[]>([]);
   const searchParams = useSearchParams();
@@ -83,7 +83,7 @@ export default function ClientPage({
                 "h-full overflow-hidden rounded-lg border border-gray-200 p-7 shadow-sm md:col-span-4",
                 selectedRows.length ? "" : "pointer-events-none opacity-30",
               )}>
-              <RefundForm refundPointId={refundPointId} selectedRows={selectedRows} />
+              <RefundForm languageData={languageData} refundPointId={refundPointId} selectedRows={selectedRows} />
             </div>
           </div>
         </TabLayout>

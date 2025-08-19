@@ -13,12 +13,18 @@ interface RootLayoutProps {
   children: JSX.Element;
 }
 const appName = process.env.APPLICATION_NAME || "UNIREFUND";
-const title = appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase();
+const title =
+  process.env.STAGE !== "PROD"
+    ? `[${process.env.STAGE?.substring(0, 3).toUpperCase()}] ${appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase()}`
+    : appName.charAt(0).toUpperCase() + appName.slice(1).toLowerCase();
 export async function generateViewport() {
   await Promise.resolve();
   return {
     width: "device-width",
     initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: "cover",
   };
 }
 export async function generateMetadata(): Promise<Metadata> {

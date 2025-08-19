@@ -8,6 +8,7 @@ lerna-debug.log*
 .pnpm-debug.log*
 .turbo
 .deployrc.json
+.DS_Store
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -74,6 +75,10 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
+.env.dev
+.env.uat
+.env.prod
+
 .env
 .env.development.local
 .env.test.local
@@ -129,6 +134,7 @@ dist
 .turbo
 apps/web/tests/apps/web/playwright/.auth/user.json
 apps/web/lint-output.txt
+apps/ssr/lint-output.txt
 playwright/.auth/user.json
 apps/web/tests/playwright/.auth/user.json
 apps/web/tests/apps/web/tests/playwright/.auth/user.json

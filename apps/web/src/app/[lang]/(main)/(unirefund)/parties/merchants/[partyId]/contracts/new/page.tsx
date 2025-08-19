@@ -5,11 +5,13 @@ import {FileText} from "lucide-react";
 import Link from "next/link";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantAddressByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {
   // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
 import MerchantContractHeaderCreateForm from "./components/form";
@@ -17,15 +19,8 @@ import MerchantContractHeaderCreateForm from "./components/form";
 async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
-      getMerchantAddressByIdApi(partyId, session),
-      // getMerchantContractHeadersByMerchantIdApi(
-      //   {
-      //     id: partyId,
-      //     isDraft: false,
-      //   },
-      //   session,
-      // ),
+    const requiredRequests = await Promise.all([
+      getMerchantAddressesByMerchantIdApi(partyId, session),
       getRefundTableHeadersAssignablesByMerchantIdApi(
         {
           merchantId: partyId,
@@ -33,16 +28,13 @@ async function getApiRequests(partyId: string) {
         session,
       ),
     ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
 export default async function Page({
@@ -61,14 +53,11 @@ export default async function Page({
 
   const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests(partyId);
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const [
-    addressListResponse,
-    // otherContractHeadersResponse,
-    refundTableHeadersResponse,
-  ] = apiRequests.data;
+  const [addressListResponse, refundTableHeadersResponse] = apiRequests.requiredRequests;
 
   // const biggestContractHeader = otherContractHeadersResponse.data.items?.at(0);
   return (

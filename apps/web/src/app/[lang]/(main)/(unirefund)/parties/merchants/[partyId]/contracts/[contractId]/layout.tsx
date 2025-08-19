@@ -22,7 +22,7 @@ export default async function Layout({
 
   const permissions = {
     Contract: await isUnauthorized({
-      requiredPolicies: ["ContractService.ContractHeaderForMerchant.Detail"],
+      requiredPolicies: ["ContractService.ContractHeaderForMerchant.ViewDetail"],
       grantedPolicies,
       lang,
       redirect: false,

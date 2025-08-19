@@ -1,6 +1,6 @@
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
 import type {
-  UniRefund_TravellerService_PersonalIdentificationCommonDatas_PersonalIdentificationProfileDto as PersonalIdentificationProfileDto,
+  UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto,
   UniRefund_TravellerService_Travellers_TravellerDetailProfileDto as TravellerDetailProfileDto,
 } from "@ayasofyazilim/saas/TravellerService";
 import {IdCard, User} from "lucide-react";
@@ -16,7 +16,7 @@ export function TravellerDetails({
   traveller: TravellerDetailProfileDto & {travellerDocumentNumber: string};
   lang: string;
 }) {
-  const travellerLink = getBaseLink(`parties/travellers/${traveller.id}/personal-identifications`, lang);
+  const travellerLink = getBaseLink(`parties/travellers/${traveller.id}`, lang);
   return (
     <div className="grid max-h-full overflow-y-auto p-4 pb-[50%]">
       <IconWithTitle icon={User} title="Traveller details" />
@@ -31,7 +31,7 @@ export function TravellerDetails({
         />
         <TravellerPersonalIdentifications
           lang={lang}
-          personalIdentifications={traveller.personalIdentifications}
+          personalIdentifications={traveller.travellerDocuments}
           travellerLink={travellerLink}
         />
       </div>
@@ -44,10 +44,16 @@ function TravellerPersonalIdentifications({
   travellerLink,
   lang,
 }: {
-  personalIdentifications: PersonalIdentificationProfileDto[];
+  personalIdentifications:
+    | UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto[]
+    | undefined
+    | null;
   travellerLink: string;
   lang: string;
 }) {
+  if (!personalIdentifications || personalIdentifications.length === 0) {
+    return null;
+  }
   if (personalIdentifications.length === 1) {
     return (
       <TravellerPersonalIdentification
@@ -64,12 +70,12 @@ function TravellerPersonalIdentifications({
         <AccordionItem
           className="border-none [&>div]:-mt-4"
           key={identification.travelDocumentNumber}
-          value={identification.travelDocumentNumber}>
+          value={identification.travelDocumentNumber || ""}>
           <AccordionTrigger className="rounded-md border px-2">
             <IconWithTitle
               classNames={{icon: "size-4", title: "text-sm font-normal"}}
               icon={IdCard}
-              title={identification.travelDocumentNumber}
+              title={identification.travelDocumentNumber || ""}
             />
           </AccordionTrigger>
           <AccordionContent className="rounded-b-md border border-t-0 p-2 pt-6">
@@ -91,7 +97,7 @@ function TravellerPersonalIdentification({
   lang,
   travellerLink,
 }: {
-  identification: PersonalIdentificationProfileDto;
+  identification: UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto;
   showDocumentNumber?: boolean;
   lang: string;
   travellerLink: string;
@@ -108,9 +114,9 @@ function TravellerPersonalIdentification({
           text="Travel document number"
         />
       ) : null}
-      <TextWithSubText subText={identification.identificationType} text="Document type" />
-      <TextWithSubText subText={identification.residenceCountryName} text="Country of residence" />
-      <TextWithSubText subText={identification.nationalityCountryName} text="Nationality" />
+      <TextWithSubText subText={identification.identificationType || "-"} text="Document type" />
+      <TextWithSubText subText={identification.residenceCountryName || "-"} text="Country of residence" />
+      <TextWithSubText subText={identification.nationalityCountryName || "-"} text="Nationality" />
       <TextWithSubText
         subText={identification.birthDate ? new Date(identification.birthDate).toLocaleDateString(lang) : "-"}
         text="Date of birth"

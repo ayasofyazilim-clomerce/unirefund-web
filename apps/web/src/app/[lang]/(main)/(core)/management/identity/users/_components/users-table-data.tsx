@@ -38,7 +38,7 @@ function usersTableActions(
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
 ) {
-  const actions: TanstackTableTableActionsType[] = [];
+  const actions: TanstackTableTableActionsType<Volo_Abp_Identity_IdentityUserDto>[] = [];
   if (isActionGranted(["AbpIdentity.Users.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",

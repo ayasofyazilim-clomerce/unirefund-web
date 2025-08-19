@@ -6,7 +6,7 @@ import FilterComponent from "@repo/ayasofyazilim-ui/molecules/filter-component";
 import {useRouter} from "next/navigation";
 import {useEffect, useState, useTransition} from "react";
 import type {GetApiCrmServiceMerchantsByIdProductGroupResponse} from "@ayasofyazilim/saas/CRMService";
-import {getMerchantByIdApi, getMerchantsByIdProductGroupApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantByIdApi, getMerchantProductGroupByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {postTagApi} from "@repo/actions/unirefund/TagService/post-actions";
 import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
 import {searchTravellers} from "@repo/actions/unirefund/TravellerService/search";
@@ -60,7 +60,7 @@ export default function ClientPage({
       return;
     }
 
-    void getMerchantsByIdProductGroupApi(merchantIds[0].id).then((res) => {
+    void getMerchantProductGroupByMerchantIdApi(merchantIds[0].id).then((res) => {
       setProductGroupList(res.data);
     });
   }, [merchantIds]);
@@ -86,17 +86,17 @@ export default function ClientPage({
       const travellerInfoResponse = await getTravellersDetailsApi(travellerIds[0].id);
       const data = {
         merchant: {
-          vatNumber: merchantInfoResponse.data.taxpayerId || "",
+          vatNumber: merchantInfoResponse.data.vatNumber || "",
           countryCode: "TR",
-          branchId: merchantInfoResponse.data.customerNumber || "0",
+          branchId: merchantInfoResponse.data.chainCodeId || "0",
         },
         traveller: {
-          travelDocumentNumber: travellerInfoResponse.data.personalIdentifications[0].travelDocumentNumber,
-          nationalityCountryCode2: travellerInfoResponse.data.personalIdentifications[0].nationalityCountryCode2,
-          firstName: travellerInfoResponse.data.personalIdentifications[0].firstName,
-          lastName: travellerInfoResponse.data.personalIdentifications[0].lastName,
-          residenceCountryCode2: travellerInfoResponse.data.personalIdentifications[0].residenceCountryCode2,
-          expirationDate: travellerInfoResponse.data.personalIdentifications[0].expirationDate,
+          travelDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travelDocumentNumber || "",
+          nationalityCountryCode2: travellerInfoResponse.data.travellerDocuments?.[0].nationalityCountryCode2 || "",
+          firstName: travellerInfoResponse.data.firstName || "",
+          lastName: travellerInfoResponse.data.lastName || "",
+          residenceCountryCode2: travellerInfoResponse.data.travellerDocuments?.[0].residenceCountryCode2 || "",
+          expirationDate: travellerInfoResponse.data.travellerDocuments?.[0].expirationDate,
         },
         invoices: [
           {
@@ -130,6 +130,7 @@ export default function ClientPage({
     multiSelect: [
       {
         title: languageData.ProductGroups,
+        placeholder: languageData["ProductGroups.Select"],
         value: productGroupIds,
         options: productGroupList.map((pg) => ({
           value: pg.productGroupId,
@@ -173,15 +174,18 @@ export default function ClientPage({
 
   return (
     <FilterComponent
+      applyFilterText={languageData.Apply}
       asyncSelect={filterData.asyncSelect}
       className={className}
       customField={filterData.customFields}
       dateSelect={filterData.dateSelect}
       defaultOpen={defaultOpen}
       disabled={isPending}
+      filtersText={languageData.Filters}
       isCollapsible={false}
       multiSelect={filterData.multiSelect}
       onSubmit={onSubmit}
+      searchText={languageData.Search}
     />
   );
 }

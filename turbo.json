@@ -2,10 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [".env.local", ".env"],
   "globalEnv": [
+    "STAGE",
     "NODE_ENV",
-
-    "HOSTNAME",
-    "PORT",
     "BASE_URL",
     "TOKEN_URL",
     "NEXT_PUBLIC_PRIMARY_COLOR",

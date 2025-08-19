@@ -55,55 +55,55 @@ export default function Profile({
   const accountItems = [
     {
       icon: <User className="h-4 w-4" />,
-      title: ssrLanguageData.AccountInformation || "Account Information",
-      description: ssrLanguageData.ViewEditPersonalInfo || "View and edit your personal information",
+      title: ssrLanguageData.AccountInformation,
+      description: ssrLanguageData.ViewEditPersonalInfo,
       onClick: () => {
         setShowPersonalInfo(true);
       },
     },
     {
       icon: <IdCard className="h-4 w-4" />,
-      title: ssrLanguageData.IdentityVerification || "Identity Verification",
-      description: ssrLanguageData.ManageTwoFactorAuth || "Manage your two-factor authentication settings",
+      title: ssrLanguageData.IdentityVerification,
+      description: ssrLanguageData.ManageTwoFactorAuth,
       onClick: () => {
         router.push("profile/kyc");
       },
     },
     {
       icon: <KeyRound className="h-4 w-4" />,
-      title: ssrLanguageData.ChangePassword || "Change Password",
-      description: ssrLanguageData.UpdateAccountSecurity || "Update your account security",
+      title: ssrLanguageData.ChangePassword,
+      description: ssrLanguageData.UpdateAccountSecurity,
       onClick: () => {
         setShowChangePassword(true);
       },
     },
     {
       icon: <Bell className="h-4 w-4" />,
-      title: ssrLanguageData.NotificationPreferences || "Notification Preferences",
-      description: ssrLanguageData.ManageNotificationSettings || "Manage your notification settings",
+      title: ssrLanguageData.NotificationPreferences,
+      description: ssrLanguageData.ManageNotificationSettings,
       onClick: () => {
         router.push("/notifications");
       },
     },
     {
       icon: <Shield className="h-4 w-4" />,
-      title: ssrLanguageData.SecuritySettings || "Security Settings",
-      description: ssrLanguageData.ConfigureAccountSecurity || "Configure your account security",
+      title: ssrLanguageData.SecuritySettings,
+      description: ssrLanguageData.ConfigureAccountSecurity,
       onClick: () => {
         router.push("/account/security");
       },
     },
     {
       icon: <HelpCircle className="h-4 w-4" />,
-      title: ssrLanguageData.Support || "Support",
-      description: ssrLanguageData.GetHelpSupport || "Get help and support",
+      title: ssrLanguageData.Support,
+      description: ssrLanguageData.GetHelpSupport,
       onClick: () => {
         router.push("/support");
       },
     },
     {
       icon: <LogOut className="h-4 w-4" />,
-      title: ssrLanguageData.Logout || "Logout",
+      title: ssrLanguageData.Logout,
       description: ssrLanguageData.LogoutDescription,
       onClick: handleLogout,
     },
@@ -126,7 +126,7 @@ export default function Profile({
                     setShowPersonalInfo(true);
                   }}
                   size="icon"
-                  title={ssrLanguageData.EditProfile || "Edit Profile"}
+                  title={ssrLanguageData.EditProfile}
                   variant="ghost">
                   <Pencil className="h-5 w-5" />
                 </Button>
@@ -136,7 +136,7 @@ export default function Profile({
                     setShowQrCode(true);
                   }}
                   size="icon"
-                  title={ssrLanguageData.QRCode || "QR Code"}
+                  title={ssrLanguageData.QRCode}
                   variant="ghost">
                   <QrCode className="h-5 w-5" />
                 </Button>
@@ -173,10 +173,8 @@ export default function Profile({
         {/* Ayarlar Kartı */}
         <Card>
           <CardHeader>
-            <CardTitle>{ssrLanguageData.AccountManagement || "Account Management"}</CardTitle>
-            <CardDescription>
-              {ssrLanguageData.ManageProfileAndPreferences || "Manage your profile and account preferences"}
-            </CardDescription>
+            <CardTitle>{ssrLanguageData.AccountManagement}</CardTitle>
+            <CardDescription>{ssrLanguageData.ManageProfileAndPreferences}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {" "}
@@ -219,10 +217,8 @@ export default function Profile({
         <Dialog onOpenChange={setShowQrCode} open={showQrCode}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>{ssrLanguageData.ProfileQRCode || "Profile QR Code"}</DialogTitle>
-              <DialogDescription>
-                {ssrLanguageData.ProfileQRCodeDescription || "You can quickly access your profile using this QR code."}
-              </DialogDescription>
+              <DialogTitle>{ssrLanguageData.ProfileQRCode}</DialogTitle>
+              <DialogDescription>{ssrLanguageData.ProfileQRCodeDescription}</DialogDescription>
             </DialogHeader>
             <div className="flex justify-center py-6">
               <div className="flex h-64 w-64 items-center justify-center ">
@@ -253,14 +249,11 @@ export default function Profile({
         <Drawer onOpenChange={setShowQrCode} open={showQrCode}>
           <DrawerContent className="h-[85vh]">
             <DrawerHeader className="mb-4">
-              <DrawerTitle>{ssrLanguageData.ProfileQRCode || "Profile QR Code"}</DrawerTitle>
+              <DrawerTitle>{ssrLanguageData.ProfileQRCode}</DrawerTitle>
             </DrawerHeader>
             <div className="overflow-y-auto px-4 pb-8">
               <div className="flex flex-col items-center">
-                <p className="mb-4 text-center text-sm text-gray-500">
-                  {ssrLanguageData.ProfileQRCodeDescription ||
-                    "You can quickly access your profile using this QR code."}
-                </p>
+                <p className="mb-4 text-center text-sm text-gray-500">{ssrLanguageData.ProfileQRCodeDescription}</p>
                 <div className="flex h-64 w-64 items-center justify-center ">
                   <QRCodeSVG
                     bgColor="#ffffff"
@@ -290,7 +283,7 @@ export default function Profile({
         <Dialog onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
           <DialogContent className="sm:max-w-xl">
             <DialogHeader>
-              <DialogTitle>{ssrLanguageData.EditProfile || "Kişisel Bilgiler"}</DialogTitle>
+              <DialogTitle>{ssrLanguageData.EditProfile}</DialogTitle>
             </DialogHeader>
             <PersonalInformation languageData={accountLanguageData} personalInformationData={personalInformationData} />
           </DialogContent>
@@ -301,7 +294,7 @@ export default function Profile({
         <Drawer onOpenChange={setShowPersonalInfo} open={showPersonalInfo}>
           <DrawerContent className="h-[85vh]">
             <DrawerHeader className="mb-4">
-              <DrawerTitle>{ssrLanguageData.EditProfile || "Kişisel Bilgiler"}</DrawerTitle>
+              <DrawerTitle>{ssrLanguageData.EditProfile}</DrawerTitle>
             </DrawerHeader>
             <div className="overflow-y-auto px-4 pb-8">
               <PersonalInformation
@@ -317,7 +310,7 @@ export default function Profile({
         <Dialog onOpenChange={setShowChangePassword} open={showChangePassword}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>{ssrLanguageData.ChangePassword || "Şifre Değiştir"}</DialogTitle>
+              <DialogTitle>{ssrLanguageData.ChangePassword}</DialogTitle>
             </DialogHeader>
             <ChangePassword languageData={accountLanguageData} />
           </DialogContent>
@@ -328,7 +321,7 @@ export default function Profile({
         <Drawer onOpenChange={setShowChangePassword} open={showChangePassword}>
           <DrawerContent className="h-[85vh]">
             <DrawerHeader className="mb-4">
-              <DrawerTitle>{ssrLanguageData.ChangePassword || "Şifre Değiştir"}</DrawerTitle>
+              <DrawerTitle>{ssrLanguageData.ChangePassword}</DrawerTitle>
             </DrawerHeader>
             <div className="overflow-y-auto px-4 pb-8">
               <ChangePassword languageData={accountLanguageData} />

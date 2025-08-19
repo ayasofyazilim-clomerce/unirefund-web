@@ -7,7 +7,6 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
 } from "@ayasofyazilim/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto as $ContractSettingCreateUpdateDto} from "@ayasofyazilim/saas/ContractService";
-import type {UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressCommonDataDto} from "@ayasofyazilim/saas/LocationService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
@@ -27,6 +26,7 @@ import {
 import {postMerchantContractHeaderContractSettingsByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {deleteMerchantContractContractSettingsByIdApi} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 interface ContractSettingsTable {
@@ -59,7 +59,7 @@ export function ContractSettings({
   languageData: ContractServiceResource;
   contractSettings: ContractSettingDto[];
   contractHeaderDetails: ContractHeaderDetailForMerchantDto;
-  addressList: AddressCommonDataDto[];
+  addressList: UniRefund_CRMService_Addresses_AddressDto[];
   lang: string;
 }) {
   const {grantedPolicies} = useGrantedPolicies();
@@ -174,7 +174,7 @@ export function ContractSettings({
     expandRowTrigger: "name",
   });
 
-  const tableActions: TanstackTableTableActionsType[] | undefined = !tempSettings
+  const tableActions: TanstackTableTableActionsType<ContractSettingsTable>[] | undefined = !tempSettings
     ? [
         {
           actionLocation: "table",
@@ -194,7 +194,7 @@ export function ContractSettings({
 
   if (settings.length > 0) {
     return (
-      <TanstackTable
+      <TanstackTable<ContractSettingsTable, ContractSettingsTable>
         columnVisibility={{
           columns: ["id", "details"],
           type: "hide",
@@ -236,7 +236,7 @@ function SchemaFormForContractSettings({
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setTempSettings?: Dispatch<SetStateAction<ContractSettingsTable | undefined>>;
-  addressList: AddressCommonDataDto[];
+  addressList: UniRefund_CRMService_Addresses_AddressDto[];
   submitId: string;
   type: "edit" | "create" | "temp";
   handleFetch: () => Promise<void>;
@@ -330,11 +330,11 @@ function SchemaFormForContractSettings({
       uiSchema={uiSchema}
       useDefaultSubmit={false}
       widgets={{
-        address: CustomComboboxWidget<AddressCommonDataDto>({
+        address: CustomComboboxWidget<UniRefund_CRMService_Addresses_AddressDto>({
           list: addressList,
           languageData,
           selectIdentifier: "id",
-          selectLabel: "fullAddress",
+          selectLabel: "addressLine",
         }),
       }}
       withScrollArea>

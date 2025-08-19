@@ -20,6 +20,7 @@ import {XIcon} from "lucide-react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {FormProvider, useForm} from "react-hook-form";
+import {LanguageData} from "../types";
 
 const formSchema = z.object({
   username: z.string().min(5),
@@ -35,6 +36,25 @@ export interface RegisterCredentials {
   password: string;
 }
 
+export interface RegisterFormLanguageData {
+  Login: string;
+  Register: string;
+  Tenant: string;
+  InvalidToken: string;
+  "Login.TenantPlaceholder": string;
+  "Login.Clear": string;
+  "Login.LeaveOrEmpty": string;
+  "Login.UsernameOrEmailLabel": string;
+  "Login.UsernameOrEmailDescription": string;
+  "Login.PasswordLabel": string;
+  "Login.Login": string;
+  "Login.HaveAnAccount": string;
+  "Register.EmailAddressLabel": string;
+  "Register.UsernameLabel": string;
+  "Register.UsernameDescription": string;
+  "Register.DoYouHaveAccount": string;
+}
+
 export default function RegisterForm({
   languageData,
   defaultTenant = "",
@@ -42,12 +62,7 @@ export default function RegisterForm({
   isTenantDisabled,
   onTenantSearchAction,
 }: {
-  languageData: {
-    Login: string;
-    Register: string;
-    Tenant: string;
-    InvalidToken: string;
-  };
+  languageData: LanguageData;
   defaultTenant?: string;
   isTenantDisabled: boolean;
   onSubmitAction: (values: RegisterCredentials) => Promise<{
@@ -76,7 +91,7 @@ export default function RegisterForm({
     startTransition(() => {
       onTenantSearchAction(name).then((response) => {
         if (response.type !== "success" || !response.data.success) {
-          form.setError("tenant", {type: "manual", message: "Tenant not found."}, {shouldFocus: true});
+          form.setError("tenant", {type: "manual", message: languageData["Auth.TenantNotFound"]}, {shouldFocus: true});
           return;
         }
         form.clearErrors("tenant");
@@ -98,8 +113,8 @@ export default function RegisterForm({
           toast.error(response?.message);
           return;
         }
-        toast.success("You can now log in to your account.");
-        router.replace(`/${location.pathname.split("/").slice(1)}/login/${location.search}`);
+        toast.success(languageData["Auth.RegisterSuccess"]);
+        router.replace(`/${location.pathname.split("/").slice(1, 3).join("/")}/login${location.search}`);
       });
     });
   }
@@ -114,7 +129,7 @@ export default function RegisterForm({
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-2 p-5 sm:w-[350px]">
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">{languageData.Register}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{languageData["Auth.Register"]}</h1>
       </div>
       <div className="grid space-y-2">
         <FormProvider {...form}>
@@ -126,7 +141,7 @@ export default function RegisterForm({
                 disabled={isPending}
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Tenant</FormLabel>
+                    <FormLabel>{languageData["Auth.Tenant"]}</FormLabel>
                     <FormControl>
                       <div className="relative w-full max-w-sm">
                         <Input
@@ -140,7 +155,7 @@ export default function RegisterForm({
                           onKeyUp={(e) => {
                             if (e.key === "Enter") searchForTenant(form.getValues("tenant") || "");
                           }}
-                          placeholder="Logging in as host"
+                          placeholder={languageData["Auth.TenantPlaceholder"]}
                           autoFocus
                         />
                         <Button
@@ -153,11 +168,11 @@ export default function RegisterForm({
                             form.setValue("tenant", "");
                           }}>
                           <XIcon className="h-4 w-4" />
-                          <span className="sr-only">Clear</span>
+                          <span className="sr-only">{languageData["Auth.Clear"]}</span>
                         </Button>
                       </div>
                     </FormControl>
-                    <FormDescription>Leave empty for host.</FormDescription>
+                    <FormDescription>{languageData["Auth.LeaveOrEmpty"]}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -168,7 +183,7 @@ export default function RegisterForm({
               name="email"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Email Address</FormLabel>
+                  <FormLabel>{languageData["Auth.EmailAddressLabel"]}</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -181,11 +196,10 @@ export default function RegisterForm({
               name="username"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{languageData["Auth.UsernameLabel"]}</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="user@example.com" autoComplete="true" />
                   </FormControl>
-                  <FormDescription>User name.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -195,9 +209,9 @@ export default function RegisterForm({
               name="password"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{languageData["Auth.PasswordLabel"]}</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="*******" type="password" autoComplete="true" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -205,23 +219,23 @@ export default function RegisterForm({
             />
 
             <div>
-              <Button disabled={isPending || isSubmitDisabled} className="my-2 w-full">
-                {languageData.Register}
+              <Button disabled={isPending || isSubmitDisabled} className="mb-1 mt-2 w-full">
+                {languageData["Auth.Register"]}
               </Button>
             </div>
           </form>
         </FormProvider>
       </div>
-      <div className="flex items-center justify-center">
+      {/* <div className="flex items-center justify-center">
         <span className="bg-muted h-px w-full"></span>
         <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">
-          Do you have an account?
+          {languageData["Auth.DoYouHaveAccount"]}
         </span>
         <span className="bg-muted h-px w-full"></span>
-      </div>
-      <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
+      </div> */}
+      <Link href="login" className="text-muted-foreground text-xs hover:underline">
         <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          Login
+          {languageData["Auth.Login"]}
         </Button>
       </Link>
     </div>
