@@ -28,6 +28,8 @@ import {
   postMerchantProductGroupsApi,
 } from "@repo/actions/unirefund/CrmService/post-actions";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {Badge} from "@/components/ui/badge";
+import {cn} from "@/lib/utils";
 
 type ProductGroupsTable =
   TanstackTableCreationProps<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>;
@@ -66,17 +68,22 @@ function productGroupsTableActions(
             resources: languageData,
             name: "Form.Merchant.productGroup",
             extend: {
+              "ui:className": "border-0 p-0",
+              displayLabel: false,
               productGroupId: {
                 "ui:widget": "productGroup",
               },
               isDefault: {
                 "ui:widget": "switch",
+                "ui:className": "px-2 border rounded-md",
               },
             },
           })}
+          withScrollArea={false}
           widgets={{
             productGroup: CustomComboboxWidget<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
               languageData,
+              customItemRenderer: (value) => ProductGroupListItem(value, languageData),
               list: productGroupsList,
               selectIdentifier: "id",
               selectLabel: "name",
@@ -88,7 +95,21 @@ function productGroupsTableActions(
   }
   return actions;
 }
-
+function ProductGroupListItem(
+  value: UniRefund_SettingService_ProductGroups_ProductGroupDto,
+  languageData: CRMServiceServiceResource,
+) {
+  return (
+    <div className="flex w-full items-center justify-between">
+      {value.name}
+      <Badge variant="outline" className={cn(value.active ? "text-green-500" : "text-muted-foreground")}>
+        {value.active
+          ? languageData["Form.Merchant.productGroup.active"]
+          : languageData["Form.Merchant.productGroup.inactive"]}
+      </Badge>
+    </div>
+  );
+}
 function productGroupsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,

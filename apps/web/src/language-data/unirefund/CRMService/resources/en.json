@@ -48,6 +48,10 @@
   "Form.Merchant.affiliation.or": "or",
 
   "Form.Merchant.productGroup": "Product Group",
+  "Form.Merchant.productGroup.active": "Active",
+  "Form.Merchant.productGroup.inactive": "Inactive",
+  "Form.Merchant.productGroup.isDefault": "Default product group",
+  "Form.Merchant.productGroupId": "Product Group",
   "Form.Merchant.productGroups": "Product Groups",
   "Form.Merchant.productGroup.update": "Update Product Group",
   "Form.Merchant.productGroup.default": "Set Default Product Group",
