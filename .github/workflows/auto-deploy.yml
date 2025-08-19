@@ -86,7 +86,7 @@ jobs:
       - name: Deploy specific
         if: needs.determine-environment.outputs.app != 'all'
         run: |
-          ssh frontend "deploy Unirefund ${{ needs.determine-environment.outputs.app }} ${{ github.event.release.name }}"
+          ssh frontend "deploy Unirefund  ${{ github.event.release.name }} ${{ needs.determine-environment.outputs.app }}"
 
       - name: Deploy all apps
         if: needs.determine-environment.outputs.app == 'all'
@@ -103,3 +103,5 @@ jobs:
           echo "💡 To enable auto-deployment, name the release like:"
           echo "   uat-v1.0.0"
           echo "   prod-v1.0.0"
+          echo "::error::Deployment was skipped due to invalid release name format"
+          exit 1
