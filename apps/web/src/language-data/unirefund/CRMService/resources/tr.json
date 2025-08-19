@@ -48,6 +48,10 @@
   "Form.Merchant.affiliation.or": "veya",
 
   "Form.Merchant.productGroup": "Ürün Grubu",
+  "Form.Merchant.productGroup.active": "Aktif",
+  "Form.Merchant.productGroup.inactive": "Pasif",
+  "Form.Merchant.productGroup.isDefault": "Varsayılan ürün grubu",
+  "Form.Merchant.productGroupId": "Ürün Grubu",
   "Form.Merchant.productGroups": "Ürün Grupları",
   "Form.Merchant.productGroup.update": "Ürün Grubunu Güncelle",
   "Form.Merchant.productGroup.default": "Varsayılan Ürün Grubunu Ayarla",

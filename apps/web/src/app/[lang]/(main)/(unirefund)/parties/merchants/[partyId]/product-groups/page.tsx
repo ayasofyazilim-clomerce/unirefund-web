@@ -19,7 +19,7 @@ async function getApiRequests(partyId: string) {
     const session = await auth();
     const requiredRequests = await Promise.all([
       getMerchantProductGroupByMerchantIdApi(partyId, session),
-      getProductGroupsApi({}),
+      getProductGroupsApi({maxResultCount: 999}),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};

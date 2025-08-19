@@ -27,6 +27,8 @@ import {
   postMerchantProductGroupByProductGroupIdDefaultApi,
   postMerchantProductGroupsApi,
 } from "@repo/actions/unirefund/CrmService/post-actions";
+import {Badge} from "@/components/ui/badge";
+import {cn} from "@/lib/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type ProductGroupsTable =
@@ -66,29 +68,48 @@ function productGroupsTableActions(
             resources: languageData,
             name: "Form.Merchant.productGroup",
             extend: {
+              "ui:className": "border-0 p-0",
+              displayLabel: false,
               productGroupId: {
                 "ui:widget": "productGroup",
               },
               isDefault: {
                 "ui:widget": "switch",
+                "ui:className": "px-2 border rounded-md",
               },
             },
           })}
           widgets={{
             productGroup: CustomComboboxWidget<UniRefund_SettingService_ProductGroups_ProductGroupDto>({
               languageData,
+              customItemRenderer: (value) => ProductGroupListItem(value, languageData),
               list: productGroupsList,
               selectIdentifier: "id",
               selectLabel: "name",
             }),
           }}
+          withScrollArea={false}
         />
       ),
     });
   }
   return actions;
 }
-
+function ProductGroupListItem(
+  value: UniRefund_SettingService_ProductGroups_ProductGroupDto,
+  languageData: CRMServiceServiceResource,
+) {
+  return (
+    <div className="flex w-full items-center justify-between">
+      {value.name}
+      <Badge className={cn(value.active ? "text-green-500" : "text-muted-foreground")} variant="outline">
+        {value.active
+          ? languageData["Form.Merchant.productGroup.active"]
+          : languageData["Form.Merchant.productGroup.inactive"]}
+      </Badge>
+    </div>
+  );
+}
 function productGroupsRowActions(
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
