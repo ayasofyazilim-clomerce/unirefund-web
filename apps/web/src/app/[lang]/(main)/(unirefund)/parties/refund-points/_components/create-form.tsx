@@ -113,7 +113,6 @@ export default function CreateRefundPointForm({
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
-      autoSelectFirst: true,
     }),
     refundPointWidget: CustomComboboxWidget<RefundPointDto>({
       list: refundPointList,
@@ -164,7 +163,10 @@ export default function CreateRefundPointForm({
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
-        formData={formData}
+        formData={{
+          ...formData,
+          taxOfficeId: formData.taxOfficeId || taxOfficeList[0]?.id,
+        }}
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
