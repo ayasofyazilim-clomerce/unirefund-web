@@ -13,7 +13,7 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type {Policy} from "@repo/utils/policies";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
 // import {isActionGranted} from "@repo/utils/policies";
 import {Building2, PlusCircle, Store} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -35,7 +35,7 @@ function customTableActions(
       actionLocation: "table",
       cta: languageData.New,
       icon: PlusCircle,
-      condition: () => true, // isActionGranted(["CRMService.Customs.Create"], grantedPolicies),
+      condition: () => isActionGranted(["CRMService.Customs.Create"], grantedPolicies),
       onClick() {
         router.push(newLink);
       },
