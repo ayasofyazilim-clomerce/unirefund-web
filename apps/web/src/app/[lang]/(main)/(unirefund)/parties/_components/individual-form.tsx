@@ -39,9 +39,6 @@ export function CreateIndividualForm({
     schema: $CreateIndividualDto,
     extend: {
       "ui:className": cn("grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto", className),
-      taxOfficeId: {
-        "ui:widget": "taxOfficeWidget",
-      },
       isPersonalCompany: {
         "ui:widget": "switch",
         "ui:className": "border px-2 rounded-md",

@@ -114,7 +114,6 @@ export default function CreateTaxFreeForm({
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
-      autoSelectFirst: true,
     }),
     taxFreeWidget: CustomComboboxWidget<TaxFreeDto>({
       list: taxFreeList,
@@ -163,7 +162,7 @@ export default function CreateTaxFreeForm({
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
-        formData={formData}
+        formData={{...formData, taxOfficeId: formData.taxOfficeId || taxOfficeList[0]?.id}}
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
