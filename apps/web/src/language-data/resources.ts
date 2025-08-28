@@ -1729,26 +1729,6 @@ export type LocationServiceResources = {
   "Permission:GetDefault": "Get Default";
   "Permission:Exist": "Exist";
 };
-export type SettingServiceResources = {
-  "UniRefund.SettingService:011001": "The default product group for this merchant cannot be deleted. Ensure that at least one product group is marked as default: {id}";
-  "UniRefund.SettingService:011002": "This merchant does not have a productGroup, so you must select one of the ones you added as isDefault.";
-  "UniRefund.SettingService:011003": "A product group merchant with this merchantId already exists.";
-  "UniRefund.SettingService:011004": "Multiple default records are not allowed for the same vat rate: {vatPercent}";
-  "UniRefund.SettingService:011005": "The merchant with id {merchantId} does not have a default product group for vatRates: {vatRates}";
-  "UniRefund.SettingService:011006": "The merchant with id {merchantId} does not have product groups: {pgs}";
-  "UniRefund.SettingService:011007": "Inactive ProductGroup can not be added: {names}";
-  "UniRefund.SettingService:012001": "Default ProductGroup can not be updated.";
-  "UniRefund.SettingService:012002": "Default ProductGroup can not be deleted.";
-};
-export type IdentityServiceResources = {
-  "Permission:IdentityService": "Identity service";
-  "UniRefund.IdentityService:010001": "Assignable roles records must be unique.";
-  "UniRefund.IdentityService:010002": "You do not have permission to assign this role: {ids}";
-  "UniRefund.IdentityService:010003": "This role is already assigned.";
-  "UniRefund.IdentityService:010101": "Some of the provided user devices' names could not be found: {ids}";
-  "UniRefund.IdentityService:010102": "User already has this role: {roleName}";
-  "UniRefund.IdentityService:010103": "User does not have this role: {roleId}";
-};
 export type CRMServiceResources = {
   "UniRefund.CRMService:010001": "ParentId not found: {parentId}";
   "UniRefund.CRMService:010002": "Address not found: {addressId}";
@@ -1788,9 +1768,14 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:016002": "Tax Free type cannot be changed. Because there are dependent child tax frees.";
   "UniRefund.CRMService:017001": "Customs type cannot be changed. Because there are dependent child Customss.";
 };
-export type ExportValidationServiceResources = {
-  "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
-  "UniRefund.ExportValidationService:010002": "The ExportValidation is referenced by a Tag!";
+export type IdentityServiceResources = {
+  "Permission:IdentityService": "Identity service";
+  "UniRefund.IdentityService:010001": "Assignable roles records must be unique.";
+  "UniRefund.IdentityService:010002": "You do not have permission to assign this role: {ids}";
+  "UniRefund.IdentityService:010003": "This role is already assigned.";
+  "UniRefund.IdentityService:010101": "Some of the provided user devices' names could not be found: {ids}";
+  "UniRefund.IdentityService:010102": "User already has this role: {roleName}";
+  "UniRefund.IdentityService:010103": "User does not have this role: {roleId}";
 };
 export type TagServiceResources = {
   "UniRefund.TagService:010002": "This invoice ({invoiceNumber}) is already taken a Tag number!";
@@ -1824,6 +1809,24 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100030": "Tags without an early refund fee in their contract cannot be refunded. Affected Tags: '{tagNumbersStr}'";
   "UniRefund.TagService:0100031": "Refund operation can not be performed due to some tags' refund expiration date have passed! Related Tags: '{tagNumbers}'";
   "UniRefund.TagService:0100032": "Multi Invoices in a Tag currently not supported. Tag can just have one Invoice!";
+};
+export type RefundServiceResources = {
+  "UniRefund.RefundService:001001": "Country currency is not set";
+  "UniRefund.RefundService:001002": "Provided traveller does not exist";
+  "UniRefund.RefundService:001003": "The provided traveller does not match with tags' traveller";
+  "UniRefund.RefundService:001004": "Provided refund point does not exist";
+  "UniRefund.RefundService:001005": "Payout creation failed";
+};
+export type SettingServiceResources = {
+  "UniRefund.SettingService:011001": "The default product group for this merchant cannot be deleted. Ensure that at least one product group is marked as default: {id}";
+  "UniRefund.SettingService:011002": "This merchant does not have a productGroup, so you must select one of the ones you added as isDefault.";
+  "UniRefund.SettingService:011003": "A product group merchant with this merchantId already exists.";
+  "UniRefund.SettingService:011004": "Multiple default records are not allowed for the same vat rate: {vatPercent}";
+  "UniRefund.SettingService:011005": "The merchant with id {merchantId} does not have a default product group for vatRates: {vatRates}";
+  "UniRefund.SettingService:011006": "The merchant with id {merchantId} does not have product groups: {pgs}";
+  "UniRefund.SettingService:011007": "Inactive ProductGroup can not be added: {names}";
+  "UniRefund.SettingService:012001": "Default ProductGroup can not be updated.";
+  "UniRefund.SettingService:012002": "Default ProductGroup can not be deleted.";
 };
 export type ContractServiceResources = {
   "UniRefund.ContractService:01001": "There is no any active ContractHeader related with given {contractType}: {contractTypeIdentifier}!";
@@ -1977,6 +1980,15 @@ export type TravellerServiceResources = {
   "Permission:Delete": "Delete";
   "Permission:AnalyzeDocumentByMRZWithoutES": "Use of MRZ Extraction";
 };
+export type ExportValidationServiceResources = {
+  "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
+  "UniRefund.ExportValidationService:010002": "The ExportValidation is referenced by a Tag!";
+};
+export type ReportServiceResources = {
+  "Permission:Reports": "Reports";
+  "Permission:VATStatementHeaderReport": "VAT Statement Header Report";
+  "Permission:ReportService": "Report Service";
+};
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
   "UniRefund.FinanceService:01002": "There is no available tags to form VAT Statement for {month}/{year} yet.";
@@ -1995,32 +2007,6 @@ export type FinanceServiceResources = {
   "Permission:ViewBasicInformation": "View Basic Information";
   "Permission:FormDraft": "Form Draft";
   "Permission:FormBulkPreview": "Form Bulk Preview";
-};
-export type LeptonXResources = {
-  Login: "Login";
-  Appearance: "Appearance";
-  ContainerWidth: "Container Width";
-  "ContainerWidth:Boxed": "Boxed Layout";
-  "ContainerWidth:Fixed": "Fixed";
-  "ContainerWidth:Fluid": "Fluid";
-  GeneralSettings: "General Settings";
-  Language: "Language";
-  Settings: "Settings";
-  "Theme:dark": "Dark";
-  "Theme:dim": "Semi-Dark";
-  "Theme:light": "Light";
-  "Theme:system": "System";
-  Welcome: "Welcome";
-  FilterMenu: "Filter Menu";
-  "Authentication:YouAreLoggedOut": "You are logged out.";
-  GivenTenantIsNotExist: "Given tenant doesn't exist: {0}";
-  GivenTenantIsNotAvailable: "Given tenant isn't available: {0}";
-  Tenant: "Tenant";
-  Switch: "switch";
-  Name: "Name";
-  SwitchTenantHint: "Leave the name field blank to switch to the host side.";
-  SwitchTenant: "Switch tenant";
-  NotSelected: "Not selected";
 };
 export type FileServiceResources = {
   "Permission:FileService": "File Service";
@@ -2091,15 +2077,29 @@ export type FileServiceResources = {
   "FileService:FS0015": "Human validated output can not be null while validating a file!";
   "FileService:FS0016": "Human validated output json could not be deserialized! Make sure the JSON is valid!";
 };
-export type ReportServiceResources = {
-  "Permission:Reports": "Reports";
-  "Permission:VATStatementHeaderReport": "VAT Statement Header Report";
-  "Permission:ReportService": "Report Service";
-};
-export type RefundServiceResources = {
-  "UniRefund.RefundService:001001": "Country currency is not set";
-  "UniRefund.RefundService:001002": "Provided traveller does not exist";
-  "UniRefund.RefundService:001003": "The provided traveller does not match with tags' traveller";
-  "UniRefund.RefundService:001004": "Provided refund point does not exist";
-  "UniRefund.RefundService:001005": "Payout creation failed";
+export type LeptonXResources = {
+  Login: "Login";
+  Appearance: "Appearance";
+  ContainerWidth: "Container Width";
+  "ContainerWidth:Boxed": "Boxed Layout";
+  "ContainerWidth:Fixed": "Fixed";
+  "ContainerWidth:Fluid": "Fluid";
+  GeneralSettings: "General Settings";
+  Language: "Language";
+  Settings: "Settings";
+  "Theme:dark": "Dark";
+  "Theme:dim": "Semi-Dark";
+  "Theme:light": "Light";
+  "Theme:system": "System";
+  Welcome: "Welcome";
+  FilterMenu: "Filter Menu";
+  "Authentication:YouAreLoggedOut": "You are logged out.";
+  GivenTenantIsNotExist: "Given tenant doesn't exist: {0}";
+  GivenTenantIsNotAvailable: "Given tenant isn't available: {0}";
+  Tenant: "Tenant";
+  Switch: "switch";
+  Name: "Name";
+  SwitchTenantHint: "Leave the name field blank to switch to the host side.";
+  SwitchTenant: "Switch tenant";
+  NotSelected: "Not selected";
 };
