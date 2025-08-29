@@ -89,6 +89,9 @@ export function travellersTable(
     columnOrder: ["fullName", "nationalityCountryName", "birthDate", "identificationType"],
     pinColumns: ["fullName"],
     filters: {
+      filterTitles: {
+        travelDocumentNumber: languageData["Form.travelDocumentNumber"],
+      },
       textFilters: ["fullName", "travelDocumentNumber"],
       facetedFilters: {
         nationalities: {

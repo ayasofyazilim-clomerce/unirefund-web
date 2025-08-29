@@ -28,6 +28,7 @@
   "Form.firstName": "First name",
   "Form.lastName": "Last name",
   "Form.birthDate": "Date of birth",
+  "Form.residenceCountryCode2": "Residence",
   "Form.nationalityCountryCode2": "Nationality",
   "Form.languagePreferenceCultureName": "Preferred Language",
   "Form.gender": "Gender",

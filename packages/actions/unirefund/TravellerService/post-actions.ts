@@ -7,10 +7,10 @@ import type {
   PostApiTravellerServicePublicEvidenceSessionsValidateNfcData,
   PostApiTravellerServiceTravellersByIdCreateTravellerDocumentData,
   PostApiTravellerServiceTravellersData,
-} from "@ayasofyazilim/saas/TravellerService";
-import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
-import type {Session} from "@repo/utils/auth";
-import {getTravellersServiceClient} from "../lib";
+} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import { structuredError, structuredResponse, structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "@repo/utils/auth";
+import { getTravellersServiceClient } from "../lib";
 
 export async function postTravellerApi(data: PostApiTravellerServiceTravellersData) {
   try {

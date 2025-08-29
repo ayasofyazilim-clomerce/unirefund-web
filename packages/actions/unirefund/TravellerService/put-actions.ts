@@ -3,10 +3,10 @@
 import {
   PutApiTravellerServiceEvidenceSessionsByIdData,
   PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentData,
-} from "@ayasofyazilim/saas/TravellerService";
-import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
-import {Session} from "@repo/utils/auth";
-import {getTravellersServiceClient} from "../lib";
+} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import { structuredError, structuredSuccessResponse } from "@repo/utils/api";
+import { Session } from "@repo/utils/auth";
+import { getTravellersServiceClient } from "../lib";
 
 export async function putApiEvidenceSessionById(
   data: PutApiTravellerServiceEvidenceSessionsByIdData,
