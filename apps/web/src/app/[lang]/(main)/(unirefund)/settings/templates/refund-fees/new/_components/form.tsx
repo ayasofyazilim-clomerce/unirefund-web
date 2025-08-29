@@ -68,7 +68,6 @@ export default function RefundFeeHeaderCreateForm({
         ],
       },
       refundFeeDetails: {
-        "ui:field": "RefundFeeDetailsField",
         "ui:className": "border-none p-0 w-full",
         "ui:options": {
           copyable: true,

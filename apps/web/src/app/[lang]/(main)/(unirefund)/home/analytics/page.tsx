@@ -52,7 +52,7 @@ FROM (
             lower(COUNTRY) AS key,
             argMax(COUNTRY, COUNT) AS label,
             max(COUNT) AS value
-        FROM default.vw_top_nationalities_by_period
+        FROM default.vw_top5_nationalities_by_period
         WHERE COUNTRY IS NOT NULL
         GROUP BY lower(COUNTRY)
         ORDER BY value DESC

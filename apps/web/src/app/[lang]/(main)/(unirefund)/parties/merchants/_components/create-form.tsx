@@ -169,7 +169,7 @@ export default function CreateMerchantForm({
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
-        formData={formData}
+        formData={{...formData, taxOfficeId: formData.taxOfficeId || taxOfficeList[0]?.id}}
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
