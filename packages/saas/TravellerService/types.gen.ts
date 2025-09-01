@@ -124,8 +124,23 @@ export type Amazon_Runtime_ResponseMetadata = {
     checksumValidationStatus?: Amazon_Runtime_ChecksumValidationStatus;
 };
 
+export type PagedResultDto_AddressDto = {
+    items?: Array<UniRefund_TravellerService_Addresses_AddressDto> | null;
+    totalCount?: number;
+};
+
+export type PagedResultDto_EmailDto = {
+    items?: Array<UniRefund_TravellerService_Emails_EmailDto> | null;
+    totalCount?: number;
+};
+
 export type PagedResultDto_EvidenceSessionListDto = {
     items?: Array<UniRefund_TravellerService_EvidenceSessions_EvidenceSessionListDto> | null;
+    totalCount?: number;
+};
+
+export type PagedResultDto_TelephoneDto = {
+    items?: Array<UniRefund_TravellerService_Telephones_TelephoneDto> | null;
     totalCount?: number;
 };
 
@@ -149,43 +164,49 @@ export type System_IO_MemoryStream = {
 export type System_Net_HttpStatusCode = 'Continue' | 'SwitchingProtocols' | 'Processing' | 'EarlyHints' | 'OK' | 'Created' | 'Accepted' | 'NonAuthoritativeInformation' | 'NoContent' | 'ResetContent' | 'PartialContent' | 'MultiStatus' | 'AlreadyReported' | 'IMUsed' | 'MultipleChoices' | 'MovedPermanently' | 'Found' | 'SeeOther' | 'NotModified' | 'UseProxy' | 'Unused' | 'TemporaryRedirect' | 'PermanentRedirect' | 'BadRequest' | 'Unauthorized' | 'PaymentRequired' | 'Forbidden' | 'NotFound' | 'MethodNotAllowed' | 'NotAcceptable' | 'ProxyAuthenticationRequired' | 'RequestTimeout' | 'Conflict' | 'Gone' | 'LengthRequired' | 'PreconditionFailed' | 'RequestEntityTooLarge' | 'RequestUriTooLong' | 'UnsupportedMediaType' | 'RequestedRangeNotSatisfiable' | 'ExpectationFailed' | 'MisdirectedRequest' | 'UnprocessableEntity' | 'Locked' | 'FailedDependency' | 'UpgradeRequired' | 'PreconditionRequired' | 'TooManyRequests' | 'RequestHeaderFieldsTooLarge' | 'UnavailableForLegalReasons' | 'InternalServerError' | 'NotImplemented' | 'BadGateway' | 'ServiceUnavailable' | 'GatewayTimeout' | 'HttpVersionNotSupported' | 'VariantAlsoNegotiates' | 'InsufficientStorage' | 'LoopDetected' | 'NotExtended' | 'NetworkAuthenticationRequired';
 
 export type UniRefund_TravellerService_Addresses_AddressCreateDto = {
+    readonly extraProperties?: {
+        [key: string]: unknown;
+    } | null;
     fullAddress?: (string) | null;
-    isPrimary?: boolean;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
 export type UniRefund_TravellerService_Addresses_AddressDto = {
     id?: string;
     fullAddress?: (string) | null;
-    isPrimary?: boolean;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
-export type UniRefund_TravellerService_Addresses_AddressUpSertDto = {
-    addressId?: (string) | null;
+export type UniRefund_TravellerService_Addresses_AddressUpdateDto = {
+    readonly extraProperties?: {
+        [key: string]: unknown;
+    } | null;
     fullAddress?: (string) | null;
-    isPrimary?: boolean;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
 export type UniRefund_TravellerService_Emails_EmailCreateDto = {
-    id?: (string) | null;
     emailAddress?: (string) | null;
-    isPrimary?: boolean;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
 export type UniRefund_TravellerService_Emails_EmailDto = {
     id?: string;
     emailAddress?: (string) | null;
-    isPrimary?: boolean;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
-export type UniRefund_TravellerService_Emails_EmailUpSertDto = {
-    emailId?: (string) | null;
+export type UniRefund_TravellerService_Emails_EmailUpdateDto = {
+    readonly extraProperties?: {
+        [key: string]: unknown;
+    } | null;
     emailAddress?: (string) | null;
-    isPrimary?: boolean;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
@@ -404,29 +425,33 @@ export type UniRefund_TravellerService_Rekognition_CompareFacesRequestDto = {
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
-    ituCountryCode?: (string) | null;
+    readonly extraProperties?: {
+        [key: string]: unknown;
+    } | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
-    isPrimary?: boolean;
+    ituCountryCode?: (string) | null;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
     id?: string;
-    ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
-    readonly fullNumber?: (string) | null;
-    isPrimary?: boolean;
+    ituCountryCode?: (string) | null;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
-export type UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
-    telephoneId?: (string) | null;
-    ituCountryCode?: (string) | null;
+export type UniRefund_TravellerService_Telephones_TelephoneUpdateDto = {
+    readonly extraProperties?: {
+        [key: string]: unknown;
+    } | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
-    isPrimary?: boolean;
+    ituCountryCode?: (string) | null;
+    primaryFlag?: boolean;
     type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
@@ -480,7 +505,7 @@ export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfi
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto = {
-    travellerDocumentId?: (string) | null;
+    id?: (string) | null;
     travelDocumentNumber?: (string) | null;
     birthDate?: (string) | null;
     firstName?: (string) | null;
@@ -536,15 +561,14 @@ export type UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
     lastName?: (string) | null;
     birthDate?: (string) | null;
     nationalityCountryCode2?: (string) | null;
-    nationalityCountryName?: (string) | null;
     languagePreferenceCultureName?: (string) | null;
     gender?: UniRefund_TravellerService_Enums_GenderType;
     userAccountId?: (string) | null;
     readonly hasUserAccount?: boolean;
     travellerDocuments?: Array<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto> | null;
-    primaryAddress?: UniRefund_TravellerService_Addresses_AddressDto;
-    primaryEmail?: UniRefund_TravellerService_Emails_EmailDto;
-    primaryTelephone?: UniRefund_TravellerService_Telephones_TelephoneDto;
+    addresses?: Array<UniRefund_TravellerService_Addresses_AddressDto> | null;
+    emails?: Array<UniRefund_TravellerService_Emails_EmailDto> | null;
+    telephones?: Array<UniRefund_TravellerService_Telephones_TelephoneDto> | null;
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerDocumentNumberDto = {
@@ -579,18 +603,6 @@ export type UniRefund_TravellerService_Travellers_TravellerListDto = {
     identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
     userAccountId?: (string) | null;
     readonly hasUserAccount?: boolean;
-};
-
-export type UniRefund_TravellerService_Travellers_UpdateTravellerDto = {
-    readonly extraProperties?: {
-        [key: string]: unknown;
-    } | null;
-    firstName?: (string) | null;
-    lastName?: (string) | null;
-    birthDate?: (string) | null;
-    nationalityCountryCode2?: (string) | null;
-    languagePreferenceCultureName?: (string) | null;
-    gender?: UniRefund_TravellerService_Enums_GenderType;
 };
 
 export type UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto = {
@@ -999,6 +1011,60 @@ export type Volo_Abp_NameValue = {
     value?: (string) | null;
 };
 
+export type GetApiTravellerServiceAddressesData = {
+    maxResultCount?: number;
+    skipCount?: number;
+    sorting?: string;
+};
+
+export type GetApiTravellerServiceAddressesResponse = (PagedResultDto_AddressDto);
+
+export type GetApiTravellerServiceAddressesByIdData = {
+    id: string;
+};
+
+export type GetApiTravellerServiceAddressesByIdResponse = (UniRefund_TravellerService_Addresses_AddressDto);
+
+export type PutApiTravellerServiceAddressesByIdData = {
+    id: string;
+    requestBody?: UniRefund_TravellerService_Addresses_AddressUpdateDto;
+};
+
+export type PutApiTravellerServiceAddressesByIdResponse = (UniRefund_TravellerService_Addresses_AddressDto);
+
+export type DeleteApiTravellerServiceAddressesByIdData = {
+    id: string;
+};
+
+export type DeleteApiTravellerServiceAddressesByIdResponse = (unknown);
+
+export type GetApiTravellerServiceEmailsData = {
+    maxResultCount?: number;
+    skipCount?: number;
+    sorting?: string;
+};
+
+export type GetApiTravellerServiceEmailsResponse = (PagedResultDto_EmailDto);
+
+export type GetApiTravellerServiceEmailsByIdData = {
+    id: string;
+};
+
+export type GetApiTravellerServiceEmailsByIdResponse = (UniRefund_TravellerService_Emails_EmailDto);
+
+export type PutApiTravellerServiceEmailsByIdData = {
+    id: string;
+    requestBody?: UniRefund_TravellerService_Emails_EmailUpdateDto;
+};
+
+export type PutApiTravellerServiceEmailsByIdResponse = (UniRefund_TravellerService_Emails_EmailDto);
+
+export type DeleteApiTravellerServiceEmailsByIdData = {
+    id: string;
+};
+
+export type DeleteApiTravellerServiceEmailsByIdResponse = (unknown);
+
 export type GetApiTravellerServiceEvidenceSessionsData = {
     input?: UniRefund_TravellerService_EvidenceSessions_GetEvidenceSessionInput;
 };
@@ -1060,6 +1126,33 @@ export type PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesDat
 
 export type PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesResponse = (Amazon_Rekognition_Model_CompareFacesResponse);
 
+export type GetApiTravellerServiceTelephonesData = {
+    maxResultCount?: number;
+    skipCount?: number;
+    sorting?: string;
+};
+
+export type GetApiTravellerServiceTelephonesResponse = (PagedResultDto_TelephoneDto);
+
+export type GetApiTravellerServiceTelephonesByIdData = {
+    id: string;
+};
+
+export type GetApiTravellerServiceTelephonesByIdResponse = (UniRefund_TravellerService_Telephones_TelephoneDto);
+
+export type PutApiTravellerServiceTelephonesByIdData = {
+    id: string;
+    requestBody?: UniRefund_TravellerService_Telephones_TelephoneUpdateDto;
+};
+
+export type PutApiTravellerServiceTelephonesByIdResponse = (UniRefund_TravellerService_Telephones_TelephoneDto);
+
+export type DeleteApiTravellerServiceTelephonesByIdData = {
+    id: string;
+};
+
+export type DeleteApiTravellerServiceTelephonesByIdResponse = (unknown);
+
 export type PostApiTravellerServiceTravellersWithComponentsData = {
     requestBody?: UniRefund_TravellerService_Travellers_CreateTravellerWithComponentsDto;
 };
@@ -1071,13 +1164,6 @@ export type PostApiTravellerServiceTravellersData = {
 };
 
 export type PostApiTravellerServiceTravellersResponse = (UniRefund_TravellerService_Travellers_CreateTravellerResponseDto);
-
-export type PutApiTravellerServiceTravellersData = {
-    id?: string;
-    requestBody?: UniRefund_TravellerService_Travellers_UpdateTravellerDto;
-};
-
-export type PutApiTravellerServiceTravellersResponse = (UniRefund_TravellerService_Travellers_TravellerDetailProfileDto);
 
 export type GetApiTravellerServiceTravellersData = {
     email?: string;
@@ -1095,26 +1181,25 @@ export type GetApiTravellerServiceTravellersData = {
 
 export type GetApiTravellerServiceTravellersResponse = (PagedResultDto_TravellerListDto);
 
-export type PostApiTravellerServiceTravellersByIdTravellerDocumentData = {
+export type PostApiTravellerServiceTravellersByIdCreateTravellerDocumentData = {
     id: string;
     requestBody?: UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto;
 };
 
-export type PostApiTravellerServiceTravellersByIdTravellerDocumentResponse = (UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentResponseDto);
+export type PostApiTravellerServiceTravellersByIdCreateTravellerDocumentResponse = (UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentResponseDto);
 
-export type PutApiTravellerServiceTravellersByIdTravellerDocumentData = {
+export type PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentData = {
     id: string;
     requestBody?: UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto;
 };
 
-export type PutApiTravellerServiceTravellersByIdTravellerDocumentResponse = (UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentResponseDto);
+export type PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentResponse = (UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentResponseDto);
 
-export type DeleteApiTravellerServiceTravellersByIdTravellerDocumentData = {
+export type DeleteApiTravellerServiceTravellersByIdDeleteTravellerDocumentData = {
     id: string;
-    travellerDocumentId?: string;
 };
 
-export type DeleteApiTravellerServiceTravellersByIdTravellerDocumentResponse = (boolean);
+export type DeleteApiTravellerServiceTravellersByIdDeleteTravellerDocumentResponse = (boolean);
 
 export type GetApiTravellerServiceTravellersByIdData = {
     id: string;
@@ -1123,41 +1208,23 @@ export type GetApiTravellerServiceTravellersByIdData = {
 
 export type GetApiTravellerServiceTravellersByIdResponse = (UniRefund_TravellerService_Travellers_TravellerDetailProfileDto);
 
-export type GetApiTravellerServiceTravellersByIdAddressesData = {
+export type PostApiTravellerServiceTravellersByIdAddAddressData = {
     id: string;
+    requestBody?: UniRefund_TravellerService_Addresses_AddressCreateDto;
 };
 
-export type GetApiTravellerServiceTravellersByIdAddressesResponse = (Array<UniRefund_TravellerService_Addresses_AddressDto>);
+export type PostApiTravellerServiceTravellersByIdAddAddressResponse = (unknown);
 
-export type PutApiTravellerServiceTravellersByIdAddressesData = {
+export type PostApiTravellerServiceTravellersByIdAddEmailData = {
     id: string;
-    requestBody?: UniRefund_TravellerService_Addresses_AddressUpSertDto;
+    requestBody?: UniRefund_TravellerService_Emails_EmailCreateDto;
 };
 
-export type PutApiTravellerServiceTravellersByIdAddressesResponse = (unknown);
+export type PostApiTravellerServiceTravellersByIdAddEmailResponse = (unknown);
 
-export type GetApiTravellerServiceTravellersByIdEmailsData = {
+export type PostApiTravellerServiceTravellersByIdAddTelephoneData = {
     id: string;
+    requestBody?: UniRefund_TravellerService_Telephones_TelephoneCreateDto;
 };
 
-export type GetApiTravellerServiceTravellersByIdEmailsResponse = (Array<UniRefund_TravellerService_Emails_EmailDto>);
-
-export type PutApiTravellerServiceTravellersByIdEmailsData = {
-    id: string;
-    requestBody?: UniRefund_TravellerService_Emails_EmailUpSertDto;
-};
-
-export type PutApiTravellerServiceTravellersByIdEmailsResponse = (unknown);
-
-export type GetApiTravellerServiceTravellersByIdTelephonesData = {
-    id: string;
-};
-
-export type GetApiTravellerServiceTravellersByIdTelephonesResponse = (Array<UniRefund_TravellerService_Telephones_TelephoneDto>);
-
-export type PutApiTravellerServiceTravellersByIdTelephonesData = {
-    id: string;
-    requestBody?: UniRefund_TravellerService_Telephones_TelephoneUpSertDto;
-};
-
-export type PutApiTravellerServiceTravellersByIdTelephonesResponse = (unknown);
+export type PostApiTravellerServiceTravellersByIdAddTelephoneResponse = (unknown);
