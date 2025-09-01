@@ -4,8 +4,8 @@ import {toast} from "@/components/ui/sonner";
 import type {
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as RebateTableHeaderCreateDto,
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as RebateTableHeaderListDto,
-} from "@repo/saas/ContractService";
-import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto} from "@repo/saas/ContractService";
+} from "@ayasofyazilim/saas/ContractService";
+import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto} from "@ayasofyazilim/saas/ContractService";
 import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {getRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/action";
 import {postRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";

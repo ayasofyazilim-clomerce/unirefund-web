@@ -12,7 +12,7 @@ import type {
   PostApiContractServiceRefundPointsByIdContractsContractHeadersData,
   PostApiContractServiceRefundTableHeadersCloneByIdData,
   PostApiContractServiceRefundTableHeadersData,
-} from "@repo/saas/ContractService";
+} from "@ayasofyazilim/saas/ContractService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {getContractServiceClient} from "../lib";
 
