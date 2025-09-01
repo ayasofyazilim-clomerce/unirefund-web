@@ -77,6 +77,31 @@
   "Form.name.firstName": "First Name",
   "Form.name.lastName": "Last Name",
 
+  "country.label": "Country",
+  "adminAreaLevel1.label": "State/Province",
+  "adminAreaLevel2.label": "City/District",
+  "neighborhood.label": "Neighborhood",
+
+  "country.emptyMessage": "Please select a country",
+
+  "adminAreaLevel1.emptyMessage.default": "Please select a state/province",
+  "adminAreaLevel2.emptyMessage.default": "Please select a city/district",
+  "neighborhood.emptyMessage.default": "Please select a neighborhood",
+
+  "adminAreaLevel1.emptyMessage.disabled": "Please select country first",
+  "adminAreaLevel2.emptyMessage.disabled": "Please select state/province first",
+  "neighborhood.emptyMessage.disabled": "Please select city/district first",
+
+  "country.searchPlaceholder": "Search countries...",
+  "adminAreaLevel1.searchPlaceholder": "Search states/provinces...",
+  "adminAreaLevel2.searchPlaceholder": "Search cities/districts...",
+  "neighborhood.searchPlaceholder": "Search neighborhoods...",
+
+  "country.searchResultLabel": "No countries found.",
+  "adminAreaLevel1.searchResultLabel": "No states/provinces found.",
+  "adminAreaLevel2.searchResultLabel": "No cities/districts found.",
+  "neighborhood.searchResultLabel": "No neighborhoods found.",
+
   "Form.address": "Address",
   "Form.addresses": "Addresses",
   "Form.address.fullAddress": "Address",
