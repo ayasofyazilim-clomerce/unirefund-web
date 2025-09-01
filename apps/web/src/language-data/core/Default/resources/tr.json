@@ -115,9 +115,10 @@
   "Form.telephone.type.ui:placeholder": "Telefon tipi seçin",
   "Form.telephone.type.UNKNOWN": "Bilinmiyor",
   "Form.telephone.type.HOME": "Ev",
-  "Form.telephone.type.WORK": "İş",
+  "Form.telephone.type.OFFICE": "Ofis",
   "Form.telephone.type.MOBILE": "Mobil",
   "Form.telephone.type.FAX": "Faks",
+  "Form.telephone.type.WORK": "İş",
   "Form.telephone.type.OTHER": "Diğer",
 
   "Messages.email.isPrimary.atLeastOnePrimaryRequired": "Bu alan değiştirilemez çünkü en az bir varsayılan e-posta olmalıdır.",

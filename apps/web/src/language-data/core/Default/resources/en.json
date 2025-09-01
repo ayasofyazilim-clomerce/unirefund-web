@@ -115,9 +115,10 @@
   "Form.telephone.type.ui:placeholder": "Select phone type",
   "Form.telephone.type.UNKNOWN": "Unknown",
   "Form.telephone.type.HOME": "Home",
-  "Form.telephone.type.WORK": "Work",
+  "Form.telephone.type.OFFICE": "Office",
   "Form.telephone.type.MOBILE": "Mobile",
   "Form.telephone.type.FAX": "Fax",
+  "Form.telephone.type.WORK": "Work",
   "Form.telephone.type.OTHER": "Other",
 
   "Messages.email.isPrimary.atLeastOnePrimaryRequired": "This field cannot be edited because at least one primary email is required.",
