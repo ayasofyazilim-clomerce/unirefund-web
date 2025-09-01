@@ -1,21 +1,21 @@
-import { cn } from "@/lib/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import type { DefaultResource } from "@/language-data/core/Default";
+import {cn} from "@/lib/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {DefaultResource} from "@/language-data/core/Default";
 
 type UISchema = {
   "ui:className"?: string;
 };
-export function EmailWithTypeField({ languageData }: { languageData: DefaultResource }) {
+export function EmailWithTypeField({languageData}: {languageData: DefaultResource}) {
   function Field(props: FieldProps) {
-    const { uiSchema: _uiSchema } = props;
+    const {uiSchema: _uiSchema} = props;
     const uiSchema = _uiSchema as unknown as UISchema;
     return (
       <SchemaForm
         className={cn("p-px", props.className, uiSchema["ui:className"])}
         formData={props.formData as object}
-        onChange={({ formData: editedFormData }) => {
+        onChange={({formData: editedFormData}) => {
           props.onChange({
             ...props.formData,
             ...editedFormData,

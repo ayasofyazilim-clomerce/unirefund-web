@@ -1,30 +1,30 @@
 "use client";
 
-import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {Switch} from "@/components/ui/switch";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import type {
   UniRefund_TravellerService_Telephones_TelephoneUpSertDto as TelephoneUpSertDto,
-  UniRefund_TravellerService_Telephones_TelephoneDto as TelephoneDto
+  UniRefund_TravellerService_Telephones_TelephoneDto as TelephoneDto,
 } from "@repo/saas/TravellerService";
 import {
   $UniRefund_TravellerService_Telephones_TelephoneUpSertDto as $TelephoneUpSertDto,
-  $UniRefund_TravellerService_Telephones_TelephoneDto as $TelephoneDto
+  $UniRefund_TravellerService_Telephones_TelephoneDto as $TelephoneDto,
 } from "@repo/saas/TravellerService";
-import { putTravellerTelephonesByTravellerIdApi } from "@repo/actions/unirefund/TravellerService/put-actions";
+import {putTravellerTelephonesByTravellerIdApi} from "@repo/actions/unirefund/TravellerService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type { TanstackTableTableActionsType } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { handlePutResponse } from "@repo/utils/api";
-import { useParams, useRouter } from "next/navigation";
-import type { TransitionStartFunction } from "react";
-import { useTransition } from "react";
-import type { TravellerServiceResource } from "@/language-data/unirefund/TravellerService";
-import { PhoneWithTypeField } from "./phone-with-type";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {handlePutResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
+import type {TravellerServiceResource} from "@/language-data/unirefund/TravellerService";
+import {PhoneWithTypeField} from "./phone-with-type";
 
-export function PhoneForm({ languageData, phones }: { languageData: TravellerServiceResource; phones: TelephoneDto[] }) {
-  const { lang, travellerId } = useParams<{ lang: string; travellerId: string }>();
+export function PhoneForm({languageData, phones}: {languageData: TravellerServiceResource; phones: TelephoneDto[]}) {
+  const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -41,11 +41,11 @@ export function PhoneForm({ languageData, phones }: { languageData: TravellerSer
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({ row, travellerId, isPending, startTransition, languageData, isActive: phones.length === 1 }),
+          IsPrimaryAction({row, travellerId, isPending, startTransition, languageData, isActive: phones.length === 1}),
       },
       type: {
         showHeader: true,
-        content: (row) => TypeRow({ row, languageData }),
+        content: (row) => TypeRow({row, languageData}),
       },
     },
     expandRowTrigger: "fullNumber",
@@ -60,17 +60,17 @@ export function PhoneForm({ languageData, phones }: { languageData: TravellerSer
         resources: languageData,
         schema: $TelephoneUpSertDto,
         name: "Form.telephone",
-        extend: { "ui:field": "telephone" },
+        extend: {"ui:field": "telephone"},
       }),
       fields: {
-        telephone: PhoneWithTypeField({ languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum }),
+        telephone: PhoneWithTypeField({languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum}),
       },
       formData: {
         type: "HOME",
       },
       withScrollArea: false,
       disabled: isPending,
-      filter: { type: "exclude", keys: ["telephoneId", "isPrimary"] },
+      filter: {type: "exclude", keys: ["telephoneId", "isPrimary"]},
       submitText: languageData["Form.telephone.create"],
       title: languageData["Form.telephone.create"],
       onSubmit: (formData) => {
@@ -98,7 +98,7 @@ export function PhoneForm({ languageData, phones }: { languageData: TravellerSer
       }}
       columns={columns}
       data={phones}
-      expandedRowComponent={(row) => EditForm({ row, lang, languageData, travellerId, isPending, startTransition })}
+      expandedRowComponent={(row) => EditForm({row, lang, languageData, travellerId, isPending, startTransition})}
       fillerColumn="fullNumber"
       showPagination={false}
       tableActions={tableActions}
@@ -107,7 +107,7 @@ export function PhoneForm({ languageData, phones }: { languageData: TravellerSer
   );
 }
 
-function TypeRow({ row, languageData }: { row: TelephoneUpSertDto; languageData: TravellerServiceResource }) {
+function TypeRow({row, languageData}: {row: TelephoneUpSertDto; languageData: TravellerServiceResource}) {
   return <div> {(row.type && languageData[`Form.telephone.type.${row.type}`]) || row.type}</div>;
 }
 
@@ -132,13 +132,13 @@ function EditForm({
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
       fields={{
-        telephone: PhoneWithTypeField({ languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum }),
+        telephone: PhoneWithTypeField({languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum}),
       }}
-      filter={{ type: "exclude", keys: ["id", "isPrimary"] }}
+      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
       key={JSON.stringify(row)}
       locale={lang}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         if (!formData) return;
         const data = {
           id: travellerId,

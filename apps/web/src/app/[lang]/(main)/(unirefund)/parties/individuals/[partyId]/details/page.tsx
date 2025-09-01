@@ -7,18 +7,18 @@ import {
   getIndividualTelephonesByIndividualIdApi,
 } from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import { structuredError } from "@repo/utils/api";
-import { auth } from "@repo/utils/auth/next-auth";
-import { OctagonAlert } from "lucide-react";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
-import { AddressForm } from "../../../_components/contact/address-form";
-import { EmailForm } from "../../../_components/contact/email-form";
-import { PhoneForm } from "../../../_components/contact/phone-form";
-import { IndividualForm } from "./_components/info-form";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {OctagonAlert} from "lucide-react";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
+import {AddressForm} from "../../../_components/contact/address-form";
+import {EmailForm} from "../../../_components/contact/email-form";
+import {PhoneForm} from "../../../_components/contact/phone-form";
+import {IndividualForm} from "./_components/info-form";
 
-async function getApiRequests({ partyId }: { partyId: string }) {
+async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([getIndividualByIdApi(partyId, session)]);
@@ -27,7 +27,7 @@ async function getApiRequests({ partyId }: { partyId: string }) {
       getIndividualEmailsByIndividualIdApi(partyId, session),
       getIndividualAddressesByIndividualIdApi(partyId, session),
     ]);
-    return { requiredRequests, optionalRequests };
+    return {requiredRequests, optionalRequests};
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -44,10 +44,10 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const { partyId, lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {partyId, lang} = params;
+  const {languageData} = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests({ partyId });
+  const apiRequests = await getApiRequests({partyId});
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;

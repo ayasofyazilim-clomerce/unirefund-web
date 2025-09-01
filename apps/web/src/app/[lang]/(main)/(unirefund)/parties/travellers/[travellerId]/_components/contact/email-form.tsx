@@ -1,25 +1,25 @@
 "use client";
 
-import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import type { UniRefund_TravellerService_Emails_EmailDto as EmailDto } from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
-import { $UniRefund_TravellerService_Emails_EmailDto as $EmailDto } from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
-import { putTravellerEmailsByTravellerIdApi } from "@repo/actions/unirefund/TravellerService/put-actions";
+import {Switch} from "@/components/ui/switch";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import type {UniRefund_TravellerService_Emails_EmailDto as EmailDto} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import {$UniRefund_TravellerService_Emails_EmailDto as $EmailDto} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import {putTravellerEmailsByTravellerIdApi} from "@repo/actions/unirefund/TravellerService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type { TanstackTableTableActionsType } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { handlePostResponse, handlePutResponse } from "@repo/utils/api";
-import { useParams, useRouter } from "next/navigation";
-import type { TransitionStartFunction } from "react";
-import { useTransition } from "react";
-import type { DefaultResource } from "@/language-data/core/Default";
-import { EmailWithTypeField } from "./email-with-type";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
+import type {DefaultResource} from "@/language-data/core/Default";
+import {EmailWithTypeField} from "./email-with-type";
 
-export function EmailForm({ languageData, emails }: { languageData: DefaultResource; emails: EmailDto[] }) {
+export function EmailForm({languageData, emails}: {languageData: DefaultResource; emails: EmailDto[]}) {
   const router = useRouter();
-  const { lang, travellerId } = useParams<{ lang: string; travellerId: string }>();
+  const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();
   const [isPending, startTransition] = useTransition();
 
   const columns = tanstackTableCreateColumnsByRowData<EmailDto>({
@@ -35,11 +35,11 @@ export function EmailForm({ languageData, emails }: { languageData: DefaultResou
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({ row, travellerId, isPending, startTransition, languageData, isActive: emails.length === 1 }),
+          IsPrimaryAction({row, travellerId, isPending, startTransition, languageData, isActive: emails.length === 1}),
       },
       type: {
         showHeader: true,
-        content: (row) => TypeRow({ row, languageData }),
+        content: (row) => TypeRow({row, languageData}),
       },
     },
     expandRowTrigger: "emailAddress",
@@ -55,17 +55,17 @@ export function EmailForm({ languageData, emails }: { languageData: DefaultResou
         resources: languageData,
         schema: $EmailDto,
         name: "Form.email",
-        extend: { "ui:field": "email" },
+        extend: {"ui:field": "email"},
       }),
       fields: {
-        email: EmailWithTypeField({ languageData }),
+        email: EmailWithTypeField({languageData}),
       },
       formData: {
         type: "WORK",
       },
       withScrollArea: false,
       disabled: isPending,
-      filter: { type: "exclude", keys: ["id", "isPrimary"] },
+      filter: {type: "exclude", keys: ["id", "isPrimary"]},
       submitText: languageData["Form.email.create"],
       title: languageData["Form.email.create"],
       onSubmit: (formData) => {
@@ -77,7 +77,7 @@ export function EmailForm({ languageData, emails }: { languageData: DefaultResou
               emailAddress: formData.emailAddress || "",
               type: formData.type,
               isPrimary: emails.length === 0,
-            }
+            },
           }).then((response) => {
             handlePostResponse(response, router);
           });
@@ -94,7 +94,7 @@ export function EmailForm({ languageData, emails }: { languageData: DefaultResou
       }}
       columns={columns}
       data={emails}
-      expandedRowComponent={(row) => EditForm({ row, languageData, travellerId, isPending, startTransition })}
+      expandedRowComponent={(row) => EditForm({row, languageData, travellerId, isPending, startTransition})}
       fillerColumn="emailAddress"
       showPagination={false}
       tableActions={tableActions}
@@ -102,7 +102,7 @@ export function EmailForm({ languageData, emails }: { languageData: DefaultResou
     />
   );
 }
-function TypeRow({ row, languageData }: { row: EmailDto; languageData: DefaultResource }) {
+function TypeRow({row, languageData}: {row: EmailDto; languageData: DefaultResource}) {
   return <div> {(row.type && languageData[`Form.email.type.${row.type}`]) || row.type}</div>;
 }
 
@@ -124,12 +124,12 @@ function EditForm({
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
       fields={{
-        email: EmailWithTypeField({ languageData }),
+        email: EmailWithTypeField({languageData}),
       }}
-      filter={{ type: "exclude", keys: ["id", "isPrimary"] }}
+      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
       key={JSON.stringify(row)}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         if (!formData) return;
         const data = {
           id: travellerId,
