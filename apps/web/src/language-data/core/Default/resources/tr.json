@@ -77,6 +77,31 @@
   "Form.name.firstName": "Ad",
   "Form.name.lastName": "Soyad",
 
+  "country.label": "Ülke",
+  "adminAreaLevel1.label": "Şehir/İlçe",
+  "adminAreaLevel2.label": "Eyalet/İl",
+  "neighborhood.label": "Mahalle",
+
+  "country.emptyMessage": "Lütfen bir ülke seçin",
+
+  "adminAreaLevel1.emptyMessage.default": "Lütfen bir eyalet/il seçin",
+  "adminAreaLevel2.emptyMessage.default": "Lütfen bir şehir/ilçe seçin",
+  "neighborhood.emptyMessage.default": "Lütfen bir mahalle seçin",
+
+  "adminAreaLevel1.emptyMessage.disabled": "Lütfen önce bir ülke seçin",
+  "adminAreaLevel2.emptyMessage.disabled": "Lütfen önce bir eyalet/il seçin",
+  "neighborhood.emptyMessage.disabled": "Lütfen önce bir şehir/ilçe seçin",
+
+  "country.searchPlaceholder": "Ülkeleri ara...",
+  "adminAreaLevel1.searchPlaceholder": "Eyaletleri/illeri ara...",
+  "adminAreaLevel2.searchPlaceholder": "Şehirleri/ilçeleri ara...",
+  "neighborhood.searchPlaceholder": "Mahalleleri ara...",
+
+  "country.searchResultLabel": "Ülke bulunamadı.",
+  "adminAreaLevel1.searchResultLabel": "Eyalet/il bulunamadı.",
+  "adminAreaLevel2.searchResultLabel": "Şehir/ilçe bulunamadı.",
+  "neighborhood.searchResultLabel": "Mahalle bulunamadı.",
+
   "Form.address": "Adres",
   "Form.addresses": "Adresler",
   "Form.address.fullAddress": "Adres",
