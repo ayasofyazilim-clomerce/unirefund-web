@@ -18,6 +18,7 @@
     "@ayasofyazilim/unirefund-saas-dev": "^0.0.5",
     "@novu/api": "latest",
     "@repo/utils": "workspace:*",
+    "@repo/saas": "workspace:*",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "next": "14.2.29",

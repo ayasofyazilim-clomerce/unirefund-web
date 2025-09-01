@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiContractServiceRefundFeeHeadersData} from "@ayasofyazilim/saas/ContractService";
+import type {GetApiContractServiceRefundFeeHeadersData} from "@repo/saas/ContractService";
 import {isUnauthorized} from "@repo/utils/policies";
 import {auth} from "@repo/utils/auth/next-auth";
 import ErrorComponent from "@repo/ui/components/error-component";

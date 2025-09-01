@@ -5,7 +5,7 @@ import {
   type UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderInformationDto as AssignableRebateTableHeaders,
   type UniRefund_ContractService_Rebates_RebateSettings_RebateSettingDto as RebateSettingDto,
   type UniRefund_ContractService_Rebates_RebateSettings_RebateSettingUpSertDto as RebateSettingUpSertDto,
-} from "@ayasofyazilim/saas/ContractService";
+} from "@repo/saas/ContractService";
 import type {
   UniRefund_CRMService_Affiliations_AffiliationListResponseDto,
   UniRefund_CRMService_Merchants_MerchantDto,

@@ -7,7 +7,7 @@ import type {
   PutApiContractServiceRefundFeeHeadersByIdData,
   PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
   PutApiContractServiceRefundTableHeadersByIdData,
-} from "@ayasofyazilim/saas/ContractService";
+} from "@repo/saas/ContractService";
 import {structuredError, structuredResponse} from "@repo/utils/api";
 import {getContractServiceClient} from "../lib";
 

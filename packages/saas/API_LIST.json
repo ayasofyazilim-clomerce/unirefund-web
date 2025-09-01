@@ -1,0 +1,47 @@
+[
+  {
+    "input": "swagger-json/CRM",
+    "output": "CRM",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/Contract",
+    "output": "Contract",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/Traveller",
+    "output": "Traveller",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/Location",
+    "output": "Location",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/Tag",
+    "output": "Tag",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/ExportValidation",
+    "output": "ExportValidation",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/Finance",
+    "output": "Finance",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/Refund",
+    "output": "Refund",
+    "dereference": true
+  },
+  {
+    "input": "swagger-json/File",
+    "output": "File",
+    "dereference": true
+  }
+]

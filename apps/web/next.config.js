@@ -7,6 +7,7 @@ module.exports = {
     "@ayasofyazilim/saas",
     "@ayasofyazilim/core-saas",
     "@ayasofyazilim/unirefund-saas-dev",
+    "@repo/saas",
   ],
   output: "standalone",
   experimental: {

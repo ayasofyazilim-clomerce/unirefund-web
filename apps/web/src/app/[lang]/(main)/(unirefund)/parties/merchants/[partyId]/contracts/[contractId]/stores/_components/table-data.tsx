@@ -1,8 +1,8 @@
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as ContractStoreDetailedDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
-} from "@ayasofyazilim/saas/ContractService";
-import {$UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto} from "@ayasofyazilim/saas/ContractService";
+} from "@repo/saas/ContractService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto} from "@repo/saas/ContractService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
