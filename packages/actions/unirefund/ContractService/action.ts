@@ -10,7 +10,7 @@ import type {
   GetApiContractServiceRefundPointsByIdContractsContractHeadersData,
   GetApiContractServiceRefundTableHeadersAssignablesByMerchantData,
   GetApiContractServiceRefundTableHeadersData,
-} from "@repo/saas/ContractService";
+} from "@ayasofyazilim/saas/ContractService";
 import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {getContractServiceClient} from "../lib";
