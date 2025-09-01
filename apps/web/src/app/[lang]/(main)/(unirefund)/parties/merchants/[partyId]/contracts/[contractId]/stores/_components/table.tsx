@@ -4,7 +4,7 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreCreateAndUpdateDto as ContractStoreCreateAndUpdateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as ContractStoreDetailedDto,
-} from "@repo/saas/ContractService";
+} from "@ayasofyazilim/saas/ContractService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
