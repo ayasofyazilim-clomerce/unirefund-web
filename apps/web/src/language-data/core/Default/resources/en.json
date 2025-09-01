@@ -109,6 +109,7 @@
   "Form.telephone.update": "Update Phone",
   "Form.telephone.create": "Add Phone",
   "Form.telephone.number": "Phone Number",
+  "Form.telephone.fullNumber": "Phone Number",
   "Form.telephone.number:ui:placeholder": "Enter phone number",
   "Form.telephone.isPrimary": "Primary Phone",
   "Form.telephone.type": "Phone Type",
