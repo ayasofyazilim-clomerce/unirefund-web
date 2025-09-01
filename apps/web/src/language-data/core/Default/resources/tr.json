@@ -79,6 +79,7 @@
 
   "Form.address": "Adres",
   "Form.addresses": "Adresler",
+  "Form.address.fullAddress": "Adres",
   "Form.address.update": "Adres güncelle",
   "Form.address.create": "Adres ekle",
   "Form.address.addressLine": "Adres Satırı",
@@ -89,6 +90,7 @@
   "Form.address.type.UNKNOWN": "Bilinmiyor",
   "Form.address.type.HOME": "Ev",
   "Form.address.type.WORK": "İş",
+  "Form.address.type.OFFICE": "Ofis",
 
   "Form.email": "E-posta",
   "Form.emails": "E-posta Adresleri",
@@ -109,6 +111,7 @@
   "Form.telephone.update": "Telefonu güncelle",
   "Form.telephone.create": "Telefon ekle",
   "Form.telephone.number": "Telefon Numarası",
+  "Form.telephone.fullNumber": "Telefon Numarası",
   "Form.telephone.number:ui:placeholder": "Telefon numarası girin",
   "Form.telephone.isPrimary": "Varsayılan Telefon",
   "Form.telephone.type": "Telefon Tipi",

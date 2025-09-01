@@ -79,6 +79,7 @@
 
   "Form.address": "Address",
   "Form.addresses": "Addresses",
+  "Form.address.fullAddress": "Address",
   "Form.address.update": "Update Address",
   "Form.address.create": "Add Address",
   "Form.address.addressLine": "Address Line",
@@ -89,6 +90,7 @@
   "Form.address.type.UNKNOWN": "Unknown",
   "Form.address.type.HOME": "Home",
   "Form.address.type.WORK": "Work",
+  "Form.address.type.OFFICE": "Office",
 
   "Form.email": "Email",
   "Form.emails": "Email Addresses",
@@ -109,6 +111,7 @@
   "Form.telephone.update": "Update Phone",
   "Form.telephone.create": "Add Phone",
   "Form.telephone.number": "Phone Number",
+  "Form.telephone.fullNumber": "Phone Number",
   "Form.telephone.number:ui:placeholder": "Enter phone number",
   "Form.telephone.isPrimary": "Primary Phone",
   "Form.telephone.type": "Phone Type",
