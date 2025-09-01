@@ -213,8 +213,8 @@ export function getAddressSettingsForSchemaForm(params: {
     cityId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<CityDto>
         {...props}
-        emptyValue={params.languageData["City.Select"]}
-        label={params.languageData["Form.address.cityId"]}
+        emptyValue={params.languageData["adminAreaLevel1.label"]}
+        label={params.languageData["adminAreaLevel1.label"]}
         list={params.cityList}
         selectIdentifier="id"
         selectLabel="name"
@@ -223,8 +223,8 @@ export function getAddressSettingsForSchemaForm(params: {
     districtId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<DistrictDto>
         {...props}
-        emptyValue={params.languageData["District.Select"]}
-        label={params.languageData["Form.address.districtId"]}
+        emptyValue={params.languageData["adminAreaLevel2.label"]}
+        label={params.languageData["adminAreaLevel2.label"]}
         list={params.districtList}
         selectIdentifier="id"
         selectLabel="name"
@@ -233,8 +233,8 @@ export function getAddressSettingsForSchemaForm(params: {
     neighborhoodId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<NeighborhoodDto>
         {...props}
-        emptyValue={params.languageData["Neighborhood.Select"]}
-        label={params.languageData["Form.address.neighborhoodId"]}
+        emptyValue={params.languageData["neighborhood.label"]}
+        label={params.languageData["neighborhood.label"]}
         list={params.neighborhoodList}
         selectIdentifier="id"
         selectLabel="name"
@@ -243,8 +243,8 @@ export function getAddressSettingsForSchemaForm(params: {
     countryId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<CountryDto>
         {...props}
-        emptyValue={params.languageData["Country.Select"]}
-        label={params.languageData["Form.address.countryId"]}
+        emptyValue={params.languageData["country.label"]}
+        label={params.languageData["country.label"]}
         list={params.countryList}
         selectIdentifier="id"
         selectLabel="name"
@@ -253,8 +253,8 @@ export function getAddressSettingsForSchemaForm(params: {
     regionId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<RegionDto>
         {...props}
-        emptyValue={params.languageData["Region.Select"]}
-        label={params.languageData["Form.address.regionId"]}
+        emptyValue={params.languageData["Select.EmptyValue"]}
+        label={params.languageData["Select.EmptyValue"]}
         list={params.regionList}
         selectIdentifier="id"
         selectLabel="name"
@@ -264,19 +264,19 @@ export function getAddressSettingsForSchemaForm(params: {
   const uiSchema = {
     cityId: {
       "ui:widget": "cityId",
-      "ui:title": params.languageData["Form.address.cityId"],
+      "ui:title": params.languageData["adminAreaLevel1.label"],
     },
     neighborhoodId: {
       "ui:widget": "neighborhoodId",
-      "ui:title": params.languageData["Form.address.neighborhoodId"],
+      "ui:title": params.languageData["neighborhood.label"],
     },
     countryId: {
       "ui:widget": "countryId",
-      "ui:title": params.languageData["Form.address.countryId"],
+      "ui:title": params.languageData["country.label"],
     },
     regionId: {
       "ui:widget": "regionId",
-      "ui:title": params.languageData["Form.address.regionId"],
+      "ui:title": params.languageData["Select.EmptyValue"],
     },
   };
   return {widgets, uiSchema};
