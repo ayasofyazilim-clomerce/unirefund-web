@@ -1541,158 +1541,274 @@ export const $Amazon_Runtime_CoreChecksumAlgorithm = {
 } as const;
 
 export const $Amazon_Runtime_ResponseMetadata = {
-  type: "object",
-  properties: {
-    requestId: {
-      type: "string",
-      nullable: true,
+    type: 'object',
+    properties: {
+        requestId: {
+            type: 'string',
+            nullable: true
+        },
+        metadata: {
+            type: 'object',
+            additionalProperties: {
+                type: 'string'
+            },
+            nullable: true,
+            readOnly: true
+        },
+        checksumAlgorithm: {
+            enum: ['NONE', 'CRC32C', 'CRC32', 'SHA256', 'SHA1', 'CRC64NVME'],
+            type: 'string'
+        },
+        checksumValidationStatus: {
+            enum: ['NOT_VALIDATED', 'PENDING_RESPONSE_READ', 'SUCCESSFUL', 'INVALID'],
+            type: 'string'
+        }
     },
-    metadata: {
-      type: "object",
-      additionalProperties: {
-        type: "string",
-      },
-      nullable: true,
-      readOnly: true,
+    additionalProperties: false
+} as const;
+
+export const $PagedResultDto_AddressDto = {
+    type: 'object',
+    properties: {
+        items: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    fullAddress: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['HOME', 'OFFICE'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        totalCount: {
+            type: 'integer',
+            format: 'int64'
+        }
     },
-    checksumAlgorithm: {
-      enum: ["NONE", "CRC32C", "CRC32", "SHA256", "SHA1", "CRC64NVME"],
-      type: "string",
+    additionalProperties: false
+} as const;
+
+export const $PagedResultDto_EmailDto = {
+    type: 'object',
+    properties: {
+        items: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    emailAddress: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['WORK', 'PERSONAL'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        totalCount: {
+            type: 'integer',
+            format: 'int64'
+        }
     },
-    checksumValidationStatus: {
-      enum: ["NOT_VALIDATED", "PENDING_RESPONSE_READ", "SUCCESSFUL", "INVALID"],
-      type: "string",
-    },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $PagedResultDto_EvidenceSessionListDto = {
-  type: "object",
-  properties: {
-    items: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-          },
-          isMRZRequired: {
-            type: "boolean",
-          },
-          mrzStatus: {
-            enum: ["NotStarted", "Started", "Validated", "Failed", "NotValidated"],
-            type: "string",
-          },
-          mrzMethod: {
-            enum: ["Textract", "Native"],
-            type: "string",
-          },
-          mrzBeginTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          mrzEndTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          mrzUniversalDataId: {
-            type: "string",
-            format: "uuid",
-            nullable: true,
-          },
-          mrzAttemptCount: {
-            type: "integer",
-            format: "int32",
-          },
-          isNFCRequired: {
-            type: "boolean",
-          },
-          nfcStatus: {
-            enum: ["NotStarted", "Started", "Validated", "Failed", "NotValidated"],
-            type: "string",
-          },
-          nfcMethod: {
-            enum: ["Native"],
-            type: "string",
-          },
-          nfcDataId: {
-            type: "string",
-            format: "uuid",
-            nullable: true,
-          },
-          nfcBeginTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          nfcEndTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          isLivenessRequired: {
-            type: "boolean",
-          },
-          livenessStatus: {
-            enum: ["NotStarted", "Started", "Validated", "Failed", "NotValidated"],
-            type: "string",
-          },
-          livenessMethod: {
-            enum: ["Amazon"],
-            type: "string",
-          },
-          livenessBeginTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          livenessSessionId: {
-            type: "string",
-            nullable: true,
-          },
-          livenessEndTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          status: {
-            enum: ["Created", "InProgress", "Completed", "Cancelled", "Failed"],
-            type: "string",
-          },
-          source: {
-            enum: ["SSR", "App", "AppClip", "API"],
-            type: "string",
-          },
-          creationTime: {
-            type: "string",
-            format: "date-time",
-          },
-          endTime: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          merchantId: {
-            type: "string",
-            format: "uuid",
-            nullable: true,
-          },
+    type: 'object',
+    properties: {
+        items: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    isMRZRequired: {
+                        type: 'boolean'
+                    },
+                    mrzStatus: {
+                        enum: ['NotStarted', 'Started', 'Validated', 'Failed', 'NotValidated'],
+                        type: 'string'
+                    },
+                    mrzMethod: {
+                        enum: ['Textract', 'Native'],
+                        type: 'string'
+                    },
+                    mrzBeginTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    mrzEndTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    mrzUniversalDataId: {
+                        type: 'string',
+                        format: 'uuid',
+                        nullable: true
+                    },
+                    mrzAttemptCount: {
+                        type: 'integer',
+                        format: 'int32'
+                    },
+                    isNFCRequired: {
+                        type: 'boolean'
+                    },
+                    nfcStatus: {
+                        enum: ['NotStarted', 'Started', 'Validated', 'Failed', 'NotValidated'],
+                        type: 'string'
+                    },
+                    nfcMethod: {
+                        enum: ['Native'],
+                        type: 'string'
+                    },
+                    nfcDataId: {
+                        type: 'string',
+                        format: 'uuid',
+                        nullable: true
+                    },
+                    nfcBeginTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    nfcEndTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    isLivenessRequired: {
+                        type: 'boolean'
+                    },
+                    livenessStatus: {
+                        enum: ['NotStarted', 'Started', 'Validated', 'Failed', 'NotValidated'],
+                        type: 'string'
+                    },
+                    livenessMethod: {
+                        enum: ['Amazon'],
+                        type: 'string'
+                    },
+                    livenessBeginTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    livenessSessionId: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    livenessEndTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    status: {
+                        enum: ['Created', 'InProgress', 'Completed', 'Cancelled', 'Failed'],
+                        type: 'string'
+                    },
+                    source: {
+                        enum: ['SSR', 'App', 'AppClip', 'API'],
+                        type: 'string'
+                    },
+                    creationTime: {
+                        type: 'string',
+                        format: 'date-time'
+                    },
+                    endTime: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    merchantId: {
+                        type: 'string',
+                        format: 'uuid',
+                        nullable: true
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
         },
-        additionalProperties: false,
-      },
-      nullable: true,
+        totalCount: {
+            type: 'integer',
+            format: 'int64'
+        }
     },
-    totalCount: {
-      type: "integer",
-      format: "int64",
+    additionalProperties: false
+} as const;
+
+export const $PagedResultDto_TelephoneDto = {
+    type: 'object',
+    properties: {
+        items: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    areaCode: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    localNumber: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    ituCountryCode: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        totalCount: {
+            type: 'integer',
+            format: 'int64'
+        }
     },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $PagedResultDto_TravellerListDto = {
@@ -1879,141 +1995,148 @@ export const $System_Net_HttpStatusCode = {
 } as const;
 
 export const $UniRefund_TravellerService_Addresses_AddressCreateDto = {
-  type: "object",
-  properties: {
-    fullAddress: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["HOME", "OFFICE"],
-      type: "string",
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        fullAddress: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['HOME', 'OFFICE'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Addresses_AddressDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    fullAddress: {
-      type: "string",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["HOME", "OFFICE"],
-      type: "string",
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        fullAddress: {
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['HOME', 'OFFICE'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
-export const $UniRefund_TravellerService_Addresses_AddressUpSertDto = {
-  type: "object",
-  properties: {
-    addressId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    fullAddress: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["HOME", "OFFICE"],
-      type: "string",
+export const $UniRefund_TravellerService_Addresses_AddressUpdateDto = {
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        fullAddress: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['HOME', 'OFFICE'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Emails_EmailCreateDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    emailAddress: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      format: "email",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["WORK", "PERSONAL"],
-      type: "string",
+    type: 'object',
+    properties: {
+        emailAddress: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['WORK', 'PERSONAL'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Emails_EmailDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    emailAddress: {
-      type: "string",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["WORK", "PERSONAL"],
-      type: "string",
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        emailAddress: {
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['WORK', 'PERSONAL'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
-export const $UniRefund_TravellerService_Emails_EmailUpSertDto = {
-  type: "object",
-  properties: {
-    emailId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    emailAddress: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      format: "email",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["WORK", "PERSONAL"],
-      type: "string",
+export const $UniRefund_TravellerService_Emails_EmailUpdateDto = {
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        emailAddress: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['WORK', 'PERSONAL'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
@@ -3065,104 +3188,109 @@ export const $UniRefund_TravellerService_Rekognition_CompareFacesRequestDto = {
 } as const;
 
 export const $UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
-  type: "object",
-  properties: {
-    ituCountryCode: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    areaCode: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    localNumber: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["HOME", "OFFICE", "MOBILE", "FAX"],
-      type: "string",
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        areaCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        localNumber: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        ituCountryCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    ituCountryCode: {
-      type: "string",
-      nullable: true,
-    },
-    areaCode: {
-      type: "string",
-      nullable: true,
-    },
-    localNumber: {
-      type: "string",
-      nullable: true,
-    },
-    fullNumber: {
-      type: "string",
-      nullable: true,
-      readOnly: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["HOME", "OFFICE", "MOBILE", "FAX"],
-      type: "string",
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        areaCode: {
+            type: 'string',
+            nullable: true
+        },
+        localNumber: {
+            type: 'string',
+            nullable: true
+        },
+        ituCountryCode: {
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
-export const $UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
-  type: "object",
-  properties: {
-    telephoneId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    ituCountryCode: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    areaCode: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    localNumber: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    isPrimary: {
-      type: "boolean",
-    },
-    type: {
-      enum: ["HOME", "OFFICE", "MOBILE", "FAX"],
-      type: "string",
+export const $UniRefund_TravellerService_Telephones_TelephoneUpdateDto = {
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        areaCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        localNumber: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        ituCountryCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        primaryFlag: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
@@ -3359,55 +3487,56 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentPro
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto = {
-  type: "object",
-  properties: {
-    travellerDocumentId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    travelDocumentNumber: {
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    firstName: {
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    issueDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    expirationDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    residenceCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    identificationType: {
-      enum: ["IdCard", "Passport"],
-      type: "string",
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        travelDocumentNumber: {
+            type: 'string',
+            nullable: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        issueDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        expirationDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        residenceCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        identificationType: {
+            enum: ['IdCard', 'Passport'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
@@ -3534,379 +3663,388 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerResponseDto =
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponentsDto = {
-  type: "object",
-  properties: {
-    extraProperties: {
-      type: "object",
-      additionalProperties: {},
-      nullable: true,
-      readOnly: true,
-    },
-    firstName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      maxLength: 2,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    languagePreferenceCultureName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    gender: {
-      enum: ["MALE", "FEMALE", "OTHER", "NOTSPECIFIED"],
-      type: "string",
-    },
-    travellerDocuments: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          firstName: {
-            type: "string",
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
             nullable: true,
-          },
-          lastName: {
-            type: "string",
-            nullable: true,
-          },
-          travelDocumentNumber: {
-            type: "string",
-            nullable: true,
-          },
-          birthDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          issueDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          expirationDate: {
-            type: "string",
-            format: "date-time",
-          },
-          residenceCountryCode2: {
+            readOnly: true
+        },
+        firstName: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        nationalityCountryCode2: {
             maxLength: 2,
-            minLength: 2,
-            type: "string",
-            nullable: true,
-          },
-          nationalityCountryCode2: {
-            maxLength: 2,
-            minLength: 2,
-            type: "string",
-            nullable: true,
-          },
-          identificationType: {
-            enum: ["IdCard", "Passport"],
-            type: "string",
-          },
+            minLength: 0,
+            type: 'string',
+            nullable: true
         },
-        additionalProperties: false,
-      },
-      nullable: true,
-    },
-    addresses: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          fullAddress: {
+        languagePreferenceCultureName: {
             maxLength: 255,
             minLength: 0,
-            type: "string",
-            nullable: true,
-          },
-          isPrimary: {
-            type: "boolean",
-          },
-          type: {
-            enum: ["HOME", "OFFICE"],
-            type: "string",
-          },
+            type: 'string',
+            nullable: true
         },
-        additionalProperties: false,
-      },
-      nullable: true,
-    },
-    telephones: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          ituCountryCode: {
-            maxLength: 255,
-            minLength: 0,
-            type: "string",
-            nullable: true,
-          },
-          areaCode: {
-            maxLength: 255,
-            minLength: 0,
-            type: "string",
-            nullable: true,
-          },
-          localNumber: {
-            maxLength: 255,
-            minLength: 0,
-            type: "string",
-            nullable: true,
-          },
-          isPrimary: {
-            type: "boolean",
-          },
-          type: {
-            enum: ["HOME", "OFFICE", "MOBILE", "FAX"],
-            type: "string",
-          },
+        gender: {
+            enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
+            type: 'string'
         },
-        additionalProperties: false,
-      },
-      nullable: true,
-    },
-    emails: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-            nullable: true,
-          },
-          emailAddress: {
-            maxLength: 255,
-            minLength: 0,
-            type: "string",
-            format: "email",
-            nullable: true,
-          },
-          isPrimary: {
-            type: "boolean",
-          },
-          type: {
-            enum: ["WORK", "PERSONAL"],
-            type: "string",
-          },
+        travellerDocuments: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    firstName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    lastName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    travelDocumentNumber: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    birthDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    issueDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    expirationDate: {
+                        type: 'string',
+                        format: 'date-time'
+                    },
+                    residenceCountryCode2: {
+                        maxLength: 2,
+                        minLength: 2,
+                        type: 'string',
+                        nullable: true
+                    },
+                    nationalityCountryCode2: {
+                        maxLength: 2,
+                        minLength: 2,
+                        type: 'string',
+                        nullable: true
+                    },
+                    identificationType: {
+                        enum: ['IdCard', 'Passport'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
         },
-        additionalProperties: false,
-      },
-      nullable: true,
+        addresses: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    extraProperties: {
+                        type: 'object',
+                        additionalProperties: {},
+                        nullable: true,
+                        readOnly: true
+                    },
+                    fullAddress: {
+                        maxLength: 255,
+                        minLength: 0,
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['HOME', 'OFFICE'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        telephones: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    extraProperties: {
+                        type: 'object',
+                        additionalProperties: {},
+                        nullable: true,
+                        readOnly: true
+                    },
+                    areaCode: {
+                        maxLength: 255,
+                        minLength: 0,
+                        type: 'string',
+                        nullable: true
+                    },
+                    localNumber: {
+                        maxLength: 255,
+                        minLength: 0,
+                        type: 'string',
+                        nullable: true
+                    },
+                    ituCountryCode: {
+                        maxLength: 255,
+                        minLength: 0,
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        emails: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    emailAddress: {
+                        maxLength: 255,
+                        minLength: 0,
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['WORK', 'PERSONAL'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        }
     },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    firstName: {
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryName: {
-      type: "string",
-      nullable: true,
-    },
-    languagePreferenceCultureName: {
-      type: "string",
-      nullable: true,
-    },
-    gender: {
-      enum: ["MALE", "FEMALE", "OTHER", "NOTSPECIFIED"],
-      type: "string",
-    },
-    userAccountId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    hasUserAccount: {
-      type: "boolean",
-      readOnly: true,
-    },
-    travellerDocuments: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-          },
-          travelDocumentNumber: {
-            type: "string",
-            nullable: true,
-          },
-          residenceCountryCode2: {
-            type: "string",
-            nullable: true,
-          },
-          residenceCountryName: {
-            type: "string",
-            nullable: true,
-          },
-          nationalityCountryCode2: {
-            type: "string",
-            nullable: true,
-          },
-          nationalityCountryName: {
-            type: "string",
-            nullable: true,
-          },
-          firstName: {
-            type: "string",
-            nullable: true,
-          },
-          lastName: {
-            type: "string",
-            nullable: true,
-          },
-          fullName: {
-            type: "string",
-            nullable: true,
-            readOnly: true,
-          },
-          birthDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          issueDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          expirationDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          identificationType: {
-            enum: ["IdCard", "Passport"],
-            type: "string",
-          },
-        },
-        additionalProperties: false,
-      },
-      nullable: true,
-    },
-    primaryAddress: {
-      type: "object",
-      properties: {
+    type: 'object',
+    properties: {
         id: {
-          type: "string",
-          format: "uuid",
+            type: 'string',
+            format: 'uuid'
         },
-        fullAddress: {
-          type: "string",
-          nullable: true,
+        firstName: {
+            type: 'string',
+            nullable: true
         },
-        isPrimary: {
-          type: "boolean",
+        lastName: {
+            type: 'string',
+            nullable: true
         },
-        type: {
-          enum: ["HOME", "OFFICE"],
-          type: "string",
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
         },
-      },
-      additionalProperties: false,
+        nationalityCountryCode2: {
+            type: 'string',
+            nullable: true
+        },
+        languagePreferenceCultureName: {
+            type: 'string',
+            nullable: true
+        },
+        gender: {
+            enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
+            type: 'string'
+        },
+        userAccountId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        hasUserAccount: {
+            type: 'boolean',
+            readOnly: true
+        },
+        travellerDocuments: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    travelDocumentNumber: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    residenceCountryCode2: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    residenceCountryName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    nationalityCountryCode2: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    nationalityCountryName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    firstName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    lastName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    fullName: {
+                        type: 'string',
+                        nullable: true,
+                        readOnly: true
+                    },
+                    birthDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    issueDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    expirationDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    identificationType: {
+                        enum: ['IdCard', 'Passport'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        addresses: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    fullAddress: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['HOME', 'OFFICE'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        emails: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    emailAddress: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['WORK', 'PERSONAL'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        telephones: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    areaCode: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    localNumber: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    ituCountryCode: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    primaryFlag: {
+                        type: 'boolean'
+                    },
+                    type: {
+                        enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                        type: 'string'
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        }
     },
-    primaryEmail: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        emailAddress: {
-          type: "string",
-          nullable: true,
-        },
-        isPrimary: {
-          type: "boolean",
-        },
-        type: {
-          enum: ["WORK", "PERSONAL"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-    primaryTelephone: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        ituCountryCode: {
-          type: "string",
-          nullable: true,
-        },
-        areaCode: {
-          type: "string",
-          nullable: true,
-        },
-        localNumber: {
-          type: "string",
-          nullable: true,
-        },
-        fullNumber: {
-          type: "string",
-          nullable: true,
-          readOnly: true,
-        },
-        isPrimary: {
-          type: "boolean",
-        },
-        type: {
-          enum: ["HOME", "OFFICE", "MOBILE", "FAX"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerDocumentNumberDto = {
@@ -4002,99 +4140,94 @@ export const $UniRefund_TravellerService_Travellers_TravellerDto = {
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto = {
-  type: "object",
-  properties: {
-    firstName: {
-      type: "string",
-      nullable: true,
+    type: 'object',
+    properties: {
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        fullName: {
+            type: 'string',
+            nullable: true,
+            readOnly: true
+        },
+        primaryAddress: {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                fullAddress: {
+                    type: 'string',
+                    nullable: true
+                },
+                primaryFlag: {
+                    type: 'boolean'
+                },
+                type: {
+                    enum: ['HOME', 'OFFICE'],
+                    type: 'string'
+                }
+            },
+            additionalProperties: false
+        },
+        primaryEmail: {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                emailAddress: {
+                    type: 'string',
+                    nullable: true
+                },
+                primaryFlag: {
+                    type: 'boolean'
+                },
+                type: {
+                    enum: ['WORK', 'PERSONAL'],
+                    type: 'string'
+                }
+            },
+            additionalProperties: false
+        },
+        primaryTelephone: {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                areaCode: {
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                ituCountryCode: {
+                    type: 'string',
+                    nullable: true
+                },
+                primaryFlag: {
+                    type: 'boolean'
+                },
+                type: {
+                    enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                    type: 'string'
+                }
+            },
+            additionalProperties: false
+        }
     },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    fullName: {
-      type: "string",
-      nullable: true,
-      readOnly: true,
-    },
-    primaryAddress: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        fullAddress: {
-          type: "string",
-          nullable: true,
-        },
-        isPrimary: {
-          type: "boolean",
-        },
-        type: {
-          enum: ["HOME", "OFFICE"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-    primaryEmail: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        emailAddress: {
-          type: "string",
-          nullable: true,
-        },
-        isPrimary: {
-          type: "boolean",
-        },
-        type: {
-          enum: ["WORK", "PERSONAL"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-    primaryTelephone: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        ituCountryCode: {
-          type: "string",
-          nullable: true,
-        },
-        areaCode: {
-          type: "string",
-          nullable: true,
-        },
-        localNumber: {
-          type: "string",
-          nullable: true,
-        },
-        fullNumber: {
-          type: "string",
-          nullable: true,
-          readOnly: true,
-        },
-        isPrimary: {
-          type: "boolean",
-        },
-        type: {
-          enum: ["HOME", "OFFICE", "MOBILE", "FAX"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerListDto = {
@@ -4150,52 +4283,6 @@ export const $UniRefund_TravellerService_Travellers_TravellerListDto = {
     hasUserAccount: {
       type: "boolean",
       readOnly: true,
-    },
-  },
-  additionalProperties: false,
-} as const;
-
-export const $UniRefund_TravellerService_Travellers_UpdateTravellerDto = {
-  type: "object",
-  properties: {
-    extraProperties: {
-      type: "object",
-      additionalProperties: {},
-      nullable: true,
-      readOnly: true,
-    },
-    firstName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    languagePreferenceCultureName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    gender: {
-      enum: ["MALE", "FEMALE", "OTHER", "NOTSPECIFIED"],
-      type: "string",
     },
   },
   additionalProperties: false,
