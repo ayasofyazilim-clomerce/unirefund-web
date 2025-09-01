@@ -5,6 +5,7 @@ import type {FilterComponentSearchItem} from "@repo/ayasofyazilim-ui/molecules/f
 import FilterComponent from "@repo/ayasofyazilim-ui/molecules/filter-component";
 import {useRouter} from "next/navigation";
 import {useEffect, useState, useTransition} from "react";
+import {toast} from "@/components/ui/sonner";
 import type {GetApiCrmServiceMerchantsByIdProductGroupResponse} from "@ayasofyazilim/saas/CRMService";
 import {getMerchantByIdApi, getMerchantProductGroupByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {postTagApi} from "@repo/actions/unirefund/TagService/post-actions";
@@ -78,6 +79,10 @@ export default function ClientPage({
   }, [productGroupIds]);
 
   function onSubmit() {
+    if (merchantIds.length === 0 || travellerIds.length === 0) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
     startTransition(async () => {
       const totalAmount = Object.values(invoiceLines).reduce((acc, curr) => acc + curr.amount, 0);
       const totalTaxAmount = Object.values(invoiceLines).reduce((acc, curr) => acc + curr.taxAmount, 0);

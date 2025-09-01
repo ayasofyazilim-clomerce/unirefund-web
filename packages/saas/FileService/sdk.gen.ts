@@ -283,7 +283,11 @@ export class FileService {
     
 }
 
+<<<<<<< HEAD
 export class FileAıInfoService {
+=======
+export class FileAiInfoService {
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**

@@ -8,7 +8,7 @@ import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
 import { RefundServiceClient } from "@ayasofyazilim/saas/RefundService";
 import { SettingServiceClient } from "@ayasofyazilim/saas/SettingService";
 import { TagServiceClient } from "@ayasofyazilim/saas/TagService";
-import { TravellerServiceClient } from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import { TravellerServiceClient } from "@repo/saas/TravellerService";
 import { Session } from "@repo/utils/auth";
 import { auth } from "@repo/utils/auth/next-auth";
 

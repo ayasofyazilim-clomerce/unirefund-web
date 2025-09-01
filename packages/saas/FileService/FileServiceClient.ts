@@ -4,7 +4,11 @@ import { Interceptors } from './core/OpenAPI';
 import { FetchHttpRequest } from './core/FetchHttpRequest';
 
 import { FileService } from './sdk.gen';
+<<<<<<< HEAD
 import { FileAıInfoService } from './sdk.gen';
+=======
+import { FileAiInfoService } from './sdk.gen';
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 import { FileRelationService } from './sdk.gen';
 import { FileRelationEntityService } from './sdk.gen';
 import { FileTypeService } from './sdk.gen';
@@ -18,7 +22,11 @@ type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 export class FileServiceClient {
 
 	public readonly file: FileService;
+<<<<<<< HEAD
 	public readonly fileAıInfo: FileAıInfoService;
+=======
+	public readonly fileAiInfo: FileAiInfoService;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 	public readonly fileRelation: FileRelationService;
 	public readonly fileRelationEntity: FileRelationEntityService;
 	public readonly fileType: FileTypeService;
@@ -47,7 +55,11 @@ export class FileServiceClient {
 		});
 
 		this.file = new FileService(this.request);
+<<<<<<< HEAD
 		this.fileAıInfo = new FileAıInfoService(this.request);
+=======
+		this.fileAiInfo = new FileAiInfoService(this.request);
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 		this.fileRelation = new FileRelationService(this.request);
 		this.fileRelationEntity = new FileRelationEntityService(this.request);
 		this.fileType = new FileTypeService(this.request);

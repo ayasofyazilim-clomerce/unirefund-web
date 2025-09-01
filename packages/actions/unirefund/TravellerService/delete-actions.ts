@@ -6,7 +6,7 @@ import { getTravellersServiceClient } from "../lib";
 export async function deleteTravellerDocumentApi(id: string) {
   try {
     const client = await getTravellersServiceClient();
-    const response = await client.traveller.deleteApiTravellerServiceTravellersByIdDeleteTravellerDocument({ id });
+    const response = await client.traveller.deleteApiTravellerServiceTravellersByIdTravellerDocument({ id });
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

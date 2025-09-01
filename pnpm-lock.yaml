@@ -57,6 +57,9 @@ importers:
       '@ayasofyazilim/saas':
         specifier: 0.0.165
         version: 0.0.165
+      '@ayasofyazilim/unirefund-saas-dev':
+        specifier: ^0.0.4
+        version: 0.0.4
       '@radix-ui/react-icons':
         specifier: ^1.3.0
         version: 1.3.2(react@18.3.1)
@@ -138,9 +141,6 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
-      web:
-        specifier: link:apps/web
-        version: link:apps/web
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 14.1.1
@@ -208,6 +208,9 @@ importers:
       '@repo/ayasofyazilim-ui':
         specifier: workspace:^
         version: link:../../packages/ayasofyazilim-ui
+      '@repo/saas':
+        specifier: workspace:*
+        version: link:../../packages/saas
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -326,6 +329,9 @@ importers:
       '@novu/api':
         specifier: latest
         version: 1.6.0
+      '@repo/saas':
+        specifier: workspace:*
+        version: link:../saas
       '@repo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -347,9 +353,6 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      web:
-        specifier: link:apps/web
-        version: link:apps/web
     devDependencies:
       '@types/negotiator':
         specifier: 0.6.3
@@ -945,6 +948,9 @@ importers:
       '@ayasofyazilim/saas':
         specifier: 0.0.160
         version: 0.0.160
+      '@ayasofyazilim/unirefund-saas-dev':
+        specifier: ^0.0.4
+        version: 0.0.4
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

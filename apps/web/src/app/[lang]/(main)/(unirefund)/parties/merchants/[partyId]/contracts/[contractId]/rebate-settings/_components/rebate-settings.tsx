@@ -46,7 +46,7 @@ export function RebateSettings({
       isTrustedMerchant: {
         "ui:widget": "switch",
       },
-      contactInformationTypeId: {
+      affiliationIdForContact: {
         "ui:widget": "Individuals",
       },
       minimumNetCommissions: {

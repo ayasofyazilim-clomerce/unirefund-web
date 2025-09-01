@@ -4042,6 +4042,7 @@ export const $UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
     additionalProperties: false
 } as const;
 
+<<<<<<< HEAD
 export const $UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
     type: 'object',
     properties: {
@@ -4091,6 +4092,8 @@ export const $UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
     additionalProperties: false
 } as const;
 
+=======
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 export const $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto = {
     required: ['productGroupId'],
     type: 'object',

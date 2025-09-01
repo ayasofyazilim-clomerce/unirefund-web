@@ -14,7 +14,10 @@ import { RefundPointService } from './sdk.gen';
 import { RegionService } from './sdk.gen';
 import { TaxFreeService } from './sdk.gen';
 import { TaxOfficeService } from './sdk.gen';
+<<<<<<< HEAD
 import { UserAffiliationService } from './sdk.gen';
+=======
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 
 type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 
@@ -31,7 +34,10 @@ export class CRMServiceClient {
 	public readonly region: RegionService;
 	public readonly taxFree: TaxFreeService;
 	public readonly taxOffice: TaxOfficeService;
+<<<<<<< HEAD
 	public readonly userAffiliation: UserAffiliationService;
+=======
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 
 	public readonly request: BaseHttpRequest;
 
@@ -63,6 +69,9 @@ export class CRMServiceClient {
 		this.region = new RegionService(this.request);
 		this.taxFree = new TaxFreeService(this.request);
 		this.taxOffice = new TaxOfficeService(this.request);
+<<<<<<< HEAD
 		this.userAffiliation = new UserAffiliationService(this.request);
+=======
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 	}
 }

@@ -99,14 +99,22 @@ export type UniRefund_TagService_Tags_Enums_RefundType = 'Cash' | 'CreditCard' |
 export type UniRefund_TravellerService_Addresses_AddressDto = {
     id?: string;
     fullAddress?: (string) | null;
+<<<<<<< HEAD
     isPrimary?: boolean;
+=======
+    primaryFlag?: boolean;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
 export type UniRefund_TravellerService_Emails_EmailDto = {
     id?: string;
     emailAddress?: (string) | null;
+<<<<<<< HEAD
     isPrimary?: boolean;
+=======
+    primaryFlag?: boolean;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
@@ -122,11 +130,18 @@ export type UniRefund_TravellerService_Enums_TelephoneType = 'HOME' | 'OFFICE' |
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
     id?: string;
+<<<<<<< HEAD
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
     readonly fullNumber?: (string) | null;
     isPrimary?: boolean;
+=======
+    areaCode?: (string) | null;
+    localNumber?: (string) | null;
+    ituCountryCode?: (string) | null;
+    primaryFlag?: boolean;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
@@ -152,15 +167,24 @@ export type UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
     lastName?: (string) | null;
     birthDate?: (string) | null;
     nationalityCountryCode2?: (string) | null;
+<<<<<<< HEAD
     nationalityCountryName?: (string) | null;
+=======
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     languagePreferenceCultureName?: (string) | null;
     gender?: UniRefund_TravellerService_Enums_GenderType;
     userAccountId?: (string) | null;
     readonly hasUserAccount?: boolean;
     travellerDocuments?: Array<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto> | null;
+<<<<<<< HEAD
     primaryAddress?: UniRefund_TravellerService_Addresses_AddressDto;
     primaryEmail?: UniRefund_TravellerService_Emails_EmailDto;
     primaryTelephone?: UniRefund_TravellerService_Telephones_TelephoneDto;
+=======
+    addresses?: Array<UniRefund_TravellerService_Addresses_AddressDto> | null;
+    emails?: Array<UniRefund_TravellerService_Emails_EmailDto> | null;
+    telephones?: Array<UniRefund_TravellerService_Telephones_TelephoneDto> | null;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 };
 
 export type Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationAuthConfigurationDto = {

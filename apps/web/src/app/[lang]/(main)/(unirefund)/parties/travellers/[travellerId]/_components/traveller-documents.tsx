@@ -1,37 +1,37 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type {
   UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto as TravellerDocumentProfileDto,
   UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto,
   UniRefund_TravellerService_Travellers_TravellerDetailProfileDto,
   UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto as UpdateTravellerDocumentDto,
-} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+} from "@repo/saas/TravellerService";
 import {
   $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto as $CreateTravellerDocumentDto,
   $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto as $TravellerDocumentProfileDto,
   $UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto as $UpdateTravellerDocumentDto,
-} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
-import {deleteTravellerDocumentApi} from "@repo/actions/unirefund/TravellerService/delete-actions";
-import {postTravellerDocumentApi} from "@repo/actions/unirefund/TravellerService/post-actions";
-import {putTravellerDocumentApi} from "@repo/actions/unirefund/TravellerService/put-actions";
+} from "@repo/saas/TravellerService";
+import { deleteTravellerDocumentApi } from "@repo/actions/unirefund/TravellerService/delete-actions";
+import { postTravellerDocumentApi } from "@repo/actions/unirefund/TravellerService/post-actions";
+import { putTravellerDocumentApi } from "@repo/actions/unirefund/TravellerService/put-actions";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
-import {FileBadge2Icon, IdCardIcon} from "lucide-react";
-import {useParams} from "next/navigation";
-import type {TransitionStartFunction} from "react";
-import {useTransition} from "react";
-import type {CountryDto} from "@/utils/address-hook/types";
-import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import type { TanstackTableTableActionsType } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { handleDeleteResponse, handlePostResponse, handlePutResponse } from "@repo/utils/api";
+import { FileBadge2Icon, IdCardIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import type { TransitionStartFunction } from "react";
+import { useTransition } from "react";
+import type { CountryDto } from "@/utils/address-hook/types";
+import type { TravellerServiceResource } from "src/language-data/unirefund/TravellerService";
 
-export function TravellerDocumentsForm({
+export function TravellerDocuments({
   languageData,
   travellerDocuments,
   travellerDetails,
@@ -42,8 +42,9 @@ export function TravellerDocumentsForm({
   travellerDetails: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
   countryList: CountryDto[];
 }) {
-  const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const { lang, travellerId } = useParams<{ lang: string; travellerId: string }>();
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const columns = tanstackTableCreateColumnsByRowData<TravellerDocumentProfileDto>({
     rows: $TravellerDocumentProfileDto.properties,
@@ -57,7 +58,7 @@ export function TravellerDocumentsForm({
     custom: {
       travelDocumentNumber: {
         showHeader: true,
-        content: (row) => DocumentNumberCell({row, languageData}),
+        content: (row) => DocumentNumberCell({ row, languageData }),
       },
     },
     expandRowTrigger: "travelDocumentNumber",
@@ -97,12 +98,12 @@ export function TravellerDocumentsForm({
         if (!formData) return;
         startTransition(() => {
           void postTravellerDocumentApi({
-            id: partyId,
+            id: travellerId,
             requestBody: {
               ...(formData as UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto),
             },
           }).then((response) => {
-            handlePostResponse(response);
+            handlePostResponse(response, router);
           });
         });
       },
@@ -118,7 +119,7 @@ export function TravellerDocumentsForm({
       }}
       columns={columns}
       data={travellerDocuments}
-      expandedRowComponent={(row) => EditForm({row, languageData, partyId, isPending, startTransition, countryList})}
+      expandedRowComponent={(row) => EditForm({ row, languageData, travellerId, isPending, startTransition, countryList })}
       fillerColumn="fullName"
       showPagination={false}
       tableActions={tableActions}
@@ -135,7 +136,7 @@ function DocumentNumberCell({
   return (
     <div className="flex items-center gap-2">
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           {row.identificationType === "IdCard" ? (
             <IdCardIcon className="size-4" />
           ) : (
@@ -152,33 +153,34 @@ function DocumentNumberCell({
 }
 function EditForm({
   row,
-  partyId,
+  travellerId,
   languageData,
   isPending,
   startTransition,
   countryList,
 }: {
   row: TravellerDocumentProfileDto;
-  partyId: string;
+  travellerId: string;
   languageData: TravellerServiceResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
   countryList: CountryDto[];
 }) {
+  const router = useRouter();
   return (
     <SchemaForm<UpdateTravellerDocumentDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      filter={{type: "exclude", keys: ["id"]}}
+      filter={{ type: "exclude", keys: ["travellerDocumentId"] }}
       formData={row}
       key={JSON.stringify(row)}
-      onSubmit={({formData}) => {
+      onSubmit={({ formData }) => {
         if (!formData) return;
         startTransition(() => {
           void putTravellerDocumentApi({
-            id: partyId,
+            id: travellerId,
             requestBody: {
-              id: row.id || "",
+              travellerDocumentId: row.id || "",
               ...formData,
             },
           }).then((response) => {
@@ -221,7 +223,7 @@ function EditForm({
             onConfirm: () => {
               startTransition(() => {
                 void deleteTravellerDocumentApi(row.id || "").then((response) => {
-                  handleDeleteResponse(response);
+                  handleDeleteResponse(response, router);
                 });
               });
             },
