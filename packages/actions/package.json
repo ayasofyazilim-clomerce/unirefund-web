@@ -15,7 +15,7 @@
     "@aws-sdk/client-textract": "^3.798.0",
     "@ayasofyazilim/core-saas": "latest",
     "@ayasofyazilim/saas": "0.0.165",
-    "@ayasofyazilim/unirefund-saas-dev": "^0.0.5",
+    "@ayasofyazilim/unirefund-saas-dev": "^0.0.4",
     "@novu/api": "latest",
     "@repo/utils": "workspace:*",
     "@repo/saas": "workspace:*",
