@@ -79,6 +79,7 @@
 
   "Form.address": "Adres",
   "Form.addresses": "Adresler",
+  "Form.address.fullAddress": "Adres",
   "Form.address.update": "Adres güncelle",
   "Form.address.create": "Adres ekle",
   "Form.address.addressLine": "Adres Satırı",
@@ -89,6 +90,7 @@
   "Form.address.type.UNKNOWN": "Bilinmiyor",
   "Form.address.type.HOME": "Ev",
   "Form.address.type.WORK": "İş",
+  "Form.address.type.OFFICE": "Ofis",
 
   "Form.email": "E-posta",
   "Form.emails": "E-posta Adresleri",
