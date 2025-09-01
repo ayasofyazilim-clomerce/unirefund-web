@@ -37,97 +37,59 @@ export const $Amazon_Rekognition_LivenessSessionStatus = {
 } as const;
 
 export const $Amazon_Rekognition_Model_AuditImage = {
-  type: "object",
-  properties: {
-    boundingBox: {
-      type: "object",
-      properties: {
-        height: {
-          type: "number",
-          format: "float",
-          nullable: true,
+    type: 'object',
+    properties: {
+        boundingBox: {
+            type: 'object',
+            properties: {
+                height: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                left: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                top: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                width: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                }
+            },
+            additionalProperties: false
         },
-        left: {
-          type: "number",
-          format: "float",
-          nullable: true,
+        bytes: {
+            type: 'string',
+            format: 'binary',
+            nullable: true
         },
-        top: {
-          type: "number",
-          format: "float",
-          nullable: true,
-        },
-        width: {
-          type: "number",
-          format: "float",
-          nullable: true,
-        },
-      },
-      additionalProperties: false,
+        s3Object: {
+            type: 'object',
+            properties: {
+                bucket: {
+                    type: 'string',
+                    nullable: true
+                },
+                name: {
+                    type: 'string',
+                    nullable: true
+                },
+                version: {
+                    type: 'string',
+                    nullable: true
+                }
+            },
+            additionalProperties: false
+        }
     },
-    bytes: {
-      type: "object",
-      properties: {
-        canTimeout: {
-          type: "boolean",
-          readOnly: true,
-        },
-        readTimeout: {
-          type: "integer",
-          format: "int32",
-        },
-        writeTimeout: {
-          type: "integer",
-          format: "int32",
-        },
-        canRead: {
-          type: "boolean",
-          readOnly: true,
-        },
-        canSeek: {
-          type: "boolean",
-          readOnly: true,
-        },
-        canWrite: {
-          type: "boolean",
-          readOnly: true,
-        },
-        capacity: {
-          type: "integer",
-          format: "int32",
-        },
-        length: {
-          type: "integer",
-          format: "int64",
-          readOnly: true,
-        },
-        position: {
-          type: "integer",
-          format: "int64",
-        },
-      },
-      additionalProperties: false,
-    },
-    s3Object: {
-      type: "object",
-      properties: {
-        bucket: {
-          type: "string",
-          nullable: true,
-        },
-        name: {
-          type: "string",
-          nullable: true,
-        },
-        version: {
-          type: "string",
-          nullable: true,
-        },
-      },
-      additionalProperties: false,
-    },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $Amazon_Rekognition_Model_BoundingBox = {
@@ -316,476 +278,415 @@ export const $Amazon_Rekognition_Model_CompareFacesMatch = {
 } as const;
 
 export const $Amazon_Rekognition_Model_CompareFacesResponse = {
-  type: "object",
-  properties: {
-    responseMetadata: {
-      type: "object",
-      properties: {
-        requestId: {
-          type: "string",
-          nullable: true,
-        },
-        metadata: {
-          type: "object",
-          additionalProperties: {
-            type: "string",
-          },
-          nullable: true,
-          readOnly: true,
-        },
-        checksumAlgorithm: {
-          enum: ["NONE", "CRC32C", "CRC32", "SHA256", "SHA1", "CRC64NVME"],
-          type: "string",
-        },
-        checksumValidationStatus: {
-          enum: ["NOT_VALIDATED", "PENDING_RESPONSE_READ", "SUCCESSFUL", "INVALID"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-    contentLength: {
-      type: "integer",
-      format: "int64",
-    },
-    httpStatusCode: {
-      enum: [
-        "Continue",
-        "SwitchingProtocols",
-        "Processing",
-        "EarlyHints",
-        "OK",
-        "Created",
-        "Accepted",
-        "NonAuthoritativeInformation",
-        "NoContent",
-        "ResetContent",
-        "PartialContent",
-        "MultiStatus",
-        "AlreadyReported",
-        "IMUsed",
-        "MultipleChoices",
-        "MovedPermanently",
-        "Found",
-        "SeeOther",
-        "NotModified",
-        "UseProxy",
-        "Unused",
-        "TemporaryRedirect",
-        "PermanentRedirect",
-        "BadRequest",
-        "Unauthorized",
-        "PaymentRequired",
-        "Forbidden",
-        "NotFound",
-        "MethodNotAllowed",
-        "NotAcceptable",
-        "ProxyAuthenticationRequired",
-        "RequestTimeout",
-        "Conflict",
-        "Gone",
-        "LengthRequired",
-        "PreconditionFailed",
-        "RequestEntityTooLarge",
-        "RequestUriTooLong",
-        "UnsupportedMediaType",
-        "RequestedRangeNotSatisfiable",
-        "ExpectationFailed",
-        "MisdirectedRequest",
-        "UnprocessableEntity",
-        "Locked",
-        "FailedDependency",
-        "UpgradeRequired",
-        "PreconditionRequired",
-        "TooManyRequests",
-        "RequestHeaderFieldsTooLarge",
-        "UnavailableForLegalReasons",
-        "InternalServerError",
-        "NotImplemented",
-        "BadGateway",
-        "ServiceUnavailable",
-        "GatewayTimeout",
-        "HttpVersionNotSupported",
-        "VariantAlsoNegotiates",
-        "InsufficientStorage",
-        "LoopDetected",
-        "NotExtended",
-        "NetworkAuthenticationRequired",
-      ],
-      type: "string",
-    },
-    faceMatches: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          face: {
-            type: "object",
+    type: 'object',
+    properties: {
+        responseMetadata: {
+            type: 'object',
             properties: {
-              boundingBox: {
-                type: "object",
-                properties: {
-                  height: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  left: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  top: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  width: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
+                requestId: {
+                    type: 'string',
+                    nullable: true
                 },
-                additionalProperties: false,
-              },
-              confidence: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              emotions: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    confidence: {
-                      type: "number",
-                      format: "float",
-                      nullable: true,
+                metadata: {
+                    type: 'object',
+                    additionalProperties: {
+                        type: 'string',
+                        nullable: true
                     },
-                    type: {
-                      type: "object",
-                      properties: {
-                        value: {
-                          type: "string",
-                          nullable: true,
-                          readOnly: true,
-                        },
-                      },
-                      additionalProperties: false,
-                    },
-                  },
-                  additionalProperties: false,
+                    nullable: true,
+                    readOnly: true
                 },
-                nullable: true,
-              },
-              landmarks: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    type: {
-                      type: "object",
-                      properties: {
-                        value: {
-                          type: "string",
-                          nullable: true,
-                          readOnly: true,
-                        },
-                      },
-                      additionalProperties: false,
-                    },
-                    x: {
-                      type: "number",
-                      format: "float",
-                      nullable: true,
-                    },
-                    y: {
-                      type: "number",
-                      format: "float",
-                      nullable: true,
-                    },
-                  },
-                  additionalProperties: false,
+                checksumAlgorithm: {
+                    enum: ['NONE', 'CRC32C', 'CRC32', 'SHA256', 'SHA1', 'CRC64NVME'],
+                    type: 'string'
                 },
-                nullable: true,
-              },
-              pose: {
-                type: "object",
-                properties: {
-                  pitch: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  roll: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  yaw: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                },
-                additionalProperties: false,
-              },
-              quality: {
-                type: "object",
-                properties: {
-                  brightness: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  sharpness: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                },
-                additionalProperties: false,
-              },
-              smile: {
-                type: "object",
-                properties: {
-                  confidence: {
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                  },
-                  value: {
-                    type: "boolean",
-                    nullable: true,
-                  },
-                },
-                additionalProperties: false,
-              },
+                checksumValidationStatus: {
+                    enum: ['NOT_VALIDATED', 'PENDING_RESPONSE_READ', 'SUCCESSFUL', 'INVALID'],
+                    type: 'string'
+                }
             },
-            additionalProperties: false,
-          },
-          similarity: {
-            type: "number",
-            format: "float",
-            nullable: true,
-          },
+            additionalProperties: false
         },
-        additionalProperties: false,
-      },
-      nullable: true,
-    },
-    sourceImageFace: {
-      type: "object",
-      properties: {
-        boundingBox: {
-          type: "object",
-          properties: {
-            height: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-            left: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-            top: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-            width: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-          },
-          additionalProperties: false,
+        contentLength: {
+            type: 'integer',
+            format: 'int64'
         },
-        confidence: {
-          type: "number",
-          format: "float",
-          nullable: true,
+        httpStatusCode: {
+            enum: ['Continue', 'SwitchingProtocols', 'Processing', 'EarlyHints', 'OK', 'Created', 'Accepted', 'NonAuthoritativeInformation', 'NoContent', 'ResetContent', 'PartialContent', 'MultiStatus', 'AlreadyReported', 'IMUsed', 'MultipleChoices', 'MovedPermanently', 'Found', 'SeeOther', 'NotModified', 'UseProxy', 'Unused', 'TemporaryRedirect', 'PermanentRedirect', 'BadRequest', 'Unauthorized', 'PaymentRequired', 'Forbidden', 'NotFound', 'MethodNotAllowed', 'NotAcceptable', 'ProxyAuthenticationRequired', 'RequestTimeout', 'Conflict', 'Gone', 'LengthRequired', 'PreconditionFailed', 'RequestEntityTooLarge', 'RequestUriTooLong', 'UnsupportedMediaType', 'RequestedRangeNotSatisfiable', 'ExpectationFailed', 'MisdirectedRequest', 'UnprocessableEntity', 'Locked', 'FailedDependency', 'UpgradeRequired', 'PreconditionRequired', 'TooManyRequests', 'RequestHeaderFieldsTooLarge', 'UnavailableForLegalReasons', 'InternalServerError', 'NotImplemented', 'BadGateway', 'ServiceUnavailable', 'GatewayTimeout', 'HttpVersionNotSupported', 'VariantAlsoNegotiates', 'InsufficientStorage', 'LoopDetected', 'NotExtended', 'NetworkAuthenticationRequired'],
+            type: 'string'
         },
-      },
-      additionalProperties: false,
-    },
-    sourceImageOrientationCorrection: {
-      type: "object",
-      properties: {
-        value: {
-          type: "string",
-          nullable: true,
-          readOnly: true,
-        },
-      },
-      additionalProperties: false,
-    },
-    targetImageOrientationCorrection: {
-      type: "object",
-      properties: {
-        value: {
-          type: "string",
-          nullable: true,
-          readOnly: true,
-        },
-      },
-      additionalProperties: false,
-    },
-    unmatchedFaces: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          boundingBox: {
-            type: "object",
-            properties: {
-              height: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              left: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              top: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              width: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-            },
-            additionalProperties: false,
-          },
-          confidence: {
-            type: "number",
-            format: "float",
-            nullable: true,
-          },
-          emotions: {
-            type: "array",
+        faceMatches: {
+            type: 'array',
             items: {
-              type: "object",
-              properties: {
+                type: 'object',
+                properties: {
+                    face: {
+                        type: 'object',
+                        properties: {
+                            boundingBox: {
+                                type: 'object',
+                                properties: {
+                                    height: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    left: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    top: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    width: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    }
+                                },
+                                additionalProperties: false
+                            },
+                            confidence: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            emotions: {
+                                type: 'array',
+                                items: {
+                                    type: 'object',
+                                    properties: {
+                                        confidence: {
+                                            type: 'number',
+                                            format: 'float',
+                                            nullable: true
+                                        },
+                                        type: {
+                                            type: 'object',
+                                            properties: {
+                                                value: {
+                                                    type: 'string',
+                                                    nullable: true,
+                                                    readOnly: true
+                                                }
+                                            },
+                                            additionalProperties: false
+                                        }
+                                    },
+                                    additionalProperties: false
+                                },
+                                nullable: true
+                            },
+                            landmarks: {
+                                type: 'array',
+                                items: {
+                                    type: 'object',
+                                    properties: {
+                                        type: {
+                                            type: 'object',
+                                            properties: {
+                                                value: {
+                                                    type: 'string',
+                                                    nullable: true,
+                                                    readOnly: true
+                                                }
+                                            },
+                                            additionalProperties: false
+                                        },
+                                        x: {
+                                            type: 'number',
+                                            format: 'float',
+                                            nullable: true
+                                        },
+                                        y: {
+                                            type: 'number',
+                                            format: 'float',
+                                            nullable: true
+                                        }
+                                    },
+                                    additionalProperties: false
+                                },
+                                nullable: true
+                            },
+                            pose: {
+                                type: 'object',
+                                properties: {
+                                    pitch: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    roll: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    yaw: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    }
+                                },
+                                additionalProperties: false
+                            },
+                            quality: {
+                                type: 'object',
+                                properties: {
+                                    brightness: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    sharpness: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    }
+                                },
+                                additionalProperties: false
+                            },
+                            smile: {
+                                type: 'object',
+                                properties: {
+                                    confidence: {
+                                        type: 'number',
+                                        format: 'float',
+                                        nullable: true
+                                    },
+                                    value: {
+                                        type: 'boolean',
+                                        nullable: true
+                                    }
+                                },
+                                additionalProperties: false
+                            }
+                        },
+                        additionalProperties: false
+                    },
+                    similarity: {
+                        type: 'number',
+                        format: 'float',
+                        nullable: true
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        sourceImageFace: {
+            type: 'object',
+            properties: {
+                boundingBox: {
+                    type: 'object',
+                    properties: {
+                        height: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        left: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        top: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        width: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        }
+                    },
+                    additionalProperties: false
+                },
                 confidence: {
-                  type: "number",
-                  format: "float",
-                  nullable: true,
-                },
-                type: {
-                  type: "object",
-                  properties: {
-                    value: {
-                      type: "string",
-                      nullable: true,
-                      readOnly: true,
-                    },
-                  },
-                  additionalProperties: false,
-                },
-              },
-              additionalProperties: false,
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                }
             },
-            nullable: true,
-          },
-          landmarks: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                type: {
-                  type: "object",
-                  properties: {
-                    value: {
-                      type: "string",
-                      nullable: true,
-                      readOnly: true,
-                    },
-                  },
-                  additionalProperties: false,
-                },
-                x: {
-                  type: "number",
-                  format: "float",
-                  nullable: true,
-                },
-                y: {
-                  type: "number",
-                  format: "float",
-                  nullable: true,
-                },
-              },
-              additionalProperties: false,
-            },
-            nullable: true,
-          },
-          pose: {
-            type: "object",
-            properties: {
-              pitch: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              roll: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              yaw: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-            },
-            additionalProperties: false,
-          },
-          quality: {
-            type: "object",
-            properties: {
-              brightness: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              sharpness: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-            },
-            additionalProperties: false,
-          },
-          smile: {
-            type: "object",
-            properties: {
-              confidence: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              value: {
-                type: "boolean",
-                nullable: true,
-              },
-            },
-            additionalProperties: false,
-          },
+            additionalProperties: false
         },
-        additionalProperties: false,
-      },
-      nullable: true,
+        sourceImageOrientationCorrection: {
+            type: 'object',
+            properties: {
+                value: {
+                    type: 'string',
+                    nullable: true,
+                    readOnly: true
+                }
+            },
+            additionalProperties: false
+        },
+        targetImageOrientationCorrection: {
+            type: 'object',
+            properties: {
+                value: {
+                    type: 'string',
+                    nullable: true,
+                    readOnly: true
+                }
+            },
+            additionalProperties: false
+        },
+        unmatchedFaces: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    boundingBox: {
+                        type: 'object',
+                        properties: {
+                            height: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            left: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            top: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            width: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            }
+                        },
+                        additionalProperties: false
+                    },
+                    confidence: {
+                        type: 'number',
+                        format: 'float',
+                        nullable: true
+                    },
+                    emotions: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                confidence: {
+                                    type: 'number',
+                                    format: 'float',
+                                    nullable: true
+                                },
+                                type: {
+                                    type: 'object',
+                                    properties: {
+                                        value: {
+                                            type: 'string',
+                                            nullable: true,
+                                            readOnly: true
+                                        }
+                                    },
+                                    additionalProperties: false
+                                }
+                            },
+                            additionalProperties: false
+                        },
+                        nullable: true
+                    },
+                    landmarks: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                type: {
+                                    type: 'object',
+                                    properties: {
+                                        value: {
+                                            type: 'string',
+                                            nullable: true,
+                                            readOnly: true
+                                        }
+                                    },
+                                    additionalProperties: false
+                                },
+                                x: {
+                                    type: 'number',
+                                    format: 'float',
+                                    nullable: true
+                                },
+                                y: {
+                                    type: 'number',
+                                    format: 'float',
+                                    nullable: true
+                                }
+                            },
+                            additionalProperties: false
+                        },
+                        nullable: true
+                    },
+                    pose: {
+                        type: 'object',
+                        properties: {
+                            pitch: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            roll: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            yaw: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            }
+                        },
+                        additionalProperties: false
+                    },
+                    quality: {
+                        type: 'object',
+                        properties: {
+                            brightness: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            sharpness: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            }
+                        },
+                        additionalProperties: false
+                    },
+                    smile: {
+                        type: 'object',
+                        properties: {
+                            confidence: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            value: {
+                                type: 'boolean',
+                                nullable: true
+                            }
+                        },
+                        additionalProperties: false
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        }
     },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $Amazon_Rekognition_Model_ComparedFace = {
@@ -974,107 +875,47 @@ export const $Amazon_Rekognition_Model_ComparedSourceImageFace = {
 } as const;
 
 export const $Amazon_Rekognition_Model_CreateFaceLivenessSessionResponse = {
-  type: "object",
-  properties: {
-    responseMetadata: {
-      type: "object",
-      properties: {
-        requestId: {
-          type: "string",
-          nullable: true,
+    type: 'object',
+    properties: {
+        responseMetadata: {
+            type: 'object',
+            properties: {
+                requestId: {
+                    type: 'string',
+                    nullable: true
+                },
+                metadata: {
+                    type: 'object',
+                    additionalProperties: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    nullable: true,
+                    readOnly: true
+                },
+                checksumAlgorithm: {
+                    enum: ['NONE', 'CRC32C', 'CRC32', 'SHA256', 'SHA1', 'CRC64NVME'],
+                    type: 'string'
+                },
+                checksumValidationStatus: {
+                    enum: ['NOT_VALIDATED', 'PENDING_RESPONSE_READ', 'SUCCESSFUL', 'INVALID'],
+                    type: 'string'
+                }
+            },
+            additionalProperties: false
         },
-        metadata: {
-          type: "object",
-          additionalProperties: {
-            type: "string",
-          },
-          nullable: true,
-          readOnly: true,
+        contentLength: {
+            type: 'integer',
+            format: 'int64'
         },
-        checksumAlgorithm: {
-          enum: ["NONE", "CRC32C", "CRC32", "SHA256", "SHA1", "CRC64NVME"],
-          type: "string",
+        httpStatusCode: {
+            enum: ['Continue', 'SwitchingProtocols', 'Processing', 'EarlyHints', 'OK', 'Created', 'Accepted', 'NonAuthoritativeInformation', 'NoContent', 'ResetContent', 'PartialContent', 'MultiStatus', 'AlreadyReported', 'IMUsed', 'MultipleChoices', 'MovedPermanently', 'Found', 'SeeOther', 'NotModified', 'UseProxy', 'Unused', 'TemporaryRedirect', 'PermanentRedirect', 'BadRequest', 'Unauthorized', 'PaymentRequired', 'Forbidden', 'NotFound', 'MethodNotAllowed', 'NotAcceptable', 'ProxyAuthenticationRequired', 'RequestTimeout', 'Conflict', 'Gone', 'LengthRequired', 'PreconditionFailed', 'RequestEntityTooLarge', 'RequestUriTooLong', 'UnsupportedMediaType', 'RequestedRangeNotSatisfiable', 'ExpectationFailed', 'MisdirectedRequest', 'UnprocessableEntity', 'Locked', 'FailedDependency', 'UpgradeRequired', 'PreconditionRequired', 'TooManyRequests', 'RequestHeaderFieldsTooLarge', 'UnavailableForLegalReasons', 'InternalServerError', 'NotImplemented', 'BadGateway', 'ServiceUnavailable', 'GatewayTimeout', 'HttpVersionNotSupported', 'VariantAlsoNegotiates', 'InsufficientStorage', 'LoopDetected', 'NotExtended', 'NetworkAuthenticationRequired'],
+            type: 'string'
         },
-        checksumValidationStatus: {
-          enum: ["NOT_VALIDATED", "PENDING_RESPONSE_READ", "SUCCESSFUL", "INVALID"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-    contentLength: {
-      type: "integer",
-      format: "int64",
-    },
-    httpStatusCode: {
-      enum: [
-        "Continue",
-        "SwitchingProtocols",
-        "Processing",
-        "EarlyHints",
-        "OK",
-        "Created",
-        "Accepted",
-        "NonAuthoritativeInformation",
-        "NoContent",
-        "ResetContent",
-        "PartialContent",
-        "MultiStatus",
-        "AlreadyReported",
-        "IMUsed",
-        "MultipleChoices",
-        "MovedPermanently",
-        "Found",
-        "SeeOther",
-        "NotModified",
-        "UseProxy",
-        "Unused",
-        "TemporaryRedirect",
-        "PermanentRedirect",
-        "BadRequest",
-        "Unauthorized",
-        "PaymentRequired",
-        "Forbidden",
-        "NotFound",
-        "MethodNotAllowed",
-        "NotAcceptable",
-        "ProxyAuthenticationRequired",
-        "RequestTimeout",
-        "Conflict",
-        "Gone",
-        "LengthRequired",
-        "PreconditionFailed",
-        "RequestEntityTooLarge",
-        "RequestUriTooLong",
-        "UnsupportedMediaType",
-        "RequestedRangeNotSatisfiable",
-        "ExpectationFailed",
-        "MisdirectedRequest",
-        "UnprocessableEntity",
-        "Locked",
-        "FailedDependency",
-        "UpgradeRequired",
-        "PreconditionRequired",
-        "TooManyRequests",
-        "RequestHeaderFieldsTooLarge",
-        "UnavailableForLegalReasons",
-        "InternalServerError",
-        "NotImplemented",
-        "BadGateway",
-        "ServiceUnavailable",
-        "GatewayTimeout",
-        "HttpVersionNotSupported",
-        "VariantAlsoNegotiates",
-        "InsufficientStorage",
-        "LoopDetected",
-        "NotExtended",
-        "NetworkAuthenticationRequired",
-      ],
-      type: "string",
-    },
-    sessionId: {
-      type: "string",
-      nullable: true,
+        sessionId: {
+            type: 'string',
+            nullable: true
+        }
     },
   },
   additionalProperties: false,
@@ -1104,316 +945,179 @@ export const $Amazon_Rekognition_Model_Emotion = {
 } as const;
 
 export const $Amazon_Rekognition_Model_GetFaceLivenessSessionResultsResponse = {
-  type: "object",
-  properties: {
-    responseMetadata: {
-      type: "object",
-      properties: {
-        requestId: {
-          type: "string",
-          nullable: true,
-        },
-        metadata: {
-          type: "object",
-          additionalProperties: {
-            type: "string",
-          },
-          nullable: true,
-          readOnly: true,
-        },
-        checksumAlgorithm: {
-          enum: ["NONE", "CRC32C", "CRC32", "SHA256", "SHA1", "CRC64NVME"],
-          type: "string",
-        },
-        checksumValidationStatus: {
-          enum: ["NOT_VALIDATED", "PENDING_RESPONSE_READ", "SUCCESSFUL", "INVALID"],
-          type: "string",
-        },
-      },
-      additionalProperties: false,
-    },
-    contentLength: {
-      type: "integer",
-      format: "int64",
-    },
-    httpStatusCode: {
-      enum: [
-        "Continue",
-        "SwitchingProtocols",
-        "Processing",
-        "EarlyHints",
-        "OK",
-        "Created",
-        "Accepted",
-        "NonAuthoritativeInformation",
-        "NoContent",
-        "ResetContent",
-        "PartialContent",
-        "MultiStatus",
-        "AlreadyReported",
-        "IMUsed",
-        "MultipleChoices",
-        "MovedPermanently",
-        "Found",
-        "SeeOther",
-        "NotModified",
-        "UseProxy",
-        "Unused",
-        "TemporaryRedirect",
-        "PermanentRedirect",
-        "BadRequest",
-        "Unauthorized",
-        "PaymentRequired",
-        "Forbidden",
-        "NotFound",
-        "MethodNotAllowed",
-        "NotAcceptable",
-        "ProxyAuthenticationRequired",
-        "RequestTimeout",
-        "Conflict",
-        "Gone",
-        "LengthRequired",
-        "PreconditionFailed",
-        "RequestEntityTooLarge",
-        "RequestUriTooLong",
-        "UnsupportedMediaType",
-        "RequestedRangeNotSatisfiable",
-        "ExpectationFailed",
-        "MisdirectedRequest",
-        "UnprocessableEntity",
-        "Locked",
-        "FailedDependency",
-        "UpgradeRequired",
-        "PreconditionRequired",
-        "TooManyRequests",
-        "RequestHeaderFieldsTooLarge",
-        "UnavailableForLegalReasons",
-        "InternalServerError",
-        "NotImplemented",
-        "BadGateway",
-        "ServiceUnavailable",
-        "GatewayTimeout",
-        "HttpVersionNotSupported",
-        "VariantAlsoNegotiates",
-        "InsufficientStorage",
-        "LoopDetected",
-        "NotExtended",
-        "NetworkAuthenticationRequired",
-      ],
-      type: "string",
-    },
-    auditImages: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          boundingBox: {
-            type: "object",
+    type: 'object',
+    properties: {
+        responseMetadata: {
+            type: 'object',
             properties: {
-              height: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              left: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              top: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
-              width: {
-                type: "number",
-                format: "float",
-                nullable: true,
-              },
+                requestId: {
+                    type: 'string',
+                    nullable: true
+                },
+                metadata: {
+                    type: 'object',
+                    additionalProperties: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    nullable: true,
+                    readOnly: true
+                },
+                checksumAlgorithm: {
+                    enum: ['NONE', 'CRC32C', 'CRC32', 'SHA256', 'SHA1', 'CRC64NVME'],
+                    type: 'string'
+                },
+                checksumValidationStatus: {
+                    enum: ['NOT_VALIDATED', 'PENDING_RESPONSE_READ', 'SUCCESSFUL', 'INVALID'],
+                    type: 'string'
+                }
             },
-            additionalProperties: false,
-          },
-          bytes: {
-            type: "object",
+            additionalProperties: false
+        },
+        contentLength: {
+            type: 'integer',
+            format: 'int64'
+        },
+        httpStatusCode: {
+            enum: ['Continue', 'SwitchingProtocols', 'Processing', 'EarlyHints', 'OK', 'Created', 'Accepted', 'NonAuthoritativeInformation', 'NoContent', 'ResetContent', 'PartialContent', 'MultiStatus', 'AlreadyReported', 'IMUsed', 'MultipleChoices', 'MovedPermanently', 'Found', 'SeeOther', 'NotModified', 'UseProxy', 'Unused', 'TemporaryRedirect', 'PermanentRedirect', 'BadRequest', 'Unauthorized', 'PaymentRequired', 'Forbidden', 'NotFound', 'MethodNotAllowed', 'NotAcceptable', 'ProxyAuthenticationRequired', 'RequestTimeout', 'Conflict', 'Gone', 'LengthRequired', 'PreconditionFailed', 'RequestEntityTooLarge', 'RequestUriTooLong', 'UnsupportedMediaType', 'RequestedRangeNotSatisfiable', 'ExpectationFailed', 'MisdirectedRequest', 'UnprocessableEntity', 'Locked', 'FailedDependency', 'UpgradeRequired', 'PreconditionRequired', 'TooManyRequests', 'RequestHeaderFieldsTooLarge', 'UnavailableForLegalReasons', 'InternalServerError', 'NotImplemented', 'BadGateway', 'ServiceUnavailable', 'GatewayTimeout', 'HttpVersionNotSupported', 'VariantAlsoNegotiates', 'InsufficientStorage', 'LoopDetected', 'NotExtended', 'NetworkAuthenticationRequired'],
+            type: 'string'
+        },
+        auditImages: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    boundingBox: {
+                        type: 'object',
+                        properties: {
+                            height: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            left: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            top: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            },
+                            width: {
+                                type: 'number',
+                                format: 'float',
+                                nullable: true
+                            }
+                        },
+                        additionalProperties: false
+                    },
+                    bytes: {
+                        type: 'string',
+                        format: 'binary',
+                        nullable: true
+                    },
+                    s3Object: {
+                        type: 'object',
+                        properties: {
+                            bucket: {
+                                type: 'string',
+                                nullable: true
+                            },
+                            name: {
+                                type: 'string',
+                                nullable: true
+                            },
+                            version: {
+                                type: 'string',
+                                nullable: true
+                            }
+                        },
+                        additionalProperties: false
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        },
+        confidence: {
+            type: 'number',
+            format: 'float',
+            nullable: true
+        },
+        referenceImage: {
+            type: 'object',
             properties: {
-              canTimeout: {
-                type: "boolean",
-                readOnly: true,
-              },
-              readTimeout: {
-                type: "integer",
-                format: "int32",
-              },
-              writeTimeout: {
-                type: "integer",
-                format: "int32",
-              },
-              canRead: {
-                type: "boolean",
-                readOnly: true,
-              },
-              canSeek: {
-                type: "boolean",
-                readOnly: true,
-              },
-              canWrite: {
-                type: "boolean",
-                readOnly: true,
-              },
-              capacity: {
-                type: "integer",
-                format: "int32",
-              },
-              length: {
-                type: "integer",
-                format: "int64",
-                readOnly: true,
-              },
-              position: {
-                type: "integer",
-                format: "int64",
-              },
+                boundingBox: {
+                    type: 'object',
+                    properties: {
+                        height: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        left: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        top: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        width: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        }
+                    },
+                    additionalProperties: false
+                },
+                bytes: {
+                    type: 'string',
+                    format: 'binary',
+                    nullable: true
+                },
+                s3Object: {
+                    type: 'object',
+                    properties: {
+                        bucket: {
+                            type: 'string',
+                            nullable: true
+                        },
+                        name: {
+                            type: 'string',
+                            nullable: true
+                        },
+                        version: {
+                            type: 'string',
+                            nullable: true
+                        }
+                    },
+                    additionalProperties: false
+                }
             },
-            additionalProperties: false,
-          },
-          s3Object: {
-            type: "object",
+            additionalProperties: false
+        },
+        sessionId: {
+            type: 'string',
+            nullable: true
+        },
+        status: {
+            type: 'object',
             properties: {
-              bucket: {
-                type: "string",
-                nullable: true,
-              },
-              name: {
-                type: "string",
-                nullable: true,
-              },
-              version: {
-                type: "string",
-                nullable: true,
-              },
+                value: {
+                    type: 'string',
+                    nullable: true,
+                    readOnly: true
+                }
             },
-            additionalProperties: false,
-          },
-        },
-        additionalProperties: false,
-      },
-      nullable: true,
+            additionalProperties: false
+        }
     },
-    confidence: {
-      type: "number",
-      format: "float",
-      nullable: true,
-    },
-    referenceImage: {
-      type: "object",
-      properties: {
-        boundingBox: {
-          type: "object",
-          properties: {
-            height: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-            left: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-            top: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-            width: {
-              type: "number",
-              format: "float",
-              nullable: true,
-            },
-          },
-          additionalProperties: false,
-        },
-        bytes: {
-          type: "object",
-          properties: {
-            canTimeout: {
-              type: "boolean",
-              readOnly: true,
-            },
-            readTimeout: {
-              type: "integer",
-              format: "int32",
-            },
-            writeTimeout: {
-              type: "integer",
-              format: "int32",
-            },
-            canRead: {
-              type: "boolean",
-              readOnly: true,
-            },
-            canSeek: {
-              type: "boolean",
-              readOnly: true,
-            },
-            canWrite: {
-              type: "boolean",
-              readOnly: true,
-            },
-            capacity: {
-              type: "integer",
-              format: "int32",
-            },
-            length: {
-              type: "integer",
-              format: "int64",
-              readOnly: true,
-            },
-            position: {
-              type: "integer",
-              format: "int64",
-            },
-          },
-          additionalProperties: false,
-        },
-        s3Object: {
-          type: "object",
-          properties: {
-            bucket: {
-              type: "string",
-              nullable: true,
-            },
-            name: {
-              type: "string",
-              nullable: true,
-            },
-            version: {
-              type: "string",
-              nullable: true,
-            },
-          },
-          additionalProperties: false,
-        },
-      },
-      additionalProperties: false,
-    },
-    sessionId: {
-      type: "string",
-      nullable: true,
-    },
-    status: {
-      type: "object",
-      properties: {
-        value: {
-          type: "string",
-          nullable: true,
-          readOnly: true,
-        },
-      },
-      additionalProperties: false,
-    },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $Amazon_Rekognition_Model_ImageQuality = {
@@ -1550,7 +1254,8 @@ export const $Amazon_Runtime_ResponseMetadata = {
         metadata: {
             type: 'object',
             additionalProperties: {
-                type: 'string'
+                type: 'string',
+                nullable: true
             },
             nullable: true,
             readOnly: true
@@ -1773,6 +1478,7 @@ export const $PagedResultDto_TelephoneDto = {
         items: {
             type: 'array',
             items: {
+                required: ['firstName', 'id', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName'],
                 type: 'object',
                 properties: {
                     id: {
@@ -1883,50 +1589,6 @@ export const $PagedResultDto_TravellerListDto = {
   additionalProperties: false,
 } as const;
 
-export const $System_IO_MemoryStream = {
-  type: "object",
-  properties: {
-    canTimeout: {
-      type: "boolean",
-      readOnly: true,
-    },
-    readTimeout: {
-      type: "integer",
-      format: "int32",
-    },
-    writeTimeout: {
-      type: "integer",
-      format: "int32",
-    },
-    canRead: {
-      type: "boolean",
-      readOnly: true,
-    },
-    canSeek: {
-      type: "boolean",
-      readOnly: true,
-    },
-    canWrite: {
-      type: "boolean",
-      readOnly: true,
-    },
-    capacity: {
-      type: "integer",
-      format: "int32",
-    },
-    length: {
-      type: "integer",
-      format: "int64",
-      readOnly: true,
-    },
-    position: {
-      type: "integer",
-      format: "int64",
-    },
-  },
-  additionalProperties: false,
-} as const;
-
 export const $System_Net_HttpStatusCode = {
   enum: [
     "Continue",
@@ -1995,6 +1657,7 @@ export const $System_Net_HttpStatusCode = {
 } as const;
 
 export const $UniRefund_TravellerService_Addresses_AddressCreateDto = {
+    required: ['fullAddress', 'isPrimary', 'type'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -2059,8 +1722,9 @@ export const $UniRefund_TravellerService_Addresses_AddressUpdateDto = {
             type: 'string',
             nullable: true
         },
-        primaryFlag: {
-            type: 'boolean'
+        isPrimary: {
+            type: 'boolean',
+            nullable: true
         },
         type: {
             enum: ['HOME', 'OFFICE'],
@@ -2072,6 +1736,7 @@ export const $UniRefund_TravellerService_Addresses_AddressUpdateDto = {
 } as const;
 
 export const $UniRefund_TravellerService_Emails_EmailCreateDto = {
+    required: ['emailAddress', 'isPrimary', 'type'],
     type: 'object',
     properties: {
         emailAddress: {
@@ -2130,8 +1795,9 @@ export const $UniRefund_TravellerService_Emails_EmailUpdateDto = {
             type: 'string',
             nullable: true
         },
-        primaryFlag: {
-            type: 'boolean'
+        isPrimary: {
+            type: 'boolean',
+            nullable: true
         },
         type: {
             enum: ['WORK', 'PERSONAL'],
@@ -3188,6 +2854,7 @@ export const $UniRefund_TravellerService_Rekognition_CompareFacesRequestDto = {
 } as const;
 
 export const $UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
+    required: ['isPrimary', 'localNumber', 'type'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -3284,8 +2951,9 @@ export const $UniRefund_TravellerService_Telephones_TelephoneUpdateDto = {
             type: 'string',
             nullable: true
         },
-        primaryFlag: {
-            type: 'boolean'
+        isPrimary: {
+            type: 'boolean',
+            nullable: true
         },
         type: {
             enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
@@ -3297,190 +2965,200 @@ export const $UniRefund_TravellerService_Telephones_TelephoneUpdateDto = {
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto = {
-  type: "object",
-  properties: {
-    firstName: {
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    travelDocumentNumber: {
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    issueDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    expirationDate: {
-      type: "string",
-      format: "date-time",
-    },
-    residenceCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    identificationType: {
-      enum: ["IdCard", "Passport"],
-      type: "string",
+    required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+    type: 'object',
+    properties: {
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        travelDocumentNumber: {
+            type: 'string',
+            nullable: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        issueDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        expirationDate: {
+            type: 'string',
+            description: ` nullable because if we make it required csharp will autofill it with DateTime.MinValue
+when the client does not send it`,
+            format: 'date-time'
+        },
+        residenceCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        identificationType: {
+            enum: ['IdCard', 'Passport'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentResponseDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    travellerId: {
-      type: "string",
-      format: "uuid",
+    required: ['id', 'travellerId'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        travellerId: {
+            type: 'string',
+            format: 'uuid'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto = {
-  type: "object",
-  properties: {
-    travellerId: {
-      type: "string",
-      format: "uuid",
-    },
-    firstName: {
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    fullName: {
-      type: "string",
-      nullable: true,
-      readOnly: true,
-    },
-    travelDocumentNumber: {
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    issueDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    expirationDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    identificationType: {
-      enum: ["IdCard", "Passport"],
-      type: "string",
-    },
-    residenceCountryCode2: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      type: "string",
-      nullable: true,
-    },
-    residenceCountryName: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryName: {
-      type: "string",
-      nullable: true,
+    required: ['expirationDate', 'firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber', 'travellerId'],
+    type: 'object',
+    properties: {
+        travellerId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        fullName: {
+            type: 'string',
+            nullable: true,
+            readOnly: true
+        },
+        travelDocumentNumber: {
+            type: 'string',
+            nullable: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        issueDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        expirationDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        identificationType: {
+            enum: ['IdCard', 'Passport'],
+            type: 'string'
+        },
+        residenceCountryCode2: {
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            type: 'string',
+            nullable: true
+        },
+        residenceCountryName: {
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryName: {
+            type: 'string',
+            nullable: true
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    travelDocumentNumber: {
-      type: "string",
-      nullable: true,
-    },
-    residenceCountryCode2: {
-      type: "string",
-      nullable: true,
-    },
-    residenceCountryName: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryName: {
-      type: "string",
-      nullable: true,
-    },
-    firstName: {
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    fullName: {
-      type: "string",
-      nullable: true,
-      readOnly: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    issueDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    expirationDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    identificationType: {
-      enum: ["IdCard", "Passport"],
-      type: "string",
+    required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        travelDocumentNumber: {
+            type: 'string',
+            nullable: true
+        },
+        residenceCountryCode2: {
+            type: 'string',
+            nullable: true
+        },
+        residenceCountryName: {
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryName: {
+            type: 'string',
+            nullable: true
+        },
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        fullName: {
+            type: 'string',
+            nullable: true,
+            readOnly: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        issueDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        expirationDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        identificationType: {
+            enum: ['IdCard', 'Passport'],
+            type: 'string'
+        }
     },
   },
   additionalProperties: false,
@@ -3543,126 +3221,138 @@ export const $UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocum
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentResponseDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    travellerId: {
-      type: "string",
-      format: "uuid",
+    required: ['id', 'travellerId'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        travellerId: {
+            type: 'string',
+            format: 'uuid'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_CreateTravellerDto = {
-  type: "object",
-  properties: {
-    extraProperties: {
-      type: "object",
-      additionalProperties: {},
-      nullable: true,
-      readOnly: true,
-    },
-    firstName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    languagePreferenceCultureName: {
-      maxLength: 255,
-      minLength: 0,
-      type: "string",
-      nullable: true,
-    },
-    gender: {
-      enum: ["MALE", "FEMALE", "OTHER", "NOTSPECIFIED"],
-      type: "string",
-    },
-    travellerDocument: {
-      type: "object",
-      properties: {
+    required: ['firstName', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'travellerDocument'],
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
         firstName: {
-          type: "string",
-          nullable: true,
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
         },
         lastName: {
-          type: "string",
-          nullable: true,
-        },
-        travelDocumentNumber: {
-          type: "string",
-          nullable: true,
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
         },
         birthDate: {
-          type: "string",
-          format: "date-time",
-          nullable: true,
-        },
-        issueDate: {
-          type: "string",
-          format: "date-time",
-          nullable: true,
-        },
-        expirationDate: {
-          type: "string",
-          format: "date-time",
-        },
-        residenceCountryCode2: {
-          maxLength: 2,
-          minLength: 2,
-          type: "string",
-          nullable: true,
+            type: 'string',
+            format: 'date-time',
+            nullable: true
         },
         nationalityCountryCode2: {
-          maxLength: 2,
-          minLength: 2,
-          type: "string",
-          nullable: true,
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
         },
-        identificationType: {
-          enum: ["IdCard", "Passport"],
-          type: "string",
+        languagePreferenceCultureName: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            description: `Preferred UI language of the traveller as a culture name (e.g., \`en-US\`, \`tr-TR\`).
+Must match one of the ABP-configured languages returned by \`ILanguageProvider\`.`,
+            nullable: true,
+            example: 'en-US'
         },
-      },
-      additionalProperties: false,
+        gender: {
+            enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
+            type: 'string'
+        },
+        travellerDocument: {
+            required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+            type: 'object',
+            properties: {
+                firstName: {
+                    type: 'string',
+                    nullable: true
+                },
+                lastName: {
+                    type: 'string',
+                    nullable: true
+                },
+                travelDocumentNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                birthDate: {
+                    type: 'string',
+                    format: 'date-time',
+                    nullable: true
+                },
+                issueDate: {
+                    type: 'string',
+                    format: 'date-time',
+                    nullable: true
+                },
+                expirationDate: {
+                    type: 'string',
+                    description: ` nullable because if we make it required csharp will autofill it with DateTime.MinValue
+when the client does not send it`,
+                    format: 'date-time'
+                },
+                residenceCountryCode2: {
+                    maxLength: 2,
+                    minLength: 2,
+                    type: 'string',
+                    nullable: true
+                },
+                nationalityCountryCode2: {
+                    maxLength: 2,
+                    minLength: 2,
+                    type: 'string',
+                    nullable: true
+                },
+                identificationType: {
+                    enum: ['IdCard', 'Passport'],
+                    type: 'string'
+                }
+            },
+            additionalProperties: false
+        }
     },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_CreateTravellerResponseDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
+    required: ['id'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponentsDto = {
+    required: ['addresses', 'emails', 'firstName', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'telephones', 'travellerDocuments'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -3707,6 +3397,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         travellerDocuments: {
             type: 'array',
             items: {
+                required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
                 type: 'object',
                 properties: {
                     firstName: {
@@ -3733,6 +3424,8 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
                     },
                     expirationDate: {
                         type: 'string',
+                        description: ` nullable because if we make it required csharp will autofill it with DateTime.MinValue
+when the client does not send it`,
                         format: 'date-time'
                     },
                     residenceCountryCode2: {
@@ -3759,6 +3452,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         addresses: {
             type: 'array',
             items: {
+                required: ['fullAddress', 'isPrimary', 'type'],
                 type: 'object',
                 properties: {
                     extraProperties: {
@@ -3788,6 +3482,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         telephones: {
             type: 'array',
             items: {
+                required: ['isPrimary', 'localNumber', 'type'],
                 type: 'object',
                 properties: {
                     extraProperties: {
@@ -3829,6 +3524,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         emails: {
             type: 'array',
             items: {
+                required: ['emailAddress', 'isPrimary', 'type'],
                 type: 'object',
                 properties: {
                     emailAddress: {
@@ -3854,6 +3550,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
+    required: ['firstName', 'id', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName'],
     type: 'object',
     properties: {
         id: {
@@ -3897,6 +3594,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
         travellerDocuments: {
             type: 'array',
             items: {
+                required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -4063,83 +3761,85 @@ export const $UniRefund_TravellerService_Travellers_TravellerDocumentNumberDto =
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    travellerDocuments: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          travellerId: {
-            type: "string",
-            format: "uuid",
-          },
-          firstName: {
-            type: "string",
-            nullable: true,
-          },
-          lastName: {
-            type: "string",
-            nullable: true,
-          },
-          fullName: {
-            type: "string",
-            nullable: true,
-            readOnly: true,
-          },
-          travelDocumentNumber: {
-            type: "string",
-            nullable: true,
-          },
-          birthDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          issueDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          expirationDate: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
-          },
-          identificationType: {
-            enum: ["IdCard", "Passport"],
-            type: "string",
-          },
-          residenceCountryCode2: {
-            type: "string",
-            nullable: true,
-          },
-          nationalityCountryCode2: {
-            type: "string",
-            nullable: true,
-          },
-          residenceCountryName: {
-            type: "string",
-            nullable: true,
-          },
-          nationalityCountryName: {
-            type: "string",
-            nullable: true,
-          },
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
         },
-        additionalProperties: false,
-      },
-      nullable: true,
+        travellerDocuments: {
+            type: 'array',
+            items: {
+                required: ['expirationDate', 'firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber', 'travellerId'],
+                type: 'object',
+                properties: {
+                    travellerId: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    firstName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    lastName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    fullName: {
+                        type: 'string',
+                        nullable: true,
+                        readOnly: true
+                    },
+                    travelDocumentNumber: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    birthDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    issueDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    expirationDate: {
+                        type: 'string',
+                        format: 'date-time',
+                        nullable: true
+                    },
+                    identificationType: {
+                        enum: ['IdCard', 'Passport'],
+                        type: 'string'
+                    },
+                    residenceCountryCode2: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    nationalityCountryCode2: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    residenceCountryName: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    nationalityCountryName: {
+                        type: 'string',
+                        nullable: true
+                    }
+                },
+                additionalProperties: false
+            },
+            nullable: true
+        }
     },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto = {
+    required: ['firstName', 'lastName'],
     type: 'object',
     properties: {
         firstName: {
@@ -4231,136 +3931,187 @@ export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto =
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerListDto = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
+    required: ['firstName', 'id', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        fullName: {
+            type: 'string',
+            nullable: true,
+            readOnly: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryName: {
+            type: 'string',
+            nullable: true
+        },
+        languagePreferenceCultureName: {
+            type: 'string',
+            nullable: true
+        },
+        gender: {
+            enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
+            type: 'string'
+        },
+        identificationType: {
+            enum: ['IdCard', 'Passport'],
+            type: 'string'
+        },
+        userAccountId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        hasUserAccount: {
+            type: 'boolean',
+            readOnly: true
+        }
     },
-    firstName: {
-      type: "string",
-      nullable: true,
+    additionalProperties: false
+} as const;
+
+export const $UniRefund_TravellerService_Travellers_UpdateTravellerDto = {
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        firstName: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        languagePreferenceCultureName: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        gender: {
+            enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
+            type: 'string'
+        }
     },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    fullName: {
-      type: "string",
-      nullable: true,
-      readOnly: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryName: {
-      type: "string",
-      nullable: true,
-    },
-    languagePreferenceCultureName: {
-      type: "string",
-      nullable: true,
-    },
-    gender: {
-      enum: ["MALE", "FEMALE", "OTHER", "NOTSPECIFIED"],
-      type: "string",
-    },
-    identificationType: {
-      enum: ["IdCard", "Passport"],
-      type: "string",
-    },
-    userAccountId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    hasUserAccount: {
-      type: "boolean",
-      readOnly: true,
-    },
-  },
-  additionalProperties: false,
+    additionalProperties: false
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto = {
-  type: "object",
-  properties: {
-    extraProperties: {
-      type: "object",
-      additionalProperties: {},
-      nullable: true,
-      readOnly: true,
-    },
-    id: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
-    },
-    travelDocumentNumber: {
-      type: "string",
-      nullable: true,
-    },
-    nationalityCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    firstName: {
-      type: "string",
-      nullable: true,
-    },
-    lastName: {
-      type: "string",
-      nullable: true,
-    },
-    residenceCountryCode2: {
-      maxLength: 2,
-      minLength: 2,
-      type: "string",
-      nullable: true,
-    },
-    expirationDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    birthDate: {
-      type: "string",
-      format: "date-time",
-      nullable: true,
-    },
-    creatorId: {
-      type: "string",
-      format: "uuid",
-      nullable: true,
+    required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        id: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        travelDocumentNumber: {
+            type: 'string',
+            nullable: true
+        },
+        nationalityCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        firstName: {
+            type: 'string',
+            nullable: true
+        },
+        lastName: {
+            type: 'string',
+            nullable: true
+        },
+        residenceCountryCode2: {
+            maxLength: 2,
+            minLength: 2,
+            type: 'string',
+            nullable: true
+        },
+        expirationDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        birthDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        creatorId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        }
     },
   },
   additionalProperties: false,
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentResponseDto = {
-  type: "object",
-  properties: {
-    extraProperties: {
-      type: "object",
-      additionalProperties: {},
-      nullable: true,
-      readOnly: true,
-    },
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    travelDocumentNumber: {
-      type: "string",
-      nullable: true,
+    required: ['id', 'travelDocumentNumber'],
+    type: 'object',
+    properties: {
+        extraProperties: {
+            type: 'object',
+            additionalProperties: {},
+            nullable: true,
+            readOnly: true
+        },
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        travelDocumentNumber: {
+            type: 'string',
+            nullable: true
+        }
     },
   },
   additionalProperties: false,

@@ -14,7 +14,7 @@ export type Amazon_Rekognition_LivenessSessionStatus = {
 
 export type Amazon_Rekognition_Model_AuditImage = {
   boundingBox?: Amazon_Rekognition_Model_BoundingBox;
-  bytes?: System_IO_MemoryStream;
+  bytes?: (Blob | File) | null;
   s3Object?: Amazon_Rekognition_Model_S3Object;
 };
 
@@ -122,7 +122,7 @@ export type Amazon_Runtime_CoreChecksumAlgorithm = "NONE" | "CRC32C" | "CRC32" |
 export type Amazon_Runtime_ResponseMetadata = {
   requestId?: string | null;
   readonly metadata?: {
-    [key: string]: string;
+    [key: string]: string | null;
   } | null;
   checksumAlgorithm?: Amazon_Runtime_CoreChecksumAlgorithm;
   checksumValidationStatus?: Amazon_Runtime_ChecksumValidationStatus;
@@ -151,18 +151,6 @@ export type PagedResultDto_TelephoneDto = {
 export type PagedResultDto_TravellerListDto = {
   items?: Array<UniRefund_TravellerService_Travellers_TravellerListDto> | null;
   totalCount?: number;
-};
-
-export type System_IO_MemoryStream = {
-  readonly canTimeout?: boolean;
-  readTimeout?: number;
-  writeTimeout?: number;
-  readonly canRead?: boolean;
-  readonly canSeek?: boolean;
-  readonly canWrite?: boolean;
-  capacity?: number;
-  readonly length?: number;
-  position?: number;
 };
 
 export type System_Net_HttpStatusCode =
@@ -229,12 +217,9 @@ export type System_Net_HttpStatusCode =
   | "NetworkAuthenticationRequired";
 
 export type UniRefund_TravellerService_Addresses_AddressCreateDto = {
-  readonly extraProperties?: {
-    [key: string]: unknown;
-  } | null;
-  fullAddress?: string | null;
-  primaryFlag?: boolean;
-  type?: UniRefund_TravellerService_Enums_AddressType;
+  fullAddress: string | null;
+  isPrimary: boolean;
+  type: UniRefund_TravellerService_Enums_AddressType;
 };
 
 export type UniRefund_TravellerService_Addresses_AddressDto = {
@@ -244,19 +229,18 @@ export type UniRefund_TravellerService_Addresses_AddressDto = {
   type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
-export type UniRefund_TravellerService_Addresses_AddressUpdateDto = {
-  readonly extraProperties?: {
-    [key: string]: unknown;
-  } | null;
+export type UniRefund_TravellerService_Addresses_AddressUpSertDto = {
+  addressId?: string | null;
   fullAddress?: string | null;
-  primaryFlag?: boolean;
+  isPrimary?: boolean | null;
   type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
 export type UniRefund_TravellerService_Emails_EmailCreateDto = {
-  emailAddress?: string | null;
-  primaryFlag?: boolean;
-  type?: UniRefund_TravellerService_Enums_EmailType;
+  id?: string | null;
+  emailAddress: string | null;
+  isPrimary: boolean;
+  type: UniRefund_TravellerService_Enums_EmailType;
 };
 
 export type UniRefund_TravellerService_Emails_EmailDto = {
@@ -266,12 +250,10 @@ export type UniRefund_TravellerService_Emails_EmailDto = {
   type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
-export type UniRefund_TravellerService_Emails_EmailUpdateDto = {
-  readonly extraProperties?: {
-    [key: string]: unknown;
-  } | null;
+export type UniRefund_TravellerService_Emails_EmailUpSertDto = {
+  emailId?: string | null;
   emailAddress?: string | null;
-  primaryFlag?: boolean;
+  isPrimary?: boolean | null;
   type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
@@ -510,14 +492,11 @@ export type UniRefund_TravellerService_Rekognition_CompareFacesRequestDto = {
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
-  readonly extraProperties?: {
-    [key: string]: unknown;
-  } | null;
-  areaCode?: string | null;
-  localNumber?: string | null;
   ituCountryCode?: string | null;
-  primaryFlag?: boolean;
-  type?: UniRefund_TravellerService_Enums_TelephoneType;
+  areaCode?: string | null;
+  localNumber: string | null;
+  isPrimary: boolean;
+  type: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
@@ -529,64 +508,66 @@ export type UniRefund_TravellerService_Telephones_TelephoneDto = {
   type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
-export type UniRefund_TravellerService_Telephones_TelephoneUpdateDto = {
-  readonly extraProperties?: {
-    [key: string]: unknown;
-  } | null;
+export type UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
+  telephoneId?: string | null;
+  ituCountryCode?: string | null;
   areaCode?: string | null;
   localNumber?: string | null;
-  ituCountryCode?: string | null;
-  primaryFlag?: boolean;
+  isPrimary?: boolean | null;
   type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto = {
-  firstName?: string | null;
-  lastName?: string | null;
-  travelDocumentNumber?: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  travelDocumentNumber: string | null;
   birthDate?: string | null;
   issueDate?: string | null;
+  /**
+   *  nullable because if we make it required csharp will autofill it with DateTime.MinValue
+   * when the client does not send it
+   */
   expirationDate?: string;
-  residenceCountryCode2?: string | null;
-  nationalityCountryCode2?: string | null;
-  identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
+  residenceCountryCode2: string | null;
+  nationalityCountryCode2: string | null;
+  identificationType: UniRefund_TravellerService_Enums_IdentificationType;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentResponseDto = {
-  id?: string;
-  travellerId?: string;
+  id: string;
+  travellerId: string;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto = {
-  travellerId?: string;
-  firstName?: string | null;
-  lastName?: string | null;
+  travellerId: string;
+  firstName: string | null;
+  lastName: string | null;
   readonly fullName?: string | null;
-  travelDocumentNumber?: string | null;
+  travelDocumentNumber: string | null;
   birthDate?: string | null;
   issueDate?: string | null;
-  expirationDate?: string | null;
-  identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
-  residenceCountryCode2?: string | null;
-  nationalityCountryCode2?: string | null;
+  expirationDate: string | null;
+  identificationType: UniRefund_TravellerService_Enums_IdentificationType;
+  residenceCountryCode2: string | null;
+  nationalityCountryCode2: string | null;
   residenceCountryName?: string | null;
   nationalityCountryName?: string | null;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
-  id?: string;
-  travelDocumentNumber?: string | null;
-  residenceCountryCode2?: string | null;
-  residenceCountryName?: string | null;
-  nationalityCountryCode2?: string | null;
-  nationalityCountryName?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
+  id: string;
+  travelDocumentNumber: string | null;
+  residenceCountryCode2: string | null;
+  residenceCountryName: string | null;
+  nationalityCountryCode2: string | null;
+  nationalityCountryName: string | null;
+  firstName: string | null;
+  lastName: string | null;
   readonly fullName?: string | null;
   birthDate?: string | null;
   issueDate?: string | null;
-  expirationDate?: string | null;
-  identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
+  expirationDate: string | null;
+  identificationType: UniRefund_TravellerService_Enums_IdentificationType;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto = {
@@ -603,57 +584,62 @@ export type UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumen
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentResponseDto = {
-  id?: string;
-  travellerId?: string;
+  id: string;
+  travellerId: string;
 };
 
 export type UniRefund_TravellerService_Travellers_CreateTravellerDto = {
   readonly extraProperties?: {
     [key: string]: unknown;
   } | null;
-  firstName?: string | null;
-  lastName?: string | null;
+  firstName: string | null;
+  lastName: string | null;
   birthDate?: string | null;
-  nationalityCountryCode2?: string | null;
-  languagePreferenceCultureName?: string | null;
+  nationalityCountryCode2: string | null;
+  /**
+   * Preferred UI language of the traveller as a culture name (e.g., `en-US`, `tr-TR`).
+   * Must match one of the ABP-configured languages returned by `ILanguageProvider`.
+   */
+  languagePreferenceCultureName: string | null;
   gender?: UniRefund_TravellerService_Enums_GenderType;
-  travellerDocument?: UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto;
+  travellerDocument: UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto;
 };
 
 export type UniRefund_TravellerService_Travellers_CreateTravellerResponseDto = {
-  id?: string;
+  id: string;
 };
 
 export type UniRefund_TravellerService_Travellers_CreateTravellerWithComponentsDto = {
   readonly extraProperties?: {
     [key: string]: unknown;
   } | null;
-  firstName?: string | null;
-  lastName?: string | null;
+  firstName: string | null;
+  lastName: string | null;
   birthDate?: string | null;
-  nationalityCountryCode2?: string | null;
-  languagePreferenceCultureName?: string | null;
+  nationalityCountryCode2: string | null;
+  languagePreferenceCultureName: string | null;
   gender?: UniRefund_TravellerService_Enums_GenderType;
-  travellerDocuments?: Array<UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto> | null;
-  addresses?: Array<UniRefund_TravellerService_Addresses_AddressCreateDto> | null;
-  telephones?: Array<UniRefund_TravellerService_Telephones_TelephoneCreateDto> | null;
-  emails?: Array<UniRefund_TravellerService_Emails_EmailCreateDto> | null;
+  travellerDocuments: Array<UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto> | null;
+  addresses: Array<UniRefund_TravellerService_Addresses_AddressCreateDto> | null;
+  telephones: Array<UniRefund_TravellerService_Telephones_TelephoneCreateDto> | null;
+  emails: Array<UniRefund_TravellerService_Emails_EmailCreateDto> | null;
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
-  id?: string;
-  firstName?: string | null;
-  lastName?: string | null;
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
   birthDate?: string | null;
-  nationalityCountryCode2?: string | null;
-  languagePreferenceCultureName?: string | null;
+  nationalityCountryCode2: string | null;
+  nationalityCountryName: string | null;
+  languagePreferenceCultureName: string | null;
   gender?: UniRefund_TravellerService_Enums_GenderType;
   userAccountId?: string | null;
   readonly hasUserAccount?: boolean;
   travellerDocuments?: Array<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto> | null;
-  addresses?: Array<UniRefund_TravellerService_Addresses_AddressDto> | null;
-  emails?: Array<UniRefund_TravellerService_Emails_EmailDto> | null;
-  telephones?: Array<UniRefund_TravellerService_Telephones_TelephoneDto> | null;
+  primaryAddress?: UniRefund_TravellerService_Addresses_AddressDto;
+  primaryEmail?: UniRefund_TravellerService_Emails_EmailDto;
+  primaryTelephone?: UniRefund_TravellerService_Telephones_TelephoneDto;
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerDocumentNumberDto = {
@@ -667,8 +653,8 @@ export type UniRefund_TravellerService_Travellers_TravellerDto = {
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto = {
-  firstName?: string | null;
-  lastName?: string | null;
+  firstName: string | null;
+  lastName: string | null;
   readonly fullName?: string | null;
   primaryAddress?: UniRefund_TravellerService_Addresses_AddressDto;
   primaryEmail?: UniRefund_TravellerService_Emails_EmailDto;
@@ -676,14 +662,14 @@ export type UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto = {
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerListDto = {
-  id?: string;
-  firstName?: string | null;
-  lastName?: string | null;
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
   readonly fullName?: string | null;
   birthDate?: string | null;
-  nationalityCountryCode2?: string | null;
-  nationalityCountryName?: string | null;
-  languagePreferenceCultureName?: string | null;
+  nationalityCountryCode2: string | null;
+  nationalityCountryName: string | null;
+  languagePreferenceCultureName: string | null;
   gender?: UniRefund_TravellerService_Enums_GenderType;
   identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
   userAccountId?: string | null;
@@ -695,11 +681,11 @@ export type UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto = {
     [key: string]: unknown;
   } | null;
   id?: string | null;
-  travelDocumentNumber?: string | null;
-  nationalityCountryCode2?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  residenceCountryCode2?: string | null;
+  travelDocumentNumber: string | null;
+  nationalityCountryCode2: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  residenceCountryCode2: string | null;
   expirationDate?: string | null;
   birthDate?: string | null;
   creatorId?: string | null;
@@ -709,8 +695,8 @@ export type UniRefund_TravellerService_Travellers_UpsertTravellerDocumentRespons
   readonly extraProperties?: {
     [key: string]: unknown;
   } | null;
-  id?: string;
-  travelDocumentNumber?: string | null;
+  id: string;
+  travelDocumentNumber: string | null;
 };
 
 export type Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationAuthConfigurationDto = {
