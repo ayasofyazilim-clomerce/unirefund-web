@@ -1,14 +1,14 @@
 "use client";
-import { $UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressDto } from "@ayasofyazilim/saas/LocationService";
-import { createZodObject } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type { AutoFormInputComponentProps } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import { createFieldConfigWithResource, CustomCombobox } from "@repo/ayasofyazilim-ui/organisms/auto-form";
-import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { CustomCombobox as SchemaFormCustomCombobox } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import type { Dispatch, SetStateAction } from "react";
-import type { AppLanguageDataResourceType } from "src/language-data/unirefund/language-data";
-import type { CityDto, CountryDto, DistrictDto, NeighborhoodDto, RegionDto, SelectedAddressField } from "./types";
-import { getCity, getDistrict, getNeighborhood, getRegion } from "./utils";
+import {$UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressDto} from "@ayasofyazilim/saas/LocationService";
+import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import {createFieldConfigWithResource, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";
+import type {WidgetProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {CustomCombobox as SchemaFormCustomCombobox} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type {Dispatch, SetStateAction} from "react";
+import type {AppLanguageDataResourceType} from "src/language-data/unirefund/language-data";
+import type {CityDto, CountryDto, DistrictDto, NeighborhoodDto, RegionDto, SelectedAddressField} from "./types";
+import {getCity, getDistrict, getNeighborhood, getRegion} from "./utils";
 
 const AddressFormFields: AddressFormFieldsType[] = [
   "countryId",
@@ -158,23 +158,23 @@ export function handleOnAddressValueChange({
           ...current,
           regionId: response,
         }));
-        void getCity({ regionId: response, setCityList, languageData });
+        void getCity({regionId: response, setCityList, languageData});
       }
     });
   } else if (selectedFields.regionId && !regionList) {
-    void getCity({ regionId: val.regionId, setCityList, languageData });
+    void getCity({regionId: val.regionId, setCityList, languageData});
   } else if (val.regionId && selectedFields.regionId === "" && regionList) {
     setSelectedFields((current) => ({
       ...current,
       regionId: val.regionId,
     }));
-    void getCity({ regionId: val.regionId, setCityList, languageData });
+    void getCity({regionId: val.regionId, setCityList, languageData});
   } else if (val.cityId && val.cityId !== selectedFields.cityId) {
     setSelectedFields((current) => ({
       ...current,
       cityId: val.cityId,
     }));
-    void getDistrict({ cityId: val.cityId, setDistrictList, languageData });
+    void getDistrict({cityId: val.cityId, setDistrictList, languageData});
   } else if (val.districtId && val.districtId !== selectedFields.districtId) {
     setSelectedFields((current) => ({
       ...current,
@@ -213,8 +213,8 @@ export function getAddressSettingsForSchemaForm(params: {
     cityId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<CityDto>
         {...props}
-        emptyValue={params.languageData["City.Select"]}
-        label={params.languageData["Form.address.cityId"]}
+        emptyValue={params.languageData["adminAreaLevel1.label"]}
+        label={params.languageData["adminAreaLevel1.label"]}
         list={params.cityList}
         selectIdentifier="id"
         selectLabel="name"
@@ -223,8 +223,8 @@ export function getAddressSettingsForSchemaForm(params: {
     districtId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<DistrictDto>
         {...props}
-        emptyValue={params.languageData["District.Select"]}
-        label={params.languageData["Form.address.districtId"]}
+        emptyValue={params.languageData["adminAreaLevel2.label"]}
+        label={params.languageData["adminAreaLevel2.label"]}
         list={params.districtList}
         selectIdentifier="id"
         selectLabel="name"
@@ -233,8 +233,8 @@ export function getAddressSettingsForSchemaForm(params: {
     neighborhoodId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<NeighborhoodDto>
         {...props}
-        emptyValue={params.languageData["Neighborhood.Select"]}
-        label={params.languageData["Form.address.neighborhoodId"]}
+        emptyValue={params.languageData["neighborhood.label"]}
+        label={params.languageData["neighborhood.label"]}
         list={params.neighborhoodList}
         selectIdentifier="id"
         selectLabel="name"
@@ -243,8 +243,8 @@ export function getAddressSettingsForSchemaForm(params: {
     countryId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<CountryDto>
         {...props}
-        emptyValue={params.languageData["Country.Select"]}
-        label={params.languageData["Form.address.countryId"]}
+        emptyValue={params.languageData["country.label"]}
+        label={params.languageData["country.label"]}
         list={params.countryList}
         selectIdentifier="id"
         selectLabel="name"
@@ -253,8 +253,8 @@ export function getAddressSettingsForSchemaForm(params: {
     regionId: (props: WidgetProps) => (
       <SchemaFormCustomCombobox<RegionDto>
         {...props}
-        emptyValue={params.languageData["Region.Select"]}
-        label={params.languageData["Form.address.regionId"]}
+        emptyValue={params.languageData["Select.EmptyValue"]}
+        label={params.languageData["Select.EmptyValue"]}
         list={params.regionList}
         selectIdentifier="id"
         selectLabel="name"
@@ -264,20 +264,20 @@ export function getAddressSettingsForSchemaForm(params: {
   const uiSchema = {
     cityId: {
       "ui:widget": "cityId",
-      "ui:title": params.languageData["Form.address.cityId"],
+      "ui:title": params.languageData["adminAreaLevel1.label"],
     },
     neighborhoodId: {
       "ui:widget": "neighborhoodId",
-      "ui:title": params.languageData["Form.address.neighborhoodId"],
+      "ui:title": params.languageData["neighborhood.label"],
     },
     countryId: {
       "ui:widget": "countryId",
-      "ui:title": params.languageData["Form.address.countryId"],
+      "ui:title": params.languageData["country.label"],
     },
     regionId: {
       "ui:widget": "regionId",
-      "ui:title": params.languageData["Form.address.regionId"],
+      "ui:title": params.languageData["Select.EmptyValue"],
     },
   };
-  return { widgets, uiSchema };
+  return {widgets, uiSchema};
 }
