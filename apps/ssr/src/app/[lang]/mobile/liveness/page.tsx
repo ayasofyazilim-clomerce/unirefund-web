@@ -1,4 +1,5 @@
 "use client";
+import {toast} from "@/components/ui/sonner";
 import {ThemeProvider} from "@aws-amplify/ui-react";
 import {FaceLivenessDetectorCore} from "@aws-amplify/ui-react-liveness";
 import "@aws-amplify/ui-react/styles.css";
@@ -72,6 +73,8 @@ export default function MobileLivenessPage() {
           const res = await getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId);
           if (res.type === "success") {
             setSessionId(res.data.sessionId || null);
+          } else {
+            toast.error(String(res.message));
           }
         }
       } catch {
