@@ -1,5 +1,5 @@
-import type {UniRefund_TravellerService_Travellers_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
-import {$UniRefund_TravellerService_Travellers_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_Travellers_TravellerListDto} from "@repo/saas/TravellerService";
+import {$UniRefund_TravellerService_Travellers_TravellerListDto} from "@repo/saas/TravellerService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,

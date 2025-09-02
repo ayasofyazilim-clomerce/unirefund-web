@@ -5,9 +5,9 @@ import type {
   PostApiTravellerServicePublicEvidenceSessionsData,
   PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesData,
   PostApiTravellerServicePublicEvidenceSessionsValidateNfcData,
-  PostApiTravellerServiceTravellersByIdCreateTravellerDocumentData,
-  PostApiTravellerServiceTravellersData,
-} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+  PostApiTravellerServiceTravellersByIdTravellerDocumentData,
+  PostApiTravellerServiceTravellersData
+} from "@repo/saas/TravellerService";
 import { structuredError, structuredResponse, structuredSuccessResponse } from "@repo/utils/api";
 import type { Session } from "@repo/utils/auth";
 import { getTravellersServiceClient } from "../lib";
@@ -22,10 +22,10 @@ export async function postTravellerApi(data: PostApiTravellerServiceTravellersDa
   }
 }
 
-export async function postTravellerDocumentApi(data: PostApiTravellerServiceTravellersByIdCreateTravellerDocumentData) {
+export async function postTravellerDocumentApi(data: PostApiTravellerServiceTravellersByIdTravellerDocumentData) {
   try {
     const client = await getTravellersServiceClient();
-    const response = await client.traveller.postApiTravellerServiceTravellersByIdCreateTravellerDocument(data);
+    const response = await client.traveller.postApiTravellerServiceTravellersByIdTravellerDocument(data);
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);

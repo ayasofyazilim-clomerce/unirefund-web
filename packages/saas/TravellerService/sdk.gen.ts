@@ -2,223 +2,7 @@
 
 import type { CancelablePromise } from './core/CancelablePromise';
 import type { BaseHttpRequest } from './core/BaseHttpRequest';
-import type { GetApiTravellerServiceAddressesData, GetApiTravellerServiceAddressesResponse, GetApiTravellerServiceAddressesByIdData, GetApiTravellerServiceAddressesByIdResponse, PutApiTravellerServiceAddressesByIdData, PutApiTravellerServiceAddressesByIdResponse, DeleteApiTravellerServiceAddressesByIdData, DeleteApiTravellerServiceAddressesByIdResponse, GetApiTravellerServiceEmailsData, GetApiTravellerServiceEmailsResponse, GetApiTravellerServiceEmailsByIdData, GetApiTravellerServiceEmailsByIdResponse, PutApiTravellerServiceEmailsByIdData, PutApiTravellerServiceEmailsByIdResponse, DeleteApiTravellerServiceEmailsByIdData, DeleteApiTravellerServiceEmailsByIdResponse, GetApiTravellerServiceEvidenceSessionsData, GetApiTravellerServiceEvidenceSessionsResponse, PutApiTravellerServiceEvidenceSessionsByIdData, PutApiTravellerServiceEvidenceSessionsByIdResponse, PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData, PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzResponse, PostApiTravellerServicePublicEvidenceSessionsData, PostApiTravellerServicePublicEvidenceSessionsResponse, GetApiTravellerServicePublicEvidenceSessionsByIdData, GetApiTravellerServicePublicEvidenceSessionsByIdResponse, PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData, PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzResponse, PostApiTravellerServicePublicEvidenceSessionsValidateNfcData, PostApiTravellerServicePublicEvidenceSessionsValidateNfcResponse, GetApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSessionData, GetApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSessionResponse, GetApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResultsData, GetApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResultsResponse, PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesData, PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesResponse, GetApiTravellerServiceTelephonesData, GetApiTravellerServiceTelephonesResponse, GetApiTravellerServiceTelephonesByIdData, GetApiTravellerServiceTelephonesByIdResponse, PutApiTravellerServiceTelephonesByIdData, PutApiTravellerServiceTelephonesByIdResponse, DeleteApiTravellerServiceTelephonesByIdData, DeleteApiTravellerServiceTelephonesByIdResponse, PostApiTravellerServiceTravellersWithComponentsData, PostApiTravellerServiceTravellersWithComponentsResponse, PostApiTravellerServiceTravellersData, PostApiTravellerServiceTravellersResponse, GetApiTravellerServiceTravellersData, GetApiTravellerServiceTravellersResponse, PostApiTravellerServiceTravellersByIdCreateTravellerDocumentData, PostApiTravellerServiceTravellersByIdCreateTravellerDocumentResponse, PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentData, PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentResponse, DeleteApiTravellerServiceTravellersByIdDeleteTravellerDocumentData, DeleteApiTravellerServiceTravellersByIdDeleteTravellerDocumentResponse, GetApiTravellerServiceTravellersByIdData, GetApiTravellerServiceTravellersByIdResponse, PostApiTravellerServiceTravellersByIdAddAddressData, PostApiTravellerServiceTravellersByIdAddAddressResponse, PostApiTravellerServiceTravellersByIdAddEmailData, PostApiTravellerServiceTravellersByIdAddEmailResponse, PostApiTravellerServiceTravellersByIdAddTelephoneData, PostApiTravellerServiceTravellersByIdAddTelephoneResponse } from './types.gen';
-
-export class AddressService {
-    constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.sorting
-     * @param data.skipCount
-     * @param data.maxResultCount
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public getApiTravellerServiceAddresses(data: GetApiTravellerServiceAddressesData = {}): CancelablePromise<GetApiTravellerServiceAddressesResponse> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/traveller-service/addresses',
-            query: {
-                Sorting: data.sorting,
-                SkipCount: data.skipCount,
-                MaxResultCount: data.maxResultCount
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public getApiTravellerServiceAddressesById(data: GetApiTravellerServiceAddressesByIdData): CancelablePromise<GetApiTravellerServiceAddressesByIdResponse> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/traveller-service/addresses/{id}',
-            path: {
-                id: data.id
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @param data.requestBody
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public putApiTravellerServiceAddressesById(data: PutApiTravellerServiceAddressesByIdData): CancelablePromise<PutApiTravellerServiceAddressesByIdResponse> {
-        return this.httpRequest.request({
-            method: 'PUT',
-            url: '/api/traveller-service/addresses/{id}',
-            path: {
-                id: data.id
-            },
-            body: data.requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public deleteApiTravellerServiceAddressesById(data: DeleteApiTravellerServiceAddressesByIdData): CancelablePromise<DeleteApiTravellerServiceAddressesByIdResponse> {
-        return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/api/traveller-service/addresses/{id}',
-            path: {
-                id: data.id
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-}
-
-export class EmailService {
-    constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.sorting
-     * @param data.skipCount
-     * @param data.maxResultCount
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public getApiTravellerServiceEmails(data: GetApiTravellerServiceEmailsData = {}): CancelablePromise<GetApiTravellerServiceEmailsResponse> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/traveller-service/emails',
-            query: {
-                Sorting: data.sorting,
-                SkipCount: data.skipCount,
-                MaxResultCount: data.maxResultCount
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public getApiTravellerServiceEmailsById(data: GetApiTravellerServiceEmailsByIdData): CancelablePromise<GetApiTravellerServiceEmailsByIdResponse> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/traveller-service/emails/{id}',
-            path: {
-                id: data.id
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @param data.requestBody
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public putApiTravellerServiceEmailsById(data: PutApiTravellerServiceEmailsByIdData): CancelablePromise<PutApiTravellerServiceEmailsByIdResponse> {
-        return this.httpRequest.request({
-            method: 'PUT',
-            url: '/api/traveller-service/emails/{id}',
-            path: {
-                id: data.id
-            },
-            body: data.requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public deleteApiTravellerServiceEmailsById(data: DeleteApiTravellerServiceEmailsByIdData): CancelablePromise<DeleteApiTravellerServiceEmailsByIdResponse> {
-        return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/api/traveller-service/emails/{id}',
-            path: {
-                id: data.id
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-}
+import type { GetApiTravellerServiceEvidenceSessionsData, GetApiTravellerServiceEvidenceSessionsResponse, PutApiTravellerServiceEvidenceSessionsByIdData, PutApiTravellerServiceEvidenceSessionsByIdResponse, PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData, PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzResponse, PostApiTravellerServicePublicEvidenceSessionsData, PostApiTravellerServicePublicEvidenceSessionsResponse, GetApiTravellerServicePublicEvidenceSessionsByIdData, GetApiTravellerServicePublicEvidenceSessionsByIdResponse, PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData, PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzResponse, PostApiTravellerServicePublicEvidenceSessionsValidateNfcData, PostApiTravellerServicePublicEvidenceSessionsValidateNfcResponse, GetApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSessionData, GetApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSessionResponse, GetApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResultsData, GetApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResultsResponse, PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesData, PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesResponse, PostApiTravellerServiceTravellersWithComponentsData, PostApiTravellerServiceTravellersWithComponentsResponse, PostApiTravellerServiceTravellersData, PostApiTravellerServiceTravellersResponse, PutApiTravellerServiceTravellersData, PutApiTravellerServiceTravellersResponse, GetApiTravellerServiceTravellersData, GetApiTravellerServiceTravellersResponse, PostApiTravellerServiceTravellersByIdTravellerDocumentData, PostApiTravellerServiceTravellersByIdTravellerDocumentResponse, PutApiTravellerServiceTravellersByIdTravellerDocumentData, PutApiTravellerServiceTravellersByIdTravellerDocumentResponse, DeleteApiTravellerServiceTravellersByIdTravellerDocumentData, DeleteApiTravellerServiceTravellersByIdTravellerDocumentResponse, GetApiTravellerServiceTravellersByIdData, GetApiTravellerServiceTravellersByIdResponse, GetApiTravellerServiceTravellersByIdAddressesData, GetApiTravellerServiceTravellersByIdAddressesResponse, PutApiTravellerServiceTravellersByIdAddressesData, PutApiTravellerServiceTravellersByIdAddressesResponse, GetApiTravellerServiceTravellersByIdEmailsData, GetApiTravellerServiceTravellersByIdEmailsResponse, PutApiTravellerServiceTravellersByIdEmailsData, PutApiTravellerServiceTravellersByIdEmailsResponse, GetApiTravellerServiceTravellersByIdTelephonesData, GetApiTravellerServiceTravellersByIdTelephonesResponse, PutApiTravellerServiceTravellersByIdTelephonesData, PutApiTravellerServiceTravellersByIdTelephonesResponse } from './types.gen';
 
 export class EvidenceSessionService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
@@ -226,7 +10,7 @@ export class EvidenceSessionService {
     /**
      * @param data The data for the request.
      * @param data.input
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTravellerServiceEvidenceSessions(data: GetApiTravellerServiceEvidenceSessionsData = {}): CancelablePromise<GetApiTravellerServiceEvidenceSessionsResponse> {
@@ -241,8 +25,8 @@ export class EvidenceSessionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -251,7 +35,7 @@ export class EvidenceSessionService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiTravellerServiceEvidenceSessionsById(data: PutApiTravellerServiceEvidenceSessionsByIdData): CancelablePromise<PutApiTravellerServiceEvidenceSessionsByIdResponse> {
@@ -268,8 +52,8 @@ export class EvidenceSessionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -277,7 +61,7 @@ export class EvidenceSessionService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrz(data: PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzData = {}): CancelablePromise<PostApiTravellerServiceEvidenceSessionsAnalyzeDocumentByMrzResponse> {
@@ -291,8 +75,8 @@ export class EvidenceSessionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -305,7 +89,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServicePublicEvidenceSessions(data: PostApiTravellerServicePublicEvidenceSessionsData = {}): CancelablePromise<PostApiTravellerServicePublicEvidenceSessionsResponse> {
@@ -319,8 +103,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -328,7 +112,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTravellerServicePublicEvidenceSessionsById(data: GetApiTravellerServicePublicEvidenceSessionsByIdData): CancelablePromise<GetApiTravellerServicePublicEvidenceSessionsByIdResponse> {
@@ -343,8 +127,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -352,7 +136,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrz(data: PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzData = {}): CancelablePromise<PostApiTravellerServicePublicEvidenceSessionsAnalyzeDocumentByMrzResponse> {
@@ -366,8 +150,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -375,7 +159,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServicePublicEvidenceSessionsValidateNfc(data: PostApiTravellerServicePublicEvidenceSessionsValidateNfcData = {}): CancelablePromise<PostApiTravellerServicePublicEvidenceSessionsValidateNfcResponse> {
@@ -389,8 +173,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -398,7 +182,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.evidenceSessionId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSession(data: GetApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSessionData = {}): CancelablePromise<GetApiTravellerServicePublicEvidenceSessionsCreateFaceLivenessSessionResponse> {
@@ -413,8 +197,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -422,7 +206,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.sessionId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResults(data: GetApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResultsData = {}): CancelablePromise<GetApiTravellerServicePublicEvidenceSessionsGetFaceLivenessSessionResultsResponse> {
@@ -437,8 +221,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -446,7 +230,7 @@ export class EvidenceSessionPublicService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServicePublicEvidenceSessionsLivenessCompareFaces(data: PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesData = {}): CancelablePromise<PostApiTravellerServicePublicEvidenceSessionsLivenessCompareFacesResponse> {
@@ -460,116 +244,8 @@ export class EvidenceSessionPublicService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-}
-
-export class TelephoneService {
-    constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.sorting
-     * @param data.skipCount
-     * @param data.maxResultCount
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public getApiTravellerServiceTelephones(data: GetApiTravellerServiceTelephonesData = {}): CancelablePromise<GetApiTravellerServiceTelephonesResponse> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/traveller-service/telephones',
-            query: {
-                Sorting: data.sorting,
-                SkipCount: data.skipCount,
-                MaxResultCount: data.maxResultCount
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public getApiTravellerServiceTelephonesById(data: GetApiTravellerServiceTelephonesByIdData): CancelablePromise<GetApiTravellerServiceTelephonesByIdResponse> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/traveller-service/telephones/{id}',
-            path: {
-                id: data.id
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @param data.requestBody
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public putApiTravellerServiceTelephonesById(data: PutApiTravellerServiceTelephonesByIdData): CancelablePromise<PutApiTravellerServiceTelephonesByIdResponse> {
-        return this.httpRequest.request({
-            method: 'PUT',
-            url: '/api/traveller-service/telephones/{id}',
-            path: {
-                id: data.id
-            },
-            body: data.requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
-            }
-        });
-    }
-    
-    /**
-     * @param data The data for the request.
-     * @param data.id
-     * @returns unknown Success
-     * @throws ApiError
-     */
-    public deleteApiTravellerServiceTelephonesById(data: DeleteApiTravellerServiceTelephonesByIdData): CancelablePromise<DeleteApiTravellerServiceTelephonesByIdResponse> {
-        return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/api/traveller-service/telephones/{id}',
-            path: {
-                id: data.id
-            },
-            errors: {
-                400: 'Bad Request',
-                401: 'Unauthorized',
-                403: 'Forbidden',
-                404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -582,7 +258,7 @@ export class TravellerService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServiceTravellersWithComponents(data: PostApiTravellerServiceTravellersWithComponentsData = {}): CancelablePromise<PostApiTravellerServiceTravellersWithComponentsResponse> {
@@ -596,8 +272,8 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -605,7 +281,7 @@ export class TravellerService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTravellerServiceTravellers(data: PostApiTravellerServiceTravellersData = {}): CancelablePromise<PostApiTravellerServiceTravellersResponse> {
@@ -619,8 +295,35 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
+            }
+        });
+    }
+    
+    /**
+     * @param data The data for the request.
+     * @param data.id
+     * @param data.requestBody
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public putApiTravellerServiceTravellers(data: PutApiTravellerServiceTravellersData = {}): CancelablePromise<PutApiTravellerServiceTravellersResponse> {
+        return this.httpRequest.request({
+            method: 'PUT',
+            url: '/api/traveller-service/travellers',
+            query: {
+                id: data.id
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                403: 'Forbidden',
+                404: 'Not Found',
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -638,7 +341,7 @@ export class TravellerService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTravellerServiceTravellers(data: GetApiTravellerServiceTravellersData = {}): CancelablePromise<GetApiTravellerServiceTravellersResponse> {
@@ -663,8 +366,8 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -673,13 +376,13 @@ export class TravellerService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
-    public postApiTravellerServiceTravellersByIdCreateTravellerDocument(data: PostApiTravellerServiceTravellersByIdCreateTravellerDocumentData): CancelablePromise<PostApiTravellerServiceTravellersByIdCreateTravellerDocumentResponse> {
+    public postApiTravellerServiceTravellersByIdTravellerDocument(data: PostApiTravellerServiceTravellersByIdTravellerDocumentData): CancelablePromise<PostApiTravellerServiceTravellersByIdTravellerDocumentResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/traveller-service/travellers/{id}/create-traveller-document',
+            url: '/api/traveller-service/travellers/{id}/traveller-document',
             path: {
                 id: data.id
             },
@@ -690,8 +393,8 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -700,13 +403,13 @@ export class TravellerService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
-    public putApiTravellerServiceTravellersByIdUpdateTravellerDocument(data: PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentData): CancelablePromise<PutApiTravellerServiceTravellersByIdUpdateTravellerDocumentResponse> {
+    public putApiTravellerServiceTravellersByIdTravellerDocument(data: PutApiTravellerServiceTravellersByIdTravellerDocumentData): CancelablePromise<PutApiTravellerServiceTravellersByIdTravellerDocumentResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/traveller-service/travellers/{id}/update-traveller-document',
+            url: '/api/traveller-service/travellers/{id}/traveller-document',
             path: {
                 id: data.id
             },
@@ -717,8 +420,8 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -726,23 +429,27 @@ export class TravellerService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns boolean Success
+     * @param data.travellerDocumentId
+     * @returns boolean OK
      * @throws ApiError
      */
-    public deleteApiTravellerServiceTravellersByIdDeleteTravellerDocument(data: DeleteApiTravellerServiceTravellersByIdDeleteTravellerDocumentData): CancelablePromise<DeleteApiTravellerServiceTravellersByIdDeleteTravellerDocumentResponse> {
+    public deleteApiTravellerServiceTravellersByIdTravellerDocument(data: DeleteApiTravellerServiceTravellersByIdTravellerDocumentData): CancelablePromise<DeleteApiTravellerServiceTravellersByIdTravellerDocumentResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/traveller-service/travellers/{id}/delete-traveller-document',
+            url: '/api/traveller-service/travellers/{id}/traveller-document',
             path: {
                 id: data.id
+            },
+            query: {
+                travellerDocumentId: data.travellerDocumentId
             },
             errors: {
                 400: 'Bad Request',
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -751,7 +458,7 @@ export class TravellerService {
      * @param data The data for the request.
      * @param data.id
      * @param data.showExpired
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTravellerServiceTravellersById(data: GetApiTravellerServiceTravellersByIdData): CancelablePromise<GetApiTravellerServiceTravellersByIdResponse> {
@@ -769,8 +476,32 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
+            }
+        });
+    }
+    
+    /**
+     * @param data The data for the request.
+     * @param data.id
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public getApiTravellerServiceTravellersByIdAddresses(data: GetApiTravellerServiceTravellersByIdAddressesData): CancelablePromise<GetApiTravellerServiceTravellersByIdAddressesResponse> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/traveller-service/travellers/{id}/addresses',
+            path: {
+                id: data.id
+            },
+            errors: {
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                403: 'Forbidden',
+                404: 'Not Found',
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -779,13 +510,13 @@ export class TravellerService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
-    public postApiTravellerServiceTravellersByIdAddAddress(data: PostApiTravellerServiceTravellersByIdAddAddressData): CancelablePromise<PostApiTravellerServiceTravellersByIdAddAddressResponse> {
+    public putApiTravellerServiceTravellersByIdAddresses(data: PutApiTravellerServiceTravellersByIdAddressesData): CancelablePromise<PutApiTravellerServiceTravellersByIdAddressesResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/traveller-service/travellers/{id}/add-address',
+            method: 'PUT',
+            url: '/api/traveller-service/travellers/{id}/addresses',
             path: {
                 id: data.id
             },
@@ -796,8 +527,32 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
+            }
+        });
+    }
+    
+    /**
+     * @param data The data for the request.
+     * @param data.id
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public getApiTravellerServiceTravellersByIdEmails(data: GetApiTravellerServiceTravellersByIdEmailsData): CancelablePromise<GetApiTravellerServiceTravellersByIdEmailsResponse> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/traveller-service/travellers/{id}/emails',
+            path: {
+                id: data.id
+            },
+            errors: {
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                403: 'Forbidden',
+                404: 'Not Found',
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -806,13 +561,13 @@ export class TravellerService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
-    public postApiTravellerServiceTravellersByIdAddEmail(data: PostApiTravellerServiceTravellersByIdAddEmailData): CancelablePromise<PostApiTravellerServiceTravellersByIdAddEmailResponse> {
+    public putApiTravellerServiceTravellersByIdEmails(data: PutApiTravellerServiceTravellersByIdEmailsData): CancelablePromise<PutApiTravellerServiceTravellersByIdEmailsResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/traveller-service/travellers/{id}/add-email',
+            method: 'PUT',
+            url: '/api/traveller-service/travellers/{id}/emails',
             path: {
                 id: data.id
             },
@@ -823,8 +578,32 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
+            }
+        });
+    }
+    
+    /**
+     * @param data The data for the request.
+     * @param data.id
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public getApiTravellerServiceTravellersByIdTelephones(data: GetApiTravellerServiceTravellersByIdTelephonesData): CancelablePromise<GetApiTravellerServiceTravellersByIdTelephonesResponse> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/traveller-service/travellers/{id}/telephones',
+            path: {
+                id: data.id
+            },
+            errors: {
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                403: 'Forbidden',
+                404: 'Not Found',
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -833,13 +612,13 @@ export class TravellerService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
-    public postApiTravellerServiceTravellersByIdAddTelephone(data: PostApiTravellerServiceTravellersByIdAddTelephoneData): CancelablePromise<PostApiTravellerServiceTravellersByIdAddTelephoneResponse> {
+    public putApiTravellerServiceTravellersByIdTelephones(data: PutApiTravellerServiceTravellersByIdTelephonesData): CancelablePromise<PutApiTravellerServiceTravellersByIdTelephonesResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/traveller-service/travellers/{id}/add-telephone',
+            method: 'PUT',
+            url: '/api/traveller-service/travellers/{id}/telephones',
             path: {
                 id: data.id
             },
@@ -850,8 +629,8 @@ export class TravellerService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }

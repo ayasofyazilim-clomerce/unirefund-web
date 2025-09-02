@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiTravellerServiceTravellersData} from "@ayasofyazilim/saas/TravellerService";
+import type {GetApiTravellerServiceTravellersData} from "@repo/saas/TravellerService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";

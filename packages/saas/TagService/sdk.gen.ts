@@ -33,7 +33,11 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.tagNumber
+<<<<<<< HEAD
+     * @param data.ınvoiceNumber
+=======
      * @param data.invoiceNumber
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
      * @param data.travellerFullName
      * @param data.travellerDocumentNumber
      * @param data.isEarlyRefunded
@@ -59,7 +63,11 @@ export class TagService {
             url: '/api/tag-service/tag',
             query: {
                 TagNumber: data.tagNumber,
+<<<<<<< HEAD
+                InvoiceNumber: data.ınvoiceNumber,
+=======
                 InvoiceNumber: data.invoiceNumber,
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
                 TravellerFullName: data.travellerFullName,
                 TravellerDocumentNumber: data.travellerDocumentNumber,
                 IsEarlyRefunded: data.isEarlyRefunded,
@@ -202,7 +210,11 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.tagNumber
+<<<<<<< HEAD
+     * @param data.ınvoiceNumber
+=======
      * @param data.invoiceNumber
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
      * @param data.travellerFullName
      * @param data.travellerDocumentNumber
      * @param data.isEarlyRefunded
@@ -228,7 +240,11 @@ export class TagService {
             url: '/api/tag-service/tag/summary',
             query: {
                 TagNumber: data.tagNumber,
+<<<<<<< HEAD
+                InvoiceNumber: data.ınvoiceNumber,
+=======
                 InvoiceNumber: data.invoiceNumber,
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
                 TravellerFullName: data.travellerFullName,
                 TravellerDocumentNumber: data.travellerDocumentNumber,
                 IsEarlyRefunded: data.isEarlyRefunded,

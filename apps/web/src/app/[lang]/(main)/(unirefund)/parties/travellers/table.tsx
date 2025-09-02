@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_TravellerListDto} from "@ayasofyazilim/saas/TravellerService";
+import type {PagedResultDto_TravellerListDto} from "@repo/saas/TravellerService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";

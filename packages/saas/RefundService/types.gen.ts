@@ -26,9 +26,9 @@ export type UniRefund_RefundService_Enums_RefundReconciliationStatus = 'Approved
 export type UniRefund_RefundService_Enums_RefundStatus = 'NotPaid' | 'PendingDeparture' | 'Blocked' | 'Processing' | 'PartlyPaid' | 'Paid' | 'Overpaid' | 'Rejected' | 'Cancelled' | 'Error';
 
 export type UniRefund_RefundService_Refunds_CreateRefundCardInfoDto = {
-    cardNumber?: (string) | null;
-    cardExpiryMonth?: number;
-    cardExpiryYear?: number;
+    cardNumber: (string) | null;
+    cardExpiryMonth: number;
+    cardExpiryYear: number;
 };
 
 export type UniRefund_RefundService_Refunds_CreateRefundDto = {
@@ -99,14 +99,14 @@ export type UniRefund_TagService_Tags_Enums_RefundType = 'Cash' | 'CreditCard' |
 export type UniRefund_TravellerService_Addresses_AddressDto = {
     id?: string;
     fullAddress?: (string) | null;
-    primaryFlag?: boolean;
+    isPrimary?: boolean;
     type?: UniRefund_TravellerService_Enums_AddressType;
 };
 
 export type UniRefund_TravellerService_Emails_EmailDto = {
     id?: string;
     emailAddress?: (string) | null;
-    primaryFlag?: boolean;
+    isPrimary?: boolean;
     type?: UniRefund_TravellerService_Enums_EmailType;
 };
 
@@ -122,43 +122,45 @@ export type UniRefund_TravellerService_Enums_TelephoneType = 'HOME' | 'OFFICE' |
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
     id?: string;
+    ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
-    ituCountryCode?: (string) | null;
-    primaryFlag?: boolean;
+    readonly fullNumber?: (string) | null;
+    isPrimary?: boolean;
     type?: UniRefund_TravellerService_Enums_TelephoneType;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
-    id?: string;
-    travelDocumentNumber?: (string) | null;
-    residenceCountryCode2?: (string) | null;
-    residenceCountryName?: (string) | null;
-    nationalityCountryCode2?: (string) | null;
-    nationalityCountryName?: (string) | null;
-    firstName?: (string) | null;
-    lastName?: (string) | null;
+    id: string;
+    travelDocumentNumber: (string) | null;
+    residenceCountryCode2: (string) | null;
+    residenceCountryName: (string) | null;
+    nationalityCountryCode2: (string) | null;
+    nationalityCountryName: (string) | null;
+    firstName: (string) | null;
+    lastName: (string) | null;
     readonly fullName?: (string) | null;
     birthDate?: (string) | null;
     issueDate?: (string) | null;
-    expirationDate?: (string) | null;
-    identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
+    expirationDate: (string) | null;
+    identificationType: UniRefund_TravellerService_Enums_IdentificationType;
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
-    id?: string;
-    firstName?: (string) | null;
-    lastName?: (string) | null;
+    id: string;
+    firstName: (string) | null;
+    lastName: (string) | null;
     birthDate?: (string) | null;
-    nationalityCountryCode2?: (string) | null;
-    languagePreferenceCultureName?: (string) | null;
+    nationalityCountryCode2: (string) | null;
+    nationalityCountryName: (string) | null;
+    languagePreferenceCultureName: (string) | null;
     gender?: UniRefund_TravellerService_Enums_GenderType;
     userAccountId?: (string) | null;
     readonly hasUserAccount?: boolean;
     travellerDocuments?: Array<UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto> | null;
-    addresses?: Array<UniRefund_TravellerService_Addresses_AddressDto> | null;
-    emails?: Array<UniRefund_TravellerService_Emails_EmailDto> | null;
-    telephones?: Array<UniRefund_TravellerService_Telephones_TelephoneDto> | null;
+    primaryAddress?: UniRefund_TravellerService_Addresses_AddressDto;
+    primaryEmail?: UniRefund_TravellerService_Emails_EmailDto;
+    primaryTelephone?: UniRefund_TravellerService_Telephones_TelephoneDto;
 };
 
 export type Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationAuthConfigurationDto = {

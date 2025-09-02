@@ -4042,6 +4042,58 @@ export const $UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
     additionalProperties: false
 } as const;
 
+<<<<<<< HEAD
+export const $UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
+    type: 'object',
+    properties: {
+        affiliationId: {
+            type: 'string',
+            format: 'uuid'
+        }
+    },
+    additionalProperties: false
+} as const;
+
+export const $UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
+    type: 'object',
+    properties: {
+        affiliationId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        partyId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        partyType: {
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            type: 'string'
+        },
+        partyName: {
+            type: 'string',
+            nullable: true
+        },
+        vatNumber: {
+            type: 'string',
+            nullable: true
+        },
+        externalStoreIdentifier: {
+            type: 'string',
+            nullable: true
+        },
+        identificationNumber: {
+            type: 'string',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean'
+        }
+    },
+    additionalProperties: false
+} as const;
+
+=======
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 export const $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto = {
     required: ['productGroupId'],
     type: 'object',

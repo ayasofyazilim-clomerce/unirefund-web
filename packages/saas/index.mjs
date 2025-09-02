@@ -1,5 +1,5 @@
-import {default as SDKGenerator} from "@ayasofyazilim/sdk_generator";
-import {Command, Option} from "commander";
+import { default as SDKGenerator } from "@ayasofyazilim/sdk_generator";
+import { Command, Option } from "commander";
 import API_LIST from "./API_LIST.json" with {type: "json"};
 import PKG from "./package.json" with {type: "json"};
 

@@ -1043,10 +1043,17 @@ export type PostApiTagServiceTagResponse = (UniRefund_TagService_Tags_TagDto);
 export type GetApiTagServiceTagData = {
     exportEndDate?: string;
     exportStartDate?: string;
+<<<<<<< HEAD
+    isEarlyRefunded?: boolean;
+    issuedEndDate?: string;
+    issuedStartDate?: string;
+    ınvoiceNumber?: string;
+=======
     invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
@@ -1097,10 +1104,17 @@ export type GetApiTagServiceTagTagsRefundResponse = (PagedResultDto_TagListItemD
 export type GetApiTagServiceTagSummaryData = {
     exportEndDate?: string;
     exportStartDate?: string;
+<<<<<<< HEAD
+    isEarlyRefunded?: boolean;
+    issuedEndDate?: string;
+    issuedStartDate?: string;
+    ınvoiceNumber?: string;
+=======
     invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
+>>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
