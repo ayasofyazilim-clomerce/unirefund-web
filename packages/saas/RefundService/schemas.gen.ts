@@ -166,6 +166,7 @@ export const $UniRefund_RefundService_Enums_RefundStatus = {
 } as const;
 
 export const $UniRefund_RefundService_Refunds_CreateRefundCardInfoDto = {
+    required: ['cardExpiryMonth', 'cardExpiryYear', 'cardNumber'],
     type: 'object',
     properties: {
         cardNumber: {
@@ -205,6 +206,7 @@ export const $UniRefund_RefundService_Refunds_CreateRefundDto = {
             type: 'string'
         },
         cardInfo: {
+            required: ['cardExpiryMonth', 'cardExpiryYear', 'cardNumber'],
             type: 'object',
             properties: {
                 cardNumber: {
@@ -330,6 +332,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
             additionalProperties: false
         },
         traveller: {
+            required: ['firstName', 'id', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName'],
             type: 'object',
             properties: {
                 id: {
@@ -353,13 +356,10 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                     type: 'string',
                     nullable: true
                 },
-<<<<<<< HEAD
                 nationalityCountryName: {
                     type: 'string',
                     nullable: true
                 },
-=======
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
                 languagePreferenceCultureName: {
                     type: 'string',
                     nullable: true
@@ -380,6 +380,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                 travellerDocuments: {
                     type: 'array',
                     items: {
+                        required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
                         type: 'object',
                         properties: {
                             id: {
@@ -443,7 +444,6 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                     },
                     nullable: true
                 },
-<<<<<<< HEAD
                 primaryAddress: {
                     type: 'object',
                     properties: {
@@ -519,90 +519,6 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                         }
                     },
                     additionalProperties: false
-=======
-                addresses: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            id: {
-                                type: 'string',
-                                format: 'uuid'
-                            },
-                            fullAddress: {
-                                type: 'string',
-                                nullable: true
-                            },
-                            primaryFlag: {
-                                type: 'boolean'
-                            },
-                            type: {
-                                enum: ['HOME', 'OFFICE'],
-                                type: 'string'
-                            }
-                        },
-                        additionalProperties: false
-                    },
-                    nullable: true
-                },
-                emails: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            id: {
-                                type: 'string',
-                                format: 'uuid'
-                            },
-                            emailAddress: {
-                                type: 'string',
-                                nullable: true
-                            },
-                            primaryFlag: {
-                                type: 'boolean'
-                            },
-                            type: {
-                                enum: ['WORK', 'PERSONAL'],
-                                type: 'string'
-                            }
-                        },
-                        additionalProperties: false
-                    },
-                    nullable: true
-                },
-                telephones: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            id: {
-                                type: 'string',
-                                format: 'uuid'
-                            },
-                            areaCode: {
-                                type: 'string',
-                                nullable: true
-                            },
-                            localNumber: {
-                                type: 'string',
-                                nullable: true
-                            },
-                            ituCountryCode: {
-                                type: 'string',
-                                nullable: true
-                            },
-                            primaryFlag: {
-                                type: 'boolean'
-                            },
-                            type: {
-                                enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
-                                type: 'string'
-                            }
-                        },
-                        additionalProperties: false
-                    },
-                    nullable: true
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
                 }
             },
             additionalProperties: false
@@ -795,11 +711,7 @@ export const $UniRefund_TravellerService_Addresses_AddressDto = {
             type: 'string',
             nullable: true
         },
-<<<<<<< HEAD
         isPrimary: {
-=======
-        primaryFlag: {
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
             type: 'boolean'
         },
         type: {
@@ -821,11 +733,7 @@ export const $UniRefund_TravellerService_Emails_EmailDto = {
             type: 'string',
             nullable: true
         },
-<<<<<<< HEAD
         isPrimary: {
-=======
-        primaryFlag: {
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
             type: 'boolean'
         },
         type: {
@@ -868,13 +776,10 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
             type: 'string',
             format: 'uuid'
         },
-<<<<<<< HEAD
         ituCountryCode: {
             type: 'string',
             nullable: true
         },
-=======
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
         areaCode: {
             type: 'string',
             nullable: true
@@ -883,20 +788,12 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
             type: 'string',
             nullable: true
         },
-<<<<<<< HEAD
         fullNumber: {
             type: 'string',
             nullable: true,
             readOnly: true
         },
         isPrimary: {
-=======
-        ituCountryCode: {
-            type: 'string',
-            nullable: true
-        },
-        primaryFlag: {
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
             type: 'boolean'
         },
         type: {
@@ -908,6 +805,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
+    required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
     type: 'object',
     properties: {
         id: {
@@ -971,6 +869,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentPro
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
+    required: ['firstName', 'id', 'languagePreferenceCultureName', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName'],
     type: 'object',
     properties: {
         id: {
@@ -994,13 +893,10 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             type: 'string',
             nullable: true
         },
-<<<<<<< HEAD
         nationalityCountryName: {
             type: 'string',
             nullable: true
         },
-=======
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
         languagePreferenceCultureName: {
             type: 'string',
             nullable: true
@@ -1021,6 +917,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
         travellerDocuments: {
             type: 'array',
             items: {
+                required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -1084,7 +981,6 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             },
             nullable: true
         },
-<<<<<<< HEAD
         primaryAddress: {
             type: 'object',
             properties: {
@@ -1160,90 +1056,6 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                 }
             },
             additionalProperties: false
-=======
-        addresses: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    id: {
-                        type: 'string',
-                        format: 'uuid'
-                    },
-                    fullAddress: {
-                        type: 'string',
-                        nullable: true
-                    },
-                    primaryFlag: {
-                        type: 'boolean'
-                    },
-                    type: {
-                        enum: ['HOME', 'OFFICE'],
-                        type: 'string'
-                    }
-                },
-                additionalProperties: false
-            },
-            nullable: true
-        },
-        emails: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    id: {
-                        type: 'string',
-                        format: 'uuid'
-                    },
-                    emailAddress: {
-                        type: 'string',
-                        nullable: true
-                    },
-                    primaryFlag: {
-                        type: 'boolean'
-                    },
-                    type: {
-                        enum: ['WORK', 'PERSONAL'],
-                        type: 'string'
-                    }
-                },
-                additionalProperties: false
-            },
-            nullable: true
-        },
-        telephones: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    id: {
-                        type: 'string',
-                        format: 'uuid'
-                    },
-                    areaCode: {
-                        type: 'string',
-                        nullable: true
-                    },
-                    localNumber: {
-                        type: 'string',
-                        nullable: true
-                    },
-                    ituCountryCode: {
-                        type: 'string',
-                        nullable: true
-                    },
-                    primaryFlag: {
-                        type: 'boolean'
-                    },
-                    type: {
-                        enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
-                        type: 'string'
-                    }
-                },
-                additionalProperties: false
-            },
-            nullable: true
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
         }
     },
     additionalProperties: false

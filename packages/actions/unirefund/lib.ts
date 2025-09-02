@@ -5,7 +5,7 @@ import { ExportValidationServiceClient } from "@ayasofyazilim/saas/ExportValidat
 import { FileServiceClient } from "@ayasofyazilim/saas/FileService";
 import { FinanceServiceClient } from "@ayasofyazilim/saas/FinanceService";
 import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
-import { RefundServiceClient } from "@ayasofyazilim/saas/RefundService";
+import { RefundServiceClient } from "@repo/saas/RefundService";
 import { SettingServiceClient } from "@ayasofyazilim/saas/SettingService";
 import { TagServiceClient } from "@ayasofyazilim/saas/TagService";
 import { TravellerServiceClient } from "@repo/saas/TravellerService";

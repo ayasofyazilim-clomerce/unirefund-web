@@ -2,7 +2,7 @@ import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/co
 import type {
   UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto,
   UniRefund_TravellerService_Travellers_TravellerDetailProfileDto as TravellerDetailProfileDto,
-} from "@ayasofyazilim/saas/TravellerService";
+} from "@repo/saas/TravellerService";
 import {IdCard, User} from "lucide-react";
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
@@ -13,7 +13,7 @@ export function TravellerDetails({
   traveller,
   lang,
 }: {
-  traveller: TravellerDetailProfileDto & {travellerDocumentNumber: string};
+  traveller: Partial<TravellerDetailProfileDto> & {travellerDocumentNumber: string};
   lang: string;
 }) {
   const travellerLink = getBaseLink(`parties/travellers/${traveller.id}`, lang);
@@ -114,7 +114,7 @@ function TravellerPersonalIdentification({
           text="Travel document number"
         />
       ) : null}
-      <TextWithSubText subText={identification.identificationType || "-"} text="Document type" />
+      <TextWithSubText subText={identification.identificationType} text="Document type" />
       <TextWithSubText subText={identification.residenceCountryName || "-"} text="Country of residence" />
       <TextWithSubText subText={identification.nationalityCountryName || "-"} text="Nationality" />
       <TextWithSubText

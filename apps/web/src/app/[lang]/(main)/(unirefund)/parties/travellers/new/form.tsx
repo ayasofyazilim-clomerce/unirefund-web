@@ -1,7 +1,7 @@
 "use client";
 
-import type {UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@ayasofyazilim/saas/TravellerService";
-import {$UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@ayasofyazilim/saas/TravellerService";
+import type {UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@repo/saas/TravellerService";
+import {$UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@repo/saas/TravellerService";
 import {postTravellerApi} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
