@@ -61,6 +61,7 @@ export default async function Page({
     <AffiliationsTable
       affiliations={affiliationsResponse.data}
       individuals={individualsResponse.status === "fulfilled" ? individualsResponse.value.data.items || [] : []}
+      partyType="tax-free"
       isIndividualsAvailable={isIndividualsAvailable}
       isRolesAvailable={isRolesAvailable}
       isUsersAvailable={isUsersAvailable}

@@ -62,6 +62,7 @@ export default async function Page({
       affiliations={affiliationsResponse.data}
       individuals={individualsResponse.status === "fulfilled" ? individualsResponse.value.data.items || [] : []}
       isIndividualsAvailable={isIndividualsAvailable}
+      partyType="tax-offices"
       isRolesAvailable={isRolesAvailable}
       isUsersAvailable={isUsersAvailable}
       languageData={languageData}

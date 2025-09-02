@@ -16,6 +16,7 @@ export interface StepperFooterProps {
   onPreviousStep: () => void;
   onNextStep: () => void;
   onStepChange: (step: number) => void;
+  isSubmitting: boolean;
 }
 
 export function StepperFooter({
@@ -26,6 +27,7 @@ export function StepperFooter({
   onPreviousStep,
   onNextStep,
   onStepChange,
+  isSubmitting,
 }: StepperFooterProps) {
   return (
     <div className="footer flex flex-col">
@@ -33,6 +35,7 @@ export function StepperFooter({
         <Button
           aria-label={currentStep === INITIAL_STEP ? "Close drawer" : "Go to previous step"}
           className="w-32"
+          disabled={isSubmitting}
           onClick={onPreviousStep}
           variant="outline">
           {buttonText}
@@ -40,10 +43,12 @@ export function StepperFooter({
         <Button
           aria-label="Go to next step"
           className="w-32"
-          disabled={isNextStepDisabled}
+          disabled={isNextStepDisabled || isSubmitting}
           onClick={onNextStep}
           variant="outline">
-          {languageData["CRM.Affiliations.Drawer.next"] || "Next step"}
+          {STEP_KEYS.length === currentStep + 1
+            ? languageData["Form.Custom.affiliation.create"] || "Create"
+            : languageData["CRM.Affiliations.Drawer.next"] || "Next step"}
         </Button>
       </div>
 

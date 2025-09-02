@@ -276,6 +276,7 @@
   "CRM.Affiliations.createOrSelect": "Create or Select Individual",
   "CRM.Affiliations.selectUserAndRole": "Select User and Role",
   "CRM.Affiliations.fillDetails": "Fill Details",
+  "CRM.Affiliations.selectRole": "Select Role",
 
   "CRM.Messages.email.isPrimary.atLeastOnePrimaryRequired": "This field cannot be edited because at least one primary email is required.",
   "CRM.Messages.address.isPrimary.atLeastOnePrimaryRequired": "This field cannot be edited because at least one primary address is required.",

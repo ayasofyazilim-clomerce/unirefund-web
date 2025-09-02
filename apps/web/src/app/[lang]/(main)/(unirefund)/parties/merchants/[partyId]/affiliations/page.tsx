@@ -56,10 +56,10 @@ export default async function Page({
   const isRolesAvailable = !isErrorOnRequest(roleResponse, lang, false);
   const isUsersAvailable = !isErrorOnRequest(usersResponse, lang, false);
   const isIndividualsAvailable = individualsResponse.status !== "rejected";
-
   return (
     <AffiliationsTable
       affiliations={affiliationsResponse.data}
+      partyType="merchants"
       individuals={individualsResponse.status === "fulfilled" ? individualsResponse.value.data.items || [] : []}
       isIndividualsAvailable={isIndividualsAvailable}
       isRolesAvailable={isRolesAvailable}

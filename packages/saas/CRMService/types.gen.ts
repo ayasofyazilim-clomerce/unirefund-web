@@ -326,6 +326,12 @@ export type UniRefund_CRMService_Individuals_IndividualListResponseDto = {
 
 export type UniRefund_CRMService_Individuals_IndividualStatus = 'DRAFT' | 'WAITINGAPPROVAL' | 'APPROVED' | 'REJECTED';
 
+export type UniRefund_CRMService_Individuals_IndividualWithAbpUserDto = {
+    individualId?: string;
+    fullname?: (string) | null;
+    abpUserId?: (string) | null;
+};
+
 export type UniRefund_CRMService_Individuals_NewUser = {
     username?: (string) | null;
     password?: (string) | null;
@@ -641,6 +647,21 @@ export type UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
     number?: (string) | null;
     type?: UniRefund_CRMService_Telephones_TelephoneType;
     isPrimary?: (boolean) | null;
+};
+
+export type UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
+    affiliationId?: string;
+};
+
+export type UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
+    affiliationId?: string;
+    partyId?: string;
+    partyType?: UniRefund_Shared_Contracts_Enums_PartyType;
+    partyName?: (string) | null;
+    vatNumber?: (string) | null;
+    externalStoreIdentifier?: (string) | null;
+    identificationNumber?: (string) | null;
+    isPrimary?: boolean;
 };
 
 export type UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto = {
@@ -1334,6 +1355,12 @@ export type GetApiCrmServiceIndividualsByIndividualIdAddressesData = {
 
 export type GetApiCrmServiceIndividualsByIndividualIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
+export type GetApiCrmServiceIndividualsByEmailData = {
+    email?: string;
+};
+
+export type GetApiCrmServiceIndividualsByEmailResponse = (Array<UniRefund_CRMService_Individuals_IndividualWithAbpUserDto>);
+
 export type GetApiCrmServiceMerchantsByMerchantIdData = {
     merchantId: string;
 };
@@ -1910,3 +1937,11 @@ export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData = {
 };
 
 export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+
+export type GetApiCrmServiceUserAffiliationsResponse = (Array<UniRefund_CRMService_UserAffiliations_UserAffiliationDto>);
+
+export type PostApiCrmServiceUserAffiliationsSetActiveAffiliationData = {
+    requestBody?: UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto;
+};
+
+export type PostApiCrmServiceUserAffiliationsSetActiveAffiliationResponse = (unknown);

@@ -64,6 +64,7 @@ export default async function Page({
       isIndividualsAvailable={isIndividualsAvailable}
       isRolesAvailable={isRolesAvailable}
       isUsersAvailable={isUsersAvailable}
+      partyType="customs"
       languageData={languageData}
       roles={isRolesAvailable ? roleResponse.data.items || [] : []}
       users={isUsersAvailable ? usersResponse.data.items || [] : []}
