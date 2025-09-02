@@ -4,8 +4,8 @@ import {Button} from "@/components/ui/button";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import type {
   UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto as TravellerDocumentProfileDto,
-  UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto,
-  UniRefund_TravellerService_Travellers_TravellerDetailProfileDto,
+  UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto as CreateTravellerDocumentDto,
+  UniRefund_TravellerService_Travellers_TravellerDetailProfileDto as TravellerDetailProfileDto,
   UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocumentDto as UpdateTravellerDocumentDto,
 } from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
 import {
@@ -39,7 +39,7 @@ export function TravellerDocumentsForm({
 }: {
   languageData: TravellerServiceResource;
   travellerDocuments: TravellerDocumentProfileDto[];
-  travellerDetails: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
+  travellerDetails: TravellerDetailProfileDto;
   countryList: CountryDto[];
 }) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
@@ -62,7 +62,9 @@ export function TravellerDocumentsForm({
     },
     expandRowTrigger: "travelDocumentNumber",
   });
-  const tableActions: TanstackTableTableActionsType<TravellerDocumentProfileDto>[] = [
+  const tableActions: TanstackTableTableActionsType<
+    TravellerDocumentProfileDto & Omit<CreateTravellerDocumentDto, "expirationDate">
+  >[] = [
     {
       actionLocation: "table",
       cta: languageData["Travellers.New.Document"],
@@ -89,7 +91,18 @@ export function TravellerDocumentsForm({
           selectLabel: "name",
         }),
       },
-      formData: travellerDetails,
+      formData: {
+        id: "", //Its for type-safety not used
+        nationalityCountryName: "", //Its for type-safety not used
+        residenceCountryName: "", //Its for type-safety not used
+        firstName: travellerDetails.firstName || "",
+        lastName: travellerDetails.lastName || "",
+        expirationDate: "",
+        travelDocumentNumber: "",
+        residenceCountryCode2: travellerDetails.nationalityCountryCode2 || "",
+        nationalityCountryCode2: travellerDetails.nationalityCountryCode2 || "",
+        identificationType: "Passport",
+      },
       disabled: isPending,
       submitText: languageData["Travellers.New.Document"],
       title: languageData["Travellers.New.Document"],
@@ -99,7 +112,8 @@ export function TravellerDocumentsForm({
           void postTravellerDocumentApi({
             id: partyId,
             requestBody: {
-              ...(formData as UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto),
+              ...formData,
+              expirationDate: formData.expirationDate || "",
             },
           }).then((response) => {
             handlePostResponse(response);

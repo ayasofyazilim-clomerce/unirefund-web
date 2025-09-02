@@ -10,7 +10,7 @@ export class RefundService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiRefundServiceRefunds(data: PostApiRefundServiceRefundsData = {}): CancelablePromise<PostApiRefundServiceRefundsResponse> {
@@ -24,8 +24,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -44,7 +44,7 @@ export class RefundService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiRefundServiceRefunds(data: GetApiRefundServiceRefundsData = {}): CancelablePromise<GetApiRefundServiceRefundsResponse> {
@@ -70,8 +70,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -88,7 +88,7 @@ export class RefundService {
      * @param data.refundUserDeviceIds
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns string Success
+     * @returns string OK
      * @throws ApiError
      */
     public getApiRefundServiceRefundsRefundPointNames(data: GetApiRefundServiceRefundsRefundPointNamesData = {}): CancelablePromise<GetApiRefundServiceRefundsRefundPointNamesResponse> {
@@ -112,8 +112,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -130,7 +130,7 @@ export class RefundService {
      * @param data.refundPointIds
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiRefundServiceRefundsUserDevices(data: GetApiRefundServiceRefundsUserDevicesData = {}): CancelablePromise<GetApiRefundServiceRefundsUserDevicesResponse> {
@@ -154,8 +154,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -171,7 +171,7 @@ export class RefundService {
      * @param data.statusesFilterReconciliationStatuses
      * @param data.refundPointIds
      * @param data.refundUserDeviceIds
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiRefundServiceRefundsRefundStatistics(data: GetApiRefundServiceRefundsRefundStatisticsData = {}): CancelablePromise<GetApiRefundServiceRefundsRefundStatisticsResponse> {
@@ -194,8 +194,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -203,7 +203,7 @@ export class RefundService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiRefundServiceRefundsByIdDetail(data: GetApiRefundServiceRefundsByIdDetailData): CancelablePromise<GetApiRefundServiceRefundsByIdDetailResponse> {
@@ -218,8 +218,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -227,7 +227,7 @@ export class RefundService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiRefundServiceRefundsTagByIdDetail(data: GetApiRefundServiceRefundsTagByIdDetailData): CancelablePromise<GetApiRefundServiceRefundsTagByIdDetailResponse> {
@@ -242,8 +242,8 @@ export class RefundService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }

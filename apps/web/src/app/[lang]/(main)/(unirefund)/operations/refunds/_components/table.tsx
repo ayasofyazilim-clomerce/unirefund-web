@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_RefundListItem} from "@ayasofyazilim/saas/RefundService";
+import type {PagedResultDto_RefundListItem} from "@repo/saas/RefundService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {tableData} from "./refunds-table-data";

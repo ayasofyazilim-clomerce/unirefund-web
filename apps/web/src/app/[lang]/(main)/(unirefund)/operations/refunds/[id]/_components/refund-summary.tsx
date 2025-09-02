@@ -1,6 +1,6 @@
 "use client";
 import {Separator} from "@/components/ui/separator";
-import type {UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto as RefundDetailDto} from "@ayasofyazilim/saas/RefundService";
+import type {UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto as RefundDetailDto} from "@repo/saas/RefundService";
 import {CheckCircle2} from "lucide-react";
 import {useParams} from "next/navigation";
 import {IconWithTitle} from "./icon-with-title";

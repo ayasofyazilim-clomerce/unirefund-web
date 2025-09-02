@@ -11,7 +11,7 @@ export type TelephoneDto = {
   areaCode?: string | null;
   localNumber?: string | null;
   readonly fullNumber?: string | null;
-  isPrimary?: boolean;
+  isPrimary?: boolean | null;
   type?: "HOME" | "OFFICE" | "MOBILE" | "FAX" | "UNKNOWN" | "WORK" | "OTHER";
 };
 type UISchema = {

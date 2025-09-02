@@ -56,7 +56,7 @@ export default async function Layout({
           lang={lang}
           traveller={{
             ...refundDetailsResponse.data.traveller,
-            travellerDocumentNumber: refundDetailsResponse.data.travellerDocumentNumber,
+            travellerDocumentNumber: refundDetailsResponse.data.travellerDocumentNumber || "",
           }}
         />
       </div>

@@ -40,9 +40,9 @@ export type UniRefund_RefundService_Enums_RefundStatus =
   | "Error";
 
 export type UniRefund_RefundService_Refunds_CreateRefundCardInfoDto = {
-  cardNumber?: string | null;
-  cardExpiryMonth?: number;
-  cardExpiryYear?: number;
+  cardNumber: string | null;
+  cardExpiryMonth: number;
+  cardExpiryYear: number;
 };
 
 export type UniRefund_RefundService_Refunds_CreateRefundDto = {
@@ -155,29 +155,29 @@ export type UniRefund_TravellerService_Telephones_TelephoneDto = {
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
-  id?: string;
-  travelDocumentNumber?: string | null;
-  residenceCountryCode2?: string | null;
-  residenceCountryName?: string | null;
-  nationalityCountryCode2?: string | null;
-  nationalityCountryName?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
+  id: string;
+  travelDocumentNumber: string | null;
+  residenceCountryCode2: string | null;
+  residenceCountryName: string | null;
+  nationalityCountryCode2: string | null;
+  nationalityCountryName: string | null;
+  firstName: string | null;
+  lastName: string | null;
   readonly fullName?: string | null;
   birthDate?: string | null;
   issueDate?: string | null;
-  expirationDate?: string | null;
-  identificationType?: UniRefund_TravellerService_Enums_IdentificationType;
+  expirationDate: string | null;
+  identificationType: UniRefund_TravellerService_Enums_IdentificationType;
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
-  id?: string;
-  firstName?: string | null;
-  lastName?: string | null;
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
   birthDate?: string | null;
-  nationalityCountryCode2?: string | null;
-  nationalityCountryName?: string | null;
-  languagePreferenceCultureName?: string | null;
+  nationalityCountryCode2: string | null;
+  nationalityCountryName: string | null;
+  languagePreferenceCultureName: string | null;
   gender?: UniRefund_TravellerService_Enums_GenderType;
   userAccountId?: string | null;
   readonly hasUserAccount?: boolean;

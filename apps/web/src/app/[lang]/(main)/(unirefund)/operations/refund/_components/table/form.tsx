@@ -7,11 +7,11 @@ import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import type {
   UniRefund_RefundService_Refunds_CreateRefundCardInfoDto as CardInfoDto,
   UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto as IbanInfoDto,
-} from "@ayasofyazilim/saas/RefundService";
+} from "@repo/saas/RefundService";
 import {
   $UniRefund_RefundService_Refunds_CreateRefundCardInfoDto as $CardInfoDto,
   $UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto as $IbanInfoDto,
-} from "@ayasofyazilim/saas/RefundService";
+} from "@repo/saas/RefundService";
 import type {
   UniRefund_TagService_Tags_Enums_RefundType as RefundTypeEnum,
   UniRefund_TagService_Tags_TagListItemDto,
