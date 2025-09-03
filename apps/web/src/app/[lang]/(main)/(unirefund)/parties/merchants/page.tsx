@@ -21,6 +21,7 @@ interface SearchParamType {
 async function getApiRequests(filters: GetApiCrmServiceMerchantsData) {
   try {
     const session = await auth();
+
     const requiredRequests = await Promise.all([getMerchantsApi(filters, session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
