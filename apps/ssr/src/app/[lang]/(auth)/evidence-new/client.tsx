@@ -58,7 +58,7 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
                   {languageData["Evidence.EmailPasswordFeature3"]}
                 </div>
               </div>
-              <Link href={"/evidence-new/login-with-email"}>
+              <Link href="/evidence-new/login-with-email">
                 <Button className="mt-4 w-full text-white md:mt-6" variant="default">
                   {languageData["Evidence.EmailPasswordButton"]}
                 </Button>

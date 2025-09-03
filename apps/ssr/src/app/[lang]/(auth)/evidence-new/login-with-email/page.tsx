@@ -1,7 +1,7 @@
 import {getTenantByNameApi, signInServerApi} from "@repo/actions/core/AccountService/actions";
 import LoginForm from "@repo/ui/theme/auth/login";
-import {getResourceData} from "src/language-data/core/AccountService";
 import Image from "next/image";
+import {getResourceData} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
 
 export default async function LoginWithEmailPage({params}: {params: {lang: string}}) {
