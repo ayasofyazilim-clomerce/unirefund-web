@@ -103,6 +103,4 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
       </div>
     </div>
   );
-
-  return null;
 }
