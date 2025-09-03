@@ -32,7 +32,7 @@ export default async function LoginWithEmailPage({params}: {params: {lang: strin
           onTenantSearchAction={getTenantByNameApi}
           isVisible={false}
         />
-        <Link href="/" className=" hover:text-primary text-sm  text-gray-600">
+        <Link href={`/${lang}/register`} className=" hover:text-primary text-sm  text-gray-600">
           {languageData["Auth.NotMember"]}
         </Link>
       </div>
