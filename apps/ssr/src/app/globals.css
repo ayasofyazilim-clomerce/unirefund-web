@@ -51,6 +51,21 @@
   scroll-behavior: smooth;
 }
 
+/* Mobile scroll fix */
+html,
+body {
+  height: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  body {
+    position: relative;
+    overflow-y: auto;
+  }
+}
+
 .no-visible-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
