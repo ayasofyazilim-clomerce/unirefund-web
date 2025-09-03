@@ -98,11 +98,6 @@ export function SelectIndividualStep({
           onClick={handleSearch}>
           {languageData["Search"] || "Search Individual"}
         </Button>
-        {/* {!isIndividualsAvailable && (
-          <p className="text-muted-foreground text-sm" id="individuals-help">
-            No individuals available to select
-          </p>
-        )} */}
       </div>
 
       <span className="w-full text-center text-sm text-slate-600" role="separator">
