@@ -1,6 +1,5 @@
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTrigger} from "@/components/ui/drawer";
-import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
@@ -13,16 +12,17 @@ import {
   postTaxFreeAffiliationApi,
   postTaxOfficesAffiliationApi,
 } from "@repo/actions/unirefund/CrmService/actions";
-import {UniRefund_CRMService_Individuals_IndividualWithAbpUserDto} from "@repo/saas/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualWithAbpUserDto} from "@repo/saas/CRMService";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback, useMemo, useState, useTransition} from "react";
+import {toast} from "@/components/ui/sonner";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {CreateIndividualForm} from "../../individual-form";
 import {StepperFooter} from "./footer";
 import {SelectIndividualStep} from "./step-1";
 import {SelectUserAndRoleStep} from "./step-2";
-import {toast} from "@/components/ui/sonner";
 
 // Types
 interface AffiliationDrawerProps {
@@ -160,8 +160,8 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
     setSelectedRole(role || null);
   }, []);
 
-  const handleDateSelect = useCallback((date: Date | null) => {
-    setDate(date);
+  const handleDateSelect = useCallback((selectedDate: Date | null) => {
+    setDate(selectedDate);
   }, []);
 
   return (
@@ -184,17 +184,17 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
           {isFirstStep ? (
             <SelectIndividualStep
               languageData={languageData}
+              onAbpUserSelect={setSelectedAbpUser}
               onIndividualUpdate={handleIndividualUpdate}
               selectedAbpUser={selectedAbpUser}
-              onAbpUserSelect={setSelectedAbpUser}
             />
           ) : (
             <SelectUserAndRoleStep
               languageData={languageData}
-              selectedRole={selectedRole}
-              roleList={roles}
-              onRoleSelect={handleRoleSelect}
               onDateSelect={handleDateSelect}
+              onRoleSelect={handleRoleSelect}
+              roleList={roles}
+              selectedRole={selectedRole}
             />
           )}
           {}
@@ -238,9 +238,8 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
       if (response.type === "success") {
         onIndividualUpdate(response.data);
         setOpen(false);
-        return;
       } else {
-        toast.error(response?.message || "An error occurred");
+        toast.error(response.message || "An error occurred");
       }
     },
     [onIndividualUpdate],

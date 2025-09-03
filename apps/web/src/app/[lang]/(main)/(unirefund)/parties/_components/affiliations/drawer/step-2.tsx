@@ -1,8 +1,8 @@
 import {Label} from "@/components/ui/label";
-import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {DatePicker} from "@repo/ayasofyazilim-ui/molecules/date-picker";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export interface SelectUserAndRoleStepProps {
   languageData: CRMServiceServiceResource;

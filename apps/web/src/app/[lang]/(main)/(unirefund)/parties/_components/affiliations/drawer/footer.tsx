@@ -14,7 +14,7 @@ export interface StepperFooterProps {
   buttonText: string;
   isNextStepDisabled: boolean;
   onPreviousStep: () => void;
-  onNextStep: () => void;
+  onNextStep: () => Promise<void>;
   onStepChange: (step: number) => void;
   isSubmitting: boolean;
 }
@@ -44,7 +44,7 @@ export function StepperFooter({
           aria-label="Go to next step"
           className="w-32"
           disabled={isNextStepDisabled || isSubmitting}
-          onClick={onNextStep}
+          onClick={() => void onNextStep()}
           variant="outline">
           {STEP_KEYS.length === currentStep + 1
             ? languageData["Form.Custom.affiliation.create"] || "Create"

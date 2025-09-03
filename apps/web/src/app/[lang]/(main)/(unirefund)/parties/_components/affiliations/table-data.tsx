@@ -23,8 +23,8 @@ import {isActionGranted} from "@repo/utils/policies";
 import {PlusCircle, Trash2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams} from "next/navigation";
-import type {Dispatch, SetStateAction, TransitionStartFunction} from "react";
-import {useState, useTransition} from "react";
+import type {Dispatch, SetStateAction} from "react";
+import {useState} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type AffiliationTableType = TanstackTableCreationProps<AffiliationListResponseDto>;
@@ -211,7 +211,7 @@ function EditForm({
           loading={isSubmitting}
           title={languageData["Form.Merchant.affiliation.delete"]}
           type="without-trigger">
-          <Button className="" type="button" variant="outline" disabled={isSubmitting}>
+          <Button className="" disabled={isSubmitting} type="button" variant="outline">
             <Trash2Icon className="mr-2 size-4" />
             {languageData["Form.Merchant.affiliation.delete"]}
           </Button>
