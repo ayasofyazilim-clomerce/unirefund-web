@@ -326,6 +326,12 @@ export type UniRefund_CRMService_Individuals_IndividualListResponseDto = {
 
 export type UniRefund_CRMService_Individuals_IndividualStatus = 'DRAFT' | 'WAITINGAPPROVAL' | 'APPROVED' | 'REJECTED';
 
+export type UniRefund_CRMService_Individuals_IndividualWithAbpUserDto = {
+    individualId?: string;
+    fullname?: (string) | null;
+    abpUserId?: (string) | null;
+};
+
 export type UniRefund_CRMService_Individuals_NewUser = {
     username?: (string) | null;
     password?: (string) | null;
@@ -643,7 +649,6 @@ export type UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
     isPrimary?: (boolean) | null;
 };
 
-<<<<<<< HEAD
 export type UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
     affiliationId?: string;
 };
@@ -659,8 +664,6 @@ export type UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
     isPrimary?: boolean;
 };
 
-=======
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 export type UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto = {
     productGroupId: string;
     isDefault?: boolean;
@@ -1284,11 +1287,7 @@ export type PostApiCrmServiceIndividualsResponse = (string);
 
 export type GetApiCrmServiceIndividualsData = {
     email?: string;
-<<<<<<< HEAD
-    ıdentificationNumber?: string;
-=======
     identificationNumber?: string;
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     maxResultCount?: number;
     name?: string;
     skipCount?: number;
@@ -1355,6 +1354,12 @@ export type GetApiCrmServiceIndividualsByIndividualIdAddressesData = {
 };
 
 export type GetApiCrmServiceIndividualsByIndividualIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+
+export type GetApiCrmServiceIndividualsByEmailData = {
+    email?: string;
+};
+
+export type GetApiCrmServiceIndividualsByEmailResponse = (Array<UniRefund_CRMService_Individuals_IndividualWithAbpUserDto>);
 
 export type GetApiCrmServiceMerchantsByMerchantIdData = {
     merchantId: string;
@@ -1931,7 +1936,6 @@ export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData = {
     taxOfficeId: string;
 };
 
-<<<<<<< HEAD
 export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
 
 export type GetApiCrmServiceUserAffiliationsResponse = (Array<UniRefund_CRMService_UserAffiliations_UserAffiliationDto>);
@@ -1941,6 +1945,3 @@ export type PostApiCrmServiceUserAffiliationsSetActiveAffiliationData = {
 };
 
 export type PostApiCrmServiceUserAffiliationsSetActiveAffiliationResponse = (unknown);
-=======
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274

@@ -277,6 +277,7 @@
   "CRM.Affiliations.createOrSelect": "Kişi Oluştur veya Seç",
   "CRM.Affiliations.selectUserAndRole": "Kullanıcı ve Rol Seç",
   "CRM.Affiliations.fillDetails": "Ayrıntıları Doldur",
+  "CRM.Affiliations.selectRole": "Rol Seç",
 
   "CRM.Messages.email.isPrimary.atLeastOnePrimaryRequired": "Bu alan değiştirilemez çünkü en az bir varsayılan e-posta olmalıdır.",
   "CRM.Messages.address.isPrimary.atLeastOnePrimaryRequired": "Bu alan değiştirilemez çünkü en az bir varsayılan adres olmalıdır.",

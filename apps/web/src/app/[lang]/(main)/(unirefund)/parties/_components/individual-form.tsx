@@ -96,6 +96,8 @@ export function CreateIndividualForm({
         if (!formData) return;
         startTransition(() => {
           void postIndividualApi(formData).then((response) => {
+            console.log(response);
+
             if (onSubmit) {
               onSubmit({
                 data: {
@@ -103,6 +105,7 @@ export function CreateIndividualForm({
                   id: response.data,
                 },
                 type: response.type,
+                message: response.message,
               });
             } else {
               handlePostResponse(response, router);

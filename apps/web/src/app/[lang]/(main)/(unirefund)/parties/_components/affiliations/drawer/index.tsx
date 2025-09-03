@@ -1,38 +1,46 @@
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTrigger} from "@/components/ui/drawer";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
   UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {
+  postCustomAffiliationApi,
+  postMerchantAffiliationApi,
+  postRefundPointAffiliationApi,
+  postTaxFreeAffiliationApi,
+  postTaxOfficesAffiliationApi,
+} from "@repo/actions/unirefund/CrmService/actions";
+import {UniRefund_CRMService_Individuals_IndividualWithAbpUserDto} from "@repo/saas/CRMService";
+import {handlePostResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback, useMemo, useState, useTransition} from "react";
-import type {
-  Volo_Abp_Identity_IdentityUserDto,
-  Volo_Abp_Identity_IdentityRoleDto,
-} from "@ayasofyazilim/core-saas/IdentityService";
-import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {CreateIndividualForm} from "../../individual-form";
 import {StepperFooter} from "./footer";
 import {SelectIndividualStep} from "./step-1";
+import {SelectUserAndRoleStep} from "./step-2";
+import {toast} from "@/components/ui/sonner";
 
 // Types
 interface AffiliationDrawerProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   languageData: CRMServiceServiceResource;
-  individuals: IndividualListResponseDto[];
-  isIndividualsAvailable: boolean;
-  users: Volo_Abp_Identity_IdentityUserDto[];
   roles: Volo_Abp_Identity_IdentityRoleDto[];
+  partyType: "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs";
 }
 
 interface FormResponse {
   type: "success" | "api-error";
   data: CreateIndividualDto;
+  message?: string;
 }
 
 // Constants
-export const STEP_KEYS = ["select-individual", "select-user-and-role", "fill-details"] as const;
+export const STEP_KEYS = ["select-individual", "select-user-and-role"] as const;
 export const INITIAL_STEP = 0;
 
 type StepKey = (typeof STEP_KEYS)[number];
@@ -42,36 +50,32 @@ export const getStepTitle = (languageData: CRMServiceServiceResource, stepKey: S
   const stepTitleMap: Record<StepKey, keyof CRMServiceServiceResource> = {
     "select-individual": "CRM.Affiliations.createOrSelect",
     "select-user-and-role": "CRM.Affiliations.selectUserAndRole",
-    "fill-details": "CRM.Affiliations.fillDetails",
   };
   return languageData[stepTitleMap[stepKey]];
 };
 
-export function AffiliationDrawer({
-  open,
-  setOpen,
-  languageData,
-  individuals,
-  isIndividualsAvailable,
-}: AffiliationDrawerProps) {
+export function AffiliationDrawer({open, setOpen, languageData, roles, partyType}: AffiliationDrawerProps) {
   // State management
+  const router = useRouter();
+  const params = useParams<{partyId: string}>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(INITIAL_STEP);
-  const [individualList, setIndividualList] = useState<IndividualListResponseDto[]>(individuals);
+  const [selectedRole, setSelectedRole] = useState<Volo_Abp_Identity_IdentityRoleDto | null>(null);
+  const [date, setDate] = useState<Date | null>(null);
   const [individualId, setIndividualId] = useState<string | null>(null);
   const [preventClose, setPreventClose] = useState(true);
+
+  const [selectedAbpUser, setSelectedAbpUser] = useState<
+    UniRefund_CRMService_Individuals_IndividualWithAbpUserDto | null | undefined
+  >(null);
 
   // Memoized values
   const currentStepKey = useMemo(() => STEP_KEYS[currentStep], [currentStep]);
   const currentStepTitle = useMemo(() => getStepTitle(languageData, currentStepKey), [languageData, currentStepKey]);
 
-  const selectedIndividual = useMemo(
-    () => (individualId ? individualList.find((individual) => individual.id === individualId) : null),
-    [individualId, individualList],
-  );
-
   const isNextStepDisabled = useMemo(
-    () => currentStep >= STEP_KEYS.length - 1 || !individualId,
-    [currentStep, individualId],
+    () => (currentStep === INITIAL_STEP && !selectedAbpUser) || (currentStep === 1 && (!selectedRole || !date)),
+    [currentStep, selectedAbpUser, selectedRole, date],
   );
 
   const isFirstStep = currentStep === INITIAL_STEP;
@@ -97,23 +101,67 @@ export function AffiliationDrawer({
     }
   }, [isFirstStep, setOpen]);
 
-  const handleNextStep = useCallback(() => {
+  const handleNextStep = useCallback(async () => {
+    if (currentStep === 1) {
+      setIsSubmitting(true);
+      const data = {
+        merchantId: params.partyId,
+        refundPointId: params.partyId,
+        taxFreeId: params.partyId,
+        taxOfficeId: params.partyId,
+        customId: params.partyId,
+        requestBody: {
+          individualId: selectedAbpUser?.individualId,
+          abpRoleId: selectedRole?.id,
+          abpUserId: selectedAbpUser?.abpUserId,
+          startDate: date?.toISOString(),
+        },
+      };
+      let res;
+      switch (partyType) {
+        case "merchants":
+          res = await postMerchantAffiliationApi(data);
+          break;
+        case "refund-points":
+          res = await postRefundPointAffiliationApi(data);
+          break;
+        case "customs":
+          res = await postCustomAffiliationApi(data);
+          break;
+        case "tax-free":
+          res = await postTaxFreeAffiliationApi(data);
+          break;
+        case "tax-offices":
+          res = await postTaxOfficesAffiliationApi(data);
+          break;
+      }
+      handlePostResponse(res, router);
+      setIsSubmitting(false);
+      setSelectedAbpUser(null);
+      setSelectedRole(null);
+      setDate(null);
+      setOpen(false);
+      return;
+    }
     setCurrentStep((prev) => Math.min(prev + 1, STEP_KEYS.length - 1));
-  }, []);
+  }, [currentStep, date, individualId, selectedRole, params.partyId]);
 
   const handleStepChange = useCallback((step: number) => {
     const normalizedStep = Math.max(INITIAL_STEP, Math.min(step - 1, STEP_KEYS.length - 1));
     setCurrentStep(normalizedStep);
   }, []);
 
-  const handleIndividualSelect = useCallback((individual: IndividualListResponseDto | null | undefined) => {
-    setIndividualId(individual?.id || null);
-  }, []);
-
   const handleIndividualUpdate = useCallback((newIndividual: IndividualListResponseDto) => {
     setIndividualId(newIndividual.id || null);
-    setIndividualList((prev) => [...prev, newIndividual]);
     setCurrentStep((prev) => prev + 1);
+  }, []);
+
+  const handleRoleSelect = useCallback((role: Volo_Abp_Identity_IdentityRoleDto | null | undefined) => {
+    setSelectedRole(role || null);
+  }, []);
+
+  const handleDateSelect = useCallback((date: Date | null) => {
+    setDate(date);
   }, []);
 
   return (
@@ -135,14 +183,20 @@ export function AffiliationDrawer({
         <div className="content flex flex-col items-center justify-between gap-2 p-4 pt-0">
           {isFirstStep ? (
             <SelectIndividualStep
-              individualList={individualList}
-              isIndividualsAvailable={isIndividualsAvailable}
               languageData={languageData}
-              onIndividualSelect={handleIndividualSelect}
               onIndividualUpdate={handleIndividualUpdate}
-              selectedIndividual={selectedIndividual}
+              selectedAbpUser={selectedAbpUser}
+              onAbpUserSelect={setSelectedAbpUser}
             />
-          ) : null}
+          ) : (
+            <SelectUserAndRoleStep
+              languageData={languageData}
+              selectedRole={selectedRole}
+              roleList={roles}
+              onRoleSelect={handleRoleSelect}
+              onDateSelect={handleDateSelect}
+            />
+          )}
           {}
         </div>
 
@@ -150,6 +204,7 @@ export function AffiliationDrawer({
           buttonText={buttonText}
           currentStep={currentStep}
           isNextStepDisabled={isNextStepDisabled}
+          isSubmitting={isSubmitting}
           languageData={languageData}
           onNextStep={handleNextStep}
           onPreviousStep={handlePreviousStep}
@@ -183,6 +238,10 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
       if (response.type === "success") {
         onIndividualUpdate(response.data);
         setOpen(false);
+        return;
+      } else {
+        console.log(response, "aaaa");
+        toast.error(response?.message || "An error occurred");
       }
     },
     [onIndividualUpdate],
@@ -233,6 +292,61 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
             </Button>
           </div>
         </CreateIndividualForm>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+export function SearchIndividualDrawer({
+  languageData,
+  isDisabled,
+  onIndividualUpdate,
+}: OptimizedIndividualDrawerProps & {isDisabled: boolean}) {
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  const handleOpenChange = useCallback(() => {
+    if (isPending) return;
+    startTransition(() => {
+      // setOpen((prev) => !prev);
+    });
+  }, [isPending]);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const handleFormSubmit = useCallback(
+    (response: FormResponse) => {
+      if (response.type === "success") {
+        onIndividualUpdate(response.data);
+        setOpen(false);
+      }
+    },
+    [onIndividualUpdate],
+  );
+
+  const searchButtonText = languageData["Search"] || "Search Individual";
+  return (
+    <Drawer onOpenChange={handleOpenChange} open={open}>
+      <DrawerTrigger asChild>
+        <Button aria-label="Search individual" className="w-full" disabled={isPending || isDisabled} variant="default">
+          {searchButtonText}
+        </Button>
+      </DrawerTrigger>
+
+      <DrawerContent
+        aria-describedby="individual-drawer-description"
+        aria-labelledby="individual-drawer-title"
+        className="bottom-4 mx-auto h-full max-h-[80dvh] max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
+        role="dialog">
+        <DrawerHeader>
+          <h2 className="text-lg font-semibold" id="individual-drawer-title">
+            {searchButtonText}
+          </h2>
+          <p className="sr-only" id="individual-drawer-description">
+            Form to search a individual
+          </p>
+        </DrawerHeader>
       </DrawerContent>
     </Drawer>
   );
