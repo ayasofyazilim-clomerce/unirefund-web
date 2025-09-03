@@ -8,6 +8,8 @@
     "dev:all": "turbo dev",
     "web": "turbo dev --filter web",
     "ssr": "turbo dev --filter ssr",
+    "build:web": "cd apps/web && pnpm build",
+    "build:ssr": "cd apps/ssr && pnpm build",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "clean": "turbo clean",
