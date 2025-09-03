@@ -1241,11 +1241,6 @@ export const $UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto = {
             type: 'string',
             format: 'uuid'
         },
-        abpUserId: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
-        },
         abpRoleId: {
             type: 'string',
             format: 'uuid'
