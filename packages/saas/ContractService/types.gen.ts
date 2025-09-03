@@ -143,13 +143,31 @@ export type UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Contr
     deliveryMethod?: UniRefund_ContractService_Enums_InvoiceChannel;
 };
 
+/**
+ * Represents a request to ensure that a merchant has an active contract header.
+ */
 export type UniRefund_ContractService_ContractsForMerchant_ContractHeaders_EnsureHasEnabledContractHeaderRequestDto = {
+    /**
+     * Gets or sets the ID of the merchant to check.
+     */
     merchantId: string;
+    /**
+     * Gets or sets a list of tuples containing the invoice date and amount to verify against the contract headers.
+     */
     invoices: Array<UniRefund_ContractService_ContractsForMerchant_ContractHeaders_EnsureHasEnabledContractHeaderRequestItemDto>;
 };
 
+/**
+ * Represents an item in the request to ensure that a merchant has an active contract header.
+ */
 export type UniRefund_ContractService_ContractsForMerchant_ContractHeaders_EnsureHasEnabledContractHeaderRequestItemDto = {
+    /**
+     * Gets or sets the date of the invoice.
+     */
     invoiceDate: string;
+    /**
+     * Gets or sets the amount of the invoice.
+     */
     invoiceAmount: number;
 };
 

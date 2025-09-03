@@ -1,6 +1,6 @@
 import {toast} from "@/components/ui/sonner";
-import type {UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractsForMerchantDto} from "@ayasofyazilim/saas/ContractService";
-import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as $ContractsForMerchantDto} from "@ayasofyazilim/saas/ContractService";
+import type {UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractsForMerchantDto} from "@repo/saas/ContractService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as $ContractsForMerchantDto} from "@repo/saas/ContractService";
 import {OpenInNewWindowIcon} from "@radix-ui/react-icons";
 import type {
   TanstackTableCreationProps,

@@ -7,9 +7,9 @@ import type {
   PutApiContractServiceRefundFeeHeadersByIdData,
   PutApiContractServiceRefundPointsContractsContractHeadersByIdData,
   PutApiContractServiceRefundTableHeadersByIdData,
-} from "@ayasofyazilim/saas/ContractService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
-import {getContractServiceClient} from "../lib";
+} from "@repo/saas/ContractService";
+import { structuredError, structuredResponse } from "@repo/utils/api";
+import { getContractServiceClient } from "../lib";
 
 export async function putMerchantContractHeadersByIdApi(
   data: PutApiContractServiceMerchantsContractsContractHeadersByIdData,
@@ -40,7 +40,7 @@ export async function putMerchantsContractHeadersByIdMakePassiveApi(id: string) 
   try {
     const client = await getContractServiceClient();
     const response =
-      await client.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersByIdMakePassive({id});
+      await client.contractsMerchant.putApiContractServiceMerchantsContractsContractHeadersByIdMakePassive({ id });
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -51,7 +51,7 @@ export async function putRefundPointContractHeadersByIdMakePassiveApis(id: strin
   try {
     const client = await getContractServiceClient();
     const response =
-      await client.contractsRefundPoint.putApiContractServiceRefundPointsContractsContractHeadersByIdMakePassive({id});
+      await client.contractsRefundPoint.putApiContractServiceRefundPointsContractsContractHeadersByIdMakePassive({ id });
     return structuredResponse(response);
   } catch (error) {
     return structuredError(error);
