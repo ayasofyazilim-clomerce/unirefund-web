@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_ContractHeaderDetailForMerchantDto} from "@ayasofyazilim/saas/ContractService";
+import type {PagedResultDto_ContractHeaderDetailForMerchantDto} from "@repo/saas/ContractService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";

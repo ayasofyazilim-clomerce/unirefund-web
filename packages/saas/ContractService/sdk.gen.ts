@@ -10,7 +10,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsContractsContractHeadersById(data: GetApiContractServiceMerchantsContractsContractHeadersByIdData): CancelablePromise<GetApiContractServiceMerchantsContractsContractHeadersByIdResponse> {
@@ -25,8 +25,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -35,7 +35,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceMerchantsContractsContractHeadersById(data: PutApiContractServiceMerchantsContractsContractHeadersByIdData): CancelablePromise<PutApiContractServiceMerchantsContractsContractHeadersByIdResponse> {
@@ -52,8 +52,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -61,7 +61,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiContractServiceMerchantsContractsContractHeadersById(data: DeleteApiContractServiceMerchantsContractsContractHeadersByIdData): CancelablePromise<DeleteApiContractServiceMerchantsContractsContractHeadersByIdResponse> {
@@ -76,8 +76,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -88,7 +88,7 @@ export class ContractsMerchantService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsContractsContractHeaders(data: GetApiContractServiceMerchantsContractsContractHeadersData = {}): CancelablePromise<GetApiContractServiceMerchantsContractsContractHeadersResponse> {
@@ -106,8 +106,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -119,7 +119,7 @@ export class ContractsMerchantService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsByIdContractsContractHeaders(data: GetApiContractServiceMerchantsByIdContractsContractHeadersData): CancelablePromise<GetApiContractServiceMerchantsByIdContractsContractHeadersResponse> {
@@ -140,8 +140,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -150,7 +150,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceMerchantsByIdContractsContractHeaders(data: PostApiContractServiceMerchantsByIdContractsContractHeadersData): CancelablePromise<PostApiContractServiceMerchantsByIdContractsContractHeadersResponse> {
@@ -167,8 +167,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -176,7 +176,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns boolean Success
+     * @returns boolean OK
      * @throws ApiError
      */
     public postApiContractServiceMerchantsContractsContractHeadersByIdValidate(data: PostApiContractServiceMerchantsContractsContractHeadersByIdValidateData): CancelablePromise<PostApiContractServiceMerchantsContractsContractHeadersByIdValidateResponse> {
@@ -191,8 +191,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -200,7 +200,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceMerchantsContractsContractHeadersByIdMakePassive(data: PutApiContractServiceMerchantsContractsContractHeadersByIdMakePassiveData): CancelablePromise<PutApiContractServiceMerchantsContractsContractHeadersByIdMakePassiveResponse> {
@@ -215,8 +215,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -224,7 +224,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsContractsContractHeadersByIdRebateSettings(data: GetApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsData): CancelablePromise<GetApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsResponse> {
@@ -239,8 +239,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -249,7 +249,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceMerchantsContractsContractHeadersByIdRebateSettings(data: PostApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsData): CancelablePromise<PostApiContractServiceMerchantsContractsContractHeadersByIdRebateSettingsResponse> {
@@ -266,8 +266,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -275,7 +275,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsContractsContractSettingsById(data: GetApiContractServiceMerchantsContractsContractSettingsByIdData): CancelablePromise<GetApiContractServiceMerchantsContractsContractSettingsByIdResponse> {
@@ -290,8 +290,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -300,7 +300,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceMerchantsContractsContractSettingsById(data: PutApiContractServiceMerchantsContractsContractSettingsByIdData): CancelablePromise<PutApiContractServiceMerchantsContractsContractSettingsByIdResponse> {
@@ -317,8 +317,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -326,7 +326,7 @@ export class ContractsMerchantService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiContractServiceMerchantsContractsContractSettingsById(data: DeleteApiContractServiceMerchantsContractsContractSettingsByIdData): CancelablePromise<DeleteApiContractServiceMerchantsContractsContractSettingsByIdResponse> {
@@ -341,8 +341,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -353,7 +353,7 @@ export class ContractsMerchantService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsContractsContractHeadersByIdContractSettings(data: GetApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData): CancelablePromise<GetApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsResponse> {
@@ -373,8 +373,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -383,7 +383,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceMerchantsContractsContractHeadersByIdContractSettings(data: PostApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsData): CancelablePromise<PostApiContractServiceMerchantsContractsContractHeadersByIdContractSettingsResponse> {
@@ -400,8 +400,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -410,7 +410,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSetting(data: PutApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSettingData): CancelablePromise<PutApiContractServiceMerchantsContractsContractHeadersByIdSetDefaultSettingResponse> {
@@ -427,8 +427,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -439,7 +439,7 @@ export class ContractsMerchantService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceMerchantsContractsContractHeadersByIdContractStores(data: GetApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData): CancelablePromise<GetApiContractServiceMerchantsContractsContractHeadersByIdContractStoresResponse> {
@@ -459,8 +459,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -469,7 +469,7 @@ export class ContractsMerchantService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceMerchantsContractsContractHeadersByIdContractStores(data: PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresData): CancelablePromise<PostApiContractServiceMerchantsContractsContractHeadersByIdContractStoresResponse> {
@@ -486,8 +486,8 @@ export class ContractsMerchantService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -500,7 +500,7 @@ export class ContractsRefundPointService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundPointsContractsContractHeadersById(data: GetApiContractServiceRefundPointsContractsContractHeadersByIdData): CancelablePromise<GetApiContractServiceRefundPointsContractsContractHeadersByIdResponse> {
@@ -515,8 +515,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -525,7 +525,7 @@ export class ContractsRefundPointService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceRefundPointsContractsContractHeadersById(data: PutApiContractServiceRefundPointsContractsContractHeadersByIdData): CancelablePromise<PutApiContractServiceRefundPointsContractsContractHeadersByIdResponse> {
@@ -542,8 +542,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -551,7 +551,7 @@ export class ContractsRefundPointService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiContractServiceRefundPointsContractsContractHeadersById(data: DeleteApiContractServiceRefundPointsContractsContractHeadersByIdData): CancelablePromise<DeleteApiContractServiceRefundPointsContractsContractHeadersByIdResponse> {
@@ -566,8 +566,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -578,7 +578,7 @@ export class ContractsRefundPointService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundPointsContractsContractHeaders(data: GetApiContractServiceRefundPointsContractsContractHeadersData = {}): CancelablePromise<GetApiContractServiceRefundPointsContractsContractHeadersResponse> {
@@ -596,8 +596,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -609,7 +609,7 @@ export class ContractsRefundPointService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundPointsByIdContractsContractHeaders(data: GetApiContractServiceRefundPointsByIdContractsContractHeadersData): CancelablePromise<GetApiContractServiceRefundPointsByIdContractsContractHeadersResponse> {
@@ -630,8 +630,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -640,7 +640,7 @@ export class ContractsRefundPointService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRefundPointsByIdContractsContractHeaders(data: PostApiContractServiceRefundPointsByIdContractsContractHeadersData): CancelablePromise<PostApiContractServiceRefundPointsByIdContractsContractHeadersResponse> {
@@ -657,8 +657,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -666,7 +666,7 @@ export class ContractsRefundPointService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns boolean Success
+     * @returns boolean OK
      * @throws ApiError
      */
     public postApiContractServiceRefundPointsContractsContractHeadersByIdValidate(data: PostApiContractServiceRefundPointsContractsContractHeadersByIdValidateData): CancelablePromise<PostApiContractServiceRefundPointsContractsContractHeadersByIdValidateResponse> {
@@ -681,8 +681,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -690,7 +690,7 @@ export class ContractsRefundPointService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceRefundPointsContractsContractHeadersByIdMakePassive(data: PutApiContractServiceRefundPointsContractsContractHeadersByIdMakePassiveData): CancelablePromise<PutApiContractServiceRefundPointsContractsContractHeadersByIdMakePassiveResponse> {
@@ -705,8 +705,8 @@ export class ContractsRefundPointService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -720,7 +720,7 @@ export class RebateTableHeaderService {
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.sorting
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRebateTableHeadersAssignablesByMerchant(data: GetApiContractServiceRebateTableHeadersAssignablesByMerchantData): CancelablePromise<GetApiContractServiceRebateTableHeadersAssignablesByMerchantResponse> {
@@ -736,8 +736,8 @@ export class RebateTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -745,7 +745,7 @@ export class RebateTableHeaderService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRebateTableHeadersById(data: GetApiContractServiceRebateTableHeadersByIdData): CancelablePromise<GetApiContractServiceRebateTableHeadersByIdResponse> {
@@ -760,8 +760,8 @@ export class RebateTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -770,7 +770,7 @@ export class RebateTableHeaderService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceRebateTableHeadersById(data: PutApiContractServiceRebateTableHeadersByIdData): CancelablePromise<PutApiContractServiceRebateTableHeadersByIdResponse> {
@@ -787,19 +787,20 @@ export class RebateTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
     
     /**
+     * Retrieves a paginated list of rebate table headers based on input criteria.
      * @param data The data for the request.
      * @param data.isTemplate
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRebateTableHeaders(data: GetApiContractServiceRebateTableHeadersData = {}): CancelablePromise<GetApiContractServiceRebateTableHeadersResponse> {
@@ -817,8 +818,8 @@ export class RebateTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -826,7 +827,7 @@ export class RebateTableHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRebateTableHeaders(data: PostApiContractServiceRebateTableHeadersData = {}): CancelablePromise<PostApiContractServiceRebateTableHeadersResponse> {
@@ -840,8 +841,8 @@ export class RebateTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -851,7 +852,7 @@ export class RebateTableHeaderService {
      * @param data.id
      * @param data.isTemplate
      * @param data.merchantId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRebateTableHeadersCloneById(data: PostApiContractServiceRebateTableHeadersCloneByIdData): CancelablePromise<PostApiContractServiceRebateTableHeadersCloneByIdResponse> {
@@ -870,8 +871,8 @@ export class RebateTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -885,7 +886,7 @@ export class RefundFeeHeaderService {
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.sorting
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundFeeHeadersAssignablesByRefundPoint(data: GetApiContractServiceRefundFeeHeadersAssignablesByRefundPointData): CancelablePromise<GetApiContractServiceRefundFeeHeadersAssignablesByRefundPointResponse> {
@@ -901,8 +902,8 @@ export class RefundFeeHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -910,7 +911,7 @@ export class RefundFeeHeaderService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundFeeHeadersById(data: GetApiContractServiceRefundFeeHeadersByIdData): CancelablePromise<GetApiContractServiceRefundFeeHeadersByIdResponse> {
@@ -925,8 +926,8 @@ export class RefundFeeHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -935,7 +936,7 @@ export class RefundFeeHeaderService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceRefundFeeHeadersById(data: PutApiContractServiceRefundFeeHeadersByIdData): CancelablePromise<PutApiContractServiceRefundFeeHeadersByIdResponse> {
@@ -952,8 +953,8 @@ export class RefundFeeHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -963,7 +964,7 @@ export class RefundFeeHeaderService {
      * @param data.isTemplate
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundFeeHeaders(data: GetApiContractServiceRefundFeeHeadersData = {}): CancelablePromise<GetApiContractServiceRefundFeeHeadersResponse> {
@@ -980,8 +981,8 @@ export class RefundFeeHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -989,7 +990,7 @@ export class RefundFeeHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRefundFeeHeaders(data: PostApiContractServiceRefundFeeHeadersData = {}): CancelablePromise<PostApiContractServiceRefundFeeHeadersResponse> {
@@ -1003,8 +1004,8 @@ export class RefundFeeHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1014,7 +1015,7 @@ export class RefundFeeHeaderService {
      * @param data.id
      * @param data.isTemplate
      * @param data.refundPointId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRefundFeeHeadersCloneById(data: PostApiContractServiceRefundFeeHeadersCloneByIdData): CancelablePromise<PostApiContractServiceRefundFeeHeadersCloneByIdResponse> {
@@ -1033,8 +1034,8 @@ export class RefundFeeHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1048,7 +1049,7 @@ export class RefundTableHeaderService {
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.sorting
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundTableHeadersAssignablesByMerchant(data: GetApiContractServiceRefundTableHeadersAssignablesByMerchantData): CancelablePromise<GetApiContractServiceRefundTableHeadersAssignablesByMerchantResponse> {
@@ -1064,8 +1065,8 @@ export class RefundTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1073,7 +1074,7 @@ export class RefundTableHeaderService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundTableHeadersById(data: GetApiContractServiceRefundTableHeadersByIdData): CancelablePromise<GetApiContractServiceRefundTableHeadersByIdResponse> {
@@ -1088,8 +1089,8 @@ export class RefundTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1098,7 +1099,7 @@ export class RefundTableHeaderService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiContractServiceRefundTableHeadersById(data: PutApiContractServiceRefundTableHeadersByIdData): CancelablePromise<PutApiContractServiceRefundTableHeadersByIdResponse> {
@@ -1115,8 +1116,8 @@ export class RefundTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1126,7 +1127,7 @@ export class RefundTableHeaderService {
      * @param data.isTemplate
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiContractServiceRefundTableHeaders(data: GetApiContractServiceRefundTableHeadersData = {}): CancelablePromise<GetApiContractServiceRefundTableHeadersResponse> {
@@ -1143,8 +1144,8 @@ export class RefundTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1152,7 +1153,7 @@ export class RefundTableHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRefundTableHeaders(data: PostApiContractServiceRefundTableHeadersData = {}): CancelablePromise<PostApiContractServiceRefundTableHeadersResponse> {
@@ -1166,8 +1167,8 @@ export class RefundTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1177,7 +1178,7 @@ export class RefundTableHeaderService {
      * @param data.id
      * @param data.isTemplate
      * @param data.merchantId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiContractServiceRefundTableHeadersCloneById(data: PostApiContractServiceRefundTableHeadersCloneByIdData): CancelablePromise<PostApiContractServiceRefundTableHeadersCloneByIdResponse> {
@@ -1196,8 +1197,8 @@ export class RefundTableHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
