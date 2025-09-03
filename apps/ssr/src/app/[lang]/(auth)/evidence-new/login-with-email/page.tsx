@@ -1,9 +1,9 @@
 import {getTenantByNameApi, signInServerApi} from "@repo/actions/core/AccountService/actions";
 import LoginForm from "@repo/ui/theme/auth/login";
 import Image from "next/image";
+import Link from "next/link";
 import {getResourceData} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
-import Link from "next/link";
 
 export default async function LoginWithEmailPage({params}: {params: {lang: string}}) {
   const {lang} = params;
@@ -27,12 +27,12 @@ export default async function LoginWithEmailPage({params}: {params: {lang: strin
       <div className="relative flex flex-col items-center justify-center">
         <LoginForm
           isTenantDisabled={isTenantDisabled}
+          isVisible={false}
           languageData={languageData}
           onSubmitAction={signInServerApi}
           onTenantSearchAction={getTenantByNameApi}
-          isVisible={false}
         />
-        <Link href={`/${lang}/register`} className=" hover:text-primary text-sm  text-gray-600">
+        <Link className=" hover:text-primary text-sm  text-gray-600" href={`/${lang}/register`}>
           {languageData["Auth.NotMember"]}
         </Link>
       </div>
