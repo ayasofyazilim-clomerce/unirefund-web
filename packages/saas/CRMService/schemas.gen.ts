@@ -2130,6 +2130,26 @@ export const $UniRefund_CRMService_Individuals_IndividualStatus = {
     type: 'string'
 } as const;
 
+export const $UniRefund_CRMService_Individuals_IndividualWithAbpUserDto = {
+    type: 'object',
+    properties: {
+        individualId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        fullname: {
+            type: 'string',
+            nullable: true
+        },
+        abpUserId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        }
+    },
+    additionalProperties: false
+} as const;
+
 export const $UniRefund_CRMService_Individuals_NewUser = {
     type: 'object',
     properties: {
@@ -4042,7 +4062,6 @@ export const $UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
     additionalProperties: false
 } as const;
 
-<<<<<<< HEAD
 export const $UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
     type: 'object',
     properties: {
@@ -4092,8 +4111,6 @@ export const $UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
     additionalProperties: false
 } as const;
 
-=======
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
 export const $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto = {
     required: ['productGroupId'],
     type: 'object',

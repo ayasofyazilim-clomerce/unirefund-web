@@ -1,41 +1,32 @@
 "use client";
 
-import type {
-  PagedResultDto_AffiliationListResponseDto,
-  UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {PagedResultDto_AffiliationListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";
-import type {
-  Volo_Abp_Identity_IdentityRoleDto,
-  Volo_Abp_Identity_IdentityUserDto,
-} from "@ayasofyazilim/core-saas/IdentityService";
 import {useState} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import {tableData} from "./table-data";
 import {AffiliationDrawer} from "./drawer";
+import {tableData} from "./table-data";
 
 function AffiliationsTable({
   affiliations,
   languageData,
-  individuals,
-  isIndividualsAvailable,
   roles,
   isRolesAvailable,
-  users,
   isUsersAvailable,
+  partyType,
 }: {
   affiliations: PagedResultDto_AffiliationListResponseDto;
   languageData: CRMServiceServiceResource;
-  individuals: IndividualListResponseDto[];
-  isIndividualsAvailable: boolean;
 
   roles: Volo_Abp_Identity_IdentityRoleDto[];
   isRolesAvailable: boolean;
 
-  users: Volo_Abp_Identity_IdentityUserDto[];
   isUsersAvailable: boolean;
+
+  partyType: "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs";
 }) {
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
@@ -57,13 +48,11 @@ function AffiliationsTable({
     <div>
       <TanstackTable {...table} columns={columns} data={affiliations.items || []} rowCount={affiliations.totalCount} />
       <AffiliationDrawer
-        individuals={individuals}
-        isIndividualsAvailable={isIndividualsAvailable}
         languageData={languageData}
         open={open}
+        partyType={partyType}
         roles={roles}
         setOpen={setOpen}
-        users={users}
       />
     </div>
   );

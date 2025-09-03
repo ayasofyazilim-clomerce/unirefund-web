@@ -11,10 +11,15 @@ import {
   GetApiCrmServiceTaxfreesData,
   GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData,
   GetApiCrmServiceTaxofficesData,
+  PostApiCrmServiceCustomsByCustomIdAffiliationsData,
+  PostApiCrmServiceMerchantsByMerchantIdAffiliationsData,
+  PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData,
+  PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
+  PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData,
 } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
 import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getCRMServiceClient} from "../lib";
+import {getCRMServiceClient, getCRMServiceClientFromPackage} from "../lib";
 /* Merchant */
 export async function getMerchantsApi(data: GetApiCrmServiceMerchantsData = {}, session?: Session | null) {
   try {
@@ -82,6 +87,18 @@ export async function getMerchantProductGroupByMerchantIdApi(merchantId: string,
     throw structuredError(error);
   }
 }
+export async function postMerchantAffiliationApi(
+  data: PostApiCrmServiceMerchantsByMerchantIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.merchant.postApiCrmServiceMerchantsByMerchantIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 /* RefundPoint */
 export async function getRefundPointsApi(data: GetApiCrmServiceRefundpointsData = {}, session?: Session | null) {
   try {
@@ -140,6 +157,18 @@ export async function getRefundPointAffiliationsByRefundPointIdApi(
     throw structuredError(error);
   }
 }
+export async function postRefundPointAffiliationApi(
+  data: PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.refundPoint.postApiCrmServiceRefundpointsByRefundPointIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 /* TaxFree */
 export async function getTaxFreesApi(data: GetApiCrmServiceTaxfreesData = {}, session?: Session | null) {
   try {
@@ -168,6 +197,18 @@ export async function getTaxFreeEmailsByTaxFreeIdApi(taxFreeId: string, session?
     throw structuredError(error);
   }
 }
+export async function getTaxFreeAffiliationsByTaxFreeIdApi(
+  data: GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.getApiCrmServiceTaxfreesByTaxFreeIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 export async function getTaxFreeTelephonesByTaxFreeIdApi(taxFreeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
@@ -186,13 +227,25 @@ export async function getTaxFreeAddressesByTaxFreeIdApi(taxFreeId: string, sessi
     throw structuredError(error);
   }
 }
-export async function getTaxFreeAffiliationsByTaxFreeIdApi(
+export async function getTaxFreeAffiliationApi(
   data: GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.taxFree.getApiCrmServiceTaxfreesByTaxFreeIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function postTaxFreeAffiliationApi(
+  data: PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.postApiCrmServiceTaxfreesByTaxFreeIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -256,6 +309,18 @@ export async function getCustomAffiliationsByCustomIdApi(
     throw structuredError(error);
   }
 }
+export async function postCustomAffiliationApi(
+  data: PostApiCrmServiceCustomsByCustomIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.custom.postApiCrmServiceCustomsByCustomIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 /* TaxOffice */
 export async function getTaxOfficesApi(data: GetApiCrmServiceTaxofficesData = {}, session?: Session | null) {
   try {
@@ -314,6 +379,18 @@ export async function getTaxOfficeAffiliationsByTaxOfficeIdApi(
     throw structuredError(error);
   }
 }
+export async function postTaxOfficesAffiliationApi(
+  data: PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxOffice.postApiCrmServiceTaxofficesByTaxOfficeIdAffiliations(data);
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
 /*Individuals */
 export async function getIndividualsApi(data: GetApiCrmServiceIndividualsData = {}, session?: Session | null) {
   try {
@@ -328,6 +405,15 @@ export async function getIndividualByIdApi(individualId: string, session?: Sessi
   try {
     const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.individual.getApiCrmServiceIndividualsByIndividualId({individualId});
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+export async function getIndividualByEmailApi(email: string, session?: Session | null) {
+  try {
+    const crmClient = await getCRMServiceClientFromPackage(session);
+    const response = await crmClient.individual.getApiCrmServiceIndividualsByEmail({email});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);

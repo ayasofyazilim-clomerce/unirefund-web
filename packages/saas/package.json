@@ -6,7 +6,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "gen": "node index.mjs"
+    "gen": "node index.mjs",
+    "gen:dev": "pnpm gen -u \"https://dev-api.unirefund.com\"",
+    "gen:uat": "pnpm gen -u \"https://uat-api.unirefund.com\""
   },
   "dependencies": {
     "@ayasofyazilim/sdk_generator": "latest",

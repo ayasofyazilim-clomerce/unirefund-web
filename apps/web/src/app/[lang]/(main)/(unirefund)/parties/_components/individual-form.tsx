@@ -103,6 +103,7 @@ export function CreateIndividualForm({
                   id: response.data,
                 },
                 type: response.type,
+                message: response.message,
               });
             } else {
               handlePostResponse(response, router);

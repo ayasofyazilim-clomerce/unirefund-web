@@ -23,8 +23,8 @@ import {isActionGranted} from "@repo/utils/policies";
 import {PlusCircle, Trash2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams} from "next/navigation";
-import type {Dispatch, TransitionStartFunction} from "react";
-import {useTransition} from "react";
+import type {Dispatch, SetStateAction} from "react";
+import {useState} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type AffiliationTableType = TanstackTableCreationProps<AffiliationListResponseDto>;
@@ -82,7 +82,7 @@ function AffiliationTable(
   setOpen: Dispatch<React.SetStateAction<boolean>>,
 ) {
   const {partyId} = useParams<{lang: string; partyId: string}>();
-  const [isPending, startTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const table: AffiliationTableType = {
     tableActions: affiliationTableActions(languageData, grantedPolicies, isUsersAvailable, isRolesAvailable, setOpen),
@@ -106,8 +106,8 @@ function AffiliationTable(
         partyId,
         languageData,
         roles,
-        isPending,
-        startTransition,
+        isSubmitting,
+        setIsSubmitting,
         router,
       }),
     columnVisibility: {
@@ -130,39 +130,39 @@ function EditForm({
   partyId,
   languageData,
   roles,
-  isPending,
-  startTransition,
+  isSubmitting,
+  setIsSubmitting,
   router,
 }: {
   row: AffiliationListResponseDto;
   partyId: string;
   languageData: CRMServiceServiceResource;
   roles: RoleDto[];
-  isPending: boolean;
-  startTransition: TransitionStartFunction;
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
   router: AppRouterInstance;
 }) {
   return (
     <SchemaForm<AffiliationListResponseDto>
-      disabled={isPending}
+      disabled={isSubmitting}
       filter={{type: "include", sort: true, keys: ["abpRoleId", "isPrimary", "startDate", "endDate"]}}
       formData={row}
       key={JSON.stringify(row)}
       onSubmit={({formData}) => {
         if (!formData) return;
-        startTransition(() => {
-          void putMerchantAffiliationByIdApi({
-            affiliationId: row.id || "",
-            merchantId: partyId,
-            requestBody: {
-              abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
-              isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
-              startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
-              endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
-            },
-          }).then((res) => {
-            handlePutResponse(res, router);
-          });
+        setIsSubmitting(true);
+        void putMerchantAffiliationByIdApi({
+          affiliationId: row.id || "",
+          merchantId: partyId,
+          requestBody: {
+            abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
+            isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
+            startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
+            endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
+          },
+        }).then((res) => {
+          handlePutResponse(res, router);
+          setIsSubmitting(false);
         });
       }}
       schema={$UpdateAffiliationDto}
@@ -186,7 +186,6 @@ function EditForm({
       widgets={{
         roleWidget: CustomComboboxWidget<RoleDto>({
           languageData,
-
           list: roles,
           selectIdentifier: "id",
           selectLabel: "name",
@@ -201,25 +200,23 @@ function EditForm({
             children: languageData["Form.Merchant.affiliation.delete"],
             closeAfterConfirm: true,
             onConfirm: () => {
-              startTransition(() => {
-                void deleteMerchantAffiliationByIdApi({merchantId: partyId, affiliationId: row.id || ""}).then(
-                  (res) => {
-                    handleDeleteResponse(res, router);
-                  },
-                );
+              setIsSubmitting(true);
+              void deleteMerchantAffiliationByIdApi({merchantId: partyId, affiliationId: row.id || ""}).then((res) => {
+                handleDeleteResponse(res, router);
+                setIsSubmitting(false);
               });
             },
           }}
           description={languageData["Form.Merchant.affiliation.delete.confirm"]}
-          loading={isPending}
+          loading={isSubmitting}
           title={languageData["Form.Merchant.affiliation.delete"]}
           type="without-trigger">
-          <Button className="" type="button" variant="outline">
+          <Button className="" disabled={isSubmitting} type="button" variant="outline">
             <Trash2Icon className="mr-2 size-4" />
             {languageData["Form.Merchant.affiliation.delete"]}
           </Button>
         </ConfirmDialog>
-        <Button>{languageData["Form.Merchant.affiliation.update"]}</Button>
+        <Button disabled={isSubmitting}>{languageData["Form.Merchant.affiliation.update"]}</Button>
       </div>
     </SchemaForm>
   );
