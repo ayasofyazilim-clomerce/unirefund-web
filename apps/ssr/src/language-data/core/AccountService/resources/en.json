@@ -66,6 +66,7 @@
   "Auth.Login": "Login",
   "Auth.HaveAnAccount": "Don't you have an account?",
   "Auth.Register": "Register",
+  "Auth.NotMember": "Not a member? Sign up",
   "Auth.EmailAddressLabel": "Email Address",
   "Auth.UsernameLabel": "Username",
   "Auth.UsernameDescription": "User name.",
