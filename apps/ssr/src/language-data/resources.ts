@@ -1978,6 +1978,9 @@ export type TravellerServiceResources = {
   "Permission:View": "View";
   "Permission:Delete": "Delete";
   "Permission:AnalyzeDocumentByMRZWithoutES": "Use of MRZ Extraction";
+  "UniRefund.TravellerService:010018": "At least and just one {contactTypeName} can be primary!";
+  "UniRefund.TravellerService:010019": "Given Language preference culture name '{invalidCode}' is not valid! Allowed Languages code are '{allowedCodes}'.";
+  "UniRefund.TravellerService:010020": "At least ITU Country Code or AreaCode must exist!";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";
