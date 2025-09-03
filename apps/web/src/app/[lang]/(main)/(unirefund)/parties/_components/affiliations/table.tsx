@@ -25,6 +25,7 @@ function AffiliationsTable({
   isRolesAvailable,
   users,
   isUsersAvailable,
+  partyType,
 }: {
   affiliations: PagedResultDto_AffiliationListResponseDto;
   languageData: CRMServiceServiceResource;
@@ -36,6 +37,8 @@ function AffiliationsTable({
 
   users: Volo_Abp_Identity_IdentityUserDto[];
   isUsersAvailable: boolean;
+
+  partyType: "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs";
 }) {
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
@@ -57,13 +60,11 @@ function AffiliationsTable({
     <div>
       <TanstackTable {...table} columns={columns} data={affiliations.items || []} rowCount={affiliations.totalCount} />
       <AffiliationDrawer
-        individuals={individuals}
-        isIndividualsAvailable={isIndividualsAvailable}
         languageData={languageData}
         open={open}
         roles={roles}
         setOpen={setOpen}
-        users={users}
+        partyType={partyType}
       />
     </div>
   );
