@@ -184,7 +184,6 @@ export type UniRefund_CRMService_Affiliations_AffiliationListResponseDto = {
 
 export type UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto = {
     individualId?: string;
-    abpUserId?: (string) | null;
     abpRoleId?: string;
     startDate?: (string) | null;
     endDate?: (string) | null;
