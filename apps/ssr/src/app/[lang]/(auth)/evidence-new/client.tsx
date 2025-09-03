@@ -18,7 +18,7 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
     <div className="w-full">
       <div className="mx-auto w-full max-w-4xl p-2 md:p-6">
         {/* Header */}
-        <div className="mb-2 text-center md:mb-6 md:mb-8">
+        <div className="mb-2 text-center md:mb-6">
           <div className="flex items-center justify-center md:mb-4">
             <Shield className="text-primary mr-2 h-6 w-6 md:h-8 md:w-8" />
             <h1 className="text-foreground text-2xl font-bold md:text-3xl">{languageData["Evidence.Title"]}</h1>
