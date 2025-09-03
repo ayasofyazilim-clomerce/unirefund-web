@@ -240,7 +240,6 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
         setOpen(false);
         return;
       } else {
-        console.log(response, "aaaa");
         toast.error(response?.message || "An error occurred");
       }
     },

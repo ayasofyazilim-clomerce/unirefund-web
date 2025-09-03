@@ -96,8 +96,6 @@ export function CreateIndividualForm({
         if (!formData) return;
         startTransition(() => {
           void postIndividualApi(formData).then((response) => {
-            console.log(response);
-
             if (onSubmit) {
               onSubmit({
                 data: {
