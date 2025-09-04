@@ -10,7 +10,7 @@ import {
 } from "@repo/actions/unirefund/TravellerService/actions";
 import {postApiEvidenceSessionLivenessCompareFaces} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {useState} from "react";
-import OnboardingPage from "./validation-steps/_components/onboarding-liveness";
+import {Button} from "@/components/ui/button";
 
 export default function LivenessDetector({
   languageData,
@@ -18,6 +18,8 @@ export default function LivenessDetector({
   config,
   onAnalysisComplete,
   frontImageBase64,
+  trigger,
+  onStartTesting,
 }: {
   languageData: SSRServiceResource;
   evidenceSessionId: string;
@@ -28,6 +30,8 @@ export default function LivenessDetector({
   };
   onAnalysisComplete: (result: {isLive: boolean; confidence: number}) => void;
   frontImageBase64: string | null;
+  trigger?: React.ReactNode;
+  onStartTesting?: () => void;
 }) {
   const [sessionId, setSessionId] = useState<string | null>(null);
   // Amplify'ın default token'larını alıyoruz
@@ -57,26 +61,36 @@ export default function LivenessDetector({
   };
 
   const [open, setOpen] = useState(false);
+
+  const handleStartValidation = () => {
+    onStartTesting?.(); // Status güncelleme callback'ini çağır
+    if (evidenceSessionId) {
+      void getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId).then((res) => {
+        if (res.type === "success") {
+          setSessionId(res.data.sessionId || null);
+          setOpen(true);
+        }
+      });
+    }
+  };
+
   return (
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <div>
-          <OnboardingPage
-            languageData={languageData}
-            onStartValidation={() => {
-              if (evidenceSessionId) {
-                void getApiEvidenceSessionPublicCreateFaceLivenessSession(evidenceSessionId).then((res) => {
-                  if (res.type === "success") {
-                    setSessionId(res.data.sessionId || null);
-                    ("");
-                    setOpen(true); // sadece başarılıysa açık
-                  }
-                });
-              }
-            }}
-          />
+        <div
+          className="w-full max-w-xs"
+          onClick={handleStartValidation}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              handleStartValidation();
+            }
+          }}
+          role="button"
+          tabIndex={0}>
+          {trigger || <Button>{languageData.StartValidation}</Button>}
         </div>
       </DialogTrigger>
+
       <DialogContent
         className="flex h-full max-h-screen min-h-screen w-full w-full max-w-2xl max-w-full items-center justify-center rounded-none border-none 
                    bg-transparent 

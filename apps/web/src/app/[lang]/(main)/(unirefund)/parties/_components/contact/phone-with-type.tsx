@@ -33,7 +33,7 @@ export function PhoneWithTypeField({languageData}: {languageData: CRMServiceServ
             ),
             number: {
               "ui:className": "col-span-3",
-              "ui:widget": "phone-2",
+              "ui:widget": "phone-with-value",
             },
             type: {
               "ui:className": " [&_button]:whitespace-normal  [&_button]:p-1",

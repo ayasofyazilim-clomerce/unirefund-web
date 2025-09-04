@@ -22,7 +22,7 @@ import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
 export default function CreateTaxOfficeForm({
-  taxFreeList = [],
+  taxOfficeList,
   languageData,
   typeCode,
   formData = {
@@ -35,10 +35,12 @@ export default function CreateTaxOfficeForm({
       type: "HOME",
     },
   },
+  parentDetails,
 }: {
-  taxFreeList?: TaxOfficeDto[];
+  taxOfficeList?: TaxOfficeDto[];
   languageData: CRMServiceServiceResource;
   formData?: CreateTaxOfficeDto;
+  parentDetails?: TaxOfficeDto;
   typeCode?: "HEADQUARTER" | "TAXOFFICE";
 }) {
   const {lang} = useParams<{lang: string}>();
@@ -70,7 +72,8 @@ export default function CreateTaxOfficeForm({
         "ui:title": languageData["Form.TaxOffice.typeCode"],
       },
       parentId: {
-        "ui:widget": "taxFreeWidget",
+        "ui:widget": "taxOfficeWidget",
+        ...{"ui:disabled": typeCode === "TAXOFFICE" && true},
       },
       "ui:order": [
         "name",
@@ -94,9 +97,10 @@ export default function CreateTaxOfficeForm({
     phone: PhoneWithTypeField({languageData}),
   };
 
+  const list = parentDetails ? [parentDetails] : [];
   const widgets = {
-    taxFreeWidget: CustomComboboxWidget<TaxOfficeDto>({
-      list: taxFreeList,
+    taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
+      list: taxOfficeList || list,
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,

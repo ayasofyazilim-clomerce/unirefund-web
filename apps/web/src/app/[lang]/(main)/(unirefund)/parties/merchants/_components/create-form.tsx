@@ -26,9 +26,10 @@ import {CheckIsFormReady} from "../../_components/is-form-ready";
 
 export default function CreateMerchantForm({
   taxOfficeList,
-  merchantList = [],
+  merchantList,
   languageData,
   typeCode,
+  parentDetails,
   formData = {
     name: "  ",
     typeCode: "HEADQUARTER",
@@ -44,6 +45,7 @@ export default function CreateMerchantForm({
   merchantList?: MerchantDto[];
   languageData: CRMServiceServiceResource;
   formData?: CreateMerchantDto;
+  parentDetails?: MerchantDto;
   typeCode?: "HEADQUARTER" | "STORE";
 }) {
   const {lang} = useParams<{lang: string}>();
@@ -56,6 +58,7 @@ export default function CreateMerchantForm({
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
       taxOfficeId: {
+        ...{"ui:disabled": typeCode === "STORE" && true},
         "ui:widget": "taxOfficeWidget",
       },
       isPersonalCompany: {
@@ -87,6 +90,7 @@ export default function CreateMerchantForm({
       parentId: {
         "ui:className": "col-span-full",
         "ui:widget": "merchantWidget",
+        ...{"ui:disabled": typeCode === "STORE" && true},
       },
       "ui:order": [
         "name",
@@ -112,7 +116,7 @@ export default function CreateMerchantForm({
     email: EmailWithTypeField({languageData}),
     phone: PhoneWithTypeField({languageData}),
   };
-
+  const list = parentDetails ? [parentDetails] : [];
   const widgets = {
     taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
       list: taxOfficeList,
@@ -121,7 +125,7 @@ export default function CreateMerchantForm({
       languageData,
     }),
     merchantWidget: CustomComboboxWidget<MerchantDto>({
-      list: merchantList,
+      list: merchantList || list,
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
