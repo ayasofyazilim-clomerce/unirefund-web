@@ -208,6 +208,215 @@ This DTO captures different types of monetary amounts relevant to the tag, such 
     additionalProperties: false
 } as const;
 
+export const $UniRefund_CRMService_Addresses_AddressDto = {
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        partyType: {
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            type: 'string'
+        },
+        partyId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        countryId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        adminAreaLevel1Id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        adminAreaLevel2Id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        neighborhoodId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        addressLine: {
+            type: 'string',
+            nullable: true
+        },
+        postalCode: {
+            type: 'string',
+            nullable: true
+        },
+        type: {
+            enum: ['UNKNOWN', 'HOME', 'WORK'],
+            type: 'string'
+        },
+        placeId: {
+            type: 'string',
+            nullable: true
+        },
+        latitude: {
+            type: 'number',
+            format: 'float',
+            nullable: true
+        },
+        longitude: {
+            type: 'number',
+            format: 'float',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean',
+            nullable: true
+        }
+    },
+    additionalProperties: false
+} as const;
+
+export const $UniRefund_CRMService_Addresses_AddressType = {
+    enum: ['UNKNOWN', 'HOME', 'WORK'],
+    type: 'string'
+} as const;
+
+export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        name: {
+            type: 'string',
+            description: 'The **business name** of the merchant. This is the official trading name.',
+            nullable: true
+        },
+        address: {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                partyType: {
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    type: 'string'
+                },
+                partyId: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                countryId: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                adminAreaLevel1Id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                adminAreaLevel2Id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                neighborhoodId: {
+                    type: 'string',
+                    format: 'uuid',
+                    nullable: true
+                },
+                addressLine: {
+                    type: 'string',
+                    nullable: true
+                },
+                postalCode: {
+                    type: 'string',
+                    nullable: true
+                },
+                type: {
+                    enum: ['UNKNOWN', 'HOME', 'WORK'],
+                    type: 'string'
+                },
+                placeId: {
+                    type: 'string',
+                    nullable: true
+                },
+                latitude: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                longitude: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean',
+                    nullable: true
+                }
+            },
+            additionalProperties: false
+        },
+        productGroups: {
+            type: 'array',
+            items: {
+                required: ['active', 'articleCode', 'companyType', 'food', 'name', 'unitCode'],
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    articleCode: {
+                        minLength: 1,
+                        type: 'string',
+                        description: 'The unique article code for the product group. This field is **required**.'
+                    },
+                    name: {
+                        minLength: 1,
+                        type: 'string',
+                        description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
+                    },
+                    unitCode: {
+                        enum: ['QNT', 'BAG', 'BOX'],
+                        type: 'string'
+                    },
+                    companyType: {
+                        enum: ['GOVERNMENT', 'TAXFREE', 'CUSTOMS', 'REFUNDPOINT', 'MERCHANT', 'EXCHANGE', 'TOURGUIDE'],
+                        type: 'string'
+                    },
+                    vatId: {
+                        type: 'string',
+                        description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
+                        format: 'uuid'
+                    },
+                    vatPercent: {
+                        type: 'integer',
+                        description: 'The percentage of VAT applied to products in this group, if applicable.',
+                        format: 'int32',
+                        nullable: true
+                    },
+                    active: {
+                        type: 'boolean',
+                        description: 'Indicates whether the product group is currently active. This field is **required**.'
+                    },
+                    food: {
+                        type: 'boolean',
+                        description: 'Indicates whether the product group consists of food items. This field is **required**.'
+                    }
+                },
+                additionalProperties: false,
+                description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
+            },
+            description: `A list of **product groups** that this merchant sells,
+relevant for tax-free eligibility categorization.`,
+            nullable: true
+        }
+    },
+    additionalProperties: false,
+    description: `Represents the detailed business information for a merchant within the tax-free system.
+This DTO is used for transferring and displaying core merchant data.`
+} as const;
+
 export const $UniRefund_ExportValidationService_ExportValidations_ExportValidationDetailDto = {
     required: ['customsId', 'customsName', 'exportDate'],
     type: 'object',
@@ -218,27 +427,36 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
         },
         tagId: {
             type: 'string',
+            description: 'The unique identifier of the tax-free tag associated with the export.',
             format: 'uuid',
             nullable: true
         },
         tagNumber: {
             type: 'string',
+            description: 'The readable number or code of the tax-free tag.',
             nullable: true
         },
         customsId: {
             type: 'string',
+            description: `The unique identifier of the customs office where the export validation occurred.
+This field is **required**.`,
             format: 'uuid'
         },
         customsName: {
             minLength: 1,
-            type: 'string'
+            type: 'string',
+            description: `The name of the customs office where the export validation occurred.
+This field is **required**.`
         },
         referenceId: {
             type: 'string',
+            description: 'An optional reference ID for the export validation, possibly from an external system.',
             nullable: true
         },
         exportDate: {
             type: 'string',
+            description: `The date and time when the export validation was performed.
+This field is **required**.`,
             format: 'date-time'
         },
         status: {
@@ -258,7 +476,9 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
             type: 'string'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: `Represents the details of an export validation process for a tax-free transaction.
+This DTO captures information related to customs verification of exported goods.`
 } as const;
 
 export const $UniRefund_ExportValidationService_ExportValidations_ExportValidationDto = {
@@ -271,27 +491,36 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
         },
         tagId: {
             type: 'string',
+            description: 'The unique identifier of the tax-free tag associated with the export.',
             format: 'uuid',
             nullable: true
         },
         tagNumber: {
             type: 'string',
+            description: 'The readable number or code of the tax-free tag.',
             nullable: true
         },
         customsId: {
             type: 'string',
+            description: `The unique identifier of the customs office where the export validation occurred.
+This field is **required**.`,
             format: 'uuid'
         },
         customsName: {
             minLength: 1,
-            type: 'string'
+            type: 'string',
+            description: `The name of the customs office where the export validation occurred.
+This field is **required**.`
         },
         exportDate: {
             type: 'string',
+            description: `The date and time when the export validation was performed.
+This field is **required**.`,
             format: 'date-time'
         },
         referenceId: {
             type: 'string',
+            description: 'An optional reference ID for the export validation, possibly from an external system.',
             nullable: true
         },
         status: {
@@ -311,7 +540,9 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
             type: 'string'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: `Represents the details of an export validation process for a tax-free transaction.
+This DTO captures information related to customs verification of exported goods.`
 } as const;
 
 export const $UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode = {
@@ -344,11 +575,13 @@ export const $UniRefund_SettingService_ProductGroups_ProductGroupDto = {
         },
         articleCode: {
             minLength: 1,
-            type: 'string'
+            type: 'string',
+            description: 'The unique article code for the product group. This field is **required**.'
         },
         name: {
             minLength: 1,
-            type: 'string'
+            type: 'string',
+            description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
         },
         unitCode: {
             enum: ['QNT', 'BAG', 'BOX'],
@@ -360,25 +593,35 @@ export const $UniRefund_SettingService_ProductGroups_ProductGroupDto = {
         },
         vatId: {
             type: 'string',
+            description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
             format: 'uuid'
         },
         vatPercent: {
             type: 'integer',
+            description: 'The percentage of VAT applied to products in this group, if applicable.',
             format: 'int32',
             nullable: true
         },
         active: {
-            type: 'boolean'
+            type: 'boolean',
+            description: 'Indicates whether the product group is currently active. This field is **required**.'
         },
         food: {
-            type: 'boolean'
+            type: 'boolean',
+            description: 'Indicates whether the product group consists of food items. This field is **required**.'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
 } as const;
 
 export const $UniRefund_SettingService_ProductGroups_UnitTypeCode = {
     enum: ['QNT', 'BAG', 'BOX'],
+    type: 'string'
+} as const;
+
+export const $UniRefund_Shared_Contracts_Enums_PartyType = {
+    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
     type: 'string'
 } as const;
 
@@ -435,11 +678,13 @@ export const $UniRefund_TagService_Invoices_InvoiceDto = {
                             },
                             articleCode: {
                                 minLength: 1,
-                                type: 'string'
+                                type: 'string',
+                                description: 'The unique article code for the product group. This field is **required**.'
                             },
                             name: {
                                 minLength: 1,
-                                type: 'string'
+                                type: 'string',
+                                description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
                             },
                             unitCode: {
                                 enum: ['QNT', 'BAG', 'BOX'],
@@ -451,21 +696,26 @@ export const $UniRefund_TagService_Invoices_InvoiceDto = {
                             },
                             vatId: {
                                 type: 'string',
+                                description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
                                 format: 'uuid'
                             },
                             vatPercent: {
                                 type: 'integer',
+                                description: 'The percentage of VAT applied to products in this group, if applicable.',
                                 format: 'int32',
                                 nullable: true
                             },
                             active: {
-                                type: 'boolean'
+                                type: 'boolean',
+                                description: 'Indicates whether the product group is currently active. This field is **required**.'
                             },
                             food: {
-                                type: 'boolean'
+                                type: 'boolean',
+                                description: 'Indicates whether the product group consists of food items. This field is **required**.'
                             }
                         },
-                        additionalProperties: false
+                        additionalProperties: false,
+                        description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
                     },
                     description: {
                         type: 'string',
@@ -529,11 +779,13 @@ export const $UniRefund_TagService_Invoices_InvoiceLineDto = {
                 },
                 articleCode: {
                     minLength: 1,
-                    type: 'string'
+                    type: 'string',
+                    description: 'The unique article code for the product group. This field is **required**.'
                 },
                 name: {
                     minLength: 1,
-                    type: 'string'
+                    type: 'string',
+                    description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
                 },
                 unitCode: {
                     enum: ['QNT', 'BAG', 'BOX'],
@@ -545,21 +797,26 @@ export const $UniRefund_TagService_Invoices_InvoiceLineDto = {
                 },
                 vatId: {
                     type: 'string',
+                    description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
                     format: 'uuid'
                 },
                 vatPercent: {
                     type: 'integer',
+                    description: 'The percentage of VAT applied to products in this group, if applicable.',
                     format: 'int32',
                     nullable: true
                 },
                 active: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    description: 'Indicates whether the product group is currently active. This field is **required**.'
                 },
                 food: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    description: 'Indicates whether the product group consists of food items. This field is **required**.'
                 }
             },
-            additionalProperties: false
+            additionalProperties: false,
+            description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
         },
         description: {
             type: 'string',
@@ -675,63 +932,6 @@ Required for itemized billing and calculations.`
     description: 'Represents the data required to create or update an invoice.'
 } as const;
 
-export const $UniRefund_TagService_Merchants_MerchantDetailDto = {
-    type: 'object',
-    properties: {
-        id: {
-            type: 'string',
-            format: 'uuid'
-        },
-        name: {
-            type: 'string',
-            description: 'The **business name** of the merchant. This is the official trading name.',
-            nullable: true
-        },
-        address: {
-            type: 'object',
-            properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                fullText: {
-                    type: 'string',
-                    description: 'The complete, formatted text of the address (e.g., street, building number, city, postcode, country).',
-                    nullable: true
-                }
-            },
-            additionalProperties: false,
-            description: `Represents the address information for entities within the tax-free system.
-This DTO provides a consolidated view of an address.`
-        },
-        productGroups: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    id: {
-                        type: 'string',
-                        format: 'uuid'
-                    },
-                    description: {
-                        type: 'string',
-                        description: 'A description of the product group (e.g., "Electronics," "Apparel," "Luxury Goods").',
-                        nullable: true
-                    }
-                },
-                additionalProperties: false,
-                description: 'Represents a category or group of products.'
-            },
-            description: `A list of **product groups** that this merchant sells,
-relevant for tax-free eligibility categorization.`,
-            nullable: true
-        }
-    },
-    additionalProperties: false,
-    description: `Represents the detailed business information for a merchant within the tax-free system.
-This DTO is used for transferring and displaying core merchant data.`
-} as const;
-
 export const $UniRefund_TagService_Merchants_MerchantRequestDto = {
     required: ['branchId', 'countryCode', 'vatNumber'],
     type: 'object',
@@ -757,24 +957,6 @@ Used to distinguish between different locations or subdivisions of the same merc
     },
     additionalProperties: false,
     description: 'Data transfer object for merchant registration or update requests.'
-} as const;
-
-export const $UniRefund_TagService_Tags_AddressDto = {
-    type: 'object',
-    properties: {
-        id: {
-            type: 'string',
-            format: 'uuid'
-        },
-        fullText: {
-            type: 'string',
-            description: 'The complete, formatted text of the address (e.g., street, building number, city, postcode, country).',
-            nullable: true
-        }
-    },
-    additionalProperties: false,
-    description: `Represents the address information for entities within the tax-free system.
-This DTO provides a consolidated view of an address.`
 } as const;
 
 export const $UniRefund_TagService_Tags_CreateTagRequestDto = {
@@ -1014,23 +1196,6 @@ export const $UniRefund_TagService_Tags_InvoiceLineRequestDto = {
         }
     },
     additionalProperties: false
-} as const;
-
-export const $UniRefund_TagService_Tags_ProductGroupDto = {
-    type: 'object',
-    properties: {
-        id: {
-            type: 'string',
-            format: 'uuid'
-        },
-        description: {
-            type: 'string',
-            description: 'A description of the product group (e.g., "Electronics," "Apparel," "Luxury Goods").',
-            nullable: true
-        }
-    },
-    additionalProperties: false,
-    description: 'Represents a category or group of products.'
 } as const;
 
 export const $UniRefund_TagService_Tags_RebateStatementByVATStatementDto = {
@@ -1306,33 +1471,114 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                             type: 'string',
                             format: 'uuid'
                         },
-                        fullText: {
+                        partyType: {
+                            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                            type: 'string'
+                        },
+                        partyId: {
                             type: 'string',
-                            description: 'The complete, formatted text of the address (e.g., street, building number, city, postcode, country).',
+                            format: 'uuid'
+                        },
+                        countryId: {
+                            type: 'string',
+                            format: 'uuid'
+                        },
+                        adminAreaLevel1Id: {
+                            type: 'string',
+                            format: 'uuid'
+                        },
+                        adminAreaLevel2Id: {
+                            type: 'string',
+                            format: 'uuid'
+                        },
+                        neighborhoodId: {
+                            type: 'string',
+                            format: 'uuid',
+                            nullable: true
+                        },
+                        addressLine: {
+                            type: 'string',
+                            nullable: true
+                        },
+                        postalCode: {
+                            type: 'string',
+                            nullable: true
+                        },
+                        type: {
+                            enum: ['UNKNOWN', 'HOME', 'WORK'],
+                            type: 'string'
+                        },
+                        placeId: {
+                            type: 'string',
+                            nullable: true
+                        },
+                        latitude: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        longitude: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        isPrimary: {
+                            type: 'boolean',
                             nullable: true
                         }
                     },
-                    additionalProperties: false,
-                    description: `Represents the address information for entities within the tax-free system.
-This DTO provides a consolidated view of an address.`
+                    additionalProperties: false
                 },
                 productGroups: {
                     type: 'array',
                     items: {
+                        required: ['active', 'articleCode', 'companyType', 'food', 'name', 'unitCode'],
                         type: 'object',
                         properties: {
                             id: {
                                 type: 'string',
                                 format: 'uuid'
                             },
-                            description: {
+                            articleCode: {
+                                minLength: 1,
                                 type: 'string',
-                                description: 'A description of the product group (e.g., "Electronics," "Apparel," "Luxury Goods").',
+                                description: 'The unique article code for the product group. This field is **required**.'
+                            },
+                            name: {
+                                minLength: 1,
+                                type: 'string',
+                                description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
+                            },
+                            unitCode: {
+                                enum: ['QNT', 'BAG', 'BOX'],
+                                type: 'string'
+                            },
+                            companyType: {
+                                enum: ['GOVERNMENT', 'TAXFREE', 'CUSTOMS', 'REFUNDPOINT', 'MERCHANT', 'EXCHANGE', 'TOURGUIDE'],
+                                type: 'string'
+                            },
+                            vatId: {
+                                type: 'string',
+                                description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
+                                format: 'uuid'
+                            },
+                            vatPercent: {
+                                type: 'integer',
+                                description: 'The percentage of VAT applied to products in this group, if applicable.',
+                                format: 'int32',
                                 nullable: true
+                            },
+                            active: {
+                                type: 'boolean',
+                                description: 'Indicates whether the product group is currently active. This field is **required**.'
+                            },
+                            food: {
+                                type: 'boolean',
+                                description: 'Indicates whether the product group consists of food items. This field is **required**.'
                             }
                         },
                         additionalProperties: false,
-                        description: 'Represents a category or group of products.'
+                        description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
                     },
                     description: `A list of **product groups** that this merchant sells,
 relevant for tax-free eligibility categorization.`,
@@ -1390,27 +1636,36 @@ This DTO is used to capture essential information about the individual making a 
                 },
                 tagId: {
                     type: 'string',
+                    description: 'The unique identifier of the tax-free tag associated with the export.',
                     format: 'uuid',
                     nullable: true
                 },
                 tagNumber: {
                     type: 'string',
+                    description: 'The readable number or code of the tax-free tag.',
                     nullable: true
                 },
                 customsId: {
                     type: 'string',
+                    description: `The unique identifier of the customs office where the export validation occurred.
+This field is **required**.`,
                     format: 'uuid'
                 },
                 customsName: {
                     minLength: 1,
-                    type: 'string'
+                    type: 'string',
+                    description: `The name of the customs office where the export validation occurred.
+This field is **required**.`
                 },
                 referenceId: {
                     type: 'string',
+                    description: 'An optional reference ID for the export validation, possibly from an external system.',
                     nullable: true
                 },
                 exportDate: {
                     type: 'string',
+                    description: `The date and time when the export validation was performed.
+This field is **required**.`,
                     format: 'date-time'
                 },
                 status: {
@@ -1430,7 +1685,9 @@ This DTO is used to capture essential information about the individual making a 
                     type: 'string'
                 }
             },
-            additionalProperties: false
+            additionalProperties: false,
+            description: `Represents the details of an export validation process for a tax-free transaction.
+This DTO captures information related to customs verification of exported goods.`
         },
         refundId: {
             type: 'string',
@@ -1499,11 +1756,13 @@ This DTO is used to capture essential information about the individual making a 
                                         },
                                         articleCode: {
                                             minLength: 1,
-                                            type: 'string'
+                                            type: 'string',
+                                            description: 'The unique article code for the product group. This field is **required**.'
                                         },
                                         name: {
                                             minLength: 1,
-                                            type: 'string'
+                                            type: 'string',
+                                            description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
                                         },
                                         unitCode: {
                                             enum: ['QNT', 'BAG', 'BOX'],
@@ -1515,21 +1774,26 @@ This DTO is used to capture essential information about the individual making a 
                                         },
                                         vatId: {
                                             type: 'string',
+                                            description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
                                             format: 'uuid'
                                         },
                                         vatPercent: {
                                             type: 'integer',
+                                            description: 'The percentage of VAT applied to products in this group, if applicable.',
                                             format: 'int32',
                                             nullable: true
                                         },
                                         active: {
-                                            type: 'boolean'
+                                            type: 'boolean',
+                                            description: 'Indicates whether the product group is currently active. This field is **required**.'
                                         },
                                         food: {
-                                            type: 'boolean'
+                                            type: 'boolean',
+                                            description: 'Indicates whether the product group consists of food items. This field is **required**.'
                                         }
                                     },
-                                    additionalProperties: false
+                                    additionalProperties: false,
+                                    description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
                                 },
                                 description: {
                                     type: 'string',

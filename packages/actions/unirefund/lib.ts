@@ -1,17 +1,17 @@
-import { AdministrationServiceClient } from "@ayasofyazilim/saas/AdministrationService";
-import { ContractServiceClient } from "@repo/saas/ContractService";
-import { CRMServiceClient } from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import { CRMServiceClient as CRMServiceClientFromPackage } from "@repo/saas/CRMService";
-import { ExportValidationServiceClient } from "@ayasofyazilim/saas/ExportValidationService";
-import { FileServiceClient } from "@ayasofyazilim/saas/FileService";
-import { FinanceServiceClient } from "@ayasofyazilim/saas/FinanceService";
-import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
-import { RefundServiceClient } from "@repo/saas/RefundService";
-import { SettingServiceClient } from "@ayasofyazilim/saas/SettingService";
-import { TagServiceClient } from "@ayasofyazilim/saas/TagService";
-import { TravellerServiceClient } from "@repo/saas/TravellerService";
-import { Session } from "@repo/utils/auth";
-import { auth } from "@repo/utils/auth/next-auth";
+import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationService";
+import {ContractServiceClient} from "@repo/saas/ContractService";
+import {CRMServiceClient} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {CRMServiceClient as CRMServiceClientFromPackage} from "@repo/saas/CRMService";
+import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
+import {FileServiceClient} from "@ayasofyazilim/saas/FileService";
+import {FinanceServiceClient} from "@ayasofyazilim/saas/FinanceService";
+import {LocationServiceClient} from "@ayasofyazilim/saas/LocationService";
+import {RefundServiceClient} from "@repo/saas/RefundService";
+import {SettingServiceClient} from "@ayasofyazilim/saas/SettingService";
+import {TagServiceClient} from "@repo/saas/TagService";
+import {TravellerServiceClient} from "@repo/saas/TravellerService";
+import {Session} from "@repo/utils/auth";
+import {auth} from "@repo/utils/auth/next-auth";
 
 const HEADERS = {
   "X-Requested-With": "XMLHttpRequest",

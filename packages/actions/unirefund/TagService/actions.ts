@@ -4,7 +4,7 @@ import type {
   GetApiTagServiceTagData,
   GetApiTagServiceTagSummaryData,
   GetApiTagServiceTagTagsRefundData,
-} from "@ayasofyazilim/saas/TagService";
+} from "@repo/saas/TagService";
 import {structuredResponse, structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {isUnauthorized} from "@repo/utils/policies";
