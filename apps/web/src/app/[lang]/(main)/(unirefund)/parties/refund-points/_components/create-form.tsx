@@ -26,7 +26,7 @@ import {CheckIsFormReady} from "../../_components/is-form-ready";
 
 export default function CreateRefundPointForm({
   taxOfficeList,
-  refundPointList = [],
+  refundPointList,
   languageData,
   typeCode,
   formData = {
@@ -39,11 +39,13 @@ export default function CreateRefundPointForm({
       type: "HOME",
     },
   },
+  parentDetails,
 }: {
   taxOfficeList: TaxOfficeDto[];
   refundPointList?: RefundPointDto[];
   languageData: CRMServiceServiceResource;
   formData?: CreateRefundPointDto;
+  parentDetails?: RefundPointDto;
   typeCode?: "HEADQUARTER" | "REFUNDPOINT";
 }) {
   const {lang} = useParams<{lang: string}>();
@@ -56,6 +58,7 @@ export default function CreateRefundPointForm({
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
       taxOfficeId: {
+        ...{"ui:disabled": typeCode === "REFUNDPOINT" && true},
         "ui:widget": "taxOfficeWidget",
       },
       telephone: {
@@ -83,6 +86,7 @@ export default function CreateRefundPointForm({
       parentId: {
         "ui:className": "col-span-full",
         "ui:widget": "refundPointWidget",
+        ...{"ui:disabled": typeCode === "REFUNDPOINT" && true},
       },
       "ui:order": [
         "name",
@@ -106,7 +110,7 @@ export default function CreateRefundPointForm({
     email: EmailWithTypeField({languageData}),
     phone: PhoneWithTypeField({languageData}),
   };
-
+  const list = parentDetails ? [parentDetails] : [];
   const widgets = {
     taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
       list: taxOfficeList,
@@ -115,7 +119,7 @@ export default function CreateRefundPointForm({
       languageData,
     }),
     refundPointWidget: CustomComboboxWidget<RefundPointDto>({
-      list: refundPointList,
+      list: refundPointList || list,
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
