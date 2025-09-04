@@ -1,5 +1,5 @@
 import {getResourceData} from "src/language-data/core/AccountService";
-import {EvidenceClient} from "./client";
+import {EvidenceClient} from "./evidence-client";
 
 interface EvidencePageProps {
   params: {

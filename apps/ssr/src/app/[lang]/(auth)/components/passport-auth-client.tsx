@@ -15,8 +15,8 @@ import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
-import LivenessTest from "./components/liveness-test";
-import PassportScanner from "./components/passport-scanner";
+import LivenessTest from "./liveness-test";
+import PassportScanner from "./passport-scanner";
 
 type AuthStep = "start" | "passport-scan" | "liveness-test" | "complete";
 
@@ -27,7 +27,12 @@ interface AuthState {
   loading: boolean;
 }
 
-export default function PassportAuthClient(languageData: SSRServiceResource) {
+interface PassportAuthClientProps {
+  languageData: SSRServiceResource;
+  authType: "login" | "register";
+}
+
+export default function PassportAuthClient({languageData, authType}: PassportAuthClientProps) {
   const [authState, setAuthState] = useState<AuthState>({
     currentStep: "start",
     passportData: null,
@@ -40,6 +45,7 @@ export default function PassportAuthClient(languageData: SSRServiceResource) {
   const [clientAuths, setClientAuths] = useState<AWSAuthConfig | null>(null);
 
   const lang = useParams().lang as string;
+  const isLogin = authType === "login";
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -61,14 +67,17 @@ export default function PassportAuthClient(languageData: SSRServiceResource) {
         setEvidenceSession(evidenceResponse.data as UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto);
         setClientAuths(authsResponse as AWSAuthConfig);
       } catch (error) {
-        toast.error(languageData.FailedToInitializeAuthentication + String(error));
+        const errorMessage = isLogin
+          ? languageData.FailedToInitializeAuthentication
+          : languageData["Auth.FailedToInitializeRegistration"];
+        toast.error(errorMessage + String(error));
       } finally {
         setAuthState((prev) => ({...prev, loading: false}));
       }
     };
 
     void initializeAuth();
-  }, [languageData]);
+  }, [languageData, isLogin]);
 
   const handleStartAuth = () => {
     setAuthState((prev) => ({...prev, currentStep: "passport-scan"}));
@@ -91,12 +100,16 @@ export default function PassportAuthClient(languageData: SSRServiceResource) {
   };
 
   if (authState.loading || !evidenceSession || !clientAuths) {
+    const loadingMessage = isLogin
+      ? languageData.InitializingAuthentication
+      : languageData["Auth.InitializingRegistration"];
+
     return (
       <div className="h-full">
         <CardContent className="flex items-center justify-center p-6">
           <div className="text-center">
             <div className="border-primary mx-auto mb-3 h-6 w-6 animate-spin rounded-full border-b-2" />
-            <p className="text-xs text-gray-600">{languageData.InitializingAuthentication}</p>
+            <p className="text-xs text-gray-600">{loadingMessage}</p>
           </div>
         </CardContent>
       </div>
@@ -106,22 +119,26 @@ export default function PassportAuthClient(languageData: SSRServiceResource) {
   const stepConfig = {
     start: {
       title: languageData.StartValidation,
-      description: languageData.PassportOnboardingTitle,
+      description: isLogin ? languageData.PassportOnboardingTitle : languageData["Auth.PassportRegistrationProcess"],
       icon: <FileText className="text-primary h-8 w-8" />,
     },
     "passport-scan": {
-      title: languageData.ScanPassport,
-      description: languageData.ScanPassportDescription,
+      title: isLogin ? languageData.ScanPassport : languageData.ScanPassportTitle,
+      description: isLogin ? languageData.ScanPassportDescription : languageData["Auth.ScanPassportDescription"],
       icon: <Camera className="text-primary h-8 w-8" />,
     },
     "liveness-test": {
       title: languageData.LivenessDetection,
-      description: languageData.CompleteLivenessVerification,
+      description: isLogin
+        ? languageData.CompleteLivenessVerification
+        : languageData["Auth.CompleteLivenessDescription"],
       icon: <Shield className="text-primary h-8 w-8" />,
     },
     complete: {
       title: languageData.Continue,
-      description: languageData.AuthenticationCompletedSuccessfully,
+      description: isLogin
+        ? languageData.AuthenticationCompletedSuccessfully
+        : languageData["Auth.RegistrationCompleted"],
       icon: <CheckCircle className="h-8 w-8 text-green-600" />,
     },
   };

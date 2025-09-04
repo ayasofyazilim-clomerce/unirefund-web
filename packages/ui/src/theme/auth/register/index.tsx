@@ -61,10 +61,12 @@ export default function RegisterForm({
   onSubmitAction,
   isTenantDisabled,
   onTenantSearchAction,
+  isVisible = true,
 }: {
   languageData: LanguageData;
   defaultTenant?: string;
   isTenantDisabled: boolean;
+  isVisible?: boolean;
   onSubmitAction: (values: RegisterCredentials) => Promise<{
     type: "success" | "error";
     message?: string;
@@ -233,11 +235,13 @@ export default function RegisterForm({
         </span>
         <span className="bg-muted h-px w-full"></span>
       </div> */}
-      <Link href="login" className="text-muted-foreground text-xs hover:underline">
-        <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          {languageData["Auth.Login"]}
-        </Button>
-      </Link>
+      {isVisible && (
+        <Link href="login" className="text-muted-foreground text-xs hover:underline">
+          <Button disabled={isPending} className=" w-full" variant={"outline"}>
+            {languageData["Auth.Login"]}
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
