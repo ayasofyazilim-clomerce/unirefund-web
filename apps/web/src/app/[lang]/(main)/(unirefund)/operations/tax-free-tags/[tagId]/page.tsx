@@ -143,11 +143,11 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.Address,
-                value: tagDetail.merchant?.address?.fullText || "",
+                value: tagDetail.merchant?.address?.addressLine || "",
               },
               {
                 name: languageData.ProductGroups,
-                value: tagDetail.merchant?.productGroups?.map((p) => p.description).join(", ") || "",
+                value: tagDetail.merchant?.productGroups?.map((p) => p.name).join(", ") || "",
               },
             ]}
             title={languageData.MerchantDetails}
