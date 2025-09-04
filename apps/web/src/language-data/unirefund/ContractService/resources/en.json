@@ -60,5 +60,10 @@
   "Contracts.Form.validTo": "Valid To",
   "Contracts.Form.addressCommonDataId": "Address Common Data Id",
   "Contracts.Form.refundTableHeaders": "Refund Table Headers",
-  "Contracts.Form.refundTableHeaderId": "Refund Table Header Id"
+  "Contracts.Form.refundTableHeaderId": "Refund Table Header Id",
+  "Contracts.Form.referenceNumber": "Reference Number",
+  "Contracts.Form.isTrustedMerchant": "Is Trusted Merchant",
+  "Contracts.Form.rebateStatementPeriod": "Rebate Statement Period",
+  "Contracts.Form.affiliationIdForContact": "Affiliation Id For Contact",
+  "Contracts.Form.rebateTableHeaders": "Rebate Table Headers"
 }
