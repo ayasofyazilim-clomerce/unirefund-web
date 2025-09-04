@@ -31,7 +31,7 @@ export default async function Page({params}: {params: {lang: string}}) {
             {languageData["Landing.MainDescription"]}
           </p>
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="/evidence/register">
+            <Link href="/evidence-new">
               <Button className="w-full bg-red-600 px-8 py-3 text-lg hover:bg-red-700 sm:w-auto" size="lg">
                 {languageData["Landing.StartRefundProcess"]}
                 <ArrowRight className="ml-2 h-5 w-5" />

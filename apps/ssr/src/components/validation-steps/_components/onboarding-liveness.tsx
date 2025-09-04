@@ -15,16 +15,13 @@ export default function OnboardingPage({
     <div className="mx-auto w-full max-w-md">
       <div className="mb-6 space-y-3 text-sm">
         <div className="flex items-center gap-2">
-          <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
-          <p>{languageData["Liveness.AlignFace"]}</p>
+          <p>- {languageData["Liveness.AlignFace"]}</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
-          <p>{languageData["Liveness.LookAtCamera"]}</p>
+          <p>- {languageData["Liveness.LookAtCamera"]}</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="mt-0.5 h-2 w-2 rounded-full bg-gray-400" />
-          <p>{languageData["Liveness.StayStill"]}</p>
+          <p>- {languageData["Liveness.StayStill"]}</p>
         </div>
       </div>
       <div className="mb-4 flex justify-center">
