@@ -10,7 +10,7 @@ import {getBaseLink} from "@/utils";
 
 interface EvidenceClientProps {
   languageData: AccountServiceResource;
-  authType?: "login" | "register";
+  authType?: "login" | "register" | "reset-password";
 }
 
 export function EvidenceClient({languageData, authType = "login"}: EvidenceClientProps) {
@@ -18,58 +18,109 @@ export function EvidenceClient({languageData, authType = "login"}: EvidenceClien
   const lang = useParams().lang as string;
 
   const isLogin = authType === "login";
+  const isRegister = authType === "register";
 
   // Dinamik path'ler
-  const basePath = isLogin ? "evidence-new-login" : "evidence-new-register";
-  const emailPath = isLogin ? "login-with-email" : "register-with-email";
-  const passportPath = isLogin ? "login-with-passport" : "register-with-passport";
-  const altPath = isLogin ? "evidence-new-register" : "evidence-new-login";
+  let basePath: string;
+  let emailPath: string;
+  let passportPath: string;
+  let altPath: string;
+
+  if (isLogin) {
+    basePath = "evidence-new-login";
+    emailPath = "login-with-email";
+    passportPath = "login-with-passport";
+    altPath = "evidence-new-register";
+  } else if (isRegister) {
+    basePath = "evidence-new-register";
+    emailPath = "register-with-email";
+    passportPath = "register-with-passport";
+    altPath = "evidence-new-login";
+  } else {
+    basePath = "evidence-new-reset-password";
+    emailPath = "reset-password-with-email";
+    passportPath = "reset-password-with-passport";
+    altPath = "evidence-new-login";
+  }
 
   // Dinamik content
-  const headerTitle = isLogin ? languageData.Login : languageData.Register;
-  const headerSubtitle = isLogin ? languageData["Evidence.Subtitle"] : languageData["Evidence.RegisterSubtitle"];
+  let headerTitle: string;
+  let headerSubtitle: string;
+  let emailDescription: string;
+  let passportDescription: string;
 
-  const emailDescription = isLogin
-    ? languageData["Evidence.EmailPasswordDescription"]
-    : languageData["Evidence.EmailPasswordRegisterDescription"];
+  if (isLogin) {
+    headerTitle = languageData.Login;
+    headerSubtitle = languageData["Evidence.Subtitle"];
+    emailDescription = languageData["Evidence.EmailPasswordDescription"];
+    passportDescription = languageData["Evidence.PassportDescription"];
+  } else if (isRegister) {
+    headerTitle = languageData.Register;
+    headerSubtitle = languageData["Evidence.RegisterSubtitle"];
+    emailDescription = languageData["Evidence.EmailPasswordRegisterDescription"];
+    passportDescription = languageData["Evidence.PassportRegisterDescription"];
+  } else {
+    headerTitle = languageData.ResetPassword;
+    headerSubtitle = languageData["Evidence.ResetPasswordSubtitle"];
+    emailDescription = languageData["Evidence.EmailPasswordResetDescription"];
+    passportDescription = languageData["Evidence.PassportResetDescription"];
+  }
 
-  const passportDescription = isLogin
-    ? languageData["Evidence.PassportDescription"]
-    : languageData["Evidence.PassportRegisterDescription"];
+  let emailFeatures: string[];
+  let passportFeatures: string[];
 
-  const emailFeatures = isLogin
-    ? [
-        languageData["Evidence.EmailPasswordFeature1"],
-        languageData["Evidence.EmailPasswordFeature2"],
-        languageData["Evidence.EmailPasswordFeature3"],
-      ]
-    : [
-        languageData["Evidence.EmailPasswordRegisterFeature1"],
-        languageData["Evidence.EmailPasswordRegisterFeature2"],
-        languageData["Evidence.EmailPasswordRegisterFeature3"],
-      ];
+  if (isLogin) {
+    emailFeatures = [
+      languageData["Evidence.EmailPasswordFeature1"],
+      languageData["Evidence.EmailPasswordFeature2"],
+      languageData["Evidence.EmailPasswordFeature3"],
+    ];
+    passportFeatures = [
+      languageData["Evidence.PassportFeature1"],
+      languageData["Evidence.PassportFeature2"],
+      languageData["Evidence.PassportFeature3"],
+    ];
+  } else if (isRegister) {
+    emailFeatures = [
+      languageData["Evidence.EmailPasswordRegisterFeature1"],
+      languageData["Evidence.EmailPasswordRegisterFeature2"],
+      languageData["Evidence.EmailPasswordRegisterFeature3"],
+    ];
+    passportFeatures = [
+      languageData["Evidence.PassportRegisterFeature1"],
+      languageData["Evidence.PassportRegisterFeature2"],
+      languageData["Evidence.PassportRegisterFeature3"],
+    ];
+  } else {
+    emailFeatures = [
+      languageData["Evidence.EmailPasswordResetFeature1"],
+      languageData["Evidence.EmailPasswordResetFeature2"],
+      languageData["Evidence.EmailPasswordResetFeature3"],
+    ];
+    passportFeatures = [
+      languageData["Evidence.PassportResetFeature1"],
+      languageData["Evidence.PassportResetFeature2"],
+      languageData["Evidence.PassportResetFeature3"],
+    ];
+  }
 
-  const passportFeatures = isLogin
-    ? [
-        languageData["Evidence.PassportFeature1"],
-        languageData["Evidence.PassportFeature2"],
-        languageData["Evidence.PassportFeature3"],
-      ]
-    : [
-        languageData["Evidence.PassportRegisterFeature1"],
-        languageData["Evidence.PassportRegisterFeature2"],
-        languageData["Evidence.PassportRegisterFeature3"],
-      ];
+  let emailButtonText: string;
+  let passportButtonText: string;
+  let footerLinkText: string;
 
-  const emailButtonText = isLogin
-    ? languageData["Evidence.EmailPasswordButton"]
-    : languageData["Evidence.EmailPasswordRegisterButton"];
-
-  const passportButtonText = isLogin
-    ? languageData["Evidence.PassportButton"]
-    : languageData["Evidence.PassportRegisterButton"];
-
-  const footerLinkText = isLogin ? languageData["Auth.NotMember"] : languageData["Evidence.AlreadyHaveAccount"];
+  if (isLogin) {
+    emailButtonText = languageData["Evidence.EmailPasswordButton"];
+    passportButtonText = languageData["Evidence.PassportButton"];
+    footerLinkText = languageData["Auth.NotMember"];
+  } else if (isRegister) {
+    emailButtonText = languageData["Evidence.EmailPasswordRegisterButton"];
+    passportButtonText = languageData["Evidence.PassportRegisterButton"];
+    footerLinkText = languageData["Evidence.AlreadyHaveAccount"];
+  } else {
+    emailButtonText = languageData["Evidence.EmailPasswordResetButton"];
+    passportButtonText = languageData["Evidence.PassportResetButton"];
+    footerLinkText = languageData["Auth.Member"];
+  }
 
   return (
     <div className="w-full">

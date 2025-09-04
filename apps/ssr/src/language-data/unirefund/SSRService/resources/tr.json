@@ -490,5 +490,13 @@
   "Auth.PassportRegistrationProcess": "Pasaport kayıt doğrulama süreci",
   "Auth.ScanPassportDescription": "Kayıt doğrulaması için pasaportunuzu tarayın",
   "Auth.CompleteLivenessDescription": "Kayıt olmak için canlılık doğrulamasını tamamlayın",
-  "Auth.RegistrationCompleted": "Kayıt başarıyla tamamlandı"
+  "Auth.RegistrationCompleted": "Kayıt başarıyla tamamlandı",
+  "Auth.ResetPasswordWithPassportPage.Title": "Pasaport ile Şifre Sıfırla",
+  "Auth.ResetPasswordWithPassportPage.Description": "Pasaport doğrulaması kullanarak şifre sıfırlamayı tamamlayın",
+  "Auth.FailedToInitializePasswordReset": "Şifre sıfırlama başlatılamadı: ",
+  "Auth.InitializingPasswordReset": "Şifre sıfırlama başlatılıyor...",
+  "Auth.PassportResetPasswordProcess": "Şifre sıfırlama doğrulama süreci",
+  "Auth.ScanPassportResetDescription": "Şifre sıfırlama doğrulaması için pasaportunuzu tarayın",
+  "Auth.CompleteLivenessResetDescription": "Şifre sıfırlama için canlılık doğrulamasını tamamlayın",
+  "Auth.ResetPasswordCompleted": "Şifre sıfırlama doğrulaması başarıyla tamamlandı"
 }

@@ -5,19 +5,32 @@ interface PassportAuthPageProps {
   params: {
     lang: string;
   };
-  authType: "login" | "register";
+  authType: "login" | "register" | "reset-password";
 }
 
 export default async function PassportAuthPage({params, authType}: PassportAuthPageProps) {
   const {languageData} = await getResourceData(params.lang);
 
   const isLogin = authType === "login";
+  const isRegister = authType === "register";
 
-  const headerTitle = isLogin ? languageData.ScanPassport : languageData["Auth.RegisterWithPassportPage.Title"];
+  let headerTitle = "";
+  if (isLogin) {
+    headerTitle = languageData.ScanPassport;
+  } else if (isRegister) {
+    headerTitle = languageData["Auth.RegisterWithPassportPage.Title"];
+  } else {
+    headerTitle = languageData["Auth.ResetPasswordWithPassportPage.Title"];
+  }
 
-  const headerDescription = isLogin
-    ? languageData.ScanPassportDescription
-    : languageData["Auth.RegisterWithPassportPage.Description"];
+  let headerDescription = "";
+  if (isLogin) {
+    headerDescription = languageData.ScanPassportDescription;
+  } else if (isRegister) {
+    headerDescription = languageData["Auth.RegisterWithPassportPage.Description"];
+  } else {
+    headerDescription = languageData["Auth.ResetPasswordWithPassportPage.Description"];
+  }
 
   return (
     <div className="flex flex-col">

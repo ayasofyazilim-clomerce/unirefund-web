@@ -44,11 +44,13 @@ export default function LoginForm({
   onTenantSearchAction,
   onSubmitAction,
   isVisible = true,
+  passwordLink = "reset-password",
 }: {
   languageData: LanguageData;
   isTenantDisabled: boolean;
   defaultTenant?: string;
   isVisible?: boolean;
+  passwordLink?: string;
   onTenantSearchAction?: (name: string) => Promise<{
     type: "success";
     data: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto;
@@ -198,7 +200,7 @@ export default function LoginForm({
               )}
             />
             <div className="text-right">
-              <Link href="reset-password" className="text-muted-foreground text-xs hover:underline">
+              <Link href={passwordLink} className="text-muted-foreground text-xs hover:underline">
                 {languageData["Auth.ForgotPassword"]}
               </Link>
             </div>

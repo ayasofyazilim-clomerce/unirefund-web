@@ -490,5 +490,13 @@
   "Auth.PassportRegistrationProcess": "Passport registration verification process",
   "Auth.ScanPassportDescription": "Scan your passport for registration verification",
   "Auth.CompleteLivenessDescription": "Complete liveness verification to register",
-  "Auth.RegistrationCompleted": "Registration completed successfully"
+  "Auth.RegistrationCompleted": "Registration completed successfully",
+  "Auth.ResetPasswordWithPassportPage.Title": "Reset Password with Passport",
+  "Auth.ResetPasswordWithPassportPage.Description": "Complete password reset using passport verification",
+  "Auth.FailedToInitializePasswordReset": "Failed to initialize password reset: ",
+  "Auth.InitializingPasswordReset": "Initializing password reset...",
+  "Auth.PassportResetPasswordProcess": "Password reset verification process",
+  "Auth.ScanPassportResetDescription": "Scan your passport for password reset verification",
+  "Auth.CompleteLivenessResetDescription": "Complete liveness verification for password reset",
+  "Auth.ResetPasswordCompleted": "Password reset verification completed successfully"
 }
