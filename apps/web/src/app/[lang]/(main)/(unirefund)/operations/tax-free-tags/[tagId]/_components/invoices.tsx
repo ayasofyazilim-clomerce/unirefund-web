@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {Separator} from "@/components/ui/separator";
-import type {UniRefund_TagService_Tags_TagDetailDto} from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_TagService_Tags_TagDetailDto} from "@repo/saas/TagService";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 
 export default function Invoices({
@@ -47,16 +47,17 @@ export default function Invoices({
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>{languageData.ProductGroups}</SelectLabel>
-                  {[
-                    ...(tagDetail.merchant?.productGroups || []),
-                    ...[{id: line.productGroup?.id || "", description: line.productGroup?.name || ""}],
-                  ].map((productGroup) => {
+                  {tagDetail.merchant?.productGroups?.map((productGroup) => {
                     return (
                       <SelectItem key={productGroup.id || ""} value={productGroup.id || ""}>
-                        {productGroup.description || ""}
+                        {productGroup.name || ""}
                       </SelectItem>
                     );
-                  })}
+                  }) || (
+                    <SelectItem key={line.id || ""} value={line.id || ""}>
+                      {line.description || ""}
+                    </SelectItem>
+                  )}
                 </SelectGroup>
               </SelectContent>
             </Select>
