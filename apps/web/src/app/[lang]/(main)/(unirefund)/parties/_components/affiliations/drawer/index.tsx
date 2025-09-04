@@ -23,7 +23,6 @@ import {StepperFooter} from "./footer";
 import {SelectIndividualStep} from "./step-1";
 import {SelectUserAndRoleStep} from "./step-2";
 
-// Types
 interface AffiliationDrawerProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
