@@ -479,5 +479,16 @@
   "AuthenticationSuccessful": "Authentication Successful!",
   "PassportVerificationCompleted": "You have successfully completed passport verification and liveness detection.",
   "Discover": "Discover",
-  "FailedToInitializeAuthentication": "Failed to initialize authentication: "
+  "FailedToInitializeAuthentication": "Failed to initialize authentication: ",
+  "ScanPassportTitle": "Scan Passport",
+  "SelfieExample": "Selfie example",
+  "PassportExample": "Passport example",
+  "Auth.RegisterWithPassportPage.Title": "Register with Passport",
+  "Auth.RegisterWithPassportPage.Description": "Complete registration using passport verification",
+  "Auth.FailedToInitializeRegistration": "Failed to initialize registration: ",
+  "Auth.InitializingRegistration": "Initializing registration...",
+  "Auth.PassportRegistrationProcess": "Passport registration verification process",
+  "Auth.ScanPassportDescription": "Scan your passport for registration verification",
+  "Auth.CompleteLivenessDescription": "Complete liveness verification to register",
+  "Auth.RegistrationCompleted": "Registration completed successfully"
 }

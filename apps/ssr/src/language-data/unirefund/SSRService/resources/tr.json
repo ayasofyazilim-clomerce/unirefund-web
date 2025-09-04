@@ -479,5 +479,16 @@
   "AuthenticationSuccessful": "Kimlik Doğrulama Başarılı!",
   "PassportVerificationCompleted": "Pasaport doğrulama ve canlılık algılamayı başarıyla tamamladınız.",
   "Discover": "Keşfet",
-  "FailedToInitializeAuthentication": "Kimlik doğrulama başlatılamadı: "
+  "FailedToInitializeAuthentication": "Kimlik doğrulama başlatılamadı: ",
+  "ScanPassportTitle": "Pasaport Tara",
+  "SelfieExample": "Selfie örneği",
+  "PassportExample": "Pasaport örneği",
+  "Auth.RegisterWithPassportPage.Title": "Pasaport ile Kayıt Ol",
+  "Auth.RegisterWithPassportPage.Description": "Pasaport doğrulaması kullanarak kaydı tamamlayın",
+  "Auth.FailedToInitializeRegistration": "Kayıt başlatılamadı: ",
+  "Auth.InitializingRegistration": "Kayıt başlatılıyor...",
+  "Auth.PassportRegistrationProcess": "Pasaport kayıt doğrulama süreci",
+  "Auth.ScanPassportDescription": "Kayıt doğrulaması için pasaportunuzu tarayın",
+  "Auth.CompleteLivenessDescription": "Kayıt olmak için canlılık doğrulamasını tamamlayın",
+  "Auth.RegistrationCompleted": "Kayıt başarıyla tamamlandı"
 }
