@@ -24,6 +24,7 @@ import {postRefundPointContractHeaderValidateByHeaderIdApi} from "@repo/actions/
 import {deleteRefundPointContractHeadersById} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
 export default function RefundPointContractHeaderUpdateForm({
@@ -44,34 +45,39 @@ export default function RefundPointContractHeaderUpdateForm({
   }>();
   const {grantedPolicies} = useGrantedPolicies();
   const [isPending, startTransition] = useTransition();
-  const uiSchema = {
-    "ui:className": "md:grid md:gap-2 md:grid-cols-2",
-    webSite: {
-      "ui:className": "md:col-span-full",
-    },
-    earlyRefund: {
-      "ui:widget": "switch",
-    },
-    addressCommonDataId: {
-      "ui:className": "row-start-2",
-      "ui:widget": "address",
-    },
-    status: {
-      "ui:className": "md:col-span-full",
-    },
-    refundFeeHeaders: {
-      "ui:className": "md:col-span-full",
-      "ui:field": "RefundFeeHeadersField",
-      items: {
-        refundFeeHeaderId: {
-          "ui:widget": "refundFeeHeaders",
-        },
-        isDefault: {
-          "ui:widget": "switch",
+  const uiSchema = createUiSchemaWithResource({
+    resources: languageData,
+    schema: $ContractHeaderForRefundPointUpdateDto,
+    name: "Contracts.Form",
+    extend: {
+      "ui:className": "md:grid md:gap-2 md:grid-cols-2",
+      webSite: {
+        "ui:className": "md:col-span-full",
+      },
+      earlyRefund: {
+        "ui:widget": "switch",
+      },
+      addressCommonDataId: {
+        "ui:className": "row-start-2",
+        "ui:widget": "address",
+      },
+      status: {
+        "ui:className": "md:col-span-full",
+      },
+      refundFeeHeaders: {
+        "ui:className": "md:col-span-full",
+        "ui:field": "RefundFeeHeadersField",
+        items: {
+          refundFeeHeaderId: {
+            "ui:widget": "refundFeeHeaders",
+          },
+          isDefault: {
+            "ui:widget": "switch",
+          },
         },
       },
     },
-  };
+  });
   const validFrom = new Date(contractHeaderDetails.validFrom);
   validFrom.setUTCHours(0, 0, 0, 0);
   const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;

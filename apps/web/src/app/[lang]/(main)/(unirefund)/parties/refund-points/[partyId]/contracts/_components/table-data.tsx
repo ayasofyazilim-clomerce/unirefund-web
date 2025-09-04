@@ -1,12 +1,11 @@
-import {toast} from "@/components/ui/sonner";
-import type {UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractsForRefundPointDto} from "@repo/saas/ContractService";
-import {$UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as $ContractsForRefundPointDto} from "@repo/saas/ContractService";
 import {OpenInNewWindowIcon} from "@radix-ui/react-icons";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData as columnsByData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as ContractsForRefundPointDto} from "@repo/saas/ContractService";
+import {$UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_ContractHeaderDetailForRefundPointDto as $ContractsForRefundPointDto} from "@repo/saas/ContractService";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -89,14 +88,14 @@ const contractsTable = (props: {
       },
     });
   }
-  actions.push({
-    type: "simple",
-    actionLocation: "table",
-    cta: languageData.ExportCSV,
-    onClick: () => {
-      toast.warning("Not implemented yet");
-    },
-  });
+  // actions.push({
+  //   type: "simple",
+  //   actionLocation: "table",
+  //   cta: languageData.ExportCSV,
+  //   onClick: () => {
+  //     toast.warning("Not implemented yet");
+  //   },
+  // });
 
   const table: TanstackTableCreationProps<ContractsForRefundPointDto> = {
     fillerColumn: "name",
