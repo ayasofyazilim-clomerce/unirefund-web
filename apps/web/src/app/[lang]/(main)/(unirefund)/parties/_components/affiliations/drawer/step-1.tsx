@@ -14,15 +14,15 @@ import {IndividualDrawer} from ".";
 export interface SelectIndividualStepProps {
   languageData: CRMServiceServiceResource;
   onIndividualUpdate: (individual: IndividualListResponseDto) => void;
-  selectedAbpUser: UniRefund_CRMService_Individuals_IndividualWithAbpUserDto | null | undefined;
-  onAbpUserSelect: (individual: UniRefund_CRMService_Individuals_IndividualWithAbpUserDto | null | undefined) => void;
+  selectedIndividual: UniRefund_CRMService_Individuals_IndividualWithAbpUserDto | null | undefined;
+  onIndividualSelect: (individual: {individualId: string; fullname: string} | undefined) => void;
 }
 
 export function SelectIndividualStep({
   languageData,
   onIndividualUpdate,
-  selectedAbpUser,
-  onAbpUserSelect,
+  selectedIndividual,
+  onIndividualSelect,
 }: SelectIndividualStepProps) {
   const [email, setEmail] = useState("");
   const isEmailValid = isValidEmail(email);
@@ -38,9 +38,17 @@ export function SelectIndividualStep({
 
     startTransition(() => {
       getIndividualByEmailApi(email)
-        .then((res) => {
-          if (res.data.length > 0) {
-            onAbpUserSelect(res.data[0]);
+        .then((response) => {
+          if (response.data.length > 0) {
+            const individual = response.data[0];
+            if (individual.individualId && individual.fullname) {
+              onIndividualSelect({
+                individualId: individual.individualId,
+                fullname: individual.fullname,
+              });
+            } else {
+              toast.error("User data is incomplete");
+            }
             return;
           }
           toast.error("User not found");
@@ -51,7 +59,7 @@ export function SelectIndividualStep({
     });
   }
 
-  if (selectedAbpUser) {
+  if (selectedIndividual) {
     return (
       <div className="w-full space-y-3">
         <Label className="font-bold text-slate-600" htmlFor="individuals-combobox">
@@ -62,17 +70,17 @@ export function SelectIndividualStep({
           <div className="flex items-center space-x-4">
             <Avatar>
               <AvatarImage alt="Image" src="/avatars/01.png" />
-              <AvatarFallback>{selectedAbpUser.fullname?.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{selectedIndividual.fullname?.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-medium leading-none">{selectedAbpUser.fullname}</p>
+              <p className="text-sm font-medium leading-none">{selectedIndividual.fullname}</p>
               <p className="text-muted-foreground text-sm">{email}</p>
             </div>
           </div>
           <Button
             className="ml-auto rounded-full"
             onClick={() => {
-              onAbpUserSelect(undefined);
+              onIndividualSelect(undefined);
             }}
             size="icon"
             variant="outline">
