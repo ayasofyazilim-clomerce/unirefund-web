@@ -6,6 +6,7 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
 } from "@repo/saas/ContractService";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto} from "@repo/saas/ContractService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -44,39 +45,44 @@ export function MerchantContractHeaderUpdateForm({
   }>();
   const {grantedPolicies} = useGrantedPolicies();
   const [isPending, startTransition] = useTransition();
-  const uiSchema = {
-    "ui:config": {
-      locale: lang,
-    },
-    "ui:options": {
-      expandable: false,
-    },
-    webSite: {
-      "ui:className": "md:col-span-full",
+  const uiSchema = createUiSchemaWithResource({
+    resources: languageData,
+    schema: $ContractHeaderForMerchantUpdateDto,
+    name: "Contracts.Form",
+    extend: {
+      "ui:config": {
+        locale: lang,
+      },
       "ui:options": {
-        inputType: "url",
+        expandable: false,
       },
-    },
-    "ui:className": "md:grid md:gap-2 md:grid-cols-2",
-    addressCommonDataId: {
-      "ui:className": "row-start-2",
-      "ui:widget": "address",
-    },
-    status: {
-      "ui:className": "md:col-span-full",
-    },
-    refundTableHeaders: {
-      "ui:className": "md:col-span-full",
-      items: {
-        isDefault: {
-          "ui:widget": "switch",
-        },
-        refundTableHeaderId: {
-          "ui:widget": "refundTableHeader",
+      webSite: {
+        "ui:className": "md:col-span-full",
+        "ui:options": {
+          inputType: "url",
         },
       },
+      "ui:className": "md:grid md:gap-2 md:grid-cols-2",
+      addressCommonDataId: {
+        "ui:className": "row-start-2",
+        "ui:widget": "address",
+      },
+      status: {
+        "ui:className": "md:col-span-full",
+      },
+      refundTableHeaders: {
+        "ui:className": "md:col-span-full",
+        items: {
+          isDefault: {
+            "ui:widget": "switch",
+          },
+          refundTableHeaderId: {
+            "ui:widget": "refundTableHeader",
+          },
+        },
+      },
     },
-  };
+  });
   const validFrom = new Date(contractHeaderDetails.validFrom);
   validFrom.setUTCHours(0, 0, 0, 0);
   const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;

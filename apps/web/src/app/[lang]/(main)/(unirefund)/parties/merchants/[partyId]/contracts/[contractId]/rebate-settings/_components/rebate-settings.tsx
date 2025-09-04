@@ -41,7 +41,7 @@ export function RebateSettings({
   const uiSchema = createUiSchemaWithResource({
     schema: $RebateSettingUpSertDto,
     resources: languageData,
-    name: "Rebate.Form",
+    name: "Contracts.Form",
     extend: {
       isTrustedMerchant: {
         "ui:widget": "switch",

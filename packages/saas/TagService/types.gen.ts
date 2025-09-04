@@ -10,13 +10,75 @@ export type TagListResponseDto_TagListItemDto = {
     totalCount?: number;
 };
 
+export type UniRefund_CRMService_Addresses_AddressDto = {
+    id?: string;
+    partyType?: UniRefund_Shared_Contracts_Enums_PartyType;
+    partyId?: string;
+    countryId?: string;
+    adminAreaLevel1Id?: string;
+    adminAreaLevel2Id?: string;
+    neighborhoodId?: (string) | null;
+    addressLine?: (string) | null;
+    postalCode?: (string) | null;
+    type?: UniRefund_CRMService_Addresses_AddressType;
+    placeId?: (string) | null;
+    latitude?: (number) | null;
+    longitude?: (number) | null;
+    isPrimary?: (boolean) | null;
+};
+
+export type UniRefund_CRMService_Addresses_AddressType = 'UNKNOWN' | 'HOME' | 'WORK';
+
+/**
+ * Represents the detailed business information for a merchant within the tax-free system.
+ * This DTO is used for transferring and displaying core merchant data.
+ */
+export type UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
+    id?: string;
+    /**
+     * The **business name** of the merchant. This is the official trading name.
+     */
+    name?: (string) | null;
+    address?: UniRefund_CRMService_Addresses_AddressDto;
+    /**
+     * A list of **product groups** that this merchant sells,
+     * relevant for tax-free eligibility categorization.
+     */
+    productGroups?: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto> | null;
+};
+
+/**
+ * Represents the details of an export validation process for a tax-free transaction.
+ * This DTO captures information related to customs verification of exported goods.
+ */
 export type UniRefund_ExportValidationService_ExportValidations_ExportValidationDetailDto = {
     id?: string;
+    /**
+     * The unique identifier of the tax-free tag associated with the export.
+     */
     tagId?: (string) | null;
+    /**
+     * The readable number or code of the tax-free tag.
+     */
     tagNumber?: (string) | null;
+    /**
+     * The unique identifier of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsId: string;
+    /**
+     * The name of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsName: string;
+    /**
+     * An optional reference ID for the export validation, possibly from an external system.
+     */
     referenceId?: (string) | null;
+    /**
+     * The date and time when the export validation was performed.
+     * This field is **required**.
+     */
     exportDate: string;
     status?: UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode;
     stampType?: UniRefund_ExportValidationService_ExportValidations_StampTypeCode;
@@ -24,13 +86,38 @@ export type UniRefund_ExportValidationService_ExportValidations_ExportValidation
     finalValidationResult?: UniRefund_ExportValidationService_ExportValidations_ValidationResult;
 };
 
+/**
+ * Represents the details of an export validation process for a tax-free transaction.
+ * This DTO captures information related to customs verification of exported goods.
+ */
 export type UniRefund_ExportValidationService_ExportValidations_ExportValidationDto = {
     id?: string;
+    /**
+     * The unique identifier of the tax-free tag associated with the export.
+     */
     tagId?: (string) | null;
+    /**
+     * The readable number or code of the tax-free tag.
+     */
     tagNumber?: (string) | null;
+    /**
+     * The unique identifier of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsId: string;
+    /**
+     * The name of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsName: string;
+    /**
+     * The date and time when the export validation was performed.
+     * This field is **required**.
+     */
     exportDate: string;
+    /**
+     * An optional reference ID for the export validation, possibly from an external system.
+     */
     referenceId?: (string) | null;
     status?: UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode;
     stampType?: UniRefund_ExportValidationService_ExportValidations_StampTypeCode;
@@ -46,19 +133,42 @@ export type UniRefund_ExportValidationService_ExportValidations_ValidationResult
 
 export type UniRefund_SettingService_ProductGroups_CompanyTypeCode = 'GOVERNMENT' | 'TAXFREE' | 'CUSTOMS' | 'REFUNDPOINT' | 'MERCHANT' | 'EXCHANGE' | 'TOURGUIDE';
 
+/**
+ * Represents a group of products with common characteristics, used for categorization and tax purposes.
+ */
 export type UniRefund_SettingService_ProductGroups_ProductGroupDto = {
     id?: string;
+    /**
+     * The unique article code for the product group. This field is **required**.
+     */
     articleCode: string;
+    /**
+     * The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.
+     */
     name: string;
     unitCode: UniRefund_SettingService_ProductGroups_UnitTypeCode;
     companyType: UniRefund_SettingService_ProductGroups_CompanyTypeCode;
+    /**
+     * The unique identifier for the VAT (Value Added Tax) category applicable to this product group.
+     */
     vatId?: string;
+    /**
+     * The percentage of VAT applied to products in this group, if applicable.
+     */
     vatPercent?: (number) | null;
+    /**
+     * Indicates whether the product group is currently active. This field is **required**.
+     */
     active: boolean;
+    /**
+     * Indicates whether the product group consists of food items. This field is **required**.
+     */
     food: boolean;
 };
 
 export type UniRefund_SettingService_ProductGroups_UnitTypeCode = 'QNT' | 'BAG' | 'BOX';
+
+export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE';
 
 /**
  * Represents an invoice within the tax-free system.
@@ -166,24 +276,6 @@ export type UniRefund_TagService_Invoices_InvoiceRequestDto = {
 };
 
 /**
- * Represents the detailed business information for a merchant within the tax-free system.
- * This DTO is used for transferring and displaying core merchant data.
- */
-export type UniRefund_TagService_Merchants_MerchantDetailDto = {
-    id?: string;
-    /**
-     * The **business name** of the merchant. This is the official trading name.
-     */
-    name?: (string) | null;
-    address?: UniRefund_TagService_Tags_AddressDto;
-    /**
-     * A list of **product groups** that this merchant sells,
-     * relevant for tax-free eligibility categorization.
-     */
-    productGroups?: Array<UniRefund_TagService_Tags_ProductGroupDto> | null;
-};
-
-/**
  * Data transfer object for merchant registration or update requests.
  */
 export type UniRefund_TagService_Merchants_MerchantRequestDto = {
@@ -202,18 +294,6 @@ export type UniRefund_TagService_Merchants_MerchantRequestDto = {
      * Used to distinguish between different locations or subdivisions of the same merchant.
      */
     branchId: string;
-};
-
-/**
- * Represents the address information for entities within the tax-free system.
- * This DTO provides a consolidated view of an address.
- */
-export type UniRefund_TagService_Tags_AddressDto = {
-    id?: string;
-    /**
-     * The complete, formatted text of the address (e.g., street, building number, city, postcode, country).
-     */
-    fullText?: (string) | null;
 };
 
 export type UniRefund_TagService_Tags_CreateTagRequestDto = {
@@ -245,17 +325,6 @@ export type UniRefund_TagService_Tags_InvoiceLineRequestDto = {
     amount: number;
     taxBase: number;
     productGroupId?: (string) | null;
-};
-
-/**
- * Represents a category or group of products.
- */
-export type UniRefund_TagService_Tags_ProductGroupDto = {
-    id?: string;
-    /**
-     * A description of the product group (e.g., "Electronics," "Apparel," "Luxury Goods").
-     */
-    description?: (string) | null;
 };
 
 export type UniRefund_TagService_Tags_RebateStatementByVATStatementDto = {
@@ -326,7 +395,7 @@ export type UniRefund_TagService_Tags_TagDetailDto = {
      * The expiration date by which a refund can be claimed, if applicable.
      */
     refundExpirationDate?: (string) | null;
-    merchant?: UniRefund_TagService_Merchants_MerchantDetailDto;
+    merchant?: UniRefund_CRMService_Merchants_MerchantInfoForTagDto;
     traveller?: UniRefund_TagService_Travellers_TravellerDetailDto;
     exportValidation?: UniRefund_ExportValidationService_ExportValidations_ExportValidationDetailDto;
     /**
@@ -1043,17 +1112,10 @@ export type PostApiTagServiceTagResponse = (UniRefund_TagService_Tags_TagDto);
 export type GetApiTagServiceTagData = {
     exportEndDate?: string;
     exportStartDate?: string;
-<<<<<<< HEAD
-    isEarlyRefunded?: boolean;
-    issuedEndDate?: string;
-    issuedStartDate?: string;
-    ınvoiceNumber?: string;
-=======
     invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
@@ -1104,17 +1166,10 @@ export type GetApiTagServiceTagTagsRefundResponse = (PagedResultDto_TagListItemD
 export type GetApiTagServiceTagSummaryData = {
     exportEndDate?: string;
     exportStartDate?: string;
-<<<<<<< HEAD
-    isEarlyRefunded?: boolean;
-    issuedEndDate?: string;
-    issuedStartDate?: string;
-    ınvoiceNumber?: string;
-=======
     invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;

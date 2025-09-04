@@ -10,7 +10,7 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiTagServiceTag(data: PostApiTagServiceTagData = {}): CancelablePromise<PostApiTagServiceTagResponse> {
@@ -24,8 +24,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -33,11 +33,7 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.tagNumber
-<<<<<<< HEAD
-     * @param data.ınvoiceNumber
-=======
      * @param data.invoiceNumber
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
      * @param data.travellerFullName
      * @param data.travellerDocumentNumber
      * @param data.isEarlyRefunded
@@ -54,7 +50,7 @@ export class TagService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTagServiceTag(data: GetApiTagServiceTagData = {}): CancelablePromise<GetApiTagServiceTagResponse> {
@@ -63,11 +59,7 @@ export class TagService {
             url: '/api/tag-service/tag',
             query: {
                 TagNumber: data.tagNumber,
-<<<<<<< HEAD
-                InvoiceNumber: data.ınvoiceNumber,
-=======
                 InvoiceNumber: data.invoiceNumber,
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
                 TravellerFullName: data.travellerFullName,
                 TravellerDocumentNumber: data.travellerDocumentNumber,
                 IsEarlyRefunded: data.isEarlyRefunded,
@@ -90,8 +82,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -100,7 +92,7 @@ export class TagService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiTagServiceTagById(data: PutApiTagServiceTagByIdData): CancelablePromise<PutApiTagServiceTagByIdResponse> {
@@ -117,8 +109,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -126,7 +118,7 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiTagServiceTagById(data: DeleteApiTagServiceTagByIdData): CancelablePromise<DeleteApiTagServiceTagByIdResponse> {
@@ -141,8 +133,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -150,7 +142,7 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTagServiceTagByIdDetail(data: GetApiTagServiceTagByIdDetailData): CancelablePromise<GetApiTagServiceTagByIdDetailResponse> {
@@ -165,8 +157,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -180,7 +172,7 @@ export class TagService {
      * @param data.tagIds
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTagServiceTagTagsRefund(data: GetApiTagServiceTagTagsRefundData): CancelablePromise<GetApiTagServiceTagTagsRefundResponse> {
@@ -201,8 +193,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -210,11 +202,7 @@ export class TagService {
     /**
      * @param data The data for the request.
      * @param data.tagNumber
-<<<<<<< HEAD
-     * @param data.ınvoiceNumber
-=======
      * @param data.invoiceNumber
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
      * @param data.travellerFullName
      * @param data.travellerDocumentNumber
      * @param data.isEarlyRefunded
@@ -231,7 +219,7 @@ export class TagService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTagServiceTagSummary(data: GetApiTagServiceTagSummaryData = {}): CancelablePromise<GetApiTagServiceTagSummaryResponse> {
@@ -240,11 +228,7 @@ export class TagService {
             url: '/api/tag-service/tag/summary',
             query: {
                 TagNumber: data.tagNumber,
-<<<<<<< HEAD
-                InvoiceNumber: data.ınvoiceNumber,
-=======
                 InvoiceNumber: data.invoiceNumber,
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
                 TravellerFullName: data.travellerFullName,
                 TravellerDocumentNumber: data.travellerDocumentNumber,
                 IsEarlyRefunded: data.isEarlyRefunded,
@@ -267,8 +251,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -279,7 +263,7 @@ export class TagService {
      * @param data.refundPointId
      * @param data.refundDate
      * @param data.refundType
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiTagServiceTagTagsRefundFees(data: GetApiTagServiceTagTagsRefundFeesData): CancelablePromise<GetApiTagServiceTagTagsRefundFeesResponse> {
@@ -297,8 +281,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -307,7 +291,7 @@ export class TagService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiTagServiceTagExportValidationById(data: PutApiTagServiceTagExportValidationByIdData): CancelablePromise<PutApiTagServiceTagExportValidationByIdResponse> {
@@ -324,8 +308,8 @@ export class TagService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
