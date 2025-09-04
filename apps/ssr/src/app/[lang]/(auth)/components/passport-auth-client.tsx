@@ -29,8 +29,50 @@ interface AuthState {
 
 interface PassportAuthClientProps {
   languageData: SSRServiceResource;
-  authType: "login" | "register";
+  authType: "login" | "register" | "reset-password";
 }
+
+// Helper fonksiyonlar - nested ternary'leri temizlemek için
+const getStartDescription = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.PassportOnboardingTitle;
+  if (authType === "register") return languageData["Auth.PassportRegistrationProcess"];
+  return languageData["Auth.PassportResetPasswordProcess"];
+};
+
+const getPassportScanTitle = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.ScanPassport;
+  return languageData.ScanPassportTitle; // register ve reset için aynı
+};
+
+const getPassportScanDescription = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.ScanPassportDescription;
+  if (authType === "register") return languageData["Auth.ScanPassportDescription"];
+  return languageData["Auth.ScanPassportResetDescription"];
+};
+
+const getLivenessDescription = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.CompleteLivenessVerification;
+  if (authType === "register") return languageData["Auth.CompleteLivenessDescription"];
+  return languageData["Auth.CompleteLivenessResetDescription"];
+};
+
+const getCompleteDescription = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.AuthenticationCompletedSuccessfully;
+  if (authType === "register") return languageData["Auth.RegistrationCompleted"];
+  return languageData["Auth.ResetPasswordCompleted"];
+};
+
+const getLoadingMessage = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.InitializingAuthentication;
+  if (authType === "register") return languageData["Auth.InitializingRegistration"];
+  return languageData["Auth.InitializingPasswordReset"];
+};
+
+const getErrorMessage = (authType: string, languageData: SSRServiceResource) => {
+  if (authType === "login") return languageData.FailedToInitializeAuthentication;
+  if (authType === "register") return languageData["Auth.FailedToInitializeRegistration"];
+  return languageData["Auth.FailedToInitializePasswordReset"];
+};
 
 export default function PassportAuthClient({languageData, authType}: PassportAuthClientProps) {
   const [authState, setAuthState] = useState<AuthState>({
@@ -45,7 +87,6 @@ export default function PassportAuthClient({languageData, authType}: PassportAut
   const [clientAuths, setClientAuths] = useState<AWSAuthConfig | null>(null);
 
   const lang = useParams().lang as string;
-  const isLogin = authType === "login";
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -67,9 +108,7 @@ export default function PassportAuthClient({languageData, authType}: PassportAut
         setEvidenceSession(evidenceResponse.data as UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto);
         setClientAuths(authsResponse as AWSAuthConfig);
       } catch (error) {
-        const errorMessage = isLogin
-          ? languageData.FailedToInitializeAuthentication
-          : languageData["Auth.FailedToInitializeRegistration"];
+        const errorMessage = getErrorMessage(authType, languageData);
         toast.error(errorMessage + String(error));
       } finally {
         setAuthState((prev) => ({...prev, loading: false}));
@@ -77,7 +116,7 @@ export default function PassportAuthClient({languageData, authType}: PassportAut
     };
 
     void initializeAuth();
-  }, [languageData, isLogin]);
+  }, [languageData, authType]);
 
   const handleStartAuth = () => {
     setAuthState((prev) => ({...prev, currentStep: "passport-scan"}));
@@ -100,9 +139,7 @@ export default function PassportAuthClient({languageData, authType}: PassportAut
   };
 
   if (authState.loading || !evidenceSession || !clientAuths) {
-    const loadingMessage = isLogin
-      ? languageData.InitializingAuthentication
-      : languageData["Auth.InitializingRegistration"];
+    const loadingMessage = getLoadingMessage(authType, languageData);
 
     return (
       <div className="h-full">
@@ -119,26 +156,22 @@ export default function PassportAuthClient({languageData, authType}: PassportAut
   const stepConfig = {
     start: {
       title: languageData.StartValidation,
-      description: isLogin ? languageData.PassportOnboardingTitle : languageData["Auth.PassportRegistrationProcess"],
+      description: getStartDescription(authType, languageData),
       icon: <FileText className="text-primary h-8 w-8" />,
     },
     "passport-scan": {
-      title: isLogin ? languageData.ScanPassport : languageData.ScanPassportTitle,
-      description: isLogin ? languageData.ScanPassportDescription : languageData["Auth.ScanPassportDescription"],
+      title: getPassportScanTitle(authType, languageData),
+      description: getPassportScanDescription(authType, languageData),
       icon: <Camera className="text-primary h-8 w-8" />,
     },
     "liveness-test": {
       title: languageData.LivenessDetection,
-      description: isLogin
-        ? languageData.CompleteLivenessVerification
-        : languageData["Auth.CompleteLivenessDescription"],
+      description: getLivenessDescription(authType, languageData),
       icon: <Shield className="text-primary h-8 w-8" />,
     },
     complete: {
       title: languageData.Continue,
-      description: isLogin
-        ? languageData.AuthenticationCompletedSuccessfully
-        : languageData["Auth.RegistrationCompleted"],
+      description: getCompleteDescription(authType, languageData),
       icon: <CheckCircle className="h-8 w-8 text-green-600" />,
     },
   };

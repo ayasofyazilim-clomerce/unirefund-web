@@ -35,12 +35,14 @@ export default function ResetPasswordForm({
   languageData,
   isTenantDisabled,
   defaultTenant = "",
+  isVisible = true,
   onTenantSearchAction,
   onSubmitAction,
 }: {
   languageData: LanguageData;
   isTenantDisabled: boolean;
   defaultTenant?: string;
+  isVisible?: boolean;
   onTenantSearchAction?: (name: string) => Promise<{
     type: "success";
     data: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto;
@@ -158,21 +160,26 @@ export default function ResetPasswordForm({
           </form>
         </FormProvider>
       </div>
-      <div className="flex items-center justify-center">
-        <span className="bg-muted h-px w-full"></span>
-        <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">OR</span>
-        <span className="bg-muted h-px w-full"></span>
-      </div>
-      <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
-        <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          {languageData["Auth.Login"]}
-        </Button>
-      </Link>
-      <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
-        <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          {languageData["Auth.Register"]}
-        </Button>
-      </Link>
+
+      {isVisible && (
+        <>
+          <div className="flex items-center justify-center">
+            <span className="bg-muted h-px w-full"></span>
+            <span className="text-muted-foreground whitespace-nowrap text-center text-xs uppercase">OR</span>
+            <span className="bg-muted h-px w-full"></span>
+          </div>
+          <Link href="login" className="text-muted-foreground mt-1 text-xs hover:underline">
+            <Button disabled={isPending} className=" w-full" variant={"outline"}>
+              {languageData["Auth.Login"]}
+            </Button>
+          </Link>
+          <Link href="register" className="text-muted-foreground mt-1 text-xs hover:underline">
+            <Button disabled={isPending} className=" w-full" variant={"outline"}>
+              {languageData["Auth.Register"]}
+            </Button>
+          </Link>
+        </>
+      )}
     </div>
   );
 }
