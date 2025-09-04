@@ -4,15 +4,15 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader} from "@/components/ui/dialog";
 import {toast} from "@/components/ui/sonner";
-import {WebcamCapture} from "@/components/webcam";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto} from "@ayasofyazilim/saas/TravellerService";
 import {detectFace} from "@repo/actions/unirefund/AWSService/actions";
 import {postApiTravellerServiceEvidenceSessionPublicAnalyzeDocumentByMrz} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {AlertCircle, Camera, CheckCircle} from "lucide-react";
 import Image from "next/image";
-import PassportMRZ from "public/Passport.png";
 import {useState} from "react";
+import PassportMRZ from "public/Passport.png";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import {WebcamCapture} from "@/components/webcam";
 
 interface PassportScannerProps {
   languageData: SSRServiceResource;

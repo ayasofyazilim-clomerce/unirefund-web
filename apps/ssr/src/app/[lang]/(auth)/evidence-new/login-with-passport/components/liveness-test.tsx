@@ -1,14 +1,14 @@
 "use client";
 
-import LivenessDetector from "@/components/liveness-detector";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {Button} from "@/components/ui/button";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {AlertCircle, CheckCircle} from "lucide-react";
 import Image from "next/image";
-import Selfie from "public/selfie.png";
 import {useState} from "react";
+import Selfie from "public/selfie.png";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
+import LivenessDetector from "@/components/liveness-detector";
 
 interface LivenessTestProps {
   languageData: SSRServiceResource;

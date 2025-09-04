@@ -79,14 +79,14 @@ export default function LivenessDetector({
       <DialogTrigger asChild>
         <div
           className="w-full max-w-xs"
-          role="button"
-          tabIndex={0}
           onClick={handleStartValidation}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               handleStartValidation();
             }
-          }}>
+          }}
+          role="button"
+          tabIndex={0}>
           {trigger || <Button>{languageData.StartValidation}</Button>}
         </div>
       </DialogTrigger>

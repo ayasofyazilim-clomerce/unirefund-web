@@ -3,7 +3,6 @@
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {toast} from "@/components/ui/sonner";
-import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
@@ -15,6 +14,7 @@ import {Camera, CheckCircle, FileText, Shield} from "lucide-react";
 import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
+import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import LivenessTest from "./components/liveness-test";
 import PassportScanner from "./components/passport-scanner";
 
