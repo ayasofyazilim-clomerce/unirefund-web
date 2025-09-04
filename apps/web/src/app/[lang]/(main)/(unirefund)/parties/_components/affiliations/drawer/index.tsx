@@ -1,7 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTrigger} from "@/components/ui/drawer";
 import {toast} from "@/components/ui/sonner";
-import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
@@ -18,6 +17,7 @@ import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback, useMemo, useState, useTransition} from "react";
+import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {CreateIndividualForm} from "../../individual-form";
 import {StepperFooter} from "./footer";
 import {SelectIndividualStep} from "./step-1";
