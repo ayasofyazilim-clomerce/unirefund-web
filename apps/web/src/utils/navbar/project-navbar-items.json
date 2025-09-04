@@ -106,16 +106,7 @@
     "displayOrder": 1,
     "requiredPolicies": ["AbpIdentity.SecurityLogs"]
   },
-  {
-    "key": "management/identity/organization",
-    "displayName": "Organization",
-    "description": "Manage organizational settings and structure.",
-    "href": "management/identity/organization",
-    "icon": "building",
-    "parentNavbarItemKey": "management/identity",
-    "displayOrder": 1,
-    "requiredPolicies": ["AbpIdentity.OrganizationUnits"]
-  },
+
   {
     "key": "management/saas",
     "displayName": "Saas",
