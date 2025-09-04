@@ -42,8 +42,8 @@ export default async function Page({
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [taxFreeResponse] = apiRequests.optionalRequests;
+  const [taxOfficeResponse] = apiRequests.optionalRequests;
 
-  const taxFreeList = taxFreeResponse.status === "fulfilled" ? taxFreeResponse.value.data.items || [] : [];
-  return <CreateTaxOfficeForm languageData={languageData} taxFreeList={taxFreeList} />;
+  const taxOfficeList = taxOfficeResponse.status === "fulfilled" ? taxOfficeResponse.value.data.items || [] : [];
+  return <CreateTaxOfficeForm languageData={languageData} taxOfficeList={taxOfficeList} />;
 }

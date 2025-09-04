@@ -26,7 +26,7 @@ import {CheckIsFormReady} from "../../_components/is-form-ready";
 
 export default function CreateTaxFreeForm({
   taxOfficeList,
-  taxFreeList = [],
+  taxFreeList,
   languageData,
   typeCode,
   formData = {
@@ -39,11 +39,13 @@ export default function CreateTaxFreeForm({
       type: "HOME",
     },
   },
+  parentDetails,
 }: {
   taxOfficeList: TaxOfficeDto[];
   taxFreeList?: TaxFreeDto[];
   languageData: CRMServiceServiceResource;
   formData?: CreateTaxFreeDto;
+  parentDetails?: TaxFreeDto;
   typeCode?: "HEADQUARTER" | "TAXFREE";
 }) {
   const {lang} = useParams<{lang: string}>();
@@ -56,6 +58,7 @@ export default function CreateTaxFreeForm({
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
       taxOfficeId: {
+        ...{"ui:disabled": typeCode === "TAXFREE" && true},
         "ui:widget": "taxOfficeWidget",
       },
       telephone: {
@@ -83,6 +86,7 @@ export default function CreateTaxFreeForm({
       parentId: {
         "ui:className": "col-span-full",
         "ui:widget": "taxFreeWidget",
+        ...{"ui:disabled": typeCode === "TAXFREE" && true},
       },
       "ui:order": [
         "name",
@@ -108,6 +112,7 @@ export default function CreateTaxFreeForm({
     phone: PhoneWithTypeField({languageData}),
   };
 
+  const list = parentDetails ? [parentDetails] : [];
   const widgets = {
     taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
       list: taxOfficeList,
@@ -116,7 +121,7 @@ export default function CreateTaxFreeForm({
       languageData,
     }),
     taxFreeWidget: CustomComboboxWidget<TaxFreeDto>({
-      list: taxFreeList,
+      list: taxFreeList || list,
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
