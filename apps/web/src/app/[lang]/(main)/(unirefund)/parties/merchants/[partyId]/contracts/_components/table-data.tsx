@@ -89,14 +89,14 @@ const contractsTable = (props: {
       },
     });
   }
-  actions.push({
-    type: "simple",
-    actionLocation: "table",
-    cta: languageData.ExportCSV,
-    onClick: () => {
-      toast.warning("Not implemented yet");
-    },
-  });
+  // actions.push({
+  //   type: "simple",
+  //   actionLocation: "table",
+  //   cta: languageData.ExportCSV,
+  //   onClick: () => {
+  //     toast.warning("Not implemented yet");
+  //   },
+  // });
   const table: TanstackTableCreationProps<ContractsForMerchantDto> = {
     fillerColumn: "name",
     columnVisibility: {
