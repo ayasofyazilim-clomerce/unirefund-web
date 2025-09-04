@@ -43,10 +43,12 @@ export default function LoginForm({
   defaultTenant = "",
   onTenantSearchAction,
   onSubmitAction,
+  isVisible = true,
 }: {
   languageData: LanguageData;
   isTenantDisabled: boolean;
   defaultTenant?: string;
+  isVisible?: boolean;
   onTenantSearchAction?: (name: string) => Promise<{
     type: "success";
     data: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto;
@@ -208,12 +210,13 @@ export default function LoginForm({
           </form>
         </FormProvider>
       </div>
-
-      <Link href="register" className="text-muted-foreground text-xs hover:underline">
-        <Button disabled={isPending} className=" w-full" variant={"outline"}>
-          {languageData["Auth.Register"]}
-        </Button>
-      </Link>
+      {isVisible && (
+        <Link href="register" className="text-muted-foreground text-xs hover:underline">
+          <Button disabled={isPending} className=" w-full" variant={"outline"}>
+            {languageData["Auth.Register"]}
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }

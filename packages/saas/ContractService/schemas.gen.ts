@@ -1769,6 +1769,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Ens
     properties: {
         merchantId: {
             type: 'string',
+            description: 'Gets or sets the ID of the merchant to check.',
             format: 'uuid'
         },
         invoices: {
@@ -1779,18 +1780,23 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Ens
                 properties: {
                     invoiceDate: {
                         type: 'string',
+                        description: 'Gets or sets the date of the invoice.',
                         format: 'date-time'
                     },
                     invoiceAmount: {
                         type: 'number',
+                        description: 'Gets or sets the amount of the invoice.',
                         format: 'double'
                     }
                 },
-                additionalProperties: false
-            }
+                additionalProperties: false,
+                description: 'Represents an item in the request to ensure that a merchant has an active contract header.'
+            },
+            description: 'Gets or sets a list of tuples containing the invoice date and amount to verify against the contract headers.'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: 'Represents a request to ensure that a merchant has an active contract header.'
 } as const;
 
 export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_EnsureHasEnabledContractHeaderRequestItemDto = {
@@ -1799,14 +1805,17 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Ens
     properties: {
         invoiceDate: {
             type: 'string',
+            description: 'Gets or sets the date of the invoice.',
             format: 'date-time'
         },
         invoiceAmount: {
             type: 'number',
+            description: 'Gets or sets the amount of the invoice.',
             format: 'double'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: 'Represents an item in the request to ensure that a merchant has an active contract header.'
 } as const;
 
 export const $UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingCreateDto = {

@@ -1,8 +1,8 @@
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as ContractStoreDetailedDto,
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
-} from "@ayasofyazilim/saas/ContractService";
-import {$UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto} from "@ayasofyazilim/saas/ContractService";
+} from "@repo/saas/ContractService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto} from "@repo/saas/ContractService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
@@ -44,16 +44,6 @@ const contractStoresTableColumns = ({
           className: "px-4",
         },
       ],
-      fullAddress: [
-        {
-          className: "px-4",
-        },
-      ],
-      manager: [
-        {
-          className: "px-4",
-        },
-      ],
     },
     config: {
       locale: lang,
@@ -71,7 +61,7 @@ const contractsTable = () => {
     fillerColumn: "name",
     columnVisibility: {
       type: "show",
-      columns: ["name", "fullAddress", "manager", "contractSettingId", "receiptType"],
+      columns: ["name", "contractSettingId", "receiptType"],
     },
   };
   return table;
