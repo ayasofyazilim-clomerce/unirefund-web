@@ -67,6 +67,7 @@
   "Auth.HaveAnAccount": "Hesabınız yok mu?",
   "Auth.Register": "Kayıt Ol",
   "Auth.NotMember": "Üye değil misin? Üye ol",
+  "Auth.Member": "Üye misiniz? Giriş yap",
   "Auth.EmailAddressLabel": "E-posta Adresi",
   "Auth.UsernameLabel": "Kullanıcı Adı",
   "Auth.UsernameDescription": "Kullanıcı adı.",
