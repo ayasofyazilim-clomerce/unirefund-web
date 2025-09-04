@@ -137,11 +137,6 @@ export default function PassportScanner({languageData, evidenceSession, onPasspo
         {scanStatus === "idle" && !passportData && (
           <div className="space-y-4 text-center">
             <div className="flex flex-col items-center space-y-4">
-              {/* <div className="rounded-lg border-2 border-dashed border-gray-300 p-8">
-                <FileText className="text-primary mx-auto mb-4 h-16 w-16" />
-                <p className="text-lg font-medium text-gray-700">{languageData.ScanPassport}</p>
-                <p className="mt-2 text-sm text-gray-500">{languageData.ScanPassportDescription}</p>
-              </div> */}
               <Button className="w-full max-w-xs" onClick={handleOpenCamera} size="lg">
                 {languageData.ScanPassport}
               </Button>
@@ -168,16 +163,6 @@ export default function PassportScanner({languageData, evidenceSession, onPasspo
               <AlertTitle className="text-green-800">{languageData["Document.Captured"]}</AlertTitle>
               <AlertDescription className="text-green-700">{languageData.PassportCaptured}</AlertDescription>
             </Alert>
-
-            {/* Show captured image preview
-            {capturedImage ? (
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-700">{languageData.CapturedImage}</p>
-                <div className="relative mx-auto max-w-xs">
-                  <Image alt="Captured passport" className="w-full " height={200} src={capturedImage} width={200} />
-                </div>
-              </div>
-            ) : null} */}
 
             <div className="flex gap-3">
               <Button className="flex-1" onClick={handleContinue}>

@@ -80,7 +80,7 @@ export default function LivenessTest({
           {/* Right side - Selfie example - Much larger */}
           <div className="flex w-full flex-1 items-center justify-center md:w-auto">
             <Image
-              alt="Selfie example"
+              alt={languageData.SelfieExample || "Selfie example"}
               className="h-auto w-full max-w-[200px] md:max-w-[360px]"
               height={160}
               src={Selfie}
@@ -96,14 +96,6 @@ export default function LivenessTest({
     <div className="space-y-3">
       {livenessStatus === "testing" && (
         <div className="flex w-full justify-center">
-          {/* <Alert className="border-gray-200 bg-white">
-            <Shield className="h-4 w-4 text-black" />
-            <AlertTitle className="text-black">{languageData.LivenessDetection}</AlertTitle>
-            <AlertDescription className="text-xs text-black">
-              {languageData.FollowInstructionsToComplete}
-            </AlertDescription>
-          </Alert> */}
-
           <LivenessDetector
             config={clientAuths}
             evidenceSessionId={evidenceSessionId}

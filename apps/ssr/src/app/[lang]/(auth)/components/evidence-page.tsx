@@ -1,5 +1,5 @@
 import {getResourceData} from "src/language-data/core/AccountService";
-import {EvidenceClient} from "../components/evidence-client";
+import {EvidenceClient} from "./evidence-client";
 
 interface EvidencePageProps {
   params: {
@@ -11,5 +11,5 @@ export default async function EvidencePage({params}: EvidencePageProps) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
 
-  return <EvidenceClient authType="login" languageData={languageData} />;
+  return <EvidenceClient languageData={languageData} />;
 }

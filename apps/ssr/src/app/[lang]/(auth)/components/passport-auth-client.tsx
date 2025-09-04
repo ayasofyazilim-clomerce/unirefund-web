@@ -15,20 +15,25 @@ import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
-import LivenessTest from "./components/liveness-test";
-import PassportScanner from "./components/passport-scanner";
+import LivenessTest from "./liveness-test";
+import PassportScanner from "./passport-scanner";
 
-type RegisterStep = "start" | "passport-scan" | "liveness-test" | "complete";
+type AuthStep = "start" | "passport-scan" | "liveness-test" | "complete";
 
-interface RegisterState {
-  currentStep: RegisterStep;
+interface AuthState {
+  currentStep: AuthStep;
   passportData: string | null;
   isComplete: boolean;
   loading: boolean;
 }
 
-export default function PassportRegisterClient(languageData: SSRServiceResource) {
-  const [registerState, setRegisterState] = useState<RegisterState>({
+interface PassportAuthClientProps {
+  languageData: SSRServiceResource;
+  authType: "login" | "register";
+}
+
+export default function PassportAuthClient({languageData, authType}: PassportAuthClientProps) {
+  const [authState, setAuthState] = useState<AuthState>({
     currentStep: "start",
     passportData: null,
     isComplete: false,
@@ -40,10 +45,11 @@ export default function PassportRegisterClient(languageData: SSRServiceResource)
   const [clientAuths, setClientAuths] = useState<AWSAuthConfig | null>(null);
 
   const lang = useParams().lang as string;
+  const isLogin = authType === "login";
 
   useEffect(() => {
-    const initializeRegister = async () => {
-      setRegisterState((prev) => ({...prev, loading: true}));
+    const initializeAuth = async () => {
+      setAuthState((prev) => ({...prev, loading: true}));
 
       try {
         const requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {
@@ -61,21 +67,24 @@ export default function PassportRegisterClient(languageData: SSRServiceResource)
         setEvidenceSession(evidenceResponse.data as UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto);
         setClientAuths(authsResponse as AWSAuthConfig);
       } catch (error) {
-        toast.error(languageData["Auth.FailedToInitializeRegistration"] + String(error));
+        const errorMessage = isLogin
+          ? languageData.FailedToInitializeAuthentication
+          : languageData["Auth.FailedToInitializeRegistration"];
+        toast.error(errorMessage + String(error));
       } finally {
-        setRegisterState((prev) => ({...prev, loading: false}));
+        setAuthState((prev) => ({...prev, loading: false}));
       }
     };
 
-    void initializeRegister();
-  }, [languageData]);
+    void initializeAuth();
+  }, [languageData, isLogin]);
 
-  const handleStartRegister = () => {
-    setRegisterState((prev) => ({...prev, currentStep: "passport-scan"}));
+  const handleStartAuth = () => {
+    setAuthState((prev) => ({...prev, currentStep: "passport-scan"}));
   };
 
   const handlePassportScanned = (passportData: string) => {
-    setRegisterState((prev) => ({
+    setAuthState((prev) => ({
       ...prev,
       currentStep: "liveness-test",
       passportData,
@@ -83,20 +92,24 @@ export default function PassportRegisterClient(languageData: SSRServiceResource)
   };
 
   const handleLivenessComplete = () => {
-    setRegisterState((prev) => ({
+    setAuthState((prev) => ({
       ...prev,
       currentStep: "complete",
       isComplete: true,
     }));
   };
 
-  if (registerState.loading || !evidenceSession || !clientAuths) {
+  if (authState.loading || !evidenceSession || !clientAuths) {
+    const loadingMessage = isLogin
+      ? languageData.InitializingAuthentication
+      : languageData["Auth.InitializingRegistration"];
+
     return (
       <div className="h-full">
         <CardContent className="flex items-center justify-center p-6">
           <div className="text-center">
             <div className="border-primary mx-auto mb-3 h-6 w-6 animate-spin rounded-full border-b-2" />
-            <p className="text-xs text-gray-600">{languageData["Auth.InitializingRegistration"]}</p>
+            <p className="text-xs text-gray-600">{loadingMessage}</p>
           </div>
         </CardContent>
       </div>
@@ -106,39 +119,43 @@ export default function PassportRegisterClient(languageData: SSRServiceResource)
   const stepConfig = {
     start: {
       title: languageData.StartValidation,
-      description: languageData["Auth.PassportRegistrationProcess"],
+      description: isLogin ? languageData.PassportOnboardingTitle : languageData["Auth.PassportRegistrationProcess"],
       icon: <FileText className="text-primary h-8 w-8" />,
     },
     "passport-scan": {
-      title: languageData.ScanPassportTitle,
-      description: languageData["Auth.ScanPassportDescription"],
+      title: isLogin ? languageData.ScanPassport : languageData.ScanPassportTitle,
+      description: isLogin ? languageData.ScanPassportDescription : languageData["Auth.ScanPassportDescription"],
       icon: <Camera className="text-primary h-8 w-8" />,
     },
     "liveness-test": {
       title: languageData.LivenessDetection,
-      description: languageData["Auth.CompleteLivenessDescription"],
+      description: isLogin
+        ? languageData.CompleteLivenessVerification
+        : languageData["Auth.CompleteLivenessDescription"],
       icon: <Shield className="text-primary h-8 w-8" />,
     },
     complete: {
       title: languageData.Continue,
-      description: languageData["Auth.RegistrationCompleted"],
+      description: isLogin
+        ? languageData.AuthenticationCompletedSuccessfully
+        : languageData["Auth.RegistrationCompleted"],
       icon: <CheckCircle className="h-8 w-8 text-green-600" />,
     },
   };
 
-  const currentConfig = stepConfig[registerState.currentStep];
+  const currentConfig = stepConfig[authState.currentStep];
 
   return (
     <div className="flex h-full flex-col">
       {/* Compact Progress Indicator */}
       <div className="mb-4 flex items-center justify-center px-2">
         {(["start", "passport-scan", "liveness-test", "complete"] as const).map((step, index) => {
-          const isActive = registerState.currentStep === step;
+          const isActive = authState.currentStep === step;
           const isCompleted =
-            (step === "start" && registerState.currentStep !== "start") ||
-            (step === "passport-scan" && registerState.passportData !== null) ||
-            (step === "liveness-test" && registerState.isComplete) ||
-            (step === "complete" && registerState.isComplete);
+            (step === "start" && authState.currentStep !== "start") ||
+            (step === "passport-scan" && authState.passportData !== null) ||
+            (step === "liveness-test" && authState.isComplete) ||
+            (step === "complete" && authState.isComplete);
 
           return (
             <div className="flex items-center" key={step}>
@@ -167,16 +184,16 @@ export default function PassportRegisterClient(languageData: SSRServiceResource)
           <p className="text-xs text-gray-600">{currentConfig.description}</p>
         </CardHeader>
         <CardContent className="flex-1 pb-4">
-          {registerState.currentStep === "start" && (
+          {authState.currentStep === "start" && (
             <div className="space-y-3 text-center">
               <p className="mb-4 text-xs text-gray-600">{languageData.PassportTip1}</p>
-              <Button className="w-full" onClick={handleStartRegister}>
+              <Button className="w-full" onClick={handleStartAuth}>
                 {languageData.StartValidation}
               </Button>
             </div>
           )}
 
-          {registerState.currentStep === "passport-scan" && (
+          {authState.currentStep === "passport-scan" && (
             <PassportScanner
               evidenceSession={evidenceSession}
               languageData={languageData}
@@ -184,17 +201,17 @@ export default function PassportRegisterClient(languageData: SSRServiceResource)
             />
           )}
 
-          {registerState.currentStep === "liveness-test" && registerState.passportData ? (
+          {authState.currentStep === "liveness-test" && authState.passportData ? (
             <LivenessTest
               clientAuths={clientAuths}
               evidenceSessionId={evidenceSession.id || ""}
               languageData={languageData}
               onLivenessComplete={handleLivenessComplete}
-              passportImageBase64={registerState.passportData}
+              passportImageBase64={authState.passportData}
             />
           ) : null}
 
-          {registerState.currentStep === "complete" && (
+          {authState.currentStep === "complete" && (
             <div className="space-y-3 text-center">
               <Link className="mt-3 flex-1" href={`/${lang}`}>
                 <Button className="w-full max-w-xs" variant="default">
