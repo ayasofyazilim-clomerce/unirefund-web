@@ -52,5 +52,14 @@
   "Contracts.Form.refundPointId": "İade noktası",
   "Contracts.Form.isDefault": "Varsayılan",
   "Contracts.Form.isActive": "Aktif",
-  "Contracts.Form.isBundling": "Paketleme"
+  "Contracts.Form.isBundling": "Paketleme",
+
+  "Contracts.Form.webSite": "Web Sitesi",
+  "Contracts.Form.merchantClassification": "Müşteri Sınıflandırması",
+  "Contracts.Form.status": "Durum",
+  "Contracts.Form.validFrom": "Geçerlilik Başlangıcı",
+  "Contracts.Form.validTo": "Geçerlilik Bitişi",
+  "Contracts.Form.addressCommonDataId": "Adres Ortak Veri Kimliği",
+  "Contracts.Form.refundTableHeaders": "İade Tablosu Başlıkları",
+  "Contracts.Form.refundTableHeaderId": "İade Tablosu Başlık Kimliği"
 }

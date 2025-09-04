@@ -52,5 +52,13 @@
   "Contracts.Form.refundPointId": "Refund Point",
   "Contracts.Form.isDefault": "Default",
   "Contracts.Form.isActive": "Active",
-  "Contracts.Form.isBundling": "Bundling"
+  "Contracts.Form.isBundling": "Bundling",
+  "Contracts.Form.webSite": "Web Site",
+  "Contracts.Form.merchantClassification": "Merchant Classification",
+  "Contracts.Form.status": "Status",
+  "Contracts.Form.validFrom": "Valid From",
+  "Contracts.Form.validTo": "Valid To",
+  "Contracts.Form.addressCommonDataId": "Address Common Data Id",
+  "Contracts.Form.refundTableHeaders": "Refund Table Headers",
+  "Contracts.Form.refundTableHeaderId": "Refund Table Header Id"
 }
