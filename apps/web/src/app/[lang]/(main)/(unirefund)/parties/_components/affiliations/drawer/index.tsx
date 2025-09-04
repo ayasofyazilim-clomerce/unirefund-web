@@ -62,20 +62,17 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
   const [currentStep, setCurrentStep] = useState(INITIAL_STEP);
   const [selectedRole, setSelectedRole] = useState<Volo_Abp_Identity_IdentityRoleDto | null>(null);
   const [date, setDate] = useState<Date | null>(null);
-  const [individualId, setIndividualId] = useState<string | null>(null);
   const [preventClose, setPreventClose] = useState(true);
 
-  const [selectedAbpUser, setSelectedAbpUser] = useState<
-    UniRefund_CRMService_Individuals_IndividualWithAbpUserDto | null | undefined
-  >(null);
+  const [selectedIndividual, setSelectedIndividual] = useState<{individualId: string; fullname: string} | undefined>();
 
   // Memoized values
   const currentStepKey = useMemo(() => STEP_KEYS[currentStep], [currentStep]);
   const currentStepTitle = useMemo(() => getStepTitle(languageData, currentStepKey), [languageData, currentStepKey]);
 
   const isNextStepDisabled = useMemo(
-    () => (currentStep === INITIAL_STEP && !selectedAbpUser) || (currentStep === 1 && (!selectedRole || !date)),
-    [currentStep, selectedAbpUser, selectedRole, date],
+    () => (currentStep === INITIAL_STEP && !selectedIndividual) || (currentStep === 1 && (!selectedRole || !date)),
+    [currentStep, selectedIndividual, selectedRole, date],
   );
 
   const isFirstStep = currentStep === INITIAL_STEP;
@@ -111,9 +108,8 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
         taxOfficeId: params.partyId,
         customId: params.partyId,
         requestBody: {
-          individualId: selectedAbpUser?.individualId,
+          individualId: selectedIndividual?.individualId,
           abpRoleId: selectedRole?.id,
-          abpUserId: selectedAbpUser?.abpUserId,
           startDate: date?.toISOString(),
         },
       };
@@ -137,14 +133,16 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
       }
       handlePostResponse(res, router);
       setIsSubmitting(false);
-      setSelectedAbpUser(null);
+      setSelectedIndividual(undefined);
       setSelectedRole(null);
+      setCurrentStep(INITIAL_STEP);
       setDate(null);
       setOpen(false);
+
       return;
     }
     setCurrentStep((prev) => Math.min(prev + 1, STEP_KEYS.length - 1));
-  }, [currentStep, date, individualId, selectedRole, params.partyId]);
+  }, [currentStep, date, selectedIndividual, selectedRole, params.partyId]);
 
   const handleStepChange = useCallback((step: number) => {
     const normalizedStep = Math.max(INITIAL_STEP, Math.min(step - 1, STEP_KEYS.length - 1));
@@ -152,8 +150,10 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
   }, []);
 
   const handleIndividualUpdate = useCallback((newIndividual: IndividualListResponseDto) => {
-    setIndividualId(newIndividual.id || null);
-    setCurrentStep((prev) => prev + 1);
+    setSelectedIndividual({
+      individualId: newIndividual.id || "",
+      fullname: `${newIndividual.firstname} ${newIndividual.lastname}`,
+    });
   }, []);
 
   const handleRoleSelect = useCallback((role: Volo_Abp_Identity_IdentityRoleDto | null | undefined) => {
@@ -184,9 +184,9 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
           {isFirstStep ? (
             <SelectIndividualStep
               languageData={languageData}
-              onAbpUserSelect={setSelectedAbpUser}
+              onIndividualSelect={setSelectedIndividual}
               onIndividualUpdate={handleIndividualUpdate}
-              selectedAbpUser={selectedAbpUser}
+              selectedIndividual={selectedIndividual}
             />
           ) : (
             <SelectUserAndRoleStep
