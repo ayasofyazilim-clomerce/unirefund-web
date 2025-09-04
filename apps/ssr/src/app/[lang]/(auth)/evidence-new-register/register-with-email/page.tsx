@@ -1,10 +1,10 @@
 import {getTenantByNameApi, signUpServerApi} from "@repo/actions/core/AccountService/actions";
 import RegisterForm from "@repo/ui/theme/auth/register";
+import {IdCard, User} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {getResourceData} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
-import {IdCard, LinkIcon, PersonStandingIcon, User, UserPlus} from "lucide-react";
+import {getResourceData} from "src/language-data/core/AccountService";
 
 export default async function RegisterWithEmailPage({params}: {params: {lang: string}}) {
   const {lang} = params;
@@ -21,7 +21,7 @@ export default async function RegisterWithEmailPage({params}: {params: {lang: st
           width={9999}
         />
         <h3 className="flex flex-col items-center text-sm text-white">
-          from
+          {languageData["Common.UniRefundFromText"]}
           <span className="text-xl font-semibold">{languageData["Common.UniRefundCompanyName"]}</span>
         </h3>
       </div>
@@ -37,7 +37,7 @@ export default async function RegisterWithEmailPage({params}: {params: {lang: st
           className="hover:text-primary flex items-center gap-2 text-sm text-gray-600"
           href={`register-with-passport`}>
           <IdCard className="ml-1 inline h-4 w-4" />
-          Register with Passport
+          {languageData["Auth.RegisterWithPassport"]}
         </Link>
         <hr className="my-2 w-3/4 border-t border-gray-200" />
         <Link

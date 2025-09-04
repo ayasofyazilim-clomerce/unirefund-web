@@ -22,9 +22,9 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
         {/* Header */}
         <div className="mb-2 text-center md:mb-6">
           <div className="flex items-center justify-center">
-            <h1 className="text-xl font-bold text-gray-900 md:text-2xl">{languageData.Login}</h1>
+            <h1 className="text-xl font-bold text-gray-900 md:text-2xl">{languageData.Register}</h1>
           </div>
-          <p className="mt-1 text-xs text-gray-600 md:text-sm">{languageData["Evidence.Subtitle"]}</p>
+          <p className="mt-1 text-xs text-gray-600 md:text-sm">{languageData["Evidence.RegisterSubtitle"]}</p>
         </div>
 
         {/* Authentication Method Selection */}
@@ -33,7 +33,7 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
           <Card
             className="hover:border-primary/50 flex cursor-pointer flex-col transition-all hover:shadow-lg"
             onClick={() => {
-              router.push("/evidence-new-login/login-with-email");
+              router.push("/evidence-new-register/register-with-email");
             }}>
             <CardHeader className="pb-4 text-center">
               <div className=" flex justify-center ">
@@ -43,27 +43,27 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
                 {languageData["Evidence.EmailPasswordTitle"]}
               </CardTitle>
               <CardDescription className="text-xs text-gray-600 md:text-sm">
-                {languageData["Evidence.EmailPasswordDescription"]}
+                {languageData["Evidence.EmailPasswordRegisterDescription"]}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-1 flex-col pt-5">
               <div className="text-muted-foreground flex-1 space-y-2 text-xs md:space-y-3 md:text-sm">
                 <div className="flex items-center">
                   <div className="bg-primary mr-3 h-2 w-2 rounded-full" />
-                  {languageData["Evidence.EmailPasswordFeature1"]}
+                  {languageData["Evidence.EmailPasswordRegisterFeature1"]}
                 </div>
                 <div className="flex items-center">
                   <div className="bg-primary mr-3 h-2 w-2 rounded-full" />
-                  {languageData["Evidence.EmailPasswordFeature2"]}
+                  {languageData["Evidence.EmailPasswordRegisterFeature2"]}
                 </div>
                 <div className="flex items-center">
                   <div className="bg-primary mr-3 h-2 w-2 rounded-full" />
-                  {languageData["Evidence.EmailPasswordFeature3"]}
+                  {languageData["Evidence.EmailPasswordRegisterFeature3"]}
                 </div>
               </div>
-              <Link href="/evidence-new-login/login-with-email">
+              <Link href="/evidence-new-register/register-with-email">
                 <Button className="mt-4 w-full text-white md:mt-6" variant="default">
-                  {languageData["Evidence.EmailPasswordButton"]}
+                  {languageData["Evidence.EmailPasswordRegisterButton"]}
                 </Button>
               </Link>
             </CardContent>
@@ -73,7 +73,7 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
           <Card
             className="hover:border-primary/50 flex cursor-pointer flex-col transition-all hover:shadow-lg"
             onClick={() => {
-              router.push("/evidence-new-login/login-with-passport");
+              router.push("/evidence-new-register/register-with-passport");
             }}>
             <CardHeader className="pb-4 text-center">
               <div className=" flex justify-center ">
@@ -85,27 +85,27 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
                 {languageData["Evidence.PassportTitle"]}
               </CardTitle>
               <CardDescription className="text-xs text-gray-600 md:text-sm">
-                {languageData["Evidence.PassportDescription"]}
+                {languageData["Evidence.PassportRegisterDescription"]}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-1 flex-col pt-0">
               <div className="text-muted-foreground flex-1 space-y-2 text-xs md:space-y-3 md:text-sm">
                 <div className="flex items-center">
                   <div className="bg-primary mr-3 h-2 w-2 rounded-full" />
-                  {languageData["Evidence.PassportFeature1"]}
+                  {languageData["Evidence.PassportRegisterFeature1"]}
                 </div>
                 <div className="flex items-center">
                   <div className="bg-primary mr-3 h-2 w-2 rounded-full" />
-                  {languageData["Evidence.PassportFeature2"]}
+                  {languageData["Evidence.PassportRegisterFeature2"]}
                 </div>
                 <div className="flex items-center">
                   <div className="bg-primary mr-3 h-2 w-2 rounded-full" />
-                  {languageData["Evidence.PassportFeature3"]}
+                  {languageData["Evidence.PassportRegisterFeature3"]}
                 </div>
               </div>
-              <Link href="/evidence-new-login/login-with-passport">
+              <Link href="/evidence-new-register/register-with-passport">
                 <Button className="mt-4 w-full text-white md:mt-6" variant="default">
-                  {languageData["Evidence.PassportButton"]}
+                  {languageData["Evidence.PassportRegisterButton"]}
                 </Button>
               </Link>
             </CardContent>
@@ -114,8 +114,8 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
         <div className="mt-4 flex w-full items-center">
           <Link
             className="text-muted-foreground hover:text-primary peer order-2 px-4 text-center text-sm transition-colors duration-200"
-            href={getBaseLink("evidence-new-register", lang)}>
-            {languageData["Auth.NotMember"]}
+            href={getBaseLink("evidence-new-login", lang)}>
+            {languageData["Evidence.AlreadyHaveAccount"]}
           </Link>
 
           <div
