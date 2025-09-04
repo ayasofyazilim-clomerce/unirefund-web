@@ -47,11 +47,16 @@ export default function Invoices({
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>{languageData.ProductGroups}</SelectLabel>
-                  {tagDetail.merchant?.productGroups?.map((productGroup) => (
-                    <SelectItem key={productGroup.id || ""} value={productGroup.id || ""}>
-                      {productGroup.description || ""}
-                    </SelectItem>
-                  ))}
+                  {[
+                    ...(tagDetail.merchant?.productGroups || []),
+                    ...[{id: line.productGroup?.id || "", description: line.productGroup?.name || ""}],
+                  ].map((productGroup) => {
+                    return (
+                      <SelectItem key={productGroup.id || ""} value={productGroup.id || ""}>
+                        {productGroup.description || ""}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectGroup>
               </SelectContent>
             </Select>
