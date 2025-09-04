@@ -6,6 +6,7 @@ import {FileText, Mail} from "lucide-react";
 import Link from "next/link";
 import {useParams, useRouter} from "next/navigation";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
+import {getBaseLink} from "@/utils";
 
 interface EvidenceClientProps {
   languageData: AccountServiceResource;
@@ -113,7 +114,7 @@ export function EvidenceClient({languageData}: EvidenceClientProps) {
         <div className="mt-4 flex w-full items-center">
           <Link
             className="text-muted-foreground hover:text-primary peer order-2 px-4 text-center text-sm transition-colors duration-200"
-            href={`/${lang}/register`}>
+            href={getBaseLink("evidence-new/register-with-email", lang)}>
             {languageData["Auth.NotMember"]}
           </Link>
 

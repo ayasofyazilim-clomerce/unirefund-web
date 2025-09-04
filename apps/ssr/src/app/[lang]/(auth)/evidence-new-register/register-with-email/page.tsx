@@ -1,11 +1,12 @@
-import {getTenantByNameApi, signInServerApi} from "@repo/actions/core/AccountService/actions";
-import LoginForm from "@repo/ui/theme/auth/login";
+import {getTenantByNameApi, signUpServerApi} from "@repo/actions/core/AccountService/actions";
+import RegisterForm from "@repo/ui/theme/auth/register";
 import Image from "next/image";
 import Link from "next/link";
 import {getResourceData} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
+import {IdCard, LinkIcon, PersonStandingIcon, User, UserPlus} from "lucide-react";
 
-export default async function LoginWithEmailPage({params}: {params: {lang: string}}) {
+export default async function RegisterWithEmailPage({params}: {params: {lang: string}}) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
   const isTenantDisabled = process.env.FETCH_TENANT !== "true";
@@ -24,16 +25,26 @@ export default async function LoginWithEmailPage({params}: {params: {lang: strin
           <span className="text-xl font-semibold">{languageData["Common.UniRefundCompanyName"]}</span>
         </h3>
       </div>
-      <div className="relative flex flex-col items-center justify-center">
-        <LoginForm
+      <div className="relative flex w-full flex-col items-center justify-center space-y-2">
+        <RegisterForm
           isTenantDisabled={isTenantDisabled}
           isVisible={false}
           languageData={languageData}
-          onSubmitAction={signInServerApi}
+          onSubmitAction={signUpServerApi}
           onTenantSearchAction={getTenantByNameApi}
         />
-        <Link className=" hover:text-primary text-sm  text-gray-600" href={`/${lang}/register`}>
-          {languageData["Auth.NotMember"]}
+        <Link
+          className="hover:text-primary flex items-center gap-2 text-sm text-gray-600"
+          href={`register-with-passport`}>
+          <IdCard className="ml-1 inline h-4 w-4" />
+          Register with Passport
+        </Link>
+        <hr className="my-2 w-3/4 border-t border-gray-200" />
+        <Link
+          className="hover:text-primary flex items-center gap-2 pb-4 text-sm text-gray-600"
+          href={`/evidence-new-login/login-with-email`}>
+          <User className="ml-1 inline h-4 w-4" />
+          {languageData["Auth.Member"]}
         </Link>
       </div>
     </div>
