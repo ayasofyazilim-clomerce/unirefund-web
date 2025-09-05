@@ -6,8 +6,8 @@ import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantListResponseDto,
   UniRefund_CRMService_Merchants_MerchantStatus as MerchantStatus,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Merchants_MerchantListResponseDto as $MerchantListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Merchants_MerchantListResponseDto as $MerchantListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,

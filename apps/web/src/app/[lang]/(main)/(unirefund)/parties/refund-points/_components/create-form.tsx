@@ -3,11 +3,11 @@ import type {
   UniRefund_CRMService_RefundPoints_CreateRefundPointDto as CreateRefundPointDto,
   UniRefund_CRMService_RefundPoints_RefundPointDto as RefundPointDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {
   $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
   $UniRefund_CRMService_RefundPoints_CreateRefundPointDto as $CreateRefundPointDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {postRefundPointApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";

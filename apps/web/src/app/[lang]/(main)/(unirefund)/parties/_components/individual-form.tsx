@@ -1,6 +1,6 @@
 import {cn} from "@/lib/utils";
-import type {UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto} from "@repo/saas/CRMService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {AddressField} from "@repo/ui/components/address/field";

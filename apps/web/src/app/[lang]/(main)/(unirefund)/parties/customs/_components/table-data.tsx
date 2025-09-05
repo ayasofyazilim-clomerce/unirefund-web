@@ -6,8 +6,8 @@ import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_Customs_CustomListResponseDto as CustomListResponseDto,
   UniRefund_CRMService_Customs_CustomStatus as CustomStatus,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Customs_CustomListResponseDto as $CustomListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Customs_CustomListResponseDto as $CustomListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,

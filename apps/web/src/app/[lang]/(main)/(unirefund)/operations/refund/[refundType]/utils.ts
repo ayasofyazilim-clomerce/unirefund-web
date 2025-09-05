@@ -1,4 +1,4 @@
-import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@repo/saas/CRMService";
 import type {UniRefund_TagService_Tags_TagListItemDto} from "@ayasofyazilim/saas/TagService";
 
 export function getTotals(totalType: string, selectedRows: UniRefund_TagService_Tags_TagListItemDto[]) {

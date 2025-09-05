@@ -3,11 +3,11 @@ import type {
   UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as CreateTaxFreeDto,
   UniRefund_CRMService_TaxFrees_TaxFreeDto as TaxFreeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {
   $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
   $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as $CreateTaxFreeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {postTaxFreeApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";

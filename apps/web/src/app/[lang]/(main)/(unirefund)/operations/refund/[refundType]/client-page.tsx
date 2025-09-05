@@ -1,7 +1,7 @@
 "use client";
 
 import {cn} from "@/lib/utils";
-import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@repo/saas/CRMService";
 import type {
   PagedResultDto_TagListItemDto,
   UniRefund_TagService_Tags_TagListItemDto,

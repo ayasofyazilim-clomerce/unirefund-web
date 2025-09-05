@@ -5,7 +5,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
-import type {GetApiCrmServiceMerchantsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {GetApiCrmServiceMerchantsData} from "@repo/saas/CRMService";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import SubStoresTable from "../../_components/table";
 

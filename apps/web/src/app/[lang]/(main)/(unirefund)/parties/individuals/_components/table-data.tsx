@@ -1,6 +1,6 @@
 "use client";
-import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,

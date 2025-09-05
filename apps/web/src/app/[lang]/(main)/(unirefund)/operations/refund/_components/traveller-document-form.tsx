@@ -3,7 +3,7 @@
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@repo/saas/CRMService";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useState, useTransition} from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {PagedResultDto_RefundPointListResponseDto} from "@repo/saas/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";

@@ -5,7 +5,7 @@ import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/I
 import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
   UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {
   postCustomAffiliationApi,
   postMerchantAffiliationApi,

@@ -26,7 +26,7 @@ import {
 import {postMerchantContractHeaderContractSettingsByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {deleteMerchantContractContractSettingsByIdApi} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
-import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 interface ContractSettingsTable {

@@ -3,8 +3,8 @@
 import type {
   UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto as UpdateTaxOfficeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto as $UpdateTaxOfficeDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto as $UpdateTaxOfficeDto} from "@repo/saas/CRMService";
 import {putTaxOfficeByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";

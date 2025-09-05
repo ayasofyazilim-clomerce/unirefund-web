@@ -1,7 +1,7 @@
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
-import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@repo/saas/CRMService";
 import {getIndividualByEmailApi} from "@repo/actions/unirefund/CrmService/actions";
 import {EmailInput} from "@repo/ayasofyazilim-ui/molecules/email-input";
 import type {UniRefund_CRMService_Individuals_IndividualWithAbpUserDto} from "@repo/saas/CRMService";
