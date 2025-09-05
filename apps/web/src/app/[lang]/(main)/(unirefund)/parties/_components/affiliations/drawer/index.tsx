@@ -98,7 +98,10 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
 
   const handleNextStep = useCallback(async () => {
     if (currentStep === 1) {
-      if (!selectedIndividual || !selectedRole?.id || !date) return toast.error("Error");
+      if (!selectedIndividual || !selectedRole?.id || !date) {
+        toast.error("Error");
+        return;
+      }
       setIsSubmitting(true);
       const data = {
         merchantId: params.partyId,
