@@ -29,7 +29,7 @@ import {
   PutApiCrmServiceTaxofficesByTaxOfficeIdData,
   PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsData,
   PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {getCRMServiceClient} from "../lib";

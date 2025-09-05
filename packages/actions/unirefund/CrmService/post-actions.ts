@@ -7,9 +7,9 @@ import {
   UniRefund_CRMService_Individuals_CreateIndividualDto,
   UniRefund_CRMService_TaxFrees_CreateTaxFreeDto,
   UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {UniRefund_CRMService_RefundPoints_CreateRefundPointDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {UniRefund_CRMService_Merchants_CreateMerchantDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {UniRefund_CRMService_RefundPoints_CreateRefundPointDto} from "@repo/saas/CRMService";
+import {UniRefund_CRMService_Merchants_CreateMerchantDto} from "@repo/saas/CRMService";
 import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {getCRMServiceClient} from "../lib";
