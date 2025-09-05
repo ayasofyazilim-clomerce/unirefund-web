@@ -16,7 +16,7 @@ import {
   PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData,
   PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
   PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
 import {getCRMServiceClient, getCRMServiceClientFromPackage} from "../lib";
@@ -71,7 +71,7 @@ export async function getMerchantAffiliationsByMerchantIdApi(
   session?: Session | null,
 ) {
   try {
-    const crmClient = await getCRMServiceClient(session);
+    const crmClient = await getCRMServiceClientFromPackage(session);
     const response = await crmClient.merchant.getApiCrmServiceMerchantsByMerchantIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {

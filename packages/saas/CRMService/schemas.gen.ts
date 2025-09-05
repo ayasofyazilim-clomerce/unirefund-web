@@ -6,6 +6,7 @@ export const $PagedResultDto_AffiliationListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['abpRoleId', 'individualId', 'name', 'roleName'],
                 type: 'object',
                 properties: {
                     id: {
@@ -71,6 +72,7 @@ export const $PagedResultDto_CustomDto = {
         items: {
             type: 'array',
             items: {
+                required: ['name', 'status', 'typeCode', 'vatNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -78,6 +80,7 @@ export const $PagedResultDto_CustomDto = {
                         format: 'uuid'
                     },
                     telephone: {
+                        required: ['number', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -100,6 +103,7 @@ export const $PagedResultDto_CustomDto = {
                         additionalProperties: false
                     },
                     address: {
+                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -165,6 +169,7 @@ export const $PagedResultDto_CustomDto = {
                         additionalProperties: false
                     },
                     email: {
+                        required: ['emailAddress', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -234,6 +239,7 @@ export const $PagedResultDto_CustomListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['name', 'status', 'typeCode'],
                 type: 'object',
                 properties: {
                     id: {
@@ -288,6 +294,7 @@ export const $PagedResultDto_IndividualListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['firstname', 'gender', 'lastname'],
                 type: 'object',
                 properties: {
                     id: {
@@ -329,6 +336,7 @@ export const $PagedResultDto_MerchantListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['isPersonalCompany', 'status', 'typeCode'],
                 type: 'object',
                 properties: {
                     id: {
@@ -391,6 +399,7 @@ export const $PagedResultDto_RefundPointListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['name', 'status', 'typeCode'],
                 type: 'object',
                 properties: {
                     id: {
@@ -445,6 +454,7 @@ export const $PagedResultDto_TaxFreeListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['externalStoreIdentifier', 'name', 'parentName', 'status', 'storeSequence', 'typeCode', 'vatNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -510,6 +520,7 @@ export const $PagedResultDto_TaxOfficeDto = {
                         format: 'uuid'
                     },
                     telephone: {
+                        required: ['number', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -532,6 +543,7 @@ export const $PagedResultDto_TaxOfficeDto = {
                         additionalProperties: false
                     },
                     address: {
+                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -597,6 +609,7 @@ export const $PagedResultDto_TaxOfficeDto = {
                         additionalProperties: false
                     },
                     email: {
+                        required: ['emailAddress', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -662,6 +675,7 @@ export const $PagedResultDto_TaxOfficeListResponseDto = {
         items: {
             type: 'array',
             items: {
+                required: ['name', 'status', 'typeCode'],
                 type: 'object',
                 properties: {
                     id: {
@@ -711,6 +725,7 @@ export const $PagedResultDto_TaxOfficeListResponseDto = {
 } as const;
 
 export const $UniRefund_CRMService_Addresses_AddressDto = {
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -782,6 +797,7 @@ export const $UniRefund_CRMService_Addresses_AddressType = {
 } as const;
 
 export const $UniRefund_CRMService_Addresses_CreateAddressDto = {
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
     type: 'object',
     properties: {
         partyType: {
@@ -904,6 +920,7 @@ export const $UniRefund_CRMService_Addresses_UpdateAddressDto = {
 } as const;
 
 export const $UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto = {
+    required: ['countryId', 'name', 'plateCode'],
     type: 'object',
     properties: {
         id: {
@@ -950,6 +967,7 @@ export const $UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto = {
 } as const;
 
 export const $UniRefund_CRMService_AdminAreaLevel1_CreateAdminAreaLevel1Dto = {
+    required: ['countryId', 'name', 'plateCode'],
     type: 'object',
     properties: {
         countryId: {
@@ -1035,6 +1053,7 @@ export const $UniRefund_CRMService_AdminAreaLevel1_UpdateAdminAreaLevel1Dto = {
 } as const;
 
 export const $UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto = {
+    required: ['adminAreaLevel1Id', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -1072,6 +1091,7 @@ export const $UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto = {
 } as const;
 
 export const $UniRefund_CRMService_AdminAreaLevel2_CreateAdminAreaLevel2Dto = {
+    required: ['adminAreaLevel1Id', 'name'],
     type: 'object',
     properties: {
         adminAreaLevel1Id: {
@@ -1139,6 +1159,7 @@ export const $UniRefund_CRMService_AdminAreaLevel2_UpdateAdminAreaLevel2Dto = {
 } as const;
 
 export const $UniRefund_CRMService_Affiliations_AffiliationDto = {
+    required: ['abpRoleId', 'individualId', 'isPrimary', 'partyId', 'partyType'],
     type: 'object',
     properties: {
         id: {
@@ -1184,6 +1205,7 @@ export const $UniRefund_CRMService_Affiliations_AffiliationDto = {
 } as const;
 
 export const $UniRefund_CRMService_Affiliations_AffiliationListResponseDto = {
+    required: ['abpRoleId', 'individualId', 'name', 'roleName'],
     type: 'object',
     properties: {
         id: {
@@ -1235,6 +1257,7 @@ export const $UniRefund_CRMService_Affiliations_AffiliationListResponseDto = {
 } as const;
 
 export const $UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto = {
+    required: ['abpRoleId', 'individualId', 'isPrimary'],
     type: 'object',
     properties: {
         individualId: {
@@ -1320,6 +1343,7 @@ export const $UniRefund_CRMService_Countries_CountryDto = {
 } as const;
 
 export const $UniRefund_CRMService_Countries_CreateCountryDto = {
+    required: ['code2', 'code3', 'name'],
     type: 'object',
     properties: {
         name: {
@@ -1378,8 +1402,8 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -1401,6 +1425,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             type: 'string'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1423,6 +1448,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -1483,6 +1509,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1509,6 +1536,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
 } as const;
 
 export const $UniRefund_CRMService_Customs_CustomDto = {
+    required: ['name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -1516,6 +1544,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
             format: 'uuid'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1538,6 +1567,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1603,6 +1633,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1658,6 +1689,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
 } as const;
 
 export const $UniRefund_CRMService_Customs_CustomListResponseDto = {
+    required: ['name', 'status', 'typeCode'],
     type: 'object',
     properties: {
         id: {
@@ -1712,8 +1744,8 @@ export const $UniRefund_CRMService_Customs_UpdateCustomDto = {
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -1735,6 +1767,7 @@ export const $UniRefund_CRMService_Customs_UpdateCustomDto = {
 } as const;
 
 export const $UniRefund_CRMService_Emails_EmailDto = {
+    required: ['emailAddress', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -1786,6 +1819,7 @@ export const $UniRefund_CRMService_Emails_UpdateEmailDto = {
 } as const;
 
 export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
+    required: ['firstname', 'gender', 'lastname'],
     type: 'object',
     properties: {
         id: {
@@ -1818,6 +1852,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             nullable: true
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1840,6 +1875,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -1900,6 +1936,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1922,6 +1959,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             additionalProperties: false
         },
         newUser: {
+            required: ['password', 'username'],
             type: 'object',
             properties: {
                 username: {
@@ -1940,6 +1978,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
 } as const;
 
 export const $UniRefund_CRMService_Individuals_IndividualDto = {
+    required: ['firstname', 'gender', 'lastname'],
     type: 'object',
     properties: {
         id: {
@@ -1976,6 +2015,7 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
             type: 'string'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1998,6 +2038,7 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2063,6 +2104,7 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2094,6 +2136,7 @@ export const $UniRefund_CRMService_Individuals_IndividualGender = {
 } as const;
 
 export const $UniRefund_CRMService_Individuals_IndividualListResponseDto = {
+    required: ['firstname', 'gender', 'lastname'],
     type: 'object',
     properties: {
         id: {
@@ -2126,6 +2169,7 @@ export const $UniRefund_CRMService_Individuals_IndividualStatus = {
 } as const;
 
 export const $UniRefund_CRMService_Individuals_IndividualWithAbpUserDto = {
+    required: ['fullname', 'individualId'],
     type: 'object',
     properties: {
         individualId: {
@@ -2146,6 +2190,7 @@ export const $UniRefund_CRMService_Individuals_IndividualWithAbpUserDto = {
 } as const;
 
 export const $UniRefund_CRMService_Individuals_NewUser = {
+    required: ['password', 'username'],
     type: 'object',
     properties: {
         username: {
@@ -2193,7 +2238,7 @@ export const $UniRefund_CRMService_Individuals_UpdateIndividualDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
-    required: ['name', 'typeCode'],
+    required: ['address', 'email', 'isPersonalCompany', 'name', 'telephone', 'typeCode'],
     type: 'object',
     properties: {
         chainCodeId: {
@@ -2202,8 +2247,8 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             nullable: true
         },
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -2233,6 +2278,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             type: 'boolean'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2255,6 +2301,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -2315,6 +2362,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2348,6 +2396,7 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
             format: 'uuid'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2370,6 +2419,7 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2435,6 +2485,7 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2510,7 +2561,148 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
     additionalProperties: false
 } as const;
 
+export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
+    required: ['address', 'name', 'productGroups'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        name: {
+            type: 'string',
+            description: 'The **business name** of the merchant. This is the official trading name.',
+            nullable: true
+        },
+        address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                partyType: {
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    type: 'string'
+                },
+                partyId: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                countryId: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                adminAreaLevel1Id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                adminAreaLevel2Id: {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                neighborhoodId: {
+                    type: 'string',
+                    format: 'uuid',
+                    nullable: true
+                },
+                addressLine: {
+                    type: 'string',
+                    nullable: true
+                },
+                postalCode: {
+                    type: 'string',
+                    nullable: true
+                },
+                type: {
+                    enum: ['UNKNOWN', 'HOME', 'WORK'],
+                    type: 'string'
+                },
+                placeId: {
+                    type: 'string',
+                    nullable: true
+                },
+                latitude: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                longitude: {
+                    type: 'number',
+                    format: 'float',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean',
+                    nullable: true
+                }
+            },
+            additionalProperties: false
+        },
+        productGroups: {
+            type: 'array',
+            items: {
+                required: ['active', 'articleCode', 'companyType', 'food', 'name', 'unitCode'],
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        format: 'uuid'
+                    },
+                    articleCode: {
+                        minLength: 1,
+                        type: 'string',
+                        description: 'The unique article code for the product group. This field is **required**.'
+                    },
+                    name: {
+                        minLength: 1,
+                        type: 'string',
+                        description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
+                    },
+                    unitCode: {
+                        enum: ['QNT', 'BAG', 'BOX'],
+                        type: 'string'
+                    },
+                    companyType: {
+                        enum: ['GOVERNMENT', 'TAXFREE', 'CUSTOMS', 'REFUNDPOINT', 'MERCHANT', 'EXCHANGE', 'TOURGUIDE'],
+                        type: 'string'
+                    },
+                    vatId: {
+                        type: 'string',
+                        description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
+                        format: 'uuid'
+                    },
+                    vatPercent: {
+                        type: 'integer',
+                        description: 'The percentage of VAT applied to products in this group, if applicable.',
+                        format: 'int32',
+                        nullable: true
+                    },
+                    active: {
+                        type: 'boolean',
+                        description: 'Indicates whether the product group is currently active. This field is **required**.'
+                    },
+                    food: {
+                        type: 'boolean',
+                        description: 'Indicates whether the product group consists of food items. This field is **required**.'
+                    }
+                },
+                additionalProperties: false,
+                description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
+            },
+            description: `A list of **product groups** that this merchant sells,
+relevant for tax-free eligibility categorization.`,
+            nullable: true
+        }
+    },
+    additionalProperties: false,
+    description: `Represents the detailed business information for a merchant within the tax-free system.
+This DTO is used for transferring and displaying core merchant data.`
+} as const;
+
 export const $UniRefund_CRMService_Merchants_MerchantListResponseDto = {
+    required: ['isPersonalCompany', 'status', 'typeCode'],
     type: 'object',
     properties: {
         id: {
@@ -2579,6 +2771,7 @@ export const $UniRefund_CRMService_Merchants_MerchantSummaryRequestDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_MerchantSummaryResponseDto = {
+    required: ['name', 'status', 'storeSequence', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -2633,8 +2826,8 @@ export const $UniRefund_CRMService_Merchants_UpdateMerchantDto = {
             nullable: true
         },
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -2669,6 +2862,7 @@ export const $UniRefund_CRMService_Merchants_UpdateMerchantDto = {
 } as const;
 
 export const $UniRefund_CRMService_Neighborhoods_CreateNeighborhoodDto = {
+    required: ['adminAreaLevel2Id', 'name'],
     type: 'object',
     properties: {
         adminAreaLevel2Id: {
@@ -2702,6 +2896,7 @@ export const $UniRefund_CRMService_Neighborhoods_CreateNeighborhoodDto = {
 } as const;
 
 export const $UniRefund_CRMService_Neighborhoods_NeighborhoodDto = {
+    required: ['adminAreaLevel2Id', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -2777,8 +2972,8 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -2805,6 +3000,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             type: 'string'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2827,6 +3023,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -2887,6 +3084,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2939,6 +3137,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             format: 'uuid'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2961,6 +3160,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3026,6 +3226,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3086,6 +3287,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointListResponseDto = {
+    required: ['name', 'status', 'typeCode'],
     type: 'object',
     properties: {
         id: {
@@ -3140,8 +3342,8 @@ export const $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto = {
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -3172,6 +3374,7 @@ export const $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto = {
 } as const;
 
 export const $UniRefund_CRMService_Regions_CreateRegionDto = {
+    required: ['countryId', 'name'],
     type: 'object',
     properties: {
         countryId: {
@@ -3199,6 +3402,7 @@ export const $UniRefund_CRMService_Regions_CreateRegionDto = {
 } as const;
 
 export const $UniRefund_CRMService_Regions_RegionDto = {
+    required: ['countryId', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -3258,12 +3462,12 @@ export const $UniRefund_CRMService_Regions_UpdateRegionDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
-    required: ['name'],
+    required: ['address', 'email', 'name', 'telephone', 'typeCode'],
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -3290,6 +3494,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             type: 'string'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3312,6 +3517,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3372,6 +3578,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3405,6 +3612,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             format: 'uuid'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3427,6 +3635,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3492,6 +3701,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3560,6 +3770,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxFrees_TaxFreeListResponseDto = {
+    required: ['externalStoreIdentifier', 'name', 'parentName', 'status', 'storeSequence', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -3614,12 +3825,12 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeTypeCode = {
 } as const;
 
 export const $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto = {
-    required: ['name'],
+    required: ['name', 'status'],
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -3650,12 +3861,12 @@ export const $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
-    required: ['name'],
+    required: ['address', 'email', 'name', 'telephone', 'typeCode'],
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -3677,6 +3888,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             type: 'string'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3699,6 +3911,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3759,6 +3972,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3792,6 +4006,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
             format: 'uuid'
         },
         telephone: {
+            required: ['number', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3814,6 +4029,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
             additionalProperties: false
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3879,6 +4095,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
             additionalProperties: false
         },
         email: {
+            required: ['emailAddress', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3930,6 +4147,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto = {
+    required: ['name', 'status', 'typeCode'],
     type: 'object',
     properties: {
         id: {
@@ -3984,8 +4202,8 @@ export const $UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
     type: 'object',
     properties: {
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         vatNumber: {
             maxLength: 255,
@@ -4007,6 +4225,7 @@ export const $UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
 } as const;
 
 export const $UniRefund_CRMService_Telephones_TelephoneDto = {
+    required: ['number', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -4171,6 +4390,66 @@ export const $UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchan
         }
     },
     additionalProperties: false
+} as const;
+
+export const $UniRefund_SettingService_ProductGroups_CompanyTypeCode = {
+    enum: ['GOVERNMENT', 'TAXFREE', 'CUSTOMS', 'REFUNDPOINT', 'MERCHANT', 'EXCHANGE', 'TOURGUIDE'],
+    type: 'string'
+} as const;
+
+export const $UniRefund_SettingService_ProductGroups_ProductGroupDto = {
+    required: ['active', 'articleCode', 'companyType', 'food', 'name', 'unitCode'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid'
+        },
+        articleCode: {
+            minLength: 1,
+            type: 'string',
+            description: 'The unique article code for the product group. This field is **required**.'
+        },
+        name: {
+            minLength: 1,
+            type: 'string',
+            description: 'The name of the product group (e.g., "Electronics", "Apparel"). This field is **required**.'
+        },
+        unitCode: {
+            enum: ['QNT', 'BAG', 'BOX'],
+            type: 'string'
+        },
+        companyType: {
+            enum: ['GOVERNMENT', 'TAXFREE', 'CUSTOMS', 'REFUNDPOINT', 'MERCHANT', 'EXCHANGE', 'TOURGUIDE'],
+            type: 'string'
+        },
+        vatId: {
+            type: 'string',
+            description: 'The unique identifier for the VAT (Value Added Tax) category applicable to this product group.',
+            format: 'uuid'
+        },
+        vatPercent: {
+            type: 'integer',
+            description: 'The percentage of VAT applied to products in this group, if applicable.',
+            format: 'int32',
+            nullable: true
+        },
+        active: {
+            type: 'boolean',
+            description: 'Indicates whether the product group is currently active. This field is **required**.'
+        },
+        food: {
+            type: 'boolean',
+            description: 'Indicates whether the product group consists of food items. This field is **required**.'
+        }
+    },
+    additionalProperties: false,
+    description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
+} as const;
+
+export const $UniRefund_SettingService_ProductGroups_UnitTypeCode = {
+    enum: ['QNT', 'BAG', 'BOX'],
+    type: 'string'
 } as const;
 
 export const $UniRefund_Shared_Contracts_Enums_PartyType = {

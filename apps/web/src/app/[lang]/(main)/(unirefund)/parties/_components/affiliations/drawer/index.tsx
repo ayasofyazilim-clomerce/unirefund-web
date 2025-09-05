@@ -98,6 +98,10 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
 
   const handleNextStep = useCallback(async () => {
     if (currentStep === 1) {
+      if (!selectedIndividual || !selectedRole?.id || !date) {
+        toast.error("Error");
+        return;
+      }
       setIsSubmitting(true);
       const data = {
         merchantId: params.partyId,
@@ -106,9 +110,10 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
         taxOfficeId: params.partyId,
         customId: params.partyId,
         requestBody: {
-          individualId: selectedIndividual?.individualId,
-          abpRoleId: selectedRole?.id,
-          startDate: date?.toISOString(),
+          individualId: selectedIndividual.individualId,
+          abpRoleId: selectedRole.id,
+          startDate: date.toISOString(),
+          isPrimary: false,
         },
       };
       let res;
