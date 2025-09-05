@@ -1,17 +1,24 @@
-import {getTenantByNameApi, signInServerApi, signUpServerApi} from "@repo/actions/core/AccountService/actions";
+import {
+  getTenantByNameApi,
+  signInServerApi,
+  signUpServerApi,
+  sendPasswordResetCodeApi,
+} from "@repo/actions/core/AccountService/actions";
 import LoginForm from "@repo/ui/theme/auth/login";
 import RegisterForm from "@repo/ui/theme/auth/register";
+import ResetPasswordForm from "@repo/ui/theme/auth/reset-password";
 import Image from "next/image";
 import Link from "next/link";
-import {IdCard, UserPlus, User} from "lucide-react";
+import {IdCard, UserPlus, User, type LucideIcon} from "lucide-react";
 import {getResourceData} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
+import {getBaseLink} from "@/utils";
 
 interface EmailAuthPageProps {
   params: {
     lang: string;
   };
-  authType: "login" | "register";
+  authType: "login" | "register" | "reset-password";
 }
 
 export default async function EmailAuthPage({params, authType}: EmailAuthPageProps) {
@@ -20,15 +27,35 @@ export default async function EmailAuthPage({params, authType}: EmailAuthPagePro
   const isTenantDisabled = process.env.FETCH_TENANT !== "true";
 
   const isLogin = authType === "login";
+  const isRegister = authType === "register";
 
   // Dinamik path'ler ve linkler
-  const passportPath = isLogin ? "login-with-passport" : "register-with-passport";
-  const altEmailPath = isLogin ? "/evidence-new-register/register-with-email" : "/evidence-new-login/login-with-email";
-  const passportLinkText = isLogin
-    ? languageData["Evidence.PassportButton"]
-    : languageData["Auth.RegisterWithPassport"];
-  const altLinkText = isLogin ? languageData["Auth.NotMember"] : languageData["Auth.Member"];
-  const altIcon = isLogin ? UserPlus : User;
+  let passportPath: string;
+  let altEmailPath: string;
+  let passportLinkText: string;
+  let altLinkText: string;
+  let altIcon: LucideIcon;
+
+  if (isLogin) {
+    passportPath = "login-with-passport";
+    altEmailPath = "/evidence-new-register/register-with-email";
+    passportLinkText = languageData["Evidence.PassportButton"];
+    altLinkText = languageData["Auth.NotMember"];
+    altIcon = UserPlus;
+  } else if (isRegister) {
+    passportPath = "register-with-passport";
+    altEmailPath = "/evidence-new-login/login-with-email";
+    passportLinkText = languageData["Auth.RegisterWithPassport"];
+    altLinkText = languageData["Auth.Member"];
+    altIcon = User;
+  } else {
+    passportPath = "reset-password-with-passport";
+    altEmailPath = "/evidence-new-login/login-with-email";
+    passportLinkText = languageData["Evidence.ResetPassport"];
+    altLinkText = languageData["Auth.Member"];
+    altIcon = User;
+  }
+
   const AltIcon = altIcon;
 
   const fromText = "from";
@@ -49,23 +76,40 @@ export default async function EmailAuthPage({params, authType}: EmailAuthPagePro
         </h3>
       </div>
       <div className="relative flex flex-col items-center justify-center">
-        {isLogin ? (
-          <LoginForm
-            isTenantDisabled={isTenantDisabled}
-            isVisible={false}
-            languageData={languageData}
-            onSubmitAction={signInServerApi}
-            onTenantSearchAction={getTenantByNameApi}
-          />
-        ) : (
-          <RegisterForm
-            isTenantDisabled={isTenantDisabled}
-            isVisible={false}
-            languageData={languageData}
-            onSubmitAction={signUpServerApi}
-            onTenantSearchAction={getTenantByNameApi}
-          />
-        )}
+        {(() => {
+          if (isLogin) {
+            return (
+              <LoginForm
+                isTenantDisabled={isTenantDisabled}
+                isVisible={false}
+                languageData={languageData}
+                onSubmitAction={signInServerApi}
+                onTenantSearchAction={getTenantByNameApi}
+                passwordLink={getBaseLink("evidence-new-reset-password/reset-password-with-email", lang)}
+              />
+            );
+          }
+          if (isRegister) {
+            return (
+              <RegisterForm
+                isTenantDisabled={isTenantDisabled}
+                isVisible={false}
+                languageData={languageData}
+                onSubmitAction={signUpServerApi}
+                onTenantSearchAction={getTenantByNameApi}
+              />
+            );
+          }
+          return (
+            <ResetPasswordForm
+              isTenantDisabled={isTenantDisabled}
+              isVisible={false}
+              languageData={languageData}
+              onSubmitAction={sendPasswordResetCodeApi}
+              onTenantSearchAction={getTenantByNameApi}
+            />
+          );
+        })()}
 
         <Link className="hover:text-primary flex items-center gap-2 text-sm text-gray-600" href={passportPath}>
           <IdCard className="ml-1 inline h-4 w-4" />
