@@ -21,31 +21,42 @@ import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMServi
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
+const DEFAULT_FORMDATA: CreateTaxOfficeDto = {
+  name: "",
+  typeCode: "TAXOFFICE",
+  telephone: {
+    type: "WORK",
+    number: "",
+  },
+  email: {
+    type: "WORK",
+    emailAddress: "",
+  },
+  address: {
+    type: "WORK",
+    addressLine: "",
+    adminAreaLevel1Id: "",
+    adminAreaLevel2Id: "",
+    countryId: "",
+  },
+};
 export default function CreateTaxOfficeForm({
   taxOfficeList,
   languageData,
   typeCode,
-  formData = {
-    name: "  ",
-    typeCode: "HEADQUARTER",
-    telephone: {
-      type: "WORK",
-    },
-    address: {
-      type: "HOME",
-    },
-  },
+  formData,
   parentDetails,
 }: {
   taxOfficeList?: TaxOfficeDto[];
   languageData: CRMServiceServiceResource;
-  formData?: CreateTaxOfficeDto;
+  formData?: Partial<CreateTaxOfficeDto>;
   parentDetails?: TaxOfficeDto;
   typeCode?: "HEADQUARTER" | "TAXOFFICE";
 }) {
   const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const mergedFormData = {...DEFAULT_FORMDATA, ...formData};
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.TaxOffice",
@@ -141,7 +152,7 @@ export default function CreateTaxOfficeForm({
         type: "exclude",
         keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
       }}
-      formData={formData}
+      formData={mergedFormData}
       locale={lang}
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;

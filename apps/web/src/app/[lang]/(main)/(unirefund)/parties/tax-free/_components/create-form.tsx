@@ -24,33 +24,44 @@ import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 import {CheckIsFormReady} from "../../_components/is-form-ready";
 
+const DEFAULT_FORMDATA: CreateTaxFreeDto = {
+  name: "",
+  typeCode: "HEADQUARTER",
+  email: {
+    type: "WORK",
+    emailAddress: "",
+  },
+  telephone: {
+    type: "WORK",
+    number: "",
+  },
+  address: {
+    type: "WORK",
+    addressLine: "",
+    adminAreaLevel1Id: "",
+    adminAreaLevel2Id: "",
+    countryId: "",
+  },
+};
 export default function CreateTaxFreeForm({
   taxOfficeList,
   taxFreeList,
   languageData,
   typeCode,
-  formData = {
-    name: "  ",
-    typeCode: "HEADQUARTER",
-    telephone: {
-      type: "WORK",
-    },
-    address: {
-      type: "HOME",
-    },
-  },
+  formData,
   parentDetails,
 }: {
   taxOfficeList: TaxOfficeDto[];
   taxFreeList?: TaxFreeDto[];
   languageData: CRMServiceServiceResource;
-  formData?: CreateTaxFreeDto;
+  formData?: Partial<CreateTaxFreeDto>;
   parentDetails?: TaxFreeDto;
   typeCode?: "HEADQUARTER" | "TAXFREE";
 }) {
   const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const mergedFormData = {...DEFAULT_FORMDATA, ...formData};
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.TaxFree",
@@ -167,7 +178,7 @@ export default function CreateTaxFreeForm({
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
-        formData={{...formData, taxOfficeId: formData.taxOfficeId || taxOfficeList[0]?.id}}
+        formData={{...mergedFormData, taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id}}
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;

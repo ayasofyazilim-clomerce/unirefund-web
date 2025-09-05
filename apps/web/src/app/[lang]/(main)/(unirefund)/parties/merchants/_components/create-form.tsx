@@ -3,11 +3,11 @@ import type {
   UniRefund_CRMService_Merchants_CreateMerchantDto as CreateMerchantDto,
   UniRefund_CRMService_Merchants_MerchantDto as MerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {
   $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
   $UniRefund_CRMService_Merchants_CreateMerchantDto as $CreateMerchantDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {postMerchantApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
@@ -24,33 +24,45 @@ import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 import {CheckIsFormReady} from "../../_components/is-form-ready";
 
+const DEFAULT_FORMDATA: CreateMerchantDto = {
+  name: "",
+  typeCode: "HEADQUARTER",
+  isPersonalCompany: false,
+  email: {
+    type: "WORK",
+    emailAddress: "",
+  },
+  telephone: {
+    type: "WORK",
+    number: "",
+  },
+  address: {
+    type: "WORK",
+    addressLine: "",
+    adminAreaLevel1Id: "",
+    adminAreaLevel2Id: "",
+    countryId: "",
+  },
+};
 export default function CreateMerchantForm({
   taxOfficeList,
   merchantList,
   languageData,
   typeCode,
   parentDetails,
-  formData = {
-    name: "  ",
-    typeCode: "HEADQUARTER",
-    telephone: {
-      type: "WORK",
-    },
-    address: {
-      type: "HOME",
-    },
-  },
+  formData,
 }: {
   taxOfficeList: TaxOfficeDto[];
   merchantList?: MerchantDto[];
   languageData: CRMServiceServiceResource;
-  formData?: CreateMerchantDto;
+  formData?: Partial<CreateMerchantDto>;
   parentDetails?: MerchantDto;
   typeCode?: "HEADQUARTER" | "STORE";
 }) {
   const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const mergedFormData = {...DEFAULT_FORMDATA, ...formData};
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.Merchant",
@@ -173,7 +185,7 @@ export default function CreateMerchantForm({
           type: "exclude",
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
         }}
-        formData={{...formData, taxOfficeId: formData.taxOfficeId || taxOfficeList[0]?.id}}
+        formData={{...mergedFormData, taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id}}
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;

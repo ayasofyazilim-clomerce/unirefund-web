@@ -51,7 +51,6 @@ export default async function Page({
   return (
     <CreateSubTaxFreeForm
       formData={{
-        name: " ",
         typeCode: "TAXFREE",
         parentId: partyId,
       }}

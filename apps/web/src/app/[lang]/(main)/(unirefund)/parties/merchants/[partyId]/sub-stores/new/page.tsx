@@ -50,7 +50,6 @@ export default async function Page({
   return (
     <CreateSubMerchantForm
       formData={{
-        name: " ",
         typeCode: "STORE",
         parentId: partyId,
       }}

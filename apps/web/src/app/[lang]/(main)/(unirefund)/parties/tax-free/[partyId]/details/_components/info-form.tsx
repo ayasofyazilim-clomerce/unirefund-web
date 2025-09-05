@@ -70,6 +70,7 @@ export function TaxFreeForm({
         ...taxFreeDetails,
         parentId: taxFreeDetails.parentName || "",
         name: taxFreeDetails.name || "",
+        status: taxFreeDetails.status || "DRAFT",
       }}
       locale={lang}
       onSubmit={({formData}) => {

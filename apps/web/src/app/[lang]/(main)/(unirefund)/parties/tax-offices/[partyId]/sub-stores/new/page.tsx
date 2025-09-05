@@ -48,8 +48,6 @@ export default async function Page({
   return (
     <CreateSubTaxOfficeForm
       formData={{
-        name: " ",
-        typeCode: "TAXOFFICE",
         parentId: partyId,
       }}
       languageData={languageData}
