@@ -4279,7 +4279,7 @@ export const $UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
 export const $UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
     type: 'object',
     properties: {
-        affiliationId: {
+        partyId: {
             type: 'string',
             format: 'uuid'
         }
@@ -4320,6 +4320,11 @@ export const $UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
         },
         isPrimary: {
             type: 'boolean'
+        },
+        parentId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
         }
     },
     additionalProperties: false
