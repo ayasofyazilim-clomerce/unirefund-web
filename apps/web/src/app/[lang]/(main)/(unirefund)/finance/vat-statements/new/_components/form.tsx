@@ -2,7 +2,7 @@
 import {Button} from "@/components/ui/button";
 import {toast} from "@/components/ui/sonner";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import type {UniRefund_CRMService_Merchants_MerchantDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Merchants_MerchantDto} from "@repo/saas/CRMService";
 import type {
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto,
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto,

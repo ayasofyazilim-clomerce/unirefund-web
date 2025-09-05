@@ -2,8 +2,8 @@
 
 import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
-import type {UniRefund_CRMService_Emails_EmailDto as EmailDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Emails_EmailDto as $EmailDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Emails_EmailDto as EmailDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Emails_EmailDto as $EmailDto} from "@repo/saas/CRMService";
 import {putMerchantEmailsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
@@ -62,6 +62,7 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
       },
       formData: {
         type: "WORK",
+        emailAddress: "",
       },
       withScrollArea: false,
       disabled: isPending,
@@ -92,7 +93,7 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
   );
 }
 function TypeRow({row, languageData}: {row: EmailDto; languageData: CRMServiceServiceResource}) {
-  return <div> {(row.type && languageData[`CRM.email.type.${row.type}`]) || row.type}</div>;
+  return <div> {languageData[`CRM.email.type.${row.type}`]}</div>;
 }
 
 function EditForm({

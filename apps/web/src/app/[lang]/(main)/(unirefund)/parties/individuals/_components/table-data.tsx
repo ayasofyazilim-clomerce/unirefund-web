@@ -1,6 +1,6 @@
 "use client";
-import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Individuals_IndividualListResponseDto as $IndividualListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
@@ -68,13 +68,11 @@ function individualColumns(locale: string, languageData: CRMServiceServiceResour
       gender: {
         showHeader: true,
         content: (row) => {
-          if (row.gender)
-            return (
-              <div className="flex items-center gap-2">
-                <span>{languageData[`Form.Individual.gender.${row.gender}`]}</span>
-              </div>
-            );
-          return <></>;
+          return (
+            <div className="flex items-center gap-2">
+              <span>{languageData[`Form.Individual.gender.${row.gender}`]}</span>
+            </div>
+          );
         },
       },
     },

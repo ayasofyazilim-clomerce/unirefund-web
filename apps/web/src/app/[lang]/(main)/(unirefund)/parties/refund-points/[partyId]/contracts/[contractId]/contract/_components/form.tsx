@@ -23,7 +23,7 @@ import {
 import {postRefundPointContractHeaderValidateByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {deleteRefundPointContractHeadersById} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
-import type {UniRefund_CRMService_Addresses_AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 

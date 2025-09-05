@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData} from "@repo/saas/CRMService";
 import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 import {getTaxFreeAffiliationsByTaxFreeIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";

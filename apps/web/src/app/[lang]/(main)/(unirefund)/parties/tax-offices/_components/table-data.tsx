@@ -6,8 +6,8 @@ import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto as TaxOfficeListResponseDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeStatus as TaxOfficeStatus,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto as $TaxOfficeListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto as $TaxOfficeListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,

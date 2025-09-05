@@ -1,11 +1,11 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import type {Volo_Abp_Identity_IdentityRoleDto as RoleDto} from "@ayasofyazilim/core-saas/IdentityService";
-import type {UniRefund_CRMService_Affiliations_AffiliationListResponseDto as AffiliationListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Affiliations_AffiliationListResponseDto as AffiliationListResponseDto} from "@repo/saas/CRMService";
 import {
   $UniRefund_CRMService_Affiliations_AffiliationListResponseDto as $AffiliationListResponseDto,
   $UniRefund_CRMService_Affiliations_UpdateAffiliationDto as $UpdateAffiliationDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {deleteMerchantAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {putMerchantAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";

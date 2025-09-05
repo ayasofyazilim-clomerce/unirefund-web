@@ -6,8 +6,8 @@ import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as RefundPointListResponseDto,
   UniRefund_CRMService_RefundPoints_RefundPointStatus as RefundPointStatus,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as $RefundPointListResponseDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_RefundPoints_RefundPointListResponseDto as $RefundPointListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,

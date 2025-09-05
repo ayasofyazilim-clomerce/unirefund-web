@@ -13,7 +13,7 @@ import type {
   UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto as AdminAreaLevel2,
   UniRefund_CRMService_Countries_CountryDto as Country,
   UniRefund_CRMService_Neighborhoods_NeighborhoodDto as Neighborhood,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService"; // Update with your actual path
+} from "@repo/saas/CRMService"; // Update with your actual path
 
 export type {AdminAreaLevel1, AdminAreaLevel2, Country, Neighborhood};
 // Updated to match your actual API response structure

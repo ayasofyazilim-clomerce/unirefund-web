@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiCrmServiceCustomsByCustomIdAffiliationsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {GetApiCrmServiceCustomsByCustomIdAffiliationsData} from "@repo/saas/CRMService";
 import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 import {getCustomAffiliationsByCustomIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";

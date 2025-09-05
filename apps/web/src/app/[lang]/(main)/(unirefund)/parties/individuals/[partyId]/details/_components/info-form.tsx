@@ -3,8 +3,8 @@
 import type {
   UniRefund_CRMService_Individuals_UpdateIndividualDto as UpdateIndividualDto,
   UniRefund_CRMService_Individuals_IndividualDto as IndividualDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Individuals_UpdateIndividualDto as $UpdateIndividualDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Individuals_UpdateIndividualDto as $UpdateIndividualDto} from "@repo/saas/CRMService";
 import {putIndividualByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";

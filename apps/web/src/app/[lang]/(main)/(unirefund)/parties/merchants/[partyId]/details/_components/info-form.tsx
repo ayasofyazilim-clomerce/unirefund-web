@@ -5,8 +5,8 @@ import type {
   UniRefund_CRMService_Merchants_UpdateMerchantDto as UpdateMerchantDto,
   UniRefund_CRMService_Merchants_MerchantDto as MerchantDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Merchants_UpdateMerchantDto as $UpdateMerchantDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Merchants_UpdateMerchantDto as $UpdateMerchantDto} from "@repo/saas/CRMService";
 import {putMerchantByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";

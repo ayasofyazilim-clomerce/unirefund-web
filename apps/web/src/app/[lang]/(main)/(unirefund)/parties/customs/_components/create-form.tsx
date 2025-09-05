@@ -1,12 +1,12 @@
 "use client";
 import type {
   UniRefund_CRMService_Customs_CreateCustomDto as CreateCustomDto,
-  UniRefund_CRMService_Customs_CustomDto as CustomDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+  UniRefund_CRMService_Customs_CustomListResponseDto as CustomDto,
+} from "@repo/saas/CRMService";
 import {
   $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
   $UniRefund_CRMService_Customs_CreateCustomDto as $CreateCustomDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
 import {postCustomApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
@@ -21,29 +21,36 @@ import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMServi
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
 import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
+const DEFAULT_FORMDATA: CreateCustomDto = {
+  name: "",
+  typeCode: "CUSTOM",
+  telephone: {
+    type: "WORK",
+    number: "",
+  },
+  address: {
+    type: "WORK",
+    addressLine: "",
+    adminAreaLevel1Id: "",
+    adminAreaLevel2Id: "",
+    countryId: "",
+  },
+};
 export default function CreateCustomForm({
   customList = [],
   languageData,
   typeCode,
-  formData = {
-    name: "  ",
-    typeCode: "HEADQUARTER",
-    telephone: {
-      type: "WORK",
-    },
-    address: {
-      type: "HOME",
-    },
-  },
+  formData,
 }: {
   customList?: CustomDto[];
   languageData: CRMServiceServiceResource;
-  formData?: CreateCustomDto;
+  formData?: Partial<CreateCustomDto>;
   typeCode?: "HEADQUARTER" | "CUSTOM";
 }) {
   const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const mergedFormData = {...DEFAULT_FORMDATA, ...formData};
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.Custom",
@@ -139,7 +146,7 @@ export default function CreateCustomForm({
         type: "exclude",
         keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
       }}
-      formData={formData}
+      formData={mergedFormData}
       locale={lang}
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;

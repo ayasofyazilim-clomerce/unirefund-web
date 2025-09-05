@@ -19,7 +19,7 @@ import {
 } from "@repo/saas/CRMService";
 import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
-import {getCRMServiceClient, getCRMServiceClientFromPackage} from "../lib";
+import {getCRMServiceClient} from "../lib";
 /* Merchant */
 export async function getMerchantsApi(data: GetApiCrmServiceMerchantsData = {}, session?: Session | null) {
   try {
@@ -71,7 +71,7 @@ export async function getMerchantAffiliationsByMerchantIdApi(
   session?: Session | null,
 ) {
   try {
-    const crmClient = await getCRMServiceClientFromPackage(session);
+    const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.merchant.getApiCrmServiceMerchantsByMerchantIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
@@ -412,7 +412,7 @@ export async function getIndividualByIdApi(individualId: string, session?: Sessi
 }
 export async function getIndividualByEmailApi(email: string, session?: Session | null) {
   try {
-    const crmClient = await getCRMServiceClientFromPackage(session);
+    const crmClient = await getCRMServiceClient(session);
     const response = await crmClient.individual.getApiCrmServiceIndividualsByEmail({email});
     return structuredSuccessResponse(response);
   } catch (error) {

@@ -6,7 +6,7 @@ import type {
   UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderListDto as RebateTableHeaderListDto,
 } from "@repo/saas/ContractService";
 import {$UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto as $RebateTableHeaderCreateDto} from "@repo/saas/ContractService";
-import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@repo/saas/CRMService";
 import {getRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/action";
 import {postRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";

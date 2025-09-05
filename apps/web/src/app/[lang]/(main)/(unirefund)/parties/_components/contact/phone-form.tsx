@@ -2,8 +2,8 @@
 
 import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
-import type {UniRefund_CRMService_Telephones_TelephoneDto as TelephoneDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Telephones_TelephoneDto as $TelephoneDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Telephones_TelephoneDto as TelephoneDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Telephones_TelephoneDto as $TelephoneDto} from "@repo/saas/CRMService";
 import {putMerchantTelephonesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
@@ -61,6 +61,7 @@ export function PhoneForm({languageData, phones}: {languageData: CRMServiceServi
       },
       formData: {
         type: "WORK",
+        number: "",
       },
       withScrollArea: false,
       disabled: isPending,
@@ -92,7 +93,7 @@ export function PhoneForm({languageData, phones}: {languageData: CRMServiceServi
 }
 
 function TypeRow({row, languageData}: {row: TelephoneDto; languageData: CRMServiceServiceResource}) {
-  return <div> {(row.type && languageData[`CRM.telephone.type.${row.type}`]) || row.type}</div>;
+  return <div> {languageData[`CRM.telephone.type.${row.type}`]}</div>;
 }
 
 function EditForm({

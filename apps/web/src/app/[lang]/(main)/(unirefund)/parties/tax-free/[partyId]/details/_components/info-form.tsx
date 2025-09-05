@@ -4,8 +4,8 @@ import type {
   UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto as UpdateTaxFreeDto,
   UniRefund_CRMService_TaxFrees_TaxFreeDto as TaxFreeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
-} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto as $UpdateTaxFreeDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto as $UpdateTaxFreeDto} from "@repo/saas/CRMService";
 import {putTaxFreeByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
@@ -70,6 +70,7 @@ export function TaxFreeForm({
         ...taxFreeDetails,
         parentId: taxFreeDetails.parentName || "",
         name: taxFreeDetails.name || "",
+        status: taxFreeDetails.status || "DRAFT",
       }}
       locale={lang}
       onSubmit={({formData}) => {

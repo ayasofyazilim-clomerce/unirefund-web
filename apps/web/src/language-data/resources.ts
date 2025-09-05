@@ -1842,6 +1842,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:010058": "An AdminAreaLevel2 with the same name in this AdminAreaLevel1 already exists.";
   "UniRefund.CRMService:010059": "A region with the same name already exists.";
   "UniRefund.CRMService:010060": "User is not authenticated.";
+  "UniRefund.CRMService:018003": "Party with PartyId '{partyId}' and does not have an affiliation with the current user.";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";

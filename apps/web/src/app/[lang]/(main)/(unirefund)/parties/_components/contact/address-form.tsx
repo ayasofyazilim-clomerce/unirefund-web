@@ -3,8 +3,8 @@
 import {toast} from "@/components/ui/sonner";
 import {AddressField} from "@repo/ui/components/address/field";
 import {Switch} from "@/components/ui/switch";
-import type {UniRefund_CRMService_Addresses_AddressDto as AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {$UniRefund_CRMService_Addresses_AddressDto as $AddressDto} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {UniRefund_CRMService_Addresses_AddressDto as AddressDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Addresses_AddressDto as $AddressDto} from "@repo/saas/CRMService";
 import {putMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
@@ -70,9 +70,6 @@ export function AddressForm({
           hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
         }),
       },
-      formData: {
-        type: "WORK",
-      },
       disabled: isPending,
       filter: {type: "exclude", keys: ["id", "isPrimary"]},
       submitText: languageData["CRM.address.create"],
@@ -104,7 +101,7 @@ export function AddressForm({
 }
 
 function TypeRow({row, languageData}: {row: AddressDto; languageData: CRMServiceServiceResource}) {
-  return <div> {(row.type && languageData[`CRM.address.type.${row.type}`]) || row.type}</div>;
+  return <div> {languageData[`CRM.address.type.${row.type}`]}</div>;
 }
 function EditForm({
   row,

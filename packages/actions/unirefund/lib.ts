@@ -1,7 +1,6 @@
 import {AdministrationServiceClient} from "@ayasofyazilim/saas/AdministrationService";
 import {ContractServiceClient} from "@repo/saas/ContractService";
-import {CRMServiceClient} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
-import {CRMServiceClient as CRMServiceClientFromPackage} from "@repo/saas/CRMService";
+import {CRMServiceClient} from "@repo/saas/CRMService";
 import {ExportValidationServiceClient} from "@ayasofyazilim/saas/ExportValidationService";
 import {FileServiceClient} from "@ayasofyazilim/saas/FileService";
 import {FinanceServiceClient} from "@ayasofyazilim/saas/FinanceService";
@@ -27,15 +26,7 @@ export async function getCRMServiceClient(session?: Session | null) {
     HEADERS,
   });
 }
-export async function getCRMServiceClientFromPackage(session?: Session | null) {
-  const userData = session || (await auth());
-  const token = userData?.user?.access_token;
-  return new CRMServiceClientFromPackage({
-    TOKEN: token,
-    BASE: process.env.BASE_URL,
-    HEADERS,
-  });
-}
+
 export async function getTravellersServiceClient(session?: Session | null) {
   const userData = session || (await auth());
   const token = userData?.user?.access_token;

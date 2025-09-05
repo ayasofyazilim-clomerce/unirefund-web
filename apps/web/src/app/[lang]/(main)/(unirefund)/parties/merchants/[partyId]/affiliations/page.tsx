@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiCrmServiceMerchantsByMerchantIdAffiliationsData} from "@ayasofyazilim/unirefund-saas-dev/CRMService";
+import type {GetApiCrmServiceMerchantsByMerchantIdAffiliationsData} from "@repo/saas/CRMService";
 import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
 import {getMerchantAffiliationsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";

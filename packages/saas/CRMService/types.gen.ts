@@ -65,8 +65,8 @@ export type UniRefund_CRMService_Addresses_AddressDto = {
 export type UniRefund_CRMService_Addresses_AddressType = 'UNKNOWN' | 'HOME' | 'WORK';
 
 export type UniRefund_CRMService_Addresses_CreateAddressDto = {
-    partyType: UniRefund_Shared_Contracts_Enums_PartyType;
-    partyId: string;
+    partyType?: UniRefund_Shared_Contracts_Enums_PartyType;
+    partyId?: string;
     countryId: string;
     adminAreaLevel1Id: string;
     adminAreaLevel2Id: string;
@@ -77,7 +77,7 @@ export type UniRefund_CRMService_Addresses_CreateAddressDto = {
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
-    isPrimary: boolean;
+    isPrimary?: boolean;
 };
 
 export type UniRefund_CRMService_Addresses_UpdateAddressDto = {
@@ -667,7 +667,7 @@ export type UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
 };
 
 export type UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
-    affiliationId?: string;
+    partyId?: string;
 };
 
 export type UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
@@ -679,6 +679,7 @@ export type UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
     externalStoreIdentifier?: (string) | null;
     identificationNumber?: (string) | null;
     isPrimary?: boolean;
+    parentId?: (string) | null;
 };
 
 export type UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto = {
