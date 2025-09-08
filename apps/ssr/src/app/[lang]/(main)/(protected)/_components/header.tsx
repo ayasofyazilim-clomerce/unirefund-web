@@ -23,6 +23,7 @@ import {NotificationPopover} from "@repo/ui/notification";
 import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
+import Straight from "public/straight.png";
 
 const navigationItems = [
   {
@@ -59,8 +60,8 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {lang} = useParams<{lang: string}>();
   const pathname = usePathname();
-  const handleLogout = () => {
-    void signOutServer();
+  const handleLogout = async () => {
+    await signOutServer({redirectTo: getBaseLink("evidence-new-login/login-with-email", lang)});
   };
 
   return (
@@ -116,9 +117,8 @@ export default function Header({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="relative h-8 w-8 rounded-full" variant="ghost">
-                  <Avatar>
-                    <AvatarImage src="" />
-                    <AvatarFallback>MG</AvatarFallback>
+                  <Avatar className="border-primary rounded-full border-2">
+                    <AvatarImage src={Straight.src} alt="Straight" />
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -133,7 +133,7 @@ export default function Header({
                     </DropdownMenuItem>
                   </Link>
 
-                  <DropdownMenuItem onSelect={handleLogout}>
+                  <DropdownMenuItem onSelect={() => void handleLogout()}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>{languageData.Logout}</span>
                   </DropdownMenuItem>
