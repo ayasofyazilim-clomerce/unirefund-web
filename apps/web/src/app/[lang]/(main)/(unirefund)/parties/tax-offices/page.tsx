@@ -54,7 +54,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
 
   return (
     <div className="mt-6 rounded-lg border border-gray-200 p-6">
-      <TaxOfficesTable languageData={languageData} newLink="refund-points/new" taxOffices={taxOfficeResponse.data} />
+      <TaxOfficesTable languageData={languageData} newLink="tax-offices/new" taxOffices={taxOfficeResponse.data} />
     </div>
   );
 }
