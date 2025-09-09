@@ -11,7 +11,6 @@ type AddressFieldProps = {
 
 export function AddressField({ languageData, hiddenFields, className }: AddressFieldProps) {
   const _AddressField = (props: FieldProps) => {
-    console.log(props)
     return (
       <div className={cn("grid gap-2", className, props.uiSchema?.["ui:className"])}>
         <AddressSelector
