@@ -49,7 +49,7 @@ export default function Header({
         <nav className="hidden md:flex md:items-center md:space-x-8">
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href="https://unirefund.com/about-us">
+            href="https://unirefund.com">
             {languageData.About}
           </Link>
           <Link
@@ -59,7 +59,7 @@ export default function Header({
           </Link>
           <Link
             className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
-            href="https://unirefund.com//contact">
+            href="https://unirefund.com/contact">
             {languageData.Contact}
           </Link>
 

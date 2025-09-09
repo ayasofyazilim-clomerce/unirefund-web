@@ -28,6 +28,12 @@ export default function PersonalInformation({
       },
       phoneNumber: {
         "ui:widget": "phone",
+        "ui:options": {
+          dropdownProps: {
+            className: "z-99",
+          },
+          containerClassName: "relative z-99",
+        },
       },
       "ui:className": "md:grid md:grid-cols-2 md:gap-4 mt-6",
     },
