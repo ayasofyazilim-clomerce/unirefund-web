@@ -797,7 +797,7 @@ export const $UniRefund_CRMService_Addresses_AddressType = {
 } as const;
 
 export const $UniRefund_CRMService_Addresses_CreateAddressDto = {
-    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
     type: 'object',
     properties: {
         partyType: {
@@ -852,7 +852,8 @@ export const $UniRefund_CRMService_Addresses_CreateAddressDto = {
             nullable: true
         },
         isPrimary: {
-            type: 'boolean'
+            type: 'boolean',
+            nullable: true
         }
     },
     additionalProperties: false
@@ -1197,6 +1198,11 @@ export const $UniRefund_CRMService_Affiliations_AffiliationDto = {
             format: 'date-time',
             nullable: true
         },
+        parentId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
         isPrimary: {
             type: 'boolean'
         }
@@ -1257,7 +1263,7 @@ export const $UniRefund_CRMService_Affiliations_AffiliationListResponseDto = {
 } as const;
 
 export const $UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto = {
-    required: ['abpRoleId', 'individualId', 'isPrimary'],
+    required: ['abpRoleId', 'individualId'],
     type: 'object',
     properties: {
         individualId: {
@@ -1277,9 +1283,6 @@ export const $UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto = {
             type: 'string',
             format: 'date-time',
             nullable: true
-        },
-        isPrimary: {
-            type: 'boolean'
         }
     },
     additionalProperties: false
@@ -1448,7 +1451,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -1503,7 +1506,8 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -1875,7 +1879,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -1930,7 +1934,8 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -2301,7 +2306,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -2356,7 +2361,8 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -3023,7 +3029,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3078,7 +3084,8 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -3517,7 +3524,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3572,7 +3579,8 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -3911,7 +3919,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3966,7 +3974,8 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean'
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
