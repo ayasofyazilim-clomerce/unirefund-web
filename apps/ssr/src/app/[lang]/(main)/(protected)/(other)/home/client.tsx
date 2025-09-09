@@ -1,9 +1,9 @@
 "use client";
 
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
-import {User, MapPin, Shield, TrendingUp, Users, Store, LandPlot} from "lucide-react";
-import Link from "next/link";
 import {useSession} from "@repo/utils/auth";
+import {LandPlot, MapPin, Store, User, Users} from "lucide-react";
+import Link from "next/link";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
 interface HomePageClientProps {

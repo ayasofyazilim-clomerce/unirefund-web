@@ -1,13 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import {useState} from "react";
-import {Menu, X, User, LogOut, Home, MapPin} from "lucide-react";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
-import {useParams, usePathname} from "next/navigation";
-import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,13 +11,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {signOutServer} from "@repo/utils/auth";
 import {cn} from "@/lib/utils";
 import {NotificationPopover} from "@repo/ui/notification";
-import unirefundLogo from "public/unirefund.png";
-import {getBaseLink} from "src/utils";
-import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
+import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
+import {signOutServer} from "@repo/utils/auth";
+import {Home, LogOut, MapPin, Menu, User, X} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import {useParams, usePathname} from "next/navigation";
 import Straight from "public/straight.png";
+import unirefundLogo from "public/unirefund.png";
+import {useState} from "react";
+import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
+import {getBaseLink} from "src/utils";
 
 const navigationItems = [
   {
