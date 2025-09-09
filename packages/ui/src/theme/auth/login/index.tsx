@@ -45,12 +45,14 @@ export default function LoginForm({
   onSubmitAction,
   isVisible = true,
   passwordLink = "reset-password",
+  locale = "en",
 }: {
   languageData: LanguageData;
   isTenantDisabled: boolean;
   defaultTenant?: string;
   isVisible?: boolean;
   passwordLink?: string;
+  locale?: string;
   onTenantSearchAction?: (name: string) => Promise<{
     type: "success";
     data: Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto;
@@ -91,10 +93,8 @@ export default function LoginForm({
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("redirectTo");
 
-    // Improved default redirect logic - use home page instead of just language code
-    const pathParts = window.location.pathname.split("/").filter(Boolean);
-    const language = pathParts[0] || "en";
-    const defaultRedirect = `/${language}/home`;
+    // Use the passed locale prop instead of parsing from URL
+    const defaultRedirect = `/${locale}/home`;
     const redirectTo = redirect ? decodeURIComponent(redirect) : defaultRedirect;
 
     startTransition(() => {
