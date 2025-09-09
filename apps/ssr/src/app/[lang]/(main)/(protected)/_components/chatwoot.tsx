@@ -11,11 +11,22 @@ declare global {
     };
     chatwootSDK: {
       run: (options: {websiteToken: string; baseUrl: string}) => void;
+      setCustomAttributes: (attributes: Record<string, string>) => void;
+    };
+    $chatwoot: {
+      setCustomAttributes: (attributes: Record<string, string>) => void;
     };
   }
 }
 
-class ChatwootWidget extends Component<{baseUrl: string | undefined; websiteToken: string | undefined}> {
+class ChatwootWidget extends Component<{
+  baseUrl: string | undefined;
+  websiteToken: string | undefined;
+  accessToken: string;
+  lang: string;
+  name: string;
+  surname: string;
+}> {
   componentDidMount() {
     // Add Chatwoot Settings
     window.chatwootSettings = {
@@ -26,6 +37,10 @@ class ChatwootWidget extends Component<{baseUrl: string | undefined; websiteToke
     };
     const baseUrl = this.props.baseUrl;
     const websiteToken = this.props.websiteToken;
+    const accessToken = this.props.accessToken;
+    const lang = this.props.lang;
+    const name = this.props.name;
+    const surname = this.props.surname;
     // Paste the script from inbox settings except the <script> tag
     (function run(d, t) {
       const g = d.createElement(t) as HTMLScriptElement,
@@ -40,6 +55,12 @@ class ChatwootWidget extends Component<{baseUrl: string | undefined; websiteToke
         window.chatwootSDK.run({
           websiteToken,
           baseUrl,
+        });
+        window.$chatwoot.setCustomAttributes({
+          accessToken,
+          preferredLanguage: lang,
+          name,
+          surname,
         });
       };
     })(document, "script");
