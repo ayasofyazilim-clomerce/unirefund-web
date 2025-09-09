@@ -220,7 +220,7 @@ export default async function Page({params}: {params: {lang: string}}) {
             {languageData["Landing.ReadyToClaimDescription"]}
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="/evidence/register">
+            <Link href="/evidence-new-login">
               <Button className="w-full bg-white px-8 py-3 text-lg text-red-600 hover:bg-gray-100 sm:w-auto" size="lg">
                 {languageData["Landing.StartRefund"]}
                 <ArrowRight className="ml-2 h-5 w-5" />

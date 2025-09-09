@@ -1,13 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import {useState} from "react";
-import {Menu, X, User, LogOut, Home, MapPin} from "lucide-react";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
-import {useParams, usePathname} from "next/navigation";
-import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +11,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {signOutServer} from "@repo/utils/auth";
 import {cn} from "@/lib/utils";
 import {NotificationPopover} from "@repo/ui/notification";
+import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
+import {signOutServer} from "@repo/utils/auth";
+import {Home, LogOut, MapPin, Menu, User, X} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import {useParams, usePathname} from "next/navigation";
+import {useState} from "react";
+import Straight from "public/straight.png";
 import unirefundLogo from "public/unirefund.png";
-import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
+import {getBaseLink} from "src/utils";
 
 const navigationItems = [
   {
@@ -59,8 +60,8 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {lang} = useParams<{lang: string}>();
   const pathname = usePathname();
-  const handleLogout = () => {
-    void signOutServer();
+  const handleLogout = async () => {
+    await signOutServer({redirectTo: getBaseLink("evidence-new-login/login-with-email", lang)});
   };
 
   return (
@@ -116,9 +117,8 @@ export default function Header({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="relative h-8 w-8 rounded-full" variant="ghost">
-                  <Avatar>
-                    <AvatarImage src="" />
-                    <AvatarFallback>MG</AvatarFallback>
+                  <Avatar className="border-primary rounded-full border-2">
+                    <AvatarImage alt="Straight" src={Straight.src} />
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -133,7 +133,7 @@ export default function Header({
                     </DropdownMenuItem>
                   </Link>
 
-                  <DropdownMenuItem onSelect={handleLogout}>
+                  <DropdownMenuItem onSelect={() => void handleLogout()}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>{languageData.Logout}</span>
                   </DropdownMenuItem>

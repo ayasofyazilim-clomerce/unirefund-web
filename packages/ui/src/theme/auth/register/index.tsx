@@ -116,7 +116,7 @@ export default function RegisterForm({
           return;
         }
         toast.success(languageData["Auth.RegisterSuccess"]);
-        router.replace(`/${location.pathname.split("/").slice(1, 3).join("/")}/login${location.search}`);
+        router.replace("/en/evidence-new-login");
       });
     });
   }

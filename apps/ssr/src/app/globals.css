@@ -203,3 +203,16 @@ body {
 .amplify-flex.amplify-liveness-oval-canvas {
   display: none;
 }
+
+/* Fix for phone input dropdown z-index */
+.react-international-phone-country-selector-dropdown {
+  z-index: 60 !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item {
+  z-index: 60 !important;
+}
+
+ul[role="listbox"].react-international-phone-country-selector-dropdown {
+  z-index: 60 !important;
+}
