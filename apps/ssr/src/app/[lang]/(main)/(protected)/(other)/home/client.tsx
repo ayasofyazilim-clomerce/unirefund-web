@@ -1,5 +1,6 @@
 "use client";
 
+import {getBaseLink} from "@/utils";
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
 import {useSession} from "@repo/utils/auth";
 import {LandPlot, MapPin, Store, User, Users} from "lucide-react";
@@ -40,14 +41,14 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
       <div className="mb-16 grid gap-8 md:grid-cols-2">
         <QuickActionCard
           description={languageData["Home.ExploreTaxFreeDesc"]}
-          href="/explore"
+          href="explore"
           icon={<MapPin className="h-12 w-12" />}
           primary
           title={languageData["Home.ExploreTaxFree"]}
         />
         <QuickActionCard
           description={languageData["Home.ProfileDesc"]}
-          href="/profile"
+          href="profile"
           icon={<User className="h-12 w-12" />}
           primary
           title={languageData["Home.Profile"]}
@@ -129,7 +130,7 @@ function QuickActionCard({
   primary?: boolean;
 }) {
   return (
-    <Link href={href}>
+    <Link href={getBaseLink(href)}>
       <Card
         className={`group relative h-full overflow-hidden border-0 transition-all duration-500 hover:scale-105 ${
           primary
