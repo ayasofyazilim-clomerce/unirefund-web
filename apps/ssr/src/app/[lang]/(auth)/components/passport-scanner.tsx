@@ -35,7 +35,6 @@ export default function PassportScanner({languageData, evidenceSession, onPasspo
       return;
     }
 
-    // Resim çekildiği anda loading'i başlat
     setIsProcessing(true);
     setScanStatus("scanning");
 
@@ -213,16 +212,15 @@ export default function PassportScanner({languageData, evidenceSession, onPasspo
             languageData={languageData}
             placeholder={
               <div className="bg-primary/5 relative flex h-full w-full  rounded-lg opacity-70">
-                {isProcessing && (
-                  <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-black backdrop-blur-md">
+                {isProcessing ? <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-black backdrop-blur-md">
                     <div className="flex flex-col items-center space-y-6 text-white">
                       {/* Large modern spinner */}
                       <div className="relative h-24 w-24">
-                        <div className="absolute inset-0 rounded-full border-4 border-gray-800"></div>
-                        <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-red-600"></div>
+                        <div className="absolute inset-0 rounded-full border-4 border-gray-800" />
+                        <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-red-600" />
                         <div
                           className="border-3 absolute inset-2 animate-spin rounded-full border-transparent border-t-white"
-                          style={{animationDelay: "150ms", animationDirection: "reverse"}}></div>
+                          style={{animationDelay: "150ms", animationDirection: "reverse"}} />
                       </div>
 
                       {/* Simple bold text */}
@@ -231,18 +229,17 @@ export default function PassportScanner({languageData, evidenceSession, onPasspo
                         <div className="flex justify-center space-x-2">
                           <div
                             className="h-3 w-3 animate-bounce rounded-full bg-red-600"
-                            style={{animationDelay: "0ms"}}></div>
+                            style={{animationDelay: "0ms"}} />
                           <div
                             className="h-3 w-3 animate-bounce rounded-full bg-white"
-                            style={{animationDelay: "200ms"}}></div>
+                            style={{animationDelay: "200ms"}} />
                           <div
                             className="h-3 w-3 animate-bounce rounded-full bg-red-600"
-                            style={{animationDelay: "400ms"}}></div>
+                            style={{animationDelay: "400ms"}} />
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  </div> : null}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex h-full w-full flex-col justify-center p-2 text-center">
                     <div className="border-primary mx-auto mb-3 flex h-44 w-full max-w-full items-center justify-center rounded-lg border-4 border-dashed md:h-64">
