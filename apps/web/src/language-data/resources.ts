@@ -1739,6 +1739,7 @@ export type SettingServiceResources = {
   "UniRefund.SettingService:011007": "Inactive ProductGroup can not be added: {names}";
   "UniRefund.SettingService:012001": "Default ProductGroup can not be updated.";
   "UniRefund.SettingService:012002": "Default ProductGroup can not be deleted.";
+  "UniRefund.SettingService:012003": "The following Product Group IDs have VAT rates that do not match the expected values. Format: (ProductGroupId, Product Group's VAT Rate, Expected VAT Rate). Pairs: {notMatchingPairs}";
 };
 export type IdentityServiceResources = {
   "Permission:IdentityService": "Identity service";
