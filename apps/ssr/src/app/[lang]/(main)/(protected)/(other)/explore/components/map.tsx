@@ -1,9 +1,10 @@
 "use client";
 
-import {useEffect, useRef} from "react";
-import L from "leaflet";
-import type {TaxFreePoint} from "../types";
+import type {Map} from "leaflet";
+import L, {Icon} from "leaflet";
 import "leaflet/dist/leaflet.css";
+import {useEffect, useRef} from "react";
+import type {TaxFreePoint} from "../types";
 
 // This is a placeholder for the map component
 // In a real implementation, you would use a library like react-leaflet or @react-google-maps/api
@@ -14,14 +15,14 @@ interface MapComponentProps {
 
 function MapComponent({points}: MapComponentProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<L.Map | null>(null);
+  const mapInstanceRef = useRef<Map | null>(null);
 
   useEffect(() => {
     if (!mapRef.current) return;
 
     // Fix leaflet default marker icons
-    delete (L.Icon.Default.prototype as any)._getIconUrl;
-    L.Icon.Default.mergeOptions({
+    delete (Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+    Icon.Default.mergeOptions({
       iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
       iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
       shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
@@ -59,7 +60,7 @@ function MapComponent({points}: MapComponentProps) {
 
     // Add markers for each point
     points.forEach((point) => {
-      const marker = L.marker([point.position.lat, point.position.lng]).addTo(map).bindPopup(`
+      L.marker([point.position.lat, point.position.lng]).addTo(map).bindPopup(`
           <div style="min-width: 200px;">
             <h3 style="margin: 0 0 8px 0; font-weight: bold;">${point.name}</h3>
             <p style="margin: 4px 0; color: #666;">${point.category}</p>

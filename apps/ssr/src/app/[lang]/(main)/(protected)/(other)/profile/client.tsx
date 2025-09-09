@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import type {Volo_Abp_Account_ProfileDto} from "@ayasofyazilim/core-saas/AccountService";
 import {useParams, useRouter} from "next/navigation";
 import {Card, CardHeader, CardTitle, CardContent, CardDescription} from "@/components/ui/card";
@@ -39,9 +39,9 @@ export default function Profile({
   novu: NovuProps;
 }) {
   const router = useRouter();
-  const [showQrCode, setShowQrCode] = React.useState(false);
-  const [showPersonalInfo, setShowPersonalInfo] = React.useState(false);
-  const [showChangePassword, setShowChangePassword] = React.useState(false);
+  const [showQrCode, setShowQrCode] = useState(false);
+  const [showPersonalInfo, setShowPersonalInfo] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const isMobile = useIsMobile();
 
   const getInitials = (name?: string, surname?: string) => {
@@ -187,14 +187,15 @@ export default function Profile({
             {" "}
             <div>
               <div className="space-y-1 overflow-hidden">
-                {accountItems.map((item, index) => (
+                {accountItems.map((item, itemIndex) => (
                   <button
                     className={`flex w-full items-center justify-between p-3 text-left transition-colors ${
                       item.disabled ? "cursor-not-allowed opacity-50" : "hover:bg-gray-50"
                     }`}
                     disabled={item.disabled}
-                    key={index}
-                    onClick={item.disabled ? undefined : item.onClick}>
+                    key={`account-item-${itemIndex}`}
+                    onClick={item.disabled ? undefined : item.onClick}
+                    type="button">
                     <div className="flex items-center space-x-3">
                       <div
                         className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full ${

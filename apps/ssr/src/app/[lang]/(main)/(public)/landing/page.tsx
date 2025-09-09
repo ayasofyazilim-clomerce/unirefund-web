@@ -162,8 +162,8 @@ export default async function Page({params}: {params: {lang: string}}) {
             <Card className="border-0 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
-                  {Array.from({length: 5}).map((_, i) => (
-                    <CheckCircle className="h-5 w-5 text-yellow-400" key={i} />
+                  {Array.from({length: 5}).map((_, starIndex) => (
+                    <CheckCircle className="h-5 w-5 text-yellow-400" key={`testimonial-1-star-${starIndex}`} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">&quot;{languageData["Landing.Testimonial1"]}&quot;</p>
@@ -179,8 +179,8 @@ export default async function Page({params}: {params: {lang: string}}) {
             <Card className="border-0 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
-                  {Array.from({length: 5}).map((_, i) => (
-                    <CheckCircle className="h-5 w-5 text-yellow-400" key={i} />
+                  {Array.from({length: 5}).map((_, starIndex) => (
+                    <CheckCircle className="h-5 w-5 text-yellow-400" key={`testimonial-2-star-${starIndex}`} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">&quot;{languageData["Landing.Testimonial2"]}&quot;</p>
@@ -196,8 +196,8 @@ export default async function Page({params}: {params: {lang: string}}) {
             <Card className="border-0 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 flex items-center">
-                  {Array.from({length: 5}).map((_, i) => (
-                    <CheckCircle className="h-5 w-5 text-yellow-400" key={i} />
+                  {Array.from({length: 5}).map((_, starIndex) => (
+                    <CheckCircle className="h-5 w-5 text-yellow-400" key={`testimonial-3-star-${starIndex}`} />
                   ))}
                 </div>
                 <p className="mb-4 text-gray-600">&quot;{languageData["Landing.Testimonial3"]}&quot;</p>
