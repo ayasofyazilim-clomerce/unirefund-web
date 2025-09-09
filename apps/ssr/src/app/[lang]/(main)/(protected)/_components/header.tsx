@@ -19,9 +19,9 @@ import {Home, LogOut, MapPin, Menu, User, X} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {useParams, usePathname} from "next/navigation";
+import {useState} from "react";
 import Straight from "public/straight.png";
 import unirefundLogo from "public/unirefund.png";
-import {useState} from "react";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 import {getBaseLink} from "src/utils";
 
@@ -118,7 +118,7 @@ export default function Header({
               <DropdownMenuTrigger asChild>
                 <Button className="relative h-8 w-8 rounded-full" variant="ghost">
                   <Avatar className="border-primary rounded-full border-2">
-                    <AvatarImage src={Straight.src} alt="Straight" />
+                    <AvatarImage alt="Straight" src={Straight.src} />
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>

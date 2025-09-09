@@ -42,15 +42,15 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
           description={languageData["Home.ExploreTaxFreeDesc"]}
           href="/explore"
           icon={<MapPin className="h-12 w-12" />}
+          primary
           title={languageData["Home.ExploreTaxFree"]}
-          primary={true}
         />
         <QuickActionCard
           description={languageData["Home.ProfileDesc"]}
           href="/profile"
           icon={<User className="h-12 w-12" />}
+          primary
           title={languageData["Home.Profile"]}
-          primary={true}
         />
         {/* <QuickActionCard
           description={languageData["Home.VerifyIdentityDesc"]}
@@ -73,40 +73,40 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
 
           <div className="mb-8 grid items-stretch gap-8 md:grid-cols-3">
             <ServiceCard
-              title={languageData["Home.Retailers"]}
               description={languageData["Home.RetailersDesc"]}
-              icon={<Store className="h-10 w-10" />}
-              link="https://unirefund.com/en/retailers"
               features={[
                 languageData["Home.PaymentSolutions"],
                 languageData["Home.StreamlinedProcesses"],
                 languageData["Home.InternationalSupport"],
               ]}
+              icon={<Store className="h-10 w-10" />}
               languageData={languageData}
+              link="https://unirefund.com/en/retailers"
+              title={languageData["Home.Retailers"]}
             />
             <ServiceCard
-              title={languageData["Home.Shoppers"]}
               description={languageData["Home.ShoppersDesc"]}
-              icon={<Users className="h-10 w-10" />}
-              link="https://unirefund.com/en/shoppers"
               features={[
                 languageData["Home.FastVATRefunds"],
                 languageData["Home.MobileScanning"],
                 languageData["Home.48HProcessing"],
               ]}
+              icon={<Users className="h-10 w-10" />}
               languageData={languageData}
+              link="https://unirefund.com/en/shoppers"
+              title={languageData["Home.Shoppers"]}
             />
             <ServiceCard
-              title={languageData["Home.States"]}
               description={languageData["Home.StatesDesc"]}
-              icon={<LandPlot className="h-10 w-10" />}
-              link="https://unirefund.com/en/states"
               features={[
                 languageData["Home.GovernmentPartnerships"],
                 languageData["Home.ComplianceSolutions"],
                 languageData["Home.RegulatorySupport"],
               ]}
+              icon={<LandPlot className="h-10 w-10" />}
               languageData={languageData}
+              link="https://unirefund.com/en/states"
+              title={languageData["Home.States"]}
             />
           </div>
         </div>
@@ -137,9 +137,7 @@ function QuickActionCard({
             : "bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600 hover:shadow-2xl hover:shadow-slate-500/25"
         }`}>
         <div className="bg-grid-white/[0.02] bg-grid-pattern absolute inset-0" />
-        {primary && (
-          <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-gradient-to-bl from-white/20 to-transparent blur-2xl" />
-        )}
+        {primary ? <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-gradient-to-bl from-white/20 to-transparent blur-2xl" /> : null}
 
         <div className="relative p-8 text-center">
           <div
@@ -193,7 +191,7 @@ function ServiceCard({
 
         <div className="mb-8 flex min-h-[120px] flex-1 flex-col justify-start space-y-3">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-center text-sm text-gray-700">
+            <div className="flex items-center text-sm text-gray-700" key={index}>
               <div className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-red-500" />
               {feature}
             </div>
@@ -202,17 +200,17 @@ function ServiceCard({
 
         <div className="mt-auto text-center">
           <a
+            className="inline-flex items-center rounded-lg bg-red-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-red-700"
             href={link}
-            target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-lg bg-red-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-red-700">
+            target="_blank">
             {languageData["Home.LearnMore"]}
             <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
               />
             </svg>
           </a>
