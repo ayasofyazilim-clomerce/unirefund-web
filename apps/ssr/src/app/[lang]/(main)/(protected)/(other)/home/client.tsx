@@ -1,10 +1,10 @@
 "use client";
 
-import {getBaseLink} from "@/utils";
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
 import {useSession} from "@repo/utils/auth";
 import {LandPlot, MapPin, Store, User, Users} from "lucide-react";
 import Link from "next/link";
+import {getBaseLink} from "@/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 
 interface HomePageClientProps {
