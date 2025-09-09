@@ -1,8 +1,7 @@
 "use client";
 import {postMerchantApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
   UniRefund_CRMService_Merchants_CreateMerchantDto as CreateMerchantDto,
@@ -75,7 +74,7 @@ export default function CreateMerchantForm({
       },
       isPersonalCompany: {
         "ui:widget": "switch",
-        "ui:className": "border px-2 rounded-md",
+        "ui:className": "border px-2 rounded-md col-span-full",
       },
       telephone: createUiSchemaWithResource({
         resources: languageData,
@@ -164,32 +163,6 @@ export default function CreateMerchantForm({
     }),
   };
 
-  const dependencies: DependencyConfig = {
-    typeCode: {
-      REQUIRES: [
-        {
-          when: (value) => value === "HEADQUARTER",
-          targets: ["vatNumber"],
-        },
-        {
-          when: (value) => value === "STORE",
-          targets: ["parentId"],
-        },
-      ],
-      HIDES: [
-        {
-          when: (value) => value === "HEADQUARTER",
-          targets: ["parentId"],
-        },
-        {
-          when: (value) => value === "STORE",
-          targets: ["vatNumber"],
-        },
-      ],
-    },
-  };
-
-  const transformedSchema = applyFieldDependencies($CreateMerchantDto, dependencies);
   const isFormReady = CheckIsFormReady({
     lang,
     languageData,
@@ -203,14 +176,14 @@ export default function CreateMerchantForm({
         fields={fields}
         filter={{
           type: "exclude",
-          keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
+          keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
         }}
         formData={{...mergedFormData, taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id}}
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
           startTransition(() => {
-            void postMerchantApi(editedFormData).then((response) => {
+            void postMerchantApi({...editedFormData, typeCode: "HEADQUARTER"}).then((response) => {
               handlePostResponse(response, router, {
                 prefix: getBaseLink("parties/merchants"),
                 suffix: "details",
@@ -218,7 +191,7 @@ export default function CreateMerchantForm({
             });
           });
         }}
-        schema={transformedSchema}
+        schema={$CreateMerchantDto}
         submitText={languageData["Form.Merchant.Create"]}
         uiSchema={uiSchema}
         widgets={widgets}

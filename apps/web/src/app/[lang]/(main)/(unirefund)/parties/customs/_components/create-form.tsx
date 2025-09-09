@@ -1,4 +1,8 @@
 "use client";
+import {postCustomApi} from "@repo/actions/unirefund/CrmService/post-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
   UniRefund_CRMService_Customs_CreateCustomDto as CreateCustomDto,
   UniRefund_CRMService_Customs_CustomListResponseDto as CustomDto,
@@ -7,11 +11,6 @@ import {
   $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
   $UniRefund_CRMService_Customs_CreateCustomDto as $CreateCustomDto,
 } from "@repo/saas/CRMService";
-import {postCustomApi} from "@repo/actions/unirefund/CrmService/post-actions";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
@@ -131,32 +130,6 @@ export default function CreateCustomForm({
       languageData,
     }),
   };
-  const dependencies: DependencyConfig = {
-    typeCode: {
-      REQUIRES: [
-        {
-          when: (value) => value === "HEADQUARTER",
-          targets: ["vatNumber"],
-        },
-        {
-          when: (value) => value === "CUSTOM",
-          targets: ["parentId"],
-        },
-      ],
-      HIDES: [
-        {
-          when: (value) => value === "HEADQUARTER",
-          targets: ["parentId"],
-        },
-        {
-          when: (value) => value === "CUSTOM",
-          targets: ["vatNumber"],
-        },
-      ],
-    },
-  };
-
-  const transformedSchema = applyFieldDependencies($CreateCustomDto, dependencies);
   return (
     <SchemaForm<CreateCustomDto>
       defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
@@ -164,14 +137,14 @@ export default function CreateCustomForm({
       fields={fields}
       filter={{
         type: "exclude",
-        keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
+        keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
       }}
       formData={mergedFormData}
       locale={lang}
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;
         startTransition(() => {
-          void postCustomApi(editedFormData).then((response) => {
+          void postCustomApi({...editedFormData, typeCode: "HEADQUARTER"}).then((response) => {
             handlePostResponse(response, router, {
               prefix: getBaseLink("parties/customs"),
               suffix: "details",
@@ -179,7 +152,7 @@ export default function CreateCustomForm({
           });
         });
       }}
-      schema={transformedSchema}
+      schema={$CreateCustomDto}
       submitText={languageData["Form.Custom.Create"]}
       uiSchema={uiSchema}
       widgets={widgets}
