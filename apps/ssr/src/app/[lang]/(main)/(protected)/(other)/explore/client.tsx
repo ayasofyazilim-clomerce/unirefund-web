@@ -181,7 +181,7 @@ export default function ExploreClient({initialPoints, languageData}: ExploreClie
                         </div>
                         <div className="ml-4 text-right">
                           <div className="inline-flex items-center rounded-xl bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-sm font-bold text-white shadow-md transition-shadow duration-200 group-hover:shadow-lg">
-                            %{point.returnRate} İade
+                            %{point.returnRate} {languageData["Explore.ReturnRate"]}
                           </div>
                         </div>
                       </div>
@@ -215,7 +215,7 @@ export default function ExploreClient({initialPoints, languageData}: ExploreClie
                   <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-red-50 to-red-100 shadow-sm">
                     <Search className="h-10 w-10 text-red-400" />
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-gray-800">Sonuç bulunamadı</h3>
+                  <h3 className="mb-2 text-xl font-bold text-gray-800">{languageData["Explore.NoResultsTitle"]}</h3>
                   <p className="mb-8 max-w-sm text-sm text-gray-500">{languageData["Explore.NoResults"]}</p>
                   <Button
                     className="rounded-xl bg-gradient-to-r from-red-500 to-red-600 px-8 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:from-red-600 hover:to-red-700 hover:shadow-lg"
@@ -223,7 +223,7 @@ export default function ExploreClient({initialPoints, languageData}: ExploreClie
                       setSearchQuery("");
                     }}
                     size="sm">
-                    Temizle
+                    {languageData["Explore.Clear"]}
                   </Button>
                 </div>
               )}
@@ -342,7 +342,7 @@ export default function ExploreClient({initialPoints, languageData}: ExploreClie
                         </div>
                         <div className="ml-3">
                           <div className="inline-flex items-center rounded-xl bg-gradient-to-r from-red-500 to-red-600 px-3 py-2 text-sm font-bold text-white shadow-md transition-shadow duration-200 group-hover:shadow-lg">
-                            %{point.returnRate} İade
+                            %{point.returnRate} {languageData["Explore.ReturnRate"]}
                           </div>
                         </div>
                       </div>
@@ -376,14 +376,14 @@ export default function ExploreClient({initialPoints, languageData}: ExploreClie
                   <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-red-50 to-red-100 shadow-sm">
                     <Search className="h-12 w-12 text-red-400" />
                   </div>
-                  <h3 className="mb-3 text-2xl font-bold text-gray-800">Sonuç bulunamadı</h3>
+                  <h3 className="mb-3 text-2xl font-bold text-gray-800">{languageData["Explore.NoResultsTitle"]}</h3>
                   <p className="mb-8 max-w-md text-base text-gray-500">{languageData["Explore.NoResults"]}</p>
                   <Button
                     className="rounded-xl bg-gradient-to-r from-red-500 to-red-600 px-8 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:from-red-600 hover:to-red-700 hover:shadow-lg"
                     onClick={() => {
                       setSearchQuery("");
                     }}>
-                    Aramayı Temizle
+                    {languageData["Explore.ClearSearch"]}
                   </Button>
                 </div>
               )}
