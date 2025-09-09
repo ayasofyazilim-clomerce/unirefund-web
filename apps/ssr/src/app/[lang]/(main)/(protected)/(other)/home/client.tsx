@@ -137,7 +137,9 @@ function QuickActionCard({
             : "bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600 hover:shadow-2xl hover:shadow-slate-500/25"
         }`}>
         <div className="bg-grid-white/[0.02] bg-grid-pattern absolute inset-0" />
-        {primary ? <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-gradient-to-bl from-white/20 to-transparent blur-2xl" /> : null}
+        {primary ? (
+          <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-gradient-to-bl from-white/20 to-transparent blur-2xl" />
+        ) : null}
 
         <div className="relative p-8 text-center">
           <div
