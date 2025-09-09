@@ -77,7 +77,7 @@ export type UniRefund_CRMService_Addresses_CreateAddressDto = {
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
-    isPrimary?: boolean;
+    isPrimary?: (boolean) | null;
 };
 
 export type UniRefund_CRMService_Addresses_UpdateAddressDto = {
@@ -166,6 +166,7 @@ export type UniRefund_CRMService_Affiliations_AffiliationDto = {
     abpRoleId: string;
     startDate?: (string) | null;
     endDate?: (string) | null;
+    parentId?: (string) | null;
     isPrimary: boolean;
 };
 
@@ -187,7 +188,6 @@ export type UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto = {
     abpRoleId: string;
     startDate?: (string) | null;
     endDate?: (string) | null;
-    isPrimary: boolean;
 };
 
 export type UniRefund_CRMService_Affiliations_UpdateAffiliationDto = {
