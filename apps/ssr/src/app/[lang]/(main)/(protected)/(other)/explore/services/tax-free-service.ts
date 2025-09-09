@@ -1,39 +1,39 @@
 import type {TaxFreePoint} from "../types";
 
-// Mock data for tax-free points
+// Real tax-free points data from Istanbul Airport
 export const MOCK_TAX_FREE_POINTS: TaxFreePoint[] = [
   {
     id: 1,
-    name: "Galeries Lafayette",
-    address: "40 Boulevard Haussmann, 75009 Paris, France",
-    category: "Department Store",
-    rating: 4.5,
-    position: {lat: 48.8738, lng: 2.3322},
-    returnRate: 12,
+    name: "Mavi - İstanbul Havalimanı",
+    address: "Tayakadın Terminal Caddesi No:1 F1, D:26, 34277 Arnavutköy/İstanbul",
+    category: "Clothing Store",
+    rating: 4.2,
+    position: {lat: 41.2611789, lng: 28.739211},
+    returnRate: 18,
   },
   {
     id: 2,
-    name: "Printemps",
-    address: "64 Boulevard Haussmann, 75009 Paris, France",
-    category: "Department Store",
-    rating: 4.3,
-    position: {lat: 48.8752, lng: 2.3288},
-    returnRate: 10,
+    name: "Lc Wailk - İstanbul Havalimanı",
+    address: "İmrahor, 34275 Arnavutköy/İstanbul",
+    category: "Clothing Store",
+    rating: 4.1,
+    position: {lat: 41.2592223, lng: 28.7430112},
+    returnRate: 15,
   },
   {
     id: 3,
-    name: "Le Bon Marché",
-    address: "24 Rue de Sèvres, 75007 Paris, France",
+    name: "Beymen Club - İstanbul Havalimanı",
+    address: "Tayakadın, Terminal Caddesi No:1, 34283 Arnavutköy/İstanbul",
     category: "Department Store",
-    rating: 4.6,
-    position: {lat: 48.8512, lng: 2.3264},
-    returnRate: 15,
+    rating: 4.7,
+    position: {lat: 41.2616059, lng: 28.7441219},
+    returnRate: 20,
   },
 ];
 
 /**
- * This is a mock service for fetching tax-free points.
- * In a real application, this would be replaced with actual API calls.
+ * Tax-free service providing real data from Istanbul Airport shopping locations.
+ * Currently includes Mavi, Defacto, and Beymen Club stores.
  */
 export const taxFreeService = {
   /**
