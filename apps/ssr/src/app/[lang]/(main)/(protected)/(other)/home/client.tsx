@@ -193,8 +193,8 @@ function ServiceCard({
         </div>
 
         <div className="mb-8 flex min-h-[120px] flex-1 flex-col justify-start space-y-3">
-          {features.map((feature, index) => (
-            <div className="flex items-center text-sm text-gray-700" key={index}>
+          {features.map((feature, featureIndex) => (
+            <div className="flex items-center text-sm text-gray-700" key={`feature-${featureIndex}`}>
               <div className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-red-500" />
               {feature}
             </div>
