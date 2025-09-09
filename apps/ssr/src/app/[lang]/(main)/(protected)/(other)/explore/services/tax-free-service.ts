@@ -13,7 +13,7 @@ export const MOCK_TAX_FREE_POINTS: TaxFreePoint[] = [
   },
   {
     id: 2,
-    name: "Lc Wailk - İstanbul Havalimanı",
+    name: "LC Waikiki - İstanbul Havalimanı",
     address: "İmrahor, 34275 Arnavutköy/İstanbul",
     category: "Clothing Store",
     rating: 4.1,
