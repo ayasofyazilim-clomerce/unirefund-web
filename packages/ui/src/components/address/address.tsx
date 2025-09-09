@@ -1,11 +1,11 @@
 "use client";
 
-import {Alert, AlertDescription} from "@repo/ayasofyazilim-ui/atoms/alert";
-import {Badge} from "@repo/ayasofyazilim-ui/atoms/badge";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
-import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
-import {MapPin} from "lucide-react";
-import React, {memo, useCallback, useEffect, useState} from "react";
+import { Alert, AlertDescription } from "@repo/ayasofyazilim-ui/atoms/alert";
+import { Badge } from "@repo/ayasofyazilim-ui/atoms/badge";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
+import { Combobox } from "@repo/ayasofyazilim-ui/molecules/combobox";
+import { MapPin } from "lucide-react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import {
   useAddressData,
   type AdminAreaLevel1,
@@ -13,7 +13,7 @@ import {
   type Country,
   type Neighborhood,
 } from "../../../../actions/unirefund/CrmService/address-hook"; // Adjust the import path as necessary
-import {cn} from "../../utils";
+import { cn } from "../../utils";
 
 export interface AddressSelectorProps {
   onAddressChange?: (location: SelectedAddress) => void;
@@ -49,6 +49,7 @@ export interface AddressSelectorProps {
     "neighborhood.searchResultLabel": string;
   };
   children?: React.ReactNode; // Optional children prop for additional content
+  required?: string[]
 }
 
 interface SelectedAddress {
@@ -90,7 +91,7 @@ const SEARCH_RESULT_LABELS = {
   NEIGHBORHOODS: "No neighborhoods found.",
 } as const;
 
-const hasValidData = <T extends {id?: string; name?: string | null}>(data: T[] | null): boolean => {
+const hasValidData = <T extends { id?: string; name?: string | null }>(data: T[] | null): boolean => {
   return data !== null && data.length > 0;
 };
 
@@ -100,7 +101,7 @@ interface ErrorDisplayProps {
   onDismiss: () => void;
 }
 
-const ErrorDisplay = memo<ErrorDisplayProps>(({error, onRetry, onDismiss}) => (
+const ErrorDisplay = memo<ErrorDisplayProps>(({ error, onRetry, onDismiss }) => (
   <Alert variant="destructive" className="mb-4">
     <AlertDescription className="flex items-start justify-between">
       <div className="flex-1">
@@ -129,7 +130,7 @@ interface AddressBreadcrumbProps {
 }
 
 const AddressBreadcrumb = memo<AddressBreadcrumbProps>(
-  ({selectedAddress, countries, adminAreaLevel1, adminAreaLevel2, neighborhoods}) => {
+  ({ selectedAddress, countries, adminAreaLevel1, adminAreaLevel2, neighborhoods }) => {
     const breadcrumbItems: string[] = [];
 
     if (selectedAddress.countryId) {
@@ -183,6 +184,7 @@ const AddressSelector: React.FC<AddressSelectorProps> = memo(
     showDebug = false,
     showBreadcrumb = false,
     languageData,
+    required = []
   }) => {
     const {
       // Loading states
@@ -349,7 +351,8 @@ const AddressSelector: React.FC<AddressSelectorProps> = memo(
             id="country"
             selectIdentifier="id"
             selectLabel="name"
-            classNames={{label: "text-slate-600"}}
+            required={required.includes("countryId")}
+            classNames={{ label: "text-slate-600" }}
             label={languageData?.["country.label"] || "Country"}
             value={countries?.find((n) => n.id === selectedAddress.countryId)}
             list={countries}
@@ -367,7 +370,8 @@ const AddressSelector: React.FC<AddressSelectorProps> = memo(
             id="adminAreaLevel1"
             selectIdentifier="id"
             selectLabel="name"
-            classNames={{label: "text-slate-600"}}
+            required={required.includes("adminAreaLevel1Id")}
+            classNames={{ label: "text-slate-600" }}
             label={languageData?.["adminAreaLevel1.label"] || "State/Province"}
             value={adminAreaLevel1?.find((n) => n.id === selectedAddress.adminAreaLevel1Id)}
             list={adminAreaLevel1}
@@ -393,7 +397,8 @@ const AddressSelector: React.FC<AddressSelectorProps> = memo(
             id="adminAreaLevel2"
             selectIdentifier="id"
             selectLabel="name"
-            classNames={{label: "text-slate-600"}}
+            required={required.includes("adminAreaLevel2Id")}
+            classNames={{ label: "text-slate-600" }}
             label={languageData?.["adminAreaLevel2.label"] || "State/Province"}
             value={adminAreaLevel2?.find((n) => n.id === selectedAddress.adminAreaLevel2Id)}
             list={adminAreaLevel2}
@@ -419,7 +424,8 @@ const AddressSelector: React.FC<AddressSelectorProps> = memo(
             id="neighborhood"
             selectIdentifier="id"
             selectLabel="name"
-            classNames={{label: "text-slate-600"}}
+            required={required.includes("neighborhoodId")}
+            classNames={{ label: "text-slate-600" }}
             label={languageData?.["neighborhood.label"] || "Neighborhood"}
             value={neighborhoods?.find((n) => n.id === selectedAddress.neighborhoodId)}
             list={neighborhoods}

@@ -14,7 +14,7 @@ import type {
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {Policy} from "@repo/utils/policies";
-// import {isActionGranted} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import {Building2, PlusCircle, Store} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
@@ -35,7 +35,7 @@ function refundPointTableActions(
       actionLocation: "table",
       cta: languageData.New,
       icon: PlusCircle,
-      condition: () => true, // isActionGranted(["CRMService.RefundPoints.Create"], grantedPolicies),
+      condition: () => isActionGranted(["CRMService.RefundPoints.Create"], grantedPolicies),
       onClick() {
         router.push(newLink);
       },
@@ -45,7 +45,7 @@ function refundPointTableActions(
 }
 
 function refundPointColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/refundPoints", locale);
+  const baseLink = getBaseLink("parties/refund-points", locale);
   return tanstackTableCreateColumnsByRowData<RefundPointListResponseDto>({
     rows: $RefundPointListResponseDto.properties,
     languageData: {
