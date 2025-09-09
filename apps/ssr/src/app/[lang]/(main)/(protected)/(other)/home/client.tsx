@@ -71,7 +71,7 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
             <p className="mx-auto max-w-2xl text-lg text-gray-600">{languageData["Home.OurTaxFreeServicesDesc"]}</p>
           </div>
 
-          <div className="mb-8 grid gap-8 md:grid-cols-3">
+          <div className="mb-8 grid items-stretch gap-8 md:grid-cols-3">
             <ServiceCard
               title={languageData["Home.Retailers"]}
               description={languageData["Home.RetailersDesc"]}
@@ -181,8 +181,8 @@ function ServiceCard({
   languageData: SSRServiceResource;
 }) {
   return (
-    <div className="group relative">
-      <div className="h-full rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="group relative h-full">
+      <div className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div className="mb-6 text-center">
           <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-r from-red-50 to-red-100 text-red-600">
             {icon}
@@ -191,7 +191,7 @@ function ServiceCard({
           <p className="mb-6 text-sm leading-relaxed text-gray-600">{description}</p>
         </div>
 
-        <div className="mb-8 space-y-3">
+        <div className="mb-8 flex min-h-[120px] flex-1 flex-col justify-start space-y-3">
           {features.map((feature, index) => (
             <div key={index} className="flex items-center text-sm text-gray-700">
               <div className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-red-500" />
@@ -200,7 +200,7 @@ function ServiceCard({
           ))}
         </div>
 
-        <div className="text-center">
+        <div className="mt-auto text-center">
           <a
             href={link}
             target="_blank"
