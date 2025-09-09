@@ -43,21 +43,41 @@ export function CreateIndividualForm({
         "ui:widget": "switch",
         "ui:className": "border px-2 rounded-md",
       },
-      telephone: {
-        "ui:className": "col-span-full",
-        "ui:field": "phone",
-      },
+      telephone: createUiSchemaWithResource({
+        resources: languageData,
+        schema: $CreateIndividualDto.properties.telephone,
+        name: "CRM.telephone",
+        extend: {
+          "ui:className":
+            "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+          displayLabel: false,
+          number: {
+            "ui:widget": "phone-with-value",
+            "ui:title": languageData["CRM.telephone.number"],
+          },
+        },
+      }),
       address: createUiSchemaWithResource({
         resources: languageData,
         schema: $CreateIndividualDto.properties.address,
         name: "CRM.address",
         extend: {"ui:field": "address"},
       }),
-      email: {
-        "ui:className": "col-span-full",
-        "ui:field": "email",
-        "ui:autocomplete": "off",
-      },
+      email: createUiSchemaWithResource({
+        resources: languageData,
+        schema: $CreateIndividualDto.properties.email,
+        name: "CRM.email",
+        extend: {
+          "ui:className":
+            "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+          displayLabel: false,
+          emailAddress: {
+            "ui:title": languageData["CRM.email"],
+            "ui:widget": "email",
+            "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+          },
+        },
+      }),
       newUser: {
         "ui:field": "newUser",
         username: {

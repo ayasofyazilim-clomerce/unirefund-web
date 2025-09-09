@@ -15,7 +15,7 @@ import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form
 import {AddressField} from "@repo/ui/components/address/field";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
-import {useTransition} from "react";
+import {useMemo, useTransition} from "react";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
@@ -56,28 +56,48 @@ export default function CreateTaxOfficeForm({
   const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mergedFormData = {...DEFAULT_FORMDATA, ...formData};
+  const mergedFormData = useMemo(() => ({...DEFAULT_FORMDATA, ...formData}), []);
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.TaxOffice",
     schema: $CreateTaxOfficeDto,
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
-      telephone: {
-        "ui:className": "col-span-full",
-        "ui:field": "phone",
-      },
+      telephone: createUiSchemaWithResource({
+        resources: languageData,
+        schema: $CreateTaxOfficeDto.properties.telephone,
+        name: "CRM.telephone",
+        extend: {
+          "ui:className":
+            "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+          displayLabel: false,
+          number: {
+            "ui:widget": "phone-with-value",
+            "ui:title": languageData["CRM.telephone.number"],
+          },
+        },
+      }),
       address: createUiSchemaWithResource({
         resources: languageData,
         schema: $AddressDto,
         name: "CRM.address",
         extend: {"ui:field": "address"},
       }),
-
-      email: {
-        "ui:className": "col-span-full",
-        "ui:field": "email",
-      },
+      email: createUiSchemaWithResource({
+        resources: languageData,
+        schema: $CreateTaxOfficeDto.properties.email,
+        name: "CRM.email",
+        extend: {
+          "ui:className":
+            "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+          displayLabel: false,
+          emailAddress: {
+            "ui:title": languageData["CRM.email"],
+            "ui:widget": "email",
+            "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+          },
+        },
+      }),
       typeCode: {
         ...{"ui:disabled": typeCode === "TAXOFFICE" && true},
         "ui:title": languageData["Form.TaxOffice.typeCode"],
