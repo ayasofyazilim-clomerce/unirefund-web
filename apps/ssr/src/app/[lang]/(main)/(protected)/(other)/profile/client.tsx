@@ -60,6 +60,7 @@ export default function Profile({
       onClick: () => {
         setShowPersonalInfo(true);
       },
+      disabled: false,
     },
     {
       icon: <IdCard className="h-4 w-4" />,
@@ -68,6 +69,7 @@ export default function Profile({
       onClick: () => {
         router.push("profile/kyc");
       },
+      disabled: true,
     },
     {
       icon: <KeyRound className="h-4 w-4" />,
@@ -76,6 +78,7 @@ export default function Profile({
       onClick: () => {
         setShowChangePassword(true);
       },
+      disabled: false,
     },
     {
       icon: <Bell className="h-4 w-4" />,
@@ -84,6 +87,7 @@ export default function Profile({
       onClick: () => {
         router.push("/notifications");
       },
+      disabled: true,
     },
     {
       icon: <Shield className="h-4 w-4" />,
@@ -92,6 +96,7 @@ export default function Profile({
       onClick: () => {
         router.push("/account/security");
       },
+      disabled: true,
     },
     {
       icon: <HelpCircle className="h-4 w-4" />,
@@ -100,12 +105,14 @@ export default function Profile({
       onClick: () => {
         router.push("/support");
       },
+      disabled: true,
     },
     {
       icon: <LogOut className="h-4 w-4" />,
       title: ssrLanguageData.Logout,
       description: ssrLanguageData.LogoutDescription,
       onClick: handleLogout,
+      disabled: false,
     },
   ];
 
@@ -182,19 +189,29 @@ export default function Profile({
               <div className="space-y-1 overflow-hidden">
                 {accountItems.map((item, index) => (
                   <button
-                    className="flex w-full items-center justify-between p-3 text-left transition-colors hover:bg-gray-50"
+                    className={`flex w-full items-center justify-between p-3 text-left transition-colors ${
+                      item.disabled ? "cursor-not-allowed opacity-50" : "hover:bg-gray-50"
+                    }`}
+                    disabled={item.disabled}
                     key={index}
-                    onClick={item.onClick}>
+                    onClick={item.disabled ? undefined : item.onClick}>
                     <div className="flex items-center space-x-3">
-                      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                      <div
+                        className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full ${
+                          item.disabled ? "bg-gray-50 text-gray-400" : "bg-gray-100 text-gray-600"
+                        }`}>
                         {item.icon}
                       </div>
                       <div>
-                        <div className="text-sm font-medium">{item.title}</div>
-                        <div className="text-xs text-gray-500">{item.description}</div>
+                        <div className={`text-sm font-medium ${item.disabled ? "text-gray-400" : ""}`}>
+                          {item.title}
+                        </div>
+                        <div className={`text-xs ${item.disabled ? "text-gray-300" : "text-gray-500"}`}>
+                          {item.description}
+                        </div>
                       </div>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-gray-400" />
+                    <ChevronRight className={`h-4 w-4 ${item.disabled ? "text-gray-300" : "text-gray-400"}`} />
                   </button>
                 ))}
               </div>
