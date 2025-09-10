@@ -4,13 +4,13 @@ import {
   $UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto,
   type UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto,
   type UniRefund_FileService_FileTypes_FileTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
-import {putFileRelationEntitiesApi} from "@repo/actions/unirefund/FileService/put-actions";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {handlePutResponse} from "@repo/utils/api";
-import {useRouter} from "next/navigation";
-import type {FileServiceResource} from "@/language-data/unirefund/FileService";
+} from "@repo/saas/FileService";
+import { putFileRelationEntitiesApi } from "@repo/actions/unirefund/FileService/put-actions";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import { handlePutResponse } from "@repo/utils/api";
+import { useRouter } from "next/navigation";
+import type { FileServiceResource } from "@/language-data/unirefund/FileService";
 
 export default function Form({
   languageData,
@@ -30,7 +30,7 @@ export default function Form({
         type: "exclude",
       }}
       formData={fileRelationEntityData}
-      onSubmit={({formData}) => {
+      onSubmit={({ formData }) => {
         if (!formData) return;
         void putFileRelationEntitiesApi({
           id: fileRelationEntityData.id,

@@ -1,12 +1,12 @@
 "use server";
 
-import type {GetApiFileServiceFileRelationEntitiesData} from "@ayasofyazilim/saas/FileService";
-import {getFileRelationEntitiesApi} from "@repo/actions/unirefund/FileService/actions";
+import type { GetApiFileServiceFileRelationEntitiesData } from "@repo/saas/FileService";
+import { getFileRelationEntitiesApi } from "@repo/actions/unirefund/FileService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {structuredError} from "@repo/utils/api";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {getResourceData} from "@/language-data/core/Default";
+import { structuredError } from "@repo/utils/api";
+import { auth } from "@repo/utils/auth/next-auth";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { getResourceData } from "@/language-data/core/Default";
 import FileRelationEntitiesTable from "./_components/table";
 
 async function getApiRequests(filters: GetApiFileServiceFileRelationEntitiesData) {
@@ -14,7 +14,7 @@ async function getApiRequests(filters: GetApiFileServiceFileRelationEntitiesData
     const session = await auth();
     const requiredRequests = await Promise.all([getFileRelationEntitiesApi(filters, session)]);
     const optionalRequests = await Promise.allSettled([]);
-    return {requiredRequests, optionalRequests};
+    return { requiredRequests, optionalRequests };
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -32,8 +32,8 @@ export default async function Page({
   };
   searchParams?: GetApiFileServiceFileRelationEntitiesData;
 }) {
-  const {lang} = params;
-  const {languageData} = await getResourceData(lang);
+  const { lang } = params;
+  const { languageData } = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
     ...searchParams,

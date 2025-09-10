@@ -3,12 +3,12 @@ import type {
   PagedResultDto_FileTypeMimeTypeListDto,
   UniRefund_FileService_FileTypes_FileTypeListDto,
   UniRefund_FileService_MimeTypes_MimeTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useGrantedPolicies} from "@repo/utils/policies";
-import {useRouter} from "next/navigation";
-import type {FileServiceResource} from "@/language-data/unirefund/FileService";
-import {tableData} from "./file-type-mime-type-table-data";
+import { useGrantedPolicies } from "@repo/utils/policies";
+import { useRouter } from "next/navigation";
+import type { FileServiceResource } from "@/language-data/unirefund/FileService";
+import { tableData } from "./file-type-mime-type-table-data";
 
 function FileTypeMimeTypesTable({
   locale,
@@ -24,7 +24,7 @@ function FileTypeMimeTypesTable({
   fileTypeData: UniRefund_FileService_FileTypes_FileTypeListDto[];
 }) {
   const router = useRouter();
-  const {grantedPolicies} = useGrantedPolicies();
+  const { grantedPolicies } = useGrantedPolicies();
   const columns = tableData.fileTypeMimeTypes.columns(locale);
   const table = tableData.fileTypeMimeTypes.table(
     locale,

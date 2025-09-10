@@ -1,17 +1,17 @@
 "use client";
-import {Button} from "@/components/ui/button";
-import type {UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
-import {putFileValidateOrInvalidateApi} from "@repo/actions/unirefund/FileService/put-actions";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {FormReadyComponent} from "@repo/ui/form-ready";
-import {handlePutResponse} from "@repo/utils/api";
-import {FileSliders} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto } from "@repo/saas/FileService";
+import { putFileValidateOrInvalidateApi } from "@repo/actions/unirefund/FileService/put-actions";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { handlePutResponse } from "@repo/utils/api";
+import { FileSliders } from "lucide-react";
 import Link from "next/link";
-import {useParams, useRouter} from "next/navigation";
-import {useState, useTransition} from "react";
-import {getBaseLink} from "@/utils";
-import type {FileServiceResource} from "@/language-data/unirefund/FileService";
-import type {ActionOption} from "./form-header";
+import { useParams, useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { getBaseLink } from "@/utils";
+import type { FileServiceResource } from "@/language-data/unirefund/FileService";
+import type { ActionOption } from "./form-header";
 import FormHeader from "./form-header";
 
 const checkSchemaReadiness = (formSchema: object, lang: string, languageData: FileServiceResource) => {
@@ -69,11 +69,11 @@ export default function Form({
   fileDetails: FileForHumanValidationDto | null;
   languageData: FileServiceResource;
 }) {
-  const {fileId} = useParams<{fileId: string}>();
+  const { fileId } = useParams<{ fileId: string }>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [overrideIsFormDataReady, setOverrideIsFormDataReady] = useState(true);
-  const {lang} = useParams<{lang: string}>();
+  const { lang } = useParams<{ lang: string }>();
   const options = [
     {
       key: "save",
@@ -114,7 +114,7 @@ export default function Form({
           disabled={isPending}
           formData={formData}
           liveValidate={selectedAction.key !== "save"}
-          onSubmit={({formData: editedFormData}) => {
+          onSubmit={({ formData: editedFormData }) => {
             startTransition(() => {
               let isValidated = fileDetails?.isValidated || false;
               if (selectedAction.key === "approve") {

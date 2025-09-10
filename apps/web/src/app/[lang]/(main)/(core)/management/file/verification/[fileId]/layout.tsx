@@ -1,16 +1,16 @@
-import type {UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
+import type { UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto } from "@repo/saas/FileService";
 import {
   getFilesForHumanValidationApi,
   getFilesForHumanValidationByIdApi,
   getFileTypesApi,
 } from "@repo/actions/unirefund/FileService/actions";
-import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {structuredError} from "@repo/utils/api";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {getBaseLink} from "@/utils";
-import {getResourceData} from "@/language-data/unirefund/FileService";
+import { structuredError } from "@repo/utils/api";
+import { auth } from "@repo/utils/auth/next-auth";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { getBaseLink } from "@/utils";
+import { getResourceData } from "@/language-data/unirefund/FileService";
 import FileVerificationActions from "./_components/actions";
 
 function filterFileList({
@@ -35,11 +35,11 @@ async function getApiRequests(fileId: string) {
     const file = await getFilesForHumanValidationByIdApi(fileId, session);
     const requiredRequests = await Promise.all([
       file,
-      getFileTypesApi({isHumanValidationRequired: true}, session),
-      getFilesForHumanValidationApi({fileTypeNamespace: file.data.fileTypeNamespace}, session),
+      getFileTypesApi({ isHumanValidationRequired: true }, session),
+      getFilesForHumanValidationApi({ fileTypeNamespace: file.data.fileTypeNamespace }, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
-    return {requiredRequests, optionalRequests};
+    return { requiredRequests, optionalRequests };
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -57,8 +57,8 @@ export default async function Layout({
   };
   children: React.ReactNode;
 }) {
-  const {lang, fileId} = params;
-  const {languageData} = await getResourceData(lang);
+  const { lang, fileId } = params;
+  const { languageData } = await getResourceData(lang);
   const apiRequests = await getApiRequests(fileId);
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
@@ -83,7 +83,7 @@ export default async function Layout({
   ];
   return (
     <TabLayout
-      classNames={{horizontal: {tabs: "pt-2", tabContent: "overflow-hidden m-0 flex flex-col gap-2 py-2"}}}
+      classNames={{ horizontal: { tabs: "pt-2", tabContent: "overflow-hidden m-0 flex flex-col gap-2 py-2" } }}
       orientation="horizontal"
       tabList={tabList.filter((tab) => tab.href === `${baseLink}verify`)}>
       <FileVerificationActions

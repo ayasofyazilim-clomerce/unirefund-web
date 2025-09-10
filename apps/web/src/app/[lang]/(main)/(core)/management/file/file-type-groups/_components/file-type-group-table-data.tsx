@@ -5,22 +5,22 @@ import {
   type UniRefund_FileService_FileTypeGroups_FileTypeGroupUpdateDto,
   type UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
   $UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
-} from "@ayasofyazilim/saas/FileService";
-import {deleteFileTypeGroupsByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
-import {postFileTypeGroupsApi} from "@repo/actions/unirefund/FileService/post-actions";
-import {putFileTypeGroupsByIdApi} from "@repo/actions/unirefund/FileService/put-actions";
+} from "@repo/saas/FileService";
+import { deleteFileTypeGroupsByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
+import { postFileTypeGroupsApi } from "@repo/actions/unirefund/FileService/post-actions";
+import { putFileTypeGroupsByIdApi } from "@repo/actions/unirefund/FileService/put-actions";
 import type {
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
-import {isActionGranted, type Policy} from "@repo/utils/policies";
-import {Edit, Plus, Trash} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type {DefaultResource} from "@/language-data/core/Default";
+import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { handleDeleteResponse, handlePostResponse, handlePutResponse } from "@repo/utils/api";
+import { isActionGranted, type Policy } from "@repo/utils/policies";
+import { Edit, Plus, Trash } from "lucide-react";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { DefaultResource } from "@/language-data/core/Default";
 
 type FileTypeGroupTable = TanstackTableCreationProps<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>;
 
@@ -35,7 +35,7 @@ function fileTypeGroupTableActions(router: AppRouterInstance) {
     content: (
       <SchemaForm<UniRefund_FileService_FileTypeGroups_FileTypeGroupDto>
         className="flex flex-col gap-4"
-        onSubmit={({formData}) => {
+        onSubmit={({ formData }) => {
           if (!formData) return;
           void postFileTypeGroupsApi({
             requestBody: formData,
@@ -67,7 +67,7 @@ function fileTypeGroupRowActions(
         <SchemaForm<UniRefund_FileService_FileTypeGroups_FileTypeGroupUpdateDto>
           className="flex flex-col gap-4"
           formData={row}
-          onSubmit={({formData}) => {
+          onSubmit={({ formData }) => {
             if (!formData) return;
             void putFileTypeGroupsByIdApi({
               id: row.id,

@@ -2,7 +2,7 @@ import { AdministrationServiceClient } from "@ayasofyazilim/saas/AdministrationS
 import { ContractServiceClient } from "@repo/saas/ContractService";
 import { CRMServiceClient } from "@repo/saas/CRMService";
 import { ExportValidationServiceClient } from "@repo/saas/ExportValidationService";
-import { FileServiceClient } from "@ayasofyazilim/saas/FileService";
+import { FileServiceClient } from "@repo/saas/FileService";
 import { FinanceServiceClient } from "@repo/saas/FinanceService";
 import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
 import { RefundServiceClient } from "@repo/saas/RefundService";
