@@ -57,10 +57,13 @@ export default function VatStatementForm({
         <Tabs className="flex h-full flex-col" defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
           <div className=" p-2 md:p-6">
             <TabsList className="mx-auto grid h-auto w-full max-w-xl grid-cols-2 items-center gap-2 rounded-lg bg-gray-50 p-1">
-              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Form">
+              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" data-testid="form_tab" value="Form">
                 {languageData["Button.Form"]}
               </TabsTrigger>
-              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Preview">
+              <TabsTrigger
+                className="rounded-md py-1 data-[state=active]:bg-white"
+                data-testid="preview_tab"
+                value="Preview">
                 {languageData["Button.Preview"]}
               </TabsTrigger>
             </TabsList>
@@ -110,6 +113,7 @@ export default function VatStatementForm({
                   <div className=" flex w-full flex-col justify-end gap-3 sm:flex-row">
                     <Button
                       className="w-full sm:w-auto"
+                      data-testid="VATStatementHeaderCreateDto_draft_submit"
                       disabled={isPending}
                       onClick={() => {
                         if (!_formData) return;
@@ -156,6 +160,7 @@ export default function VatStatementForm({
                     </Button>
                     <Button
                       className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
+                      data-testid="VATStatementHeaderCreateDto_preview_submit"
                       disabled={isPending}
                       type="submit">
                       {isPending ? (
@@ -238,6 +243,7 @@ export default function VatStatementForm({
                 <div className="mt-6 flex justify-end">
                   <Button
                     className="mr-2"
+                    data-testid="VATStatementHeaderCreateDto_back"
                     onClick={() => {
                       setActiveTab("Form");
                     }}
@@ -245,6 +251,7 @@ export default function VatStatementForm({
                     Back
                   </Button>
                   <Button
+                    data-testid="VATStatementHeaderCreateDto_submit"
                     disabled={isPending}
                     onClick={() => {
                       if (!_formData) return;

@@ -66,14 +66,16 @@ function Actions({disabled, selectedAction, setSelectedAction, options}: ActionP
     <div className="shadow-xs ml-auto inline-flex rounded-md rtl:space-x-reverse">
       <Button
         className="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
+        data-testid={`${selectedAction.key}_button`}
         variant="outline">
         {selectedAction.label}
       </Button>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild data-testid={`${selectedAction.key}_menu_button`}>
           <Button
             aria-label="Options"
             className="rounded-none border-l-0 shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
+            data-testid={`${selectedAction.key}_trigger_button`}
             disabled={disabled}
             size="icon"
             type="button"
@@ -90,8 +92,12 @@ function Actions({disabled, selectedAction, setSelectedAction, options}: ActionP
               }
             }}
             value={selectedAction.key}>
-            {options.map((option) => (
-              <DropdownMenuRadioItem className="items-start [&>span]:pt-1.5" key={option.key} value={option.key}>
+            {options.map((option, index) => (
+              <DropdownMenuRadioItem
+                className="items-start [&>span]:pt-1.5"
+                data-testid={`actions_${index}`}
+                key={option.key}
+                value={option.key}>
                 <div className="flex flex-col gap-1">
                   <span className="text-sm font-medium">{option.label}</span>
                   <span className="text-muted-foreground text-xs">{option.description}</span>

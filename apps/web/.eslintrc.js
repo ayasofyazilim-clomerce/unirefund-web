@@ -119,6 +119,8 @@ module.exports = {
           "wbr",
         ],
         enableComponents: [
+          "Label",
+          "Link",
           "Checkbox",
           "Switch",
           "Button",

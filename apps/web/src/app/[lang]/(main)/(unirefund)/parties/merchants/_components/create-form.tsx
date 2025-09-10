@@ -179,6 +179,7 @@ export default function CreateMerchantForm({
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
         }}
         formData={{...mergedFormData, taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id}}
+        id="create-merchant-form"
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;

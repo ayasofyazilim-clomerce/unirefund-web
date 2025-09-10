@@ -58,6 +58,7 @@ function individualColumns(locale: string, languageData: CRMServiceServiceResour
             <div className="flex items-center gap-2">
               <Link
                 className="flex items-center gap-1 font-medium text-blue-700"
+                data-testid={`${row.id}-name-link`}
                 href={`${baseLink}/${row.id}/details`}>
                 {row.firstname} {row.lastname}
               </Link>

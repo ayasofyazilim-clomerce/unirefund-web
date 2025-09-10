@@ -15,6 +15,7 @@ export function EmailWithTypeField({languageData}: {languageData: DefaultResourc
       <SchemaForm
         className={cn("p-px", props.className, uiSchema["ui:className"])}
         formData={props.formData as object}
+        id={props.id}
         onChange={({formData: editedFormData}) => {
           props.onChange({
             ...props.formData,

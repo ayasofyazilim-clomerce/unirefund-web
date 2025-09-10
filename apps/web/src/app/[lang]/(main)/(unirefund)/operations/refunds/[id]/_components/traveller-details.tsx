@@ -23,7 +23,7 @@ export function TravellerDetails({
       <div className="mt-2 grid w-full gap-6">
         <TextWithSubText
           subText={
-            <Link className="font-semibold text-blue-500" href={travellerLink}>
+            <Link className="font-semibold text-blue-500" data-testid="traveller-link" href={travellerLink}>
               {traveller.travellerDocumentNumber}
             </Link>
           }
@@ -71,7 +71,7 @@ function TravellerPersonalIdentifications({
           className="border-none [&>div]:-mt-4"
           key={identification.travelDocumentNumber}
           value={identification.travelDocumentNumber || ""}>
-          <AccordionTrigger className="rounded-md border px-2">
+          <AccordionTrigger className="rounded-md border px-2" data-testid="traveller-accordion-trigger">
             <IconWithTitle
               classNames={{icon: "size-4", title: "text-sm font-normal"}}
               icon={IdCard}
@@ -107,7 +107,10 @@ function TravellerPersonalIdentification({
       {showDocumentNumber ? (
         <TextWithSubText
           subText={
-            <Link className="font-semibold text-blue-500" href={`${travellerLink}/${identification.id}`}>
+            <Link
+              className="font-semibold text-blue-500"
+              data-testid="traveller-personal-identification-link"
+              href={`${travellerLink}/${identification.id}`}>
               {identification.travelDocumentNumber}
             </Link>
           }

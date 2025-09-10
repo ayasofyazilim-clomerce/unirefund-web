@@ -175,6 +175,7 @@ export default function CreateRefundPointForm({
           ...mergedFormData,
           taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id,
         }}
+        id="create-refund-point-form"
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;

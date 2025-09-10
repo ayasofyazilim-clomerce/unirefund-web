@@ -52,6 +52,7 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
   });
   const tableActions: TanstackTableTableActionsType<TelephoneDto>[] = [
     {
+      id: "create-telephone",
       actionLocation: "table",
       cta: languageData["Form.telephone.create"],
       type: "schemaform-dialog",
@@ -136,6 +137,7 @@ function EditForm({
       }}
       filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
+      id="edit-telephone-form"
       key={JSON.stringify(row)}
       locale={lang}
       onSubmit={({formData}) => {
@@ -187,6 +189,7 @@ function IsPrimaryAction({
   const switchComponent = (
     <Switch
       checked={row.isPrimary === true}
+      data-testid="phone-is-primary"
       disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {

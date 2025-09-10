@@ -62,6 +62,7 @@ export default function FileVerificationActions({
       />
       <Button
         className=""
+        data-testid="previous_file"
         disabled={isPending || !selectedFileType}
         onClick={() => {
           startTransition(() => {
@@ -102,6 +103,7 @@ export default function FileVerificationActions({
       />
       <Button
         className=""
+        data-testid="next_file"
         disabled={isPending || !selectedFileType}
         onClick={() => {
           startTransition(() => {

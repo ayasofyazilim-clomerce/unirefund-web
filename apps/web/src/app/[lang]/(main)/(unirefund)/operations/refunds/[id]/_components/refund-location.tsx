@@ -18,6 +18,7 @@ export function RefundLocation({refundPointDetails}: {refundPointDetails: Refund
             isActionGranted(["CRMService.RefundPoints.View"], grantedPolicies) ? (
               <Link
                 className="font-semibold text-blue-500"
+                data-testid="refund-point-link"
                 href={getBaseLink(`parties/refund-points/${refundPointDetails.id}`)}>
                 {refundPointDetails.name || "-"}
               </Link>

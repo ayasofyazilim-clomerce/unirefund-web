@@ -103,7 +103,9 @@ const rebateTableHeadersColumns = (
           const merchant = merchants.find((mc) => mc.id === row.merchantId);
           if (!merchant) return <></>;
           return (
-            <Link href={getBaseLink(`parties/merchants/${row.merchantId}/details`, locale)}>
+            <Link
+              data-testid={`${row.merchantId}-name-link`}
+              href={getBaseLink(`parties/merchants/${row.merchantId}/details`, locale)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{merchant.name}</Badge>
             </Link>
           );

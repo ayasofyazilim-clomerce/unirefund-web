@@ -123,6 +123,7 @@ export function ContractSettings({
     if (row.isDefault || tempSettings) return <></>;
     return (
       <Button
+        data-testid="set-default-button"
         disabled={loading}
         onClick={() => {
           setLoading(true);
@@ -278,6 +279,7 @@ function SchemaFormForContractSettings({
   return (
     <SchemaForm<Partial<ContractSettingCreateUpdateDto>>
       className="bg-white"
+      data-testid="contract-settings-form"
       defaultSubmitClassName="pr-4"
       disabled={loading}
       filter={{
@@ -347,7 +349,7 @@ function SchemaFormForContractSettings({
           setTempSettings={setTempSettings}
           submitId={type === "temp" ? "$temp" : submitId}
         />
-        <Button disabled={loading} type="submit">
+        <Button data-testid="contract-settings-form-submit" disabled={loading} type="submit">
           {type === "edit" ? languageData["Edit.Save"] : languageData.Save}
         </Button>
       </div>
@@ -397,6 +399,7 @@ function DeleteDialog({
       title={languageData.Delete}
       triggerProps={{
         disabled,
+        "data-testid": "contract-settings-delete-button",
         type: "button",
         variant: "outline",
         children: languageData.Delete,

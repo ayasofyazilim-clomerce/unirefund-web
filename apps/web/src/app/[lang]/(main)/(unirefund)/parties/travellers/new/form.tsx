@@ -47,6 +47,7 @@ export default function TravellerNewForm({
       className="mx-auto flex max-w-6xl flex-col gap-0 p-0"
       defaultSubmitClassName="p-0"
       disabled={isPending}
+      id="new-traveller-form"
       onSubmit={({formData}) => {
         startTransition(() => {
           void postTravellerApi({

@@ -111,6 +111,7 @@ export function CreateIndividualForm({
         type: "exclude",
         keys: ["id", "email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
       }}
+      id="create-individual-form"
       locale={lang}
       onSubmit={({formData}) => {
         if (!formData) return;

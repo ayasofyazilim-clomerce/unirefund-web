@@ -173,6 +173,7 @@ export default function CreateTaxFreeForm({
           keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
         }}
         formData={{...mergedFormData, taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id}}
+        id="create-tax-free-form"
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
