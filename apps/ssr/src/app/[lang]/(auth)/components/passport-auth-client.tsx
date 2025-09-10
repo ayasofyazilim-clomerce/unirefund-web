@@ -6,7 +6,7 @@ import {toast} from "@/components/ui/sonner";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-} from "@ayasofyazilim/saas/TravellerService";
+} from "@repo/saas/TravellerService";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";

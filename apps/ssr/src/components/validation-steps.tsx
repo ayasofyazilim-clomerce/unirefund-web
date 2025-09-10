@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-} from "@ayasofyazilim/saas/TravellerService";
+} from "@repo/saas/TravellerService";
 import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import {defineStepper} from "@stepperize/react";
 import {ArrowLeft, ArrowRight, Camera, CheckCircle, FileText, Shield} from "lucide-react";
