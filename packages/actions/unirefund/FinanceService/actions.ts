@@ -2,10 +2,10 @@
 import type {
   GetApiFinanceServiceRebateStatementHeadersData,
   GetApiFinanceServiceVatStatementHeadersData,
-} from "@ayasofyazilim/saas/FinanceService";
-import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
-import type {Session} from "@repo/utils/auth";
-import {getFinanceServiceClient} from "../lib";
+} from "@repo/saas/FinanceService";
+import { structuredError, structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "@repo/utils/auth";
+import { getFinanceServiceClient } from "../lib";
 
 export async function getVatStatementHeadersApi(
   data: GetApiFinanceServiceVatStatementHeadersData,
@@ -23,7 +23,7 @@ export async function getVatStatementHeadersApi(
 export async function getVatStatementHeadersByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFinanceServiceClient(session);
-    const dataResponse = await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById({id});
+    const dataResponse = await client.vatStatementHeader.getApiFinanceServiceVatStatementHeadersById({ id });
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);
@@ -46,7 +46,7 @@ export async function getRebateStatementHeadersApi(
 export async function getRebateStatementHeadersByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFinanceServiceClient(session);
-    const dataResponse = await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeadersById({id});
+    const dataResponse = await client.rebateStatementHeader.getApiFinanceServiceRebateStatementHeadersById({ id });
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);

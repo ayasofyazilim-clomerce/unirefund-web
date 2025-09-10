@@ -1,5 +1,5 @@
-import type {UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto} from "@ayasofyazilim/saas/FinanceService";
-import {$UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto} from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto} from "@repo/saas/FinanceService";
+import {$UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto} from "@repo/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,

@@ -1,9 +1,9 @@
-import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto} from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto} from "@repo/saas/FinanceService";
 import {
   $UniRefund_ContractService_Enums_RebateStatementPeriod,
   $UniRefund_FinanceService_Enums_RebateStatementStatus,
   $UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto,
-} from "@ayasofyazilim/saas/FinanceService";
+} from "@repo/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -96,7 +96,7 @@ function rebateStatementsTable(
       type: "hide",
       columns: ["id", "merchantId"],
     },
-    columnOrder: ["merchantName", "number", "rebateStatementDate", "total", "period", "status"],
+    columnOrder: ["merchantName", "number", "rebateStatementDate", "totalAmount", "period", "status"],
   };
   return table;
 }

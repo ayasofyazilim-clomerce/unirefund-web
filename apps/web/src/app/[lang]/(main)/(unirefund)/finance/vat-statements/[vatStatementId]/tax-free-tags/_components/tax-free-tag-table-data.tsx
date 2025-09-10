@@ -1,5 +1,5 @@
-import type {UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto} from "@ayasofyazilim/saas/FinanceService";
-import {$UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto} from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto} from "@repo/saas/FinanceService";
+import {$UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto} from "@repo/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -51,7 +51,7 @@ function taxFreeTagTable() {
       "taxAmount",
       "refundAmount",
       "correctedAmount",
-      "grandTotal",
+      "grandTotalAmount",
     ],
     pinColumns: ["tagNumber"],
 

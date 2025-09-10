@@ -6,8 +6,8 @@ import type {UniRefund_CRMService_Merchants_MerchantDto} from "@repo/saas/CRMSer
 import type {
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto,
   UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto,
-} from "@ayasofyazilim/saas/FinanceService";
-import {$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto} from "@ayasofyazilim/saas/FinanceService";
+} from "@repo/saas/FinanceService";
+import {$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto} from "@repo/saas/FinanceService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
