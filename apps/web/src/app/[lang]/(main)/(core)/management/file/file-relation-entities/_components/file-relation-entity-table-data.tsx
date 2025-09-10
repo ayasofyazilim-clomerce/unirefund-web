@@ -1,7 +1,7 @@
 import {
   $UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto,
   type UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import {deleteFileRelationEntitiesByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import type {
   TanstackTableCreationProps,

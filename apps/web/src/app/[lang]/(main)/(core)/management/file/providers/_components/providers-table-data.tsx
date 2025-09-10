@@ -1,11 +1,11 @@
 import {
   $UniRefund_FileService_Providers_ProviderDto,
   $UniRefund_FileService_Providers_ProviderListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import type {
   UniRefund_FileService_Providers_ProviderDto,
   UniRefund_FileService_Providers_ProviderListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import {deleteProviderByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import {postProviderApi} from "@repo/actions/unirefund/FileService/post-actions";
 import {putProviderApi} from "@repo/actions/unirefund/FileService/put-actions";

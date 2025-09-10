@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_RebateStatementHeaderForListDto} from "@ayasofyazilim/saas/FinanceService";
+import type {PagedResultDto_RebateStatementHeaderForListDto} from "@repo/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";

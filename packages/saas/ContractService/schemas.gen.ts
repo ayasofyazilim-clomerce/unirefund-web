@@ -68,6 +68,7 @@ export const $PagedResultDto_ContractHeaderDetailForMerchantDto = {
                         type: 'string'
                     },
                     merchantBasicInformationDto: {
+                        required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
                         type: 'object',
                         properties: {
                             id: {
@@ -87,8 +88,8 @@ export const $PagedResultDto_ContractHeaderDetailForMerchantDto = {
                                         format: 'uuid'
                                     },
                                     name: {
-                                        minLength: 1,
-                                        type: 'string'
+                                        type: 'string',
+                                        nullable: true
                                     }
                                 },
                                 additionalProperties: false
@@ -100,6 +101,7 @@ export const $PagedResultDto_ContractHeaderDetailForMerchantDto = {
                             accountManagers: {
                                 type: 'array',
                                 items: {
+                                    required: ['name'],
                                     type: 'object',
                                     properties: {
                                         id: {
@@ -255,6 +257,7 @@ export const $PagedResultDto_ContractHeaderDetailForRefundPointDto = {
                         type: 'string'
                     },
                     refundPointBasicInformationDto: {
+                        required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
                         type: 'object',
                         properties: {
                             id: {
@@ -274,8 +277,8 @@ export const $PagedResultDto_ContractHeaderDetailForRefundPointDto = {
                                         format: 'uuid'
                                     },
                                     name: {
-                                        minLength: 1,
-                                        type: 'string'
+                                        type: 'string',
+                                        nullable: true
                                     }
                                 },
                                 additionalProperties: false
@@ -287,6 +290,7 @@ export const $PagedResultDto_ContractHeaderDetailForRefundPointDto = {
                             accountManagers: {
                                 type: 'array',
                                 items: {
+                                    required: ['name'],
                                     type: 'object',
                                     properties: {
                                         id: {
@@ -644,6 +648,7 @@ export const $PagedResultDto_ContractSettingDto = {
                         type: 'boolean'
                     },
                     invoicingAddressCommonData: {
+                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -1072,6 +1077,7 @@ export const $PagedResultDto_RefundTableHeaderListDto = {
 } as const;
 
 export const $UniRefund_CRMService_Addresses_AddressDto = {
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -1143,6 +1149,7 @@ export const $UniRefund_CRMService_Addresses_AddressType = {
 } as const;
 
 export const $UniRefund_CRMService_Individuals_IndividualIdNameDto = {
+    required: ['name'],
     type: 'object',
     properties: {
         id: {
@@ -1158,6 +1165,7 @@ export const $UniRefund_CRMService_Individuals_IndividualIdNameDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
+    required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
     type: 'object',
     properties: {
         id: {
@@ -1177,8 +1185,8 @@ export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
                     format: 'uuid'
                 },
                 name: {
-                    minLength: 1,
-                    type: 'string'
+                    type: 'string',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -1190,6 +1198,7 @@ export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
         accountManagers: {
             type: 'array',
             items: {
+                required: ['name'],
                 type: 'object',
                 properties: {
                     id: {
@@ -1210,6 +1219,7 @@ export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto = {
+    required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
     type: 'object',
     properties: {
         id: {
@@ -1229,8 +1239,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto =
                     format: 'uuid'
                 },
                 name: {
-                    minLength: 1,
-                    type: 'string'
+                    type: 'string',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -1242,6 +1252,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto =
         accountManagers: {
             type: 'array',
             items: {
+                required: ['name'],
                 type: 'object',
                 properties: {
                     id: {
@@ -1270,8 +1281,8 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeNameDto = {
             format: 'uuid'
         },
         name: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         }
     },
     additionalProperties: false
@@ -1398,6 +1409,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Con
             type: 'string'
         },
         merchantBasicInformationDto: {
+            required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
             type: 'object',
             properties: {
                 id: {
@@ -1417,8 +1429,8 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Con
                             format: 'uuid'
                         },
                         name: {
-                            minLength: 1,
-                            type: 'string'
+                            type: 'string',
+                            nullable: true
                         }
                     },
                     additionalProperties: false
@@ -1430,6 +1442,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Con
                 accountManagers: {
                     type: 'array',
                     items: {
+                        required: ['name'],
                         type: 'object',
                         properties: {
                             id: {
@@ -1952,6 +1965,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractSettings_Co
             type: 'boolean'
         },
         invoicingAddressCommonData: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2627,6 +2641,7 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
             type: 'string'
         },
         refundPointBasicInformationDto: {
+            required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
             type: 'object',
             properties: {
                 id: {
@@ -2646,8 +2661,8 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
                             format: 'uuid'
                         },
                         name: {
-                            minLength: 1,
-                            type: 'string'
+                            type: 'string',
+                            nullable: true
                         }
                     },
                     additionalProperties: false
@@ -2659,6 +2674,7 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
                 accountManagers: {
                     type: 'array',
                     items: {
+                        required: ['name'],
                         type: 'object',
                         properties: {
                             id: {

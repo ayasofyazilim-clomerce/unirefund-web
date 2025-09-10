@@ -1,5 +1,5 @@
 "use client";
-import {$UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressDto} from "@ayasofyazilim/saas/LocationService";
+import {$UniRefund_LocationService_AddressCommonDatas_AddressCommonDataDto as AddressDto} from "@repo/saas/LocationService";
 import {createZodObject} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {AutoFormInputComponentProps} from "@repo/ayasofyazilim-ui/organisms/auto-form";
 import {createFieldConfigWithResource, CustomCombobox} from "@repo/ayasofyazilim-ui/organisms/auto-form";

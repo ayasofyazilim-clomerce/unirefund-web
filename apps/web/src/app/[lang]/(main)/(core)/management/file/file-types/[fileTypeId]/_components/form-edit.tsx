@@ -5,8 +5,8 @@ import type {
   UniRefund_FileService_FileTypes_FileTypeDto,
   UniRefund_FileService_FileTypes_FileTypeUpdateDto,
   UniRefund_FileService_Providers_ProviderListDto,
-} from "@ayasofyazilim/saas/FileService";
-import {$UniRefund_FileService_FileTypes_FileTypeUpdateDto} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
+import {$UniRefund_FileService_FileTypes_FileTypeUpdateDto} from "@repo/saas/FileService";
 import {putFileTypesApi} from "@repo/actions/unirefund/FileService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";

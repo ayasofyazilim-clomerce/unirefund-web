@@ -1,31 +1,5 @@
-// import {Card} from "@/components/ui/card";
-// import type {
-//   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
-//   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-// } from "@ayasofyazilim/saas/TravellerService";
-// import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
-// import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
-// import ErrorComponent from "@repo/ui/components/error-component";
-// import {structuredError} from "@repo/utils/api";
-// import {auth} from "@repo/utils/auth/next-auth";
-// import {isRedirectError} from "next/dist/client/components/redirect";
 import {redirect} from "next/navigation";
-// import ValidationSteps from "components/validation-steps";
 import {getBaseLink} from "@/utils";
-// import {getResourceData} from "src/language-data/unirefund/SSRService";
-
-// async function getApiRequests(reqSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {}) {
-//   try {
-//     const requiredRequests = await Promise.all([postCreateEvidenceSessionPublic({requestBody: reqSteps})]);
-//     const optionalRequests = await Promise.allSettled([]);
-//     return {requiredRequests, optionalRequests};
-//   } catch (error) {
-//     if (!isRedirectError(error)) {
-//       return structuredError(error);
-//     }
-//     throw error;
-//   }
-// }
 
 export default function Home({
   params,
@@ -35,42 +9,5 @@ export default function Home({
   };
 }) {
   const {lang} = params;
-
-  // Bu sayfaya erişimi engelle ve direkt home'a yönlendir
   redirect(getBaseLink("/", lang));
-
-  // Aşağıdaki kodlar redirect nedeniyle hiç çalışmayacak - yorum satırına alındı
-  /*
-  const {languageData} = await getResourceData(lang);
-  const requireSteps: UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto = {
-    isMRZRequired: true,
-    isNFCRequired: false,
-    isLivenessRequired: true,
-    source: "SSR",
-  };
-  const apiRequests = await getApiRequests(requireSteps);
-  const clientAuths = await getAWSEnvoriment();
-  const session = await auth();
-
-  if (session) {
-    redirect(getBaseLink("home", lang));
-  }
-
-  if ("message" in apiRequests) {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
-  }
-  const [responseCreateEvidence] = apiRequests.requiredRequests;
-  const data = responseCreateEvidence.data as UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto;
-
-  return (
-    <Card className="mx-4 flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-md md:mx-auto md:max-w-xl">
-      <ValidationSteps
-        clientAuths={clientAuths}
-        languageData={languageData}
-        requireSteps={requireSteps}
-        responseCreateEvidence={data}
-      />
-    </Card>
-  );
-  */
 }

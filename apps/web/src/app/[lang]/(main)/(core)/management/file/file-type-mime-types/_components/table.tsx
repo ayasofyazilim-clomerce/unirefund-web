@@ -3,7 +3,7 @@ import type {
   PagedResultDto_FileTypeMimeTypeListDto,
   UniRefund_FileService_FileTypes_FileTypeListDto,
   UniRefund_FileService_MimeTypes_MimeTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useRouter} from "next/navigation";

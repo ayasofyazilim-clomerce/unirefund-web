@@ -5,7 +5,7 @@ import {
   type UniRefund_FileService_FileTypeGroups_FileTypeGroupUpdateDto,
   type UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
   $UniRefund_FileService_FileTypeGroups_FileTypeGroupDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import {deleteFileTypeGroupsByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import {postFileTypeGroupsApi} from "@repo/actions/unirefund/FileService/post-actions";
 import {putFileTypeGroupsByIdApi} from "@repo/actions/unirefund/FileService/put-actions";

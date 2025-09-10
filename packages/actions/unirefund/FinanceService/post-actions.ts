@@ -4,9 +4,9 @@ import type {
   PostApiFinanceServiceRebateStatementHeadersFormDraftData,
   PostApiFinanceServiceVatStatementHeadersData,
   PostApiFinanceServiceVatStatementHeadersFormDraftData,
-} from "@ayasofyazilim/saas/FinanceService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
-import {getFinanceServiceClient} from "../lib";
+} from "@repo/saas/FinanceService";
+import { structuredError, structuredResponse } from "@repo/utils/api";
+import { getFinanceServiceClient } from "../lib";
 
 export async function postVatStatementHeadersFormDraftApi(data: PostApiFinanceServiceVatStatementHeadersFormDraftData) {
   try {

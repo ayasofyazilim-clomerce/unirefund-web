@@ -1,6 +1,6 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import type {UniRefund_TagService_Tags_TagDetailDto} from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_TagService_Tags_TagDetailDto} from "@repo/saas/TagService";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {PencilRuler} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";

@@ -2,7 +2,7 @@ import {Card} from "@/components/ui/card";
 import type {
   PostApiTravellerServicePublicEvidenceSessionsData,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-} from "@ayasofyazilim/saas/TravellerService";
+} from "@repo/saas/TravellerService";
 import {getAWSEnvoriment} from "@repo/actions/unirefund/AWSService/actions";
 import {postCreateEvidenceSessionPublic} from "@repo/actions/unirefund/TravellerService/post-actions";
 import ErrorComponent from "@repo/ui/components/error-component";

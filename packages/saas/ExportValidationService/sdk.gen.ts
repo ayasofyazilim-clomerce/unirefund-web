@@ -19,7 +19,7 @@ export class ExportValidationService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiExportValidationServiceExportValidation(data: GetApiExportValidationServiceExportValidationData = {}): CancelablePromise<GetApiExportValidationServiceExportValidationResponse> {
@@ -43,8 +43,8 @@ export class ExportValidationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -52,7 +52,7 @@ export class ExportValidationService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiExportValidationServiceExportValidationById(data: GetApiExportValidationServiceExportValidationByIdData): CancelablePromise<GetApiExportValidationServiceExportValidationByIdResponse> {
@@ -67,8 +67,8 @@ export class ExportValidationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -77,7 +77,7 @@ export class ExportValidationService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiExportValidationServiceExportValidationById(data: PutApiExportValidationServiceExportValidationByIdData): CancelablePromise<PutApiExportValidationServiceExportValidationByIdResponse> {
@@ -94,8 +94,8 @@ export class ExportValidationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -103,7 +103,7 @@ export class ExportValidationService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiExportValidationServiceExportValidationById(data: DeleteApiExportValidationServiceExportValidationByIdData): CancelablePromise<DeleteApiExportValidationServiceExportValidationByIdResponse> {
@@ -118,8 +118,8 @@ export class ExportValidationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }

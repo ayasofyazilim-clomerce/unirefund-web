@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiTagServiceTagTagsRefundData} from "@ayasofyazilim/saas/TagService";
+import type {GetApiTagServiceTagTagsRefundData} from "@repo/saas/TagService";
 import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getRefundableTagsApi} from "@repo/actions/unirefund/TagService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";

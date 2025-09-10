@@ -1,6 +1,6 @@
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import type {GetApiFinanceServiceVatStatementHeadersByIdResponse} from "@ayasofyazilim/saas/FinanceService";
-import type {GetApiTagServiceTagByIdDetailResponse} from "@ayasofyazilim/saas/TagService";
+import type {GetApiFinanceServiceVatStatementHeadersByIdResponse} from "@repo/saas/FinanceService";
+import type {GetApiTagServiceTagByIdDetailResponse} from "@repo/saas/TagService";
 import {ClockIcon, SquareArrowOutUpRight} from "lucide-react";
 import type {UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto} from "@repo/saas/RefundService";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";

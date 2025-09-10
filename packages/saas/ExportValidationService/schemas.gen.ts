@@ -15,27 +15,36 @@ export const $PagedResultDto_ExportValidationDto = {
                     },
                     tagId: {
                         type: 'string',
+                        description: 'The unique identifier of the tax-free tag associated with the export.',
                         format: 'uuid',
                         nullable: true
                     },
                     tagNumber: {
                         type: 'string',
+                        description: 'The readable number or code of the tax-free tag.',
                         nullable: true
                     },
                     customsId: {
                         type: 'string',
+                        description: `The unique identifier of the customs office where the export validation occurred.
+This field is **required**.`,
                         format: 'uuid'
                     },
                     customsName: {
                         minLength: 1,
-                        type: 'string'
+                        type: 'string',
+                        description: `The name of the customs office where the export validation occurred.
+This field is **required**.`
                     },
                     exportDate: {
                         type: 'string',
+                        description: `The date and time when the export validation was performed.
+This field is **required**.`,
                         format: 'date-time'
                     },
                     referenceId: {
                         type: 'string',
+                        description: 'An optional reference ID for the export validation, possibly from an external system.',
                         nullable: true
                     },
                     status: {
@@ -55,7 +64,9 @@ export const $PagedResultDto_ExportValidationDto = {
                         type: 'string'
                     }
                 },
-                additionalProperties: false
+                additionalProperties: false,
+                description: `Represents the details of an export validation process for a tax-free transaction.
+This DTO captures information related to customs verification of exported goods.`
             },
             nullable: true
         },
@@ -131,27 +142,36 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
         },
         tagId: {
             type: 'string',
+            description: 'The unique identifier of the tax-free tag associated with the export.',
             format: 'uuid',
             nullable: true
         },
         tagNumber: {
             type: 'string',
+            description: 'The readable number or code of the tax-free tag.',
             nullable: true
         },
         customsId: {
             type: 'string',
+            description: `The unique identifier of the customs office where the export validation occurred.
+This field is **required**.`,
             format: 'uuid'
         },
         customsName: {
             minLength: 1,
-            type: 'string'
+            type: 'string',
+            description: `The name of the customs office where the export validation occurred.
+This field is **required**.`
         },
         referenceId: {
             type: 'string',
+            description: 'An optional reference ID for the export validation, possibly from an external system.',
             nullable: true
         },
         exportDate: {
             type: 'string',
+            description: `The date and time when the export validation was performed.
+This field is **required**.`,
             format: 'date-time'
         },
         status: {
@@ -171,7 +191,9 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
             type: 'string'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: `Represents the details of an export validation process for a tax-free transaction.
+This DTO captures information related to customs verification of exported goods.`
 } as const;
 
 export const $UniRefund_ExportValidationService_ExportValidations_ExportValidationDto = {
@@ -184,27 +206,36 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
         },
         tagId: {
             type: 'string',
+            description: 'The unique identifier of the tax-free tag associated with the export.',
             format: 'uuid',
             nullable: true
         },
         tagNumber: {
             type: 'string',
+            description: 'The readable number or code of the tax-free tag.',
             nullable: true
         },
         customsId: {
             type: 'string',
+            description: `The unique identifier of the customs office where the export validation occurred.
+This field is **required**.`,
             format: 'uuid'
         },
         customsName: {
             minLength: 1,
-            type: 'string'
+            type: 'string',
+            description: `The name of the customs office where the export validation occurred.
+This field is **required**.`
         },
         exportDate: {
             type: 'string',
+            description: `The date and time when the export validation was performed.
+This field is **required**.`,
             format: 'date-time'
         },
         referenceId: {
             type: 'string',
+            description: 'An optional reference ID for the export validation, possibly from an external system.',
             nullable: true
         },
         status: {
@@ -224,7 +255,9 @@ export const $UniRefund_ExportValidationService_ExportValidations_ExportValidati
             type: 'string'
         }
     },
-    additionalProperties: false
+    additionalProperties: false,
+    description: `Represents the details of an export validation process for a tax-free transaction.
+This DTO captures information related to customs verification of exported goods.`
 } as const;
 
 export const $UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode = {

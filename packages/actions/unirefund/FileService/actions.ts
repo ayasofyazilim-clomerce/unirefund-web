@@ -11,10 +11,10 @@ import {
   GetApiFileServiceFileTypesData,
   GetApiFileServiceMimeTypesData,
   GetApiFileServiceProvidersData,
-} from "@ayasofyazilim/saas/FileService";
-import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
-import {Session} from "@repo/utils/auth";
-import {getFileServiceClient} from "../lib";
+} from "@repo/saas/FileService";
+import { structuredError, structuredSuccessResponse } from "@repo/utils/api";
+import { Session } from "@repo/utils/auth";
+import { getFileServiceClient } from "../lib";
 
 export async function getFileApi(data: GetApiFileServiceFilesData, session?: Session | null) {
   try {
@@ -28,7 +28,7 @@ export async function getFileApi(data: GetApiFileServiceFilesData, session?: Ses
 export async function getFileDownloadApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
-    const dataResponse = await client.file.getApiFileServiceFilesByIdDownload({id});
+    const dataResponse = await client.file.getApiFileServiceFilesByIdDownload({ id });
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);
@@ -49,7 +49,7 @@ export async function getFilesForHumanValidationApi(
 export async function getFilesForHumanValidationByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
-    const response = await client.file.getApiFileServiceFilesByIdForHumanValidation({id});
+    const response = await client.file.getApiFileServiceFilesByIdForHumanValidation({ id });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -58,7 +58,7 @@ export async function getFilesForHumanValidationByIdApi(id: string, session?: Se
 export async function getFileAiInfosApi(fileId: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
-    const response = await client.fileAiInfo.getApiFileServiceFileAiInfosByFileId({fileId});
+    const response = await client.fileAiInfo.getApiFileServiceFileAiInfosByFileId({ fileId });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -97,7 +97,7 @@ export async function getFileTypesApi(data: GetApiFileServiceFileTypesData, sess
 export async function getFileTypesByIdApi(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
-    const response = await client.fileType.getApiFileServiceFileTypesById({id});
+    const response = await client.fileType.getApiFileServiceFileTypesById({ id });
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);

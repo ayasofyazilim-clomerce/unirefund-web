@@ -5,7 +5,7 @@ import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/s
 import type {
   UniRefund_LocationService_Countries_CountryDto,
   UniRefund_LocationService_Currencies_CurrencyDto,
-} from "@ayasofyazilim/saas/LocationService";
+} from "@repo/saas/LocationService";
 import type {Volo_Saas_Host_Dtos_EditionDto} from "@ayasofyazilim/saas/SaasService";
 import {$UniRefund_SaasService_Tenants_SaasTenantCustomUpdateDto} from "@ayasofyazilim/saas/SaasService";
 import type {Volo_Abp_NameValue} from "@ayasofyazilim/saas/SettingService";

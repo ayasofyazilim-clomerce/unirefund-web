@@ -1,6 +1,6 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import type {UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
+import type {UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto} from "@repo/saas/FileService";
 import {putFileValidateOrInvalidateApi} from "@repo/actions/unirefund/FileService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {FormReadyComponent} from "@repo/ui/form-ready";

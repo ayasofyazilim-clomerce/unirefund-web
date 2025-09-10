@@ -1,9 +1,9 @@
-import type {UniRefund_ExportValidationService_ExportValidations_ExportValidationDto} from "@ayasofyazilim/saas/ExportValidationService";
+import type {UniRefund_ExportValidationService_ExportValidations_ExportValidationDto} from "@repo/saas/ExportValidationService";
 import {
   $UniRefund_ExportValidationService_ExportValidations_ExportValidationDto,
   $UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode,
   $UniRefund_ExportValidationService_ExportValidations_StampTypeCode,
-} from "@ayasofyazilim/saas/ExportValidationService";
+} from "@repo/saas/ExportValidationService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
