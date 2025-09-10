@@ -2,17 +2,17 @@
 
 import type {UniRefund_SettingService_Vats_VatDto} from "@ayasofyazilim/saas/SettingService";
 import {$UniRefund_SettingService_Vats_UpdateVatDto} from "@ayasofyazilim/saas/SettingService";
+import {deleteVatByIdApi} from "@repo/actions/unirefund/SettingService/delete-actions";
+import {putVatApi} from "@repo/actions/unirefund/SettingService/put-actions";
 import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {deleteVatByIdApi} from "@repo/actions/unirefund/SettingService/delete-actions";
-import {putVatApi} from "@repo/actions/unirefund/SettingService/put-actions";
+import {useTransition} from "react";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 
 export default function Form({
@@ -23,7 +23,7 @@ export default function Form({
   response: UniRefund_SettingService_Vats_VatDto;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const {grantedPolicies} = useGrantedPolicies();
 
   const uiSchema = createUiSchemaWithResource({
@@ -42,20 +42,18 @@ export default function Form({
       <div className="w-full ">
         <SchemaForm
           className="w-full pr-0"
-          disabled={loading}
+          disabled={isPending}
           formData={response}
+          id="edit-vat-form"
           onSubmit={({formData}) => {
-            setLoading(true);
-            void putVatApi({
-              id: response.id || "",
-              requestBody: formData,
-            })
-              .then((res) => {
+            startTransition(() => {
+              void putVatApi({
+                id: response.id || "",
+                requestBody: formData,
+              }).then((res) => {
                 handlePutResponse(res, router, "../vats");
-              })
-              .finally(() => {
-                setLoading(false);
               });
+            });
           }}
           schema={$UniRefund_SettingService_Vats_UpdateVatDto}
           submitText={languageData["Edit.Save"]}
@@ -73,20 +71,18 @@ export default function Form({
               variant: "destructive",
               children: languageData.Delete,
               onConfirm: () => {
-                setLoading(true);
-                void deleteVatByIdApi(response.id || "")
-                  .then((res) => {
+                startTransition(() => {
+                  void deleteVatByIdApi(response.id || "").then((res) => {
                     handleDeleteResponse(res, router, "../vats");
-                  })
-                  .finally(() => {
-                    setLoading(false);
                   });
+                });
               },
               closeAfterConfirm: true,
             }}
             description={languageData["Delete.Assurance"]}
             title={languageData["Vat.Delete"]}
             triggerProps={{
+              "data-testid": "delete-vat-button",
               children: (
                 <>
                   <Trash2 className="mr-2 w-4" /> {languageData.Delete}

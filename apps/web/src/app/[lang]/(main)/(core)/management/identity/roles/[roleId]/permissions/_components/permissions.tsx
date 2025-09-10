@@ -162,11 +162,12 @@ export default function RolePermissions({
       );
       return (
         <div className={parentName ? "ml-8" : ""}>
-          {permissions?.map((permission) => (
+          {permissions?.map((permission, index) => (
             <div className="mb-2 gap-2" key={permission.name}>
               <Checkbox
                 checked={permission.isGranted || false}
                 className="mr-2"
+                data-testid={`permission_${index}`}
                 onCheckedChange={() => {
                   togglePermission(groupName, permission.name || "");
                 }}
@@ -190,6 +191,7 @@ export default function RolePermissions({
       <div className="mb-2 mt-2">
         <Input
           className="w-60 rounded border p-2"
+          data-testid="group-search"
           onChange={(e) => {
             setGroupSearchTerm(e.target.value);
           }}
@@ -201,6 +203,7 @@ export default function RolePermissions({
       <div className="mt-2 flex items-center gap-2 pb-2">
         <Checkbox
           checked={permissionsData.every((group) => group.permissions?.every((p) => p.isGranted))}
+          data-testid="toggle-all-permissions"
           onCheckedChange={(checked) => {
             toggleAllPermissions(checked === true);
           }}
@@ -221,6 +224,7 @@ export default function RolePermissions({
                 <div className="mb-4">
                   <Input
                     className="w-full rounded border p-2"
+                    data-testid="permission-search"
                     onChange={(e) => {
                       setPermissionSearchTerms((prev) => ({
                         ...prev,
@@ -235,6 +239,7 @@ export default function RolePermissions({
                 <div className="flex items-center gap-2">
                   <Checkbox
                     checked={group.permissions?.every((p) => p.isGranted)}
+                    data-testid="toggle-group-permissions"
                     onCheckedChange={(checked) => {
                       toggleGroupPermissions(group.name || "", checked === true);
                     }}
@@ -251,6 +256,7 @@ export default function RolePermissions({
 
       <div className="fixed bottom-0 left-0 flex w-full justify-end bg-white pb-4 pr-16">
         <Button
+          data-testid="save-permissions"
           disabled={isPending}
           onClick={() => {
             startTransition(() => {

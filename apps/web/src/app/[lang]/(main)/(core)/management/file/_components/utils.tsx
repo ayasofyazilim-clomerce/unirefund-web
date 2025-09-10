@@ -83,8 +83,10 @@ export function checkIsFormReady({
 
 function Action({languageData, link}: {languageData: FileServiceResource; link: string}) {
   return (
-    <Button asChild className="text-blue-500" variant="link">
-      <Link href={link}>{languageData.New}</Link>
+    <Button asChild className="text-blue-500" data-testid="new-button" variant="link">
+      <Link data-testid="new-link" href={link}>
+        {languageData.New}
+      </Link>
     </Button>
   );
 }

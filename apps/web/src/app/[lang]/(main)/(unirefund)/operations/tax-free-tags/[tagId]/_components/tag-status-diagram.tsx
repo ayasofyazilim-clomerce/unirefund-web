@@ -25,7 +25,7 @@ function ValidStatus({
           <div className="col-span-full">
             <div className={date ? "mb-2" : "text-muted-foreground mb-2"}>
               {link ? (
-                <a className="flex flex-row items-center text-blue-700" href={link}>
+                <a className="flex flex-row items-center text-blue-700" data-testid="valid-status-link" href={link}>
                   <SquareArrowOutUpRight className="mr-2 h-4 w-4" />
                   {title}
                 </a>
@@ -44,7 +44,7 @@ function ValidStatus({
       </CardHeader>
 
       <CardContent className="text-muted-foreground mt-0 text-sm">
-        {message?.map((m, index) => <p key={index}>{m}</p>)}
+        {message?.map((m, index) => <p key={m + index}>{m}</p>)}
       </CardContent>
     </Card>
   );

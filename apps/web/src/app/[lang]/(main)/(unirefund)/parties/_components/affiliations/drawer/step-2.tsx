@@ -21,7 +21,7 @@ export function SelectUserAndRoleStep({
 }: SelectUserAndRoleStepProps) {
   return (
     <div className="flex w-full flex-col gap-2">
-      <Label className="text-slate-600" htmlFor="individuals-combobox">
+      <Label className="text-slate-600" data-testid="individuals-label" htmlFor="individuals-combobox">
         {languageData["CRM.Affiliations.selectRole"] || "Select User and Role"}
       </Label>
       <Combobox<Volo_Abp_Identity_IdentityRoleDto>
@@ -34,7 +34,7 @@ export function SelectUserAndRoleStep({
         selectLabel="name"
         value={selectedRole}
       />
-      <DatePicker label={languageData["Form.Merchant.affiliation.startDate"]} onChange={onDateSelect} />
+      <DatePicker id="start-date" label={languageData["Form.Merchant.affiliation.startDate"]} onChange={onDateSelect} />
     </div>
   );
 }

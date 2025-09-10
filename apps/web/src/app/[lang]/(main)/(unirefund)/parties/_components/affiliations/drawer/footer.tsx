@@ -35,6 +35,7 @@ export function StepperFooter({
         <Button
           aria-label={currentStep === INITIAL_STEP ? "Close drawer" : "Go to previous step"}
           className="w-32"
+          data-testid="close-or-previous-drawer"
           disabled={isSubmitting}
           onClick={onPreviousStep}
           variant="outline">
@@ -43,6 +44,7 @@ export function StepperFooter({
         <Button
           aria-label="Go to next step"
           className="w-32"
+          data-testid="next-step"
           disabled={isNextStepDisabled || isSubmitting}
           onClick={() => void onNextStep()}
           variant="outline">
@@ -58,7 +60,8 @@ export function StepperFooter({
             <StepperTrigger
               aria-label={`Step ${index}: ${getStepTitle(languageData, stepKey)}`}
               asChild
-              className="w-full flex-col items-start gap-2">
+              className="w-full flex-col items-start gap-2"
+              data-testid={`stepper-trigger-${index}`}>
               <StepperIndicator asChild className="bg-border h-2 w-full rounded-none">
                 <span className="sr-only">{getStepTitle(languageData, stepKey)}</span>
               </StepperIndicator>

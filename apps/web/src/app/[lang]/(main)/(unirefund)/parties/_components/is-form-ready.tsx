@@ -37,8 +37,10 @@ export function CheckIsFormReady({
 
 function Action({link, label}: {link: string; label: string}) {
   return (
-    <Button asChild className="text-blue-500" variant="link">
-      <Link href={link}>{label}</Link>
+    <Button asChild className="text-blue-500" data-testid="form-ready-action-button" variant="link">
+      <Link data-testid="form-ready-action-link" href={link}>
+        {label}
+      </Link>
     </Button>
   );
 }

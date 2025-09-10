@@ -140,6 +140,7 @@ export default function CreateCustomForm({
         keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
       }}
       formData={mergedFormData}
+      id="create-custom-form"
       locale={lang}
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;

@@ -31,12 +31,14 @@ export function PhoneWithTypeField<T extends TelephoneDto>({
     return (
       <div className={cn("flex flex-col gap-4", uiSchema["ui:className"], props.className)}>
         <div>
-          <Label>{languageData["Form.telephone.number"]}</Label>
+          <Label data-testid="phone-label">{languageData["Form.telephone.number"]}</Label>
           <PhoneInput
+            data-testid="phone-input"
             defaultValue={
               props.formData && props.formData.ituCountryCode && props.formData.ituCountryCode ? value : undefined
             }
             disabled={props.disabled}
+            id="phone"
             onChange={(values) => {
               props.onChange({
                 ...props.formData,
@@ -49,7 +51,7 @@ export function PhoneWithTypeField<T extends TelephoneDto>({
           />
         </div>
         <div>
-          <Label>{languageData["Form.telephone.type"]}</Label>
+          <Label data-testid="type-label">{languageData["Form.telephone.type"]}</Label>
           <Select.Select
             disabled={props.disabled}
             onValueChange={(val: string) => {
@@ -61,12 +63,12 @@ export function PhoneWithTypeField<T extends TelephoneDto>({
               }
             }}
             value={props.formData?.type}>
-            <Select.SelectTrigger>
+            <Select.SelectTrigger data-testid="type-select" id="type">
               <Select.SelectValue placeholder={languageData["Form.telephone.type.ui:placeholder"]} />
             </Select.SelectTrigger>
             <Select.SelectContent>
-              {typeOptions.map((option) => (
-                <Select.SelectItem key={option} value={option}>
+              {typeOptions.map((option, idx) => (
+                <Select.SelectItem data-testid={`type_${idx}`} key={option} value={option}>
                   {languageData[`Form.telephone.type.${option}` as keyof DefaultResource] || option}
                 </Select.SelectItem>
               ))}

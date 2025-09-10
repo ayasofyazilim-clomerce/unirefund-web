@@ -58,8 +58,10 @@ export default async function Page({params}: {params: {lang: string}}) {
           title: languageData["Missing.Vat.Title"],
           message: languageData["Missing.Vat.Message"],
           action: (
-            <Button asChild className="text-blue-500" variant="link">
-              <Link href="../vats/new">{languageData["Vat.New"]}</Link>
+            <Button asChild className="text-blue-500" data-testid="form-ready-action-button" variant="link">
+              <Link data-testid="form-ready-action-link" href="../vats/new">
+                {languageData["Vat.New"]}
+              </Link>
             </Button>
           ),
         }}>

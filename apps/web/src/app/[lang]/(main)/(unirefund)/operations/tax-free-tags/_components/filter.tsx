@@ -61,6 +61,7 @@ export default function Filter({
   const filterData = {
     dateSelect: [
       {
+        id: "issued_date",
         title: languageData.IssueDate,
         placeholder: languageData["IssueDate.Placeholder"],
         onChange: setIssuedDate,
@@ -71,6 +72,7 @@ export default function Filter({
         })),
       },
       {
+        id: "export_date",
         title: languageData.ExportDate,
         placeholder: languageData["ExportDate.Placeholder"],
         onChange: setExportDate,
@@ -81,6 +83,7 @@ export default function Filter({
         })),
       },
       {
+        id: "paid_date",
         title: languageData.PaidDate,
         placeholder: languageData["PaidDate.Placeholder"],
         onChange: setPaidDate,
@@ -93,6 +96,7 @@ export default function Filter({
     ],
     multiSelect: [
       {
+        id: "statuses",
         title: languageData.Status,
         value: statuses,
         placeholder: languageData["TagStatus.Placeholder"],
@@ -103,6 +107,7 @@ export default function Filter({
         onChange: setStatuses,
       },
       {
+        id: "refund_types",
         title: languageData.RefundMethod,
         value: refundTypes,
         placeholder: languageData["RefundMethod.Placeholder"],
@@ -115,6 +120,7 @@ export default function Filter({
     ],
     asyncSelect: [
       {
+        id: "merchants",
         title: languageData.MerchantTitle,
         fetchAction: searchMerchants,
         onChange: setMerchantIds,

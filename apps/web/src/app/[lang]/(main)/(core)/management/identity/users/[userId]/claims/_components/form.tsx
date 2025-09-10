@@ -95,7 +95,7 @@ export default function Claims({
           selectLabel: "name",
         }),
       }}>
-      <Button>{languageData["Edit.Save"]}</Button>
+      <Button data-testid="save">{languageData["Edit.Save"]}</Button>
     </SchemaForm>
   );
 }

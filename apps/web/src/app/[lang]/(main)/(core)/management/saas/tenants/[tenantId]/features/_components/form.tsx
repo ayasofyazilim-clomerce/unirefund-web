@@ -53,7 +53,7 @@ export default function FeatureManagement({
         vertical>
         {featureGroups.map((group) => (
           <SectionLayoutContent key={group.name} sectionId={group.name || ""}>
-            {group.features?.map((feature) => {
+            {group.features?.map((feature, index) => {
               const currentValue = updatedFeatures.find((f) => f.name === feature.name)?.value ?? feature.value;
 
               const isChildFeature = (feature.depth && feature.depth > 0) || feature.parentName;
@@ -68,6 +68,7 @@ export default function FeatureManagement({
                           <div className="flex items-center">
                             <Checkbox
                               checked={String(currentValue).toLowerCase() === "true"}
+                              data-testid={`feature_${index}`}
                               onCheckedChange={(checked) => {
                                 updateFeature(feature.name || "", checked ? "True" : "False");
                               }}
@@ -87,19 +88,25 @@ export default function FeatureManagement({
 
                       return (
                         <>
-                          <Label className="block text-sm font-medium">{feature.displayName}</Label>
+                          <Label className="block text-sm font-medium" data-testid={`feature_label_${index}`}>
+                            {feature.displayName}
+                          </Label>
                           <div className="mt-1">
                             <Select
+                              data-testid={`feature_select_${index}`}
                               onValueChange={(value) => {
                                 updateFeature(feature.name || "", value);
                               }}
                               value={currentValue || ""}>
-                              <SelectTrigger className="w-[800px]">
+                              <SelectTrigger className="w-[800px]" data-testid={`feature_select_trigger_${index}`}>
                                 <SelectValue placeholder="Select..." />
                               </SelectTrigger>
                               <SelectContent>
                                 {selectionValueType.itemSource?.items?.map((item, idx) => (
-                                  <SelectItem key={idx} value={item.value || ""}>
+                                  <SelectItem
+                                    data-testid={`feature_select_item_${idx}`}
+                                    key={idx}
+                                    value={item.value || ""}>
                                     {item.value}
                                   </SelectItem>
                                 ))}
@@ -116,10 +123,13 @@ export default function FeatureManagement({
                     if (feature.valueType?.name === "FreeTextStringValueType") {
                       return (
                         <>
-                          <Label className="block text-sm font-medium">{feature.displayName}</Label>
+                          <Label className="block text-sm font-medium" data-testid={`feature_label_${index}`}>
+                            {feature.displayName}
+                          </Label>
                           <div className="mt-1">
                             <Input
                               className="w-[800px]"
+                              data-testid={`feature_input_${index}`}
                               onChange={(e) => {
                                 updateFeature(feature.name || "", e.target.value);
                               }}
@@ -137,10 +147,13 @@ export default function FeatureManagement({
 
                     return (
                       <>
-                        <Label className="block text-sm font-medium">{feature.displayName}</Label>
+                        <Label className="block text-sm font-medium" data-testid={`feature_label_${index}`}>
+                          {feature.displayName}
+                        </Label>
                         <div className="mt-1">
                           <Input
                             className="w-[180px]"
+                            data-testid={`feature_input_${index}`}
                             onChange={(e) => {
                               updateFeature(feature.name || "", e.target.value);
                             }}
@@ -163,6 +176,7 @@ export default function FeatureManagement({
 
       <div className="fixed bottom-0 left-0 flex w-full justify-end bg-white pb-4 pr-16">
         <Button
+          data-testid="feature_save"
           disabled={isPending}
           onClick={() => {
             startTransition(() => {

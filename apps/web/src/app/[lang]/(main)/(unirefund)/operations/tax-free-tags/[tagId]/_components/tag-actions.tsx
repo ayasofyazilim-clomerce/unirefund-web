@@ -40,6 +40,7 @@ export default function TagActions({
       <div className="flex flex-col gap-4">
         {(status === "Issued" || status === "EarlyPaid") && hasGrant.ExportValidation ? (
           <Button
+            data-testid="new-export-validation"
             onClick={() => {
               router.push(`/operations/export-validations/${tagId}/new`);
             }}
@@ -49,6 +50,7 @@ export default function TagActions({
         ) : null}
         {refundPoint && status === "Issued" && hasGrant.EarlyRefund ? (
           <Button
+            data-testid="early-refund"
             onClick={() => {
               router.push(
                 `/operations/refund/need-validation?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
@@ -60,6 +62,7 @@ export default function TagActions({
         ) : null}
         {refundPoint && status === "ExportValidated" && hasGrant.Refund ? (
           <Button
+            data-testid="refund"
             onClick={() => {
               router.push(
                 `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagId}`,

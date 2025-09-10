@@ -39,6 +39,7 @@ export function EditTraveller({
     <SchemaForm<UniRefund_TravellerService_Travellers_UpdateTravellerDto>
       disabled={isPending}
       formData={travellerDetails}
+      id="edit-traveller-form"
       onSubmit={({formData}) => {
         if (!formData) return;
         startTransition(() => {

@@ -53,6 +53,7 @@ export default function Form({
         sort: true,
         keys: ["name", "articleCode", "unitCode", "companyType", "vatId", "active", "food"],
       }}
+      id="product-group-form"
       onSubmit={({formData}) => {
         setLoading(true);
         void postProductGroupApi({

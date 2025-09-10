@@ -15,7 +15,7 @@ export default function PartyHeader({
     <div className="text mb-2 flex h-9 items-center border-b pb-2 font-bold">
       {name}
       {parentId && link ? (
-        <Link className="ml-2 text-blue-600" href={link}>
+        <Link className="ml-2 text-blue-600" data-testid="parent-link" href={link}>
           <ExternalLink className="w-4" />
         </Link>
       ) : null}

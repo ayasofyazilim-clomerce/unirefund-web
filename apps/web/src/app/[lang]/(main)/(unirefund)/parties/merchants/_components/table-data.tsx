@@ -14,7 +14,7 @@ import type {
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {Policy} from "@repo/utils/policies";
-// import {isActionGranted} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import {Building2, HousePlus, PlusCircle, Store, User} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
@@ -35,7 +35,7 @@ function merchantTableActions(
       actionLocation: "table",
       cta: languageData.New,
       icon: PlusCircle,
-      condition: () => true, // isActionGranted(["CRMService.Merchants.Create"], grantedPolicies),
+      condition: () => isActionGranted(["CRMService.Merchants.Create"], grantedPolicies),
       onClick() {
         router.push(newLink);
       },
@@ -65,12 +65,13 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
             <div className="flex items-center gap-2">
               <Link
                 className="flex items-center gap-1 font-medium text-blue-700"
+                data-testid={`${row.id}-name-link`}
                 href={`${baseLink}/${row.id}/details`}>
                 {row.name}
                 {row.isPersonalCompany ? (
                   <Tooltip>
                     <TooltipTrigger>
-                      <Button asChild className="size-6 p-1" variant="outline">
+                      <Button asChild className="size-6 p-1" data-testid="personal-company-icon" variant="outline">
                         <User className="size-4 text-blue-700" />
                       </Button>
                     </TooltipTrigger>
@@ -103,8 +104,13 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
               {row.parentId ? (
                 <Tooltip>
                   <TooltipTrigger>
-                    <Button asChild className="h-6 items-center p-1" size="sm" variant="outline">
-                      <Link href={`${baseLink}/${row.parentId}/details`}>
+                    <Button
+                      asChild
+                      className="h-6 items-center p-1"
+                      data-testid="headquarter-button"
+                      size="sm"
+                      variant="outline">
+                      <Link data-testid="headquarter-link" href={`${baseLink}/${row.parentId}/details`}>
                         <Building2 className="mr-1 size-4" />
                         {row.parentName}
                       </Link>

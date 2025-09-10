@@ -145,7 +145,7 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
       return;
     }
     setCurrentStep((prev) => Math.min(prev + 1, STEP_KEYS.length - 1));
-  }, [currentStep, date, selectedIndividual, selectedRole, params.partyId]);
+  }, [currentStep, date, selectedIndividual, selectedRole, params.partyId, partyType, router, setOpen]);
 
   const handleStepChange = useCallback((step: number) => {
     const normalizedStep = Math.max(INITIAL_STEP, Math.min(step - 1, STEP_KEYS.length - 1));
@@ -253,8 +253,13 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
 
   return (
     <Drawer onOpenChange={handleOpenChange} open={open}>
-      <DrawerTrigger asChild>
-        <Button aria-label="Create new individual" className="w-full" disabled={isPending} variant="outline">
+      <DrawerTrigger asChild data-testid="create-new-individual-drawer-trigger">
+        <Button
+          aria-label="Create new individual"
+          className="w-full"
+          data-testid="create-new-individual-trigger"
+          disabled={isPending}
+          variant="outline">
           {createButtonText}
         </Button>
       </DrawerTrigger>
@@ -282,13 +287,18 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
           <div className="sticky bottom-0 flex items-center justify-between gap-2 border-t bg-white p-2">
             <Button
               aria-label="Cancel individual creation"
+              data-testid="cancel-individual-creation"
               disabled={isPending}
               onClick={handleClose}
               type="button"
               variant="outline">
               {cancelText}
             </Button>
-            <Button aria-label="Submit individual creation form" disabled={isPending} type="submit">
+            <Button
+              aria-label="Submit individual creation form"
+              data-testid="submit-individual-creation"
+              disabled={isPending}
+              type="submit">
               {isPending ? "Creating..." : createButtonText}
             </Button>
           </div>

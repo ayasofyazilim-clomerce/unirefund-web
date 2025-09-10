@@ -64,6 +64,7 @@ export function AddressForm({
   });
   const tableActions: TanstackTableTableActionsType<AddressDto>[] = [
     {
+      id: "create-address",
       actionLocation: "table",
       cta: languageData["Form.address.create"],
       type: "schemaform-dialog",
@@ -141,6 +142,7 @@ function EditForm({
       disabled={isPending}
       filter={{type: "exclude", keys: ["addressId", "isPrimary"]}}
       formData={row}
+      id="edit-address-form"
       key={JSON.stringify(row)}
       locale={lang}
       onSubmit={({formData}) => {
@@ -192,6 +194,7 @@ function IsPrimaryAction({
   const switchComponent = (
     <Switch
       checked={row.isPrimary === true}
+      data-testid="address-is-primary"
       disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {

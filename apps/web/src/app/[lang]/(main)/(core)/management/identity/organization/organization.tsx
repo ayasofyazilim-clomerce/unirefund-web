@@ -332,6 +332,7 @@ export default function OrganizationComponent({
               <h2 className="text-xl">{languageData["Organization.Tree"]}</h2>
               <Button
                 className="bg-primary rounded px-4 py-2 text-white"
+                data-testid="Organization.Add.Root.Unit"
                 onClick={() => {
                   setSelectedUnitId(undefined);
                   setTriggerData({});
@@ -404,6 +405,7 @@ export default function OrganizationComponent({
                     {activeTab === "Users" ? (
                       <Button
                         className="bg-primary rounded px-4 py-2 text-white"
+                        data-testid="Organization.Add.User"
                         onClick={() => {
                           setOpenUsersDialog(true);
                         }}>
@@ -412,6 +414,7 @@ export default function OrganizationComponent({
                     ) : (
                       <Button
                         className="bg-primary rounded px-4 py-2 text-white"
+                        data-testid="Organization.Add.Role"
                         onClick={() => {
                           setOpenRolesDialog(true);
                         }}>
@@ -442,6 +445,7 @@ export default function OrganizationComponent({
                             <TableCell>{user.email}</TableCell>
                             <TableCell className="text-right">
                               <Button
+                                data-testid="Organization.Delete.User"
                                 onClick={() => {
                                   handleDeleteUser(user.id || "");
                                 }}
@@ -462,6 +466,7 @@ export default function OrganizationComponent({
                             <TableCell>{role.name}</TableCell>
                             <TableCell className="text-right">
                               <Button
+                                data-testid="Organization.Delete.Role"
                                 onClick={() => {
                                   handleDeleteRole(role.id || "");
                                 }}

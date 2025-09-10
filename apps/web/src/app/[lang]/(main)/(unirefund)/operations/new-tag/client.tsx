@@ -136,6 +136,7 @@ export default function ClientPage({
     dateSelect: [],
     multiSelect: [
       {
+        id: "product_groups_multi",
         title: languageData.ProductGroups,
         placeholder: languageData["ProductGroups.Select"],
         value: productGroupIds,
@@ -149,6 +150,7 @@ export default function ClientPage({
     ],
     asyncSelect: [
       {
+        id: "traveller_async",
         title: languageData.TravellerFullName,
         fetchAction: searchTravellers,
         onChange: setTravellerIds,
@@ -156,6 +158,7 @@ export default function ClientPage({
         multiple: false,
       },
       {
+        id: "merchant_async",
         title: languageData.MerchantTitle,
         fetchAction: searchMerchants,
         onChange: setMerchantIds,

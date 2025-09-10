@@ -18,9 +18,9 @@ function TagCardList({
   return (
     <TagCard className={className} icon={icon} title={title}>
       <div className="grid grid-cols-6 2xl:gap-2">
-        {rows.map((row) => {
+        {rows.map((row, index) => {
           const valueElement = row.link ? (
-            <Link className="text-blue-700" href={row.link} key={row.name}>
+            <Link className="text-blue-700" data-testid={`tag-link-${index}`} href={row.link} key={row.name}>
               {row.value}
             </Link>
           ) : (

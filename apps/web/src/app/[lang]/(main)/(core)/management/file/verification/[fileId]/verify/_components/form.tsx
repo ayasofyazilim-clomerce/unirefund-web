@@ -24,8 +24,11 @@ const checkSchemaReadiness = (formSchema: object, lang: string, languageData: Fi
       title: languageData["Verification.SchemaNotDefined.Title"],
       message: languageData["Verification.SchemaNotDefined.Message"],
       action: (
-        <Button asChild className="text-blue-500" variant="link">
-          <Link href={getBaseLink("management/file/file-types/", lang)} target="_blank">
+        <Button asChild className="text-blue-500" data-testid="edit-file-type-button" variant="link">
+          <Link
+            data-testid="edit-file-type-link"
+            href={getBaseLink("management/file/file-types/", lang)}
+            target="_blank">
             {languageData.Edit}
           </Link>
         </Button>
@@ -48,8 +51,11 @@ const checkFormDataReadiness = (
       message: languageData["Verification.NoFormDataExtracted.Message"],
       action: (
         <div className="flex gap-2">
-          <Button>{languageData["Verification.NoFormDataExtracted.TriggerAIProcess"]}</Button>
+          <Button data-testid="trigger-ai-processing">
+            {languageData["Verification.NoFormDataExtracted.TriggerAIProcess"]}
+          </Button>
           <Button
+            data-testid="proceed-without-ai-processing"
             onClick={() => {
               setOverrideIsFormDataReady(false);
             }}

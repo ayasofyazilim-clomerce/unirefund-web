@@ -29,6 +29,7 @@ export default function Form({languageData}: {languageData: SettingServiceResour
     <SchemaForm<UniRefund_SettingService_Vats_CreateVatDto>
       className="mx-auto flex max-w-4xl flex-col pr-0"
       disabled={loading}
+      id="new-vat-form"
       onSubmit={({formData}) => {
         setLoading(true);
         void postVatApi({
