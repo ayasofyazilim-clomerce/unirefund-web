@@ -34,7 +34,7 @@ export function SelectUserAndRoleStep({
         selectLabel="name"
         value={selectedRole}
       />
-      <DatePicker label={languageData["Form.Merchant.affiliation.startDate"]} onChange={onDateSelect} />
+      <DatePicker id="start-date" label={languageData["Form.Merchant.affiliation.startDate"]} onChange={onDateSelect} />
     </div>
   );
 }

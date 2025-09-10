@@ -37,6 +37,7 @@ export function PhoneWithTypeField<T extends TelephoneDto>({
               props.formData && props.formData.ituCountryCode && props.formData.ituCountryCode ? value : undefined
             }
             disabled={props.disabled}
+            id="phone"
             onChange={(values) => {
               props.onChange({
                 ...props.formData,
@@ -61,12 +62,12 @@ export function PhoneWithTypeField<T extends TelephoneDto>({
               }
             }}
             value={props.formData?.type}>
-            <Select.SelectTrigger>
+            <Select.SelectTrigger id="type">
               <Select.SelectValue placeholder={languageData["Form.telephone.type.ui:placeholder"]} />
             </Select.SelectTrigger>
             <Select.SelectContent>
-              {typeOptions.map((option) => (
-                <Select.SelectItem key={option} value={option}>
+              {typeOptions.map((option, idx) => (
+                <Select.SelectItem data-id={`type_${idx}`} key={option} value={option}>
                   {languageData[`Form.telephone.type.${option}` as keyof DefaultResource] || option}
                 </Select.SelectItem>
               ))}
