@@ -123,6 +123,16 @@ const config: Config = {
         fifth: "moveInCircle 20s ease infinite",
         aurora: "aurora 60s linear infinite",
       },
+      animationDelay: {
+        "75": "75ms",
+        "100": "100ms",
+        "150": "150ms",
+        "200": "200ms",
+        "300": "300ms",
+        "500": "500ms",
+        "700": "700ms",
+        "1000": "1000ms",
+      },
     },
   },
   plugins: [
