@@ -88,7 +88,9 @@ export default function FeatureManagement({
 
                       return (
                         <>
-                          <Label className="block text-sm font-medium">{feature.displayName}</Label>
+                          <Label className="block text-sm font-medium" data-testid={`feature_label_${index}`}>
+                            {feature.displayName}
+                          </Label>
                           <div className="mt-1">
                             <Select
                               onValueChange={(value) => {
