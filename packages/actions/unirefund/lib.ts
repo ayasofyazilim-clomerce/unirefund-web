@@ -4,7 +4,7 @@ import { CRMServiceClient } from "@repo/saas/CRMService";
 import { ExportValidationServiceClient } from "@repo/saas/ExportValidationService";
 import { FileServiceClient } from "@repo/saas/FileService";
 import { FinanceServiceClient } from "@repo/saas/FinanceService";
-import { LocationServiceClient } from "@ayasofyazilim/saas/LocationService";
+import { LocationServiceClient } from "@repo/saas/LocationService";
 import { RefundServiceClient } from "@repo/saas/RefundService";
 import { SettingServiceClient } from "@ayasofyazilim/saas/SettingService";
 import { TagServiceClient } from "@repo/saas/TagService";
