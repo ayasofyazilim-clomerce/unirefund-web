@@ -5,6 +5,7 @@ declare global {
   interface Window {
     chatwootSettings?: {
       hideMessageBubble: boolean;
+      baseDomain: string;
       position: string;
       locale: string;
       type: string;
@@ -33,14 +34,17 @@ class ChatwootWidget extends Component<{
       hideMessageBubble: false,
       position: "right", // This can be left or right
       locale: "en", // Language to be set
+      baseDomain: this.props.baseUrl || "",
       type: "standard", // [standard, expanded_bubble]
     };
+
     const baseUrl = this.props.baseUrl;
     const websiteToken = this.props.websiteToken;
     const accessToken = this.props.accessToken;
     const lang = this.props.lang;
     const name = this.props.name;
     const surname = this.props.surname;
+
     // Paste the script from inbox settings except the <script> tag
     (function run(d, t) {
       const g = d.createElement(t) as HTMLScriptElement,
@@ -56,14 +60,17 @@ class ChatwootWidget extends Component<{
           websiteToken,
           baseUrl,
         });
-        window.$chatwoot.setCustomAttributes({
-          accessToken,
-          preferredLanguage: lang,
-          name,
-          surname,
-        });
       };
     })(document, "script");
+
+    window.addEventListener("chatwoot:ready", () => {
+      window.$chatwoot.setCustomAttributes({
+        accessToken,
+        preferredLanguage: lang,
+        name,
+        surname,
+      });
+    });
   }
 
   render() {
