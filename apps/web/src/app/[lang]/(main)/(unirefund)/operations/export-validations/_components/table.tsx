@@ -1,6 +1,6 @@
 "use client";
 
-import type {PagedResultDto_ExportValidationDto} from "@ayasofyazilim/saas/ExportValidationService";
+import type {PagedResultDto_ExportValidationDto} from "@repo/saas/ExportValidationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
