@@ -1,6 +1,6 @@
 "use client";
 
-import type {UniRefund_CRMService_Customss_CustomsProfileDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_Customs_CustomListResponseDto} from "@repo/saas/CRMService";
 import type {UniRefund_TagService_Tags_ExportValidationRequestDto} from "@ayasofyazilim/saas/TagService";
 import {$UniRefund_TagService_Tags_ExportValidationRequestDto} from "@ayasofyazilim/saas/TagService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
@@ -17,7 +17,7 @@ export default function Form({
   customList,
 }: {
   languageData: ExportValidationServiceResource;
-  customList: UniRefund_CRMService_Customss_CustomsProfileDto[];
+  customList: UniRefund_CRMService_Customs_CustomListResponseDto[];
 }) {
   const {exportValidationId: tagId} = useParams<{
     exportValidationId: string;
@@ -67,7 +67,7 @@ export default function Form({
       submitText={languageData.Save}
       uiSchema={uiSchema}
       widgets={{
-        CustomWidget: CustomComboboxWidget<UniRefund_CRMService_Customss_CustomsProfileDto>({
+        CustomWidget: CustomComboboxWidget<UniRefund_CRMService_Customs_CustomListResponseDto>({
           languageData,
           list: customList,
           selectIdentifier: "id",

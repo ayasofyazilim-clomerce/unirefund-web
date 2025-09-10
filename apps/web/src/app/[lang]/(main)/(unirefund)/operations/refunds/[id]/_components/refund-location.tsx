@@ -1,5 +1,5 @@
 "use client";
-import type {UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund as RefundPointDetailForRefund} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund as RefundPointDetailForRefund} from "@repo/saas/CRMService";
 import {Store} from "lucide-react";
 import Link from "next/link";
 import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
