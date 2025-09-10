@@ -249,6 +249,7 @@ export const $UniRefund_RefundService_Refunds_CreateRefundDto = {
                 },
                 bankCountryCode: {
                     type: 'string',
+                    description: 'The country code of the bank, e.g., "NL" for Netherlands, "DE" for Germany, etc.',
                     nullable: true
                 },
                 bankCity: {
@@ -287,6 +288,7 @@ export const $UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto = {
         },
         bankCountryCode: {
             type: 'string',
+            description: 'The country code of the bank, e.g., "NL" for Netherlands, "DE" for Germany, etc.',
             nullable: true
         },
         bankCity: {

@@ -43,6 +43,9 @@ export type UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto = {
     iban: string;
     bic: string;
     bankName: string;
+    /**
+     * The country code of the bank, e.g., "NL" for Netherlands, "DE" for Germany, etc.
+     */
     bankCountryCode?: (string) | null;
     bankCity?: (string) | null;
 };
