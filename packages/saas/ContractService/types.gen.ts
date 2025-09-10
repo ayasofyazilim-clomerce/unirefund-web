@@ -894,15 +894,15 @@ export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHead
 
 export type UniRefund_CRMService_Addresses_AddressDto = {
     id?: string;
-    partyType?: UniRefund_Shared_Contracts_Enums_PartyType;
-    partyId?: string;
-    countryId?: string;
-    adminAreaLevel1Id?: string;
-    adminAreaLevel2Id?: string;
-    neighborhoodId?: (string) | null;
-    addressLine?: (string) | null;
+    partyType: UniRefund_Shared_Contracts_Enums_PartyType;
+    partyId: string;
+    countryId: string;
+    adminAreaLevel1Id: string;
+    adminAreaLevel2Id: string;
+    neighborhoodId: (string) | null;
+    addressLine: (string) | null;
     postalCode?: (string) | null;
-    type?: UniRefund_CRMService_Addresses_AddressType;
+    type: UniRefund_CRMService_Addresses_AddressType;
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
@@ -913,28 +913,28 @@ export type UniRefund_CRMService_Addresses_AddressType = 'UNKNOWN' | 'HOME' | 'W
 
 export type UniRefund_CRMService_Individuals_IndividualIdNameDto = {
     id?: string;
-    name?: (string) | null;
+    name: (string) | null;
 };
 
 export type UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
     id?: string;
-    name?: (string) | null;
-    taxOffice?: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
-    numberOfStores?: number;
-    accountManagers?: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
+    name: (string) | null;
+    taxOffice: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
+    numberOfStores: number;
+    accountManagers: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
 };
 
 export type UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto = {
     id?: string;
-    name?: (string) | null;
-    taxOffice?: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
-    numberOfStores?: number;
-    accountManagers?: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
+    name: (string) | null;
+    taxOffice: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
+    numberOfStores: number;
+    accountManagers: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
 };
 
 export type UniRefund_CRMService_TaxOffices_TaxOfficeNameDto = {
     id: string;
-    name: string;
+    name: (string) | null;
 };
 
 export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE';
