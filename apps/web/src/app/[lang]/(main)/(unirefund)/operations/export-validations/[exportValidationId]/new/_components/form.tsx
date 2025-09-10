@@ -1,8 +1,8 @@
 "use client";
 
 import type {UniRefund_CRMService_Customs_CustomListResponseDto} from "@repo/saas/CRMService";
-import type {UniRefund_TagService_Tags_ExportValidationRequestDto} from "@ayasofyazilim/saas/TagService";
-import {$UniRefund_TagService_Tags_ExportValidationRequestDto} from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_TagService_Tags_ExportValidationRequestDto} from "@repo/saas/TagService";
+import {$UniRefund_TagService_Tags_ExportValidationRequestDto} from "@repo/saas/TagService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";

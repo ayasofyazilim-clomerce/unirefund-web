@@ -1,6 +1,6 @@
 "use client";
 
-import type {GetApiTagServiceTagResponse} from "@ayasofyazilim/saas/TagService";
+import type {GetApiTagServiceTagResponse} from "@repo/saas/TagService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams} from "next/navigation";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
