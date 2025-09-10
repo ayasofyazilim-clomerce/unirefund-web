@@ -6,13 +6,13 @@ import type {
   UniRefund_FileService_FileTypes_FileTypeUpdateDto,
   UniRefund_FileService_Providers_ProviderListDto,
 } from "@repo/saas/FileService";
-import { $UniRefund_FileService_FileTypes_FileTypeUpdateDto } from "@repo/saas/FileService";
-import { putFileTypesApi } from "@repo/actions/unirefund/FileService/put-actions";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { handlePutResponse } from "@repo/utils/api";
-import { useParams, useRouter } from "next/navigation";
-import type { FileServiceResource } from "@/language-data/unirefund/FileService";
+import {$UniRefund_FileService_FileTypes_FileTypeUpdateDto} from "@repo/saas/FileService";
+import {putFileTypesApi} from "@repo/actions/unirefund/FileService/put-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handlePutResponse} from "@repo/utils/api";
+import {useParams, useRouter} from "next/navigation";
+import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 
 export default function EditForm({
   languageData,
@@ -26,7 +26,7 @@ export default function EditForm({
   providerData: UniRefund_FileService_Providers_ProviderListDto[];
 }) {
   const router = useRouter();
-  const { fileTypeId } = useParams<{ fileTypeId: string }>();
+  const {fileTypeId} = useParams<{fileTypeId: string}>();
   return (
     <SchemaForm<UniRefund_FileService_FileTypes_FileTypeUpdateDto>
       className="flex flex-col gap-4"
@@ -35,7 +35,7 @@ export default function EditForm({
         isAIValidationRequired: false,
         isHumanValidationRequired: false,
       }}
-      onSubmit={({ formData }) => {
+      onSubmit={({formData}) => {
         if (!formData) return;
         void putFileTypesApi({
           id: fileTypeId,

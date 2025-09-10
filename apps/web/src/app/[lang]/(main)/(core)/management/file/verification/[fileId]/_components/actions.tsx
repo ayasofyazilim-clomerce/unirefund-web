@@ -1,17 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import type {
   UniRefund_FileService_Files_FileForHumanValidationDto as FileForHumanValidationDto,
   UniRefund_FileService_FileTypes_FileTypeListDto as FileTypeListDto,
 } from "@repo/saas/FileService";
-import { getFilesForHumanValidationApi } from "@repo/actions/unirefund/FileService/actions";
-import { Combobox } from "@repo/ayasofyazilim-ui/molecules/combobox";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { getBaseLink } from "@/utils";
-import type { FileServiceResource } from "@/language-data/unirefund/FileService";
+import {getFilesForHumanValidationApi} from "@repo/actions/unirefund/FileService/actions";
+import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
+import {ArrowLeft, ArrowRight} from "lucide-react";
+import {useParams, useRouter} from "next/navigation";
+import {useState, useTransition} from "react";
+import {getBaseLink} from "@/utils";
+import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 
 export default function FileVerificationActions({
   selectedFile: initialFile,
@@ -24,7 +24,7 @@ export default function FileVerificationActions({
   selectedFile: FileForHumanValidationDto;
   languageData: FileServiceResource;
 }) {
-  const { lang } = useParams<{ lang: string }>();
+  const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [fileList, setFileList] = useState<FileForHumanValidationDto[]>(initialFileList);
   const [selectedFileType, setSelectedFileType] = useState<FileTypeListDto | null>(

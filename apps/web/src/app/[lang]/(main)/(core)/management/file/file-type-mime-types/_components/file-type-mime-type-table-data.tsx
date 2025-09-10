@@ -8,24 +8,24 @@ import {
   type UniRefund_FileService_FileTypes_FileTypeListDto,
   type UniRefund_FileService_MimeTypes_MimeTypeListDto,
 } from "@repo/saas/FileService";
-import { deleteFileTypeMimeTypesByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
-import { postFileTypeMimeTypesApi } from "@repo/actions/unirefund/FileService/post-actions";
-import { putFileTypeMimeTypesApi } from "@repo/actions/unirefund/FileService/put-actions";
+import {deleteFileTypeMimeTypesByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
+import {postFileTypeMimeTypesApi} from "@repo/actions/unirefund/FileService/post-actions";
+import {putFileTypeMimeTypesApi} from "@repo/actions/unirefund/FileService/put-actions";
 import type {
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import { handleDeleteResponse, handlePostResponse, handlePutResponse } from "@repo/utils/api";
-import { isActionGranted, type Policy } from "@repo/utils/policies";
-import { Edit, Plus, Trash } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { FormReadyComponent } from "@repo/ui/form-ready";
-import type { FileServiceResource } from "@/language-data/unirefund/FileService";
-import { checkIsFormReady } from "../../_components/utils";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {handleDeleteResponse, handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
+import {Edit, Plus, Trash} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {FormReadyComponent} from "@repo/ui/form-ready";
+import type {FileServiceResource} from "@/language-data/unirefund/FileService";
+import {checkIsFormReady} from "../../_components/utils";
 
 type FileRelationEntityTable =
   TanstackTableCreationProps<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto>;
@@ -54,7 +54,7 @@ function fileTypeMimeTypesTableActions(
       <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
         <SchemaForm<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeCreateDto>
           className="flex flex-col gap-4"
-          onSubmit={({ formData }) => {
+          onSubmit={({formData}) => {
             if (!formData) return;
             void postFileTypeMimeTypesApi({
               requestBody: formData,
@@ -111,7 +111,7 @@ function fileTypeMimeTypesRowActions(
         <SchemaForm<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypesUpdateDto>
           className="flex flex-col gap-4"
           formData={row}
-          onSubmit={({ formData }) => {
+          onSubmit={({formData}) => {
             if (!formData) return;
             void putFileTypeMimeTypesApi({
               id: row.id,

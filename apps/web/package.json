@@ -21,6 +21,7 @@
   },
   "lint-staged": {
     "*": [
+      "prettier --write . --plugin=prettier-plugin-tailwindcss",
       "next lint --fix",
       "tsc --noEmit"
     ]

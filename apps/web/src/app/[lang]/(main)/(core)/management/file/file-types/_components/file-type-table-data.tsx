@@ -1,6 +1,6 @@
-import type { UniRefund_FileService_FileTypes_FileTypeListDto } from "@repo/saas/FileService";
-import { $UniRefund_FileService_FileTypes_FileTypeListDto } from "@repo/saas/FileService";
-import { deleteFileTypesByIdApi } from "@repo/actions/unirefund/FileService/delete-actions";
+import type {UniRefund_FileService_FileTypes_FileTypeListDto} from "@repo/saas/FileService";
+import {$UniRefund_FileService_FileTypes_FileTypeListDto} from "@repo/saas/FileService";
+import {deleteFileTypesByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import type {
   TanstackTableCreationProps,
   TanstackTableRowActionsType,
@@ -10,11 +10,11 @@ import {
   BooleanOptions,
   tanstackTableCreateColumnsByRowData,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { handleDeleteResponse } from "@repo/utils/api";
-import { isActionGranted, type Policy } from "@repo/utils/policies";
-import { Edit, Trash } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import type { DefaultResource } from "@/language-data/core/Default";
+import {handleDeleteResponse} from "@repo/utils/api";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
+import {Edit, Trash} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {DefaultResource} from "@/language-data/core/Default";
 
 type FileTypeTable = TanstackTableCreationProps<UniRefund_FileService_FileTypes_FileTypeListDto>;
 
