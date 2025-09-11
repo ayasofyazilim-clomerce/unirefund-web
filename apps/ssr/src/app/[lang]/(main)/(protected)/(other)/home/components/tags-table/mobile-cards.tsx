@@ -1,10 +1,11 @@
 "use client";
 
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
+import {formatCurrency} from "@repo/ui/utils";
 import {ChevronRight, Store, Tag, User} from "lucide-react";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 import {StatusBadge} from "./status-badge";
-import {formatCurrency, formatDate, getAmountByType, type TagRowData, type TagItem} from "./types";
+import {formatDate, getAmountByType, type TagRowData, type TagItem} from "./types";
 
 // Mobile cards component
 export function TagsMobileCards({
@@ -150,9 +151,7 @@ function FinancialDetails({tagRowData, languageData}: {tagRowData: TagRowData; l
           <div className={`rounded-lg ${bgColor} p-2 text-center`} key={label}>
             <div className={`mb-1 text-xs font-medium ${labelColor}`}>{label}</div>
             {amount ? (
-              <div className={`truncate text-sm font-bold ${valueColor}`}>
-                {formatCurrency(amount.amount, amount.currency)}
-              </div>
+              <div className={`truncate text-sm font-bold ${valueColor}`}>{formatCurrency(amount.amount)}</div>
             ) : (
               <div className="text-sm font-bold text-gray-400">{languageData["N/A"]}</div>
             )}

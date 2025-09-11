@@ -1,9 +1,10 @@
 "use client";
 
+import {formatCurrency} from "@repo/ui/utils";
 import {Calendar, CornerUpLeft, DollarSign, FileText, Store, Tag, User} from "lucide-react";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 import {StatusBadge} from "./status-badge";
-import {formatCurrency, formatDate, getAmountByType, type AmountInfo, type TagRowData, type TagItem} from "./types";
+import {formatDate, getAmountByType, type AmountInfo, type TagRowData, type TagItem} from "./types";
 
 // Desktop table component
 export function TagsDesktopTable({
@@ -130,7 +131,7 @@ function AmountCell({
   return (
     <td className="px-6 py-5">
       {amount ? (
-        <div className={`text-sm font-semibold ${colorClass}`}>{formatCurrency(amount.amount, amount.currency)}</div>
+        <div className={`text-sm font-semibold ${colorClass}`}>{formatCurrency(amount.amount)}</div>
       ) : (
         <div className="text-sm text-gray-400">{languageData["N/A"]}</div>
       )}

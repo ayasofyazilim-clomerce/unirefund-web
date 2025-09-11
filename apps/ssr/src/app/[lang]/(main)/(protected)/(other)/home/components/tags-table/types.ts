@@ -44,16 +44,6 @@ export function getAmountByType(totals: TagTotal[] | null | undefined, type: str
   return total ? {amount: total.amount, currency: total.currency} : null;
 }
 
-// Helper function to format currency
-export function formatCurrency(amount: number, currency: string) {
-  return new Intl.NumberFormat("tr-TR", {
-    style: "currency",
-    currency: currency || DEFAULT_CURRENCY,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount);
-}
-
 // Helper function to format date
 export function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString("tr-TR");
