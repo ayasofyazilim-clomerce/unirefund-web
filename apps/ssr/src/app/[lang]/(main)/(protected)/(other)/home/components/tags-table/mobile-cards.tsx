@@ -1,5 +1,3 @@
-"use client";
-
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
 import {formatCurrency} from "@repo/ui/utils";
 import {ChevronRight, Store, Tag, User} from "lucide-react";

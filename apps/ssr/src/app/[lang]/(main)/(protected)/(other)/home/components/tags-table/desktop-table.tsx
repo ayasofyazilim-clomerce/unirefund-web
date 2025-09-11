@@ -1,5 +1,3 @@
-"use client";
-
 import {formatCurrency} from "@repo/ui/utils";
 import {Calendar, CornerUpLeft, DollarSign, FileText, Store, Tag, User} from "lucide-react";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
