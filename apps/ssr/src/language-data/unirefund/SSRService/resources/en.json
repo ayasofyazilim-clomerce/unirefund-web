@@ -251,6 +251,8 @@
   "Table.Add": "Add",
   "Table.MoveUp": "Move Up",
   "Table.MoveDown": "Move Down",
+  "Table.PageSize": "Per page:",
+  "Table.TotalCount": "Total {0} records",
   "Table.Delete": "Delete",
   "Table.Duplicate": "Duplicate",
   "error": "Error",

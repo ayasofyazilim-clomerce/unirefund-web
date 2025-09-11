@@ -12,6 +12,7 @@ import type {TagListResponseDto_TagListItemDto} from "@repo/saas/TagService";
 import type {ServerResponse} from "@repo/utils/api";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import TagsTable from "../home/components/tags-table";
 
 interface TagsPageClientProps {
@@ -42,6 +43,10 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
     });
 
     router.replace(`${pathname}?${params.toString()}`);
+  };
+
+  const t = (key: string, def?: string) => {
+    return ((languageData as any)[key] as string) ?? def ?? key;
   };
 
   const handlePageChange = (page: number) => {
@@ -83,7 +88,7 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
         <div className="mt-8 flex flex-col items-center justify-between gap-4 px-2 sm:flex-row">
           {/* Page Size Selector */}
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-700">Sayfa başına:</span>
+            <span className="text-sm text-gray-700">{t("Table.PageSize", "Per page:")}</span>
             <select
               className="rounded border border-gray-300 px-3 py-1 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
               onChange={(e) => {
@@ -158,7 +163,11 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
           </Pagination>
 
           {/* Total Count */}
-          <div className="text-sm text-gray-700">Toplam {totalCount} kayıt</div>
+          <div className="text-sm text-gray-700">
+            {replacePlaceholders(t("Table.TotalCount", "Total {0} records"), [
+              {holder: "{0}", replacement: String(totalCount)},
+            ])}
+          </div>
         </div>
       )}
     </div>

@@ -356,6 +356,8 @@
   "LivenessDetection.ExpressionDetected": "{0}s boyunca tutun",
   "LivenessDetection.ExpressionLost": "Kameraya bakın",
   "LivenessDetection.PositionFace": "Yüzünüzü konumlandırın",
+  "Table.PageSize": "Sayfa başına:",
+  "Table.TotalCount": "Toplam {0} kayıt",
   "LivenessDetection.NeutralExpression": "Kameraya doğrudan bakın ve yüzünüzü sabit tutun",
   "LivenessDetection.LookLeftExpression": "Başınızı sola çevirin ve kameraya bakın",
   "LivenessDetection.LookRightExpression": "Başınızı sağa çevirin ve kameraya bakın",
