@@ -1,5 +1,4 @@
 import {getTagsApi} from "@repo/actions/unirefund/TagService/actions";
-import type {GetApiTagServiceTagData} from "@repo/saas/TagService";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
