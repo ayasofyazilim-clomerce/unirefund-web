@@ -86,7 +86,9 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
             <span className="text-sm text-gray-700">Sayfa başına:</span>
             <select
               value={pageSize}
-              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+              onChange={(e) => {
+                handlePageSizeChange(Number(e.target.value));
+              }}
               className="rounded border border-gray-300 px-3 py-1 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500">
               <option value={10}>10</option>
               <option value={20}>20</option>
