@@ -1,11 +1,11 @@
 import {getTagsApi} from "@repo/actions/unirefund/TagService/actions";
-import {getResourceData} from "src/language-data/unirefund/SSRService";
-import HomePageClient from "./client";
 import type {GetApiTagServiceTagData} from "@repo/saas/TagService";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import {getResourceData} from "src/language-data/unirefund/SSRService";
+import HomePageClient from "./client";
 
 async function getApiRequests(filters: GetApiTagServiceTagData) {
   try {
