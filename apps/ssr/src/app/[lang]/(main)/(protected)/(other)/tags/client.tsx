@@ -75,7 +75,7 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
 
       {/* Tags Table */}
       <div className="mb-8">
-        <TagsTable languageData={languageData} tagsResponse={tagsResponse} showAll={true} />
+        <TagsTable languageData={languageData} showAll tagsResponse={tagsResponse} />
       </div>
 
       {/* Pagination */}
@@ -85,11 +85,11 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-700">Sayfa başına:</span>
             <select
-              value={pageSize}
+              className="rounded border border-gray-300 px-3 py-1 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
               onChange={(e) => {
                 handlePageSizeChange(Number(e.target.value));
               }}
-              className="rounded border border-gray-300 px-3 py-1 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500">
+              value={pageSize}>
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={30}>30</option>
@@ -102,6 +102,7 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
+                  className={currentPage <= 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
@@ -109,7 +110,6 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
                       handlePageChange(currentPage - 1);
                     }
                   }}
-                  className={currentPage <= 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                 />
               </PaginationItem>
 
@@ -129,13 +129,13 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
                 return (
                   <PaginationItem key={pageNumber}>
                     <PaginationLink
+                      className="cursor-pointer"
                       href="#"
+                      isActive={currentPage === pageNumber}
                       onClick={(e) => {
                         e.preventDefault();
                         handlePageChange(pageNumber);
-                      }}
-                      isActive={currentPage === pageNumber}
-                      className="cursor-pointer">
+                      }}>
                       {pageNumber}
                     </PaginationLink>
                   </PaginationItem>
@@ -144,6 +144,7 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
 
               <PaginationItem>
                 <PaginationNext
+                  className={currentPage >= totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
@@ -151,7 +152,6 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
                       handlePageChange(currentPage + 1);
                     }
                   }}
-                  className={currentPage >= totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
                 />
               </PaginationItem>
             </PaginationContent>
