@@ -106,7 +106,7 @@ export default function TagsTable({languageData, tagsResponse, showAll = false}:
   const totalCount = tagsData.totalCount || tagsData.items?.length || 0;
 
   const handleTagClick = (tagId: string) => {
-    toast.info(`${tagId  } clicked`);
+    toast.info(`${tagId} clicked`);
   };
 
   return (
