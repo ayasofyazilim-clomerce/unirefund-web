@@ -8,11 +8,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@repo/ayasofyazilim-ui/atoms/pagination";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import type {TagListResponseDto_TagListItemDto} from "@repo/saas/TagService";
 import type {ServerResponse} from "@repo/utils/api";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
-import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import TagsTable from "../home/components/tags-table";
 
 interface TagsPageClientProps {
