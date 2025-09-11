@@ -18,7 +18,7 @@ export function TagsDesktopTable({
 }) {
   return (
     <div className="hidden overflow-hidden rounded-xl border border-gray-200 lg:block">
-      <div className="overflow-x-auto">
+      <div className="max-h-[600px] overflow-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <TableHeader languageData={languageData} />
           <tbody className="divide-y divide-gray-200 bg-white">
@@ -45,7 +45,7 @@ function TableHeader({languageData}: {languageData: SSRServiceResource}) {
   ];
 
   return (
-    <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+    <thead className="sticky top-0 z-10 bg-gradient-to-r from-gray-50 to-gray-100">
       <tr>
         {headers.map(({icon: Icon, label}) => (
           <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-700" key={label}>
