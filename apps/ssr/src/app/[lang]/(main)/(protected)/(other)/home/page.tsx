@@ -7,10 +7,10 @@ import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 import HomePageClient from "./client";
 
-async function getApiRequests(filters: GetApiTagServiceTagData) {
+async function getApiRequests() {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getTagsApi(filters, session)]);
+    const requiredRequests = await Promise.all([getTagsApi({}, session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -31,7 +31,7 @@ export default async function Home({
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests({} as GetApiTagServiceTagData);
+  const apiRequests = await getApiRequests();
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
