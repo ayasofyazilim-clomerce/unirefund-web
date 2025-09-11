@@ -43,7 +43,8 @@ function ProductGroupAmountInput({
                           taxRate: productGroup.vatRate,
                           taxBase: 0,
                           amount: parseFloat(e.target.value),
-                          taxAmount: parseFloat(e.target.value) / (1 + productGroup.vatRate / 100),
+                          taxAmount:
+                            parseFloat(e.target.value) - parseFloat(e.target.value) / (1 + productGroup.vatRate / 100),
                         },
                       };
                     });
