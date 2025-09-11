@@ -46,7 +46,7 @@ export default function TagsPageClient({languageData, tagsResponse}: TagsPageCli
   };
 
   const t = (key: string, def?: string) => {
-    return ((languageData as any)[key] as string) ?? def ?? key;
+    return (languageData as Record<string, string | undefined>)[key] ?? def ?? key;
   };
 
   const handlePageChange = (page: number) => {
