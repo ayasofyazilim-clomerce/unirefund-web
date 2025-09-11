@@ -62,7 +62,7 @@ function TagsHeader({
   showAll: boolean;
 }) {
   return (
-    <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+    <div className="mb-2 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center md:mb-8">
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg">
           <Tag className="h-6 w-6" />
@@ -111,7 +111,7 @@ export default function TagsTable({languageData, tagsResponse, showAll = false}:
 
   return (
     <Card className="border border-gray-200 bg-white shadow-lg">
-      <div className="p-6">
+      <div className="p-2 md:p-6">
         <TagsHeader languageData={languageData} showAll={showAll} totalCount={totalCount} />
 
         <TagsDesktopTable displayItems={displayItems || []} languageData={languageData} onTagClick={handleTagClick} />
