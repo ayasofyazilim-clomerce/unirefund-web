@@ -46,14 +46,19 @@ export function NewUserField(props: TypedFieldProps & {label: string}) {
         ...data.formData,
       });
     },
-    [fieldProps],
+    [fieldProps, props.formData],
   );
 
   return (
     <div className="col-span-full grid gap-2">
       <div className="flex items-center gap-2 rounded-md border p-2">
-        <Switch checked={createNewUser} id="create-new-user" onCheckedChange={handleSwitchChange} />
-        <Label className="text-slate-600" htmlFor="create-new-user">
+        <Switch
+          checked={createNewUser}
+          data-testid="create-new-user-checkbox"
+          id="create-new-user"
+          onCheckedChange={handleSwitchChange}
+        />
+        <Label className="text-slate-600" data-testid="create-new-user-label" htmlFor="create-new-user">
           {label}
         </Label>
       </div>

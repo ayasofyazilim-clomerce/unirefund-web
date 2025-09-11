@@ -1,5 +1,5 @@
-import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
-import {UniRefund_FileService_Files_FileResponseListDto} from "@ayasofyazilim/saas/FileService";
+import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
+import { UniRefund_FileService_Files_FileResponseListDto } from "@repo/saas/FileService";
 export function handleFileDownload({
   response,
   file,

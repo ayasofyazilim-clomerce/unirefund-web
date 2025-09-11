@@ -2,12 +2,12 @@ import {
   $UniRefund_FileService_MimeTypes_MimeTypeCreateDto,
   $UniRefund_FileService_MimeTypes_MimeTypeListDto,
   $UniRefund_FileService_MimeTypes_MimeTypeUpdateDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import type {
   UniRefund_FileService_MimeTypes_MimeTypeCreateDto,
   UniRefund_FileService_MimeTypes_MimeTypeUpdateDto,
   UniRefund_FileService_MimeTypes_MimeTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import {deleteMimeTypeByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import {postMimeTypesApi} from "@repo/actions/unirefund/FileService/post-actions";
 import {putMimeTypeApi} from "@repo/actions/unirefund/FileService/put-actions";

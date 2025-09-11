@@ -39,15 +39,20 @@ export default function TaxFreeTagsSearchForm({languageData}: {languageData: Tag
       <CardContent className="p-5">
         <form
           className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4"
+          data-testid="tax-free-tags-search-form"
           onSubmit={(e) => {
             e.preventDefault();
           }}>
           <div className="space-y-2">
-            <Label className="font-medium text-gray-700" htmlFor="traveller-document-no">
+            <Label
+              className="font-medium text-gray-700"
+              data-testid="traveller-document-no-label"
+              htmlFor="traveller-document-no">
               {languageData.TravellerDocumentNo}
             </Label>
             <Input
               className="focus:border-primary border-gray-200"
+              data-testid="traveller-document-no-input"
               disabled={isPending}
               id="traveller-document-no"
               name="travellerDocumentNumber"
@@ -60,11 +65,15 @@ export default function TaxFreeTagsSearchForm({languageData}: {languageData: Tag
           </div>
 
           <div className="space-y-2">
-            <Label className="font-medium text-gray-700" htmlFor="traveller-full-name">
+            <Label
+              className="font-medium text-gray-700"
+              data-testid="traveller-full-name-label"
+              htmlFor="traveller-full-name">
               {languageData.TravellerFullName}
             </Label>
             <Input
               className="focus:border-primary border-gray-200"
+              data-testid="traveller-full-name-input"
               disabled={isPending}
               id="traveller-full-name"
               name="travellerFullName"
@@ -77,11 +86,12 @@ export default function TaxFreeTagsSearchForm({languageData}: {languageData: Tag
           </div>
 
           <div className="space-y-2">
-            <Label className="font-medium text-gray-700" htmlFor="tag-number">
+            <Label className="font-medium text-gray-700" data-testid="tag-number-label" htmlFor="tag-number">
               {languageData.TagNumber}
             </Label>
             <Input
               className="focus:border-primary border-gray-200"
+              data-testid="tag-number-input"
               disabled={isPending}
               id="tag-number"
               name="tagNumber"
@@ -96,6 +106,7 @@ export default function TaxFreeTagsSearchForm({languageData}: {languageData: Tag
           <div className="flex items-end">
             <Button
               className="h-10 w-full bg-orange-400 font-medium text-white hover:bg-orange-500"
+              data-testid="tax-free-tags-search-button"
               disabled={
                 isPending ||
                 (travellerDocumentNo === travellerDocumentNoInput &&

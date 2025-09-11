@@ -3,8 +3,8 @@ import * as Select from "@/components/ui/select";
 import type {
   UniRefund_FileService_Files_FileForHumanValidationDto,
   UniRefund_FileService_FileTypes_FileTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
-import {$UniRefund_FileService_Files_FileForHumanValidationDto} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
+import {$UniRefund_FileService_Files_FileForHumanValidationDto} from "@repo/saas/FileService";
 import {getApiFileTypeGroupsRulesetApi} from "@repo/actions/unirefund/FileService/actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {

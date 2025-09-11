@@ -1,5 +1,5 @@
-import type {UniRefund_TagService_Tags_TagListItemDto} from "@ayasofyazilim/saas/TagService";
-import {$UniRefund_TagService_Tags_TagListItemDto} from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
+import {$UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
@@ -37,7 +37,7 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
         showHeader: false,
         content: (row) => {
           const totals = row.totals;
-          if (!totals) return <></>;
+          if (!totals) return null;
           const refundIndex = totals.findIndex((t) => t.totalType === "Refund");
           const salesAmountIndex = totals.findIndex((t) => t.totalType === "SalesAmount");
           return (

@@ -92,11 +92,12 @@ export default function Form({
       extensionGrantTypes: {
         renderer: (props: FieldProps) => (
           <div className="my-1">
-            <label className="text-bold mb-0.5 block text-sm">
+            <label className="text-bold mb-0.5 block text-sm" data-testid="extension_grant_types_label">
               {languageData["Form.Application.extensionGrantTypes"]}
             </label>
             <textarea
               className="w-full rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+              data-testid="extension_grant_types_input"
               defaultValue={props.field.value?.join(",") || ""}
               onChange={(e) => {
                 props.field.onChange(Array.from(e.target.value.split(",")));
@@ -108,9 +109,12 @@ export default function Form({
       redirectUris: {
         renderer: (props: FieldProps) => (
           <div className="my-1">
-            <label className="text-bold mb-0.5 block text-sm">{languageData["Form.Application.redirectUris"]}</label>
+            <label className="text-bold mb-0.5 block text-sm" data-testid="redirect_uris_label">
+              {languageData["Form.Application.redirectUris"]}
+            </label>
             <textarea
               className="w-full rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+              data-testid="redirect_uris_input"
               defaultValue={props.field.value?.join(",") || ""}
               onChange={(e) => {
                 props.field.onChange(Array.from(e.target.value.split(",")));
@@ -122,11 +126,12 @@ export default function Form({
       postLogoutRedirectUris: {
         renderer: (props: FieldProps) => (
           <div className="my-1">
-            <label className="text-bold mb-0.5 block text-sm">
+            <label className="text-bold mb-0.5 block text-sm" data-testid="post_logout_redirect_uris_label">
               {languageData["Form.Application.postLogoutRedirectUris"]}
             </label>
             <textarea
               className="w-full rounded-md border-2 border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+              data-testid="post_logout_redirect_uris_input"
               defaultValue={props.field.value?.join(",") || ""}
               onChange={(e) => {
                 props.field.onChange(Array.from(e.target.value.split(",")));
@@ -139,9 +144,12 @@ export default function Form({
       scopes: {
         renderer: (props: FieldProps) => (
           <div className="my-2">
-            <label className="text-bold mb-0.5 block text-sm ">{languageData["Form.Application.scopes"]}</label>
+            <label className="text-bold mb-0.5 block text-sm" data-testid="scopes_label">
+              {languageData["Form.Application.scopes"]}
+            </label>
             <MultiSelect
               defaultValue={props.field.value}
+              id="scopes"
               onValueChange={(e) => {
                 props.field.onChange(e);
               }}
@@ -170,6 +178,7 @@ export default function Form({
             <CustomCombobox
               childrenProps={props}
               emptyValue={languageData["Select.EmptyValue"]}
+              id="application_type"
               list={options}
               selectIdentifier="value"
               selectLabel="label"
@@ -193,6 +202,7 @@ export default function Form({
             <CustomCombobox
               childrenProps={props}
               emptyValue={languageData["Select.EmptyValue"]}
+              id="client_type"
               list={options}
               selectIdentifier="value"
               selectLabel="label"
@@ -224,6 +234,7 @@ export default function Form({
             <CustomCombobox
               childrenProps={props}
               emptyValue={languageData["Select.EmptyValue"]}
+              id="consent_type"
               list={options}
               selectIdentifier="value"
               selectLabel="label"
@@ -257,6 +268,7 @@ export default function Form({
             description={languageData["Delete.Assurance"]}
             title={languageData["Application.Delete"]}
             triggerProps={{
+              "data-testid": "delete-button",
               children: (
                 <>
                   <Trash2 className="mr-2 w-4" /> {languageData.Delete}
@@ -311,7 +323,7 @@ export default function Form({
         }}
         stickyChildren
         values={applicationDetailsData}>
-        <AutoFormSubmit className="float-right px-8 py-4" disabled={isPending}>
+        <AutoFormSubmit className="float-right px-8 py-4" disabled={isPending} id="save-button">
           {languageData["Edit.Save"]}
         </AutoFormSubmit>
       </AutoForm>

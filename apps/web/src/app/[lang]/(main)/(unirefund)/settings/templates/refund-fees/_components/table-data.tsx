@@ -90,7 +90,9 @@ const refundFeeHeadersColumns = (
           const refundPoint = refundPoints.find((rp) => rp.id === row.refundPointId);
           if (!refundPoint) return null;
           return (
-            <Link href={getBaseLink(`parties/refund-points/${row.refundPointId}/details`, locale)}>
+            <Link
+              data-testid={`${row.refundPointId}-name-link`}
+              href={getBaseLink(`parties/refund-points/${row.refundPointId}/details`, locale)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{refundPoint.name}</Badge>
             </Link>
           );

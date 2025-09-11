@@ -1,4 +1,8 @@
 "use client";
+import {postRefundPointApi} from "@repo/actions/unirefund/CrmService/post-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
   UniRefund_CRMService_RefundPoints_CreateRefundPointDto as CreateRefundPointDto,
   UniRefund_CRMService_RefundPoints_RefundPointDto as RefundPointDto,
@@ -8,16 +12,11 @@ import {
   $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
   $UniRefund_CRMService_RefundPoints_CreateRefundPointDto as $CreateRefundPointDto,
 } from "@repo/saas/CRMService";
-import {postRefundPointApi} from "@repo/actions/unirefund/CrmService/post-actions";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type {DependencyConfig} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {applyFieldDependencies, createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {AddressField} from "@repo/ui/components/address/field";
+import {FormReadyComponent} from "@repo/ui/form-ready";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
-import {useTransition} from "react";
-import {FormReadyComponent} from "@repo/ui/form-ready";
+import {useMemo, useTransition} from "react";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {EmailWithTypeField} from "../../_components/contact/email-with-type";
@@ -61,7 +60,7 @@ export default function CreateRefundPointForm({
   const {lang} = useParams<{lang: string}>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mergedFormData = {...DEFAULT_FORMDATA, ...formData};
+  const mergedFormData = useMemo(() => ({...DEFAULT_FORMDATA, ...formData}), []);
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.RefundPoint",
@@ -72,21 +71,41 @@ export default function CreateRefundPointForm({
         ...{"ui:disabled": typeCode === "REFUNDPOINT" && true},
         "ui:widget": "taxOfficeWidget",
       },
-      telephone: {
-        "ui:className": "col-span-full",
-        "ui:field": "phone",
-      },
+      telephone: createUiSchemaWithResource({
+        resources: languageData,
+        schema: $CreateRefundPointDto.properties.telephone,
+        name: "CRM.telephone",
+        extend: {
+          "ui:className":
+            "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+          displayLabel: false,
+          number: {
+            "ui:widget": "phone-with-value",
+            "ui:title": languageData["CRM.telephone.number"],
+          },
+        },
+      }),
       address: createUiSchemaWithResource({
         resources: languageData,
         schema: $AddressDto,
         name: "CRM.address",
         extend: {"ui:field": "address"},
       }),
-
-      email: {
-        "ui:className": "col-span-full",
-        "ui:field": "email",
-      },
+      email: createUiSchemaWithResource({
+        resources: languageData,
+        schema: $CreateRefundPointDto.properties.email,
+        name: "CRM.email",
+        extend: {
+          "ui:className":
+            "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+          displayLabel: false,
+          emailAddress: {
+            "ui:title": languageData["CRM.email"],
+            "ui:widget": "email",
+            "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+          },
+        },
+      }),
       typeCode: {
         ...{"ui:disabled": typeCode === "REFUNDPOINT" && true},
         "ui:title": languageData["Form.RefundPoint.typeCode"],
@@ -137,32 +156,6 @@ export default function CreateRefundPointForm({
     }),
   };
 
-  const dependencies: DependencyConfig = {
-    typeCode: {
-      REQUIRES: [
-        {
-          when: (value) => value === "HEADQUARTER",
-          targets: ["vatNumber"],
-        },
-        {
-          when: (value) => value === "REFUNDPOINT",
-          targets: ["parentId"],
-        },
-      ],
-      HIDES: [
-        {
-          when: (value) => value === "HEADQUARTER",
-          targets: ["parentId"],
-        },
-        {
-          when: (value) => value === "REFUNDPOINT",
-          targets: ["vatNumber"],
-        },
-      ],
-    },
-  };
-
-  const transformedSchema = applyFieldDependencies($CreateRefundPointDto, dependencies);
   const isFormReady = CheckIsFormReady({
     lang,
     languageData,
@@ -176,17 +169,18 @@ export default function CreateRefundPointForm({
         fields={fields}
         filter={{
           type: "exclude",
-          keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
+          keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
         }}
         formData={{
           ...mergedFormData,
           taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id,
         }}
+        id="create-refund-point-form"
         locale={lang}
         onSubmit={({formData: editedFormData}) => {
           if (!editedFormData) return;
           startTransition(() => {
-            void postRefundPointApi(editedFormData).then((response) => {
+            void postRefundPointApi({...editedFormData, typeCode: "HEADQUARTER"}).then((response) => {
               handlePostResponse(response, router, {
                 prefix: getBaseLink("parties/refund-points"),
                 suffix: "details",
@@ -194,7 +188,7 @@ export default function CreateRefundPointForm({
             });
           });
         }}
-        schema={transformedSchema}
+        schema={$CreateRefundPointDto}
         submitText={languageData["Form.RefundPoint.Create"]}
         uiSchema={uiSchema}
         widgets={widgets}

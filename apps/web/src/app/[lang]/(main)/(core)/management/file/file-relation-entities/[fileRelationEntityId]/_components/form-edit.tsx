@@ -4,7 +4,7 @@ import {
   $UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto,
   type UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto,
   type UniRefund_FileService_FileTypes_FileTypeListDto,
-} from "@ayasofyazilim/saas/FileService";
+} from "@repo/saas/FileService";
 import {putFileRelationEntitiesApi} from "@repo/actions/unirefund/FileService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";

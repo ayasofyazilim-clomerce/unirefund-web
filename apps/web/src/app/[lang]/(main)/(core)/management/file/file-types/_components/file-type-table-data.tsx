@@ -1,5 +1,5 @@
-import type {UniRefund_FileService_FileTypes_FileTypeListDto} from "@ayasofyazilim/saas/FileService";
-import {$UniRefund_FileService_FileTypes_FileTypeListDto} from "@ayasofyazilim/saas/FileService";
+import type {UniRefund_FileService_FileTypes_FileTypeListDto} from "@repo/saas/FileService";
+import {$UniRefund_FileService_FileTypes_FileTypeListDto} from "@repo/saas/FileService";
 import {deleteFileTypesByIdApi} from "@repo/actions/unirefund/FileService/delete-actions";
 import type {
   TanstackTableCreationProps,

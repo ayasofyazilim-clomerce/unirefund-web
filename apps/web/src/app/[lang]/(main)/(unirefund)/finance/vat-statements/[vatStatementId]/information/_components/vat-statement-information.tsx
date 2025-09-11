@@ -1,5 +1,5 @@
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@repo/saas/FinanceService";
 import {dateToString} from "@/app/[lang]/(main)/(unirefund)/operations/_components/utils";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 
@@ -80,7 +80,7 @@ export default function VatStatementInformation({
           <InformationItem
             highlight
             label={languageData["VatStatement.Total"]}
-            value={formatCurrency(VatStatementData.total)}
+            value={formatCurrency(VatStatementData.totalAmount)}
           />
           <InformationItem
             label={languageData["VatStatement.VatStatementDate"]}

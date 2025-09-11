@@ -1,9 +1,6 @@
 "use client";
 
-import type {
-  PagedResultDto_TagListItemDto,
-  UniRefund_TagService_Tags_TagListItemDto,
-} from "@ayasofyazilim/saas/TagService";
+import type {PagedResultDto_TagListItemDto, UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {Dispatch, SetStateAction} from "react";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";

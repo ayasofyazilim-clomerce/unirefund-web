@@ -65,8 +65,10 @@ export default async function Page({
         title: languageData["Missing.RebateTableHeaders.Title"],
         message: languageData["Missing.RebateTableHeaders.Message"],
         action: (
-          <Button asChild className="text-blue-500" variant="link">
-            <Link href={getBaseLink("settings/templates/rebate-tables/new", lang)}>{languageData.New}</Link>
+          <Button asChild className="text-blue-500" data-testid="new-rebate-tables-button" variant="link">
+            <Link data-testid="new-rebate-tables-link" href={getBaseLink("settings/templates/rebate-tables/new", lang)}>
+              {languageData.New}
+            </Link>
           </Button>
         ),
       }}>

@@ -6,11 +6,11 @@ import type { GetApiFileServiceFilesByIdData, GetApiFileServiceFilesByIdResponse
 
 export class FileService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFilesById(data: GetApiFileServiceFilesByIdData): CancelablePromise<GetApiFileServiceFilesByIdResponse> {
@@ -25,16 +25,16 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFilesByIdForHumanValidation(data: GetApiFileServiceFilesByIdForHumanValidationData): CancelablePromise<GetApiFileServiceFilesByIdForHumanValidationResponse> {
@@ -49,17 +49,17 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.fileHumanValidationStatuses
      * @param data.fileTypeNamespace
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFilesForHumanValidation(data: GetApiFileServiceFilesForHumanValidationData = {}): CancelablePromise<GetApiFileServiceFilesForHumanValidationResponse> {
@@ -75,12 +75,12 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.fileTypeGroup
@@ -91,7 +91,7 @@ export class FileService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFiles(data: GetApiFileServiceFilesData = {}): CancelablePromise<GetApiFileServiceFilesResponse> {
@@ -113,16 +113,16 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.formData
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFiles(data: PostApiFileServiceFilesData = {}): CancelablePromise<PostApiFileServiceFilesResponse> {
@@ -136,12 +136,12 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.relatedEntity
@@ -152,7 +152,7 @@ export class FileService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFilesWithRelation(data: GetApiFileServiceFilesWithRelationData): CancelablePromise<GetApiFileServiceFilesWithRelationResponse> {
@@ -174,12 +174,12 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -197,17 +197,17 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFilesByIdValidateOrInvalidate(data: PutApiFileServiceFilesByIdValidateOrInvalidateData): CancelablePromise<PutApiFileServiceFilesByIdValidateOrInvalidateResponse> {
@@ -224,17 +224,17 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFilesByIdMeta(data: PutApiFileServiceFilesByIdMetaData): CancelablePromise<PutApiFileServiceFilesByIdMetaResponse> {
@@ -251,16 +251,16 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFilesByIdTriggerAiProcess(data: PostApiFileServiceFilesByIdTriggerAiProcessData): CancelablePromise<PostApiFileServiceFilesByIdTriggerAiProcessResponse> {
@@ -275,25 +275,21 @@ export class FileService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
-<<<<<<< HEAD
-export class FileAıInfoService {
-=======
 export class FileAiInfoService {
->>>>>>> 047567129113e9eb6683a6e8e085678b3185d274
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.fileId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileAiInfosByFileId(data: GetApiFileServiceFileAiInfosByFileIdData): CancelablePromise<GetApiFileServiceFileAiInfosByFileIdResponse> {
@@ -308,17 +304,17 @@ export class FileAiInfoService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class FileRelationService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -328,7 +324,7 @@ export class FileRelationService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileRelations(data: GetApiFileServiceFileRelationsData = {}): CancelablePromise<GetApiFileServiceFileRelationsResponse> {
@@ -349,16 +345,16 @@ export class FileRelationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFileRelations(data: PostApiFileServiceFileRelationsData = {}): CancelablePromise<PostApiFileServiceFileRelationsResponse> {
@@ -372,17 +368,17 @@ export class FileRelationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFileRelationsById(data: PutApiFileServiceFileRelationsByIdData): CancelablePromise<PutApiFileServiceFileRelationsByIdResponse> {
@@ -399,16 +395,16 @@ export class FileRelationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceFileRelationsById(data: DeleteApiFileServiceFileRelationsByIdData): CancelablePromise<DeleteApiFileServiceFileRelationsByIdResponse> {
@@ -423,17 +419,17 @@ export class FileRelationService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class FileRelationEntityService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -443,7 +439,7 @@ export class FileRelationEntityService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileRelationEntities(data: GetApiFileServiceFileRelationEntitiesData = {}): CancelablePromise<GetApiFileServiceFileRelationEntitiesResponse> {
@@ -464,16 +460,16 @@ export class FileRelationEntityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFileRelationEntities(data: PostApiFileServiceFileRelationEntitiesData = {}): CancelablePromise<PostApiFileServiceFileRelationEntitiesResponse> {
@@ -487,17 +483,17 @@ export class FileRelationEntityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFileRelationEntitiesById(data: PutApiFileServiceFileRelationEntitiesByIdData): CancelablePromise<PutApiFileServiceFileRelationEntitiesByIdResponse> {
@@ -514,16 +510,16 @@ export class FileRelationEntityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceFileRelationEntitiesById(data: DeleteApiFileServiceFileRelationEntitiesByIdData): CancelablePromise<DeleteApiFileServiceFileRelationEntitiesByIdResponse> {
@@ -538,21 +534,21 @@ export class FileRelationEntityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class FileTypeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileTypesById(data: GetApiFileServiceFileTypesByIdData): CancelablePromise<GetApiFileServiceFileTypesByIdResponse> {
@@ -567,17 +563,17 @@ export class FileTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFileTypesById(data: PutApiFileServiceFileTypesByIdData): CancelablePromise<PutApiFileServiceFileTypesByIdResponse> {
@@ -594,16 +590,16 @@ export class FileTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceFileTypesById(data: DeleteApiFileServiceFileTypesByIdData): CancelablePromise<DeleteApiFileServiceFileTypesByIdResponse> {
@@ -618,12 +614,12 @@ export class FileTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -644,7 +640,7 @@ export class FileTypeService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileTypes(data: GetApiFileServiceFileTypesData = {}): CancelablePromise<GetApiFileServiceFileTypesResponse> {
@@ -676,16 +672,16 @@ export class FileTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFileTypes(data: PostApiFileServiceFileTypesData = {}): CancelablePromise<PostApiFileServiceFileTypesResponse> {
@@ -699,17 +695,17 @@ export class FileTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class FileTypeGroupService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -718,7 +714,7 @@ export class FileTypeGroupService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileTypeGroups(data: GetApiFileServiceFileTypeGroupsData = {}): CancelablePromise<GetApiFileServiceFileTypeGroupsResponse> {
@@ -738,16 +734,16 @@ export class FileTypeGroupService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFileTypeGroups(data: PostApiFileServiceFileTypeGroupsData = {}): CancelablePromise<PostApiFileServiceFileTypeGroupsResponse> {
@@ -761,16 +757,16 @@ export class FileTypeGroupService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.namespace
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileTypeGroupsRuleset(data: GetApiFileServiceFileTypeGroupsRulesetData = {}): CancelablePromise<GetApiFileServiceFileTypeGroupsRulesetResponse> {
@@ -785,17 +781,17 @@ export class FileTypeGroupService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFileTypeGroupsById(data: PutApiFileServiceFileTypeGroupsByIdData): CancelablePromise<PutApiFileServiceFileTypeGroupsByIdResponse> {
@@ -812,16 +808,16 @@ export class FileTypeGroupService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceFileTypeGroupsById(data: DeleteApiFileServiceFileTypeGroupsByIdData): CancelablePromise<DeleteApiFileServiceFileTypeGroupsByIdResponse> {
@@ -836,17 +832,17 @@ export class FileTypeGroupService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class FileTypeMimeTypeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.fileTypeNamespace
@@ -854,7 +850,7 @@ export class FileTypeMimeTypeService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceFileTypeMimeTypes(data: GetApiFileServiceFileTypeMimeTypesData = {}): CancelablePromise<GetApiFileServiceFileTypeMimeTypesResponse> {
@@ -873,16 +869,16 @@ export class FileTypeMimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceFileTypeMimeTypes(data: PostApiFileServiceFileTypeMimeTypesData = {}): CancelablePromise<PostApiFileServiceFileTypeMimeTypesResponse> {
@@ -896,17 +892,17 @@ export class FileTypeMimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceFileTypeMimeTypesById(data: PutApiFileServiceFileTypeMimeTypesByIdData): CancelablePromise<PutApiFileServiceFileTypeMimeTypesByIdResponse> {
@@ -923,16 +919,16 @@ export class FileTypeMimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceFileTypeMimeTypesById(data: DeleteApiFileServiceFileTypeMimeTypesByIdData): CancelablePromise<DeleteApiFileServiceFileTypeMimeTypesByIdResponse> {
@@ -947,17 +943,17 @@ export class FileTypeMimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class MimeTypeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -966,7 +962,7 @@ export class MimeTypeService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceMimeTypes(data: GetApiFileServiceMimeTypesData = {}): CancelablePromise<GetApiFileServiceMimeTypesResponse> {
@@ -986,16 +982,16 @@ export class MimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceMimeTypes(data: PostApiFileServiceMimeTypesData = {}): CancelablePromise<PostApiFileServiceMimeTypesResponse> {
@@ -1009,17 +1005,17 @@ export class MimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceMimeTypesById(data: PutApiFileServiceMimeTypesByIdData): CancelablePromise<PutApiFileServiceMimeTypesByIdResponse> {
@@ -1036,16 +1032,16 @@ export class MimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceMimeTypesById(data: DeleteApiFileServiceMimeTypesByIdData): CancelablePromise<DeleteApiFileServiceMimeTypesByIdResponse> {
@@ -1060,17 +1056,17 @@ export class MimeTypeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }
 
 export class ProviderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
@@ -1078,7 +1074,7 @@ export class ProviderService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFileServiceProviders(data: GetApiFileServiceProvidersData = {}): CancelablePromise<GetApiFileServiceProvidersResponse> {
@@ -1097,16 +1093,16 @@ export class ProviderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFileServiceProviders(data: PostApiFileServiceProvidersData = {}): CancelablePromise<PostApiFileServiceProvidersResponse> {
@@ -1120,17 +1116,17 @@ export class ProviderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiFileServiceProvidersById(data: PutApiFileServiceProvidersByIdData): CancelablePromise<PutApiFileServiceProvidersByIdResponse> {
@@ -1147,16 +1143,16 @@ export class ProviderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiFileServiceProvidersById(data: DeleteApiFileServiceProvidersByIdData): CancelablePromise<DeleteApiFileServiceProvidersByIdResponse> {
@@ -1171,10 +1167,10 @@ export class ProviderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
-    
+
 }

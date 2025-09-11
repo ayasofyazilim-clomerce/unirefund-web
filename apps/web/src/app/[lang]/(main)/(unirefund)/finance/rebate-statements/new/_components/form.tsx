@@ -6,8 +6,8 @@ import type {UniRefund_CRMService_Merchants_MerchantDto} from "@repo/saas/CRMSer
 import type {
   UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto,
   UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto,
-} from "@ayasofyazilim/saas/FinanceService";
-import {$UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto} from "@ayasofyazilim/saas/FinanceService";
+} from "@repo/saas/FinanceService";
+import {$UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto} from "@repo/saas/FinanceService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
@@ -64,10 +64,13 @@ export default function RebateStatementForm({
         <Tabs className="flex h-full flex-col" defaultValue="Form" onValueChange={setActiveTab} value={activeTab}>
           <div className="p-2 md:p-6">
             <TabsList className="mx-auto grid h-auto w-full max-w-xl grid-cols-2 items-center gap-2 rounded-lg bg-gray-50 p-1">
-              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Form">
+              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" data-testid="form_tab" value="Form">
                 {languageData["Button.Form"]}
               </TabsTrigger>
-              <TabsTrigger className="rounded-md py-1 data-[state=active]:bg-white" value="Preview">
+              <TabsTrigger
+                className="rounded-md py-1 data-[state=active]:bg-white"
+                data-testid="preview_tab"
+                value="Preview">
                 {languageData["Button.Preview"]}
               </TabsTrigger>
             </TabsList>
@@ -130,6 +133,7 @@ export default function RebateStatementForm({
                   <div className=" flex w-full flex-col justify-end gap-3 sm:flex-row">
                     <Button
                       className="w-full sm:w-auto"
+                      data-testid="draft_button"
                       disabled={isPending}
                       onClick={() => {
                         if (!_formData) return;
@@ -176,6 +180,7 @@ export default function RebateStatementForm({
                     </Button>
                     <Button
                       className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
+                      data-testid="RebateStatementHeaderCreateDto_submit"
                       disabled={isPending}
                       type="submit">
                       {isPending ? (
@@ -259,6 +264,7 @@ export default function RebateStatementForm({
                 <div className="mt-6 flex justify-end">
                   <Button
                     className="mr-2"
+                    data-testid="RebateStatementHeaderCreateDto_back"
                     onClick={() => {
                       setActiveTab("Form");
                     }}
@@ -266,6 +272,7 @@ export default function RebateStatementForm({
                     Back
                   </Button>
                   <Button
+                    data-testid="RebateStatementHeaderCreateDto_preview_submit"
                     disabled={isPending}
                     onClick={() => {
                       if (!_formData) return;

@@ -15,7 +15,7 @@ import {
 import type {
   UniRefund_TagService_Tags_Enums_RefundType as RefundTypeEnum,
   UniRefund_TagService_Tags_TagListItemDto,
-} from "@ayasofyazilim/saas/TagService";
+} from "@repo/saas/TagService";
 import {postRefundApi} from "@repo/actions/unirefund/RefundService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {handlePostResponse} from "@repo/utils/api";
@@ -68,6 +68,7 @@ export function RefundForm({
             <RadioGroupItem aria-label="Card" className="peer sr-only" id="card" value="CreditCard" />
             <Label
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
+              data-testid="card-label"
               htmlFor="card">
               <CreditCard className="mb-3 h-6 w-6" />
               {languageData["RefundMethod.CreditCard"]}
@@ -77,6 +78,7 @@ export function RefundForm({
             <RadioGroupItem aria-label="Cash" className="peer sr-only" id="cash" value="Cash" />
             <Label
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
+              data-testid="cash-label"
               htmlFor="cash">
               <Banknote className="mb-3 h-6 w-6" />
               {languageData["RefundMethod.Cash"]}
@@ -91,6 +93,7 @@ export function RefundForm({
             />
             <Label
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
+              data-testid="bank-transfer-label"
               htmlFor="bank-transfer">
               <Banknote className="mb-3 h-6 w-6" />
               {languageData["RefundMethod.BankTransfer"]}
@@ -160,7 +163,10 @@ export function RefundMethodForm({
           schema={$IbanInfoDto}
           useDefaultSubmit={false}>
           <div className="mt-4 flex items-center">
-            <Button className="w-full" disabled={!canRefundable || isPending || selectedRows.length === 0}>
+            <Button
+              className="w-full"
+              data-testid="bank_transfer_continue"
+              disabled={!canRefundable || isPending || selectedRows.length === 0}>
               {languageData.Continue}
             </Button>
           </div>
@@ -175,7 +181,10 @@ export function RefundMethodForm({
           schema={$CardInfoDto}
           useDefaultSubmit={false}>
           <div className="mt-4 flex items-center">
-            <Button className="w-full" disabled={!canRefundable || isPending || selectedRows.length === 0}>
+            <Button
+              className="w-full"
+              data-testid="credit_card_continue"
+              disabled={!canRefundable || isPending || selectedRows.length === 0}>
               {languageData.Continue}
             </Button>
           </div>
@@ -185,6 +194,7 @@ export function RefundMethodForm({
       return (
         <Button
           className="w-full"
+          data-testid="cash-continue"
           disabled={!canRefundable || isPending || selectedRows.length === 0}
           onClick={() => {
             handleSubmit(null);

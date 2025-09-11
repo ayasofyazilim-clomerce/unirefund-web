@@ -1,5 +1,5 @@
 "use client";
-import type {PagedResultDto_MimeTypeListDto} from "@ayasofyazilim/saas/FileService";
+import type {PagedResultDto_MimeTypeListDto} from "@repo/saas/FileService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useRouter} from "next/navigation";

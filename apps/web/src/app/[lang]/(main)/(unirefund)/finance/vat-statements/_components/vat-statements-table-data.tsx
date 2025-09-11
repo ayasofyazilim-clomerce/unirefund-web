@@ -1,9 +1,9 @@
-import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto} from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto} from "@repo/saas/FinanceService";
 import {
   $PagedResultDto_VATStatementHeaderForListDto,
   $UniRefund_FinanceService_Enums_PaymentStatus,
   $UniRefund_FinanceService_Enums_VATStatementStatus,
-} from "@ayasofyazilim/saas/FinanceService";
+} from "@repo/saas/FinanceService";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -118,8 +118,8 @@ function vatStatementsTable(
       "tagCount",
       "vatStatementDate",
       "dueDate",
-      "total",
-      "unpaid",
+      "totalAmount",
+      "unpaidAmount",
       "status",
     ],
   };

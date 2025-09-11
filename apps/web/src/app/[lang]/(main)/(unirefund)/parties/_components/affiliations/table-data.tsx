@@ -211,12 +211,14 @@ function EditForm({
           loading={isSubmitting}
           title={languageData["Form.Merchant.affiliation.delete"]}
           type="without-trigger">
-          <Button className="" disabled={isSubmitting} type="button" variant="outline">
+          <Button className="" data-testid="delete-affiliation" disabled={isSubmitting} type="button" variant="outline">
             <Trash2Icon className="mr-2 size-4" />
             {languageData["Form.Merchant.affiliation.delete"]}
           </Button>
         </ConfirmDialog>
-        <Button disabled={isSubmitting}>{languageData["Form.Merchant.affiliation.update"]}</Button>
+        <Button data-testid="update-affiliation" disabled={isSubmitting}>
+          {languageData["Form.Merchant.affiliation.update"]}
+        </Button>
       </div>
     </SchemaForm>
   );

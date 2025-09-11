@@ -2243,7 +2243,7 @@ export const $UniRefund_CRMService_Individuals_UpdateIndividualDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
-    required: ['address', 'email', 'isPersonalCompany', 'name', 'telephone', 'typeCode'],
+    required: ['address', 'email', 'isPersonalCompany', 'name', 'telephone', 'typeCode', "vatNumber"],
     type: 'object',
     properties: {
         chainCodeId: {

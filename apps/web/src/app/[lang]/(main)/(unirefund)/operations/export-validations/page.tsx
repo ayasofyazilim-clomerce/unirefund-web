@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiExportValidationServiceExportValidationData} from "@ayasofyazilim/saas/ExportValidationService";
+import type {GetApiExportValidationServiceExportValidationData} from "@repo/saas/ExportValidationService";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isErrorOnRequest} from "@repo/utils/api";
 import ErrorComponent from "@repo/ui/components/error-component";

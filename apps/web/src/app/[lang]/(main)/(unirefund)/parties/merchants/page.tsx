@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiCrmServiceMerchantsData} from "@ayasofyazilim/saas/CRMService";
+import type {GetApiCrmServiceMerchantsData} from "@repo/saas/CRMService";
 import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";

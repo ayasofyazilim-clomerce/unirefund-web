@@ -8,10 +8,10 @@ import type {
   GetApiLocationServiceDistrictsGetListByCityByCityIdData,
   GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData,
   GetApiLocationServiceRegionsGetListByCountryByCountryIdData,
-} from "@ayasofyazilim/saas/LocationService";
-import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
-import type {Session} from "@repo/utils/auth";
-import {getLocationServiceClient} from "../lib";
+} from "@repo/saas/LocationService";
+import { structuredError, structuredResponse, structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "@repo/utils/auth";
+import { getLocationServiceClient } from "../lib";
 
 export async function getAllCountriesApi(data: GetApiLocationServiceCountriesData, session?: Session | null) {
   try {

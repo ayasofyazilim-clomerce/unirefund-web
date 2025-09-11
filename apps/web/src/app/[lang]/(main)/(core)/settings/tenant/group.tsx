@@ -39,12 +39,13 @@ export default function TenantSettingsPage({
             <h2 className="text-sm font-medium text-gray-800 sm:text-base">Setting Groups</h2>
           </div>
           <nav className="flex flex-col p-2">
-            {list.groups.map((tab) => (
+            {list.groups.map((tab, index) => (
               <button
                 className={cn(
                   "break-words rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors sm:px-4 sm:py-3 sm:text-sm",
                   activeTab === tab.key ? "bg-primary/10 text-primary" : "text-gray-700 hover:bg-gray-100",
                 )}
+                data-testid={`tab-${index}`}
                 key={tab.key}
                 onClick={() => {
                   setActiveTab(tab.key);
@@ -106,6 +107,7 @@ function Content({
       defaultSubmitClassName="justify-end mt-6"
       disableValidation
       disabled={isPending}
+      id="tenant-settings-form"
       locale={lang}
       onSubmit={({formData}) => {
         if (!formData) return;

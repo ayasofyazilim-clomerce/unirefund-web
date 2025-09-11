@@ -80,8 +80,10 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
         title: languageData["Missing.ProductGroups.Title"],
         message: languageData["Missing.ProductGroups.Message"],
         action: (
-          <Button asChild className="text-blue-500" variant="link">
-            <Link href={getBaseLink("settings/product/product-groups", lang)}>{languageData.New}</Link>
+          <Button asChild className="text-blue-500" data-testid="new-product-group-button" variant="link">
+            <Link data-testid="new-product-group-link" href={getBaseLink("settings/product/product-groups", lang)}>
+              {languageData.New}
+            </Link>
           </Button>
         ),
       }}>

@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiFileServiceFileTypeGroupsData} from "@ayasofyazilim/saas/FileService";
+import type {GetApiFileServiceFileTypeGroupsData} from "@repo/saas/FileService";
 import {getFileTypeGroupsApi} from "@repo/actions/unirefund/FileService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";

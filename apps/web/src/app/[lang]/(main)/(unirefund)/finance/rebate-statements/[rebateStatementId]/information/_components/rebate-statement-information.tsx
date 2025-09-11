@@ -1,6 +1,6 @@
 "use client";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@ayasofyazilim/saas/FinanceService";
+import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@repo/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams} from "next/navigation";
@@ -91,7 +91,7 @@ export default function RebateStatementInformation({
             <InformationItem
               highlight
               label={languageData["RebateStatement.Total"]}
-              value={formatCurrency(rebateStatementData.total)}
+              value={formatCurrency(rebateStatementData.totalAmount)}
             />
             <InformationItem
               label={languageData["RebateStatement.RebateStatementDate"]}

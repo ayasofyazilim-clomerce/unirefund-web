@@ -1,6 +1,6 @@
 "use client";
 import {Card, CardHeader, CardTitle} from "@/components/ui/card";
-import type {UniRefund_TagService_Tags_TagDetailDto} from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_TagService_Tags_TagDetailDto} from "@repo/saas/TagService";
 import {FileIcon} from "lucide-react";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {getStatusColor, dateToString} from "../../../_components/utils";

@@ -8,10 +8,10 @@ import {
   PostApiFileServiceFileTypesData,
   PostApiFileServiceMimeTypesData,
   PostApiFileServiceProvidersData,
-} from "@ayasofyazilim/saas/FileService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
-import {Session} from "@repo/utils/auth";
-import {getFileServiceClient} from "../lib";
+} from "@repo/saas/FileService";
+import { structuredError, structuredResponse } from "@repo/utils/api";
+import { Session } from "@repo/utils/auth";
+import { getFileServiceClient } from "../lib";
 
 export async function postFileApi(data: PostApiFileServiceFilesData, session?: Session | null) {
   try {
@@ -25,7 +25,7 @@ export async function postFileApi(data: PostApiFileServiceFilesData, session?: S
 export async function postFileTriggerAiProcess(id: string, session?: Session | null) {
   try {
     const client = await getFileServiceClient(session);
-    const dataResponse = await client.file.postApiFileServiceFilesByIdTriggerAiProcess({id});
+    const dataResponse = await client.file.postApiFileServiceFilesByIdTriggerAiProcess({ id });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

@@ -1,7 +1,7 @@
 "use server";
-import type {PostApiTagServiceTagData} from "@ayasofyazilim/saas/TagService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
-import {getTagServiceClient} from "../lib";
+import type { PostApiTagServiceTagData } from "@repo/saas/TagService";
+import { structuredError, structuredResponse } from "@repo/utils/api";
+import { getTagServiceClient } from "../lib";
 
 export async function postTagApi(data: PostApiTagServiceTagData) {
   try {

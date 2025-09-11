@@ -6,7 +6,7 @@ import FilterComponent from "@repo/ayasofyazilim-ui/molecules/filter-component";
 import {useRouter} from "next/navigation";
 import {useEffect, useState, useTransition} from "react";
 import {toast} from "@/components/ui/sonner";
-import type {GetApiCrmServiceMerchantsByIdProductGroupResponse} from "@ayasofyazilim/saas/CRMService";
+import type {GetApiCrmServiceMerchantsByMerchantIdProductGroupResponse} from "@repo/saas/CRMService";
 import {getMerchantByIdApi, getMerchantProductGroupByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {postTagApi} from "@repo/actions/unirefund/TagService/post-actions";
 import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
@@ -46,7 +46,9 @@ export default function ClientPage({
 }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const [productGroupList, setProductGroupList] = useState<GetApiCrmServiceMerchantsByIdProductGroupResponse>([]);
+  const [productGroupList, setProductGroupList] = useState<GetApiCrmServiceMerchantsByMerchantIdProductGroupResponse>(
+    [],
+  );
   const [merchantIds, setMerchantIds] = useState<FilterComponentSearchItem[]>([]);
   const [travellerIds, setTravellerIds] = useState<FilterComponentSearchItem[]>([]);
   const [productGroupIds, setProductGroupIds] = useState<string[]>([]);
@@ -134,6 +136,7 @@ export default function ClientPage({
     dateSelect: [],
     multiSelect: [
       {
+        id: "product_groups_multi",
         title: languageData.ProductGroups,
         placeholder: languageData["ProductGroups.Select"],
         value: productGroupIds,
@@ -147,6 +150,7 @@ export default function ClientPage({
     ],
     asyncSelect: [
       {
+        id: "traveller_async",
         title: languageData.TravellerFullName,
         fetchAction: searchTravellers,
         onChange: setTravellerIds,
@@ -154,6 +158,7 @@ export default function ClientPage({
         multiple: false,
       },
       {
+        id: "merchant_async",
         title: languageData.MerchantTitle,
         fetchAction: searchMerchants,
         onChange: setMerchantIds,

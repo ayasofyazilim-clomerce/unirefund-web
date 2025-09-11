@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiFinanceServiceVatStatementHeadersData} from "@ayasofyazilim/saas/FinanceService";
+import type {GetApiFinanceServiceVatStatementHeadersData} from "@repo/saas/FinanceService";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";

@@ -68,8 +68,12 @@ export default async function Page({
         title: languageData["Missing.RefundTableHeaders.Title"],
         message: languageData["Missing.RefundTableHeaders.Message"],
         action: (
-          <Button asChild className="text-blue-500" variant="link">
-            <Link href={getBaseLink("settings/templates/refund-tables/new", lang)}>{languageData.New}</Link>
+          <Button asChild className="text-blue-500" data-testid="contract-new-action-button" variant="link">
+            <Link
+              data-testid="contract-new-action-link"
+              href={getBaseLink("settings/templates/refund-tables/new", lang)}>
+              {languageData.New}
+            </Link>
           </Button>
         ),
       }}>

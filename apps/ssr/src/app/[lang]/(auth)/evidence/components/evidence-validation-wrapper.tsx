@@ -2,7 +2,7 @@ import type {AWSAuthConfig} from "@repo/actions/unirefund/AWSService/actions";
 import type {
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionCreateDto,
   UniRefund_TravellerService_EvidenceSessions_EvidenceSessionDto,
-} from "@ayasofyazilim/saas/TravellerService";
+} from "@repo/saas/TravellerService";
 import ValidationSteps from "components/validation-steps";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import {LoadingSpinner} from "./shared-components";

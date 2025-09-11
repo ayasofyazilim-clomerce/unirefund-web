@@ -10,10 +10,10 @@ import {
   PutApiFileServiceFileTypesByIdData,
   PutApiFileServiceMimeTypesByIdData,
   PutApiFileServiceProvidersByIdData,
-} from "@ayasofyazilim/saas/FileService";
-import {structuredError, structuredResponse} from "@repo/utils/api";
-import {Session} from "@repo/utils/auth";
-import {getFileServiceClient} from "../lib";
+} from "@repo/saas/FileService";
+import { structuredError, structuredResponse } from "@repo/utils/api";
+import { Session } from "@repo/utils/auth";
+import { getFileServiceClient } from "../lib";
 
 export async function putFileValidationByIdApi(
   data: PutApiFileServiceFilesByIdValidateOrInvalidateData,

@@ -2,10 +2,7 @@
 
 import {cn} from "@/lib/utils";
 import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from "@repo/saas/CRMService";
-import type {
-  PagedResultDto_TagListItemDto,
-  UniRefund_TagService_Tags_TagListItemDto,
-} from "@ayasofyazilim/saas/TagService";
+import type {PagedResultDto_TagListItemDto, UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {useSearchParams} from "next/navigation";
 import {useState} from "react";

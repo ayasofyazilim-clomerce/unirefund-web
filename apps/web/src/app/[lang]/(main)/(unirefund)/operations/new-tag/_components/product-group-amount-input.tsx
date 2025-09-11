@@ -25,7 +25,7 @@ function ProductGroupAmountInput({
       <div className="grid gap-1.5">
         {productGroupList
           .filter((productGroup) => productGroupIds.includes(productGroup.productGroupId))
-          .map((productGroup) => (
+          .map((productGroup, index) => (
             <div className="grid grid-cols-2 items-center gap-1.5 border-t px-4 py-1" key={productGroup.productGroupId}>
               <div className="grid">
                 <div>{productGroup.productGroupName}</div>
@@ -34,6 +34,7 @@ function ProductGroupAmountInput({
               <div className="grid gap-1">
                 <div className="text-sm">Total Amount</div>
                 <Input
+                  data-testid={`product_group_amount_input_${index}`}
                   disabled={isPending}
                   onChange={(e) => {
                     setInvoiceLines((prev) => {

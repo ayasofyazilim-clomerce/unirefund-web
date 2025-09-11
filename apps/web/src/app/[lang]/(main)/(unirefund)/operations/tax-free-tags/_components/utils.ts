@@ -3,7 +3,7 @@ import type {
   GetApiTagServiceTagData,
   UniRefund_TagService_Tags_TagStatusType,
   UniRefund_TagService_Tags_Enums_RefundType,
-} from "@ayasofyazilim/saas/TagService";
+} from "@repo/saas/TagService";
 import {getDateRanges} from "@/utils/utils-date";
 
 export interface TagsSearchParamType {

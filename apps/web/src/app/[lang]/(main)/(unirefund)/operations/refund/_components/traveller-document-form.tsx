@@ -51,12 +51,16 @@ export default function TravellerDocumentForm({
   return (
     <form
       className="mt-6 grid w-full grid-cols-1 items-end justify-center gap-6 rounded-lg border border-gray-200 p-2 md:grid-cols-4 md:p-6"
+      data-testid="traveller-document-form"
       onSubmit={(e) => {
         e.preventDefault();
       }}>
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="traveller-document-no">{languageData.TravellerDocumentNo}</Label>
+        <Label data-testid="traveller-document-no-label" htmlFor="traveller-document-no">
+          {languageData.TravellerDocumentNo}
+        </Label>
         <Input
+          data-testid="traveller-document-no-input"
           disabled={isPending}
           id="traveller-document-no"
           name="travellerDocumentNumber"
@@ -67,11 +71,13 @@ export default function TravellerDocumentForm({
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="traveller-document-no">{languageData.TaxFreeTagID}</Label>
+        <Label data-testid="traveller-tagid-label" htmlFor="traveller-tagid">
+          {languageData.TaxFreeTagID}
+        </Label>
         <Input
+          data-testid="traveller-tagid-input"
           disabled={isPending}
-          id="tagId"
-          name="tagId"
+          id="traveller-tagid"
           onChange={(e) => {
             setTagIdInput(e.target.value);
           }}
@@ -79,8 +85,11 @@ export default function TravellerDocumentForm({
         />
       </div>
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="refund-point">{languageData.RefundPoint}</Label>
+        <Label data-testid="refund-point-label" htmlFor="refund-point">
+          {languageData.RefundPoint}
+        </Label>
         <Combobox<UniRefund_CRMService_RefundPoints_RefundPointListResponseDto>
+          id="refund-point-list"
           list={accessibleRefundPoints}
           onValueChange={setRefundPointIdInput}
           selectIdentifier="id"
@@ -90,6 +99,7 @@ export default function TravellerDocumentForm({
       </div>
       <Button
         className="px-12"
+        data-testid="search-button"
         disabled={
           isPending ||
           !travellerDocumentNoInput.length ||

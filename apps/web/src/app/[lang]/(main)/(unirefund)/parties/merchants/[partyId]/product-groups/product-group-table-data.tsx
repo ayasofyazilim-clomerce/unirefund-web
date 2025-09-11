@@ -1,11 +1,11 @@
 import type {
   UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto,
   UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto,
-} from "@ayasofyazilim/saas/CRMService";
+} from "@repo/saas/CRMService";
 import {
   $UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto,
   $UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto,
-} from "@ayasofyazilim/saas/CRMService";
+} from "@repo/saas/CRMService";
 import type {UniRefund_SettingService_ProductGroups_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import type {
   TanstackTableColumnLink,

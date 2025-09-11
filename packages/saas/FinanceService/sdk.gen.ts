@@ -10,7 +10,7 @@ export class RebateStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFinanceServiceRebateStatementHeadersById(data: GetApiFinanceServiceRebateStatementHeadersByIdData): CancelablePromise<GetApiFinanceServiceRebateStatementHeadersByIdResponse> {
@@ -25,8 +25,8 @@ export class RebateStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -36,7 +36,7 @@ export class RebateStatementHeaderService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFinanceServiceRebateStatementHeaders(data: GetApiFinanceServiceRebateStatementHeadersData = {}): CancelablePromise<GetApiFinanceServiceRebateStatementHeadersResponse> {
@@ -53,8 +53,8 @@ export class RebateStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -62,7 +62,7 @@ export class RebateStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFinanceServiceRebateStatementHeaders(data: PostApiFinanceServiceRebateStatementHeadersData): CancelablePromise<PostApiFinanceServiceRebateStatementHeadersResponse> {
@@ -76,8 +76,8 @@ export class RebateStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -85,7 +85,7 @@ export class RebateStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFinanceServiceRebateStatementHeadersFormDraft(data: PostApiFinanceServiceRebateStatementHeadersFormDraftData): CancelablePromise<PostApiFinanceServiceRebateStatementHeadersFormDraftResponse> {
@@ -99,8 +99,8 @@ export class RebateStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -108,7 +108,7 @@ export class RebateStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFinanceServiceRebateStatementHeadersFormBulkPreview(data: PostApiFinanceServiceRebateStatementHeadersFormBulkPreviewData = {}): CancelablePromise<PostApiFinanceServiceRebateStatementHeadersFormBulkPreviewResponse> {
@@ -122,8 +122,8 @@ export class RebateStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -136,7 +136,7 @@ export class VatStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFinanceServiceVatStatementHeadersById(data: GetApiFinanceServiceVatStatementHeadersByIdData): CancelablePromise<GetApiFinanceServiceVatStatementHeadersByIdResponse> {
@@ -151,8 +151,8 @@ export class VatStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -160,7 +160,7 @@ export class VatStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFinanceServiceVatStatementHeadersByIdBasicInformation(data: GetApiFinanceServiceVatStatementHeadersByIdBasicInformationData): CancelablePromise<GetApiFinanceServiceVatStatementHeadersByIdBasicInformationResponse> {
@@ -175,8 +175,8 @@ export class VatStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -186,7 +186,7 @@ export class VatStatementHeaderService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiFinanceServiceVatStatementHeaders(data: GetApiFinanceServiceVatStatementHeadersData = {}): CancelablePromise<GetApiFinanceServiceVatStatementHeadersResponse> {
@@ -203,8 +203,8 @@ export class VatStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -212,7 +212,7 @@ export class VatStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFinanceServiceVatStatementHeaders(data: PostApiFinanceServiceVatStatementHeadersData): CancelablePromise<PostApiFinanceServiceVatStatementHeadersResponse> {
@@ -226,8 +226,8 @@ export class VatStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -235,7 +235,7 @@ export class VatStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFinanceServiceVatStatementHeadersFormDraft(data: PostApiFinanceServiceVatStatementHeadersFormDraftData): CancelablePromise<PostApiFinanceServiceVatStatementHeadersFormDraftResponse> {
@@ -249,8 +249,8 @@ export class VatStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -258,7 +258,7 @@ export class VatStatementHeaderService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiFinanceServiceVatStatementHeadersFormBulkPreview(data: PostApiFinanceServiceVatStatementHeadersFormBulkPreviewData = {}): CancelablePromise<PostApiFinanceServiceVatStatementHeadersFormBulkPreviewResponse> {
@@ -272,8 +272,8 @@ export class VatStatementHeaderService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }

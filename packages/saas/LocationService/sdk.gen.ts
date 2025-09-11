@@ -10,7 +10,7 @@ export class AddressCommonDataService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceAddressCommonDataById(data: GetApiLocationServiceAddressCommonDataByIdData): CancelablePromise<GetApiLocationServiceAddressCommonDataByIdResponse> {
@@ -25,8 +25,8 @@ export class AddressCommonDataService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -35,7 +35,7 @@ export class AddressCommonDataService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceAddressCommonDataById(data: PutApiLocationServiceAddressCommonDataByIdData): CancelablePromise<PutApiLocationServiceAddressCommonDataByIdResponse> {
@@ -52,8 +52,8 @@ export class AddressCommonDataService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -61,7 +61,7 @@ export class AddressCommonDataService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceAddressCommonDataById(data: DeleteApiLocationServiceAddressCommonDataByIdData): CancelablePromise<DeleteApiLocationServiceAddressCommonDataByIdResponse> {
@@ -76,8 +76,8 @@ export class AddressCommonDataService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -87,7 +87,7 @@ export class AddressCommonDataService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceAddressCommonData(data: GetApiLocationServiceAddressCommonDataData = {}): CancelablePromise<GetApiLocationServiceAddressCommonDataResponse> {
@@ -104,8 +104,8 @@ export class AddressCommonDataService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -113,7 +113,7 @@ export class AddressCommonDataService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceAddressCommonData(data: PostApiLocationServiceAddressCommonDataData = {}): CancelablePromise<PostApiLocationServiceAddressCommonDataResponse> {
@@ -127,8 +127,8 @@ export class AddressCommonDataService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -136,7 +136,7 @@ export class AddressCommonDataService {
     /**
      * @param data The data for the request.
      * @param data.ids
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceAddressCommonDataGetListWithIds(data: GetApiLocationServiceAddressCommonDataGetListWithIdsData = {}): CancelablePromise<GetApiLocationServiceAddressCommonDataGetListWithIdsResponse> {
@@ -151,8 +151,8 @@ export class AddressCommonDataService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -167,7 +167,7 @@ export class CityService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCities(data: GetApiLocationServiceCitiesData = {}): CancelablePromise<GetApiLocationServiceCitiesResponse> {
@@ -184,8 +184,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -193,7 +193,7 @@ export class CityService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceCities(data: PostApiLocationServiceCitiesData = {}): CancelablePromise<PostApiLocationServiceCitiesResponse> {
@@ -207,8 +207,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -216,7 +216,7 @@ export class CityService {
     /**
      * @param data The data for the request.
      * @param data.regionId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCitiesGetListByRegionByRegionId(data: GetApiLocationServiceCitiesGetListByRegionByRegionIdData): CancelablePromise<GetApiLocationServiceCitiesGetListByRegionByRegionIdResponse> {
@@ -231,8 +231,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -240,7 +240,7 @@ export class CityService {
     /**
      * @param data The data for the request.
      * @param data.countryId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCitiesGetListByCountryByCountryId(data: GetApiLocationServiceCitiesGetListByCountryByCountryIdData): CancelablePromise<GetApiLocationServiceCitiesGetListByCountryByCountryIdResponse> {
@@ -255,8 +255,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -264,7 +264,7 @@ export class CityService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCitiesById(data: GetApiLocationServiceCitiesByIdData): CancelablePromise<GetApiLocationServiceCitiesByIdResponse> {
@@ -279,8 +279,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -289,7 +289,7 @@ export class CityService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceCitiesById(data: PutApiLocationServiceCitiesByIdData): CancelablePromise<PutApiLocationServiceCitiesByIdResponse> {
@@ -306,8 +306,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -315,7 +315,7 @@ export class CityService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceCitiesById(data: DeleteApiLocationServiceCitiesByIdData): CancelablePromise<DeleteApiLocationServiceCitiesByIdResponse> {
@@ -330,8 +330,8 @@ export class CityService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -346,7 +346,7 @@ export class CountryService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountries(data: GetApiLocationServiceCountriesData = {}): CancelablePromise<GetApiLocationServiceCountriesResponse> {
@@ -363,8 +363,8 @@ export class CountryService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -372,7 +372,7 @@ export class CountryService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceCountries(data: PostApiLocationServiceCountriesData = {}): CancelablePromise<PostApiLocationServiceCountriesResponse> {
@@ -386,8 +386,8 @@ export class CountryService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -395,7 +395,7 @@ export class CountryService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountriesById(data: GetApiLocationServiceCountriesByIdData): CancelablePromise<GetApiLocationServiceCountriesByIdResponse> {
@@ -410,8 +410,8 @@ export class CountryService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -420,7 +420,7 @@ export class CountryService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceCountriesById(data: PutApiLocationServiceCountriesByIdData): CancelablePromise<PutApiLocationServiceCountriesByIdResponse> {
@@ -437,8 +437,8 @@ export class CountryService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -446,7 +446,7 @@ export class CountryService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceCountriesById(data: DeleteApiLocationServiceCountriesByIdData): CancelablePromise<DeleteApiLocationServiceCountriesByIdResponse> {
@@ -461,8 +461,8 @@ export class CountryService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -477,7 +477,7 @@ export class CountryDateService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountryDates(data: GetApiLocationServiceCountryDatesData = {}): CancelablePromise<GetApiLocationServiceCountryDatesResponse> {
@@ -494,8 +494,8 @@ export class CountryDateService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -503,7 +503,7 @@ export class CountryDateService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceCountryDates(data: PostApiLocationServiceCountryDatesData = {}): CancelablePromise<PostApiLocationServiceCountryDatesResponse> {
@@ -517,8 +517,8 @@ export class CountryDateService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -526,7 +526,7 @@ export class CountryDateService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountryDatesById(data: GetApiLocationServiceCountryDatesByIdData): CancelablePromise<GetApiLocationServiceCountryDatesByIdResponse> {
@@ -541,8 +541,8 @@ export class CountryDateService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -551,7 +551,7 @@ export class CountryDateService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceCountryDatesById(data: PutApiLocationServiceCountryDatesByIdData): CancelablePromise<PutApiLocationServiceCountryDatesByIdResponse> {
@@ -568,8 +568,8 @@ export class CountryDateService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -577,7 +577,7 @@ export class CountryDateService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceCountryDatesById(data: DeleteApiLocationServiceCountryDatesByIdData): CancelablePromise<DeleteApiLocationServiceCountryDatesByIdResponse> {
@@ -592,8 +592,8 @@ export class CountryDateService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -608,7 +608,7 @@ export class CountryNumberService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountryNumbers(data: GetApiLocationServiceCountryNumbersData = {}): CancelablePromise<GetApiLocationServiceCountryNumbersResponse> {
@@ -625,8 +625,8 @@ export class CountryNumberService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -634,7 +634,7 @@ export class CountryNumberService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceCountryNumbers(data: PostApiLocationServiceCountryNumbersData = {}): CancelablePromise<PostApiLocationServiceCountryNumbersResponse> {
@@ -648,8 +648,8 @@ export class CountryNumberService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -657,7 +657,7 @@ export class CountryNumberService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountryNumbersById(data: GetApiLocationServiceCountryNumbersByIdData): CancelablePromise<GetApiLocationServiceCountryNumbersByIdResponse> {
@@ -672,8 +672,8 @@ export class CountryNumberService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -682,7 +682,7 @@ export class CountryNumberService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceCountryNumbersById(data: PutApiLocationServiceCountryNumbersByIdData): CancelablePromise<PutApiLocationServiceCountryNumbersByIdResponse> {
@@ -699,8 +699,8 @@ export class CountryNumberService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -708,7 +708,7 @@ export class CountryNumberService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceCountryNumbersById(data: DeleteApiLocationServiceCountryNumbersByIdData): CancelablePromise<DeleteApiLocationServiceCountryNumbersByIdResponse> {
@@ -723,8 +723,8 @@ export class CountryNumberService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -739,7 +739,7 @@ export class CountryTimeService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountryTimes(data: GetApiLocationServiceCountryTimesData = {}): CancelablePromise<GetApiLocationServiceCountryTimesResponse> {
@@ -756,8 +756,8 @@ export class CountryTimeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -765,7 +765,7 @@ export class CountryTimeService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceCountryTimes(data: PostApiLocationServiceCountryTimesData = {}): CancelablePromise<PostApiLocationServiceCountryTimesResponse> {
@@ -779,8 +779,8 @@ export class CountryTimeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -788,7 +788,7 @@ export class CountryTimeService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCountryTimesById(data: GetApiLocationServiceCountryTimesByIdData): CancelablePromise<GetApiLocationServiceCountryTimesByIdResponse> {
@@ -803,8 +803,8 @@ export class CountryTimeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -813,7 +813,7 @@ export class CountryTimeService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceCountryTimesById(data: PutApiLocationServiceCountryTimesByIdData): CancelablePromise<PutApiLocationServiceCountryTimesByIdResponse> {
@@ -830,8 +830,8 @@ export class CountryTimeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -839,7 +839,7 @@ export class CountryTimeService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceCountryTimesById(data: DeleteApiLocationServiceCountryTimesByIdData): CancelablePromise<DeleteApiLocationServiceCountryTimesByIdResponse> {
@@ -854,8 +854,8 @@ export class CountryTimeService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -870,7 +870,7 @@ export class CurrencyService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCurrencies(data: GetApiLocationServiceCurrenciesData = {}): CancelablePromise<GetApiLocationServiceCurrenciesResponse> {
@@ -887,8 +887,8 @@ export class CurrencyService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -896,7 +896,7 @@ export class CurrencyService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceCurrencies(data: PostApiLocationServiceCurrenciesData = {}): CancelablePromise<PostApiLocationServiceCurrenciesResponse> {
@@ -910,8 +910,8 @@ export class CurrencyService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -919,7 +919,7 @@ export class CurrencyService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceCurrenciesById(data: GetApiLocationServiceCurrenciesByIdData): CancelablePromise<GetApiLocationServiceCurrenciesByIdResponse> {
@@ -934,8 +934,8 @@ export class CurrencyService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -944,7 +944,7 @@ export class CurrencyService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceCurrenciesById(data: PutApiLocationServiceCurrenciesByIdData): CancelablePromise<PutApiLocationServiceCurrenciesByIdResponse> {
@@ -961,8 +961,8 @@ export class CurrencyService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -970,7 +970,7 @@ export class CurrencyService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceCurrenciesById(data: DeleteApiLocationServiceCurrenciesByIdData): CancelablePromise<DeleteApiLocationServiceCurrenciesByIdResponse> {
@@ -985,8 +985,8 @@ export class CurrencyService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1001,7 +1001,7 @@ export class DistrictService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceDistricts(data: GetApiLocationServiceDistrictsData = {}): CancelablePromise<GetApiLocationServiceDistrictsResponse> {
@@ -1018,8 +1018,8 @@ export class DistrictService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1027,7 +1027,7 @@ export class DistrictService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceDistricts(data: PostApiLocationServiceDistrictsData = {}): CancelablePromise<PostApiLocationServiceDistrictsResponse> {
@@ -1041,8 +1041,8 @@ export class DistrictService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1050,7 +1050,7 @@ export class DistrictService {
     /**
      * @param data The data for the request.
      * @param data.cityId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceDistrictsGetListByCityByCityId(data: GetApiLocationServiceDistrictsGetListByCityByCityIdData): CancelablePromise<GetApiLocationServiceDistrictsGetListByCityByCityIdResponse> {
@@ -1065,8 +1065,8 @@ export class DistrictService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1074,7 +1074,7 @@ export class DistrictService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceDistrictsById(data: GetApiLocationServiceDistrictsByIdData): CancelablePromise<GetApiLocationServiceDistrictsByIdResponse> {
@@ -1089,8 +1089,8 @@ export class DistrictService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1099,7 +1099,7 @@ export class DistrictService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceDistrictsById(data: PutApiLocationServiceDistrictsByIdData): CancelablePromise<PutApiLocationServiceDistrictsByIdResponse> {
@@ -1116,8 +1116,8 @@ export class DistrictService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1125,7 +1125,7 @@ export class DistrictService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceDistrictsById(data: DeleteApiLocationServiceDistrictsByIdData): CancelablePromise<DeleteApiLocationServiceDistrictsByIdResponse> {
@@ -1140,8 +1140,8 @@ export class DistrictService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1156,7 +1156,7 @@ export class NeighborhoodService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceNeighborhoods(data: GetApiLocationServiceNeighborhoodsData = {}): CancelablePromise<GetApiLocationServiceNeighborhoodsResponse> {
@@ -1173,8 +1173,8 @@ export class NeighborhoodService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1182,7 +1182,7 @@ export class NeighborhoodService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceNeighborhoods(data: PostApiLocationServiceNeighborhoodsData = {}): CancelablePromise<PostApiLocationServiceNeighborhoodsResponse> {
@@ -1196,8 +1196,8 @@ export class NeighborhoodService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1205,7 +1205,7 @@ export class NeighborhoodService {
     /**
      * @param data The data for the request.
      * @param data.districtId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceNeighborhoodsGetListByDistrictByDistrictId(data: GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdData): CancelablePromise<GetApiLocationServiceNeighborhoodsGetListByDistrictByDistrictIdResponse> {
@@ -1220,8 +1220,8 @@ export class NeighborhoodService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1229,7 +1229,7 @@ export class NeighborhoodService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceNeighborhoodsById(data: GetApiLocationServiceNeighborhoodsByIdData): CancelablePromise<GetApiLocationServiceNeighborhoodsByIdResponse> {
@@ -1244,8 +1244,8 @@ export class NeighborhoodService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1254,7 +1254,7 @@ export class NeighborhoodService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceNeighborhoodsById(data: PutApiLocationServiceNeighborhoodsByIdData): CancelablePromise<PutApiLocationServiceNeighborhoodsByIdResponse> {
@@ -1271,8 +1271,8 @@ export class NeighborhoodService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1280,7 +1280,7 @@ export class NeighborhoodService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceNeighborhoodsById(data: DeleteApiLocationServiceNeighborhoodsByIdData): CancelablePromise<DeleteApiLocationServiceNeighborhoodsByIdResponse> {
@@ -1295,8 +1295,8 @@ export class NeighborhoodService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1311,7 +1311,7 @@ export class RegionService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceRegions(data: GetApiLocationServiceRegionsData = {}): CancelablePromise<GetApiLocationServiceRegionsResponse> {
@@ -1328,8 +1328,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1337,7 +1337,7 @@ export class RegionService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceRegions(data: PostApiLocationServiceRegionsData = {}): CancelablePromise<PostApiLocationServiceRegionsResponse> {
@@ -1351,8 +1351,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1360,7 +1360,7 @@ export class RegionService {
     /**
      * @param data The data for the request.
      * @param data.countryId
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceRegionsGetListByCountryByCountryId(data: GetApiLocationServiceRegionsGetListByCountryByCountryIdData): CancelablePromise<GetApiLocationServiceRegionsGetListByCountryByCountryIdResponse> {
@@ -1375,8 +1375,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1384,7 +1384,7 @@ export class RegionService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceRegionsById(data: GetApiLocationServiceRegionsByIdData): CancelablePromise<GetApiLocationServiceRegionsByIdResponse> {
@@ -1399,8 +1399,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1409,7 +1409,7 @@ export class RegionService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceRegionsById(data: PutApiLocationServiceRegionsByIdData): CancelablePromise<PutApiLocationServiceRegionsByIdResponse> {
@@ -1426,8 +1426,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1435,7 +1435,7 @@ export class RegionService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceRegionsById(data: DeleteApiLocationServiceRegionsByIdData): CancelablePromise<DeleteApiLocationServiceRegionsByIdResponse> {
@@ -1450,8 +1450,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1459,7 +1459,7 @@ export class RegionService {
     /**
      * @param data The data for the request.
      * @param data.countryId
-     * @returns string Success
+     * @returns string OK
      * @throws ApiError
      */
     public getApiLocationServiceRegionsGetDefaultRegionIdByCountryId(data: GetApiLocationServiceRegionsGetDefaultRegionIdByCountryIdData): CancelablePromise<GetApiLocationServiceRegionsGetDefaultRegionIdByCountryIdResponse> {
@@ -1474,8 +1474,8 @@ export class RegionService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1490,7 +1490,7 @@ export class RegionalSettingService {
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceRegionalSettings(data: GetApiLocationServiceRegionalSettingsData = {}): CancelablePromise<GetApiLocationServiceRegionalSettingsResponse> {
@@ -1507,8 +1507,8 @@ export class RegionalSettingService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1516,7 +1516,7 @@ export class RegionalSettingService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public postApiLocationServiceRegionalSettings(data: PostApiLocationServiceRegionalSettingsData = {}): CancelablePromise<PostApiLocationServiceRegionalSettingsResponse> {
@@ -1530,8 +1530,8 @@ export class RegionalSettingService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1539,7 +1539,7 @@ export class RegionalSettingService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public getApiLocationServiceRegionalSettingsById(data: GetApiLocationServiceRegionalSettingsByIdData): CancelablePromise<GetApiLocationServiceRegionalSettingsByIdResponse> {
@@ -1554,8 +1554,8 @@ export class RegionalSettingService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1564,7 +1564,7 @@ export class RegionalSettingService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public putApiLocationServiceRegionalSettingsById(data: PutApiLocationServiceRegionalSettingsByIdData): CancelablePromise<PutApiLocationServiceRegionalSettingsByIdResponse> {
@@ -1581,8 +1581,8 @@ export class RegionalSettingService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }
@@ -1590,7 +1590,7 @@ export class RegionalSettingService {
     /**
      * @param data The data for the request.
      * @param data.id
-     * @returns unknown Success
+     * @returns unknown OK
      * @throws ApiError
      */
     public deleteApiLocationServiceRegionalSettingsById(data: DeleteApiLocationServiceRegionalSettingsByIdData): CancelablePromise<DeleteApiLocationServiceRegionalSettingsByIdResponse> {
@@ -1605,8 +1605,8 @@ export class RegionalSettingService {
                 401: 'Unauthorized',
                 403: 'Forbidden',
                 404: 'Not Found',
-                500: 'Server Error',
-                501: 'Server Error'
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
             }
         });
     }

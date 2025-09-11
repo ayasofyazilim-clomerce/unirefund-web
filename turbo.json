@@ -21,6 +21,7 @@
     "SUPPORTED_LOCALES",
     "ABP_APP_NAME",
     "NOVU_APP_IDENTIFIER",
+    "CI",
     "NOVU_APP_URL",
     "NOVU_SECRET_KEY",
     "SUPERSET_URL",

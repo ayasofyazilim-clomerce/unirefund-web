@@ -67,6 +67,7 @@ export function TravellerDocuments({
     TravellerDocumentProfileDto & Omit<CreateTravellerDocumentDto, "expirationDate">
   >[] = [
     {
+      id: "create-document",
       actionLocation: "table",
       cta: languageData["Travellers.New.Document"],
       type: "schemaform-dialog",
@@ -189,6 +190,7 @@ function EditForm({
       disabled={isPending}
       filter={{type: "exclude", keys: ["travellerDocumentId"]}}
       formData={row}
+      id="edit-document-form"
       key={JSON.stringify(row)}
       onSubmit={({formData}) => {
         if (!formData) return;
@@ -247,13 +249,14 @@ function EditForm({
           description={languageData["Delete.Assurance"]}
           title={languageData.Delete}
           triggerProps={{
+            "data-testid": "delete-document",
             type: "button",
             variant: "outline",
             children: languageData.Delete,
           }}
           type="with-trigger"
         />
-        <Button>{languageData.Save}</Button>
+        <Button data-testid="save-document">{languageData.Save}</Button>
       </div>
     </SchemaForm>
   );

@@ -3,8 +3,8 @@
 import type {
   UniRefund_ExportValidationService_ExportValidations_ExportValidationDto,
   UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto,
-} from "@ayasofyazilim/saas/ExportValidationService";
-import {$UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto} from "@ayasofyazilim/saas/ExportValidationService";
+} from "@repo/saas/ExportValidationService";
+import {$UniRefund_ExportValidationService_ExportValidations_UpdateExportValidationDto} from "@repo/saas/ExportValidationService";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {useRouter} from "next/navigation";

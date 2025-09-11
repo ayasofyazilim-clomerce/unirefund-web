@@ -1,6 +1,6 @@
 "use client";
 
-import type {UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto} from "@ayasofyazilim/saas/CRMService";
+import type {UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto} from "@repo/saas/CRMService";
 import type {UniRefund_SettingService_ProductGroups_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";

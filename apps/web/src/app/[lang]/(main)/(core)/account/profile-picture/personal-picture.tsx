@@ -40,11 +40,12 @@ export default function PersonalPicture({languageData}: {languageData: AccountSe
           <span className="text-gray-500">{languageData["No.Picture.Selected"]}</span>
         )}
       </div>
-      <form>
+      <form data-testid="personal-picture-form">
         <div className="flex flex-col items-start gap-4 px-96 pl-64 pt-4">
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2" data-testid="upload-type-0-label">
             <input
               checked={uploadType === 0}
+              data-testid="upload-type-0-input"
               name="uploadType"
               onChange={() => {
                 setUploadType(0);
@@ -55,9 +56,10 @@ export default function PersonalPicture({languageData}: {languageData: AccountSe
             />
             {languageData["Default.Avatar"]}
           </label>
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2" data-testid="upload-type-1-label">
             <input
               checked={uploadType === 1}
+              data-testid="upload-type-1-label"
               name="uploadType"
               onChange={() => {
                 setUploadType(1);
@@ -68,9 +70,10 @@ export default function PersonalPicture({languageData}: {languageData: AccountSe
             />
             {languageData["Use.Gravatar"]}
           </label>
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2" data-testid="upload-type-2-label">
             <input
               checked={uploadType === 2}
+              data-testid="upload-type-2-label"
               name="uploadType"
               onChange={() => {
                 setUploadType(2);
@@ -86,6 +89,7 @@ export default function PersonalPicture({languageData}: {languageData: AccountSe
           <div>
             <input
               className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 hover:bg-gray-100 focus:outline-none"
+              data-testid="file-input"
               id="file"
               type="file"
             />
@@ -93,6 +97,7 @@ export default function PersonalPicture({languageData}: {languageData: AccountSe
         )}
         <div className="flex justify-end pr-72 pt-8">
           <Button
+            data-testid="save-button"
             disabled={isPending}
             onClick={() => {
               handleSaveImage();

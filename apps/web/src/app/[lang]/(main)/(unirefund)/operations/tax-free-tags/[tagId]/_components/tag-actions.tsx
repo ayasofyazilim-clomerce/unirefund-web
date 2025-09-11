@@ -1,6 +1,6 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import type {UniRefund_TagService_Tags_TagDetailDto} from "@ayasofyazilim/saas/TagService";
+import type {UniRefund_TagService_Tags_TagDetailDto} from "@repo/saas/TagService";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import {PencilRuler} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";
@@ -40,6 +40,7 @@ export default function TagActions({
       <div className="flex flex-col gap-4">
         {(status === "Issued" || status === "EarlyPaid") && hasGrant.ExportValidation ? (
           <Button
+            data-testid="new-export-validation"
             onClick={() => {
               router.push(`/operations/export-validations/${tagId}/new`);
             }}
@@ -49,6 +50,7 @@ export default function TagActions({
         ) : null}
         {refundPoint && status === "Issued" && hasGrant.EarlyRefund ? (
           <Button
+            data-testid="early-refund"
             onClick={() => {
               router.push(
                 `/operations/refund/need-validation?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
@@ -60,6 +62,7 @@ export default function TagActions({
         ) : null}
         {refundPoint && status === "ExportValidated" && hasGrant.Refund ? (
           <Button
+            data-testid="refund"
             onClick={() => {
               router.push(
                 `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagId}`,

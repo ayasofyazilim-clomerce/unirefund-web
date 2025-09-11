@@ -19,13 +19,38 @@ export type UniRefund_ExportValidationService_ExportValidations_CreateExportVali
     finalValidationResult?: UniRefund_ExportValidationService_ExportValidations_ValidationResult;
 };
 
+/**
+ * Represents the details of an export validation process for a tax-free transaction.
+ * This DTO captures information related to customs verification of exported goods.
+ */
 export type UniRefund_ExportValidationService_ExportValidations_ExportValidationDetailDto = {
     id?: string;
+    /**
+     * The unique identifier of the tax-free tag associated with the export.
+     */
     tagId?: (string) | null;
+    /**
+     * The readable number or code of the tax-free tag.
+     */
     tagNumber?: (string) | null;
+    /**
+     * The unique identifier of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsId: string;
+    /**
+     * The name of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsName: string;
+    /**
+     * An optional reference ID for the export validation, possibly from an external system.
+     */
     referenceId?: (string) | null;
+    /**
+     * The date and time when the export validation was performed.
+     * This field is **required**.
+     */
     exportDate: string;
     status?: UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode;
     stampType?: UniRefund_ExportValidationService_ExportValidations_StampTypeCode;
@@ -33,13 +58,38 @@ export type UniRefund_ExportValidationService_ExportValidations_ExportValidation
     finalValidationResult?: UniRefund_ExportValidationService_ExportValidations_ValidationResult;
 };
 
+/**
+ * Represents the details of an export validation process for a tax-free transaction.
+ * This DTO captures information related to customs verification of exported goods.
+ */
 export type UniRefund_ExportValidationService_ExportValidations_ExportValidationDto = {
     id?: string;
+    /**
+     * The unique identifier of the tax-free tag associated with the export.
+     */
     tagId?: (string) | null;
+    /**
+     * The readable number or code of the tax-free tag.
+     */
     tagNumber?: (string) | null;
+    /**
+     * The unique identifier of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsId: string;
+    /**
+     * The name of the customs office where the export validation occurred.
+     * This field is **required**.
+     */
     customsName: string;
+    /**
+     * The date and time when the export validation was performed.
+     * This field is **required**.
+     */
     exportDate: string;
+    /**
+     * An optional reference ID for the export validation, possibly from an external system.
+     */
     referenceId?: (string) | null;
     status?: UniRefund_ExportValidationService_ExportValidations_ExportValidationStatusCode;
     stampType?: UniRefund_ExportValidationService_ExportValidations_StampTypeCode;

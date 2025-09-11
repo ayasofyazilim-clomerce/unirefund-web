@@ -64,7 +64,10 @@ export function SelectIndividualStep({
   if (selectedIndividual) {
     return (
       <div className="w-full space-y-3">
-        <Label className="font-bold text-slate-600" htmlFor="individuals-combobox">
+        <Label
+          className="font-bold text-slate-600"
+          data-testid="selected-individual-label"
+          htmlFor="individuals-combobox">
           Selected Individual
         </Label>
 
@@ -81,6 +84,7 @@ export function SelectIndividualStep({
           </div>
           <Button
             className="ml-auto rounded-full"
+            data-testid="remove-individual"
             onClick={() => {
               onIndividualSelect(undefined);
             }}
@@ -96,10 +100,11 @@ export function SelectIndividualStep({
   return (
     <>
       <div className="flex w-full flex-col gap-2">
-        <Label className="text-slate-600" htmlFor="individuals-combobox">
+        <Label className="text-slate-600" data-testid="search-individual-label" htmlFor="individuals-combobox">
           Search Individual
         </Label>
         <EmailInput
+          id="search-individual-email"
           onValueChange={(e) => {
             setEmail(e);
           }}
@@ -111,6 +116,7 @@ export function SelectIndividualStep({
         <Button
           aria-label="Search individual"
           className="w-full"
+          data-testid="search-individual"
           disabled={!isEmailValid || isPending}
           onClick={handleSearch}
           variant="default">
