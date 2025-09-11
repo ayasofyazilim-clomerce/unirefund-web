@@ -1,4 +1,4 @@
-import {cn} from "./types";
+import {cn} from "@/lib/utils";
 
 export function StatusBadge({status}: {status: string}) {
   const getStatusConfig = (s: string) => {

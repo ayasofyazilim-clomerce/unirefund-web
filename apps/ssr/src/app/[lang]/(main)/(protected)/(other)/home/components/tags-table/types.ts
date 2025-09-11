@@ -32,11 +32,6 @@ export interface TagRowData {
 export type TagItem = UniRefund_TagService_Tags_TagListItemDto;
 export type TagTotal = UniRefund_TagService_Tags_TagTotalDto;
 
-// Utility functions
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(" ");
-}
-
 // Helper function to get amount from totals
 export function getAmountByType(totals: TagTotal[] | null | undefined, type: string): AmountInfo | null {
   if (!totals || !Array.isArray(totals)) return null;
