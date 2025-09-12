@@ -19,10 +19,12 @@ export function MerchantInformationCard({merchant, languageData}: MerchantInform
           <div className="text-sm font-medium text-gray-500">{languageData["MerchantInformation.Name"]}</div>
           <div className="text-md font-semibold text-gray-800">{merchant?.name ?? "—"}</div>
         </div>
-        {merchant?.address ? <div className="">
+        {merchant?.address ? (
+          <div className="">
             <div className="text-sm font-medium text-gray-500">{languageData["MerchantInformation.Address"]}</div>
             <div className="text-md font-semibold text-gray-800">{merchant.address.addressLine}</div>
-          </div> : null}
+          </div>
+        ) : null}
       </div>
     </div>
   );

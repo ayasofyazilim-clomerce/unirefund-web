@@ -16,18 +16,14 @@ function formatReadableDate(dateString?: string | null, lang = "en") {
     const locale = /^tr\b/i.test(lang) ? "tr-TR" : "en-US";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return dateString;
-    return (
-      `${date.toLocaleDateString(locale, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }) 
-      }, ${ 
-      date.toLocaleTimeString(locale, {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}`
-    );
+    return `${date.toLocaleDateString(locale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}, ${date.toLocaleTimeString(locale, {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   } catch {
     return dateString;
   }
