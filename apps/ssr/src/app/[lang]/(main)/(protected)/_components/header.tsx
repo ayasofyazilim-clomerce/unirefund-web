@@ -97,7 +97,7 @@ export default function Header({
               className="mr-2 flex items-center justify-center"
               href={getBaseLink("tags", lang)}
               title={languageData.Tags}>
-              <p className=" hover:text-primary flex items-center text-sm font-medium transition-colors">
+              <p className="hover:text-primary flex items-center text-sm font-medium transition-colors">
                 {languageData.Tags}
                 <Tag className="ml-2 inline h-4 w-4" />
               </p>
