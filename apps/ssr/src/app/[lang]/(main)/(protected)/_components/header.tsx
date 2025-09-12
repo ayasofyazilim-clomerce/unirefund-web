@@ -15,7 +15,7 @@ import {cn} from "@/lib/utils";
 import {NotificationPopover} from "@repo/ui/notification";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {signOutServer} from "@repo/utils/auth";
-import {Home, LogOut, MapPin, Menu, User, X} from "lucide-react";
+import {Home, LogOut, MapPin, Menu, Tag, User, X} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {useParams, usePathname} from "next/navigation";
@@ -95,11 +95,20 @@ export default function Header({
 
             <Link
               className="mr-2 flex items-center justify-center"
+              href={getBaseLink("tags", lang)}
+              title={languageData.Tags}>
+              <p className=" hover:text-primary flex items-center text-sm font-medium transition-colors">
+                {languageData.Tags}
+                <Tag className="ml-2 inline h-4 w-4" />
+              </p>
+            </Link>
+            <Link
+              className="mr-2 flex items-center justify-center"
               href={getBaseLink("explore", lang)}
               title={languageData.Explore}>
-              <p className=" hover:text-primary text-sm font-medium transition-colors">
-                <MapPin className="mr-1 inline h-4 w-4" />
+              <p className=" hover:text-primary flex items-center text-sm font-medium transition-colors">
                 {languageData.Explore}
+                <MapPin className="ml-2 inline h-4 w-4" />
               </p>
             </Link>
             {/* LanguageSelector for desktop */}
