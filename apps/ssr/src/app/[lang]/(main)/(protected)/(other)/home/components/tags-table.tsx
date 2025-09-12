@@ -10,6 +10,7 @@ import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 import {TagsDesktopTable} from "./tags-table/desktop-table";
 import {TagsMobileCards} from "./tags-table/mobile-cards";
 import {DISPLAY_LIMIT, type TagsTableProps} from "./tags-table/types";
+import {useRouter} from "next/navigation";
 
 // Error component
 function TagsError({message, languageData}: {message: string; languageData: SSRServiceResource}) {
@@ -97,6 +98,7 @@ export default function TagsTable({languageData, tagsResponse, showAll = false}:
 
   const tagsData = tagsResponse.data;
   const hasData = tagsData.items && tagsData.items.length > 0;
+  const router = useRouter();
 
   if (!hasData) {
     return <TagsEmptyState languageData={languageData} />;
@@ -106,7 +108,7 @@ export default function TagsTable({languageData, tagsResponse, showAll = false}:
   const totalCount = tagsData.totalCount || tagsData.items?.length || 0;
 
   const handleTagClick = (tagId: string) => {
-    toast.info(`${tagId} clicked`);
+    router.push(getBaseLink(`tags/${tagId}`));
   };
 
   return (
