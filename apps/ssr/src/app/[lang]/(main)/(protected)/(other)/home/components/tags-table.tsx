@@ -4,7 +4,7 @@ import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
 import {ChevronRight, Tag} from "lucide-react";
 import Link from "next/link";
-import {toast} from "@/components/ui/sonner";
+import {useRouter} from "next/navigation";
 import {getBaseLink} from "@/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 import {TagsDesktopTable} from "./tags-table/desktop-table";
@@ -91,6 +91,7 @@ function TagsHeader({
 
 export default function TagsTable({languageData, tagsResponse, showAll = false}: TagsTableProps) {
   // Early returns for error and empty states
+  const router = useRouter();
   if (tagsResponse.type === "api-error") {
     return <TagsError languageData={languageData} message={tagsResponse.message} />;
   }
@@ -106,7 +107,7 @@ export default function TagsTable({languageData, tagsResponse, showAll = false}:
   const totalCount = tagsData.totalCount || tagsData.items?.length || 0;
 
   const handleTagClick = (tagId: string) => {
-    toast.info(`${tagId} clicked`);
+    router.push(getBaseLink(`tags/${tagId}`));
   };
 
   return (

@@ -7,7 +7,7 @@ import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
-import TagsPageClient from "./client";
+import TagsClient from "./client";
 
 interface SearchParamType {
   tagNumber?: string;
@@ -81,7 +81,7 @@ export default async function TagsPage({
 
   return (
     <div className="mt-6">
-      <TagsPageClient languageData={languageData} tagsResponse={tagsResponse} />
+      <TagsClient languageData={languageData} tagsResponse={tagsResponse} />
     </div>
   );
 }

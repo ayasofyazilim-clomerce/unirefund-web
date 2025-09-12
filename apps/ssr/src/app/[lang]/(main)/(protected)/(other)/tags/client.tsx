@@ -20,7 +20,7 @@ interface TagsPageClientProps {
   tagsResponse: ServerResponse<TagListResponseDto_TagListItemDto>;
 }
 
-export default function TagsPageClient({languageData, tagsResponse}: TagsPageClientProps) {
+export default function TagClient({languageData, tagsResponse}: TagsPageClientProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
