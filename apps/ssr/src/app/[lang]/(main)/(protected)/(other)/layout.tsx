@@ -20,7 +20,7 @@ export default async function Layout({children, params}: {children: React.ReactN
           subscriberId: session?.user?.sub || "",
         }}
       />
-      <main className="h-[calc(100dvh-4rem)] overflow-y-auto bg-white p-0 [&:not(:has(.mobile-fullscreen))]:p-6 md:[&:not(:has(.mobile-fullscreen))]:px-8 md:[&:not(:has(.mobile-fullscreen))]:py-6">
+      <main className="h-[calc(100dvh-4rem)] overflow-y-auto bg-white p-0 md:[&:not(:has(.mobile-fullscreen))]:px-8 md:[&:not(:has(.mobile-fullscreen))]:py-6">
         {children}
         <ChatwootWidget
           accessToken={session?.user?.access_token || ""}
