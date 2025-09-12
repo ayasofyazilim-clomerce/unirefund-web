@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {useState} from "react";
-import {Menu, X} from "lucide-react";
+import {LogIn, Menu, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useParams} from "next/navigation";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
@@ -48,26 +48,31 @@ export default function Header({
         {/* Desktop Navigation */}
         <nav className="hidden md:flex md:items-center md:space-x-8">
           <Link
-            className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
+            className="text-foreground/80 hover:text-primary text-sm font-medium transition-colors"
             href="https://unirefund.com">
             {languageData.About}
           </Link>
           <Link
-            className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
+            className="text-foreground/80 hover:text-primary text-sm font-medium transition-colors"
             href="https://unirefund.com/shoppers">
             {languageData.Services}
           </Link>
           <Link
-            className="text-foreground/60 hover:text-foreground text-sm font-medium transition-colors"
+            className="text-foreground/80 hover:text-primary text-sm font-medium transition-colors"
             href="https://unirefund.com/contact">
             {languageData.Contact}
           </Link>
 
           {/* LanguageSelector for desktop (far right) */}
-          <div className="ml-4">
-            <LanguageSelector availableLocals={availableLocals} lang={lang} />
-          </div>
         </nav>
+        <div className="hidden md:flex md:items-center md:gap-2">
+          <LanguageSelector availableLocals={availableLocals} lang={lang} />
+          <Link className="ml-4" href={getBaseLink("evidence-new-login", lang)}>
+            <Button className="rounded-full text-sm font-medium" size="sm">
+              {languageData["Login.Login"]} <LogIn className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen ? (
