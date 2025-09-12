@@ -67,8 +67,8 @@ export default function Header({
         </nav>
         <div className="hidden md:flex md:items-center md:gap-2">
           <LanguageSelector availableLocals={availableLocals} lang={lang} />
-          <Link href={getBaseLink("evidence-new-login", lang)} className="ml-4">
-            <Button size={"sm"} className="rounded-full text-sm font-medium">
+          <Link className="ml-4" href={getBaseLink("evidence-new-login", lang)}>
+            <Button className="rounded-full text-sm font-medium" size="sm">
               {languageData["Login.Login"]} <LogIn className="ml-2 h-4 w-4" />
             </Button>
           </Link>
