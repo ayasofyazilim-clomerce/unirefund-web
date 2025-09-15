@@ -51,6 +51,7 @@ function customColumns(locale: string, languageData: CRMServiceServiceResource) 
       name: languageData.Name,
       typeCode: languageData["CRM.typeCode"],
       vatNumber: languageData["CRM.vatNumber"],
+      gateNumber: languageData["Form.Custom.gateNumber"],
       externalStoreIdentifier: languageData["CRM.externalStoreIdentifier"],
     },
     config: {

@@ -26,18 +26,8 @@ export function IndividualForm({
     name: "Form.Individual",
     schema: $UpdateIndividualDto,
     extend: {
-      "ui:className": "grid md:grid-cols-2 gap-4 items-end",
-      telephone: {
-        "ui:className": "col-span-full",
-        "ui:field": "phone",
-      },
-      address: {
-        "ui:field": "address",
-      },
-      email: {
-        "ui:className": "col-span-full",
-        "ui:field": "email",
-      },
+      displayLabel: false,
+      "ui:className": "grid md:grid-cols-2 gap-4 p-0 pt-5 items-end border-none",
     },
   });
   const router = useRouter();

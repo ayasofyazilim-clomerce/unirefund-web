@@ -18,8 +18,9 @@
   },
   "peerDependencies": {
     "@ayasofyazilim/core-saas": "latest",
-    "@repo/saas": "workspace:*",
     "@repo/ayasofyazilim-ui": "workspace:*",
+    "@repo/saas": "workspace:*",
+    "@repo/actions": "workspace:*",
     "next": "14.1.1",
     "react": "18.3.1",
     "react-dom": "18.3.1"
@@ -46,11 +47,13 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@novu/react": "^2.6.5",
     "@radix-ui/react-icons": "^1.3.0",
+    "@tanstack/react-query": "^5.87.4",
     "embla-carousel-auto-scroll": "^8.1.3",
     "framer-motion": "^11.2.10",
     "lucide-react": "^0.445.0",
     "mini-svg-data-uri": "^1.4.4",
     "react-hook-form": "7.53.0",
-    "simplex-noise": "^4.0.1"
+    "simplex-noise": "^4.0.1",
+    "use-debounce": "^10.0.6"
   }
 }

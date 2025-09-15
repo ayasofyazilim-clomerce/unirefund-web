@@ -2,21 +2,20 @@
 
 import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
-import type {UniRefund_CRMService_Emails_EmailDto as EmailDto} from "@repo/saas/CRMService";
-import {$UniRefund_CRMService_Emails_EmailDto as $EmailDto} from "@repo/saas/CRMService";
-import {putMerchantEmailsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+// import { putMerchantEmailsByMerchantIdApi } from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {handlePutResponse} from "@repo/utils/api";
+import type {UniRefund_CRMService_Emails_EmailDto as EmailDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Emails_EmailDto as $EmailDto} from "@repo/saas/CRMService";
+// import { handlePutResponse } from "@repo/utils/api";
 import {useParams} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
-import {EmailWithTypeField} from "./email-with-type";
 
 export function EmailForm({languageData, emails}: {languageData: CRMServiceServiceResource; emails: EmailDto[]}) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
@@ -51,16 +50,20 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
       cta: languageData["CRM.email.create"],
       type: "schemaform-dialog",
       schema: $EmailDto,
-
       uiSchema: createUiSchemaWithResource({
         resources: languageData,
         schema: $EmailDto,
         name: "CRM.email",
-        extend: {"ui:field": "email"},
+        extend: {
+          "ui:className": "p-px border-none rounded-none",
+          displayLabel: false,
+          emailAddress: {
+            "ui:title": languageData["CRM.email"],
+            "ui:widget": "email",
+            "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+          },
+        },
       }),
-      fields: {
-        email: EmailWithTypeField({languageData}),
-      },
       formData: {
         type: "WORK",
         emailAddress: "",
@@ -86,7 +89,7 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
       }}
       columns={columns}
       data={emails}
-      expandedRowComponent={(row) => EditForm({row, languageData, partyId, isPending, startTransition})}
+      expandedRowComponent={(row) => EditForm({row, languageData, isPending, startTransition})}
       fillerColumn="emailAddress"
       showPagination={false}
       tableActions={tableActions}
@@ -99,13 +102,13 @@ function TypeRow({row, languageData}: {row: EmailDto; languageData: CRMServiceSe
 
 function EditForm({
   row,
-  partyId,
+  // partyId,
   languageData,
   isPending,
   startTransition,
 }: {
   row: EmailDto;
-  partyId: string;
+  // partyId: string;
   languageData: CRMServiceServiceResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
@@ -114,26 +117,23 @@ function EditForm({
     <SchemaForm<EmailDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      fields={{
-        email: EmailWithTypeField({languageData}),
-      }}
       filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
       id="edit-email-form"
       key={JSON.stringify(row)}
       onSubmit={({formData}) => {
         if (!formData) return;
-        const data = {
-          merchantId: partyId,
-          requestBody: {
-            id: row.id,
-            emailAddress: formData.emailAddress !== row.emailAddress ? formData.emailAddress : undefined,
-            type: formData.type !== row.type ? formData.type : undefined,
-          },
-        };
+        // const data = {
+        //   merchantId: partyId,
+        //   requestBody: {
+        //     id: row.id,
+        //     emailAddress: formData.emailAddress !== row.emailAddress ? formData.emailAddress : undefined,
+        //     type: formData.type !== row.type ? formData.type : undefined,
+        //   },
+        // };
         startTransition(() => {
-          void putMerchantEmailsByMerchantIdApi(data).then((response) => {
-            handlePutResponse(response);
+          startTransition(() => {
+            toast.error(languageData.NotImplemented);
           });
         });
       }}
@@ -144,8 +144,13 @@ function EditForm({
         schema: $EmailDto,
         name: "CRM.email",
         extend: {
-          "ui:className": "p-2 bg-white",
-          "ui:field": "email",
+          displayLabel: false,
+          "ui:className": "border-none p-2 rounded-none",
+          emailAddress: {
+            "ui:title": languageData["CRM.email"],
+            "ui:widget": "email",
+            "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+          },
         },
       })}
       withScrollArea={false}
@@ -155,7 +160,7 @@ function EditForm({
 
 function IsPrimaryAction({
   row,
-  partyId,
+  // partyId,
   isActive,
   isPending,
   startTransition,
@@ -175,15 +180,16 @@ function IsPrimaryAction({
       disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {
-          void putMerchantEmailsByMerchantIdApi({
-            merchantId: partyId,
-            requestBody: {
-              id: row.id,
-              isPrimary: !row.isPrimary,
-            },
-          }).then((response) => {
-            handlePutResponse(response);
-          });
+          toast.error(languageData.NotImplemented);
+          // void putMerchantEmailsByMerchantIdApi({
+          //   merchantId: partyId,
+          //   requestBody: {
+          //     id: row.id,
+          //     isPrimary: !row.isPrimary,
+          //   },
+          // }).then((response) => {
+          //   handlePutResponse(response);
+          // });
         });
       }}
     />

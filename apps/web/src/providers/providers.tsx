@@ -7,6 +7,7 @@ import {GrantedPoliciesProvider} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {NovuProvider} from "@repo/ui/providers/novu";
+import {QueryProvider} from "@repo/ui/providers/query";
 import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
 import {getResourceData} from "@/language-data/core/Default";
 import {TenantProvider} from "@/providers/tenant";
@@ -47,7 +48,7 @@ export default async function Providers({children, lang}: ProvidersProps) {
             appId={process.env.NOVU_APP_IDENTIFIER || ""}
             appUrl={process.env.NOVU_APP_URL || ""}
             subscriberId={session?.user?.sub || "67b8674f58411ad400a054e9"}>
-            {children}
+            <QueryProvider>{children}</QueryProvider>
           </NovuProvider>
         </GrantedPoliciesProvider>
       </SessionProvider>

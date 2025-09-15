@@ -9,9 +9,10 @@ import {CreateIndividualForm as IndividualForm} from "../../_components/individu
 
 export function CreateIndividualForm({languageData}: {languageData: CRMServiceServiceResource}) {
   const router = useRouter();
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   return (
     <IndividualForm
+      isPending={isPending}
       languageData={languageData}
       onSubmit={(response) => {
         if (response.type === "success") {

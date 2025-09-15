@@ -45,7 +45,7 @@ function taxFreeTableActions(
 }
 
 function taxFreeColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/taxFrees", locale);
+  const baseLink = getBaseLink("parties/tax-free", locale);
   return tanstackTableCreateColumnsByRowData<TaxFreeListResponseDto>({
     rows: $TaxFreeListResponseDto.properties,
     languageData: {

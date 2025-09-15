@@ -5,7 +5,8 @@
     "plugins": [{"name": "next"}],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../../apps/web/src/app/*", "../../ayasofyazilim-ui/src/*"]
+      "@/*": ["../../apps/web/src/app/*", "../../ayasofyazilim-ui/src/*"],
+      "components/*": ["./src/components/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]
