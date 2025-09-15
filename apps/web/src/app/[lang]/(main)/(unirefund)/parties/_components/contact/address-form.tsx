@@ -4,15 +4,28 @@ import {Dialog, DialogContent} from "@/components/ui/dialog";
 import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import {
+  putCustomAddressesByCustomIdApi,
+  putIndividualAddressesByIndividualIdApi,
+  putMerchantAddressesByMerchantIdApi,
+  putRefundPointAddressesByRefundPointIdApi,
+  putTaxFreeAddressesByTaxFreeIdApi,
+  putTaxOfficeAddressesByTaxOfficeIdApi,
+} from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import type {UniRefund_CRMService_Addresses_AddressDto as AddressDto} from "@repo/saas/CRMService";
+import type {
+  UniRefund_CRMService_Addresses_AddressDto as AddressDto,
+  UniRefund_CRMService_Addresses_UpdateAddressDto,
+} from "@repo/saas/CRMService";
 import {$UniRefund_CRMService_Addresses_AddressDto as $AddressDto} from "@repo/saas/CRMService";
 import {createAddressWidgets} from "@repo/ui/components/address/address-form-widgets";
-import {useParams} from "next/navigation";
+import {handlePutResponse} from "@repo/utils/api";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useCallback, useState, useTransition} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
@@ -20,10 +33,13 @@ import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMSer
 export function AddressForm({
   languageData,
   addresses,
+  partyType,
 }: {
   languageData: CRMServiceServiceResource;
   addresses: AddressDto[];
+  partyType: PartyType;
 }) {
+  const router = useRouter();
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
 
@@ -59,12 +75,15 @@ export function AddressForm({
     }
   }, []);
 
-  const handleFormSubmit = useCallback(({formData: editedFormData}: {formData?: AddressDto}) => {
-    if (!editedFormData) return;
-    startTransition(() => {
-      toast.error(languageData.NotImplemented);
-    });
-  }, []);
+  const handleFormSubmit = useCallback(
+    ({formData: editedFormData}: {formData?: AddressDto}) => {
+      if (!editedFormData) return;
+      startTransition(() => {
+        actionByPartyType({requestBody: editedFormData, partyType, partyId, router});
+      });
+    },
+    [partyType, partyId, router, startTransition],
+  );
 
   const tableActions: TanstackTableTableActionsType<AddressDto>[] = [
     {
@@ -86,7 +105,7 @@ export function AddressForm({
         }}
         columns={columns}
         data={addresses}
-        expandedRowComponent={(row) => EditForm({row, languageData, partyId, isPending, startTransition})}
+        expandedRowComponent={(row) => EditForm({row, languageData, partyId, partyType, isPending, startTransition})}
         fillerColumn="addressLine"
         showPagination={false}
         tableActions={tableActions}
@@ -146,17 +165,20 @@ function TypeRow({row, languageData}: {row: AddressDto; languageData: CRMService
 
 function EditForm({
   row,
-  // partyId,
+  partyId,
+  partyType,
   languageData,
   isPending,
   startTransition,
 }: {
   row: AddressDto;
   partyId: string;
+  partyType: PartyType;
   languageData: CRMServiceServiceResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
 }) {
+  const router = useRouter();
   const [form, setForm] = useState<AddressDto>(row);
   const {widgets, schemaFormKey} = createAddressWidgets({languageData})({initialValue: row});
 
@@ -165,12 +187,15 @@ function EditForm({
       setForm(editedFormData);
     }
   }, []);
-  const handleFormSubmit = useCallback(({formData: editedFormData}: {formData?: AddressDto}) => {
-    if (!editedFormData) return;
-    startTransition(() => {
-      toast.error(languageData.NotImplemented);
-    });
-  }, []);
+  const handleFormSubmit = useCallback(
+    ({formData: editedFormData}: {formData?: AddressDto}) => {
+      if (!editedFormData) return;
+      startTransition(() => {
+        actionByPartyType({requestBody: editedFormData, partyType, partyId, router});
+      });
+    },
+    [partyType, partyId, router, startTransition],
+  );
   return (
     <SchemaForm<AddressDto>
       defaultSubmitClassName="p-2 pt-0"
@@ -265,4 +290,72 @@ function IsPrimaryAction({
   }
 
   return <div className="flex items-center justify-center">{switchComponent}</div>;
+}
+
+type PartyType = "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs" | "individuals";
+function actionByPartyType({
+  partyId,
+  partyType,
+  requestBody,
+  router,
+}: {
+  partyId: string;
+  partyType: PartyType;
+  requestBody: UniRefund_CRMService_Addresses_UpdateAddressDto;
+  router: AppRouterInstance;
+}) {
+  switch (partyType) {
+    case "merchants":
+      console.log("Updating merchant's address with; ", partyId, requestBody);
+      void putMerchantAddressesByMerchantIdApi({
+        merchantId: partyId,
+        requestBody,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
+      break;
+    case "refund-points":
+      void putRefundPointAddressesByRefundPointIdApi({
+        refundPointId: partyId,
+        requestBody,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
+      break;
+    case "tax-free":
+      void putTaxFreeAddressesByTaxFreeIdApi({
+        taxFreeId: partyId,
+        requestBody,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
+      break;
+    case "tax-offices":
+      void putTaxOfficeAddressesByTaxOfficeIdApi({
+        taxOfficeId: partyId,
+        requestBody,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
+      break;
+    case "customs":
+      void putCustomAddressesByCustomIdApi({
+        customId: partyId,
+        requestBody,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
+      break;
+    case "individuals":
+      void putIndividualAddressesByIndividualIdApi({
+        individualId: partyId,
+        requestBody,
+      }).then((response) => {
+        handlePutResponse(response, router);
+      });
+      break;
+    default:
+      toast.error("Unknown party type");
+      break;
+  }
 }

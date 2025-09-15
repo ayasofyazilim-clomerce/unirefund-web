@@ -740,7 +740,7 @@ export type UniRefund_SettingService_ProductGroups_ProductGroupDto = {
 
 export type UniRefund_SettingService_ProductGroups_UnitTypeCode = 'QNT' | 'BAG' | 'BOX';
 
-export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE';
+export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE' | 'TRAVELLER';
 
 export type Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationAuthConfigurationDto = {
     grantedPolicies?: {
@@ -1342,7 +1342,7 @@ export type PostApiCrmServiceIndividualsResponse = (string);
 
 export type GetApiCrmServiceIndividualsData = {
     email?: string;
-    identificationNumber?: string;
+    ıdentificationNumber?: string;
     maxResultCount?: number;
     name?: string;
     skipCount?: number;
