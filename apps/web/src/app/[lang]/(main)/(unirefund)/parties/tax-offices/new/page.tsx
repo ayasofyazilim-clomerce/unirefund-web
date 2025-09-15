@@ -1,7 +1,7 @@
 "use server";
 
-import { isUnauthorized } from "@repo/utils/policies";
-import { getResourceData } from "src/language-data/unirefund/CRMService";
+import {isUnauthorized} from "@repo/utils/policies";
+import {getResourceData} from "src/language-data/unirefund/CRMService";
 import CreateTaxOfficeForm from "../_components/create-form";
 
 export default async function Page({
@@ -11,13 +11,12 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const { lang } = params;
-  const { languageData } = await getResourceData(lang);
+  const {lang} = params;
+  const {languageData} = await getResourceData(lang);
   await isUnauthorized({
     requiredPolicies: ["CRMService.TaxOffices.Create"],
     lang,
   });
-
 
   return <CreateTaxOfficeForm languageData={languageData} />;
 }

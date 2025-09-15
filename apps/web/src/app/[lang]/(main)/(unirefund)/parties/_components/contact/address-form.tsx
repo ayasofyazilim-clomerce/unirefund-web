@@ -1,21 +1,21 @@
 "use client";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { toast } from "@/components/ui/sonner";
-import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {Dialog, DialogContent} from "@/components/ui/dialog";
+import {toast} from "@/components/ui/sonner";
+import {Switch} from "@/components/ui/switch";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type { TanstackTableTableActionsType } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import type { UniRefund_CRMService_Addresses_AddressDto as AddressDto } from "@repo/saas/CRMService";
-import { $UniRefund_CRMService_Addresses_AddressDto as $AddressDto } from "@repo/saas/CRMService";
-import { createAddressWidgets } from "@repo/ui/components/address/address-form-widgets";
-import { useParams } from "next/navigation";
-import type { TransitionStartFunction } from "react";
-import { useCallback, useState, useTransition } from "react";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {UniRefund_CRMService_Addresses_AddressDto as AddressDto} from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Addresses_AddressDto as $AddressDto} from "@repo/saas/CRMService";
+import {createAddressWidgets} from "@repo/ui/components/address/address-form-widgets";
+import {useParams} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useCallback, useState, useTransition} from "react";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 export function AddressForm({
   languageData,
@@ -24,7 +24,7 @@ export function AddressForm({
   languageData: CRMServiceServiceResource;
   addresses: AddressDto[];
 }) {
-  const { lang, partyId } = useParams<{ lang: string; partyId: string }>();
+  const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
 
   const columns = tanstackTableCreateColumnsByRowData<AddressDto>({
@@ -40,11 +40,11 @@ export function AddressForm({
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({ row, partyId, isPending, startTransition, languageData, isActive: addresses.length === 1 }),
+          IsPrimaryAction({row, partyId, isPending, startTransition, languageData, isActive: addresses.length === 1}),
       },
       type: {
         showHeader: true,
-        content: (row) => TypeRow({ row, languageData }),
+        content: (row) => TypeRow({row, languageData}),
       },
     },
     expandRowTrigger: "addressLine",
@@ -52,14 +52,14 @@ export function AddressForm({
 
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<AddressDto>();
-  const { widgets, schemaFormKey } = createAddressWidgets({ languageData })();
-  const handleFormChange = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+  const {widgets, schemaFormKey} = createAddressWidgets({languageData})();
+  const handleFormChange = useCallback(({formData: editedFormData}: {formData?: AddressDto}) => {
     if (editedFormData) {
       setForm(editedFormData);
     }
   }, []);
 
-  const handleFormSubmit = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+  const handleFormSubmit = useCallback(({formData: editedFormData}: {formData?: AddressDto}) => {
     if (!editedFormData) return;
     startTransition(() => {
       toast.error(languageData.NotImplemented);
@@ -71,10 +71,11 @@ export function AddressForm({
       type: "simple",
       cta: languageData["CRM.address.create"],
       actionLocation: "table",
-      onClick: () => setOpen(true),
+      onClick: () => {
+        setOpen(true);
+      },
     },
-
-  ]
+  ];
   return (
     <>
       <TanstackTable
@@ -85,37 +86,26 @@ export function AddressForm({
         }}
         columns={columns}
         data={addresses}
-        expandedRowComponent={(row) => EditForm({ row, languageData, partyId, isPending, startTransition })}
+        expandedRowComponent={(row) => EditForm({row, languageData, partyId, isPending, startTransition})}
         fillerColumn="addressLine"
         showPagination={false}
         tableActions={tableActions}
         title={languageData["CRM.addresses"]}
       />
-      <Dialog open={open} onOpenChange={setOpen} modal={true}>
+      <Dialog modal onOpenChange={setOpen} open={open}>
         <DialogContent>
           <SchemaForm<AddressDto>
             className="pr-0"
             disabled={isPending}
-            filter={
-              {
-                type: "exclude",
-                keys: [
-                  "id",
-                  "partyType",
-                  "partyId",
-                  "placeId",
-                  "latitude",
-                  "longitude",
-                  "isPrimary",
-                ]
-              }
-            }
+            filter={{
+              type: "exclude",
+              keys: ["id", "partyType", "partyId", "placeId", "latitude", "longitude", "isPrimary"],
+            }}
             formData={form}
-            widgets={widgets}
-            key={schemaFormKey}
             id="create-address-form"
-            onSubmit={handleFormSubmit}
+            key={schemaFormKey}
             onChange={handleFormChange}
+            onSubmit={handleFormSubmit}
             schema={$AddressDto}
             submitText={languageData["CRM.address.create"]}
             uiSchema={createUiSchemaWithResource({
@@ -142,6 +132,7 @@ export function AddressForm({
                 },
               },
             })}
+            widgets={widgets}
           />
         </DialogContent>
       </Dialog>
@@ -149,11 +140,9 @@ export function AddressForm({
   );
 }
 
-function TypeRow({ row, languageData }: { row: AddressDto; languageData: CRMServiceServiceResource }) {
+function TypeRow({row, languageData}: {row: AddressDto; languageData: CRMServiceServiceResource}) {
   return <div> {languageData[`CRM.address.type.${row.type}`]}</div>;
 }
-
-
 
 function EditForm({
   row,
@@ -169,42 +158,32 @@ function EditForm({
   startTransition: TransitionStartFunction;
 }) {
   const [form, setForm] = useState<AddressDto>(row);
-  const { widgets, schemaFormKey } = createAddressWidgets({ languageData })({ initialValue: row });
+  const {widgets, schemaFormKey} = createAddressWidgets({languageData})({initialValue: row});
 
-  const handleFormChange = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+  const handleFormChange = useCallback(({formData: editedFormData}: {formData?: AddressDto}) => {
     if (editedFormData) {
       setForm(editedFormData);
     }
   }, []);
-  const handleFormSubmit = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+  const handleFormSubmit = useCallback(({formData: editedFormData}: {formData?: AddressDto}) => {
     if (!editedFormData) return;
     startTransition(() => {
       toast.error(languageData.NotImplemented);
     });
   }, []);
-  console.log(row)
   return (
     <SchemaForm<AddressDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      filter={
-        {
-          type: "exclude",
-          keys: [
-            "id",
-            "partyType",
-            "partyId",
-            "placeId",
-            "latitude",
-            "longitude",
-            "isPrimary",
-          ]
-        }
-      }
+      filter={{
+        type: "exclude",
+        keys: ["id", "partyType", "partyId", "placeId", "latitude", "longitude", "isPrimary"],
+      }}
       formData={form}
       id="edit-address-form"
       key={schemaFormKey}
-      widgets={widgets}
+      onChange={handleFormChange}
+      onSubmit={handleFormSubmit}
       schema={$AddressDto}
       submitText={languageData["CRM.address.update"]}
       uiSchema={createUiSchemaWithResource({
@@ -231,8 +210,7 @@ function EditForm({
           },
         },
       })}
-      onChange={handleFormChange}
-      onSubmit={handleFormSubmit}
+      widgets={widgets}
       withScrollArea={false}
     />
   );

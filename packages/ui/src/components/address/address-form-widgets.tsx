@@ -4,6 +4,7 @@ import { useCallback, useMemo, useEffect, useRef } from "react";
 import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import { AddressCombobox } from "./address-combobox";
 import { useAddressData } from "./use-address-data";
+import { AddressLanguageData } from "./types";
 
 export function createAddressWidgets({ languageData }: { languageData: AddressLanguageData }) {
     return function AddressWidgets({ initialValue }: { initialValue?: { countryId?: string, adminAreaLevel1Id?: string, adminAreaLevel2Id?: string } } = {}) {

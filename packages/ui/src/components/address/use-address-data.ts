@@ -29,7 +29,8 @@ export function useAddressData() {
         queryKey: ['countries'],
         queryFn: async () => {
             const response = await getCountriesApi();
-            return response.data || [];
+            if (response.type === "success") return response.data || [];
+            return [];
         },
         staleTime: 5 * 60 * 1000, // Cache for 5 minutes
     });
@@ -38,7 +39,8 @@ export function useAddressData() {
     const adminAreaLevel1Mutation = useMutation({
         mutationFn: async (countryId: string) => {
             const response = await getAdminAreaLevel1ByCountryIdApi(countryId);
-            return response.data || [];
+            if (response.type === "success") return response.data || [];
+            return [];
         },
     });
 
@@ -46,7 +48,8 @@ export function useAddressData() {
     const adminAreaLevel2Mutation = useMutation({
         mutationFn: async (adminAreaLevel1Id: string) => {
             const response = await getAdminAreaLevel2ByAdminAreaLevel1IdApi(adminAreaLevel1Id);
-            return response.data || [];
+            if (response.type === "success") return response.data || [];
+            return [];
         },
     });
 
@@ -54,7 +57,8 @@ export function useAddressData() {
     const neighborhoodMutation = useMutation({
         mutationFn: async (adminAreaLevel2Id: string) => {
             const response = await getNeighborhoodsByAdminAreaLevel2IdApi(adminAreaLevel2Id);
-            return response.data || [];
+            if (response.type === "success") return response.data || [];
+            return [];
         },
     });
 

@@ -239,7 +239,12 @@
   "CRM.address.type.UNKNOWN": "Bilinmiyor",
   "CRM.address.type.HOME": "Ev",
   "CRM.address.type.WORK": "İş",
-  "CRM.address.countryId": "Adres Tipi",
+  "CRM.address.countryId": "Ülke",
+  "CRM.address.adminAreaLevel1Id": "İl",
+  "CRM.address.adminAreaLevel2Id": "İlçe",
+  "CRM.address.neighborhoodId": "Mahalle",
+  "CRM.address.latitude": "Enlem",
+  "CRM.address.longitude": "Boylam",
 
   "CRM.email": "E-posta",
   "CRM.emails": "E-posta Adresleri",

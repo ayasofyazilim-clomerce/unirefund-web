@@ -46,6 +46,7 @@ export interface CascadingAddressFieldProps {
     };
 }
 export interface AddressLanguageData {
+    "error": string;
     "country.label": string;
     "country.placeholder": string;
     "country.loading": string;
