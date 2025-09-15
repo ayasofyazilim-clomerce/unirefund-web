@@ -12,7 +12,7 @@ import {
   postRefundPointAffiliationApi,
   postTaxFreeAffiliationApi,
   postTaxOfficesAffiliationApi,
-} from "@repo/actions/unirefund/CrmService/actions";
+} from "@repo/actions/unirefund/CrmService/post-actions";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
