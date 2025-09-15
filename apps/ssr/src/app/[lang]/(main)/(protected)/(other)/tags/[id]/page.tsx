@@ -1,15 +1,13 @@
-import {getTagsApi} from "@repo/actions/unirefund/TagService/actions";
+import {getTagByIdApi} from "@repo/actions/unirefund/TagService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
-import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
-import HomePageClient from "./client";
+import TagDetailClient from "./client";
 
-async function getApiRequests() {
+async function getApiRequests(id: string) {
   try {
-    const session = await auth();
-    const requiredRequests = await Promise.all([getTagsApi({}, session)]);
+    const requiredRequests = await Promise.all([getTagByIdApi({id})]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -20,17 +18,18 @@ async function getApiRequests() {
   }
 }
 
-export default async function Home({
+export default async function TagDetailPage({
   params,
 }: {
   params: {
     lang: string;
+    id: string;
   };
 }) {
-  const {lang} = params;
+  const {lang, id} = params;
   const {languageData} = await getResourceData(lang);
 
-  const apiRequests = await getApiRequests();
+  const apiRequests = await getApiRequests(id);
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
@@ -38,5 +37,5 @@ export default async function Home({
 
   const [tagsResponse] = apiRequests.requiredRequests;
 
-  return <HomePageClient languageData={languageData} tagsResponse={tagsResponse} />;
+  return <TagDetailClient lang={lang} languageData={languageData} tagsResponse={tagsResponse.data} />;
 }

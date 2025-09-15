@@ -1,17 +1,21 @@
 "use client";
 
 import {Card} from "@repo/ayasofyazilim-ui/atoms/card";
+import type {TagListResponseDto_TagListItemDto} from "@repo/saas/TagService";
+import type {ServerResponse} from "@repo/utils/api";
 import {useSession} from "@repo/utils/auth";
 import {LandPlot, MapPin, Store, User, Users} from "lucide-react";
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
+import TagsTable from "./components/tags-table";
 
 interface HomePageClientProps {
   languageData: SSRServiceResource;
+  tagsResponse: ServerResponse<TagListResponseDto_TagListItemDto>;
 }
 
-export default function HomePageClient({languageData}: HomePageClientProps) {
+export default function HomePageClient({languageData, tagsResponse}: HomePageClientProps) {
   const {session} = useSession();
 
   const userName = session?.user?.userName || "User";
@@ -53,13 +57,11 @@ export default function HomePageClient({languageData}: HomePageClientProps) {
           primary
           title={languageData["Home.Profile"]}
         />
-        {/* <QuickActionCard
-          description={languageData["Home.VerifyIdentityDesc"]}
-          href="/profile/kyc"
-          icon={<Shield className="h-12 w-12" />}
-          title={languageData["Home.VerifyIdentity"]}
-          primary={true}
-        /> */}
+      </div>
+
+      {/* Tags Section */}
+      <div className="mb-16">
+        <TagsTable languageData={languageData} tagsResponse={tagsResponse} />
       </div>
 
       {/* Tax-Free Services Section */}
