@@ -15,6 +15,7 @@ function MainAdminLayout(props: {
   profileMenu: any;
   tenantData: any;
   searchFromDB: any;
+  children?: React.ReactElement
 }) {
   return (
     <ThemeProvider
@@ -28,7 +29,9 @@ function MainAdminLayout(props: {
       notification={props.notification}
       searchFromDB={props.searchFromDB}
       tenantData={props.tenantData}>
-      <HeaderSection />
+      <HeaderSection>
+        {props.children}
+      </HeaderSection>
     </ThemeProvider>
   );
 }

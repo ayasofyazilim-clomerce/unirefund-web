@@ -2,7 +2,7 @@
 
 import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTheme } from "../../providers/theme";
 import Navbar from "./components/navbar";
 
@@ -52,7 +52,7 @@ function findBreadcrumbItems(
   return data;
 }
 
-export function HeaderSection() {
+export function HeaderSection({ children }: { children: React.ReactNode }) {
   const { navbarItems, prefix, lang, tenantData, notification, searchFromDB } = useTheme();
   const pathName = usePathname();
 
@@ -114,7 +114,9 @@ export function HeaderSection() {
         tenantData={tenantData}
         notification={notification}
         searchFromDB={searchFromDB}
-      />
+      >
+        {children}
+      </Navbar>
       {/* {pathName.split(lang + "/")[1] !== "unauthorized" && (
         <PageHeader
           title={pageHeaderProps.title}

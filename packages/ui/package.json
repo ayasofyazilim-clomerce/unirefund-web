@@ -4,7 +4,10 @@
   "exports": {
     "./*": "./src/*/index.tsx",
     "./utils": "./src/utils.ts",
-    "./unirefund/*": "./src/unirefund/*.tsx",
+    "./unirefund/*": [
+      "./src/unirefund/*/index.tsx",
+      "./src/unirefund/*.tsx"
+    ],
     "./components/*": "./src/components/*.tsx",
     "./utils/table/*": "./utils/table/*.ts",
     "./utils/general/*": "./utils/general/*.ts",

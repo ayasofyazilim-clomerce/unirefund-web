@@ -1,4 +1,8 @@
 "use server";
+import {myProfileApi} from "@repo/actions/core/AccountService/actions";
+import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
 import type {Session} from "@repo/utils/auth";
@@ -7,10 +11,6 @@ import {auth} from "@repo/utils/auth/next-auth";
 import type {Policy} from "@repo/utils/policies";
 import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {myProfileApi} from "@repo/actions/core/AccountService/actions";
-import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
-import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";
@@ -30,6 +30,7 @@ async function getApiRequests(session: Session | null) {
       getGrantedPoliciesApi(),
       getInfoForCurrentTenantApi(session),
       myProfileApi(),
+      // getUserAffiliationsApi(session),
     ]);
 
     const optionalRequests = await Promise.allSettled([]);
