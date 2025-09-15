@@ -1,22 +1,21 @@
 "use client";
 
-import {toast} from "@/components/ui/sonner";
-import {AddressField} from "@repo/ui/components/address/field";
-import {Switch} from "@/components/ui/switch";
-import type {UniRefund_CRMService_Addresses_AddressDto as AddressDto} from "@repo/saas/CRMService";
-import {$UniRefund_CRMService_Addresses_AddressDto as $AddressDto} from "@repo/saas/CRMService";
-import {putMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/sonner";
+import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {handlePutResponse} from "@repo/utils/api";
-import {useParams} from "next/navigation";
-import type {TransitionStartFunction} from "react";
-import {useTransition} from "react";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type { TanstackTableTableActionsType } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type { UniRefund_CRMService_Addresses_AddressDto as AddressDto } from "@repo/saas/CRMService";
+import { $UniRefund_CRMService_Addresses_AddressDto as $AddressDto } from "@repo/saas/CRMService";
+import { createAddressWidgets } from "@repo/ui/components/address/address-form-widgets";
+import { useParams } from "next/navigation";
+import type { TransitionStartFunction } from "react";
+import { useCallback, useState, useTransition } from "react";
+import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
 
 export function AddressForm({
   languageData,
@@ -25,7 +24,7 @@ export function AddressForm({
   languageData: CRMServiceServiceResource;
   addresses: AddressDto[];
 }) {
-  const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const { lang, partyId } = useParams<{ lang: string; partyId: string }>();
   const [isPending, startTransition] = useTransition();
 
   const columns = tanstackTableCreateColumnsByRowData<AddressDto>({
@@ -41,72 +40,124 @@ export function AddressForm({
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({row, partyId, isPending, startTransition, languageData, isActive: addresses.length === 1}),
+          IsPrimaryAction({ row, partyId, isPending, startTransition, languageData, isActive: addresses.length === 1 }),
       },
       type: {
         showHeader: true,
-        content: (row) => TypeRow({row, languageData}),
+        content: (row) => TypeRow({ row, languageData }),
       },
     },
     expandRowTrigger: "addressLine",
   });
+
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState<AddressDto>();
+  const { widgets, schemaFormKey } = createAddressWidgets({ languageData })();
+  const handleFormChange = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+    if (editedFormData) {
+      setForm(editedFormData);
+    }
+  }, []);
+
+  const handleFormSubmit = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+    if (!editedFormData) return;
+    startTransition(() => {
+      toast.error(languageData.NotImplemented);
+    });
+  }, []);
+
   const tableActions: TanstackTableTableActionsType<AddressDto>[] = [
     {
-      id: "create-address",
-      actionLocation: "table",
+      type: "simple",
       cta: languageData["CRM.address.create"],
-      type: "schemaform-dialog",
-      schema: $AddressDto,
-
-      uiSchema: createUiSchemaWithResource({
-        resources: languageData,
-        schema: $AddressDto,
-        name: "CRM.address",
-        extend: {"ui:field": "address"},
-      }),
-      fields: {
-        address: AddressField({
-          className: "col-span-full p-4 border rounded-md",
-          languageData,
-          hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
-        }),
-      },
-      disabled: isPending,
-      filter: {type: "exclude", keys: ["id", "isPrimary"]},
-      submitText: languageData["CRM.address.create"],
-      title: languageData["CRM.address.create"],
-      onSubmit: () => {
-        startTransition(() => {
-          toast.error(languageData.NotImplemented);
-        });
-      },
+      actionLocation: "table",
+      onClick: () => setOpen(true),
     },
-  ];
 
+  ]
   return (
-    <TanstackTable
-      columnOrder={["addressLine", "type", "isPrimary"]}
-      columnVisibility={{
-        columns: ["addressLine", "type", "isPrimary"],
-        type: "show",
-      }}
-      columns={columns}
-      data={addresses}
-      expandedRowComponent={(row) => EditForm({row, languageData, partyId, isPending, startTransition})}
-      fillerColumn="addressLine"
-      showPagination={false}
-      tableActions={tableActions}
-      title={languageData["CRM.addresses"]}
-    />
+    <>
+      <TanstackTable
+        columnOrder={["addressLine", "type", "isPrimary"]}
+        columnVisibility={{
+          columns: ["addressLine", "type", "isPrimary"],
+          type: "show",
+        }}
+        columns={columns}
+        data={addresses}
+        expandedRowComponent={(row) => EditForm({ row, languageData, partyId, isPending, startTransition })}
+        fillerColumn="addressLine"
+        showPagination={false}
+        tableActions={tableActions}
+        title={languageData["CRM.addresses"]}
+      />
+      <Dialog open={open} onOpenChange={setOpen} modal={true}>
+        <DialogContent>
+          <SchemaForm<AddressDto>
+            className="pr-0"
+            disabled={isPending}
+            filter={
+              {
+                type: "exclude",
+                keys: [
+                  "id",
+                  "partyType",
+                  "partyId",
+                  "placeId",
+                  "latitude",
+                  "longitude",
+                  "isPrimary",
+                ]
+              }
+            }
+            formData={form}
+            widgets={widgets}
+            key={schemaFormKey}
+            id="create-address-form"
+            onSubmit={handleFormSubmit}
+            onChange={handleFormChange}
+            schema={$AddressDto}
+            submitText={languageData["CRM.address.create"]}
+            uiSchema={createUiSchemaWithResource({
+              resources: languageData,
+              schema: $AddressDto,
+              name: "CRM.address",
+              extend: {
+                "ui:className": "border-none rounded-none p-0 h-full p-px",
+                displayLabel: false,
+                countryId: {
+                  "ui:widget": "countryWidget",
+                },
+                adminAreaLevel1Id: {
+                  "ui:widget": "adminAreaLevel1Widget",
+                },
+                adminAreaLevel2Id: {
+                  "ui:widget": "adminAreaLevel2Widget",
+                },
+                neighborhoodId: {
+                  "ui:widget": "neighborhoodWidget",
+                },
+                addressLine: {
+                  "ui:className": "col-span-full",
+                },
+              },
+            })}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
-function TypeRow({row, languageData}: {row: AddressDto; languageData: CRMServiceServiceResource}) {
+function TypeRow({ row, languageData }: { row: AddressDto; languageData: CRMServiceServiceResource }) {
   return <div> {languageData[`CRM.address.type.${row.type}`]}</div>;
 }
+
+
+
 function EditForm({
   row,
-  partyId,
+  // partyId,
   languageData,
   isPending,
   startTransition,
@@ -117,32 +168,43 @@ function EditForm({
   isPending: boolean;
   startTransition: TransitionStartFunction;
 }) {
+  const [form, setForm] = useState<AddressDto>(row);
+  const { widgets, schemaFormKey } = createAddressWidgets({ languageData })({ initialValue: row });
+
+  const handleFormChange = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+    if (editedFormData) {
+      setForm(editedFormData);
+    }
+  }, []);
+  const handleFormSubmit = useCallback(({ formData: editedFormData }: { formData?: AddressDto }) => {
+    if (!editedFormData) return;
+    startTransition(() => {
+      toast.error(languageData.NotImplemented);
+    });
+  }, []);
+  console.log(row)
   return (
     <SchemaForm<AddressDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      fields={{
-        address: AddressField({
-          className: "col-span-full p-2 bg-white",
-          languageData,
-          hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
-        }),
-      }}
-      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
-      formData={row}
-      id="address-form"
-      key={JSON.stringify(row)}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        startTransition(() => {
-          void putMerchantAddressesByMerchantIdApi({
-            merchantId: partyId,
-            requestBody: formData,
-          }).then((response) => {
-            handlePutResponse(response);
-          });
-        });
-      }}
+      filter={
+        {
+          type: "exclude",
+          keys: [
+            "id",
+            "partyType",
+            "partyId",
+            "placeId",
+            "latitude",
+            "longitude",
+            "isPrimary",
+          ]
+        }
+      }
+      formData={form}
+      id="edit-address-form"
+      key={schemaFormKey}
+      widgets={widgets}
       schema={$AddressDto}
       submitText={languageData["CRM.address.update"]}
       uiSchema={createUiSchemaWithResource({
@@ -150,9 +212,27 @@ function EditForm({
         schema: $AddressDto,
         name: "CRM.address",
         extend: {
-          "ui:field": "address",
+          displayLabel: false,
+          "ui:className": "border-none rounded-none",
+          countryId: {
+            "ui:widget": "countryWidget",
+          },
+          adminAreaLevel1Id: {
+            "ui:widget": "adminAreaLevel1Widget",
+          },
+          adminAreaLevel2Id: {
+            "ui:widget": "adminAreaLevel2Widget",
+          },
+          neighborhoodId: {
+            "ui:widget": "neighborhoodWidget",
+          },
+          addressLine: {
+            "ui:className": "col-span-full",
+          },
         },
       })}
+      onChange={handleFormChange}
+      onSubmit={handleFormSubmit}
       withScrollArea={false}
     />
   );
@@ -160,7 +240,7 @@ function EditForm({
 
 function IsPrimaryAction({
   row,
-  partyId,
+  // partyId,
   isActive,
   isPending,
   startTransition,
@@ -180,15 +260,16 @@ function IsPrimaryAction({
       disabled={isActive || isPending}
       onCheckedChange={() => {
         startTransition(() => {
-          void putMerchantAddressesByMerchantIdApi({
-            merchantId: partyId,
-            requestBody: {
-              id: row.id,
-              isPrimary: !row.isPrimary,
-            },
-          }).then((response) => {
-            handlePutResponse(response);
-          });
+          toast.error(languageData.NotImplemented);
+          // void putMerchantAddressesByMerchantIdApi({
+          //   merchantId: partyId,
+          //   requestBody: {
+          //     id: row.id,
+          //     isPrimary: !row.isPrimary,
+          //   },
+          // }).then((response) => {
+          //   handlePutResponse(response);
+          // });
         });
       }}
     />

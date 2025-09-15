@@ -195,29 +195,28 @@
   "Form.Individual.Update": "Update Individual",
 
   "country.label": "Country",
+  "country.placeholder": "Please select a country",
+  "country.loading": "Loading countries...",
+  "country.disabled": "Countries are disabled",
+  "country.search": "Search countries...",
+
   "adminAreaLevel1.label": "State/Province",
+  "adminAreaLevel1.placeholder": "Please select a state/province",
+  "adminAreaLevel1.loading": "Loading states/provinces...",
+  "adminAreaLevel1.disabled": "Please select a country first",
+  "adminAreaLevel1.search": "Search states/provinces...",
+
   "adminAreaLevel2.label": "City/District",
+  "adminAreaLevel2.placeholder": "Please select a city/district",
+  "adminAreaLevel2.loading": "Loading cities/districts...",
+  "adminAreaLevel2.disabled": "Please select a state/province first",
+  "adminAreaLevel2.search": "Search cities/districts...",
+
   "neighborhood.label": "Neighborhood",
-
-  "country.emptyMessage": "Please select a country",
-
-  "adminAreaLevel1.emptyMessage.default": "Please select a state/province",
-  "adminAreaLevel2.emptyMessage.default": "Please select a city/district",
-  "neighborhood.emptyMessage.default": "Please select a neighborhood",
-
-  "adminAreaLevel1.emptyMessage.disabled": "Please select country first",
-  "adminAreaLevel2.emptyMessage.disabled": "Please select state/province first",
-  "neighborhood.emptyMessage.disabled": "Please select city/district first",
-
-  "country.searchPlaceholder": "Search countries...",
-  "adminAreaLevel1.searchPlaceholder": "Search states/provinces...",
-  "adminAreaLevel2.searchPlaceholder": "Search cities/districts...",
-  "neighborhood.searchPlaceholder": "Search neighborhoods...",
-
-  "country.searchResultLabel": "No countries found.",
-  "adminAreaLevel1.searchResultLabel": "No states/provinces found.",
-  "adminAreaLevel2.searchResultLabel": "No cities/districts found.",
-  "neighborhood.searchResultLabel": "No neighborhoods found.",
+  "neighborhood.placeholder": "Please select a neighborhood",
+  "neighborhood.loading": "Loading neighborhoods...",
+  "neighborhood.disabled": "Please select a city/district first",
+  "neighborhood.search": "Search neighborhoods...",
 
   "CRM.PartyStatus.DRAFT": "Draft",
   "CRM.PartyStatus.WAITINGAPPROVAL": "Waiting for Approval",
@@ -239,6 +238,12 @@
   "CRM.address.type.UNKNOWN": "Unknown",
   "CRM.address.type.HOME": "Home",
   "CRM.address.type.WORK": "Work",
+  "CRM.address.countryId": "Country",
+  "CRM.address.adminAreaLevel1Id": "State/Province",
+  "CRM.address.adminAreaLevel2Id": "City/District",
+  "CRM.address.neighborhoodId": "Neighborhood",
+  "CRM.address.latitude": "Latitude",
+  "CRM.address.longitude": "Longitude",
 
   "CRM.email": "Email",
   "CRM.emails": "Email Addresses",

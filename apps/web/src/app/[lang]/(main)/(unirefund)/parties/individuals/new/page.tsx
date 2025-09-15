@@ -1,8 +1,8 @@
 "use server";
 
-import {getResourceData} from "src/language-data/unirefund/CRMService";
-// import {isUnauthorized} from "@repo/utils/policies";
-import {CreateIndividualForm} from "../_components/create-form";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { isUnauthorized } from "@repo/utils/policies";
+import { CreateIndividualForm } from "../_components/create-form";
 
 export default async function Page({
   params,
@@ -11,12 +11,12 @@ export default async function Page({
     lang: string;
   };
 }) {
-  const {lang} = params;
-  const {languageData} = await getResourceData(lang);
-  // await isUnauthorized({
-  //   requiredPolicies: ["CRMService.Individuals.  Create"],
-  //   lang,
-  // });
+  const { lang } = params;
+  const { languageData } = await getResourceData(lang);
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.Individuals.Create"],
+    lang,
+  });
 
   return <CreateIndividualForm languageData={languageData} />;
 }

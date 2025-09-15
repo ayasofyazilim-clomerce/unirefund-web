@@ -1,27 +1,24 @@
 "use client";
-import {postTaxFreeApi} from "@repo/actions/unirefund/CrmService/post-actions";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type { CRMServiceServiceResource } from "@/language-data/unirefund/CRMService";
+import { getBaseLink } from "@/utils";
+import { postTaxFreeApi } from "@repo/actions/unirefund/CrmService/post-actions";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import { CustomComboboxWidget } from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
   UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as CreateTaxFreeDto,
   UniRefund_CRMService_TaxFrees_TaxFreeDto as TaxFreeDto,
   UniRefund_CRMService_TaxOffices_TaxOfficeDto as TaxOfficeDto,
 } from "@repo/saas/CRMService";
 import {
-  $UniRefund_CRMService_Addresses_AddressDto as $AddressDto,
-  $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as $CreateTaxFreeDto,
+  $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto as $CreateTaxFreeDto
 } from "@repo/saas/CRMService";
-import {AddressField} from "@repo/ui/components/address/field";
-import {FormReadyComponent} from "@repo/ui/form-ready";
-import {handlePostResponse} from "@repo/utils/api";
-import {useParams, useRouter} from "next/navigation";
-import {useMemo, useTransition} from "react";
-import {getBaseLink} from "@/utils";
-import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {EmailWithTypeField} from "../../_components/contact/email-with-type";
-import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
-import {CheckIsFormReady} from "../../_components/is-form-ready";
+import { FormReadyComponent } from "@repo/ui/form-ready";
+import { handlePostResponse } from "@repo/utils/api";
+import { useParams, useRouter } from "next/navigation";
+import { useCallback, useMemo, useState, useTransition } from "react";
+import { createAddressWidgets } from "../../_components/contact/address/address-form-widgets";
+import { CheckIsFormReady } from "../../_components/is-form-ready";
 
 const DEFAULT_FORMDATA: CreateTaxFreeDto = {
   name: "",
@@ -37,39 +34,52 @@ const DEFAULT_FORMDATA: CreateTaxFreeDto = {
   address: {
     type: "WORK",
     addressLine: "",
-    adminAreaLevel1Id: "",
-    adminAreaLevel2Id: "",
-    countryId: "",
+    adminAreaLevel1Id: "00000000-0000-0000-0000-000000000000",
+    adminAreaLevel2Id: "00000000-0000-0000-0000-000000000000",
+    countryId: "00000000-0000-0000-0000-000000000000",
   },
 };
 export default function CreateTaxFreeForm({
-  taxOfficeList,
-  taxFreeList,
+  taxOfficeList = [],
+  merchantList,
   languageData,
-  typeCode,
-  formData,
+  typeCode = "HEADQUARTER",
   parentDetails,
+  formData,
 }: {
-  taxOfficeList: TaxOfficeDto[];
-  taxFreeList?: TaxFreeDto[];
+  taxOfficeList?: TaxOfficeDto[];
+  merchantList?: TaxFreeDto[];
   languageData: CRMServiceServiceResource;
   formData?: Partial<CreateTaxFreeDto>;
   parentDetails?: TaxFreeDto;
   typeCode?: "HEADQUARTER" | "TAXFREE";
 }) {
-  const {lang} = useParams<{lang: string}>();
+  const { lang } = useParams<{ lang: string }>();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mergedFormData = useMemo(() => ({...DEFAULT_FORMDATA, ...formData}), []);
-  const uiSchema = createUiSchemaWithResource({
+
+  const mergedFormData = useMemo(() => ({
+    ...DEFAULT_FORMDATA,
+    ...formData
+  }), [formData]);
+
+  const [form, setForm] = useState<CreateTaxFreeDto>(mergedFormData);
+
+  const { widgets: addressWidgets, schemaFormKey } = createAddressWidgets({ languageData })()
+
+  const uiSchema = useMemo(() => createUiSchemaWithResource({
     resources: languageData,
     name: "Form.TaxFree",
     schema: $CreateTaxFreeDto,
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
       taxOfficeId: {
-        ...{"ui:disabled": typeCode === "TAXFREE" && true},
+        ...{ "ui:disabled": typeCode === "TAXFREE" && true },
         "ui:widget": "taxOfficeWidget",
+      },
+      isPersonalCompany: {
+        "ui:widget": "switch",
+        "ui:className": "border px-2 rounded-md col-span-full",
       },
       telephone: createUiSchemaWithResource({
         resources: languageData,
@@ -87,9 +97,26 @@ export default function CreateTaxFreeForm({
       }),
       address: createUiSchemaWithResource({
         resources: languageData,
-        schema: $AddressDto,
+        schema: $CreateTaxFreeDto.properties.address,
         name: "CRM.address",
-        extend: {"ui:field": "address"},
+        extend: {
+          "ui:className": "col-span-full grid grid-cols-2 gap-4",
+          countryId: {
+            "ui:widget": "countryWidget",
+          },
+          adminAreaLevel1Id: {
+            "ui:widget": "adminAreaLevel1Widget",
+          },
+          adminAreaLevel2Id: {
+            "ui:widget": "adminAreaLevel2Widget",
+          },
+          neighborhoodId: {
+            "ui:widget": "neighborhoodWidget",
+          },
+          addressLine: {
+            "ui:className": "col-span-full",
+          },
+        },
       }),
       email: createUiSchemaWithResource({
         resources: languageData,
@@ -107,22 +134,23 @@ export default function CreateTaxFreeForm({
         },
       }),
       typeCode: {
-        ...{"ui:disabled": typeCode === "TAXFREE" && true},
+        ...{ "ui:disabled": typeCode === "TAXFREE" && true },
         "ui:title": languageData["Form.TaxFree.typeCode"],
       },
       vatNumber: {
-        "ui:className": "col-span-full",
+        ...{ "ui:className": typeCode === "TAXFREE" && "col-span-full" },
       },
       parentId: {
         "ui:className": "col-span-full",
-        "ui:widget": "taxFreeWidget",
-        ...{"ui:disabled": typeCode === "TAXFREE" && true},
+        "ui:widget": "merchantWidget",
+        ...{ "ui:disabled": typeCode === "TAXFREE" && true },
       },
       "ui:order": [
         "name",
         "taxOfficeId",
-        "gateNumber",
+        "chainCodeId",
         "externalStoreIdentifier",
+        "isPersonalCompany",
         "typeCode",
         "parentId",
         "vatNumber",
@@ -131,61 +159,85 @@ export default function CreateTaxFreeForm({
         "address",
       ],
     },
-  });
-  const fields = {
-    address: AddressField({
-      className: "col-span-full p-4 border rounded-md",
-      languageData,
-      hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
-    }),
-    email: EmailWithTypeField({languageData}),
-    phone: PhoneWithTypeField({languageData}),
-  };
+  }), [languageData, typeCode]);
 
   const list = parentDetails ? [parentDetails] : [];
-  const widgets = {
+  const widgets = useMemo(() => ({
     taxOfficeWidget: CustomComboboxWidget<TaxOfficeDto>({
       list: taxOfficeList,
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
     }),
-    taxFreeWidget: CustomComboboxWidget<TaxFreeDto>({
-      list: taxFreeList || list,
+    merchantWidget: CustomComboboxWidget<TaxFreeDto>({
+      list: merchantList || list,
       selectLabel: "name",
       selectIdentifier: "id",
       languageData,
     }),
-  };
+    ...addressWidgets,
+  }), [merchantList, taxOfficeList, languageData, addressWidgets]);
+
+  const filter = useMemo(() => ({
+    type: "exclude" as const,
+    keys: [
+      "email.id",
+      "email.isPrimary",
+      "telephone.id",
+      "telephone.isPrimary",
+      "typeCode",
+      "parentId",
+      "address.partyType",
+      "address.partyId",
+      "address.placeId",
+      "address.latitude",
+      "address.longitude",
+      "address.isPrimary",
+      ...(typeCode === "TAXFREE" ? ["vatNumber", "taxOfficeId"] : [])
+    ],
+  }), [typeCode]);
+
+  const handleFormChange = useCallback(({ formData: editedFormData }: { formData?: CreateTaxFreeDto }) => {
+    if (editedFormData) {
+      setForm(editedFormData);
+    }
+  }, []);
+
+  const handleFormSubmit = useCallback(({ formData: editedFormData }: { formData?: CreateTaxFreeDto }) => {
+    if (!editedFormData) return;
+
+    startTransition(() => {
+      void postTaxFreeApi({
+        ...editedFormData,
+        typeCode: typeCode,
+        parentId: typeCode === "TAXFREE" ? mergedFormData.parentId : undefined,
+      }).then((response) => {
+        handlePostResponse(response, router, {
+          prefix: getBaseLink("parties/tax-free", lang),
+          suffix: "details",
+        });
+      });
+    });
+  }, [typeCode, mergedFormData.parentId, router]);
+
   const isFormReady = CheckIsFormReady({
     lang,
     languageData,
     taxOfficeListLength: taxOfficeList.length,
   });
+
   return (
     <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
       <SchemaForm<CreateTaxFreeDto>
+        key={schemaFormKey}
         defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
         disabled={isPending}
-        fields={fields}
-        filter={{
-          type: "exclude",
-          keys: ["email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "typeCode", "parentId"],
-        }}
-        formData={{...mergedFormData, taxOfficeId: mergedFormData.taxOfficeId || taxOfficeList[0]?.id}}
+        filter={filter}
+        onChange={handleFormChange}
+        formData={form}
         id="create-tax-free-form"
         locale={lang}
-        onSubmit={({formData: editedFormData}) => {
-          if (!editedFormData) return;
-          startTransition(() => {
-            void postTaxFreeApi({...editedFormData, typeCode: "HEADQUARTER"}).then((response) => {
-              handlePostResponse(response, router, {
-                prefix: getBaseLink("parties/tax-free"),
-                suffix: "details",
-              });
-            });
-          });
-        }}
+        onSubmit={handleFormSubmit}
         schema={$CreateTaxFreeDto}
         submitText={languageData["Form.TaxFree.Create"]}
         uiSchema={uiSchema}

@@ -1,18 +1,16 @@
-import {cn} from "@/lib/utils";
-import type {UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto} from "@repo/saas/CRMService";
-import {$UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto} from "@repo/saas/CRMService";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {AddressField} from "@repo/ui/components/address/field";
-import {useParams, useRouter} from "next/navigation";
-import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import type {TransitionStartFunction} from "react";
-import {postIndividualApi} from "@repo/actions/unirefund/CrmService/post-actions";
-import {handlePostResponse} from "@repo/utils/api";
-import {NewUserField} from "@/app/[lang]/(main)/(unirefund)/parties/_components/new-user";
-import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
-import {PhoneWithTypeField} from "./contact/phone-with-type";
-import {EmailWithTypeField} from "./contact/email-with-type";
+import { NewUserField } from "@/app/[lang]/(main)/(unirefund)/parties/_components/new-user";
+import type { CRMServiceServiceResource } from "@/language-data/unirefund/CRMService";
+import { cn } from "@/lib/utils";
+import { postIndividualApi } from "@repo/actions/unirefund/CrmService/post-actions";
+import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import { createUiSchemaWithResource } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type { UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto } from "@repo/saas/CRMService";
+import { $UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto } from "@repo/saas/CRMService";
+import { handlePostResponse } from "@repo/utils/api";
+import { useParams, useRouter } from "next/navigation";
+import { useCallback, useMemo, useState, type TransitionStartFunction } from "react";
+import { createAddressWidgets } from "./contact/address/address-form-widgets";
 
 export function CreateIndividualForm({
   languageData,
@@ -28,17 +26,23 @@ export function CreateIndividualForm({
   className?: string;
   isPending?: boolean;
   startTransition: TransitionStartFunction;
-  onSubmit?: (response: {data: CreateIndividualDto; type: "success" | "api-error"; message?: string}) => void;
+  onSubmit?: (response: { data: CreateIndividualDto; type: "success" | "api-error"; message?: string }) => void;
   useDefaultSubmit?: boolean;
 }) {
-  const {lang} = useParams<{lang: string}>();
+  const { lang } = useParams<{ lang: string }>();
   const router = useRouter();
-  const uiSchema = createUiSchemaWithResource({
+
+  const [form, setForm] = useState<CreateIndividualDto>();
+  const AddressWidgets = createAddressWidgets({ languageData });
+  const { widgets, schemaFormKey } = AddressWidgets();
+
+  const uiSchema = useMemo(() => createUiSchemaWithResource({
     resources: languageData,
     name: "Form.Individual",
     schema: $CreateIndividualDto,
     extend: {
-      "ui:className": cn("grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto", className),
+      displayLabel: false,
+      "ui:className": cn("border-none grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto", className),
       isPersonalCompany: {
         "ui:widget": "switch",
         "ui:className": "border px-2 rounded-md",
@@ -61,7 +65,24 @@ export function CreateIndividualForm({
         resources: languageData,
         schema: $CreateIndividualDto.properties.address,
         name: "CRM.address",
-        extend: {"ui:field": "address"},
+        extend: {
+          "ui:className": "col-span-full grid grid-cols-2 gap-4",
+          countryId: {
+            "ui:widget": "countryWidget",
+          },
+          adminAreaLevel1Id: {
+            "ui:widget": "adminAreaLevel1Widget",
+          },
+          adminAreaLevel2Id: {
+            "ui:widget": "adminAreaLevel2Widget",
+          },
+          neighborhoodId: {
+            "ui:widget": "neighborhoodWidget",
+          },
+          addressLine: {
+            "ui:className": "col-span-full",
+          },
+        },
       }),
       email: createUiSchemaWithResource({
         resources: languageData,
@@ -90,48 +111,67 @@ export function CreateIndividualForm({
         },
       },
     },
-  });
-  const fields = {
-    address: AddressField({
-      className: "col-span-full p-4 border rounded-md",
-      languageData,
-      hiddenFields: ["latitude", "longitude", "placeId", "isPrimary"],
-    }),
-    email: EmailWithTypeField({languageData}),
-    phone: PhoneWithTypeField({languageData}),
-    newUser: (props: FieldProps) => NewUserField({...props, label: languageData["Form.Individual.createAccount"]}),
-  };
+  }), [languageData]);
+
+
+  const fields = useMemo(() => ({
+    newUser: (props: FieldProps) => NewUserField({ ...props, label: languageData["Form.Individual.createAccount"] }),
+  }), [])
+
+  const handleFormChange = useCallback(({ formData: editedFormData }: { formData?: CreateIndividualDto }) => {
+    if (editedFormData) {
+      setForm(editedFormData);
+    }
+  }, []);
+
+  const handleFormSubmit = useCallback(({ formData: editedFormData }: { formData?: CreateIndividualDto }) => {
+    if (!editedFormData) return;
+
+    startTransition(() => {
+      void postIndividualApi(editedFormData).then((response) => {
+        if (onSubmit) {
+          onSubmit({
+            data: {
+              ...editedFormData,
+              id: response.data,
+            },
+            type: response.type,
+            message: response.message,
+          });
+        } else {
+          handlePostResponse(response, router);
+        }
+      });
+    });
+  }, [router]);
 
   return (
     <SchemaForm<CreateIndividualDto>
+      key={schemaFormKey}
       className="p-0"
       disabled={isPending}
+      widgets={widgets}
       fields={fields}
+      formData={form}
       filter={{
         type: "exclude",
-        keys: ["id", "email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary"],
+        keys: [
+          "id",
+          "email.id",
+          "email.isPrimary",
+          "telephone.id",
+          "telephone.isPrimary",
+          "address.partyType",
+          "address.partyId",
+          "address.placeId",
+          "address.latitude",
+          "address.longitude",
+          "address.isPrimary",],
       }}
       id="create-individual-form"
       locale={lang}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        startTransition(() => {
-          void postIndividualApi(formData).then((response) => {
-            if (onSubmit) {
-              onSubmit({
-                data: {
-                  ...formData,
-                  id: response.data,
-                },
-                type: response.type,
-                message: response.message,
-              });
-            } else {
-              handlePostResponse(response, router);
-            }
-          });
-        });
-      }}
+      onSubmit={handleFormSubmit}
+      onChange={handleFormChange}
       schema={$CreateIndividualDto}
       uiSchema={uiSchema}
       useDefaultSubmit={useDefaultSubmit}>
