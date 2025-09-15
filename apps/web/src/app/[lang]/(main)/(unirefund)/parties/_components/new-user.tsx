@@ -1,10 +1,10 @@
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
-import { SchemaForm } from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import type { FieldProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
-import { mergeUISchemaObjects } from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import { useState, useCallback } from "react";
+import {Label} from "@/components/ui/label";
+import {Switch} from "@/components/ui/switch";
+import {cn} from "@/lib/utils";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import {mergeUISchemaObjects} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {useState, useCallback} from "react";
 
 // Define proper types for the data structures
 type FormData = Record<string, unknown>;
@@ -27,20 +27,20 @@ interface TypedFieldProps extends Omit<FieldProps, "formData" | "uiSchema" | "on
   schema: object;
 }
 
-export function NewUserField(props: TypedFieldProps & { label: string }) {
-  const { label, ...fieldProps } = props;
+export function NewUserField(props: TypedFieldProps & {label: string}) {
+  const {label, ...fieldProps} = props;
   const [createNewUser, setCreateNewUser] = useState(false);
 
   const handleSwitchChange = useCallback(
     (checked: boolean) => {
-      fieldProps.onChange({ newUser: {} });
+      fieldProps.onChange({newUser: {}});
       setCreateNewUser(checked);
     },
     [fieldProps],
   );
 
   const handleFormChange = useCallback(
-    (data: { formData: FormData | undefined }) => {
+    (data: {formData: FormData | undefined}) => {
       fieldProps.onChange({
         ...props.formData,
         ...data.formData,
@@ -66,8 +66,8 @@ export function NewUserField(props: TypedFieldProps & { label: string }) {
         <SchemaForm
           className={cn("p-px", fieldProps.uiSchema?.["ui:className"], fieldProps.className)}
           formData={fieldProps.formData}
-          onChange={({ formData }) => {
-            handleFormChange({ formData });
+          onChange={({formData}) => {
+            handleFormChange({formData});
           }}
           schema={fieldProps.schema}
           tagName="div"

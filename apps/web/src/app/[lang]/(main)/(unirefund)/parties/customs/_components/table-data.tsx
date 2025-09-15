@@ -1,24 +1,24 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import {Badge} from "@/components/ui/badge";
+import {Button} from "@/components/ui/button";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import {cn} from "@/lib/utils";
 import type {
   UniRefund_CRMService_Customs_CustomListResponseDto as CustomListResponseDto,
   UniRefund_CRMService_Customs_CustomStatus as CustomStatus,
 } from "@repo/saas/CRMService";
-import { $UniRefund_CRMService_Customs_CustomListResponseDto as $CustomListResponseDto } from "@repo/saas/CRMService";
+import {$UniRefund_CRMService_Customs_CustomListResponseDto as $CustomListResponseDto} from "@repo/saas/CRMService";
 import type {
   TanstackTableCreationProps,
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
-import { tanstackTableCreateColumnsByRowData } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import { isActionGranted, type Policy } from "@repo/utils/policies";
-import { Building2, PlusCircle, Store } from "lucide-react";
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
+import {Building2, PlusCircle, Store} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
-import { getBaseLink } from "@/utils";
-import type { CRMServiceServiceResource } from "src/language-data/unirefund/CRMService";
+import {getBaseLink} from "@/utils";
+import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 
 type CustomTable = TanstackTableCreationProps<CustomListResponseDto>;
 
