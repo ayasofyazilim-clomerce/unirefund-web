@@ -111,7 +111,7 @@ export const $PagedResultDto_CustomDto = {
                                 format: 'uuid'
                             },
                             partyType: {
-                                enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                                enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                                 type: 'string'
                             },
                             partyId: {
@@ -551,7 +551,7 @@ export const $PagedResultDto_TaxOfficeDto = {
                                 format: 'uuid'
                             },
                             partyType: {
-                                enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                                enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                                 type: 'string'
                             },
                             partyId: {
@@ -733,7 +733,7 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
             format: 'uuid'
         },
         partyType: {
-            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
             type: 'string'
         },
         partyId: {
@@ -801,7 +801,7 @@ export const $UniRefund_CRMService_Addresses_CreateAddressDto = {
     type: 'object',
     properties: {
         partyType: {
-            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
             type: 'string'
         },
         partyId: {
@@ -1168,7 +1168,7 @@ export const $UniRefund_CRMService_Affiliations_AffiliationDto = {
             format: 'uuid'
         },
         partyType: {
-            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
             type: 'string'
         },
         partyId: {
@@ -1455,7 +1455,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             type: 'object',
             properties: {
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -1579,7 +1579,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -1883,7 +1883,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             type: 'object',
             properties: {
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -2051,7 +2051,7 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -2243,7 +2243,7 @@ export const $UniRefund_CRMService_Individuals_UpdateIndividualDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
-    required: ['address', 'email', 'isPersonalCompany', 'name', 'telephone', 'typeCode', "vatNumber"],
+    required: ['address', 'email', 'isPersonalCompany', 'name', 'telephone', 'typeCode'],
     type: 'object',
     properties: {
         chainCodeId: {
@@ -2310,7 +2310,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             type: 'object',
             properties: {
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -2433,7 +2433,7 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -2589,7 +2589,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -3033,7 +3033,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             type: 'object',
             properties: {
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -3175,7 +3175,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -3528,7 +3528,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             type: 'object',
             properties: {
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -3651,7 +3651,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -3923,7 +3923,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             type: 'object',
             properties: {
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -4046,7 +4046,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -4308,7 +4308,7 @@ export const $UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
             format: 'uuid'
         },
         partyType: {
-            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
             type: 'string'
         },
         partyName: {
@@ -4467,7 +4467,7 @@ export const $UniRefund_SettingService_ProductGroups_UnitTypeCode = {
 } as const;
 
 export const $UniRefund_Shared_Contracts_Enums_PartyType = {
-    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
     type: 'string'
 } as const;
 

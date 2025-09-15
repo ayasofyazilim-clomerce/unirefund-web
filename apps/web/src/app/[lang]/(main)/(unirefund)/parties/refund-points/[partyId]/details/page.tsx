@@ -104,6 +104,7 @@ export default async function Page({
           <AddressForm
             addresses={addressResponse.status === "fulfilled" ? addressResponse.value.data : []}
             languageData={languageData}
+            partyType="refund-points"
           />
         </FormReadyComponent>
       </div>

@@ -8,6 +8,7 @@ export class AdminAreaLevel1Service {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -31,6 +32,7 @@ export class AdminAreaLevel1Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.Delete
      * @param data The data for the request.
      * @param data.adminAreaLevel1Id
      * @returns unknown OK
@@ -55,6 +57,7 @@ export class AdminAreaLevel1Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.View
      * @param data The data for the request.
      * @param data.adminAreaLevel1Id
      * @returns unknown OK
@@ -79,6 +82,7 @@ export class AdminAreaLevel1Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.Edit
      * @param data The data for the request.
      * @param data.adminAreaLevel1Id
      * @param data.requestBody
@@ -106,6 +110,7 @@ export class AdminAreaLevel1Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.ViewList
      * @param data The data for the request.
      * @param data.countryId
      * @returns unknown OK
@@ -135,6 +140,7 @@ export class AdminAreaLevel2Service {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -158,6 +164,7 @@ export class AdminAreaLevel2Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.Delete
      * @param data The data for the request.
      * @param data.adminAreaLevel2Id
      * @returns unknown OK
@@ -182,6 +189,7 @@ export class AdminAreaLevel2Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.View
      * @param data The data for the request.
      * @param data.adminAreaLevel2Id
      * @returns unknown OK
@@ -206,6 +214,7 @@ export class AdminAreaLevel2Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.Edit
      * @param data The data for the request.
      * @param data.adminAreaLevel2Id
      * @param data.requestBody
@@ -233,6 +242,7 @@ export class AdminAreaLevel2Service {
     }
     
     /**
+     * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.ViewList
      * @param data The data for the request.
      * @param data.adminAreaLevel1Id
      * @returns unknown OK
@@ -262,6 +272,7 @@ export class CountryService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.Countries, CRMService.Countries.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -285,6 +296,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Countries
      * @returns unknown OK
      * @throws ApiError
      */
@@ -304,6 +316,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Countries, CRMService.Countries.Delete
      * @param data The data for the request.
      * @param data.countryId
      * @returns unknown OK
@@ -328,6 +341,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Countries, CRMService.Countries.View
      * @param data The data for the request.
      * @param data.countryId
      * @returns unknown OK
@@ -352,6 +366,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Countries, CRMService.Countries.Edit
      * @param data The data for the request.
      * @param data.countryId
      * @param data.requestBody
@@ -384,6 +399,7 @@ export class CustomService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -407,6 +423,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewList
      * @param data The data for the request.
      * @param data.customIds
      * @param data.name
@@ -449,6 +466,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.CreateAffiliation
      * @param data The data for the request.
      * @param data.customId
      * @param data.requestBody
@@ -476,6 +494,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewAffiliationList
      * @param data The data for the request.
      * @param data.customId
      * @param data.name
@@ -516,6 +535,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.Delete
      * @param data The data for the request.
      * @param data.customId
      * @returns unknown OK
@@ -540,6 +560,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.View
      * @param data The data for the request.
      * @param data.customId
      * @returns unknown OK
@@ -564,6 +585,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.Edit
      * @param data The data for the request.
      * @param data.customId
      * @param data.requestBody
@@ -591,6 +613,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.DeleteAffiliation
      * @param data The data for the request.
      * @param data.customId
      * @param data.affiliationId
@@ -617,6 +640,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.Edit
      * @param data The data for the request.
      * @param data.customId
      * @param data.affiliationId
@@ -646,6 +670,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewAddressList
      * @param data The data for the request.
      * @param data.customId
      * @returns unknown OK
@@ -670,6 +695,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.EditAddress
      * @param data The data for the request.
      * @param data.customId
      * @param data.requestBody
@@ -697,6 +723,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewEmailList
      * @param data The data for the request.
      * @param data.customId
      * @returns unknown OK
@@ -721,6 +748,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.EditEmail
      * @param data The data for the request.
      * @param data.customId
      * @param data.requestBody
@@ -748,6 +776,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewSubCustomsList
      * @param data The data for the request.
      * @param data.customId
      * @returns unknown OK
@@ -772,6 +801,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewTelephoneList
      * @param data The data for the request.
      * @param data.customId
      * @returns unknown OK
@@ -796,6 +826,7 @@ export class CustomService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.EditTelephone
      * @param data The data for the request.
      * @param data.customId
      * @param data.requestBody
@@ -828,6 +859,7 @@ export class IndividualService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -851,11 +883,12 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewList
      * @param data The data for the request.
      * @param data.name
      * @param data.email
      * @param data.telephone
-     * @param data.identificationNumber
+     * @param data.ıdentificationNumber
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
@@ -870,7 +903,7 @@ export class IndividualService {
                 Name: data.name,
                 Email: data.email,
                 Telephone: data.telephone,
-                IdentificationNumber: data.identificationNumber,
+                IdentificationNumber: data.ıdentificationNumber,
                 Sorting: data.sorting,
                 SkipCount: data.skipCount,
                 MaxResultCount: data.maxResultCount
@@ -887,6 +920,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.View
      * @param data The data for the request.
      * @param data.individualId
      * @returns unknown OK
@@ -911,6 +945,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.Edit
      * @param data The data for the request.
      * @param data.individualId
      * @param data.requestBody
@@ -938,6 +973,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.Delete
      * @param data The data for the request.
      * @param data.individualId
      * @returns unknown OK
@@ -962,6 +998,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.EditTelephone
      * @param data The data for the request.
      * @param data.individualId
      * @param data.requestBody
@@ -989,6 +1026,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewTelephoneList
      * @param data The data for the request.
      * @param data.individualId
      * @returns unknown OK
@@ -1013,6 +1051,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.EditEmail
      * @param data The data for the request.
      * @param data.individualId
      * @param data.requestBody
@@ -1040,6 +1079,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewEmailList
      * @param data The data for the request.
      * @param data.individualId
      * @returns unknown OK
@@ -1064,6 +1104,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.EditAddress
      * @param data The data for the request.
      * @param data.individualId
      * @param data.requestBody
@@ -1091,6 +1132,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewAddressList
      * @param data The data for the request.
      * @param data.individualId
      * @returns unknown OK
@@ -1115,6 +1157,7 @@ export class IndividualService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewIdAndNameByEmail
      * @param data The data for the request.
      * @param data.email
      * @returns unknown OK
@@ -1144,6 +1187,7 @@ export class MerchantService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.View
      * @param data The data for the request.
      * @param data.merchantId
      * @returns unknown OK
@@ -1168,6 +1212,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.Edit
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1195,6 +1240,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.Delete
      * @param data The data for the request.
      * @param data.merchantId
      * @returns unknown OK
@@ -1219,6 +1265,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewStoreList
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.merchantIds
@@ -1269,6 +1316,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewAffiliationList
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.name
@@ -1309,6 +1357,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.CreateAffiliation
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1336,6 +1385,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.affiliationId
@@ -1362,6 +1412,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditAffiliation
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.affiliationId
@@ -1391,6 +1442,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.CreateBulkProductGroupMerchant
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1414,6 +1466,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
      * @param data.merchantId
      * @returns unknown OK
@@ -1438,6 +1491,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1465,6 +1519,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1492,6 +1547,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.productGroupId
@@ -1518,6 +1574,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -1541,6 +1598,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewList
      * @param data The data for the request.
      * @param data.merchantIds
      * @param data.chainCodeId
@@ -1587,6 +1645,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditTelephone
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1614,6 +1673,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewTelephoneList
      * @param data The data for the request.
      * @param data.merchantId
      * @returns unknown OK
@@ -1638,6 +1698,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditEmail
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1665,6 +1726,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewEmailList
      * @param data The data for the request.
      * @param data.merchantId
      * @returns unknown OK
@@ -1689,6 +1751,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditAddress
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.requestBody
@@ -1716,6 +1779,7 @@ export class MerchantService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewAddressList
      * @param data The data for the request.
      * @param data.merchantId
      * @returns unknown OK
@@ -1745,6 +1809,7 @@ export class NeighborhoodService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.Neighborhoods, CRMService.Neighborhoods.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -1768,6 +1833,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Neighborhoods, CRMService.Neighborhoods.Delete
      * @param data The data for the request.
      * @param data.neighborhoodId
      * @returns unknown OK
@@ -1792,6 +1858,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Neighborhoods, CRMService.Neighborhoods.Edit
      * @param data The data for the request.
      * @param data.neighborhoodId
      * @param data.requestBody
@@ -1819,6 +1886,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Neighborhoods, CRMService.Neighborhoods.ViewList
      * @param data The data for the request.
      * @param data.adminAreaLevel2Id
      * @returns unknown OK
@@ -1848,6 +1916,7 @@ export class RefundPointService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -1871,6 +1940,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewList
      * @param data The data for the request.
      * @param data.refundPointIds
      * @param data.name
@@ -1913,6 +1983,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.CreateAffiliation
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.requestBody
@@ -1940,6 +2011,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewAffiliationList
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.name
@@ -1980,6 +2052,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.Delete
      * @param data The data for the request.
      * @param data.refundPointId
      * @returns unknown OK
@@ -2004,6 +2077,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.View
      * @param data The data for the request.
      * @param data.refundPointId
      * @returns unknown OK
@@ -2028,6 +2102,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.Edit
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.requestBody
@@ -2055,6 +2130,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.DeleteAffiliation
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.affiliationId
@@ -2081,6 +2157,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditAffiliation
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.affiliationId
@@ -2110,6 +2187,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewAddressList
      * @param data The data for the request.
      * @param data.refundPointId
      * @returns unknown OK
@@ -2134,6 +2212,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditAddress
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.requestBody
@@ -2161,6 +2240,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewEmailList
      * @param data The data for the request.
      * @param data.refundPointId
      * @returns unknown OK
@@ -2185,6 +2265,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditEmail
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.requestBody
@@ -2212,6 +2293,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewTelephoneList
      * @param data The data for the request.
      * @param data.refundPointId
      * @returns unknown OK
@@ -2236,6 +2318,7 @@ export class RefundPointService {
     }
     
     /**
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditTelephone
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.requestBody
@@ -2268,6 +2351,7 @@ export class RegionService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.Regions, CRMService.Regions.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -2291,6 +2375,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Regions, CRMService.Regions.Delete
      * @param data The data for the request.
      * @param data.regionId
      * @returns unknown OK
@@ -2315,6 +2400,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Regions, CRMService.Regions.View
      * @param data The data for the request.
      * @param data.regionId
      * @returns unknown OK
@@ -2339,6 +2425,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Regions, CRMService.Regions.Edit
      * @param data The data for the request.
      * @param data.regionId
      * @param data.requestBody
@@ -2366,6 +2453,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** CRMService.Regions, CRMService.Regions.ViewList
      * @param data The data for the request.
      * @param data.countryId
      * @returns unknown OK
@@ -2395,6 +2483,7 @@ export class TaxFreeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -2418,6 +2507,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewList
      * @param data The data for the request.
      * @param data.taxFreeIds
      * @param data.name
@@ -2460,6 +2550,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.CreateAffiliation
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.requestBody
@@ -2487,6 +2578,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewAffiliationList
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.name
@@ -2527,6 +2619,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.Delete
      * @param data The data for the request.
      * @param data.taxFreeId
      * @returns unknown OK
@@ -2551,6 +2644,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.View
      * @param data The data for the request.
      * @param data.taxFreeId
      * @returns unknown OK
@@ -2575,6 +2669,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.Edit
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.requestBody
@@ -2602,6 +2697,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.affiliationId
@@ -2628,6 +2724,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.EditAffiliation
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.affiliationId
@@ -2657,6 +2754,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewAddressList
      * @param data The data for the request.
      * @param data.taxFreeId
      * @returns unknown OK
@@ -2681,6 +2779,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.EditAddress
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.requestBody
@@ -2708,6 +2807,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewEmailList
      * @param data The data for the request.
      * @param data.taxFreeId
      * @returns unknown OK
@@ -2732,6 +2832,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.EditEmail
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.requestBody
@@ -2759,6 +2860,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewTelephoneList
      * @param data The data for the request.
      * @param data.taxFreeId
      * @returns unknown OK
@@ -2783,6 +2885,7 @@ export class TaxFreeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxFrees
      * @param data The data for the request.
      * @param data.taxFreeId
      * @param data.requestBody
@@ -2815,6 +2918,7 @@ export class TaxOfficeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns string OK
@@ -2838,6 +2942,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewList
      * @param data The data for the request.
      * @param data.taxOfficeIds
      * @param data.name
@@ -2880,6 +2985,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.CreateAffiliation
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.requestBody
@@ -2907,6 +3013,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewAffiliationList
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.name
@@ -2947,6 +3054,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.Delete
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns unknown OK
@@ -2971,6 +3079,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.View
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns unknown OK
@@ -2995,6 +3104,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.Edit
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.requestBody
@@ -3022,6 +3132,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.DeleteAffiliation
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.affiliationId
@@ -3048,6 +3159,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditAffiliation
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.affiliationId
@@ -3077,6 +3189,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns boolean OK
@@ -3101,6 +3214,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditAddress
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns unknown OK
@@ -3125,6 +3239,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditAddress
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.requestBody
@@ -3152,6 +3267,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewEmailList
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns unknown OK
@@ -3176,6 +3292,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditEmail
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.requestBody
@@ -3203,6 +3320,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewSubTaxOfficeList
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns unknown OK
@@ -3227,6 +3345,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditTelephone
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @returns unknown OK
@@ -3251,6 +3370,7 @@ export class TaxOfficeService {
     }
     
     /**
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditTelephone
      * @param data The data for the request.
      * @param data.taxOfficeId
      * @param data.requestBody
@@ -3283,6 +3403,7 @@ export class UserAffiliationService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** CRMService.UserAffiliations, CRMService.UserAffiliations.View
      * @returns unknown OK
      * @throws ApiError
      */
@@ -3302,6 +3423,7 @@ export class UserAffiliationService {
     }
     
     /**
+     * **Requires permissions:** CRMService.UserAffiliations, CRMService.UserAffiliations.SetPrimary
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
