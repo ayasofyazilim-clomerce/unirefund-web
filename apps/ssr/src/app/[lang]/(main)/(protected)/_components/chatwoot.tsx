@@ -1,4 +1,5 @@
 "use client";
+import type {Session} from "@repo/utils/auth";
 import {Component} from "react";
 
 declare global {
@@ -16,6 +17,7 @@ declare global {
     };
     $chatwoot: {
       setCustomAttributes: (attributes: Record<string, string>) => void;
+      setUser: (id: string, user: Record<string, string>) => void;
     };
   }
 }
@@ -23,10 +25,8 @@ declare global {
 class ChatwootWidget extends Component<{
   baseUrl: string | undefined;
   websiteToken: string | undefined;
-  accessToken: string;
   lang: string;
-  name: string;
-  surname: string;
+  session: Session | null;
 }> {
   componentDidMount() {
     // Add Chatwoot Settings
@@ -40,10 +40,8 @@ class ChatwootWidget extends Component<{
 
     const baseUrl = this.props.baseUrl;
     const websiteToken = this.props.websiteToken;
-    const accessToken = this.props.accessToken;
     const lang = this.props.lang;
-    const name = this.props.name;
-    const surname = this.props.surname;
+    const session = this.props.session;
 
     // Paste the script from inbox settings except the <script> tag
     (function run(d, t) {
@@ -65,10 +63,16 @@ class ChatwootWidget extends Component<{
 
     window.addEventListener("chatwoot:ready", () => {
       window.$chatwoot.setCustomAttributes({
-        accessToken,
+        accessToken: session?.user?.access_token || "",
         preferredLanguage: lang,
-        name,
-        surname,
+        name: session?.user?.name || "",
+        surname: session?.user?.surname || "",
+        userId: session?.user?.sub || "",
+      });
+      window.$chatwoot.setUser(session?.user?.sub || "", {
+        email: session?.user?.email || "",
+        name: session?.user?.name || "",
+        surname: session?.user?.surname || "",
       });
     });
   }
