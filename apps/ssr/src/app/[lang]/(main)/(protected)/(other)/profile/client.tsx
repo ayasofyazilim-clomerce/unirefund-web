@@ -7,7 +7,19 @@ import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "@/components/ui/dialog";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTitle} from "@/components/ui/drawer";
-import {User, KeyRound, Bell, HelpCircle, LogOut, ChevronRight, QrCode, Shield, Pencil, IdCard} from "lucide-react";
+import {
+  User,
+  KeyRound,
+  Bell,
+  HelpCircle,
+  LogOut,
+  ChevronRight,
+  QrCode,
+  Shield,
+  Pencil,
+  IdCard,
+  CreditCard,
+} from "lucide-react";
 import {signOutServer} from "@repo/utils/auth";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {useIsMobile} from "@/components/hooks/useIsMobile";
@@ -77,6 +89,15 @@ export default function Profile({
       description: ssrLanguageData.UpdateAccountSecurity,
       onClick: () => {
         setShowChangePassword(true);
+      },
+      disabled: false,
+    },
+    {
+      icon: <CreditCard className="h-4 w-4" />,
+      title: ssrLanguageData.PaymentMethods,
+      description: ssrLanguageData.ManagePaymentMethods,
+      onClick: () => {
+        router.push("profile/payment-methods");
       },
       disabled: false,
     },
