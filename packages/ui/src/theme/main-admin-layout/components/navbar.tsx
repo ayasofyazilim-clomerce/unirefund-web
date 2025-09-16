@@ -1,8 +1,8 @@
 "use client";
 
-import {IdCardIcon} from "@radix-ui/react-icons";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
+import { IdCardIcon } from "@radix-ui/react-icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 
 import {
   BookA,
@@ -50,12 +50,12 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
-import {useState} from "react";
-import {NotificationPopover, NotificationProps} from "../../../notification";
+import { useState } from "react";
+import { NotificationPopover, NotificationProps } from "../../../notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
-import SearchBar, {type SearchFromDB} from "./navbar-searchbar";
+import SearchBar, { type SearchFromDB } from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
 
 export default function Navbar({
@@ -66,14 +66,16 @@ export default function Navbar({
   tenantData,
   notification,
   searchFromDB,
+  children
 }: {
   prefix: string;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
   notification?: NotificationProps;
   searchFromDB?: SearchFromDB[];
+  children?: React.ReactNode
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -108,6 +110,7 @@ export default function Navbar({
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-1 md:hidden">
               <Menu size={20} />
             </button>
+            {children}
             <LanguageSelector lang={lang} showEarthIcon={true} />
             {notification && <NotificationPopover {...notification} />}
             <ProfileMenu />

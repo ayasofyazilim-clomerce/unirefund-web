@@ -11,8 +11,8 @@ import {
   BooleanOptions,
   tanstackTableCreateColumnsByRowData,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type {Ruleset} from "@repo/ui/unirefund/file-upload/index";
-import {FileUpload} from "@repo/ui/unirefund/file-upload/index";
+import type {Ruleset} from "@repo/ui/unirefund/file-upload";
+import {FileUpload} from "@repo/ui/unirefund/file-upload";
 import {DownloadIcon, UploadCloudIcon} from "lucide-react";
 import {useParams} from "next/navigation";
 import {useEffect, useState, useTransition} from "react";
