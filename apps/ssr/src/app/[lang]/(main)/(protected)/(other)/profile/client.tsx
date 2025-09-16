@@ -94,7 +94,7 @@ export default function Profile({
     },
     {
       icon: <CreditCard className="h-4 w-4" />,
-      title: ssrLanguageData.PaymantMethods,
+      title: ssrLanguageData.PaymentMethods,
       description: ssrLanguageData.ManagePaymentMethods,
       onClick: () => {
         router.push("profile/payment-methods");
