@@ -1,12 +1,12 @@
 "use client";
 
-import {XIcon} from "lucide-react";
+import { XIcon } from "lucide-react";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {useEffect, useState, useTransition} from "react";
-import {FormProvider, useForm} from "react-hook-form";
-import {Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto} from "@ayasofyazilim/core-saas/AccountService";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { Volo_Abp_AspNetCore_Mvc_MultiTenancy_FindTenantResultDto } from "@ayasofyazilim/core-saas/AccountService";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
 import {
   FormControl,
   FormDescription,
@@ -15,11 +15,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ayasofyazilim-ui/atoms/form";
-import {Input} from "@repo/ayasofyazilim-ui/atoms/input";
-import {toast} from "@repo/ayasofyazilim-ui/atoms/sonner";
-import {z, zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import {PasswordInput} from "@repo/ayasofyazilim-ui/molecules/password-input";
-import {LanguageData} from "../types";
+import { Input } from "@repo/ayasofyazilim-ui/atoms/input";
+import { toast } from "@repo/ayasofyazilim-ui/atoms/sonner";
+import { z, zodResolver } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import { PasswordInput } from "@repo/ayasofyazilim-ui/molecules/password-input";
+import { LanguageData } from "../types";
 
 const formSchema = z.object({
   username: z.string().min(4, {
@@ -79,7 +79,7 @@ export default function LoginForm({
     startTransition(() => {
       onTenantSearchAction(name).then((response) => {
         if (response.type !== "success" || !response.data.success) {
-          form.setError("tenant", {type: "manual", message: "Tenant not found."}, {shouldFocus: true});
+          form.setError("tenant", { type: "manual", message: "Tenant not found." }, { shouldFocus: true });
           return;
         }
         form.clearErrors("tenant");
@@ -132,7 +132,7 @@ export default function LoginForm({
                 control={form.control}
                 name="tenant"
                 disabled={isPending}
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>{languageData["Auth.Tenant"]}</FormLabel>
                     <FormControl>
@@ -175,7 +175,7 @@ export default function LoginForm({
             <FormField
               control={form.control}
               name="username"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>{languageData["Auth.UsernameOrEmailLabel"]}</FormLabel>
                   <FormControl>
@@ -189,7 +189,7 @@ export default function LoginForm({
             <FormField
               control={form.control}
               name="password"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>{languageData["Auth.PasswordLabel"]}</FormLabel>
                   <FormControl>
@@ -205,7 +205,7 @@ export default function LoginForm({
               </Link>
             </div>
             <div>
-              <Button disabled={isPending || isSubmitDisabled} className="mb-1 mt-2 w-full">
+              <Button disabled={isPending || isSubmitDisabled} className="mb-1 mt-2 w-full" data-testid="login-button">
                 {languageData["Auth.Login"]}
               </Button>
             </div>
@@ -213,8 +213,8 @@ export default function LoginForm({
         </FormProvider>
       </div>
       {isVisible && (
-        <Link href="register" className="text-muted-foreground text-xs hover:underline">
-          <Button disabled={isPending} className=" w-full" variant={"outline"}>
+        <Link href="register" className="text-muted-foreground text-xs hover:underline" data-testid="register-link">
+          <Button disabled={isPending} className=" w-full" variant={"outline"} data-testid="register-button">
             {languageData["Auth.Register"]}
           </Button>
         </Link>
