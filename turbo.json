@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [".env.local", ".env"],
+  "globalDependencies": [
+    ".env.local",
+    ".env"
+  ],
   "globalEnv": [
     "STAGE",
     "NODE_ENV",
@@ -34,12 +37,24 @@
     "CLICKHOUSE_USERNAME",
     "CLICKHOUSE_PASSWORD",
     "CHATWOOT_BASE_URL",
-    "CHATWOOT_WEBSITE_TOKEN"
+    "CHATWOOT_WEBSITE_TOKEN",
+    "TEST_LOCAL_URL",
+    "TEST_DEV_URL",
+    "TEST_UAT_URL",
+    "TEST_TENANT",
+    "ADMIN_USERNAME",
+    "ADMIN_PASSWORD"
   ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ]
     },
     "lint": {},
     "lint-staged": {},
