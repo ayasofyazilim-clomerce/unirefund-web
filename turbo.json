@@ -1,9 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [".env.local", ".env"],
+  "globalDependencies": [
+    ".env.local",
+    ".env"
+  ],
   "globalEnv": [
     "NODE_ENV",
-
     "HOSTNAME",
     "PORT",
     "BASE_URL",
@@ -27,12 +29,24 @@
     "NOVU_SECRET_KEY",
     "SUPERSET_URL",
     "SUPERSET_DASHBOARD_ID",
-    "CI"
+    "CI",
+    "TEST_LOCAL_URL",
+    "TEST_DEV_URL",
+    "TEST_UAT_URL",
+    "TEST_TENANT",
+    "ADMIN_USERNAME",
+    "ADMIN_PASSWORD"
   ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ]
     },
     "lint": {},
     "type-check": {},

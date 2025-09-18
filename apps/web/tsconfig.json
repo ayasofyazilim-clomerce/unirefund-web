@@ -1,11 +1,20 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
-    "plugins": [{"name": "next"}],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../../packages/ayasofyazilim-ui/@/*", "./src/*"],
-      "components/*": ["./src/components/*"]
+      "@/*": [
+        "../../packages/ayasofyazilim-ui/@/*",
+        "./src/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ]
     }
   },
   "include": [
@@ -17,5 +26,7 @@
     ".eslintrc.js",
     ".lintstagedrc.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
