@@ -10,15 +10,22 @@ import {useParams, useRouter} from "next/navigation";
 import {useCallback, useMemo, useState, useTransition} from "react";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
 const DEFAULT_FORMDATA: CreateCustomDto = {
   name: "",
   typeCode: "CUSTOM",
+  email: {
+    type: "WORK",
+    emailAddress: "",
+    isPrimary: true,
+  },
   telephone: {
     type: "WORK",
-    number: "",
+    isPrimary: true,
   },
   address: {
+    isPrimary: true,
     type: "WORK",
     addressLine: "",
     adminAreaLevel1Id: "00000000-0000-0000-0000-000000000000",
@@ -59,24 +66,15 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
         schema: $CreateCustomDto,
         extend: {
           "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto p-px",
-          telephone: createUiSchemaWithResource({
-            resources: languageData,
-            schema: $CreateCustomDto.properties.telephone,
-            name: "CRM.telephone",
-            extend: {
-              "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
-              displayLabel: false,
-              number: {
-                "ui:widget": "phone-with-value",
-                "ui:title": languageData["CRM.telephone.number"],
-              },
-            },
-          }),
+          telephone: {
+            "ui:field": "telephone",
+            "ui:className": "grid grid-cols-2 col-span-full",
+            "ui:required": true,
+          },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateCustomDto.properties.address,
-            name: "CRM.address",
+            name: "Form.address",
             extend: {
               "ui:className": "col-span-full grid grid-cols-2 gap-4",
               countryId: {
@@ -94,20 +92,26 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
               addressLine: {
                 "ui:className": "col-span-full",
               },
+              isPrimary: {
+                "ui:widget": "hidden",
+              },
             },
           }),
           email: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateCustomDto.properties.email,
-            name: "CRM.email",
+            name: "Form.email",
             extend: {
               "ui:className":
                 "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
-                "ui:title": languageData["CRM.email"],
+                "ui:title": languageData["Form.email"],
                 "ui:widget": "email",
                 "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+              },
+              isPrimary: {
+                "ui:widget": "hidden",
               },
             },
           }),
@@ -117,6 +121,7 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
           },
           vatNumber: {
             "ui:className": "col-span-full",
+            ...{"ui:required": typeCode === "HEADQUARTER" && true},
           },
           parentId: {
             "ui:widget": "customWidget",
@@ -132,9 +137,7 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
       type: "exclude" as const,
       keys: [
         "email.id",
-        "email.isPrimary",
         "telephone.id",
-        "telephone.isPrimary",
         "typeCode",
         "parentId",
         "address.partyType",
@@ -142,12 +145,20 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
         "address.placeId",
         "address.latitude",
         "address.longitude",
-        "address.isPrimary",
         ...(typeCode === "CUSTOM" ? ["vatNumber"] : []),
       ],
     }),
     [typeCode],
   );
+
+  const fields = useMemo(() => {
+    return {
+      telephone: PhoneWithTypeField({
+        languageData,
+        typeOptions: $CreateCustomDto.properties.telephone.properties.type.enum,
+      }),
+    };
+  }, []);
 
   const handleFormChange = useCallback(({formData: editedFormData}: {formData?: CreateCustomDto}) => {
     if (editedFormData) {
@@ -179,6 +190,7 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
     <SchemaForm<CreateCustomDto>
       defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
       disabled={isPending}
+      fields={fields}
       filter={filter}
       formData={form}
       id="create-custom-form"

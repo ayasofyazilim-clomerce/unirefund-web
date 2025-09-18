@@ -3,7 +3,7 @@ import {
   getMerchantContractHeaderRebateSettingsByHeaderIdApi,
   getRebateTableHeadersAssignablesByMerchantIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
-import {getMerchantAffiliationsByMerchantIdApi, getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAffiliationsByIdApi, getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {structuredError} from "@repo/utils/api";
@@ -22,7 +22,7 @@ async function getApiRequests(partyId: string) {
     const requiredRequests = await Promise.all([
       getRebateTableHeadersAssignablesByMerchantIdApi({merchantId: partyId}, session),
       getMerchantsApi({parentId: partyId}, session),
-      getMerchantAffiliationsByMerchantIdApi({merchantId: partyId}, session),
+      getMerchantAffiliationsByIdApi({id: partyId}, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};

@@ -1,10 +1,10 @@
 "use server";
 
 import {
-  getTaxOfficeAddressesByTaxOfficeIdApi,
+  getTaxOfficeAddressesByIdApi,
   getTaxOfficeByIdApi,
-  getTaxOfficeEmailsByTaxOfficeIdApi,
-  getTaxOfficeTelephonesByTaxOfficeIdApi,
+  getTaxOfficeEmailsByIdApi,
+  getTaxOfficeTelephonesByIdApi,
 } from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {FormReadyComponent} from "@repo/ui/form-ready";
@@ -23,9 +23,9 @@ async function getApiRequests({partyId}: {partyId: string}) {
     const session = await auth();
     const requiredRequests = await Promise.all([getTaxOfficeByIdApi(partyId, session)]);
     const optionalRequests = await Promise.allSettled([
-      getTaxOfficeTelephonesByTaxOfficeIdApi(partyId, session),
-      getTaxOfficeEmailsByTaxOfficeIdApi(partyId, session),
-      getTaxOfficeAddressesByTaxOfficeIdApi(partyId, session),
+      getTaxOfficeTelephonesByIdApi(partyId, session),
+      getTaxOfficeEmailsByIdApi(partyId, session),
+      getTaxOfficeAddressesByIdApi(partyId, session),
     ]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -69,6 +69,7 @@ export default async function Page({
           variant="compact">
           <PhoneForm
             languageData={languageData}
+            partyType="tax-offices"
             phones={phoneResponse.status === "fulfilled" ? phoneResponse.value.data : []}
           />
         </FormReadyComponent>
@@ -83,6 +84,7 @@ export default async function Page({
           <EmailForm
             emails={emailResponse.status === "fulfilled" ? emailResponse.value.data : []}
             languageData={languageData}
+            partyType="tax-offices"
           />
         </FormReadyComponent>
         <FormReadyComponent

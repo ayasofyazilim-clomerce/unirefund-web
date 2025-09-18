@@ -35,8 +35,8 @@ export default async function Layout({
 }) {
   const {partyId, lang} = params;
   const {languageData} = await getResourceData(lang);
-  const baseLink = getBaseLink(`parties/merchants/${partyId}/`, lang);
 
+  const baseLink = getBaseLink(`parties/merchants/${partyId}/`, lang);
   const apiRequests = await getApiRequests({partyId});
 
   if ("message" in apiRequests) {
@@ -46,11 +46,7 @@ export default async function Layout({
   const isHeadquarter = merchantDetailResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
-      <PartyHeader
-        link={`${baseLink}details`}
-        name={merchantDetailResponse.data.name}
-        parentId={merchantDetailResponse.data.parentId}
-      />
+      <PartyHeader details={merchantDetailResponse.data} partyType="merchants" />
       <TabLayout
         classNames={{
           vertical: {

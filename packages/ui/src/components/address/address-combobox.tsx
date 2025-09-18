@@ -40,6 +40,7 @@ export function AddressCombobox({
         disabled: "Disabled",
         placeholder: "Please select",
         search: "Search...",
+        notFound: "Not found",
     }
 }: AddressComboboxProps) {
     const [open, setOpen] = React.useState(false);
@@ -83,9 +84,9 @@ export function AddressCombobox({
                 </PopoverTrigger>
                 <PopoverContent className="w-full p-0">
                     <Command>
-                        <CommandInput placeholder={`Search ${type}...`} />
+                        <CommandInput placeholder={messages.search} />
                         <CommandList>
-                            <CommandEmpty>No {type} found.</CommandEmpty>
+                            <CommandEmpty>{messages.notFound}</CommandEmpty>
                             <CommandGroup>
                                 {list.map((item) => {
                                     const itemKey = (item as any)[selectIdentifier] as string;

@@ -2,7 +2,7 @@
 
 import type { CancelablePromise } from './core/CancelablePromise';
 import type { BaseHttpRequest } from './core/BaseHttpRequest';
-import type { PostApiCrmServiceAdminarealevel1Data, PostApiCrmServiceAdminarealevel1Response, DeleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData, DeleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse, GetApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData, GetApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse, PutApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData, PutApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse, GetApiCrmServiceAdminarealevel1ByCountryByCountryIdData, GetApiCrmServiceAdminarealevel1ByCountryByCountryIdResponse, PostApiCrmServiceAdminarealevel2Data, PostApiCrmServiceAdminarealevel2Response, DeleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData, DeleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse, GetApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData, GetApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse, PutApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData, PutApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse, GetApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1IdData, GetApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1IdResponse, PostApiCrmServiceCountriesData, PostApiCrmServiceCountriesResponse, GetApiCrmServiceCountriesResponse, DeleteApiCrmServiceCountriesByCountryIdData, DeleteApiCrmServiceCountriesByCountryIdResponse, GetApiCrmServiceCountriesByCountryIdData, GetApiCrmServiceCountriesByCountryIdResponse, PutApiCrmServiceCountriesByCountryIdData, PutApiCrmServiceCountriesByCountryIdResponse, PostApiCrmServiceCustomsData, PostApiCrmServiceCustomsResponse, GetApiCrmServiceCustomsData, GetApiCrmServiceCustomsResponse, PostApiCrmServiceCustomsByCustomIdAffiliationsData, PostApiCrmServiceCustomsByCustomIdAffiliationsResponse, GetApiCrmServiceCustomsByCustomIdAffiliationsData, GetApiCrmServiceCustomsByCustomIdAffiliationsResponse, DeleteApiCrmServiceCustomsByCustomIdData, DeleteApiCrmServiceCustomsByCustomIdResponse, GetApiCrmServiceCustomsByCustomIdData, GetApiCrmServiceCustomsByCustomIdResponse, PutApiCrmServiceCustomsByCustomIdData, PutApiCrmServiceCustomsByCustomIdResponse, DeleteApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdData, PutApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceCustomsByCustomIdAddressesData, GetApiCrmServiceCustomsByCustomIdAddressesResponse, PutApiCrmServiceCustomsByCustomIdAddressesData, PutApiCrmServiceCustomsByCustomIdAddressesResponse, GetApiCrmServiceCustomsByCustomIdEmailsData, GetApiCrmServiceCustomsByCustomIdEmailsResponse, PutApiCrmServiceCustomsByCustomIdEmailsData, PutApiCrmServiceCustomsByCustomIdEmailsResponse, GetApiCrmServiceCustomsByCustomIdSubCustomsData, GetApiCrmServiceCustomsByCustomIdSubCustomsResponse, GetApiCrmServiceCustomsByCustomIdTelephonesData, GetApiCrmServiceCustomsByCustomIdTelephonesResponse, PutApiCrmServiceCustomsByCustomIdTelephonesData, PutApiCrmServiceCustomsByCustomIdTelephonesResponse, PostApiCrmServiceIndividualsData, PostApiCrmServiceIndividualsResponse, GetApiCrmServiceIndividualsData, GetApiCrmServiceIndividualsResponse, GetApiCrmServiceIndividualsByIndividualIdData, GetApiCrmServiceIndividualsByIndividualIdResponse, PutApiCrmServiceIndividualsByIndividualIdData, PutApiCrmServiceIndividualsByIndividualIdResponse, DeleteApiCrmServiceIndividualsByIndividualIdData, DeleteApiCrmServiceIndividualsByIndividualIdResponse, PutApiCrmServiceIndividualsByIndividualIdTelephonesData, PutApiCrmServiceIndividualsByIndividualIdTelephonesResponse, GetApiCrmServiceIndividualsByIndividualIdTelephonesData, GetApiCrmServiceIndividualsByIndividualIdTelephonesResponse, PutApiCrmServiceIndividualsByIndividualIdEmailsData, PutApiCrmServiceIndividualsByIndividualIdEmailsResponse, GetApiCrmServiceIndividualsByIndividualIdEmailsData, GetApiCrmServiceIndividualsByIndividualIdEmailsResponse, PutApiCrmServiceIndividualsByIndividualIdAddressesData, PutApiCrmServiceIndividualsByIndividualIdAddressesResponse, GetApiCrmServiceIndividualsByIndividualIdAddressesData, GetApiCrmServiceIndividualsByIndividualIdAddressesResponse, GetApiCrmServiceIndividualsByEmailData, GetApiCrmServiceIndividualsByEmailResponse, GetApiCrmServiceMerchantsByMerchantIdData, GetApiCrmServiceMerchantsByMerchantIdResponse, PutApiCrmServiceMerchantsByMerchantIdData, PutApiCrmServiceMerchantsByMerchantIdResponse, DeleteApiCrmServiceMerchantsByMerchantIdData, DeleteApiCrmServiceMerchantsByMerchantIdResponse, GetApiCrmServiceMerchantsByMerchantIdSubMerchantsData, GetApiCrmServiceMerchantsByMerchantIdSubMerchantsResponse, GetApiCrmServiceMerchantsByMerchantIdAffiliationsData, GetApiCrmServiceMerchantsByMerchantIdAffiliationsResponse, PostApiCrmServiceMerchantsByMerchantIdAffiliationsData, PostApiCrmServiceMerchantsByMerchantIdAffiliationsResponse, DeleteApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdData, PutApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdResponse, PostApiCrmServiceMerchantsBulkProductGroupMerchantsData, PostApiCrmServiceMerchantsBulkProductGroupMerchantsResponse, GetApiCrmServiceMerchantsByMerchantIdProductGroupData, GetApiCrmServiceMerchantsByMerchantIdProductGroupResponse, PostApiCrmServiceMerchantsByMerchantIdProductGroupsData, PostApiCrmServiceMerchantsByMerchantIdProductGroupsResponse, DeleteApiCrmServiceMerchantsByMerchantIdProductGroupsData, DeleteApiCrmServiceMerchantsByMerchantIdProductGroupsResponse, PostApiCrmServiceMerchantsByMerchantIdProductGroupByProductGroupIdDefaultData, PostApiCrmServiceMerchantsByMerchantIdProductGroupByProductGroupIdDefaultResponse, PostApiCrmServiceMerchantsData, PostApiCrmServiceMerchantsResponse, GetApiCrmServiceMerchantsData, GetApiCrmServiceMerchantsResponse, PutApiCrmServiceMerchantsByMerchantIdTelephonesData, PutApiCrmServiceMerchantsByMerchantIdTelephonesResponse, GetApiCrmServiceMerchantsByMerchantIdTelephonesData, GetApiCrmServiceMerchantsByMerchantIdTelephonesResponse, PutApiCrmServiceMerchantsByMerchantIdEmailsData, PutApiCrmServiceMerchantsByMerchantIdEmailsResponse, GetApiCrmServiceMerchantsByMerchantIdEmailsData, GetApiCrmServiceMerchantsByMerchantIdEmailsResponse, PutApiCrmServiceMerchantsByMerchantIdAddressesData, PutApiCrmServiceMerchantsByMerchantIdAddressesResponse, GetApiCrmServiceMerchantsByMerchantIdAddressesData, GetApiCrmServiceMerchantsByMerchantIdAddressesResponse, PostApiCrmServiceNeighborhoodsData, PostApiCrmServiceNeighborhoodsResponse, DeleteApiCrmServiceNeighborhoodsByNeighborhoodIdData, DeleteApiCrmServiceNeighborhoodsByNeighborhoodIdResponse, PutApiCrmServiceNeighborhoodsByNeighborhoodIdData, PutApiCrmServiceNeighborhoodsByNeighborhoodIdResponse, GetApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2IdData, GetApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2IdResponse, PostApiCrmServiceRefundpointsData, PostApiCrmServiceRefundpointsResponse, GetApiCrmServiceRefundpointsData, GetApiCrmServiceRefundpointsResponse, PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData, PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsResponse, GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData, GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsResponse, DeleteApiCrmServiceRefundpointsByRefundPointIdData, DeleteApiCrmServiceRefundpointsByRefundPointIdResponse, GetApiCrmServiceRefundpointsByRefundPointIdData, GetApiCrmServiceRefundpointsByRefundPointIdResponse, PutApiCrmServiceRefundpointsByRefundPointIdData, PutApiCrmServiceRefundpointsByRefundPointIdResponse, DeleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdData, PutApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceRefundpointsByRefundPointIdAddressesData, GetApiCrmServiceRefundpointsByRefundPointIdAddressesResponse, PutApiCrmServiceRefundpointsByRefundPointIdAddressesData, PutApiCrmServiceRefundpointsByRefundPointIdAddressesResponse, GetApiCrmServiceRefundpointsByRefundPointIdEmailsData, GetApiCrmServiceRefundpointsByRefundPointIdEmailsResponse, PutApiCrmServiceRefundpointsByRefundPointIdEmailsData, PutApiCrmServiceRefundpointsByRefundPointIdEmailsResponse, GetApiCrmServiceRefundpointsByRefundPointIdTelephonesData, GetApiCrmServiceRefundpointsByRefundPointIdTelephonesResponse, PutApiCrmServiceRefundpointsByRefundPointIdTelephonesData, PutApiCrmServiceRefundpointsByRefundPointIdTelephonesResponse, PostApiCrmServiceRegionsData, PostApiCrmServiceRegionsResponse, DeleteApiCrmServiceRegionsByRegionIdData, DeleteApiCrmServiceRegionsByRegionIdResponse, GetApiCrmServiceRegionsByRegionIdData, GetApiCrmServiceRegionsByRegionIdResponse, PutApiCrmServiceRegionsByRegionIdData, PutApiCrmServiceRegionsByRegionIdResponse, GetApiCrmServiceRegionsByCountryByCountryIdData, GetApiCrmServiceRegionsByCountryByCountryIdResponse, PostApiCrmServiceTaxfreesData, PostApiCrmServiceTaxfreesResponse, GetApiCrmServiceTaxfreesData, GetApiCrmServiceTaxfreesResponse, PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData, PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsResponse, GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData, GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsResponse, DeleteApiCrmServiceTaxfreesByTaxFreeIdData, DeleteApiCrmServiceTaxfreesByTaxFreeIdResponse, GetApiCrmServiceTaxfreesByTaxFreeIdData, GetApiCrmServiceTaxfreesByTaxFreeIdResponse, PutApiCrmServiceTaxfreesByTaxFreeIdData, PutApiCrmServiceTaxfreesByTaxFreeIdResponse, DeleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdData, PutApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceTaxfreesByTaxFreeIdAddressesData, GetApiCrmServiceTaxfreesByTaxFreeIdAddressesResponse, PutApiCrmServiceTaxfreesByTaxFreeIdAddressesData, PutApiCrmServiceTaxfreesByTaxFreeIdAddressesResponse, GetApiCrmServiceTaxfreesByTaxFreeIdEmailsData, GetApiCrmServiceTaxfreesByTaxFreeIdEmailsResponse, PutApiCrmServiceTaxfreesByTaxFreeIdEmailsData, PutApiCrmServiceTaxfreesByTaxFreeIdEmailsResponse, GetApiCrmServiceTaxfreesByTaxFreeIdTelephonesData, GetApiCrmServiceTaxfreesByTaxFreeIdTelephonesResponse, PutApiCrmServiceTaxfreesByTaxFreeIdTelephonesData, PutApiCrmServiceTaxfreesByTaxFreeIdTelephonesResponse, PostApiCrmServiceTaxofficesData, PostApiCrmServiceTaxofficesResponse, GetApiCrmServiceTaxofficesData, GetApiCrmServiceTaxofficesResponse, PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData, PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData, GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsResponse, DeleteApiCrmServiceTaxofficesByTaxOfficeIdData, DeleteApiCrmServiceTaxofficesByTaxOfficeIdResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdData, GetApiCrmServiceTaxofficesByTaxOfficeIdResponse, PutApiCrmServiceTaxofficesByTaxOfficeIdData, PutApiCrmServiceTaxofficesByTaxOfficeIdResponse, DeleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdData, PutApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdExistsData, GetApiCrmServiceTaxofficesByTaxOfficeIdExistsResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdAddressesData, GetApiCrmServiceTaxofficesByTaxOfficeIdAddressesResponse, PutApiCrmServiceTaxofficesByTaxOfficeIdAddressesData, PutApiCrmServiceTaxofficesByTaxOfficeIdAddressesResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdEmailsData, GetApiCrmServiceTaxofficesByTaxOfficeIdEmailsResponse, PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsData, PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOfficesData, GetApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOfficesResponse, GetApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData, GetApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse, PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData, PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse, GetApiCrmServiceUserAffiliationsResponse, PostApiCrmServiceUserAffiliationsSetActiveAffiliationData, PostApiCrmServiceUserAffiliationsSetActiveAffiliationResponse } from './types.gen';
+import type { PostApiCrmServiceAdminAreaLevel1Data, PostApiCrmServiceAdminAreaLevel1Response, DeleteApiCrmServiceAdminAreaLevel1ByIdData, DeleteApiCrmServiceAdminAreaLevel1ByIdResponse, GetApiCrmServiceAdminAreaLevel1ByIdData, GetApiCrmServiceAdminAreaLevel1ByIdResponse, PutApiCrmServiceAdminAreaLevel1ByIdData, PutApiCrmServiceAdminAreaLevel1ByIdResponse, GetApiCrmServiceAdminAreaLevel1ByCountryByCountryIdData, GetApiCrmServiceAdminAreaLevel1ByCountryByCountryIdResponse, PostApiCrmServiceAdminAreaLevel2Data, PostApiCrmServiceAdminAreaLevel2Response, DeleteApiCrmServiceAdminAreaLevel2ByIdData, DeleteApiCrmServiceAdminAreaLevel2ByIdResponse, GetApiCrmServiceAdminAreaLevel2ByIdData, GetApiCrmServiceAdminAreaLevel2ByIdResponse, PutApiCrmServiceAdminAreaLevel2ByIdData, PutApiCrmServiceAdminAreaLevel2ByIdResponse, GetApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1IdData, GetApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1IdResponse, PostApiCrmServiceCountriesData, PostApiCrmServiceCountriesResponse, GetApiCrmServiceCountriesResponse, DeleteApiCrmServiceCountriesByIdData, DeleteApiCrmServiceCountriesByIdResponse, GetApiCrmServiceCountriesByIdData, GetApiCrmServiceCountriesByIdResponse, PutApiCrmServiceCountriesByIdData, PutApiCrmServiceCountriesByIdResponse, PostApiCrmServiceCustomsData, PostApiCrmServiceCustomsResponse, GetApiCrmServiceCustomsData, GetApiCrmServiceCustomsResponse, PostApiCrmServiceCustomsByIdAffiliationsData, PostApiCrmServiceCustomsByIdAffiliationsResponse, GetApiCrmServiceCustomsByIdAffiliationsData, GetApiCrmServiceCustomsByIdAffiliationsResponse, DeleteApiCrmServiceCustomsByIdData, DeleteApiCrmServiceCustomsByIdResponse, GetApiCrmServiceCustomsByIdData, GetApiCrmServiceCustomsByIdResponse, PutApiCrmServiceCustomsByIdData, PutApiCrmServiceCustomsByIdResponse, DeleteApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdData, PutApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceCustomsByIdAddressesData, GetApiCrmServiceCustomsByIdAddressesResponse, PutApiCrmServiceCustomsByIdAddressesData, PutApiCrmServiceCustomsByIdAddressesResponse, GetApiCrmServiceCustomsByIdEmailsData, GetApiCrmServiceCustomsByIdEmailsResponse, PutApiCrmServiceCustomsByIdEmailsData, PutApiCrmServiceCustomsByIdEmailsResponse, GetApiCrmServiceCustomsByIdSubCustomsData, GetApiCrmServiceCustomsByIdSubCustomsResponse, GetApiCrmServiceCustomsByIdTelephonesData, GetApiCrmServiceCustomsByIdTelephonesResponse, PutApiCrmServiceCustomsByIdTelephonesData, PutApiCrmServiceCustomsByIdTelephonesResponse, PostApiCrmServiceIndividualsData, PostApiCrmServiceIndividualsResponse, GetApiCrmServiceIndividualsData, GetApiCrmServiceIndividualsResponse, GetApiCrmServiceIndividualsByIdData, GetApiCrmServiceIndividualsByIdResponse, PutApiCrmServiceIndividualsByIdData, PutApiCrmServiceIndividualsByIdResponse, DeleteApiCrmServiceIndividualsByIdData, DeleteApiCrmServiceIndividualsByIdResponse, PutApiCrmServiceIndividualsByIdTelephonesData, PutApiCrmServiceIndividualsByIdTelephonesResponse, GetApiCrmServiceIndividualsByIdTelephonesData, GetApiCrmServiceIndividualsByIdTelephonesResponse, PutApiCrmServiceIndividualsByIdEmailsData, PutApiCrmServiceIndividualsByIdEmailsResponse, GetApiCrmServiceIndividualsByIdEmailsData, GetApiCrmServiceIndividualsByIdEmailsResponse, PutApiCrmServiceIndividualsByIdAddressesData, PutApiCrmServiceIndividualsByIdAddressesResponse, GetApiCrmServiceIndividualsByIdAddressesData, GetApiCrmServiceIndividualsByIdAddressesResponse, GetApiCrmServiceIndividualsByEmailData, GetApiCrmServiceIndividualsByEmailResponse, GetApiCrmServiceMerchantsByIdData, GetApiCrmServiceMerchantsByIdResponse, PutApiCrmServiceMerchantsByIdData, PutApiCrmServiceMerchantsByIdResponse, DeleteApiCrmServiceMerchantsByIdData, DeleteApiCrmServiceMerchantsByIdResponse, GetApiCrmServiceMerchantsByIdSubMerchantsData, GetApiCrmServiceMerchantsByIdSubMerchantsResponse, GetApiCrmServiceMerchantsByIdAffiliationsData, GetApiCrmServiceMerchantsByIdAffiliationsResponse, PostApiCrmServiceMerchantsByIdAffiliationsData, PostApiCrmServiceMerchantsByIdAffiliationsResponse, DeleteApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdData, PutApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdResponse, PostApiCrmServiceMerchantsBulkProductGroupMerchantsData, PostApiCrmServiceMerchantsBulkProductGroupMerchantsResponse, GetApiCrmServiceMerchantsByIdProductGroupData, GetApiCrmServiceMerchantsByIdProductGroupResponse, PostApiCrmServiceMerchantsByIdProductGroupsData, PostApiCrmServiceMerchantsByIdProductGroupsResponse, DeleteApiCrmServiceMerchantsByIdProductGroupsData, DeleteApiCrmServiceMerchantsByIdProductGroupsResponse, PostApiCrmServiceMerchantsByMerchantIdProductGroupByProductGroupIdDefaultData, PostApiCrmServiceMerchantsByMerchantIdProductGroupByProductGroupIdDefaultResponse, PostApiCrmServiceMerchantsData, PostApiCrmServiceMerchantsResponse, GetApiCrmServiceMerchantsData, GetApiCrmServiceMerchantsResponse, PutApiCrmServiceMerchantsByIdTelephonesData, PutApiCrmServiceMerchantsByIdTelephonesResponse, GetApiCrmServiceMerchantsByIdTelephonesData, GetApiCrmServiceMerchantsByIdTelephonesResponse, PutApiCrmServiceMerchantsByIdEmailsData, PutApiCrmServiceMerchantsByIdEmailsResponse, GetApiCrmServiceMerchantsByIdEmailsData, GetApiCrmServiceMerchantsByIdEmailsResponse, PutApiCrmServiceMerchantsByIdAddressesData, PutApiCrmServiceMerchantsByIdAddressesResponse, GetApiCrmServiceMerchantsByIdAddressesData, GetApiCrmServiceMerchantsByIdAddressesResponse, PostApiCrmServiceNeighborhoodsData, PostApiCrmServiceNeighborhoodsResponse, DeleteApiCrmServiceNeighborhoodsByIdData, DeleteApiCrmServiceNeighborhoodsByIdResponse, PutApiCrmServiceNeighborhoodsByIdData, PutApiCrmServiceNeighborhoodsByIdResponse, GetApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2IdData, GetApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2IdResponse, PostApiCrmServiceRefundPointsData, PostApiCrmServiceRefundPointsResponse, GetApiCrmServiceRefundPointsData, GetApiCrmServiceRefundPointsResponse, PostApiCrmServiceRefundPointsByIdAffiliationsData, PostApiCrmServiceRefundPointsByIdAffiliationsResponse, GetApiCrmServiceRefundPointsByIdAffiliationsData, GetApiCrmServiceRefundPointsByIdAffiliationsResponse, DeleteApiCrmServiceRefundPointsByIdData, DeleteApiCrmServiceRefundPointsByIdResponse, GetApiCrmServiceRefundPointsByIdData, GetApiCrmServiceRefundPointsByIdResponse, PutApiCrmServiceRefundPointsByIdData, PutApiCrmServiceRefundPointsByIdResponse, DeleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdData, PutApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceRefundPointsByIdAddressesData, GetApiCrmServiceRefundPointsByIdAddressesResponse, PutApiCrmServiceRefundPointsByIdAddressesData, PutApiCrmServiceRefundPointsByIdAddressesResponse, GetApiCrmServiceRefundPointsByIdEmailsData, GetApiCrmServiceRefundPointsByIdEmailsResponse, PutApiCrmServiceRefundPointsByIdEmailsData, PutApiCrmServiceRefundPointsByIdEmailsResponse, GetApiCrmServiceRefundPointsByIdTelephonesData, GetApiCrmServiceRefundPointsByIdTelephonesResponse, PutApiCrmServiceRefundPointsByIdTelephonesData, PutApiCrmServiceRefundPointsByIdTelephonesResponse, PostApiCrmServiceRegionsData, PostApiCrmServiceRegionsResponse, DeleteApiCrmServiceRegionsByIdData, DeleteApiCrmServiceRegionsByIdResponse, GetApiCrmServiceRegionsByIdData, GetApiCrmServiceRegionsByIdResponse, PutApiCrmServiceRegionsByIdData, PutApiCrmServiceRegionsByIdResponse, GetApiCrmServiceRegionsByCountryByCountryIdData, GetApiCrmServiceRegionsByCountryByCountryIdResponse, PostApiCrmServiceTaxFreesData, PostApiCrmServiceTaxFreesResponse, GetApiCrmServiceTaxFreesData, GetApiCrmServiceTaxFreesResponse, PostApiCrmServiceTaxFreesByIdAffiliationsData, PostApiCrmServiceTaxFreesByIdAffiliationsResponse, GetApiCrmServiceTaxFreesByIdAffiliationsData, GetApiCrmServiceTaxFreesByIdAffiliationsResponse, DeleteApiCrmServiceTaxFreesByIdData, DeleteApiCrmServiceTaxFreesByIdResponse, GetApiCrmServiceTaxFreesByIdData, GetApiCrmServiceTaxFreesByIdResponse, PutApiCrmServiceTaxFreesByIdData, PutApiCrmServiceTaxFreesByIdResponse, DeleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdData, PutApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceTaxFreesByIdAddressesData, GetApiCrmServiceTaxFreesByIdAddressesResponse, PutApiCrmServiceTaxFreesByIdAddressesData, PutApiCrmServiceTaxFreesByIdAddressesResponse, GetApiCrmServiceTaxFreesByIdEmailsData, GetApiCrmServiceTaxFreesByIdEmailsResponse, PutApiCrmServiceTaxFreesByIdEmailsData, PutApiCrmServiceTaxFreesByIdEmailsResponse, GetApiCrmServiceTaxFreesByIdTelephonesData, GetApiCrmServiceTaxFreesByIdTelephonesResponse, PutApiCrmServiceTaxFreesByIdTelephonesData, PutApiCrmServiceTaxFreesByIdTelephonesResponse, PostApiCrmServiceTaxOfficesData, PostApiCrmServiceTaxOfficesResponse, GetApiCrmServiceTaxOfficesData, GetApiCrmServiceTaxOfficesResponse, PostApiCrmServiceTaxOfficesByIdAffiliationsData, PostApiCrmServiceTaxOfficesByIdAffiliationsResponse, GetApiCrmServiceTaxOfficesByIdAffiliationsData, GetApiCrmServiceTaxOfficesByIdAffiliationsResponse, DeleteApiCrmServiceTaxOfficesByIdData, DeleteApiCrmServiceTaxOfficesByIdResponse, GetApiCrmServiceTaxOfficesByIdData, GetApiCrmServiceTaxOfficesByIdResponse, PutApiCrmServiceTaxOfficesByIdData, PutApiCrmServiceTaxOfficesByIdResponse, DeleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdData, DeleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdResponse, PutApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdData, PutApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdResponse, GetApiCrmServiceTaxOfficesByIdExistsData, GetApiCrmServiceTaxOfficesByIdExistsResponse, GetApiCrmServiceTaxOfficesByIdAddressesData, GetApiCrmServiceTaxOfficesByIdAddressesResponse, PutApiCrmServiceTaxOfficesByIdAddressesData, PutApiCrmServiceTaxOfficesByIdAddressesResponse, GetApiCrmServiceTaxOfficesByIdEmailsData, GetApiCrmServiceTaxOfficesByIdEmailsResponse, PutApiCrmServiceTaxOfficesByIdEmailsData, PutApiCrmServiceTaxOfficesByIdEmailsResponse, GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData, GetApiCrmServiceTaxOfficesByIdSubTaxOfficesResponse, GetApiCrmServiceTaxOfficesByIdTelephonesData, GetApiCrmServiceTaxOfficesByIdTelephonesResponse, PutApiCrmServiceTaxOfficesByIdTelephonesData, PutApiCrmServiceTaxOfficesByIdTelephonesResponse, GetApiCrmServiceUserAffiliationsResponse, PostApiCrmServiceUserAffiliationsSetActiveAffiliationData, PostApiCrmServiceUserAffiliationsSetActiveAffiliationResponse } from './types.gen';
 
 export class AdminAreaLevel1Service {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
@@ -14,10 +14,10 @@ export class AdminAreaLevel1Service {
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceAdminarealevel1(data: PostApiCrmServiceAdminarealevel1Data = {}): CancelablePromise<PostApiCrmServiceAdminarealevel1Response> {
+    public postApiCrmServiceAdminAreaLevel1(data: PostApiCrmServiceAdminAreaLevel1Data = {}): CancelablePromise<PostApiCrmServiceAdminAreaLevel1Response> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/adminarealevel1',
+            url: '/api/crm-service/admin-area-level-1',
             body: data.requestBody,
             mediaType: 'application/json',
             errors: {
@@ -34,16 +34,16 @@ export class AdminAreaLevel1Service {
     /**
      * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.Delete
      * @param data The data for the request.
-     * @param data.adminAreaLevel1Id
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1Id(data: DeleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData): CancelablePromise<DeleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse> {
+    public deleteApiCrmServiceAdminAreaLevel1ById(data: DeleteApiCrmServiceAdminAreaLevel1ByIdData): CancelablePromise<DeleteApiCrmServiceAdminAreaLevel1ByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/adminarealevel1/{adminAreaLevel1Id}',
+            url: '/api/crm-service/admin-area-level-1/{id}',
             path: {
-                adminAreaLevel1Id: data.adminAreaLevel1Id
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -59,16 +59,16 @@ export class AdminAreaLevel1Service {
     /**
      * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.View
      * @param data The data for the request.
-     * @param data.adminAreaLevel1Id
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceAdminarealevel1ByAdminAreaLevel1Id(data: GetApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData): CancelablePromise<GetApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse> {
+    public getApiCrmServiceAdminAreaLevel1ById(data: GetApiCrmServiceAdminAreaLevel1ByIdData): CancelablePromise<GetApiCrmServiceAdminAreaLevel1ByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/adminarealevel1/{adminAreaLevel1Id}',
+            url: '/api/crm-service/admin-area-level-1/{id}',
             path: {
-                adminAreaLevel1Id: data.adminAreaLevel1Id
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -84,17 +84,17 @@ export class AdminAreaLevel1Service {
     /**
      * **Requires permissions:** CRMService.AdminAreaLevel1, CRMService.AdminAreaLevel1.Edit
      * @param data The data for the request.
-     * @param data.adminAreaLevel1Id
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceAdminarealevel1ByAdminAreaLevel1Id(data: PutApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData): CancelablePromise<PutApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse> {
+    public putApiCrmServiceAdminAreaLevel1ById(data: PutApiCrmServiceAdminAreaLevel1ByIdData): CancelablePromise<PutApiCrmServiceAdminAreaLevel1ByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/adminarealevel1/{adminAreaLevel1Id}',
+            url: '/api/crm-service/admin-area-level-1/{id}',
             path: {
-                adminAreaLevel1Id: data.adminAreaLevel1Id
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -116,10 +116,10 @@ export class AdminAreaLevel1Service {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceAdminarealevel1ByCountryByCountryId(data: GetApiCrmServiceAdminarealevel1ByCountryByCountryIdData): CancelablePromise<GetApiCrmServiceAdminarealevel1ByCountryByCountryIdResponse> {
+    public getApiCrmServiceAdminAreaLevel1ByCountryByCountryId(data: GetApiCrmServiceAdminAreaLevel1ByCountryByCountryIdData): CancelablePromise<GetApiCrmServiceAdminAreaLevel1ByCountryByCountryIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/adminarealevel1/by-country/{countryId}',
+            url: '/api/crm-service/admin-area-level-1/by-country/{countryId}',
             path: {
                 countryId: data.countryId
             },
@@ -146,10 +146,10 @@ export class AdminAreaLevel2Service {
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceAdminarealevel2(data: PostApiCrmServiceAdminarealevel2Data = {}): CancelablePromise<PostApiCrmServiceAdminarealevel2Response> {
+    public postApiCrmServiceAdminAreaLevel2(data: PostApiCrmServiceAdminAreaLevel2Data = {}): CancelablePromise<PostApiCrmServiceAdminAreaLevel2Response> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/adminarealevel2',
+            url: '/api/crm-service/admin-area-level-2',
             body: data.requestBody,
             mediaType: 'application/json',
             errors: {
@@ -166,16 +166,16 @@ export class AdminAreaLevel2Service {
     /**
      * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.Delete
      * @param data The data for the request.
-     * @param data.adminAreaLevel2Id
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2Id(data: DeleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData): CancelablePromise<DeleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse> {
+    public deleteApiCrmServiceAdminAreaLevel2ById(data: DeleteApiCrmServiceAdminAreaLevel2ByIdData): CancelablePromise<DeleteApiCrmServiceAdminAreaLevel2ByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/adminarealevel2/{adminAreaLevel2Id}',
+            url: '/api/crm-service/admin-area-level-2/{id}',
             path: {
-                adminAreaLevel2Id: data.adminAreaLevel2Id
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -191,16 +191,16 @@ export class AdminAreaLevel2Service {
     /**
      * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.View
      * @param data The data for the request.
-     * @param data.adminAreaLevel2Id
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceAdminarealevel2ByAdminAreaLevel2Id(data: GetApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData): CancelablePromise<GetApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse> {
+    public getApiCrmServiceAdminAreaLevel2ById(data: GetApiCrmServiceAdminAreaLevel2ByIdData): CancelablePromise<GetApiCrmServiceAdminAreaLevel2ByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/adminarealevel2/{adminAreaLevel2Id}',
+            url: '/api/crm-service/admin-area-level-2/{id}',
             path: {
-                adminAreaLevel2Id: data.adminAreaLevel2Id
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -216,17 +216,17 @@ export class AdminAreaLevel2Service {
     /**
      * **Requires permissions:** CRMService.AdminAreaLevel2, CRMService.AdminAreaLevel2.Edit
      * @param data The data for the request.
-     * @param data.adminAreaLevel2Id
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceAdminarealevel2ByAdminAreaLevel2Id(data: PutApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData): CancelablePromise<PutApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse> {
+    public putApiCrmServiceAdminAreaLevel2ById(data: PutApiCrmServiceAdminAreaLevel2ByIdData): CancelablePromise<PutApiCrmServiceAdminAreaLevel2ByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/adminarealevel2/{adminAreaLevel2Id}',
+            url: '/api/crm-service/admin-area-level-2/{id}',
             path: {
-                adminAreaLevel2Id: data.adminAreaLevel2Id
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -248,10 +248,10 @@ export class AdminAreaLevel2Service {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1Id(data: GetApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1IdData): CancelablePromise<GetApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1IdResponse> {
+    public getApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1Id(data: GetApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1IdData): CancelablePromise<GetApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1IdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/adminarealevel2/by-adminarealevel1/{adminAreaLevel1Id}',
+            url: '/api/crm-service/admin-area-level-2/by-admin-area-level-1/{adminAreaLevel1Id}',
             path: {
                 adminAreaLevel1Id: data.adminAreaLevel1Id
             },
@@ -318,16 +318,16 @@ export class CountryService {
     /**
      * **Requires permissions:** CRMService.Countries, CRMService.Countries.Delete
      * @param data The data for the request.
-     * @param data.countryId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceCountriesByCountryId(data: DeleteApiCrmServiceCountriesByCountryIdData): CancelablePromise<DeleteApiCrmServiceCountriesByCountryIdResponse> {
+    public deleteApiCrmServiceCountriesById(data: DeleteApiCrmServiceCountriesByIdData): CancelablePromise<DeleteApiCrmServiceCountriesByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/countries/{countryId}',
+            url: '/api/crm-service/countries/{id}',
             path: {
-                countryId: data.countryId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -343,16 +343,16 @@ export class CountryService {
     /**
      * **Requires permissions:** CRMService.Countries, CRMService.Countries.View
      * @param data The data for the request.
-     * @param data.countryId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCountriesByCountryId(data: GetApiCrmServiceCountriesByCountryIdData): CancelablePromise<GetApiCrmServiceCountriesByCountryIdResponse> {
+    public getApiCrmServiceCountriesById(data: GetApiCrmServiceCountriesByIdData): CancelablePromise<GetApiCrmServiceCountriesByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/countries/{countryId}',
+            url: '/api/crm-service/countries/{id}',
             path: {
-                countryId: data.countryId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -368,17 +368,17 @@ export class CountryService {
     /**
      * **Requires permissions:** CRMService.Countries, CRMService.Countries.Edit
      * @param data The data for the request.
-     * @param data.countryId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceCountriesByCountryId(data: PutApiCrmServiceCountriesByCountryIdData): CancelablePromise<PutApiCrmServiceCountriesByCountryIdResponse> {
+    public putApiCrmServiceCountriesById(data: PutApiCrmServiceCountriesByIdData): CancelablePromise<PutApiCrmServiceCountriesByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/countries/{countryId}',
+            url: '/api/crm-service/countries/{id}',
             path: {
-                countryId: data.countryId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -468,17 +468,17 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.CreateAffiliation
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @param data.requestBody
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceCustomsByCustomIdAffiliations(data: PostApiCrmServiceCustomsByCustomIdAffiliationsData): CancelablePromise<PostApiCrmServiceCustomsByCustomIdAffiliationsResponse> {
+    public postApiCrmServiceCustomsByIdAffiliations(data: PostApiCrmServiceCustomsByIdAffiliationsData): CancelablePromise<PostApiCrmServiceCustomsByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/customs/{customId}/affiliations',
+            url: '/api/crm-service/customs/{id}/affiliations',
             path: {
-                customId: data.customId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -496,7 +496,7 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewAffiliationList
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @param data.name
      * @param data.roleName
      * @param data.email
@@ -507,12 +507,12 @@ export class CustomService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCustomsByCustomIdAffiliations(data: GetApiCrmServiceCustomsByCustomIdAffiliationsData): CancelablePromise<GetApiCrmServiceCustomsByCustomIdAffiliationsResponse> {
+    public getApiCrmServiceCustomsByIdAffiliations(data: GetApiCrmServiceCustomsByIdAffiliationsData): CancelablePromise<GetApiCrmServiceCustomsByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/customs/{customId}/affiliations',
+            url: '/api/crm-service/customs/{id}/affiliations',
             path: {
-                customId: data.customId
+                id: data.id
             },
             query: {
                 Name: data.name,
@@ -537,16 +537,16 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.Delete
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceCustomsByCustomId(data: DeleteApiCrmServiceCustomsByCustomIdData): CancelablePromise<DeleteApiCrmServiceCustomsByCustomIdResponse> {
+    public deleteApiCrmServiceCustomsById(data: DeleteApiCrmServiceCustomsByIdData): CancelablePromise<DeleteApiCrmServiceCustomsByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/customs/{customId}',
+            url: '/api/crm-service/customs/{id}',
             path: {
-                customId: data.customId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -562,16 +562,16 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.View
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCustomsByCustomId(data: GetApiCrmServiceCustomsByCustomIdData): CancelablePromise<GetApiCrmServiceCustomsByCustomIdResponse> {
+    public getApiCrmServiceCustomsById(data: GetApiCrmServiceCustomsByIdData): CancelablePromise<GetApiCrmServiceCustomsByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/customs/{customId}',
+            url: '/api/crm-service/customs/{id}',
             path: {
-                customId: data.customId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -587,17 +587,17 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.Edit
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceCustomsByCustomId(data: PutApiCrmServiceCustomsByCustomIdData): CancelablePromise<PutApiCrmServiceCustomsByCustomIdResponse> {
+    public putApiCrmServiceCustomsById(data: PutApiCrmServiceCustomsByIdData): CancelablePromise<PutApiCrmServiceCustomsByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/customs/{customId}',
+            url: '/api/crm-service/customs/{id}',
             path: {
-                customId: data.customId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -672,16 +672,16 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewAddressList
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCustomsByCustomIdAddresses(data: GetApiCrmServiceCustomsByCustomIdAddressesData): CancelablePromise<GetApiCrmServiceCustomsByCustomIdAddressesResponse> {
+    public getApiCrmServiceCustomsByIdAddresses(data: GetApiCrmServiceCustomsByIdAddressesData): CancelablePromise<GetApiCrmServiceCustomsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/customs/{customId}/addresses',
+            url: '/api/crm-service/customs/{id}/addresses',
             path: {
-                customId: data.customId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -695,19 +695,19 @@ export class CustomService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Customs, CRMService.Customs.EditAddress
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.UpSertAddress
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceCustomsByCustomIdAddresses(data: PutApiCrmServiceCustomsByCustomIdAddressesData): CancelablePromise<PutApiCrmServiceCustomsByCustomIdAddressesResponse> {
+    public putApiCrmServiceCustomsByIdAddresses(data: PutApiCrmServiceCustomsByIdAddressesData): CancelablePromise<PutApiCrmServiceCustomsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/customs/{customId}/addresses',
+            url: '/api/crm-service/customs/{id}/addresses',
             path: {
-                customId: data.customId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -725,16 +725,16 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewEmailList
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCustomsByCustomIdEmails(data: GetApiCrmServiceCustomsByCustomIdEmailsData): CancelablePromise<GetApiCrmServiceCustomsByCustomIdEmailsResponse> {
+    public getApiCrmServiceCustomsByIdEmails(data: GetApiCrmServiceCustomsByIdEmailsData): CancelablePromise<GetApiCrmServiceCustomsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/customs/{customId}/emails',
+            url: '/api/crm-service/customs/{id}/emails',
             path: {
-                customId: data.customId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -748,19 +748,19 @@ export class CustomService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Customs, CRMService.Customs.EditEmail
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.UpSertEmail
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceCustomsByCustomIdEmails(data: PutApiCrmServiceCustomsByCustomIdEmailsData): CancelablePromise<PutApiCrmServiceCustomsByCustomIdEmailsResponse> {
+    public putApiCrmServiceCustomsByIdEmails(data: PutApiCrmServiceCustomsByIdEmailsData): CancelablePromise<PutApiCrmServiceCustomsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/customs/{customId}/emails',
+            url: '/api/crm-service/customs/{id}/emails',
             path: {
-                customId: data.customId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -778,16 +778,16 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewSubCustomsList
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCustomsByCustomIdSubCustoms(data: GetApiCrmServiceCustomsByCustomIdSubCustomsData): CancelablePromise<GetApiCrmServiceCustomsByCustomIdSubCustomsResponse> {
+    public getApiCrmServiceCustomsByIdSubCustoms(data: GetApiCrmServiceCustomsByIdSubCustomsData): CancelablePromise<GetApiCrmServiceCustomsByIdSubCustomsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/customs/{customId}/sub-customs',
+            url: '/api/crm-service/customs/{id}/sub-customs',
             path: {
-                customId: data.customId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -803,16 +803,16 @@ export class CustomService {
     /**
      * **Requires permissions:** CRMService.Customs, CRMService.Customs.ViewTelephoneList
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceCustomsByCustomIdTelephones(data: GetApiCrmServiceCustomsByCustomIdTelephonesData): CancelablePromise<GetApiCrmServiceCustomsByCustomIdTelephonesResponse> {
+    public getApiCrmServiceCustomsByIdTelephones(data: GetApiCrmServiceCustomsByIdTelephonesData): CancelablePromise<GetApiCrmServiceCustomsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/customs/{customId}/telephones',
+            url: '/api/crm-service/customs/{id}/telephones',
             path: {
-                customId: data.customId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -826,19 +826,19 @@ export class CustomService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Customs, CRMService.Customs.EditTelephone
+     * **Requires permissions:** CRMService.Customs, CRMService.Customs.UpSertTelephone
      * @param data The data for the request.
-     * @param data.customId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceCustomsByCustomIdTelephones(data: PutApiCrmServiceCustomsByCustomIdTelephonesData): CancelablePromise<PutApiCrmServiceCustomsByCustomIdTelephonesResponse> {
+    public putApiCrmServiceCustomsByIdTelephones(data: PutApiCrmServiceCustomsByIdTelephonesData): CancelablePromise<PutApiCrmServiceCustomsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/customs/{customId}/telephones',
+            url: '/api/crm-service/customs/{id}/telephones',
             path: {
-                customId: data.customId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -922,16 +922,16 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.View
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceIndividualsByIndividualId(data: GetApiCrmServiceIndividualsByIndividualIdData): CancelablePromise<GetApiCrmServiceIndividualsByIndividualIdResponse> {
+    public getApiCrmServiceIndividualsById(data: GetApiCrmServiceIndividualsByIdData): CancelablePromise<GetApiCrmServiceIndividualsByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/individuals/{individualId}',
+            url: '/api/crm-service/individuals/{id}',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -947,17 +947,17 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.Edit
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceIndividualsByIndividualId(data: PutApiCrmServiceIndividualsByIndividualIdData): CancelablePromise<PutApiCrmServiceIndividualsByIndividualIdResponse> {
+    public putApiCrmServiceIndividualsById(data: PutApiCrmServiceIndividualsByIdData): CancelablePromise<PutApiCrmServiceIndividualsByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/individuals/{individualId}',
+            url: '/api/crm-service/individuals/{id}',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -975,16 +975,16 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.Delete
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceIndividualsByIndividualId(data: DeleteApiCrmServiceIndividualsByIndividualIdData): CancelablePromise<DeleteApiCrmServiceIndividualsByIndividualIdResponse> {
+    public deleteApiCrmServiceIndividualsById(data: DeleteApiCrmServiceIndividualsByIdData): CancelablePromise<DeleteApiCrmServiceIndividualsByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/individuals/{individualId}',
+            url: '/api/crm-service/individuals/{id}',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -998,19 +998,19 @@ export class IndividualService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.EditTelephone
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.UpSertTelephone
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceIndividualsByIndividualIdTelephones(data: PutApiCrmServiceIndividualsByIndividualIdTelephonesData): CancelablePromise<PutApiCrmServiceIndividualsByIndividualIdTelephonesResponse> {
+    public putApiCrmServiceIndividualsByIdTelephones(data: PutApiCrmServiceIndividualsByIdTelephonesData): CancelablePromise<PutApiCrmServiceIndividualsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/individuals/{individualId}/telephones',
+            url: '/api/crm-service/individuals/{id}/telephones',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1028,16 +1028,16 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewTelephoneList
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceIndividualsByIndividualIdTelephones(data: GetApiCrmServiceIndividualsByIndividualIdTelephonesData): CancelablePromise<GetApiCrmServiceIndividualsByIndividualIdTelephonesResponse> {
+    public getApiCrmServiceIndividualsByIdTelephones(data: GetApiCrmServiceIndividualsByIdTelephonesData): CancelablePromise<GetApiCrmServiceIndividualsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/individuals/{individualId}/telephones',
+            url: '/api/crm-service/individuals/{id}/telephones',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1051,19 +1051,19 @@ export class IndividualService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.EditEmail
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.UpSertEmail
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceIndividualsByIndividualIdEmails(data: PutApiCrmServiceIndividualsByIndividualIdEmailsData): CancelablePromise<PutApiCrmServiceIndividualsByIndividualIdEmailsResponse> {
+    public putApiCrmServiceIndividualsByIdEmails(data: PutApiCrmServiceIndividualsByIdEmailsData): CancelablePromise<PutApiCrmServiceIndividualsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/individuals/{individualId}/emails',
+            url: '/api/crm-service/individuals/{id}/emails',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1081,16 +1081,16 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewEmailList
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceIndividualsByIndividualIdEmails(data: GetApiCrmServiceIndividualsByIndividualIdEmailsData): CancelablePromise<GetApiCrmServiceIndividualsByIndividualIdEmailsResponse> {
+    public getApiCrmServiceIndividualsByIdEmails(data: GetApiCrmServiceIndividualsByIdEmailsData): CancelablePromise<GetApiCrmServiceIndividualsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/individuals/{individualId}/emails',
+            url: '/api/crm-service/individuals/{id}/emails',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1104,19 +1104,19 @@ export class IndividualService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.EditAddress
+     * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.UpSertAddress
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceIndividualsByIndividualIdAddresses(data: PutApiCrmServiceIndividualsByIndividualIdAddressesData): CancelablePromise<PutApiCrmServiceIndividualsByIndividualIdAddressesResponse> {
+    public putApiCrmServiceIndividualsByIdAddresses(data: PutApiCrmServiceIndividualsByIdAddressesData): CancelablePromise<PutApiCrmServiceIndividualsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/individuals/{individualId}/addresses',
+            url: '/api/crm-service/individuals/{id}/addresses',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1134,16 +1134,16 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewAddressList
      * @param data The data for the request.
-     * @param data.individualId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceIndividualsByIndividualIdAddresses(data: GetApiCrmServiceIndividualsByIndividualIdAddressesData): CancelablePromise<GetApiCrmServiceIndividualsByIndividualIdAddressesResponse> {
+    public getApiCrmServiceIndividualsByIdAddresses(data: GetApiCrmServiceIndividualsByIdAddressesData): CancelablePromise<GetApiCrmServiceIndividualsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/individuals/{individualId}/addresses',
+            url: '/api/crm-service/individuals/{id}/addresses',
             path: {
-                individualId: data.individualId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1189,16 +1189,16 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.View
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantId(data: GetApiCrmServiceMerchantsByMerchantIdData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdResponse> {
+    public getApiCrmServiceMerchantsById(data: GetApiCrmServiceMerchantsByIdData): CancelablePromise<GetApiCrmServiceMerchantsByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}',
+            url: '/api/crm-service/merchants/{id}',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1214,17 +1214,17 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.Edit
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceMerchantsByMerchantId(data: PutApiCrmServiceMerchantsByMerchantIdData): CancelablePromise<PutApiCrmServiceMerchantsByMerchantIdResponse> {
+    public putApiCrmServiceMerchantsById(data: PutApiCrmServiceMerchantsByIdData): CancelablePromise<PutApiCrmServiceMerchantsByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/merchants/{merchantId}',
+            url: '/api/crm-service/merchants/{id}',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1242,16 +1242,16 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.Delete
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceMerchantsByMerchantId(data: DeleteApiCrmServiceMerchantsByMerchantIdData): CancelablePromise<DeleteApiCrmServiceMerchantsByMerchantIdResponse> {
+    public deleteApiCrmServiceMerchantsById(data: DeleteApiCrmServiceMerchantsByIdData): CancelablePromise<DeleteApiCrmServiceMerchantsByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/merchants/{merchantId}',
+            url: '/api/crm-service/merchants/{id}',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1267,7 +1267,7 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewStoreList
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.merchantIds
      * @param data.chainCodeId
      * @param data.name
@@ -1283,12 +1283,12 @@ export class MerchantService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantIdSubMerchants(data: GetApiCrmServiceMerchantsByMerchantIdSubMerchantsData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdSubMerchantsResponse> {
+    public getApiCrmServiceMerchantsByIdSubMerchants(data: GetApiCrmServiceMerchantsByIdSubMerchantsData): CancelablePromise<GetApiCrmServiceMerchantsByIdSubMerchantsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}/sub-merchants',
+            url: '/api/crm-service/merchants/{id}/sub-merchants',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             query: {
                 MerchantIds: data.merchantIds,
@@ -1318,7 +1318,7 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewAffiliationList
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.name
      * @param data.roleName
      * @param data.email
@@ -1329,12 +1329,12 @@ export class MerchantService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantIdAffiliations(data: GetApiCrmServiceMerchantsByMerchantIdAffiliationsData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdAffiliationsResponse> {
+    public getApiCrmServiceMerchantsByIdAffiliations(data: GetApiCrmServiceMerchantsByIdAffiliationsData): CancelablePromise<GetApiCrmServiceMerchantsByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}/affiliations',
+            url: '/api/crm-service/merchants/{id}/affiliations',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             query: {
                 Name: data.name,
@@ -1359,17 +1359,17 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.CreateAffiliation
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceMerchantsByMerchantIdAffiliations(data: PostApiCrmServiceMerchantsByMerchantIdAffiliationsData): CancelablePromise<PostApiCrmServiceMerchantsByMerchantIdAffiliationsResponse> {
+    public postApiCrmServiceMerchantsByIdAffiliations(data: PostApiCrmServiceMerchantsByIdAffiliationsData): CancelablePromise<PostApiCrmServiceMerchantsByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/merchants/{merchantId}/affiliations',
+            url: '/api/crm-service/merchants/{id}/affiliations',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1468,16 +1468,16 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantIdProductGroup(data: GetApiCrmServiceMerchantsByMerchantIdProductGroupData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdProductGroupResponse> {
+    public getApiCrmServiceMerchantsByIdProductGroup(data: GetApiCrmServiceMerchantsByIdProductGroupData): CancelablePromise<GetApiCrmServiceMerchantsByIdProductGroupResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}/product-group',
+            url: '/api/crm-service/merchants/{id}/product-group',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1493,17 +1493,17 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public postApiCrmServiceMerchantsByMerchantIdProductGroups(data: PostApiCrmServiceMerchantsByMerchantIdProductGroupsData): CancelablePromise<PostApiCrmServiceMerchantsByMerchantIdProductGroupsResponse> {
+    public postApiCrmServiceMerchantsByIdProductGroups(data: PostApiCrmServiceMerchantsByIdProductGroupsData): CancelablePromise<PostApiCrmServiceMerchantsByIdProductGroupsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/merchants/{merchantId}/product-groups',
+            url: '/api/crm-service/merchants/{id}/product-groups',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1521,17 +1521,17 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceMerchantsByMerchantIdProductGroups(data: DeleteApiCrmServiceMerchantsByMerchantIdProductGroupsData): CancelablePromise<DeleteApiCrmServiceMerchantsByMerchantIdProductGroupsResponse> {
+    public deleteApiCrmServiceMerchantsByIdProductGroups(data: DeleteApiCrmServiceMerchantsByIdProductGroupsData): CancelablePromise<DeleteApiCrmServiceMerchantsByIdProductGroupsResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/merchants/{merchantId}/product-groups',
+            url: '/api/crm-service/merchants/{id}/product-groups',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1645,19 +1645,19 @@ export class MerchantService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditTelephone
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.UpSertTelephone
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceMerchantsByMerchantIdTelephones(data: PutApiCrmServiceMerchantsByMerchantIdTelephonesData): CancelablePromise<PutApiCrmServiceMerchantsByMerchantIdTelephonesResponse> {
+    public putApiCrmServiceMerchantsByIdTelephones(data: PutApiCrmServiceMerchantsByIdTelephonesData): CancelablePromise<PutApiCrmServiceMerchantsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/merchants/{merchantId}/telephones',
+            url: '/api/crm-service/merchants/{id}/telephones',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1675,16 +1675,16 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewTelephoneList
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantIdTelephones(data: GetApiCrmServiceMerchantsByMerchantIdTelephonesData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdTelephonesResponse> {
+    public getApiCrmServiceMerchantsByIdTelephones(data: GetApiCrmServiceMerchantsByIdTelephonesData): CancelablePromise<GetApiCrmServiceMerchantsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}/telephones',
+            url: '/api/crm-service/merchants/{id}/telephones',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1698,19 +1698,19 @@ export class MerchantService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditEmail
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.UpSertEmail
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceMerchantsByMerchantIdEmails(data: PutApiCrmServiceMerchantsByMerchantIdEmailsData): CancelablePromise<PutApiCrmServiceMerchantsByMerchantIdEmailsResponse> {
+    public putApiCrmServiceMerchantsByIdEmails(data: PutApiCrmServiceMerchantsByIdEmailsData): CancelablePromise<PutApiCrmServiceMerchantsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/merchants/{merchantId}/emails',
+            url: '/api/crm-service/merchants/{id}/emails',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1728,16 +1728,16 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewEmailList
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantIdEmails(data: GetApiCrmServiceMerchantsByMerchantIdEmailsData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdEmailsResponse> {
+    public getApiCrmServiceMerchantsByIdEmails(data: GetApiCrmServiceMerchantsByIdEmailsData): CancelablePromise<GetApiCrmServiceMerchantsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}/emails',
+            url: '/api/crm-service/merchants/{id}/emails',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1751,19 +1751,19 @@ export class MerchantService {
     }
     
     /**
-     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.EditAddress
+     * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.UpSertAddress
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceMerchantsByMerchantIdAddresses(data: PutApiCrmServiceMerchantsByMerchantIdAddressesData): CancelablePromise<PutApiCrmServiceMerchantsByMerchantIdAddressesResponse> {
+    public putApiCrmServiceMerchantsByIdAddresses(data: PutApiCrmServiceMerchantsByIdAddressesData): CancelablePromise<PutApiCrmServiceMerchantsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/merchants/{merchantId}/addresses',
+            url: '/api/crm-service/merchants/{id}/addresses',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1781,16 +1781,16 @@ export class MerchantService {
     /**
      * **Requires permissions:** CRMService.Merchants, CRMService.Merchants.ViewAddressList
      * @param data The data for the request.
-     * @param data.merchantId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceMerchantsByMerchantIdAddresses(data: GetApiCrmServiceMerchantsByMerchantIdAddressesData): CancelablePromise<GetApiCrmServiceMerchantsByMerchantIdAddressesResponse> {
+    public getApiCrmServiceMerchantsByIdAddresses(data: GetApiCrmServiceMerchantsByIdAddressesData): CancelablePromise<GetApiCrmServiceMerchantsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/merchants/{merchantId}/addresses',
+            url: '/api/crm-service/merchants/{id}/addresses',
             path: {
-                merchantId: data.merchantId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1835,16 +1835,16 @@ export class NeighborhoodService {
     /**
      * **Requires permissions:** CRMService.Neighborhoods, CRMService.Neighborhoods.Delete
      * @param data The data for the request.
-     * @param data.neighborhoodId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceNeighborhoodsByNeighborhoodId(data: DeleteApiCrmServiceNeighborhoodsByNeighborhoodIdData): CancelablePromise<DeleteApiCrmServiceNeighborhoodsByNeighborhoodIdResponse> {
+    public deleteApiCrmServiceNeighborhoodsById(data: DeleteApiCrmServiceNeighborhoodsByIdData): CancelablePromise<DeleteApiCrmServiceNeighborhoodsByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/neighborhoods/{neighborhoodId}',
+            url: '/api/crm-service/neighborhoods/{id}',
             path: {
-                neighborhoodId: data.neighborhoodId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -1860,17 +1860,17 @@ export class NeighborhoodService {
     /**
      * **Requires permissions:** CRMService.Neighborhoods, CRMService.Neighborhoods.Edit
      * @param data The data for the request.
-     * @param data.neighborhoodId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceNeighborhoodsByNeighborhoodId(data: PutApiCrmServiceNeighborhoodsByNeighborhoodIdData): CancelablePromise<PutApiCrmServiceNeighborhoodsByNeighborhoodIdResponse> {
+    public putApiCrmServiceNeighborhoodsById(data: PutApiCrmServiceNeighborhoodsByIdData): CancelablePromise<PutApiCrmServiceNeighborhoodsByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/neighborhoods/{neighborhoodId}',
+            url: '/api/crm-service/neighborhoods/{id}',
             path: {
-                neighborhoodId: data.neighborhoodId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -1892,10 +1892,10 @@ export class NeighborhoodService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2Id(data: GetApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2IdData): CancelablePromise<GetApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2IdResponse> {
+    public getApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2Id(data: GetApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2IdData): CancelablePromise<GetApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2IdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/neighborhoods/by-adminarealevel2/{adminAreaLevel2Id}',
+            url: '/api/crm-service/neighborhoods/by-admin-area-level-2/{adminAreaLevel2Id}',
             path: {
                 adminAreaLevel2Id: data.adminAreaLevel2Id
             },
@@ -1922,10 +1922,10 @@ export class RefundPointService {
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceRefundpoints(data: PostApiCrmServiceRefundpointsData = {}): CancelablePromise<PostApiCrmServiceRefundpointsResponse> {
+    public postApiCrmServiceRefundPoints(data: PostApiCrmServiceRefundPointsData = {}): CancelablePromise<PostApiCrmServiceRefundPointsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/refundpoints',
+            url: '/api/crm-service/refund-points',
             body: data.requestBody,
             mediaType: 'application/json',
             errors: {
@@ -1955,10 +1955,10 @@ export class RefundPointService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRefundpoints(data: GetApiCrmServiceRefundpointsData = {}): CancelablePromise<GetApiCrmServiceRefundpointsResponse> {
+    public getApiCrmServiceRefundPoints(data: GetApiCrmServiceRefundPointsData = {}): CancelablePromise<GetApiCrmServiceRefundPointsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/refundpoints',
+            url: '/api/crm-service/refund-points',
             query: {
                 RefundPointIds: data.refundPointIds,
                 Name: data.name,
@@ -1985,17 +1985,17 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.CreateAffiliation
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @param data.requestBody
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceRefundpointsByRefundPointIdAffiliations(data: PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData): CancelablePromise<PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsResponse> {
+    public postApiCrmServiceRefundPointsByIdAffiliations(data: PostApiCrmServiceRefundPointsByIdAffiliationsData): CancelablePromise<PostApiCrmServiceRefundPointsByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/refundpoints/{refundPointId}/affiliations',
+            url: '/api/crm-service/refund-points/{id}/affiliations',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2013,7 +2013,7 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewAffiliationList
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @param data.name
      * @param data.roleName
      * @param data.email
@@ -2024,12 +2024,12 @@ export class RefundPointService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRefundpointsByRefundPointIdAffiliations(data: GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData): CancelablePromise<GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsResponse> {
+    public getApiCrmServiceRefundPointsByIdAffiliations(data: GetApiCrmServiceRefundPointsByIdAffiliationsData): CancelablePromise<GetApiCrmServiceRefundPointsByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/refundpoints/{refundPointId}/affiliations',
+            url: '/api/crm-service/refund-points/{id}/affiliations',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             query: {
                 Name: data.name,
@@ -2054,16 +2054,16 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.Delete
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceRefundpointsByRefundPointId(data: DeleteApiCrmServiceRefundpointsByRefundPointIdData): CancelablePromise<DeleteApiCrmServiceRefundpointsByRefundPointIdResponse> {
+    public deleteApiCrmServiceRefundPointsById(data: DeleteApiCrmServiceRefundPointsByIdData): CancelablePromise<DeleteApiCrmServiceRefundPointsByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/refundpoints/{refundPointId}',
+            url: '/api/crm-service/refund-points/{id}',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2079,16 +2079,16 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.View
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRefundpointsByRefundPointId(data: GetApiCrmServiceRefundpointsByRefundPointIdData): CancelablePromise<GetApiCrmServiceRefundpointsByRefundPointIdResponse> {
+    public getApiCrmServiceRefundPointsById(data: GetApiCrmServiceRefundPointsByIdData): CancelablePromise<GetApiCrmServiceRefundPointsByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/refundpoints/{refundPointId}',
+            url: '/api/crm-service/refund-points/{id}',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2104,17 +2104,17 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.Edit
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceRefundpointsByRefundPointId(data: PutApiCrmServiceRefundpointsByRefundPointIdData): CancelablePromise<PutApiCrmServiceRefundpointsByRefundPointIdResponse> {
+    public putApiCrmServiceRefundPointsById(data: PutApiCrmServiceRefundPointsByIdData): CancelablePromise<PutApiCrmServiceRefundPointsByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/refundpoints/{refundPointId}',
+            url: '/api/crm-service/refund-points/{id}',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2137,10 +2137,10 @@ export class RefundPointService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationId(data: DeleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdData): CancelablePromise<DeleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdResponse> {
+    public deleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationId(data: DeleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdData): CancelablePromise<DeleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/refundpoints/{refundPointId}/affiliations/{affiliationId}',
+            url: '/api/crm-service/refund-points/{refundPointId}/affiliations/{affiliationId}',
             path: {
                 refundPointId: data.refundPointId,
                 affiliationId: data.affiliationId
@@ -2165,10 +2165,10 @@ export class RefundPointService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationId(data: PutApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdData): CancelablePromise<PutApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdResponse> {
+    public putApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationId(data: PutApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdData): CancelablePromise<PutApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/refundpoints/{refundPointId}/affiliations/{affiliationId}',
+            url: '/api/crm-service/refund-points/{refundPointId}/affiliations/{affiliationId}',
             path: {
                 refundPointId: data.refundPointId,
                 affiliationId: data.affiliationId
@@ -2189,16 +2189,16 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewAddressList
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRefundpointsByRefundPointIdAddresses(data: GetApiCrmServiceRefundpointsByRefundPointIdAddressesData): CancelablePromise<GetApiCrmServiceRefundpointsByRefundPointIdAddressesResponse> {
+    public getApiCrmServiceRefundPointsByIdAddresses(data: GetApiCrmServiceRefundPointsByIdAddressesData): CancelablePromise<GetApiCrmServiceRefundPointsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/refundpoints/{refundPointId}/addresses',
+            url: '/api/crm-service/refund-points/{id}/addresses',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2212,19 +2212,19 @@ export class RefundPointService {
     }
     
     /**
-     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditAddress
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.UpSertAddress
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceRefundpointsByRefundPointIdAddresses(data: PutApiCrmServiceRefundpointsByRefundPointIdAddressesData): CancelablePromise<PutApiCrmServiceRefundpointsByRefundPointIdAddressesResponse> {
+    public putApiCrmServiceRefundPointsByIdAddresses(data: PutApiCrmServiceRefundPointsByIdAddressesData): CancelablePromise<PutApiCrmServiceRefundPointsByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/refundpoints/{refundPointId}/addresses',
+            url: '/api/crm-service/refund-points/{id}/addresses',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2242,16 +2242,16 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewEmailList
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRefundpointsByRefundPointIdEmails(data: GetApiCrmServiceRefundpointsByRefundPointIdEmailsData): CancelablePromise<GetApiCrmServiceRefundpointsByRefundPointIdEmailsResponse> {
+    public getApiCrmServiceRefundPointsByIdEmails(data: GetApiCrmServiceRefundPointsByIdEmailsData): CancelablePromise<GetApiCrmServiceRefundPointsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/refundpoints/{refundPointId}/emails',
+            url: '/api/crm-service/refund-points/{id}/emails',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2265,19 +2265,19 @@ export class RefundPointService {
     }
     
     /**
-     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditEmail
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.UpSertEmail
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceRefundpointsByRefundPointIdEmails(data: PutApiCrmServiceRefundpointsByRefundPointIdEmailsData): CancelablePromise<PutApiCrmServiceRefundpointsByRefundPointIdEmailsResponse> {
+    public putApiCrmServiceRefundPointsByIdEmails(data: PutApiCrmServiceRefundPointsByIdEmailsData): CancelablePromise<PutApiCrmServiceRefundPointsByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/refundpoints/{refundPointId}/emails',
+            url: '/api/crm-service/refund-points/{id}/emails',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2295,16 +2295,16 @@ export class RefundPointService {
     /**
      * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.ViewTelephoneList
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRefundpointsByRefundPointIdTelephones(data: GetApiCrmServiceRefundpointsByRefundPointIdTelephonesData): CancelablePromise<GetApiCrmServiceRefundpointsByRefundPointIdTelephonesResponse> {
+    public getApiCrmServiceRefundPointsByIdTelephones(data: GetApiCrmServiceRefundPointsByIdTelephonesData): CancelablePromise<GetApiCrmServiceRefundPointsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/refundpoints/{refundPointId}/telephones',
+            url: '/api/crm-service/refund-points/{id}/telephones',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2318,19 +2318,19 @@ export class RefundPointService {
     }
     
     /**
-     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.EditTelephone
+     * **Requires permissions:** CRMService.RefundPoints, CRMService.RefundPoints.UpSertTelephone
      * @param data The data for the request.
-     * @param data.refundPointId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceRefundpointsByRefundPointIdTelephones(data: PutApiCrmServiceRefundpointsByRefundPointIdTelephonesData): CancelablePromise<PutApiCrmServiceRefundpointsByRefundPointIdTelephonesResponse> {
+    public putApiCrmServiceRefundPointsByIdTelephones(data: PutApiCrmServiceRefundPointsByIdTelephonesData): CancelablePromise<PutApiCrmServiceRefundPointsByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/refundpoints/{refundPointId}/telephones',
+            url: '/api/crm-service/refund-points/{id}/telephones',
             path: {
-                refundPointId: data.refundPointId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2377,16 +2377,16 @@ export class RegionService {
     /**
      * **Requires permissions:** CRMService.Regions, CRMService.Regions.Delete
      * @param data The data for the request.
-     * @param data.regionId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceRegionsByRegionId(data: DeleteApiCrmServiceRegionsByRegionIdData): CancelablePromise<DeleteApiCrmServiceRegionsByRegionIdResponse> {
+    public deleteApiCrmServiceRegionsById(data: DeleteApiCrmServiceRegionsByIdData): CancelablePromise<DeleteApiCrmServiceRegionsByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/regions/{regionId}',
+            url: '/api/crm-service/regions/{id}',
             path: {
-                regionId: data.regionId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2402,16 +2402,16 @@ export class RegionService {
     /**
      * **Requires permissions:** CRMService.Regions, CRMService.Regions.View
      * @param data The data for the request.
-     * @param data.regionId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceRegionsByRegionId(data: GetApiCrmServiceRegionsByRegionIdData): CancelablePromise<GetApiCrmServiceRegionsByRegionIdResponse> {
+    public getApiCrmServiceRegionsById(data: GetApiCrmServiceRegionsByIdData): CancelablePromise<GetApiCrmServiceRegionsByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/regions/{regionId}',
+            url: '/api/crm-service/regions/{id}',
             path: {
-                regionId: data.regionId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2427,17 +2427,17 @@ export class RegionService {
     /**
      * **Requires permissions:** CRMService.Regions, CRMService.Regions.Edit
      * @param data The data for the request.
-     * @param data.regionId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceRegionsByRegionId(data: PutApiCrmServiceRegionsByRegionIdData): CancelablePromise<PutApiCrmServiceRegionsByRegionIdResponse> {
+    public putApiCrmServiceRegionsById(data: PutApiCrmServiceRegionsByIdData): CancelablePromise<PutApiCrmServiceRegionsByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/regions/{regionId}',
+            url: '/api/crm-service/regions/{id}',
             path: {
-                regionId: data.regionId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2489,10 +2489,10 @@ export class TaxFreeService {
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceTaxfrees(data: PostApiCrmServiceTaxfreesData = {}): CancelablePromise<PostApiCrmServiceTaxfreesResponse> {
+    public postApiCrmServiceTaxFrees(data: PostApiCrmServiceTaxFreesData = {}): CancelablePromise<PostApiCrmServiceTaxFreesResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/taxfrees',
+            url: '/api/crm-service/tax-frees',
             body: data.requestBody,
             mediaType: 'application/json',
             errors: {
@@ -2522,10 +2522,10 @@ export class TaxFreeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxfrees(data: GetApiCrmServiceTaxfreesData = {}): CancelablePromise<GetApiCrmServiceTaxfreesResponse> {
+    public getApiCrmServiceTaxFrees(data: GetApiCrmServiceTaxFreesData = {}): CancelablePromise<GetApiCrmServiceTaxFreesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxfrees',
+            url: '/api/crm-service/tax-frees',
             query: {
                 TaxFreeIds: data.taxFreeIds,
                 Name: data.name,
@@ -2552,17 +2552,17 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.CreateAffiliation
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @param data.requestBody
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceTaxfreesByTaxFreeIdAffiliations(data: PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData): CancelablePromise<PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsResponse> {
+    public postApiCrmServiceTaxFreesByIdAffiliations(data: PostApiCrmServiceTaxFreesByIdAffiliationsData): CancelablePromise<PostApiCrmServiceTaxFreesByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/affiliations',
+            url: '/api/crm-service/tax-frees/{id}/affiliations',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2580,7 +2580,7 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewAffiliationList
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @param data.name
      * @param data.roleName
      * @param data.email
@@ -2591,12 +2591,12 @@ export class TaxFreeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxfreesByTaxFreeIdAffiliations(data: GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData): CancelablePromise<GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsResponse> {
+    public getApiCrmServiceTaxFreesByIdAffiliations(data: GetApiCrmServiceTaxFreesByIdAffiliationsData): CancelablePromise<GetApiCrmServiceTaxFreesByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/affiliations',
+            url: '/api/crm-service/tax-frees/{id}/affiliations',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             query: {
                 Name: data.name,
@@ -2621,16 +2621,16 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.Delete
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceTaxfreesByTaxFreeId(data: DeleteApiCrmServiceTaxfreesByTaxFreeIdData): CancelablePromise<DeleteApiCrmServiceTaxfreesByTaxFreeIdResponse> {
+    public deleteApiCrmServiceTaxFreesById(data: DeleteApiCrmServiceTaxFreesByIdData): CancelablePromise<DeleteApiCrmServiceTaxFreesByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/taxfrees/{taxFreeId}',
+            url: '/api/crm-service/tax-frees/{id}',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2646,16 +2646,16 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.View
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxfreesByTaxFreeId(data: GetApiCrmServiceTaxfreesByTaxFreeIdData): CancelablePromise<GetApiCrmServiceTaxfreesByTaxFreeIdResponse> {
+    public getApiCrmServiceTaxFreesById(data: GetApiCrmServiceTaxFreesByIdData): CancelablePromise<GetApiCrmServiceTaxFreesByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxfrees/{taxFreeId}',
+            url: '/api/crm-service/tax-frees/{id}',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2671,17 +2671,17 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.Edit
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxfreesByTaxFreeId(data: PutApiCrmServiceTaxfreesByTaxFreeIdData): CancelablePromise<PutApiCrmServiceTaxfreesByTaxFreeIdResponse> {
+    public putApiCrmServiceTaxFreesById(data: PutApiCrmServiceTaxFreesByIdData): CancelablePromise<PutApiCrmServiceTaxFreesByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxfrees/{taxFreeId}',
+            url: '/api/crm-service/tax-frees/{id}',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2704,10 +2704,10 @@ export class TaxFreeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationId(data: DeleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdData): CancelablePromise<DeleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdResponse> {
+    public deleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationId(data: DeleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdData): CancelablePromise<DeleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/affiliations/{affiliationId}',
+            url: '/api/crm-service/tax-frees/{taxFreeId}/affiliations/{affiliationId}',
             path: {
                 taxFreeId: data.taxFreeId,
                 affiliationId: data.affiliationId
@@ -2732,10 +2732,10 @@ export class TaxFreeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationId(data: PutApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdData): CancelablePromise<PutApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdResponse> {
+    public putApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationId(data: PutApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdData): CancelablePromise<PutApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/affiliations/{affiliationId}',
+            url: '/api/crm-service/tax-frees/{taxFreeId}/affiliations/{affiliationId}',
             path: {
                 taxFreeId: data.taxFreeId,
                 affiliationId: data.affiliationId
@@ -2756,16 +2756,16 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewAddressList
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxfreesByTaxFreeIdAddresses(data: GetApiCrmServiceTaxfreesByTaxFreeIdAddressesData): CancelablePromise<GetApiCrmServiceTaxfreesByTaxFreeIdAddressesResponse> {
+    public getApiCrmServiceTaxFreesByIdAddresses(data: GetApiCrmServiceTaxFreesByIdAddressesData): CancelablePromise<GetApiCrmServiceTaxFreesByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/addresses',
+            url: '/api/crm-service/tax-frees/{id}/addresses',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2779,19 +2779,19 @@ export class TaxFreeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.EditAddress
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.UpSertAddress
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxfreesByTaxFreeIdAddresses(data: PutApiCrmServiceTaxfreesByTaxFreeIdAddressesData): CancelablePromise<PutApiCrmServiceTaxfreesByTaxFreeIdAddressesResponse> {
+    public putApiCrmServiceTaxFreesByIdAddresses(data: PutApiCrmServiceTaxFreesByIdAddressesData): CancelablePromise<PutApiCrmServiceTaxFreesByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/addresses',
+            url: '/api/crm-service/tax-frees/{id}/addresses',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2809,16 +2809,16 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewEmailList
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxfreesByTaxFreeIdEmails(data: GetApiCrmServiceTaxfreesByTaxFreeIdEmailsData): CancelablePromise<GetApiCrmServiceTaxfreesByTaxFreeIdEmailsResponse> {
+    public getApiCrmServiceTaxFreesByIdEmails(data: GetApiCrmServiceTaxFreesByIdEmailsData): CancelablePromise<GetApiCrmServiceTaxFreesByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/emails',
+            url: '/api/crm-service/tax-frees/{id}/emails',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2832,19 +2832,19 @@ export class TaxFreeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.EditEmail
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.UpSertEmail
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxfreesByTaxFreeIdEmails(data: PutApiCrmServiceTaxfreesByTaxFreeIdEmailsData): CancelablePromise<PutApiCrmServiceTaxfreesByTaxFreeIdEmailsResponse> {
+    public putApiCrmServiceTaxFreesByIdEmails(data: PutApiCrmServiceTaxFreesByIdEmailsData): CancelablePromise<PutApiCrmServiceTaxFreesByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/emails',
+            url: '/api/crm-service/tax-frees/{id}/emails',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2862,16 +2862,16 @@ export class TaxFreeService {
     /**
      * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.ViewTelephoneList
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxfreesByTaxFreeIdTelephones(data: GetApiCrmServiceTaxfreesByTaxFreeIdTelephonesData): CancelablePromise<GetApiCrmServiceTaxfreesByTaxFreeIdTelephonesResponse> {
+    public getApiCrmServiceTaxFreesByIdTelephones(data: GetApiCrmServiceTaxFreesByIdTelephonesData): CancelablePromise<GetApiCrmServiceTaxFreesByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/telephones',
+            url: '/api/crm-service/tax-frees/{id}/telephones',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -2885,19 +2885,19 @@ export class TaxFreeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxFrees
+     * **Requires permissions:** CRMService.TaxFrees, CRMService.TaxFrees.UpSertTelephone
      * @param data The data for the request.
-     * @param data.taxFreeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxfreesByTaxFreeIdTelephones(data: PutApiCrmServiceTaxfreesByTaxFreeIdTelephonesData): CancelablePromise<PutApiCrmServiceTaxfreesByTaxFreeIdTelephonesResponse> {
+    public putApiCrmServiceTaxFreesByIdTelephones(data: PutApiCrmServiceTaxFreesByIdTelephonesData): CancelablePromise<PutApiCrmServiceTaxFreesByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxfrees/{taxFreeId}/telephones',
+            url: '/api/crm-service/tax-frees/{id}/telephones',
             path: {
-                taxFreeId: data.taxFreeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -2924,10 +2924,10 @@ export class TaxOfficeService {
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceTaxoffices(data: PostApiCrmServiceTaxofficesData = {}): CancelablePromise<PostApiCrmServiceTaxofficesResponse> {
+    public postApiCrmServiceTaxOffices(data: PostApiCrmServiceTaxOfficesData = {}): CancelablePromise<PostApiCrmServiceTaxOfficesResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/taxoffices',
+            url: '/api/crm-service/tax-offices',
             body: data.requestBody,
             mediaType: 'application/json',
             errors: {
@@ -2957,10 +2957,10 @@ export class TaxOfficeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxoffices(data: GetApiCrmServiceTaxofficesData = {}): CancelablePromise<GetApiCrmServiceTaxofficesResponse> {
+    public getApiCrmServiceTaxOffices(data: GetApiCrmServiceTaxOfficesData = {}): CancelablePromise<GetApiCrmServiceTaxOfficesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices',
+            url: '/api/crm-service/tax-offices',
             query: {
                 TaxOfficeIds: data.taxOfficeIds,
                 Name: data.name,
@@ -2987,17 +2987,17 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.CreateAffiliation
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @param data.requestBody
      * @returns string OK
      * @throws ApiError
      */
-    public postApiCrmServiceTaxofficesByTaxOfficeIdAffiliations(data: PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData): CancelablePromise<PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsResponse> {
+    public postApiCrmServiceTaxOfficesByIdAffiliations(data: PostApiCrmServiceTaxOfficesByIdAffiliationsData): CancelablePromise<PostApiCrmServiceTaxOfficesByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/affiliations',
+            url: '/api/crm-service/tax-offices/{id}/affiliations',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -3015,7 +3015,7 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewAffiliationList
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @param data.name
      * @param data.roleName
      * @param data.email
@@ -3026,12 +3026,12 @@ export class TaxOfficeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeIdAffiliations(data: GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsResponse> {
+    public getApiCrmServiceTaxOfficesByIdAffiliations(data: GetApiCrmServiceTaxOfficesByIdAffiliationsData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdAffiliationsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/affiliations',
+            url: '/api/crm-service/tax-offices/{id}/affiliations',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             query: {
                 Name: data.name,
@@ -3056,16 +3056,16 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.Delete
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceTaxofficesByTaxOfficeId(data: DeleteApiCrmServiceTaxofficesByTaxOfficeIdData): CancelablePromise<DeleteApiCrmServiceTaxofficesByTaxOfficeIdResponse> {
+    public deleteApiCrmServiceTaxOfficesById(data: DeleteApiCrmServiceTaxOfficesByIdData): CancelablePromise<DeleteApiCrmServiceTaxOfficesByIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}',
+            url: '/api/crm-service/tax-offices/{id}',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3081,16 +3081,16 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.View
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeId(data: GetApiCrmServiceTaxofficesByTaxOfficeIdData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdResponse> {
+    public getApiCrmServiceTaxOfficesById(data: GetApiCrmServiceTaxOfficesByIdData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}',
+            url: '/api/crm-service/tax-offices/{id}',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3106,17 +3106,17 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.Edit
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxofficesByTaxOfficeId(data: PutApiCrmServiceTaxofficesByTaxOfficeIdData): CancelablePromise<PutApiCrmServiceTaxofficesByTaxOfficeIdResponse> {
+    public putApiCrmServiceTaxOfficesById(data: PutApiCrmServiceTaxOfficesByIdData): CancelablePromise<PutApiCrmServiceTaxOfficesByIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}',
+            url: '/api/crm-service/tax-offices/{id}',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -3139,10 +3139,10 @@ export class TaxOfficeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public deleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationId(data: DeleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdData): CancelablePromise<DeleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdResponse> {
+    public deleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationId(data: DeleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdData): CancelablePromise<DeleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/affiliations/{affiliationId}',
+            url: '/api/crm-service/tax-offices/{taxOfficeId}/affiliations/{affiliationId}',
             path: {
                 taxOfficeId: data.taxOfficeId,
                 affiliationId: data.affiliationId
@@ -3167,10 +3167,10 @@ export class TaxOfficeService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationId(data: PutApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdData): CancelablePromise<PutApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdResponse> {
+    public putApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationId(data: PutApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdData): CancelablePromise<PutApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/affiliations/{affiliationId}',
+            url: '/api/crm-service/tax-offices/{taxOfficeId}/affiliations/{affiliationId}',
             path: {
                 taxOfficeId: data.taxOfficeId,
                 affiliationId: data.affiliationId
@@ -3191,16 +3191,16 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns boolean OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeIdExists(data: GetApiCrmServiceTaxofficesByTaxOfficeIdExistsData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdExistsResponse> {
+    public getApiCrmServiceTaxOfficesByIdExists(data: GetApiCrmServiceTaxOfficesByIdExistsData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdExistsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/exists',
+            url: '/api/crm-service/tax-offices/{id}/exists',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3214,18 +3214,18 @@ export class TaxOfficeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditAddress
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.UpSertAddress
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeIdAddresses(data: GetApiCrmServiceTaxofficesByTaxOfficeIdAddressesData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdAddressesResponse> {
+    public getApiCrmServiceTaxOfficesByIdAddresses(data: GetApiCrmServiceTaxOfficesByIdAddressesData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/addresses',
+            url: '/api/crm-service/tax-offices/{id}/addresses',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3239,19 +3239,19 @@ export class TaxOfficeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditAddress
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.UpSertAddress
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxofficesByTaxOfficeIdAddresses(data: PutApiCrmServiceTaxofficesByTaxOfficeIdAddressesData): CancelablePromise<PutApiCrmServiceTaxofficesByTaxOfficeIdAddressesResponse> {
+    public putApiCrmServiceTaxOfficesByIdAddresses(data: PutApiCrmServiceTaxOfficesByIdAddressesData): CancelablePromise<PutApiCrmServiceTaxOfficesByIdAddressesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/addresses',
+            url: '/api/crm-service/tax-offices/{id}/addresses',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -3269,16 +3269,16 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewEmailList
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeIdEmails(data: GetApiCrmServiceTaxofficesByTaxOfficeIdEmailsData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdEmailsResponse> {
+    public getApiCrmServiceTaxOfficesByIdEmails(data: GetApiCrmServiceTaxOfficesByIdEmailsData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/emails',
+            url: '/api/crm-service/tax-offices/{id}/emails',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3292,19 +3292,19 @@ export class TaxOfficeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditEmail
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.UpSertEmail
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxofficesByTaxOfficeIdEmails(data: PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsData): CancelablePromise<PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsResponse> {
+    public putApiCrmServiceTaxOfficesByIdEmails(data: PutApiCrmServiceTaxOfficesByIdEmailsData): CancelablePromise<PutApiCrmServiceTaxOfficesByIdEmailsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/emails',
+            url: '/api/crm-service/tax-offices/{id}/emails',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',
@@ -3322,16 +3322,16 @@ export class TaxOfficeService {
     /**
      * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.ViewSubTaxOfficeList
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOffices(data: GetApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOfficesData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOfficesResponse> {
+    public getApiCrmServiceTaxOfficesByIdSubTaxOffices(data: GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdSubTaxOfficesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/sub-taxOffices',
+            url: '/api/crm-service/tax-offices/{id}/sub-taxOffices',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3345,18 +3345,18 @@ export class TaxOfficeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditTelephone
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.UpSertTelephone
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiCrmServiceTaxofficesByTaxOfficeIdTelephones(data: GetApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData): CancelablePromise<GetApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse> {
+    public getApiCrmServiceTaxOfficesByIdTelephones(data: GetApiCrmServiceTaxOfficesByIdTelephonesData): CancelablePromise<GetApiCrmServiceTaxOfficesByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/telephones',
+            url: '/api/crm-service/tax-offices/{id}/telephones',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             errors: {
                 400: 'Bad Request',
@@ -3370,19 +3370,19 @@ export class TaxOfficeService {
     }
     
     /**
-     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.EditTelephone
+     * **Requires permissions:** CRMService.TaxOffices, CRMService.TaxOffices.UpSertTelephone
      * @param data The data for the request.
-     * @param data.taxOfficeId
+     * @param data.id
      * @param data.requestBody
      * @returns unknown OK
      * @throws ApiError
      */
-    public putApiCrmServiceTaxofficesByTaxOfficeIdTelephones(data: PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData): CancelablePromise<PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse> {
+    public putApiCrmServiceTaxOfficesByIdTelephones(data: PutApiCrmServiceTaxOfficesByIdTelephonesData): CancelablePromise<PutApiCrmServiceTaxOfficesByIdTelephonesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
-            url: '/api/crm-service/taxoffices/{taxOfficeId}/telephones',
+            url: '/api/crm-service/tax-offices/{id}/telephones',
             path: {
-                taxOfficeId: data.taxOfficeId
+                id: data.id
             },
             body: data.requestBody,
             mediaType: 'application/json',

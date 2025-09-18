@@ -1,8 +1,8 @@
 "use server";
 
-import type {GetApiCrmServiceMerchantsByMerchantIdAffiliationsData} from "@repo/saas/CRMService";
+import type {GetApiCrmServiceMerchantsByIdAffiliationsData} from "@repo/saas/CRMService";
 import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
-import {getMerchantAffiliationsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAffiliationsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isErrorOnRequest, structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -10,10 +10,10 @@ import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "../../../_components/affiliations/table";
 
-async function getApiRequests(filters: GetApiCrmServiceMerchantsByMerchantIdAffiliationsData) {
+async function getApiRequests(filters: GetApiCrmServiceMerchantsByIdAffiliationsData) {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getMerchantAffiliationsByMerchantIdApi(filters, session)]);
+    const requiredRequests = await Promise.all([getMerchantAffiliationsByIdApi(filters, session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -31,13 +31,13 @@ export default async function Page({
     partyId: string;
     lang: string;
   };
-  searchParams?: GetApiCrmServiceMerchantsByMerchantIdAffiliationsData;
+  searchParams?: GetApiCrmServiceMerchantsByIdAffiliationsData;
 }) {
   const {lang, partyId} = params;
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
-    merchantId: partyId,
+    id: partyId,
     name: searchParams?.name || "",
     roleName: searchParams?.roleName || "",
     maxResultCount: searchParams?.maxResultCount || 10,

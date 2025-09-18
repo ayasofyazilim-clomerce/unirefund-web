@@ -17,6 +17,7 @@ export interface AddressFieldMessages {
     disabled?: string;
     placeholder?: string;
     search?: string;
+    notFound?: string;
 }
 
 export interface AddressFieldValue {
@@ -52,22 +53,26 @@ export interface AddressLanguageData {
     "country.loading": string;
     "country.disabled": string;
     "country.search": string;
+    "country.notFound": string;
 
     "adminAreaLevel1.label": string;
     "adminAreaLevel1.placeholder": string;
     "adminAreaLevel1.loading": string;
     "adminAreaLevel1.disabled": string;
     "adminAreaLevel1.search": string;
+    "adminAreaLevel1.notFound": string;
 
     "adminAreaLevel2.label": string;
     "adminAreaLevel2.placeholder": string;
     "adminAreaLevel2.loading": string;
     "adminAreaLevel2.disabled": string;
     "adminAreaLevel2.search": string;
+    "adminAreaLevel2.notFound": string;
 
     "neighborhood.label": string;
     "neighborhood.placeholder": string;
     "neighborhood.loading": string;
     "neighborhood.disabled": string;
     "neighborhood.search": string;
+    "neighborhood.notFound": string;
 }

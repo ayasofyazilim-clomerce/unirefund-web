@@ -70,7 +70,7 @@ export function CustomForm({
         if (!formData) return;
         startTransition(() => {
           void putCustomByIdApi({
-            customId: partyId,
+            id: partyId,
             requestBody: {
               ...formData,
               parentId: customDetails.parentId,

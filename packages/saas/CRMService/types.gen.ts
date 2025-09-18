@@ -59,10 +59,25 @@ export type UniRefund_CRMService_Addresses_AddressDto = {
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
-    isPrimary?: (boolean) | null;
+    isPrimary: boolean;
 };
 
 export type UniRefund_CRMService_Addresses_AddressType = 'UNKNOWN' | 'HOME' | 'WORK';
+
+export type UniRefund_CRMService_Addresses_AddressUpSertDto = {
+    addressId?: (string) | null;
+    countryId?: (string) | null;
+    adminAreaLevel1Id?: (string) | null;
+    adminAreaLevel2Id?: (string) | null;
+    neighborhoodId?: (string) | null;
+    addressLine?: (string) | null;
+    postalCode?: (string) | null;
+    type?: UniRefund_CRMService_Addresses_AddressType;
+    placeId?: (string) | null;
+    latitude?: (number) | null;
+    longitude?: (number) | null;
+    isPrimary?: (boolean) | null;
+};
 
 export type UniRefund_CRMService_Addresses_CreateAddressDto = {
     partyType?: UniRefund_Shared_Contracts_Enums_PartyType;
@@ -77,22 +92,7 @@ export type UniRefund_CRMService_Addresses_CreateAddressDto = {
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
-    isPrimary?: (boolean) | null;
-};
-
-export type UniRefund_CRMService_Addresses_UpdateAddressDto = {
-    id?: string;
-    countryId?: (string) | null;
-    adminAreaLevel1Id?: (string) | null;
-    adminAreaLevel2Id?: (string) | null;
-    neighborhoodId?: (string) | null;
-    addressLine?: (string) | null;
-    postalCode?: (string) | null;
-    type?: UniRefund_CRMService_Addresses_AddressType;
-    placeId?: (string) | null;
-    latitude?: (number) | null;
-    longitude?: (number) | null;
-    isPrimary?: (boolean) | null;
+    isPrimary: boolean;
 };
 
 export type UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto = {
@@ -228,9 +228,9 @@ export type UniRefund_CRMService_Customs_CreateCustomDto = {
     gateNumber?: (string) | null;
     parentId?: (string) | null;
     typeCode?: UniRefund_CRMService_Customs_CustomTypeCode;
-    telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
+    telephone?: UniRefund_CRMService_Telephones_TelephoneCreateDto;
     address?: UniRefund_CRMService_Addresses_CreateAddressDto;
-    email?: UniRefund_CRMService_Emails_EmailDto;
+    email?: UniRefund_CRMService_Emails_EmailCreateDto;
 };
 
 export type UniRefund_CRMService_Customs_CustomDto = {
@@ -269,20 +269,27 @@ export type UniRefund_CRMService_Customs_UpdateCustomDto = {
     parentId?: (string) | null;
 };
 
+export type UniRefund_CRMService_Emails_EmailCreateDto = {
+    id?: (string) | null;
+    emailAddress: (string) | null;
+    isPrimary: boolean;
+    type: UniRefund_CRMService_Emails_EmailType;
+};
+
 export type UniRefund_CRMService_Emails_EmailDto = {
     id?: string;
     emailAddress: (string) | null;
     type: UniRefund_CRMService_Emails_EmailType;
-    isPrimary?: (boolean) | null;
+    isPrimary: boolean;
 };
 
 export type UniRefund_CRMService_Emails_EmailType = 'UNKNOWN' | 'PERSONAL' | 'WORK' | 'SCHOOL' | 'OTHER';
 
-export type UniRefund_CRMService_Emails_UpdateEmailDto = {
-    id?: string;
+export type UniRefund_CRMService_Emails_EmailUpSertDto = {
+    emailId?: (string) | null;
     emailAddress?: (string) | null;
-    type?: UniRefund_CRMService_Emails_EmailType;
     isPrimary?: (boolean) | null;
+    type?: UniRefund_CRMService_Emails_EmailType;
 };
 
 export type UniRefund_CRMService_Individuals_CreateIndividualDto = {
@@ -293,9 +300,9 @@ export type UniRefund_CRMService_Individuals_CreateIndividualDto = {
     identificationNumber?: (string) | null;
     birthDate?: (string) | null;
     notes?: (string) | null;
-    telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
+    telephone?: UniRefund_CRMService_Telephones_TelephoneCreateDto;
     address?: UniRefund_CRMService_Addresses_CreateAddressDto;
-    email?: UniRefund_CRMService_Emails_EmailDto;
+    email?: UniRefund_CRMService_Emails_EmailCreateDto;
     newUser?: UniRefund_CRMService_Individuals_NewUser;
 };
 
@@ -354,9 +361,9 @@ export type UniRefund_CRMService_Merchants_CreateMerchantDto = {
     parentId?: (string) | null;
     typeCode: UniRefund_CRMService_Merchants_MerchantTypeCode;
     isPersonalCompany: boolean;
-    telephone: UniRefund_CRMService_Telephones_TelephoneDto;
+    telephone: UniRefund_CRMService_Telephones_TelephoneCreateDto;
     address: UniRefund_CRMService_Addresses_CreateAddressDto;
-    email: UniRefund_CRMService_Emails_EmailDto;
+    email: UniRefund_CRMService_Emails_EmailCreateDto;
 };
 
 export type UniRefund_CRMService_Merchants_MerchantDto = {
@@ -475,9 +482,9 @@ export type UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
     externalStoreIdentifier?: (string) | null;
     parentId?: (string) | null;
     typeCode?: UniRefund_CRMService_RefundPoints_RefundPointTypeCode;
-    telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
+    telephone?: UniRefund_CRMService_Telephones_TelephoneCreateDto;
     address?: UniRefund_CRMService_Addresses_CreateAddressDto;
-    email?: UniRefund_CRMService_Emails_EmailDto;
+    email?: UniRefund_CRMService_Emails_EmailCreateDto;
 };
 
 export type UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
@@ -557,9 +564,9 @@ export type UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
     externalStoreIdentifier?: (string) | null;
     parentId?: (string) | null;
     typeCode: UniRefund_CRMService_TaxFrees_TaxFreeTypeCode;
-    telephone: UniRefund_CRMService_Telephones_TelephoneDto;
+    telephone: UniRefund_CRMService_Telephones_TelephoneCreateDto;
     address: UniRefund_CRMService_Addresses_CreateAddressDto;
-    email: UniRefund_CRMService_Emails_EmailDto;
+    email: UniRefund_CRMService_Emails_EmailCreateDto;
 };
 
 export type UniRefund_CRMService_TaxFrees_TaxFreeDto = {
@@ -610,9 +617,9 @@ export type UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
     externalStoreIdentifier?: (string) | null;
     parentId?: (string) | null;
     typeCode: UniRefund_CRMService_TaxOffices_TaxOfficeTypeCode;
-    telephone: UniRefund_CRMService_Telephones_TelephoneDto;
+    telephone: UniRefund_CRMService_Telephones_TelephoneCreateDto;
     address: UniRefund_CRMService_Addresses_CreateAddressDto;
-    email: UniRefund_CRMService_Emails_EmailDto;
+    email: UniRefund_CRMService_Emails_EmailCreateDto;
 };
 
 export type UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
@@ -650,20 +657,32 @@ export type UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
     parentId?: (string) | null;
 };
 
-export type UniRefund_CRMService_Telephones_TelephoneDto = {
-    id?: string;
-    number: (string) | null;
-    type: UniRefund_CRMService_Telephones_TelephoneType;
-    isPrimary?: (boolean) | null;
+export type UniRefund_CRMService_Telephones_TelephoneCreateDto = {
+    ituCountryCode?: (string) | null;
+    areaCode?: (string) | null;
+    localNumber?: (string) | null;
+    isPrimary?: boolean;
+    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
 };
 
-export type UniRefund_CRMService_Telephones_TelephoneType = 'UNKNOWN' | 'HOME' | 'WORK' | 'MOBILE' | 'FAX' | 'OTHER';
+export type UniRefund_CRMService_Telephones_TelephoneDto = {
+    id: string;
+    ituCountryCode?: (string) | null;
+    areaCode?: (string) | null;
+    localNumber: (string) | null;
+    normalizedPhoneNumber?: (string) | null;
+    isPrimary: boolean;
+    type: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
+    isConfirmed?: (boolean) | null;
+};
 
-export type UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
-    id?: string;
-    number?: (string) | null;
-    type?: UniRefund_CRMService_Telephones_TelephoneType;
+export type UniRefund_CRMService_Telephones_TelephoneUpsertDto = {
+    telephoneId?: (string) | null;
+    ituCountryCode?: (string) | null;
+    areaCode?: (string) | null;
+    localNumber?: (string) | null;
     isPrimary?: (boolean) | null;
+    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
 };
 
 export type UniRefund_CRMService_UserAffiliations_SetPrimaryAffiliationDto = {
@@ -739,6 +758,8 @@ export type UniRefund_SettingService_ProductGroups_ProductGroupDto = {
 };
 
 export type UniRefund_SettingService_ProductGroups_UnitTypeCode = 'QNT' | 'BAG' | 'BOX';
+
+export type UniRefund_Shared_ContactInfo_Enums_TelephoneType = 'UNKNOWN' | 'HOME' | 'WORK' | 'MOBILE' | 'FAX' | 'OTHER';
 
 export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE' | 'TRAVELLER';
 
@@ -1125,67 +1146,67 @@ export type Volo_Abp_NameValue = {
     value?: (string) | null;
 };
 
-export type PostApiCrmServiceAdminarealevel1Data = {
+export type PostApiCrmServiceAdminAreaLevel1Data = {
     requestBody?: UniRefund_CRMService_AdminAreaLevel1_CreateAdminAreaLevel1Dto;
 };
 
-export type PostApiCrmServiceAdminarealevel1Response = (string);
+export type PostApiCrmServiceAdminAreaLevel1Response = (string);
 
-export type DeleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData = {
-    adminAreaLevel1Id: string;
+export type DeleteApiCrmServiceAdminAreaLevel1ByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse = (unknown);
+export type DeleteApiCrmServiceAdminAreaLevel1ByIdResponse = (unknown);
 
-export type GetApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData = {
-    adminAreaLevel1Id: string;
+export type GetApiCrmServiceAdminAreaLevel1ByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse = (UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto);
+export type GetApiCrmServiceAdminAreaLevel1ByIdResponse = (UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto);
 
-export type PutApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdData = {
-    adminAreaLevel1Id: string;
+export type PutApiCrmServiceAdminAreaLevel1ByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_AdminAreaLevel1_UpdateAdminAreaLevel1Dto;
 };
 
-export type PutApiCrmServiceAdminarealevel1ByAdminAreaLevel1IdResponse = (UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto);
+export type PutApiCrmServiceAdminAreaLevel1ByIdResponse = (UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto);
 
-export type GetApiCrmServiceAdminarealevel1ByCountryByCountryIdData = {
+export type GetApiCrmServiceAdminAreaLevel1ByCountryByCountryIdData = {
     countryId: string;
 };
 
-export type GetApiCrmServiceAdminarealevel1ByCountryByCountryIdResponse = (Array<UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto>);
+export type GetApiCrmServiceAdminAreaLevel1ByCountryByCountryIdResponse = (Array<UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto>);
 
-export type PostApiCrmServiceAdminarealevel2Data = {
+export type PostApiCrmServiceAdminAreaLevel2Data = {
     requestBody?: UniRefund_CRMService_AdminAreaLevel2_CreateAdminAreaLevel2Dto;
 };
 
-export type PostApiCrmServiceAdminarealevel2Response = (string);
+export type PostApiCrmServiceAdminAreaLevel2Response = (string);
 
-export type DeleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData = {
-    adminAreaLevel2Id: string;
+export type DeleteApiCrmServiceAdminAreaLevel2ByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse = (unknown);
+export type DeleteApiCrmServiceAdminAreaLevel2ByIdResponse = (unknown);
 
-export type GetApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData = {
-    adminAreaLevel2Id: string;
+export type GetApiCrmServiceAdminAreaLevel2ByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse = (UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto);
+export type GetApiCrmServiceAdminAreaLevel2ByIdResponse = (UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto);
 
-export type PutApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdData = {
-    adminAreaLevel2Id: string;
+export type PutApiCrmServiceAdminAreaLevel2ByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_AdminAreaLevel2_UpdateAdminAreaLevel2Dto;
 };
 
-export type PutApiCrmServiceAdminarealevel2ByAdminAreaLevel2IdResponse = (UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto);
+export type PutApiCrmServiceAdminAreaLevel2ByIdResponse = (UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto);
 
-export type GetApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1IdData = {
+export type GetApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1IdData = {
     adminAreaLevel1Id: string;
 };
 
-export type GetApiCrmServiceAdminarealevel2ByAdminarealevel1ByAdminAreaLevel1IdResponse = (Array<UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto>);
+export type GetApiCrmServiceAdminAreaLevel2ByAdminAreaLevel1ByAdminAreaLevel1IdResponse = (Array<UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto>);
 
 export type PostApiCrmServiceCountriesData = {
     requestBody?: UniRefund_CRMService_Countries_CreateCountryDto;
@@ -1195,24 +1216,24 @@ export type PostApiCrmServiceCountriesResponse = (string);
 
 export type GetApiCrmServiceCountriesResponse = (Array<UniRefund_CRMService_Countries_CountryDto>);
 
-export type DeleteApiCrmServiceCountriesByCountryIdData = {
-    countryId: string;
+export type DeleteApiCrmServiceCountriesByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceCountriesByCountryIdResponse = (unknown);
+export type DeleteApiCrmServiceCountriesByIdResponse = (unknown);
 
-export type GetApiCrmServiceCountriesByCountryIdData = {
-    countryId: string;
+export type GetApiCrmServiceCountriesByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceCountriesByCountryIdResponse = (UniRefund_CRMService_Countries_CountryDto);
+export type GetApiCrmServiceCountriesByIdResponse = (UniRefund_CRMService_Countries_CountryDto);
 
-export type PutApiCrmServiceCountriesByCountryIdData = {
-    countryId: string;
+export type PutApiCrmServiceCountriesByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Countries_UpdateCountryDto;
 };
 
-export type PutApiCrmServiceCountriesByCountryIdResponse = (UniRefund_CRMService_Countries_CountryDto);
+export type PutApiCrmServiceCountriesByIdResponse = (UniRefund_CRMService_Countries_CountryDto);
 
 export type PostApiCrmServiceCustomsData = {
     requestBody?: UniRefund_CRMService_Customs_CreateCustomDto;
@@ -1235,16 +1256,16 @@ export type GetApiCrmServiceCustomsData = {
 
 export type GetApiCrmServiceCustomsResponse = (PagedResultDto_CustomListResponseDto);
 
-export type PostApiCrmServiceCustomsByCustomIdAffiliationsData = {
-    customId: string;
+export type PostApiCrmServiceCustomsByIdAffiliationsData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto;
 };
 
-export type PostApiCrmServiceCustomsByCustomIdAffiliationsResponse = (string);
+export type PostApiCrmServiceCustomsByIdAffiliationsResponse = (string);
 
-export type GetApiCrmServiceCustomsByCustomIdAffiliationsData = {
-    customId: string;
+export type GetApiCrmServiceCustomsByIdAffiliationsData = {
     email?: string;
+    id: string;
     maxResultCount?: number;
     name?: string;
     roleName?: string;
@@ -1253,26 +1274,26 @@ export type GetApiCrmServiceCustomsByCustomIdAffiliationsData = {
     telephone?: string;
 };
 
-export type GetApiCrmServiceCustomsByCustomIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
+export type GetApiCrmServiceCustomsByIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
 
-export type DeleteApiCrmServiceCustomsByCustomIdData = {
-    customId: string;
+export type DeleteApiCrmServiceCustomsByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceCustomsByCustomIdResponse = (unknown);
+export type DeleteApiCrmServiceCustomsByIdResponse = (unknown);
 
-export type GetApiCrmServiceCustomsByCustomIdData = {
-    customId: string;
+export type GetApiCrmServiceCustomsByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceCustomsByCustomIdResponse = (UniRefund_CRMService_Customs_CustomDto);
+export type GetApiCrmServiceCustomsByIdResponse = (UniRefund_CRMService_Customs_CustomDto);
 
-export type PutApiCrmServiceCustomsByCustomIdData = {
-    customId: string;
+export type PutApiCrmServiceCustomsByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Customs_UpdateCustomDto;
 };
 
-export type PutApiCrmServiceCustomsByCustomIdResponse = (UniRefund_CRMService_Customs_CustomDto);
+export type PutApiCrmServiceCustomsByIdResponse = (UniRefund_CRMService_Customs_CustomDto);
 
 export type DeleteApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
@@ -1289,50 +1310,50 @@ export type PutApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdData = {
 
 export type PutApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
 
-export type GetApiCrmServiceCustomsByCustomIdAddressesData = {
-    customId: string;
+export type GetApiCrmServiceCustomsByIdAddressesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceCustomsByCustomIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+export type GetApiCrmServiceCustomsByIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
-export type PutApiCrmServiceCustomsByCustomIdAddressesData = {
-    customId: string;
-    requestBody?: UniRefund_CRMService_Addresses_UpdateAddressDto;
+export type PutApiCrmServiceCustomsByIdAddressesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Addresses_AddressUpSertDto;
 };
 
-export type PutApiCrmServiceCustomsByCustomIdAddressesResponse = (UniRefund_CRMService_Addresses_AddressDto);
+export type PutApiCrmServiceCustomsByIdAddressesResponse = (unknown);
 
-export type GetApiCrmServiceCustomsByCustomIdEmailsData = {
-    customId: string;
+export type GetApiCrmServiceCustomsByIdEmailsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceCustomsByCustomIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
+export type GetApiCrmServiceCustomsByIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
 
-export type PutApiCrmServiceCustomsByCustomIdEmailsData = {
-    customId: string;
-    requestBody?: UniRefund_CRMService_Emails_UpdateEmailDto;
+export type PutApiCrmServiceCustomsByIdEmailsData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Emails_EmailUpSertDto;
 };
 
-export type PutApiCrmServiceCustomsByCustomIdEmailsResponse = (UniRefund_CRMService_Emails_EmailDto);
+export type PutApiCrmServiceCustomsByIdEmailsResponse = (unknown);
 
-export type GetApiCrmServiceCustomsByCustomIdSubCustomsData = {
-    customId: string;
+export type GetApiCrmServiceCustomsByIdSubCustomsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceCustomsByCustomIdSubCustomsResponse = (PagedResultDto_CustomDto);
+export type GetApiCrmServiceCustomsByIdSubCustomsResponse = (PagedResultDto_CustomDto);
 
-export type GetApiCrmServiceCustomsByCustomIdTelephonesData = {
-    customId: string;
+export type GetApiCrmServiceCustomsByIdTelephonesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceCustomsByCustomIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
+export type GetApiCrmServiceCustomsByIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
 
-export type PutApiCrmServiceCustomsByCustomIdTelephonesData = {
-    customId: string;
-    requestBody?: UniRefund_CRMService_Telephones_UpdateTelephoneDto;
+export type PutApiCrmServiceCustomsByIdTelephonesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Telephones_TelephoneUpsertDto;
 };
 
-export type PutApiCrmServiceCustomsByCustomIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+export type PutApiCrmServiceCustomsByIdTelephonesResponse = (unknown);
 
 export type PostApiCrmServiceIndividualsData = {
     requestBody?: UniRefund_CRMService_Individuals_CreateIndividualDto;
@@ -1352,63 +1373,63 @@ export type GetApiCrmServiceIndividualsData = {
 
 export type GetApiCrmServiceIndividualsResponse = (PagedResultDto_IndividualListResponseDto);
 
-export type GetApiCrmServiceIndividualsByIndividualIdData = {
-    individualId: string;
+export type GetApiCrmServiceIndividualsByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceIndividualsByIndividualIdResponse = (UniRefund_CRMService_Individuals_IndividualDto);
+export type GetApiCrmServiceIndividualsByIdResponse = (UniRefund_CRMService_Individuals_IndividualDto);
 
-export type PutApiCrmServiceIndividualsByIndividualIdData = {
-    individualId: string;
+export type PutApiCrmServiceIndividualsByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Individuals_UpdateIndividualDto;
 };
 
-export type PutApiCrmServiceIndividualsByIndividualIdResponse = (UniRefund_CRMService_Individuals_IndividualDto);
+export type PutApiCrmServiceIndividualsByIdResponse = (UniRefund_CRMService_Individuals_IndividualDto);
 
-export type DeleteApiCrmServiceIndividualsByIndividualIdData = {
-    individualId: string;
+export type DeleteApiCrmServiceIndividualsByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceIndividualsByIndividualIdResponse = (unknown);
+export type DeleteApiCrmServiceIndividualsByIdResponse = (unknown);
 
-export type PutApiCrmServiceIndividualsByIndividualIdTelephonesData = {
-    individualId: string;
-    requestBody?: UniRefund_CRMService_Telephones_UpdateTelephoneDto;
+export type PutApiCrmServiceIndividualsByIdTelephonesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Telephones_TelephoneUpsertDto;
 };
 
-export type PutApiCrmServiceIndividualsByIndividualIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+export type PutApiCrmServiceIndividualsByIdTelephonesResponse = (unknown);
 
-export type GetApiCrmServiceIndividualsByIndividualIdTelephonesData = {
-    individualId: string;
+export type GetApiCrmServiceIndividualsByIdTelephonesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceIndividualsByIndividualIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
+export type GetApiCrmServiceIndividualsByIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
 
-export type PutApiCrmServiceIndividualsByIndividualIdEmailsData = {
-    individualId: string;
-    requestBody?: UniRefund_CRMService_Emails_UpdateEmailDto;
+export type PutApiCrmServiceIndividualsByIdEmailsData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Emails_EmailUpSertDto;
 };
 
-export type PutApiCrmServiceIndividualsByIndividualIdEmailsResponse = (UniRefund_CRMService_Emails_EmailDto);
+export type PutApiCrmServiceIndividualsByIdEmailsResponse = (unknown);
 
-export type GetApiCrmServiceIndividualsByIndividualIdEmailsData = {
-    individualId: string;
+export type GetApiCrmServiceIndividualsByIdEmailsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceIndividualsByIndividualIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
+export type GetApiCrmServiceIndividualsByIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
 
-export type PutApiCrmServiceIndividualsByIndividualIdAddressesData = {
-    individualId: string;
-    requestBody?: UniRefund_CRMService_Addresses_UpdateAddressDto;
+export type PutApiCrmServiceIndividualsByIdAddressesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Addresses_AddressUpSertDto;
 };
 
-export type PutApiCrmServiceIndividualsByIndividualIdAddressesResponse = (UniRefund_CRMService_Addresses_AddressDto);
+export type PutApiCrmServiceIndividualsByIdAddressesResponse = (unknown);
 
-export type GetApiCrmServiceIndividualsByIndividualIdAddressesData = {
-    individualId: string;
+export type GetApiCrmServiceIndividualsByIdAddressesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceIndividualsByIndividualIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+export type GetApiCrmServiceIndividualsByIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
 export type GetApiCrmServiceIndividualsByEmailData = {
     email?: string;
@@ -1416,30 +1437,30 @@ export type GetApiCrmServiceIndividualsByEmailData = {
 
 export type GetApiCrmServiceIndividualsByEmailResponse = (Array<UniRefund_CRMService_Individuals_IndividualWithAbpUserDto>);
 
-export type GetApiCrmServiceMerchantsByMerchantIdData = {
-    merchantId: string;
+export type GetApiCrmServiceMerchantsByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdResponse = (UniRefund_CRMService_Merchants_MerchantDto);
+export type GetApiCrmServiceMerchantsByIdResponse = (UniRefund_CRMService_Merchants_MerchantDto);
 
-export type PutApiCrmServiceMerchantsByMerchantIdData = {
-    merchantId: string;
+export type PutApiCrmServiceMerchantsByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Merchants_UpdateMerchantDto;
 };
 
-export type PutApiCrmServiceMerchantsByMerchantIdResponse = (UniRefund_CRMService_Merchants_MerchantDto);
+export type PutApiCrmServiceMerchantsByIdResponse = (UniRefund_CRMService_Merchants_MerchantDto);
 
-export type DeleteApiCrmServiceMerchantsByMerchantIdData = {
-    merchantId: string;
+export type DeleteApiCrmServiceMerchantsByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceMerchantsByMerchantIdResponse = (unknown);
+export type DeleteApiCrmServiceMerchantsByIdResponse = (unknown);
 
-export type GetApiCrmServiceMerchantsByMerchantIdSubMerchantsData = {
+export type GetApiCrmServiceMerchantsByIdSubMerchantsData = {
     chainCodeId?: string;
     externalStoreIdentifier?: string;
+    id: string;
     maxResultCount?: number;
-    merchantId: string;
     merchantIds?: Array<(string)>;
     name?: string;
     parentId?: string;
@@ -1451,12 +1472,12 @@ export type GetApiCrmServiceMerchantsByMerchantIdSubMerchantsData = {
     vatNumber?: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdSubMerchantsResponse = (PagedResultDto_MerchantListResponseDto);
+export type GetApiCrmServiceMerchantsByIdSubMerchantsResponse = (PagedResultDto_MerchantListResponseDto);
 
-export type GetApiCrmServiceMerchantsByMerchantIdAffiliationsData = {
+export type GetApiCrmServiceMerchantsByIdAffiliationsData = {
     email?: string;
+    id: string;
     maxResultCount?: number;
-    merchantId: string;
     name?: string;
     roleName?: string;
     skipCount?: number;
@@ -1464,14 +1485,14 @@ export type GetApiCrmServiceMerchantsByMerchantIdAffiliationsData = {
     telephone?: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
+export type GetApiCrmServiceMerchantsByIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
 
-export type PostApiCrmServiceMerchantsByMerchantIdAffiliationsData = {
-    merchantId: string;
+export type PostApiCrmServiceMerchantsByIdAffiliationsData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto;
 };
 
-export type PostApiCrmServiceMerchantsByMerchantIdAffiliationsResponse = (string);
+export type PostApiCrmServiceMerchantsByIdAffiliationsResponse = (string);
 
 export type DeleteApiCrmServiceMerchantsByMerchantIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
@@ -1494,25 +1515,25 @@ export type PostApiCrmServiceMerchantsBulkProductGroupMerchantsData = {
 
 export type PostApiCrmServiceMerchantsBulkProductGroupMerchantsResponse = (unknown);
 
-export type GetApiCrmServiceMerchantsByMerchantIdProductGroupData = {
-    merchantId: string;
+export type GetApiCrmServiceMerchantsByIdProductGroupData = {
+    id: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdProductGroupResponse = (Array<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>);
+export type GetApiCrmServiceMerchantsByIdProductGroupResponse = (Array<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>);
 
-export type PostApiCrmServiceMerchantsByMerchantIdProductGroupsData = {
-    merchantId: string;
+export type PostApiCrmServiceMerchantsByIdProductGroupsData = {
+    id: string;
     requestBody?: Array<UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto>;
 };
 
-export type PostApiCrmServiceMerchantsByMerchantIdProductGroupsResponse = (unknown);
+export type PostApiCrmServiceMerchantsByIdProductGroupsResponse = (unknown);
 
-export type DeleteApiCrmServiceMerchantsByMerchantIdProductGroupsData = {
-    merchantId: string;
+export type DeleteApiCrmServiceMerchantsByIdProductGroupsData = {
+    id: string;
     requestBody?: Array<(string)>;
 };
 
-export type DeleteApiCrmServiceMerchantsByMerchantIdProductGroupsResponse = (unknown);
+export type DeleteApiCrmServiceMerchantsByIdProductGroupsResponse = (unknown);
 
 export type PostApiCrmServiceMerchantsByMerchantIdProductGroupByProductGroupIdDefaultData = {
     merchantId: string;
@@ -1544,44 +1565,44 @@ export type GetApiCrmServiceMerchantsData = {
 
 export type GetApiCrmServiceMerchantsResponse = (PagedResultDto_MerchantListResponseDto);
 
-export type PutApiCrmServiceMerchantsByMerchantIdTelephonesData = {
-    merchantId: string;
-    requestBody?: UniRefund_CRMService_Telephones_UpdateTelephoneDto;
+export type PutApiCrmServiceMerchantsByIdTelephonesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Telephones_TelephoneUpsertDto;
 };
 
-export type PutApiCrmServiceMerchantsByMerchantIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+export type PutApiCrmServiceMerchantsByIdTelephonesResponse = (unknown);
 
-export type GetApiCrmServiceMerchantsByMerchantIdTelephonesData = {
-    merchantId: string;
+export type GetApiCrmServiceMerchantsByIdTelephonesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
+export type GetApiCrmServiceMerchantsByIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
 
-export type PutApiCrmServiceMerchantsByMerchantIdEmailsData = {
-    merchantId: string;
-    requestBody?: UniRefund_CRMService_Emails_UpdateEmailDto;
+export type PutApiCrmServiceMerchantsByIdEmailsData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Emails_EmailUpSertDto;
 };
 
-export type PutApiCrmServiceMerchantsByMerchantIdEmailsResponse = (UniRefund_CRMService_Emails_EmailDto);
+export type PutApiCrmServiceMerchantsByIdEmailsResponse = (unknown);
 
-export type GetApiCrmServiceMerchantsByMerchantIdEmailsData = {
-    merchantId: string;
+export type GetApiCrmServiceMerchantsByIdEmailsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
+export type GetApiCrmServiceMerchantsByIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
 
-export type PutApiCrmServiceMerchantsByMerchantIdAddressesData = {
-    merchantId: string;
-    requestBody?: UniRefund_CRMService_Addresses_UpdateAddressDto;
+export type PutApiCrmServiceMerchantsByIdAddressesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Addresses_AddressUpSertDto;
 };
 
-export type PutApiCrmServiceMerchantsByMerchantIdAddressesResponse = (UniRefund_CRMService_Addresses_AddressDto);
+export type PutApiCrmServiceMerchantsByIdAddressesResponse = (unknown);
 
-export type GetApiCrmServiceMerchantsByMerchantIdAddressesData = {
-    merchantId: string;
+export type GetApiCrmServiceMerchantsByIdAddressesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceMerchantsByMerchantIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+export type GetApiCrmServiceMerchantsByIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
 export type PostApiCrmServiceNeighborhoodsData = {
     requestBody?: UniRefund_CRMService_Neighborhoods_CreateNeighborhoodDto;
@@ -1589,32 +1610,32 @@ export type PostApiCrmServiceNeighborhoodsData = {
 
 export type PostApiCrmServiceNeighborhoodsResponse = (string);
 
-export type DeleteApiCrmServiceNeighborhoodsByNeighborhoodIdData = {
-    neighborhoodId: string;
+export type DeleteApiCrmServiceNeighborhoodsByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceNeighborhoodsByNeighborhoodIdResponse = (unknown);
+export type DeleteApiCrmServiceNeighborhoodsByIdResponse = (unknown);
 
-export type PutApiCrmServiceNeighborhoodsByNeighborhoodIdData = {
-    neighborhoodId: string;
+export type PutApiCrmServiceNeighborhoodsByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Neighborhoods_UpdateNeighborhoodDto;
 };
 
-export type PutApiCrmServiceNeighborhoodsByNeighborhoodIdResponse = (UniRefund_CRMService_Neighborhoods_NeighborhoodDto);
+export type PutApiCrmServiceNeighborhoodsByIdResponse = (UniRefund_CRMService_Neighborhoods_NeighborhoodDto);
 
-export type GetApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2IdData = {
+export type GetApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2IdData = {
     adminAreaLevel2Id: string;
 };
 
-export type GetApiCrmServiceNeighborhoodsByAdminarealevel2ByAdminAreaLevel2IdResponse = (Array<UniRefund_CRMService_Neighborhoods_NeighborhoodDto>);
+export type GetApiCrmServiceNeighborhoodsByAdminAreaLevel2ByAdminAreaLevel2IdResponse = (Array<UniRefund_CRMService_Neighborhoods_NeighborhoodDto>);
 
-export type PostApiCrmServiceRefundpointsData = {
+export type PostApiCrmServiceRefundPointsData = {
     requestBody?: UniRefund_CRMService_RefundPoints_CreateRefundPointDto;
 };
 
-export type PostApiCrmServiceRefundpointsResponse = (string);
+export type PostApiCrmServiceRefundPointsResponse = (string);
 
-export type GetApiCrmServiceRefundpointsData = {
+export type GetApiCrmServiceRefundPointsData = {
     externalStoreIdentifier?: string;
     maxResultCount?: number;
     name?: string;
@@ -1627,100 +1648,100 @@ export type GetApiCrmServiceRefundpointsData = {
     vatNumber?: string;
 };
 
-export type GetApiCrmServiceRefundpointsResponse = (PagedResultDto_RefundPointListResponseDto);
+export type GetApiCrmServiceRefundPointsResponse = (PagedResultDto_RefundPointListResponseDto);
 
-export type PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData = {
-    refundPointId: string;
+export type PostApiCrmServiceRefundPointsByIdAffiliationsData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto;
 };
 
-export type PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsResponse = (string);
+export type PostApiCrmServiceRefundPointsByIdAffiliationsResponse = (string);
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData = {
+export type GetApiCrmServiceRefundPointsByIdAffiliationsData = {
     email?: string;
+    id: string;
     maxResultCount?: number;
     name?: string;
-    refundPointId: string;
     roleName?: string;
     skipCount?: number;
     sorting?: string;
     telephone?: string;
 };
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
+export type GetApiCrmServiceRefundPointsByIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
 
-export type DeleteApiCrmServiceRefundpointsByRefundPointIdData = {
-    refundPointId: string;
+export type DeleteApiCrmServiceRefundPointsByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceRefundpointsByRefundPointIdResponse = (unknown);
+export type DeleteApiCrmServiceRefundPointsByIdResponse = (unknown);
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdData = {
-    refundPointId: string;
+export type GetApiCrmServiceRefundPointsByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdResponse = (UniRefund_CRMService_RefundPoints_RefundPointDto);
+export type GetApiCrmServiceRefundPointsByIdResponse = (UniRefund_CRMService_RefundPoints_RefundPointDto);
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdData = {
-    refundPointId: string;
+export type PutApiCrmServiceRefundPointsByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_RefundPoints_UpdateRefundPointDto;
 };
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdResponse = (UniRefund_CRMService_RefundPoints_RefundPointDto);
+export type PutApiCrmServiceRefundPointsByIdResponse = (UniRefund_CRMService_RefundPoints_RefundPointDto);
 
-export type DeleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdData = {
+export type DeleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
     refundPointId: string;
 };
 
-export type DeleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdResponse = (unknown);
+export type DeleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdResponse = (unknown);
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdData = {
+export type PutApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
     refundPointId: string;
     requestBody?: UniRefund_CRMService_Affiliations_UpdateAffiliationDto;
 };
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
+export type PutApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdAddressesData = {
-    refundPointId: string;
+export type GetApiCrmServiceRefundPointsByIdAddressesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+export type GetApiCrmServiceRefundPointsByIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdAddressesData = {
-    refundPointId: string;
-    requestBody?: UniRefund_CRMService_Addresses_UpdateAddressDto;
+export type PutApiCrmServiceRefundPointsByIdAddressesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Addresses_AddressUpSertDto;
 };
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdAddressesResponse = (UniRefund_CRMService_Addresses_AddressDto);
+export type PutApiCrmServiceRefundPointsByIdAddressesResponse = (unknown);
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdEmailsData = {
-    refundPointId: string;
+export type GetApiCrmServiceRefundPointsByIdEmailsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
+export type GetApiCrmServiceRefundPointsByIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdEmailsData = {
-    refundPointId: string;
-    requestBody?: UniRefund_CRMService_Emails_UpdateEmailDto;
+export type PutApiCrmServiceRefundPointsByIdEmailsData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Emails_EmailUpSertDto;
 };
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdEmailsResponse = (UniRefund_CRMService_Emails_EmailDto);
+export type PutApiCrmServiceRefundPointsByIdEmailsResponse = (unknown);
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdTelephonesData = {
-    refundPointId: string;
+export type GetApiCrmServiceRefundPointsByIdTelephonesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceRefundpointsByRefundPointIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
+export type GetApiCrmServiceRefundPointsByIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdTelephonesData = {
-    refundPointId: string;
-    requestBody?: UniRefund_CRMService_Telephones_UpdateTelephoneDto;
+export type PutApiCrmServiceRefundPointsByIdTelephonesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Telephones_TelephoneUpsertDto;
 };
 
-export type PutApiCrmServiceRefundpointsByRefundPointIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+export type PutApiCrmServiceRefundPointsByIdTelephonesResponse = (unknown);
 
 export type PostApiCrmServiceRegionsData = {
     requestBody?: UniRefund_CRMService_Regions_CreateRegionDto;
@@ -1728,24 +1749,24 @@ export type PostApiCrmServiceRegionsData = {
 
 export type PostApiCrmServiceRegionsResponse = (string);
 
-export type DeleteApiCrmServiceRegionsByRegionIdData = {
-    regionId: string;
+export type DeleteApiCrmServiceRegionsByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceRegionsByRegionIdResponse = (unknown);
+export type DeleteApiCrmServiceRegionsByIdResponse = (unknown);
 
-export type GetApiCrmServiceRegionsByRegionIdData = {
-    regionId: string;
+export type GetApiCrmServiceRegionsByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceRegionsByRegionIdResponse = (UniRefund_CRMService_Regions_RegionDto);
+export type GetApiCrmServiceRegionsByIdResponse = (UniRefund_CRMService_Regions_RegionDto);
 
-export type PutApiCrmServiceRegionsByRegionIdData = {
-    regionId: string;
+export type PutApiCrmServiceRegionsByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Regions_UpdateRegionDto;
 };
 
-export type PutApiCrmServiceRegionsByRegionIdResponse = (UniRefund_CRMService_Regions_RegionDto);
+export type PutApiCrmServiceRegionsByIdResponse = (UniRefund_CRMService_Regions_RegionDto);
 
 export type GetApiCrmServiceRegionsByCountryByCountryIdData = {
     countryId: string;
@@ -1753,13 +1774,13 @@ export type GetApiCrmServiceRegionsByCountryByCountryIdData = {
 
 export type GetApiCrmServiceRegionsByCountryByCountryIdResponse = (Array<UniRefund_CRMService_Regions_RegionDto>);
 
-export type PostApiCrmServiceTaxfreesData = {
+export type PostApiCrmServiceTaxFreesData = {
     requestBody?: UniRefund_CRMService_TaxFrees_CreateTaxFreeDto;
 };
 
-export type PostApiCrmServiceTaxfreesResponse = (string);
+export type PostApiCrmServiceTaxFreesResponse = (string);
 
-export type GetApiCrmServiceTaxfreesData = {
+export type GetApiCrmServiceTaxFreesData = {
     externalStoreIdentifier?: string;
     maxResultCount?: number;
     name?: string;
@@ -1772,108 +1793,108 @@ export type GetApiCrmServiceTaxfreesData = {
     vatNumber?: string;
 };
 
-export type GetApiCrmServiceTaxfreesResponse = (PagedResultDto_TaxFreeListResponseDto);
+export type GetApiCrmServiceTaxFreesResponse = (PagedResultDto_TaxFreeListResponseDto);
 
-export type PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData = {
+export type PostApiCrmServiceTaxFreesByIdAffiliationsData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto;
-    taxFreeId: string;
 };
 
-export type PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsResponse = (string);
+export type PostApiCrmServiceTaxFreesByIdAffiliationsResponse = (string);
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData = {
+export type GetApiCrmServiceTaxFreesByIdAffiliationsData = {
     email?: string;
+    id: string;
     maxResultCount?: number;
     name?: string;
     roleName?: string;
     skipCount?: number;
     sorting?: string;
-    taxFreeId: string;
     telephone?: string;
 };
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
+export type GetApiCrmServiceTaxFreesByIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
 
-export type DeleteApiCrmServiceTaxfreesByTaxFreeIdData = {
-    taxFreeId: string;
+export type DeleteApiCrmServiceTaxFreesByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceTaxfreesByTaxFreeIdResponse = (unknown);
+export type DeleteApiCrmServiceTaxFreesByIdResponse = (unknown);
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdData = {
-    taxFreeId: string;
+export type GetApiCrmServiceTaxFreesByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdResponse = (UniRefund_CRMService_TaxFrees_TaxFreeDto);
+export type GetApiCrmServiceTaxFreesByIdResponse = (UniRefund_CRMService_TaxFrees_TaxFreeDto);
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdData = {
+export type PutApiCrmServiceTaxFreesByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto;
-    taxFreeId: string;
 };
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdResponse = (UniRefund_CRMService_TaxFrees_TaxFreeDto);
+export type PutApiCrmServiceTaxFreesByIdResponse = (UniRefund_CRMService_TaxFrees_TaxFreeDto);
 
-export type DeleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdData = {
+export type DeleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
     taxFreeId: string;
 };
 
-export type DeleteApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdResponse = (unknown);
+export type DeleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdResponse = (unknown);
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdData = {
+export type PutApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
     requestBody?: UniRefund_CRMService_Affiliations_UpdateAffiliationDto;
     taxFreeId: string;
 };
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
+export type PutApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdAddressesData = {
-    taxFreeId: string;
+export type GetApiCrmServiceTaxFreesByIdAddressesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+export type GetApiCrmServiceTaxFreesByIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdAddressesData = {
-    requestBody?: UniRefund_CRMService_Addresses_UpdateAddressDto;
-    taxFreeId: string;
+export type PutApiCrmServiceTaxFreesByIdAddressesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Addresses_AddressUpSertDto;
 };
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdAddressesResponse = (UniRefund_CRMService_Addresses_AddressDto);
+export type PutApiCrmServiceTaxFreesByIdAddressesResponse = (unknown);
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdEmailsData = {
-    taxFreeId: string;
+export type GetApiCrmServiceTaxFreesByIdEmailsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
+export type GetApiCrmServiceTaxFreesByIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdEmailsData = {
-    requestBody?: UniRefund_CRMService_Emails_UpdateEmailDto;
-    taxFreeId: string;
+export type PutApiCrmServiceTaxFreesByIdEmailsData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Emails_EmailUpSertDto;
 };
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdEmailsResponse = (UniRefund_CRMService_Emails_EmailDto);
+export type PutApiCrmServiceTaxFreesByIdEmailsResponse = (unknown);
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdTelephonesData = {
-    taxFreeId: string;
+export type GetApiCrmServiceTaxFreesByIdTelephonesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxfreesByTaxFreeIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
+export type GetApiCrmServiceTaxFreesByIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdTelephonesData = {
-    requestBody?: UniRefund_CRMService_Telephones_UpdateTelephoneDto;
-    taxFreeId: string;
+export type PutApiCrmServiceTaxFreesByIdTelephonesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Telephones_TelephoneUpsertDto;
 };
 
-export type PutApiCrmServiceTaxfreesByTaxFreeIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+export type PutApiCrmServiceTaxFreesByIdTelephonesResponse = (unknown);
 
-export type PostApiCrmServiceTaxofficesData = {
+export type PostApiCrmServiceTaxOfficesData = {
     requestBody?: UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto;
 };
 
-export type PostApiCrmServiceTaxofficesResponse = (string);
+export type PostApiCrmServiceTaxOfficesResponse = (string);
 
-export type GetApiCrmServiceTaxofficesData = {
+export type GetApiCrmServiceTaxOfficesData = {
     externalStoreIdentifier?: string;
     maxResultCount?: number;
     name?: string;
@@ -1886,112 +1907,112 @@ export type GetApiCrmServiceTaxofficesData = {
     vatNumber?: string;
 };
 
-export type GetApiCrmServiceTaxofficesResponse = (PagedResultDto_TaxOfficeListResponseDto);
+export type GetApiCrmServiceTaxOfficesResponse = (PagedResultDto_TaxOfficeListResponseDto);
 
-export type PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData = {
+export type PostApiCrmServiceTaxOfficesByIdAffiliationsData = {
+    id: string;
     requestBody?: UniRefund_CRMService_Affiliations_CreatePartyAffiliationDto;
-    taxOfficeId: string;
 };
 
-export type PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsResponse = (string);
+export type PostApiCrmServiceTaxOfficesByIdAffiliationsResponse = (string);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData = {
+export type GetApiCrmServiceTaxOfficesByIdAffiliationsData = {
     email?: string;
+    id: string;
     maxResultCount?: number;
     name?: string;
     roleName?: string;
     skipCount?: number;
     sorting?: string;
-    taxOfficeId: string;
     telephone?: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
+export type GetApiCrmServiceTaxOfficesByIdAffiliationsResponse = (PagedResultDto_AffiliationListResponseDto);
 
-export type DeleteApiCrmServiceTaxofficesByTaxOfficeIdData = {
-    taxOfficeId: string;
+export type DeleteApiCrmServiceTaxOfficesByIdData = {
+    id: string;
 };
 
-export type DeleteApiCrmServiceTaxofficesByTaxOfficeIdResponse = (unknown);
+export type DeleteApiCrmServiceTaxOfficesByIdResponse = (unknown);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdData = {
-    taxOfficeId: string;
+export type GetApiCrmServiceTaxOfficesByIdData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdResponse = (UniRefund_CRMService_TaxOffices_TaxOfficeDto);
+export type GetApiCrmServiceTaxOfficesByIdResponse = (UniRefund_CRMService_TaxOffices_TaxOfficeDto);
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdData = {
+export type PutApiCrmServiceTaxOfficesByIdData = {
+    id: string;
     requestBody?: UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto;
-    taxOfficeId: string;
 };
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdResponse = (UniRefund_CRMService_TaxOffices_TaxOfficeDto);
+export type PutApiCrmServiceTaxOfficesByIdResponse = (UniRefund_CRMService_TaxOffices_TaxOfficeDto);
 
-export type DeleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdData = {
+export type DeleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
     taxOfficeId: string;
 };
 
-export type DeleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdResponse = (unknown);
+export type DeleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdResponse = (unknown);
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdData = {
+export type PutApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdData = {
     affiliationId: string;
     requestBody?: UniRefund_CRMService_Affiliations_UpdateAffiliationDto;
     taxOfficeId: string;
 };
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
+export type PutApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationIdResponse = (UniRefund_CRMService_Affiliations_AffiliationDto);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdExistsData = {
-    taxOfficeId: string;
+export type GetApiCrmServiceTaxOfficesByIdExistsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdExistsResponse = (boolean);
+export type GetApiCrmServiceTaxOfficesByIdExistsResponse = (boolean);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdAddressesData = {
-    taxOfficeId: string;
+export type GetApiCrmServiceTaxOfficesByIdAddressesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
+export type GetApiCrmServiceTaxOfficesByIdAddressesResponse = (Array<UniRefund_CRMService_Addresses_AddressDto>);
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdAddressesData = {
-    requestBody?: UniRefund_CRMService_Addresses_UpdateAddressDto;
-    taxOfficeId: string;
+export type PutApiCrmServiceTaxOfficesByIdAddressesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Addresses_AddressUpSertDto;
 };
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdAddressesResponse = (UniRefund_CRMService_Addresses_AddressDto);
+export type PutApiCrmServiceTaxOfficesByIdAddressesResponse = (unknown);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdEmailsData = {
-    taxOfficeId: string;
+export type GetApiCrmServiceTaxOfficesByIdEmailsData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
+export type GetApiCrmServiceTaxOfficesByIdEmailsResponse = (Array<UniRefund_CRMService_Emails_EmailDto>);
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsData = {
-    requestBody?: UniRefund_CRMService_Emails_UpdateEmailDto;
-    taxOfficeId: string;
+export type PutApiCrmServiceTaxOfficesByIdEmailsData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Emails_EmailUpSertDto;
 };
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdEmailsResponse = (UniRefund_CRMService_Emails_EmailDto);
+export type PutApiCrmServiceTaxOfficesByIdEmailsResponse = (unknown);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOfficesData = {
-    taxOfficeId: string;
+export type GetApiCrmServiceTaxOfficesByIdSubTaxOfficesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdSubTaxOfficesResponse = (PagedResultDto_TaxOfficeDto);
+export type GetApiCrmServiceTaxOfficesByIdSubTaxOfficesResponse = (PagedResultDto_TaxOfficeDto);
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData = {
-    taxOfficeId: string;
+export type GetApiCrmServiceTaxOfficesByIdTelephonesData = {
+    id: string;
 };
 
-export type GetApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
+export type GetApiCrmServiceTaxOfficesByIdTelephonesResponse = (Array<UniRefund_CRMService_Telephones_TelephoneDto>);
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesData = {
-    requestBody?: UniRefund_CRMService_Telephones_UpdateTelephoneDto;
-    taxOfficeId: string;
+export type PutApiCrmServiceTaxOfficesByIdTelephonesData = {
+    id: string;
+    requestBody?: UniRefund_CRMService_Telephones_TelephoneUpsertDto;
 };
 
-export type PutApiCrmServiceTaxofficesByTaxOfficeIdTelephonesResponse = (UniRefund_CRMService_Telephones_TelephoneDto);
+export type PutApiCrmServiceTaxOfficesByIdTelephonesResponse = (unknown);
 
 export type GetApiCrmServiceUserAffiliationsResponse = (Array<UniRefund_CRMService_UserAffiliations_UserAffiliationDto>);
 

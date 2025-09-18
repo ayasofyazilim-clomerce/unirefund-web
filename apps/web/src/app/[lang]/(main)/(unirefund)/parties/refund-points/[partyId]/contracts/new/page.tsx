@@ -1,6 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {getRefundFeeHeadersAssignablesByRefundPointIdApi} from "@repo/actions/unirefund/ContractService/action";
-import {getRefundPointAddressesByRefundPointIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getRefundPointAddressesByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import {structuredError} from "@repo/utils/api";
@@ -24,7 +24,7 @@ async function getApiRequests(partyId: string) {
         },
         session,
       ),
-      getRefundPointAddressesByRefundPointIdApi(partyId, session),
+      getRefundPointAddressesByIdApi(partyId, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};

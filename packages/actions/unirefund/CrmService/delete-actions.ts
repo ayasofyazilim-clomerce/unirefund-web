@@ -1,10 +1,10 @@
 "use server";
-import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
-import type {Session} from "@repo/utils/auth";
-import {getCRMServiceClient} from "../lib";
+import { structuredError, structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "@repo/utils/auth";
+import { getCRMServiceClient } from "../lib";
 
 /*Merchant */
-export async function deleteMerchantByMerchantIdApi({
+export async function deleteMerchantByIdApi({
   merchantId,
   session,
 }: {
@@ -13,8 +13,8 @@ export async function deleteMerchantByMerchantIdApi({
 }) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByMerchantId({
-      merchantId,
+    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsById({
+      id: merchantId,
     });
     return structuredSuccessResponse(response);
   } catch (error) {
@@ -41,7 +41,7 @@ export async function deleteMerchantAffiliationByIdApi({
     return structuredError(error);
   }
 }
-export async function deleteMerchantProductGroupsByMerchantIdApi({
+export async function deleteMerchantProductGroupsByIdApi({
   merchantId,
   productGroupIds,
   session,
@@ -52,8 +52,8 @@ export async function deleteMerchantProductGroupsByMerchantIdApi({
 }) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByMerchantIdProductGroups({
-      merchantId,
+    const response = await crmClient.merchant.deleteApiCrmServiceMerchantsByIdProductGroups({
+      id: merchantId,
       requestBody: productGroupIds,
     });
     return structuredSuccessResponse(response);
@@ -72,8 +72,8 @@ export async function deleteRefundPointByRefundPointIdApi({
 }) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.deleteApiCrmServiceRefundpointsByRefundPointId({
-      refundPointId,
+    const response = await crmClient.refundPoint.deleteApiCrmServiceRefundPointsById({
+      id: refundPointId,
     });
     return structuredSuccessResponse(response);
   } catch (error) {
@@ -92,7 +92,7 @@ export async function deleteRefundPointAffiliationByIdApi({
   try {
     const crmClient = await getCRMServiceClient(session);
     const response =
-      await crmClient.refundPoint.deleteApiCrmServiceRefundpointsByRefundPointIdAffiliationsByAffiliationId({
+      await crmClient.refundPoint.deleteApiCrmServiceRefundPointsByRefundPointIdAffiliationsByAffiliationId({
         refundPointId,
         affiliationId,
       });
@@ -111,8 +111,8 @@ export async function deleteTaxOfficeByTaxOfficeIdApi({
 }) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxofficesByTaxOfficeId({
-      taxOfficeId,
+    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesById({
+      id: taxOfficeId,
     });
     return structuredSuccessResponse(response);
   } catch (error) {
@@ -130,7 +130,7 @@ export async function deleteTaxOfficeAffiliationByIdApi({
 }) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsByAffiliationId({
+    const response = await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationId({
       taxOfficeId,
       affiliationId,
     });

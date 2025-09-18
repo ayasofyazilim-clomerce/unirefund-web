@@ -5,7 +5,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
-import type {GetApiCrmServiceTaxofficesData} from "@repo/saas/CRMService";
+import type {GetApiCrmServiceTaxOfficesData} from "@repo/saas/CRMService";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import SubStoresTable from "../../_components/table";
 
@@ -14,7 +14,7 @@ interface SearchParamType {
   skipCount?: number;
 }
 
-async function getApiRequests(filters: GetApiCrmServiceTaxofficesData) {
+async function getApiRequests(filters: GetApiCrmServiceTaxOfficesData) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([getTaxOfficesApi(filters, session)]);

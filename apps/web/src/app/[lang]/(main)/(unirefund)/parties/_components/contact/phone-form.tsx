@@ -1,26 +1,41 @@
 "use client";
 
-import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
-import type {UniRefund_CRMService_Telephones_TelephoneDto as TelephoneDto} from "@repo/saas/CRMService";
-import {$UniRefund_CRMService_Telephones_TelephoneDto as $TelephoneDto} from "@repo/saas/CRMService";
-import {putMerchantTelephonesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {handlePutResponse} from "@repo/utils/api";
+import type {
+  UniRefund_CRMService_Telephones_TelephoneDto as TelephoneDto,
+  UniRefund_CRMService_Telephones_TelephoneUpsertDto as TelephoneUpSertDto,
+} from "@repo/saas/CRMService";
+import {
+  $UniRefund_CRMService_Telephones_TelephoneDto as $TelephoneDto,
+  $UniRefund_CRMService_Telephones_TelephoneUpsertDto as $TelephoneUpSertDto,
+} from "@repo/saas/CRMService";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {DefaultResource} from "@/language-data/core/Default";
+import type {PartyType} from "../party-header";
 import {PhoneWithTypeField} from "./phone-with-type";
+import {telephoneActionByPartyType} from "./utils";
 
-export function PhoneForm({languageData, phones}: {languageData: CRMServiceServiceResource; phones: TelephoneDto[]}) {
+export function PhoneForm({
+  languageData,
+  phones,
+  partyType,
+}: {
+  languageData: DefaultResource;
+  phones: TelephoneDto[];
+  partyType: PartyType;
+}) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const columns = tanstackTableCreateColumnsByRowData<TelephoneDto>({
     rows: $TelephoneDto.properties,
@@ -29,78 +44,93 @@ export function PhoneForm({languageData, phones}: {languageData: CRMServiceServi
     },
     languageData: {
       languageData,
-      constantKey: "CRM.telephone",
+      constantKey: "Form.telephone",
     },
     custom: {
-      isPrimary: {
-        showHeader: true,
-        content: (row) =>
-          IsPrimaryAction({row, partyId, isPending, startTransition, languageData, isActive: phones.length === 1}),
-      },
       type: {
         showHeader: true,
         content: (row) => TypeRow({row, languageData}),
       },
+      isPrimary: {
+        showHeader: true,
+        content: (row) =>
+          IsPrimaryAction({
+            row,
+            partyId,
+            isPending,
+            startTransition,
+            languageData,
+            isActive: phones.length === 1 && row.isPrimary,
+            partyType,
+            router,
+          }),
+      },
     },
-    expandRowTrigger: "number",
+    expandRowTrigger: "normalizedPhoneNumber",
   });
   const tableActions: TanstackTableTableActionsType<TelephoneDto>[] = [
     {
       id: "create-telephone",
       actionLocation: "table",
-      cta: languageData["CRM.telephone.create"],
+      cta: languageData["Form.telephone.create"],
       type: "schemaform-dialog",
-      schema: $TelephoneDto,
+      schema: $TelephoneUpSertDto,
       uiSchema: createUiSchemaWithResource({
         resources: languageData,
-        schema: $TelephoneDto,
-        name: "CRM.telephone",
-        extend: {"ui:field": "telephone"},
+        schema: $TelephoneUpSertDto,
+        name: "Form.telephone",
+        extend: {"ui:field": "telephone", "ui:className": "items-stretch"},
       }),
       fields: {
-        telephone: PhoneWithTypeField({languageData}),
-      },
-      formData: {
-        type: "WORK",
-        number: "",
+        telephone: PhoneWithTypeField({languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum}),
       },
       withScrollArea: false,
       disabled: isPending,
-      filter: {type: "exclude", keys: ["id", "isPrimary"]},
-      submitText: languageData["CRM.telephone.create"],
-      title: languageData["CRM.telephone.create"],
-      onSubmit: () => {
+      filter: {type: "exclude", keys: ["telephoneId", "isPrimary"]},
+      submitText: languageData["Form.telephone.create"],
+      title: languageData["Form.telephone.create"],
+      onSubmit: (editedFormData) => {
+        if (!editedFormData) return;
         startTransition(() => {
-          toast.error(languageData.NotImplemented);
+          telephoneActionByPartyType({
+            requestBody: {...editedFormData, isPrimary: phones.length === 0},
+            partyType,
+            partyId,
+            router,
+          });
         });
       },
     },
   ];
   return (
     <TanstackTable
+      columnOrder={["normalizedPhoneNumber", "type", "isPrimary"]}
       columnVisibility={{
-        columns: ["id"],
-        type: "hide",
+        columns: ["normalizedPhoneNumber", "type", "isPrimary"],
+        type: "show",
       }}
       columns={columns}
       data={phones}
-      expandedRowComponent={(row) => EditForm({row, lang, languageData, partyId, isPending, startTransition})}
-      fillerColumn="number"
+      expandedRowComponent={(row) =>
+        EditForm({row, lang, languageData, partyId, partyType, isPending, startTransition})
+      }
+      fillerColumn="normalizedPhoneNumber"
       showPagination={false}
       tableActions={tableActions}
-      title={languageData["CRM.telephones"]}
+      title={languageData["Form.telephones"]}
     />
   );
 }
 
-function TypeRow({row, languageData}: {row: TelephoneDto; languageData: CRMServiceServiceResource}) {
-  return <div> {languageData[`CRM.telephone.type.${row.type}`]}</div>;
+function TypeRow({row, languageData}: {row: TelephoneDto; languageData: DefaultResource}) {
+  return <div> {languageData[`Form.telephone.type.${row.type}`]}</div>;
 }
 
 function EditForm({
   row,
   lang,
   partyId,
+  partyType,
   languageData,
   isPending,
   startTransition,
@@ -108,47 +138,43 @@ function EditForm({
   row: TelephoneDto;
   lang: string;
   partyId: string;
-  languageData: CRMServiceServiceResource;
+  partyType: PartyType;
+  languageData: DefaultResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
 }) {
   const router = useRouter();
   return (
-    <SchemaForm<TelephoneDto>
+    <SchemaForm<TelephoneUpSertDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
       fields={{
-        telephone: PhoneWithTypeField({languageData}),
+        telephone: PhoneWithTypeField({languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum}),
       }}
-      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
+      filter={{type: "exclude", keys: ["telephoneId", "isPrimary"]}}
       formData={row}
       id="edit-telephone-form"
       key={JSON.stringify(row)}
       locale={lang}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        const data = {
-          merchantId: partyId,
-          requestBody: {
-            id: row.id,
-            number: formData.number !== row.number ? formData.number : undefined,
-            type: formData.type !== row.type ? formData.type : undefined,
-          },
-        };
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
         startTransition(() => {
-          void putMerchantTelephonesByMerchantIdApi(data).then((response) => {
-            handlePutResponse(response, router);
+          telephoneActionByPartyType({
+            requestBody: {...editedFormData, telephoneId: row.id},
+            partyType,
+            partyId,
+            router,
           });
         });
       }}
-      schema={$TelephoneDto}
-      submitText={languageData["CRM.telephone.update"]}
+      schema={$TelephoneUpSertDto}
+      submitText={languageData["Form.telephone.update"]}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
-        schema: $TelephoneDto,
-        name: "CRM.telephone",
+        schema: $TelephoneUpSertDto,
+        name: "Form.telephone",
         extend: {
-          "ui:className": "p-2 bg-white",
+          "ui:className": "p-2 bg-white items-stretch",
           "ui:field": "telephone",
         },
       })}
@@ -160,33 +186,34 @@ function EditForm({
 function IsPrimaryAction({
   row,
   partyId,
+  partyType,
   isActive,
   isPending,
   startTransition,
   languageData,
+  router,
 }: {
-  row: TelephoneDto;
+  row: TelephoneUpSertDto;
   partyId: string;
+  partyType: PartyType;
   isActive: boolean;
   isPending: boolean;
   startTransition: TransitionStartFunction;
-  languageData: CRMServiceServiceResource;
+  languageData: DefaultResource;
+  router: AppRouterInstance;
 }) {
   const switchComponent = (
     <Switch
-      checked={row.isPrimary === true}
+      checked={row.isPrimary ? row.isPrimary : false}
       data-testid="phone-is-primary"
       disabled={isActive || isPending}
-      onCheckedChange={() => {
+      onCheckedChange={(value) => {
         startTransition(() => {
-          void putMerchantTelephonesByMerchantIdApi({
-            merchantId: partyId,
-            requestBody: {
-              id: row.id,
-              isPrimary: !row.isPrimary,
-            },
-          }).then((response) => {
-            handlePutResponse(response);
+          telephoneActionByPartyType({
+            requestBody: {isPrimary: value, telephoneId: row.telephoneId},
+            partyType,
+            partyId,
+            router,
           });
         });
       }}
@@ -199,7 +226,7 @@ function IsPrimaryAction({
         <TooltipTrigger asChild>
           <div className="flex size-full items-center justify-center">{switchComponent}</div>
         </TooltipTrigger>
-        <TooltipContent>{languageData["CRM.Messages.telephone.isPrimary.atLeastOnePrimaryRequired"]}</TooltipContent>
+        <TooltipContent>{languageData["Messages.telephone.isPrimary.atLeastOnePrimaryRequired"]}</TooltipContent>
       </Tooltip>
     );
   }

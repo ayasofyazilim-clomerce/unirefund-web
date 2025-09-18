@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiCrmServiceRefundpointsData} from "@repo/saas/CRMService";
+import type {GetApiCrmServiceRefundPointsData} from "@repo/saas/CRMService";
 import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
@@ -18,7 +18,7 @@ interface SearchParamType {
   typeCode?: string;
 }
 
-async function getApiRequests(filters: GetApiCrmServiceRefundpointsData) {
+async function getApiRequests(filters: GetApiCrmServiceRefundPointsData) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([getRefundPointsApi(filters, session)]);
@@ -45,7 +45,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
-  } as GetApiCrmServiceRefundpointsData);
+  } as GetApiCrmServiceRefundPointsData);
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;

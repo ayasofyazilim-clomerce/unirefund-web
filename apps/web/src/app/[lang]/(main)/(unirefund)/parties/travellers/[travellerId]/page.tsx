@@ -51,7 +51,10 @@ export default async function Page({
 
   return (
     <>
-      <PartyHeader name={`${travellerDataResponse.data.firstName} ${travellerDataResponse.data.firstName}`} />
+      <PartyHeader
+        details={{firstname: travellerDataResponse.data.firstName, lastname: travellerDataResponse.data.lastName}}
+        partyType="individuals"
+      />
       <div className="grid h-full w-full overflow-hidden md:grid-cols-2">
         <EditTraveller
           countryList={countriesResponse.status === "fulfilled" ? countriesResponse.value.data.items || [] : []}

@@ -1,17 +1,17 @@
 "use server";
 import {
+  PostApiCrmServiceCustomsByIdAffiliationsData,
   PostApiCrmServiceMerchantsBulkProductGroupMerchantsData,
+  PostApiCrmServiceMerchantsByIdAffiliationsData,
+  PostApiCrmServiceMerchantsByIdProductGroupsData,
   PostApiCrmServiceMerchantsByMerchantIdProductGroupByProductGroupIdDefaultData,
-  PostApiCrmServiceMerchantsByMerchantIdProductGroupsData,
+  PostApiCrmServiceRefundPointsByIdAffiliationsData,
+  PostApiCrmServiceTaxFreesByIdAffiliationsData,
+  PostApiCrmServiceTaxOfficesByIdAffiliationsData,
   UniRefund_CRMService_Customs_CreateCustomDto,
   UniRefund_CRMService_Individuals_CreateIndividualDto,
   UniRefund_CRMService_TaxFrees_CreateTaxFreeDto,
   UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto,
-  PostApiCrmServiceMerchantsByMerchantIdAffiliationsData,
-  PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData,
-  PostApiCrmServiceCustomsByCustomIdAffiliationsData,
-  PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData,
-  PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
 } from "@repo/saas/CRMService";
 import { UniRefund_CRMService_RefundPoints_CreateRefundPointDto } from "@repo/saas/CRMService";
 import { UniRefund_CRMService_Merchants_CreateMerchantDto } from "@repo/saas/CRMService";
@@ -44,12 +44,12 @@ export async function postMerchantsBulkProductGroupMerchantsApi(
   }
 }
 export async function postMerchantProductGroupsApi(
-  data: PostApiCrmServiceMerchantsByMerchantIdProductGroupsData,
+  data: PostApiCrmServiceMerchantsByIdProductGroupsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.postApiCrmServiceMerchantsByMerchantIdProductGroups(data);
+    const response = await crmClient.merchant.postApiCrmServiceMerchantsByIdProductGroups(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -69,12 +69,12 @@ export async function postMerchantProductGroupByProductGroupIdDefaultApi(
   }
 }
 export async function postMerchantAffiliationApi(
-  data: PostApiCrmServiceMerchantsByMerchantIdAffiliationsData,
+  data: PostApiCrmServiceMerchantsByIdAffiliationsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.postApiCrmServiceMerchantsByMerchantIdAffiliations(data);
+    const response = await crmClient.merchant.postApiCrmServiceMerchantsByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -87,19 +87,19 @@ export async function postRefundPointApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.postApiCrmServiceRefundpoints({ requestBody: data });
+    const response = await crmClient.refundPoint.postApiCrmServiceRefundPoints({ requestBody: data });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
 export async function postRefundPointAffiliationApi(
-  data: PostApiCrmServiceRefundpointsByRefundPointIdAffiliationsData,
+  data: PostApiCrmServiceRefundPointsByIdAffiliationsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.postApiCrmServiceRefundpointsByRefundPointIdAffiliations(data);
+    const response = await crmClient.refundPoint.postApiCrmServiceRefundPointsByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -109,19 +109,19 @@ export async function postRefundPointAffiliationApi(
 export async function postTaxFreeApi(data: UniRefund_CRMService_TaxFrees_CreateTaxFreeDto, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.postApiCrmServiceTaxfrees({ requestBody: data });
+    const response = await crmClient.taxFree.postApiCrmServiceTaxFrees({ requestBody: data });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
 export async function postTaxFreeAffiliationApi(
-  data: PostApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData,
+  data: PostApiCrmServiceTaxFreesByIdAffiliationsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.postApiCrmServiceTaxfreesByTaxFreeIdAffiliations(data);
+    const response = await crmClient.taxFree.postApiCrmServiceTaxFreesByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -138,12 +138,12 @@ export async function postCustomApi(data: UniRefund_CRMService_Customs_CreateCus
   }
 }
 export async function postCustomAffiliationApi(
-  data: PostApiCrmServiceCustomsByCustomIdAffiliationsData,
+  data: PostApiCrmServiceCustomsByIdAffiliationsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.custom.postApiCrmServiceCustomsByCustomIdAffiliations(data);
+    const response = await crmClient.custom.postApiCrmServiceCustomsByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -156,19 +156,19 @@ export async function postTaxOfficeApi(
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.postApiCrmServiceTaxoffices({ requestBody: data });
+    const response = await crmClient.taxOffice.postApiCrmServiceTaxOffices({ requestBody: data });
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
   }
 }
 export async function postTaxOfficesAffiliationApi(
-  data: PostApiCrmServiceTaxofficesByTaxOfficeIdAffiliationsData,
+  data: PostApiCrmServiceTaxOfficesByIdAffiliationsData,
   session?: Session | null,
 ) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.postApiCrmServiceTaxofficesByTaxOfficeIdAffiliations(data);
+    const response = await crmClient.taxOffice.postApiCrmServiceTaxOfficesByIdAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);

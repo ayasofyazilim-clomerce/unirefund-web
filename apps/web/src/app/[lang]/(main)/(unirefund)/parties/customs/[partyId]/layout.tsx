@@ -46,11 +46,7 @@ export default async function Layout({
   const isHeadquarter = customDetailResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
-      <PartyHeader
-        link={`${baseLink}details`}
-        name={customDetailResponse.data.name}
-        parentId={customDetailResponse.data.parentId}
-      />
+      <PartyHeader details={customDetailResponse.data} partyType="customs" />
       <TabLayout
         classNames={{
           vertical: {

@@ -1,10 +1,10 @@
 "use server";
 
 import {
-  getCustomAddressesByCustomIdApi,
+  getCustomAddressesByIdApi,
   getCustomByIdApi,
-  getCustomEmailsByCustomIdApi,
-  getCustomTelephonesByCustomIdApi,
+  getCustomEmailsByIdApi,
+  getCustomTelephonesByIdApi,
 } from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
@@ -23,9 +23,9 @@ async function getApiRequests({partyId}: {partyId: string}) {
     const session = await auth();
     const requiredRequests = await Promise.all([getCustomByIdApi(partyId, session)]);
     const optionalRequests = await Promise.allSettled([
-      getCustomTelephonesByCustomIdApi(partyId, session),
-      getCustomEmailsByCustomIdApi(partyId, session),
-      getCustomAddressesByCustomIdApi(partyId, session),
+      getCustomTelephonesByIdApi(partyId, session),
+      getCustomEmailsByIdApi(partyId, session),
+      getCustomAddressesByIdApi(partyId, session),
     ]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -69,6 +69,7 @@ export default async function Page({
           variant="compact">
           <PhoneForm
             languageData={languageData}
+            partyType="customs"
             phones={phoneResponse.status === "fulfilled" ? phoneResponse.value.data : []}
           />
         </FormReadyComponent>
@@ -83,6 +84,7 @@ export default async function Page({
           <EmailForm
             emails={emailResponse.status === "fulfilled" ? emailResponse.value.data : []}
             languageData={languageData}
+            partyType="customs"
           />
         </FormReadyComponent>
         <FormReadyComponent
