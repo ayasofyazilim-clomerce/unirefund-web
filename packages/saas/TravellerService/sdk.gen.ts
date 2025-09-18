@@ -8,6 +8,7 @@ export class EvidenceSessionService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** TravellerService.EvidenceSessions
      * @param data The data for the request.
      * @param data.input
      * @returns unknown OK
@@ -32,6 +33,7 @@ export class EvidenceSessionService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.EvidenceSessions
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -59,6 +61,7 @@ export class EvidenceSessionService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.EvidenceSessions
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -256,6 +259,7 @@ export class TravellerService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.CreateWithComponents
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -279,6 +283,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -302,6 +307,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -329,6 +335,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.ViewList
      * @param data The data for the request.
      * @param data.travelDocumentNumber
      * @param data.fullName
@@ -373,6 +380,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.CreateTravellerDocument
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -400,6 +408,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.UpdateTravellerDocument
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -427,6 +436,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.DeleteTravellerDocument
      * @param data The data for the request.
      * @param data.id
      * @param data.travellerDocumentId
@@ -455,6 +465,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.Detail
      * @param data The data for the request.
      * @param data.id
      * @param data.showExpired
@@ -483,6 +494,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.ViewAddresses
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -507,6 +519,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.UpSertAddress
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -534,6 +547,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.ViewEmails
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -558,6 +572,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.UpSertEmail
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -585,6 +600,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.ViewTelephones
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -609,6 +625,7 @@ export class TravellerService {
     }
     
     /**
+     * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.UpSertTelephone
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody

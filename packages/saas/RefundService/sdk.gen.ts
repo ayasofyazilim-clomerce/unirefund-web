@@ -8,6 +8,7 @@ export class RefundService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -31,6 +32,7 @@ export class RefundService {
     }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.View
      * @param data The data for the request.
      * @param data.timeFilterStartDate
      * @param data.timeFilterEndDate
@@ -77,6 +79,7 @@ export class RefundService {
     }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.GetRefundPointNames
      * @param data The data for the request.
      * @param data.timeFilterStartDate
      * @param data.timeFilterEndDate
@@ -119,6 +122,7 @@ export class RefundService {
     }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.GetUserDeviceNames
      * @param data The data for the request.
      * @param data.timeFilterStartDate
      * @param data.timeFilterEndDate
@@ -161,6 +165,7 @@ export class RefundService {
     }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.GetRefundStatistics
      * @param data The data for the request.
      * @param data.timeFilterStartDate
      * @param data.timeFilterEndDate
@@ -201,6 +206,7 @@ export class RefundService {
     }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.Detail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -225,6 +231,7 @@ export class RefundService {
     }
     
     /**
+     * **Requires permissions:** RefundService.Refunds, RefundService.Refunds.DetailByTagId
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK

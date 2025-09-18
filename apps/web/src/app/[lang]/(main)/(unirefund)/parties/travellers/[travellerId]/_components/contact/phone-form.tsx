@@ -48,7 +48,7 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
         content: (row) => TypeRow({row, languageData}),
       },
     },
-    expandRowTrigger: "fullNumber",
+    expandRowTrigger: "normalizedPhoneNumber",
   });
   const tableActions: TanstackTableTableActionsType<TelephoneDto>[] = [
     {
@@ -61,7 +61,7 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
         resources: languageData,
         schema: $TelephoneUpSertDto,
         name: "Form.telephone",
-        extend: {"ui:field": "telephone"},
+        extend: {"ui:field": "telephone", "ui:className": "items-stretch gap-2"},
       }),
       fields: {
         telephone: PhoneWithTypeField({languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum}),
@@ -94,13 +94,13 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
   return (
     <TanstackTable
       columnVisibility={{
-        columns: ["fullNumber", "isPrimary", "type"],
+        columns: ["normalizedPhoneNumber", "isPrimary", "type"],
         type: "show",
       }}
       columns={columns}
       data={phones}
       expandedRowComponent={(row) => EditForm({row, lang, languageData, travellerId, isPending, startTransition})}
-      fillerColumn="fullNumber"
+      fillerColumn="normalizedPhoneNumber"
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Form.telephones"]}
@@ -120,7 +120,7 @@ function EditForm({
   isPending,
   startTransition,
 }: {
-  row: TelephoneUpSertDto;
+  row: TelephoneDto;
   lang: string;
   travellerId: string;
   languageData: TravellerServiceResource;
@@ -135,7 +135,7 @@ function EditForm({
       fields={{
         telephone: PhoneWithTypeField({languageData, typeOptions: $TelephoneUpSertDto.properties.type.enum}),
       }}
-      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
+      filter={{type: "include", keys: ["ituCountryCode", "localNumber", "type"]}}
       formData={row}
       id="edit-telephone-form"
       key={JSON.stringify(row)}
@@ -145,8 +145,10 @@ function EditForm({
         const data = {
           id: travellerId,
           requestBody: {
-            telephoneId: row.telephoneId,
-            ...formData,
+            telephoneId: row.id,
+            ituCountryCode: formData.ituCountryCode,
+            localNumber: formData.localNumber,
+            type: formData.type,
           },
         };
         startTransition(() => {
@@ -162,7 +164,7 @@ function EditForm({
         schema: $TelephoneUpSertDto,
         name: "Form.telephone",
         extend: {
-          "ui:className": "p-2 bg-white",
+          "ui:className": "p-2 bg-white items-stretch",
           "ui:field": "telephone",
         },
       })}
@@ -179,7 +181,7 @@ function IsPrimaryAction({
   startTransition,
   languageData,
 }: {
-  row: TelephoneUpSertDto;
+  row: TelephoneDto;
   travellerId: string;
   isActive: boolean;
   isPending: boolean;
@@ -196,7 +198,7 @@ function IsPrimaryAction({
           void putTravellerTelephonesByTravellerIdApi({
             id: travellerId,
             requestBody: {
-              telephoneId: row.telephoneId,
+              telephoneId: row.id,
               isPrimary: !row.isPrimary,
             },
           }).then((response) => {

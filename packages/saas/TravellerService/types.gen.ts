@@ -136,6 +136,8 @@ export type PagedResultDto_TravellerListDto = {
 
 export type System_Net_HttpStatusCode = 'Continue' | 'SwitchingProtocols' | 'Processing' | 'EarlyHints' | 'OK' | 'Created' | 'Accepted' | 'NonAuthoritativeInformation' | 'NoContent' | 'ResetContent' | 'PartialContent' | 'MultiStatus' | 'AlreadyReported' | 'IMUsed' | 'MultipleChoices' | 'MovedPermanently' | 'Found' | 'SeeOther' | 'NotModified' | 'UseProxy' | 'Unused' | 'TemporaryRedirect' | 'PermanentRedirect' | 'BadRequest' | 'Unauthorized' | 'PaymentRequired' | 'Forbidden' | 'NotFound' | 'MethodNotAllowed' | 'NotAcceptable' | 'ProxyAuthenticationRequired' | 'RequestTimeout' | 'Conflict' | 'Gone' | 'LengthRequired' | 'PreconditionFailed' | 'RequestEntityTooLarge' | 'RequestUriTooLong' | 'UnsupportedMediaType' | 'RequestedRangeNotSatisfiable' | 'ExpectationFailed' | 'MisdirectedRequest' | 'UnprocessableEntity' | 'Locked' | 'FailedDependency' | 'UpgradeRequired' | 'PreconditionRequired' | 'TooManyRequests' | 'RequestHeaderFieldsTooLarge' | 'UnavailableForLegalReasons' | 'InternalServerError' | 'NotImplemented' | 'BadGateway' | 'ServiceUnavailable' | 'GatewayTimeout' | 'HttpVersionNotSupported' | 'VariantAlsoNegotiates' | 'InsufficientStorage' | 'LoopDetected' | 'NotExtended' | 'NetworkAuthenticationRequired';
 
+export type UniRefund_Shared_ContactInfo_Enums_TelephoneType = 'UNKNOWN' | 'HOME' | 'WORK' | 'MOBILE' | 'FAX' | 'OTHER';
+
 export type UniRefund_TravellerService_Addresses_AddressCreateDto = {
     fullAddress: (string) | null;
     isPrimary: boolean;
@@ -202,8 +204,6 @@ export type UniRefund_TravellerService_Enums_MRZStatus = 'NotStarted' | 'Started
 export type UniRefund_TravellerService_Enums_NFCMethod = 'Native';
 
 export type UniRefund_TravellerService_Enums_NFCStatus = 'NotStarted' | 'Started' | 'Validated' | 'Failed' | 'NotValidated';
-
-export type UniRefund_TravellerService_Enums_TelephoneType = 'HOME' | 'OFFICE' | 'MOBILE' | 'FAX';
 
 export type UniRefund_TravellerService_EvidenceSessions_AnalyzeDocumentByMRZDto = {
     documentImageBase64?: (string) | null;
@@ -396,7 +396,7 @@ export type UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
     areaCode?: (string) | null;
     localNumber: (string) | null;
     isPrimary: boolean;
-    type: UniRefund_TravellerService_Enums_TelephoneType;
+    type: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
@@ -404,9 +404,10 @@ export type UniRefund_TravellerService_Telephones_TelephoneDto = {
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
-    readonly fullNumber?: (string) | null;
+    normalizedPhoneNumber?: (string) | null;
     isPrimary?: boolean;
-    type?: UniRefund_TravellerService_Enums_TelephoneType;
+    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
+    isConfirmed?: (boolean) | null;
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
@@ -415,7 +416,7 @@ export type UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
     areaCode?: (string) | null;
     localNumber?: (string) | null;
     isPrimary?: (boolean) | null;
-    type?: UniRefund_TravellerService_Enums_TelephoneType;
+    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto = {

@@ -1477,6 +1477,11 @@ export const $System_Net_HttpStatusCode = {
     type: 'string'
 } as const;
 
+export const $UniRefund_Shared_ContactInfo_Enums_TelephoneType = {
+    enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
+    type: 'string'
+} as const;
+
 export const $UniRefund_TravellerService_Addresses_AddressCreateDto = {
     required: ['fullAddress', 'isPrimary', 'type'],
     type: 'object',
@@ -1684,11 +1689,6 @@ export const $UniRefund_TravellerService_Enums_NFCMethod = {
 
 export const $UniRefund_TravellerService_Enums_NFCStatus = {
     enum: ['NotStarted', 'Started', 'Validated', 'Failed', 'NotValidated'],
-    type: 'string'
-} as const;
-
-export const $UniRefund_TravellerService_Enums_TelephoneType = {
-    enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
     type: 'string'
 } as const;
 
@@ -2693,7 +2693,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
             type: 'boolean'
         },
         type: {
-            enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+            enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
             type: 'string'
         }
     },
@@ -2708,28 +2708,37 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
             format: 'uuid'
         },
         ituCountryCode: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
             nullable: true
         },
         areaCode: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
             nullable: true
         },
         localNumber: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
             nullable: true
         },
-        fullNumber: {
+        normalizedPhoneNumber: {
             type: 'string',
-            nullable: true,
-            readOnly: true
+            nullable: true
         },
         isPrimary: {
             type: 'boolean'
         },
         type: {
-            enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+            enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
             type: 'string'
+        },
+        isConfirmed: {
+            type: 'boolean',
+            nullable: true
         }
     },
     additionalProperties: false
@@ -2766,7 +2775,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
             nullable: true
         },
         type: {
-            enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+            enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
             type: 'string'
         }
     },
@@ -3303,7 +3312,7 @@ when the client does not send it`,
                         type: 'boolean'
                     },
                     type: {
-                        enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                        enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                         type: 'string'
                     }
                 },
@@ -3508,28 +3517,37 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                     format: 'uuid'
                 },
                 ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
                 },
                 areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
                 },
                 localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
                 },
-                fullNumber: {
+                normalizedPhoneNumber: {
                     type: 'string',
-                    nullable: true,
-                    readOnly: true
+                    nullable: true
                 },
                 isPrimary: {
                     type: 'boolean'
                 },
                 type: {
-                    enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                    enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
+                },
+                isConfirmed: {
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false
@@ -3698,28 +3716,37 @@ export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto =
                     format: 'uuid'
                 },
                 ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
                 },
                 areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
                 },
                 localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
                 },
-                fullNumber: {
+                normalizedPhoneNumber: {
                     type: 'string',
-                    nullable: true,
-                    readOnly: true
+                    nullable: true
                 },
                 isPrimary: {
                     type: 'boolean'
                 },
                 type: {
-                    enum: ['HOME', 'OFFICE', 'MOBILE', 'FAX'],
+                    enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
+                },
+                isConfirmed: {
+                    type: 'boolean',
+                    nullable: true
                 }
             },
             additionalProperties: false

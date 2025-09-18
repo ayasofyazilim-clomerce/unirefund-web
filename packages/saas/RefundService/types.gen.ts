@@ -97,6 +97,8 @@ export type UniRefund_RefundService_Refunds_GetRefundStatistics_RefundStatistics
     refundsCashBalance?: number;
 };
 
+export type UniRefund_Shared_ContactInfo_Enums_TelephoneType = 'UNKNOWN' | 'HOME' | 'WORK' | 'MOBILE' | 'FAX' | 'OTHER';
+
 export type UniRefund_TagService_Tags_Enums_RefundType = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
 
 export type UniRefund_TravellerService_Addresses_AddressDto = {
@@ -121,16 +123,15 @@ export type UniRefund_TravellerService_Enums_GenderType = 'MALE' | 'FEMALE' | 'O
 
 export type UniRefund_TravellerService_Enums_IdentificationType = 'IdCard' | 'Passport';
 
-export type UniRefund_TravellerService_Enums_TelephoneType = 'HOME' | 'OFFICE' | 'MOBILE' | 'FAX';
-
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
     id?: string;
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
     localNumber?: (string) | null;
-    readonly fullNumber?: (string) | null;
+    normalizedPhoneNumber?: (string) | null;
     isPrimary?: boolean;
-    type?: UniRefund_TravellerService_Enums_TelephoneType;
+    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
+    isConfirmed?: (boolean) | null;
 };
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {

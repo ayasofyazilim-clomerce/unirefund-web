@@ -2,8 +2,14 @@
 
 import {Switch} from "@/components/ui/switch";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-import type {UniRefund_TravellerService_Emails_EmailDto as EmailDto} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
-import {$UniRefund_TravellerService_Emails_EmailDto as $EmailDto} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import type {
+  UniRefund_TravellerService_Emails_EmailDto as EmailDto,
+  UniRefund_TravellerService_Emails_EmailUpSertDto as EmailUpSertDto,
+} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
+import {
+  $UniRefund_TravellerService_Emails_EmailDto as $EmailDto,
+  $UniRefund_TravellerService_Emails_EmailUpSertDto as $EmailUpSertDto,
+} from "@ayasofyazilim/unirefund-saas-dev/TravellerService";
 import {putTravellerEmailsByTravellerIdApi} from "@repo/actions/unirefund/TravellerService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
@@ -49,10 +55,10 @@ export function EmailForm({languageData, emails}: {languageData: DefaultResource
       actionLocation: "table",
       cta: languageData["Form.email.create"],
       type: "schemaform-dialog",
-      schema: $EmailDto,
+      schema: $EmailUpSertDto,
       uiSchema: createUiSchemaWithResource({
         resources: languageData,
-        schema: $EmailDto,
+        schema: $EmailUpSertDto,
         name: "Form.email",
         extend: {
           "ui:className": "p-px border-none rounded-none",
@@ -124,7 +130,7 @@ function EditForm({
   startTransition: TransitionStartFunction;
 }) {
   return (
-    <SchemaForm<EmailDto>
+    <SchemaForm<EmailUpSertDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
       filter={{type: "exclude", keys: ["id", "isPrimary"]}}
@@ -147,14 +153,15 @@ function EditForm({
           });
         });
       }}
-      schema={$EmailDto}
+      schema={$EmailUpSertDto}
       submitText={languageData["Form.email.update"]}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
-        schema: $EmailDto,
+        schema: $EmailUpSertDto,
         name: "Form.email",
         extend: {
-          "ui:className": "p-2 bg-white",
+          displayLabel: false,
+          "ui:className": "p-2 bg-white rounded-none border-none",
           "ui:field": "email",
         },
       })}
