@@ -77,7 +77,7 @@ export function TaxFreeForm({
         if (!formData) return;
         startTransition(() => {
           void putTaxFreeByIdApi({
-            taxFreeId: partyId,
+            id: partyId,
             requestBody: {
               ...formData,
               parentId: taxFreeDetails.parentId,

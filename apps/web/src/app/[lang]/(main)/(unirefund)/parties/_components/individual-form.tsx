@@ -11,6 +11,7 @@ import {useParams, useRouter} from "next/navigation";
 import {useCallback, useMemo, useState, type TransitionStartFunction} from "react";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {NewUserField} from "@/app/[lang]/(main)/(unirefund)/parties/_components/new-user";
+import {PhoneWithTypeField} from "./contact/phone-with-type";
 
 export function CreateIndividualForm({
   languageData,
@@ -49,24 +50,14 @@ export function CreateIndividualForm({
             "ui:widget": "switch",
             "ui:className": "border px-2 rounded-md",
           },
-          telephone: createUiSchemaWithResource({
-            resources: languageData,
-            schema: $CreateIndividualDto.properties.telephone,
-            name: "CRM.telephone",
-            extend: {
-              "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
-              displayLabel: false,
-              number: {
-                "ui:widget": "phone-with-value",
-                "ui:title": languageData["CRM.telephone.number"],
-              },
-            },
-          }),
+          telephone: {
+            "ui:field": "telephone",
+            "ui:className": "grid grid-cols-2 col-span-full",
+          },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateIndividualDto.properties.address,
-            name: "CRM.address",
+            name: "Form.address",
             extend: {
               "ui:className": "col-span-full grid grid-cols-2 gap-4",
               countryId: {
@@ -84,20 +75,26 @@ export function CreateIndividualForm({
               addressLine: {
                 "ui:className": "col-span-full",
               },
+              isPrimary: {
+                "ui:widget": "hidden",
+              },
             },
           }),
           email: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateIndividualDto.properties.email,
-            name: "CRM.email",
+            name: "Form.email",
             extend: {
               "ui:className":
                 "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
-                "ui:title": languageData["CRM.email"],
+                "ui:title": languageData["Form.email"],
                 "ui:widget": "email",
                 "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+              },
+              isPrimary: {
+                "ui:widget": "hidden",
               },
             },
           }),
@@ -112,6 +109,18 @@ export function CreateIndividualForm({
               "ui:showGenerator": true,
             },
           },
+          "ui:order": [
+            "firstname",
+            "lastname",
+            "gender",
+            "identificationNumber",
+            "birthDate",
+            "notes",
+            "telephone",
+            "email",
+            "address",
+            "newUser",
+          ],
         },
       }),
     [languageData],
@@ -120,6 +129,10 @@ export function CreateIndividualForm({
   const fields = useMemo(
     () => ({
       newUser: (props: FieldProps) => NewUserField({...props, label: languageData["Form.Individual.createAccount"]}),
+      telephone: PhoneWithTypeField({
+        languageData,
+        typeOptions: $CreateIndividualDto.properties.telephone.properties.type.enum,
+      }),
     }),
     [],
   );
@@ -135,7 +148,27 @@ export function CreateIndividualForm({
       if (!editedFormData) return;
 
       startTransition(() => {
-        void postIndividualApi(editedFormData).then((response) => {
+        void postIndividualApi({
+          ...editedFormData,
+          ...(editedFormData.telephone && {
+            telephone: {
+              ...editedFormData.telephone,
+              isPrimary: true,
+            },
+          }),
+          ...(editedFormData.email && {
+            email: {
+              ...editedFormData.email,
+              isPrimary: true,
+            },
+          }),
+          ...(editedFormData.address && {
+            address: {
+              ...editedFormData.address,
+              isPrimary: true,
+            },
+          }),
+        }).then((response) => {
           if (onSubmit) {
             onSubmit({
               data: {

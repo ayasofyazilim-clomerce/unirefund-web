@@ -76,7 +76,7 @@ export function RefundPointForm({
         if (!formData) return;
         startTransition(() => {
           void putRefundPointByIdApi({
-            refundPointId: partyId,
+            id: partyId,
             requestBody: {
               ...formData,
               parentId: refundPointDetails.parentId,

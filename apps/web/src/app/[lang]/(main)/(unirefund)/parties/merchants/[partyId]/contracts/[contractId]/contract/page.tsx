@@ -5,7 +5,7 @@ import {
   getMerchantContractHeaderByIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
-import {getMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAddressesByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {structuredError} from "@repo/utils/api";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
@@ -20,7 +20,7 @@ async function getApiRequests(partyId: string, contractId: string) {
       }),
 
       getMerchantContractHeaderByIdApi(contractId),
-      getMerchantAddressesByMerchantIdApi(partyId, session),
+      getMerchantAddressesByIdApi(partyId, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};

@@ -69,7 +69,7 @@ export function TaxOfficeForm({
         if (!formData) return;
         startTransition(() => {
           void putTaxOfficeByIdApi({
-            taxOfficeId: partyId,
+            id: partyId,
             requestBody: {
               ...formData,
               parentId: taxOfficeDetails.parentId,

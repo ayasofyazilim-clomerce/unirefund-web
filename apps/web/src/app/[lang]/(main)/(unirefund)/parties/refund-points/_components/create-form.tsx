@@ -17,6 +17,7 @@ import {createAddressWidgets} from "@repo/ui/components/address/address-form-wid
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {CheckIsFormReady} from "../../_components/is-form-ready";
+import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
 const DEFAULT_FORMDATA: CreateRefundPointDto = {
   name: "",
@@ -24,12 +25,14 @@ const DEFAULT_FORMDATA: CreateRefundPointDto = {
   email: {
     type: "WORK",
     emailAddress: "",
+    isPrimary: true,
   },
   telephone: {
     type: "WORK",
-    number: "",
+    isPrimary: true,
   },
   address: {
+    isPrimary: true,
     type: "WORK",
     addressLine: "",
     adminAreaLevel1Id: "00000000-0000-0000-0000-000000000000",
@@ -38,13 +41,13 @@ const DEFAULT_FORMDATA: CreateRefundPointDto = {
   },
 };
 export default function CreateRefundPointForm({
-  taxOfficeList,
+  taxOfficeList = [],
   refundPointList,
   languageData,
   typeCode = "HEADQUARTER",
   formData,
 }: {
-  taxOfficeList: TaxOfficeDto[];
+  taxOfficeList?: TaxOfficeDto[];
   refundPointList?: RefundPointDto[];
   languageData: CRMServiceServiceResource;
   formData?: Partial<CreateRefundPointDto>;
@@ -76,30 +79,25 @@ export default function CreateRefundPointForm({
           "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
           taxOfficeId: {
             ...{"ui:disabled": typeCode === "REFUNDPOINT" && true},
+            ...{"ui:required": typeCode === "HEADQUARTER" && true},
             "ui:widget": "taxOfficeWidget",
+          },
+          externalStoreIdentifier: {
+            "ui:required": typeCode === "HEADQUARTER" && true,
           },
           isPersonalCompany: {
             "ui:widget": "switch",
             "ui:className": "border px-2 rounded-md col-span-full",
           },
-          telephone: createUiSchemaWithResource({
-            resources: languageData,
-            schema: $CreateRefundPointDto.properties.telephone,
-            name: "CRM.telephone",
-            extend: {
-              "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
-              displayLabel: false,
-              number: {
-                "ui:widget": "phone-with-value",
-                "ui:title": languageData["CRM.telephone.number"],
-              },
-            },
-          }),
+          telephone: {
+            "ui:field": "telephone",
+            "ui:className": "grid grid-cols-2 col-span-full",
+            "ui:required": true,
+          },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateRefundPointDto.properties.address,
-            name: "CRM.address",
+            name: "Form.address",
             extend: {
               "ui:className": "col-span-full grid grid-cols-2 gap-4",
               countryId: {
@@ -117,20 +115,26 @@ export default function CreateRefundPointForm({
               addressLine: {
                 "ui:className": "col-span-full",
               },
+              isPrimary: {
+                "ui:widget": "hidden",
+              },
             },
           }),
           email: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateRefundPointDto.properties.email,
-            name: "CRM.email",
+            name: "Form.email",
             extend: {
               "ui:className":
                 "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
-                "ui:title": languageData["CRM.email"],
+                "ui:title": languageData["Form.email"],
                 "ui:widget": "email",
                 "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+              },
+              isPrimary: {
+                "ui:widget": "hidden",
               },
             },
           }),
@@ -140,6 +144,7 @@ export default function CreateRefundPointForm({
           },
           vatNumber: {
             ...{"ui:className": typeCode === "REFUNDPOINT" && "col-span-full"},
+            ...{"ui:required": typeCode === "HEADQUARTER" && true},
           },
           parentId: {
             "ui:className": "col-span-full",
@@ -181,9 +186,7 @@ export default function CreateRefundPointForm({
       type: "exclude" as const,
       keys: [
         "email.id",
-        "email.isPrimary",
         "telephone.id",
-        "telephone.isPrimary",
         "typeCode",
         "parentId",
         "address.partyType",
@@ -191,12 +194,20 @@ export default function CreateRefundPointForm({
         "address.placeId",
         "address.latitude",
         "address.longitude",
-        "address.isPrimary",
         ...(typeCode === "REFUNDPOINT" ? ["vatNumber", "taxOfficeId"] : []),
       ],
     }),
     [typeCode],
   );
+
+  const fields = useMemo(() => {
+    return {
+      telephone: PhoneWithTypeField({
+        languageData,
+        typeOptions: $CreateRefundPointDto.properties.telephone.properties.type.enum,
+      }),
+    };
+  }, []);
 
   const handleFormChange = useCallback(({formData: editedFormData}: {formData?: CreateRefundPointDto}) => {
     if (editedFormData) {
@@ -214,7 +225,6 @@ export default function CreateRefundPointForm({
           typeCode,
           parentId: typeCode === "REFUNDPOINT" ? mergedFormData.parentId : undefined,
         }).then((response) => {
-          console.log(response);
           handlePostResponse(response, router, {
             prefix: getBaseLink("parties/refund-points", lang),
             suffix: "details",
@@ -232,10 +242,11 @@ export default function CreateRefundPointForm({
   });
 
   return (
-    <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
+    <FormReadyComponent active={typeCode === "HEADQUARTER" && isFormReady.isActive} content={isFormReady.content}>
       <SchemaForm<CreateRefundPointDto>
         defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
         disabled={isPending}
+        fields={fields}
         filter={filter}
         formData={form}
         id="create-refund-point-form"

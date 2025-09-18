@@ -16,6 +16,7 @@ import {useCallback, useMemo, useState, useTransition} from "react";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {CheckIsFormReady} from "../../_components/is-form-ready";
+import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
 const DEFAULT_FORMDATA: CreateTaxFreeDto = {
   name: "",
@@ -23,12 +24,14 @@ const DEFAULT_FORMDATA: CreateTaxFreeDto = {
   email: {
     type: "WORK",
     emailAddress: "",
+    isPrimary: true,
   },
   telephone: {
     type: "WORK",
-    number: "",
+    isPrimary: true,
   },
   address: {
+    isPrimary: true,
     type: "WORK",
     addressLine: "",
     adminAreaLevel1Id: "00000000-0000-0000-0000-000000000000",
@@ -73,30 +76,24 @@ export default function CreateTaxFreeForm({
           "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
           taxOfficeId: {
             ...{"ui:disabled": typeCode === "TAXFREE" && true},
+            ...{"ui:required": typeCode === "HEADQUARTER" && true},
             "ui:widget": "taxOfficeWidget",
+          },
+          externalStoreIdentifier: {
+            "ui:required": typeCode === "HEADQUARTER" && true,
           },
           isPersonalCompany: {
             "ui:widget": "switch",
             "ui:className": "border px-2 rounded-md col-span-full",
           },
-          telephone: createUiSchemaWithResource({
-            resources: languageData,
-            schema: $CreateTaxFreeDto.properties.telephone,
-            name: "CRM.telephone",
-            extend: {
-              "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
-              displayLabel: false,
-              number: {
-                "ui:widget": "phone-with-value",
-                "ui:title": languageData["CRM.telephone.number"],
-              },
-            },
-          }),
+          telephone: {
+            "ui:field": "telephone",
+            "ui:className": "grid grid-cols-2 col-span-full",
+          },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateTaxFreeDto.properties.address,
-            name: "CRM.address",
+            name: "Form.address",
             extend: {
               "ui:className": "col-span-full grid grid-cols-2 gap-4",
               countryId: {
@@ -114,20 +111,26 @@ export default function CreateTaxFreeForm({
               addressLine: {
                 "ui:className": "col-span-full",
               },
+              isPrimary: {
+                "ui:widget": "hidden",
+              },
             },
           }),
           email: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateTaxFreeDto.properties.email,
-            name: "CRM.email",
+            name: "Form.email",
             extend: {
               "ui:className":
                 "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
-                "ui:title": languageData["CRM.email"],
+                "ui:title": languageData["Form.email"],
                 "ui:widget": "email",
                 "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+              },
+              isPrimary: {
+                "ui:widget": "hidden",
               },
             },
           }),
@@ -137,6 +140,7 @@ export default function CreateTaxFreeForm({
           },
           vatNumber: {
             ...{"ui:className": typeCode === "TAXFREE" && "col-span-full"},
+            ...{"ui:required": typeCode === "HEADQUARTER" && true},
           },
           parentId: {
             "ui:className": "col-span-full",
@@ -178,9 +182,7 @@ export default function CreateTaxFreeForm({
       type: "exclude" as const,
       keys: [
         "email.id",
-        "email.isPrimary",
         "telephone.id",
-        "telephone.isPrimary",
         "typeCode",
         "parentId",
         "address.partyType",
@@ -188,12 +190,20 @@ export default function CreateTaxFreeForm({
         "address.placeId",
         "address.latitude",
         "address.longitude",
-        "address.isPrimary",
         ...(typeCode === "TAXFREE" ? ["vatNumber", "taxOfficeId"] : []),
       ],
     }),
     [typeCode],
   );
+
+  const fields = useMemo(() => {
+    return {
+      telephone: PhoneWithTypeField({
+        languageData,
+        typeOptions: $CreateTaxFreeDto.properties.telephone.properties.type.enum,
+      }),
+    };
+  }, []);
 
   const handleFormChange = useCallback(({formData: editedFormData}: {formData?: CreateTaxFreeDto}) => {
     if (editedFormData) {
@@ -228,10 +238,11 @@ export default function CreateTaxFreeForm({
   });
 
   return (
-    <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
+    <FormReadyComponent active={typeCode === "HEADQUARTER" && isFormReady.isActive} content={isFormReady.content}>
       <SchemaForm<CreateTaxFreeDto>
         defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
         disabled={isPending}
+        fields={fields}
         filter={filter}
         formData={form}
         id="create-tax-free-form"

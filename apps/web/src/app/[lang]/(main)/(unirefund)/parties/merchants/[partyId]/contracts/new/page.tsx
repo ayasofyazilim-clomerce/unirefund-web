@@ -5,7 +5,7 @@ import {FileText} from "lucide-react";
 import Link from "next/link";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantAddressesByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantAddressesByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {
   // getMerchantContractHeadersByMerchantIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
@@ -20,7 +20,7 @@ async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([
-      getMerchantAddressesByMerchantIdApi(partyId, session),
+      getMerchantAddressesByIdApi(partyId, session),
       getRefundTableHeadersAssignablesByMerchantIdApi(
         {
           merchantId: partyId,

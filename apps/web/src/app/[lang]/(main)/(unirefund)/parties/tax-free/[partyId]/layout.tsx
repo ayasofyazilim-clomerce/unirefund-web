@@ -46,11 +46,7 @@ export default async function Layout({
   const isHeadquarter = taxFreeDetailResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
-      <PartyHeader
-        link={`${baseLink}details`}
-        name={taxFreeDetailResponse.data.name}
-        parentId={taxFreeDetailResponse.data.parentId}
-      />
+      <PartyHeader details={taxFreeDetailResponse.data} partyType="tax-free" />
       <TabLayout
         classNames={{
           vertical: {

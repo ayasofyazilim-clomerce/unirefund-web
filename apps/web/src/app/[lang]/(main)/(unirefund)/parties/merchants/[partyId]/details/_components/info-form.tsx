@@ -86,7 +86,7 @@ export function MerchantForm({
         if (!formData) return;
         startTransition(() => {
           void putMerchantByIdApi({
-            merchantId: partyId,
+            id: partyId,
             requestBody: {
               ...formData,
               parentId: merchantDetails.parentId,

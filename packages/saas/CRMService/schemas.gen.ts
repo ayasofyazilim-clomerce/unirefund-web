@@ -80,22 +80,43 @@ export const $PagedResultDto_CustomDto = {
                         format: 'uuid'
                     },
                     telephone: {
-                        required: ['number', 'type'],
+                        required: ['id', 'isPrimary', 'localNumber', 'type'],
                         type: 'object',
                         properties: {
                             id: {
                                 type: 'string',
                                 format: 'uuid'
                             },
-                            number: {
+                            ituCountryCode: {
+                                maxLength: 255,
+                                minLength: 0,
                                 type: 'string',
                                 nullable: true
+                            },
+                            areaCode: {
+                                maxLength: 255,
+                                minLength: 0,
+                                type: 'string',
+                                nullable: true
+                            },
+                            localNumber: {
+                                maxLength: 255,
+                                minLength: 0,
+                                type: 'string',
+                                nullable: true
+                            },
+                            normalizedPhoneNumber: {
+                                type: 'string',
+                                nullable: true
+                            },
+                            isPrimary: {
+                                type: 'boolean'
                             },
                             type: {
                                 enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                                 type: 'string'
                             },
-                            isPrimary: {
+                            isConfirmed: {
                                 type: 'boolean',
                                 nullable: true
                             }
@@ -103,7 +124,7 @@ export const $PagedResultDto_CustomDto = {
                         additionalProperties: false
                     },
                     address: {
-                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -162,14 +183,13 @@ export const $PagedResultDto_CustomDto = {
                                 nullable: true
                             },
                             isPrimary: {
-                                type: 'boolean',
-                                nullable: true
+                                type: 'boolean'
                             }
                         },
                         additionalProperties: false
                     },
                     email: {
-                        required: ['emailAddress', 'type'],
+                        required: ['emailAddress', 'isPrimary', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -185,8 +205,7 @@ export const $PagedResultDto_CustomDto = {
                                 type: 'string'
                             },
                             isPrimary: {
-                                type: 'boolean',
-                                nullable: true
+                                type: 'boolean'
                             }
                         },
                         additionalProperties: false
@@ -520,22 +539,43 @@ export const $PagedResultDto_TaxOfficeDto = {
                         format: 'uuid'
                     },
                     telephone: {
-                        required: ['number', 'type'],
+                        required: ['id', 'isPrimary', 'localNumber', 'type'],
                         type: 'object',
                         properties: {
                             id: {
                                 type: 'string',
                                 format: 'uuid'
                             },
-                            number: {
+                            ituCountryCode: {
+                                maxLength: 255,
+                                minLength: 0,
                                 type: 'string',
                                 nullable: true
+                            },
+                            areaCode: {
+                                maxLength: 255,
+                                minLength: 0,
+                                type: 'string',
+                                nullable: true
+                            },
+                            localNumber: {
+                                maxLength: 255,
+                                minLength: 0,
+                                type: 'string',
+                                nullable: true
+                            },
+                            normalizedPhoneNumber: {
+                                type: 'string',
+                                nullable: true
+                            },
+                            isPrimary: {
+                                type: 'boolean'
                             },
                             type: {
                                 enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                                 type: 'string'
                             },
-                            isPrimary: {
+                            isConfirmed: {
                                 type: 'boolean',
                                 nullable: true
                             }
@@ -543,7 +583,7 @@ export const $PagedResultDto_TaxOfficeDto = {
                         additionalProperties: false
                     },
                     address: {
-                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -602,14 +642,13 @@ export const $PagedResultDto_TaxOfficeDto = {
                                 nullable: true
                             },
                             isPrimary: {
-                                type: 'boolean',
-                                nullable: true
+                                type: 'boolean'
                             }
                         },
                         additionalProperties: false
                     },
                     email: {
-                        required: ['emailAddress', 'type'],
+                        required: ['emailAddress', 'isPrimary', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -625,8 +664,7 @@ export const $PagedResultDto_TaxOfficeDto = {
                                 type: 'string'
                             },
                             isPrimary: {
-                                type: 'boolean',
-                                nullable: true
+                                type: 'boolean'
                             }
                         },
                         additionalProperties: false
@@ -725,7 +763,7 @@ export const $PagedResultDto_TaxOfficeListResponseDto = {
 } as const;
 
 export const $UniRefund_CRMService_Addresses_AddressDto = {
-    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -784,8 +822,7 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
             nullable: true
         },
         isPrimary: {
-            type: 'boolean',
-            nullable: true
+            type: 'boolean'
         }
     },
     additionalProperties: false
@@ -796,8 +833,70 @@ export const $UniRefund_CRMService_Addresses_AddressType = {
     type: 'string'
 } as const;
 
+export const $UniRefund_CRMService_Addresses_AddressUpSertDto = {
+    type: 'object',
+    properties: {
+        addressId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        countryId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        adminAreaLevel1Id: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        adminAreaLevel2Id: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        neighborhoodId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        addressLine: {
+            type: 'string',
+            nullable: true
+        },
+        postalCode: {
+            type: 'string',
+            nullable: true
+        },
+        type: {
+            enum: ['UNKNOWN', 'HOME', 'WORK'],
+            type: 'string'
+        },
+        placeId: {
+            type: 'string',
+            nullable: true
+        },
+        latitude: {
+            type: 'number',
+            format: 'float',
+            nullable: true
+        },
+        longitude: {
+            type: 'number',
+            format: 'float',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean',
+            nullable: true
+        }
+    },
+    additionalProperties: false
+} as const;
+
 export const $UniRefund_CRMService_Addresses_CreateAddressDto = {
-    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
     type: 'object',
     properties: {
         partyType: {
@@ -852,69 +951,7 @@ export const $UniRefund_CRMService_Addresses_CreateAddressDto = {
             nullable: true
         },
         isPrimary: {
-            type: 'boolean',
-            nullable: true
-        }
-    },
-    additionalProperties: false
-} as const;
-
-export const $UniRefund_CRMService_Addresses_UpdateAddressDto = {
-    type: 'object',
-    properties: {
-        id: {
-            type: 'string',
-            format: 'uuid'
-        },
-        countryId: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
-        },
-        adminAreaLevel1Id: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
-        },
-        adminAreaLevel2Id: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
-        },
-        neighborhoodId: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
-        },
-        addressLine: {
-            type: 'string',
-            nullable: true
-        },
-        postalCode: {
-            type: 'string',
-            nullable: true
-        },
-        type: {
-            enum: ['UNKNOWN', 'HOME', 'WORK'],
-            type: 'string'
-        },
-        placeId: {
-            type: 'string',
-            nullable: true
-        },
-        latitude: {
-            type: 'number',
-            format: 'float',
-            nullable: true
-        },
-        longitude: {
-            type: 'number',
-            format: 'float',
-            nullable: true
-        },
-        isPrimary: {
-            type: 'boolean',
-            nullable: true
+            type: 'boolean'
         }
     },
     additionalProperties: false
@@ -1428,30 +1465,38 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             type: 'string'
         },
         telephone: {
-            required: ['number', 'type'],
             type: 'object',
             properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -1506,31 +1551,33 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 emailAddress: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
+                    format: 'email',
                     nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
@@ -1548,22 +1595,43 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
             format: 'uuid'
         },
         telephone: {
-            required: ['number', 'type'],
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
                     format: 'uuid'
                 },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                normalizedPhoneNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
                 },
-                isPrimary: {
+                isConfirmed: {
                     type: 'boolean',
                     nullable: true
                 }
@@ -1571,7 +1639,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1630,14 +1698,13 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1653,8 +1720,7 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
                     type: 'string'
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -1770,8 +1836,35 @@ export const $UniRefund_CRMService_Customs_UpdateCustomDto = {
     additionalProperties: false
 } as const;
 
+export const $UniRefund_CRMService_Emails_EmailCreateDto = {
+    required: ['emailAddress', 'isPrimary', 'type'],
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        emailAddress: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            format: 'email',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
+            type: 'string'
+        }
+    },
+    additionalProperties: false
+} as const;
+
 export const $UniRefund_CRMService_Emails_EmailDto = {
-    required: ['emailAddress', 'type'],
+    required: ['emailAddress', 'isPrimary', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -1787,8 +1880,7 @@ export const $UniRefund_CRMService_Emails_EmailDto = {
             type: 'string'
         },
         isPrimary: {
-            type: 'boolean',
-            nullable: true
+            type: 'boolean'
         }
     },
     additionalProperties: false
@@ -1799,24 +1891,28 @@ export const $UniRefund_CRMService_Emails_EmailType = {
     type: 'string'
 } as const;
 
-export const $UniRefund_CRMService_Emails_UpdateEmailDto = {
+export const $UniRefund_CRMService_Emails_EmailUpSertDto = {
     type: 'object',
     properties: {
-        id: {
+        emailId: {
             type: 'string',
-            format: 'uuid'
+            format: 'uuid',
+            nullable: true
         },
         emailAddress: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
+            format: 'email',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean',
             nullable: true
         },
         type: {
             enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
             type: 'string'
-        },
-        isPrimary: {
-            type: 'boolean',
-            nullable: true
         }
     },
     additionalProperties: false
@@ -1856,30 +1952,38 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             nullable: true
         },
         telephone: {
-            required: ['number', 'type'],
             type: 'object',
             properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -1934,31 +2038,33 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 emailAddress: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
+                    format: 'email',
                     nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
@@ -2020,22 +2126,43 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
             type: 'string'
         },
         telephone: {
-            required: ['number', 'type'],
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
                     format: 'uuid'
                 },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                normalizedPhoneNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
                 },
-                isPrimary: {
+                isConfirmed: {
                     type: 'boolean',
                     nullable: true
                 }
@@ -2043,7 +2170,7 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2102,14 +2229,13 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2125,8 +2251,7 @@ export const $UniRefund_CRMService_Individuals_IndividualDto = {
                     type: 'string'
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -2283,30 +2408,38 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             type: 'boolean'
         },
         telephone: {
-            required: ['number', 'type'],
             type: 'object',
             properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -2361,31 +2494,33 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 emailAddress: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
+                    format: 'email',
                     nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
@@ -2402,22 +2537,43 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
             format: 'uuid'
         },
         telephone: {
-            required: ['number', 'type'],
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
                     format: 'uuid'
                 },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                normalizedPhoneNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
                 },
-                isPrimary: {
+                isConfirmed: {
                     type: 'boolean',
                     nullable: true
                 }
@@ -2425,7 +2581,7 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2484,14 +2640,13 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2507,8 +2662,7 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
                     type: 'string'
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -2581,7 +2735,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
             nullable: true
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -2640,8 +2794,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -3006,30 +3159,38 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             type: 'string'
         },
         telephone: {
-            required: ['number', 'type'],
             type: 'object',
             properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3084,31 +3245,33 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 emailAddress: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
+                    format: 'email',
                     nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
@@ -3144,22 +3307,43 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             format: 'uuid'
         },
         telephone: {
-            required: ['number', 'type'],
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
                     format: 'uuid'
                 },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                normalizedPhoneNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
                 },
-                isPrimary: {
+                isConfirmed: {
                     type: 'boolean',
                     nullable: true
                 }
@@ -3167,7 +3351,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3226,14 +3410,13 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3249,8 +3432,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
                     type: 'string'
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -3501,30 +3683,38 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             type: 'string'
         },
         telephone: {
-            required: ['number', 'type'],
             type: 'object',
             properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3579,31 +3769,33 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 emailAddress: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
+                    format: 'email',
                     nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
@@ -3620,22 +3812,43 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             format: 'uuid'
         },
         telephone: {
-            required: ['number', 'type'],
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
                     format: 'uuid'
                 },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                normalizedPhoneNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
                 },
-                isPrimary: {
+                isConfirmed: {
                     type: 'boolean',
                     nullable: true
                 }
@@ -3643,7 +3856,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3702,14 +3915,13 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3725,8 +3937,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
                     type: 'string'
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -3896,30 +4107,38 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             type: 'string'
         },
         telephone: {
-            required: ['number', 'type'],
             type: 'object',
             properties: {
-                id: {
-                    type: 'string',
-                    format: 'uuid'
-                },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
@@ -3974,31 +4193,33 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 emailAddress: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
+                    format: 'email',
                     nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'PERSONAL', 'WORK', 'SCHOOL', 'OTHER'],
                     type: 'string'
-                },
-                isPrimary: {
-                    type: 'boolean',
-                    nullable: true
                 }
             },
             additionalProperties: false
@@ -4015,22 +4236,43 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
             format: 'uuid'
         },
         telephone: {
-            required: ['number', 'type'],
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
                     type: 'string',
                     format: 'uuid'
                 },
-                number: {
+                ituCountryCode: {
+                    maxLength: 255,
+                    minLength: 0,
                     type: 'string',
                     nullable: true
+                },
+                areaCode: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                localNumber: {
+                    maxLength: 255,
+                    minLength: 0,
+                    type: 'string',
+                    nullable: true
+                },
+                normalizedPhoneNumber: {
+                    type: 'string',
+                    nullable: true
+                },
+                isPrimary: {
+                    type: 'boolean'
                 },
                 type: {
                     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
                     type: 'string'
                 },
-                isPrimary: {
+                isConfirmed: {
                     type: 'boolean',
                     nullable: true
                 }
@@ -4038,7 +4280,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -4097,14 +4339,13 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
         },
         email: {
-            required: ['emailAddress', 'type'],
+            required: ['emailAddress', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -4120,8 +4361,7 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
                     type: 'string'
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -4233,23 +4473,76 @@ export const $UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
     additionalProperties: false
 } as const;
 
+export const $UniRefund_CRMService_Telephones_TelephoneCreateDto = {
+    type: 'object',
+    properties: {
+        ituCountryCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        areaCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        localNumber: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean'
+        },
+        type: {
+            enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
+            type: 'string'
+        }
+    },
+    additionalProperties: false
+} as const;
+
 export const $UniRefund_CRMService_Telephones_TelephoneDto = {
-    required: ['number', 'type'],
+    required: ['id', 'isPrimary', 'localNumber', 'type'],
     type: 'object',
     properties: {
         id: {
             type: 'string',
             format: 'uuid'
         },
-        number: {
+        ituCountryCode: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
             nullable: true
+        },
+        areaCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        localNumber: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        normalizedPhoneNumber: {
+            type: 'string',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean'
         },
         type: {
             enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
             type: 'string'
         },
-        isPrimary: {
+        isConfirmed: {
             type: 'boolean',
             nullable: true
         }
@@ -4257,29 +4550,39 @@ export const $UniRefund_CRMService_Telephones_TelephoneDto = {
     additionalProperties: false
 } as const;
 
-export const $UniRefund_CRMService_Telephones_TelephoneType = {
-    enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
-    type: 'string'
-} as const;
-
-export const $UniRefund_CRMService_Telephones_UpdateTelephoneDto = {
+export const $UniRefund_CRMService_Telephones_TelephoneUpsertDto = {
     type: 'object',
     properties: {
-        id: {
+        telephoneId: {
             type: 'string',
-            format: 'uuid'
+            format: 'uuid',
+            nullable: true
         },
-        number: {
+        ituCountryCode: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
+            nullable: true
+        },
+        areaCode: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        localNumber: {
+            maxLength: 255,
+            minLength: 0,
+            type: 'string',
+            nullable: true
+        },
+        isPrimary: {
+            type: 'boolean',
             nullable: true
         },
         type: {
             enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
             type: 'string'
-        },
-        isPrimary: {
-            type: 'boolean',
-            nullable: true
         }
     },
     additionalProperties: false
@@ -4463,6 +4766,11 @@ export const $UniRefund_SettingService_ProductGroups_ProductGroupDto = {
 
 export const $UniRefund_SettingService_ProductGroups_UnitTypeCode = {
     enum: ['QNT', 'BAG', 'BOX'],
+    type: 'string'
+} as const;
+
+export const $UniRefund_Shared_ContactInfo_Enums_TelephoneType = {
+    enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
     type: 'string'
 } as const;
 

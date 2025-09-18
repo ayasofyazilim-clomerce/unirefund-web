@@ -22,7 +22,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handleDeleteResponse, handlePostResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {deleteMerchantProductGroupsByMerchantIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
+import {deleteMerchantProductGroupsByIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
 import {
   postMerchantProductGroupByProductGroupIdDefaultApi,
   postMerchantProductGroupsApi,
@@ -55,7 +55,7 @@ function productGroupsTableActions(
           onSubmit={({formData}) => {
             if (!formData) return;
             void postMerchantProductGroupsApi({
-              merchantId: partyId,
+              id: partyId,
               requestBody: [formData],
             }).then((res) => {
               handlePostResponse(res, router);
@@ -150,7 +150,7 @@ function productGroupsRowActions(
       description: languageData["Form.Merchant.productGroup.delete.confirm"],
       icon: Trash,
       onConfirm: (row) => {
-        void deleteMerchantProductGroupsByMerchantIdApi({
+        void deleteMerchantProductGroupsByIdApi({
           merchantId: partyId,
           productGroupIds: [row.productGroupId],
         }).then((response) => {

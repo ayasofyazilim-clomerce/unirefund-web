@@ -45,10 +45,7 @@ export default async function Layout({
   const [taxFreeDetailResponse] = apiRequests.requiredRequests;
   return (
     <>
-      <PartyHeader
-        link={`${baseLink}details`}
-        name={`${taxFreeDetailResponse.data.firstname} ${taxFreeDetailResponse.data.lastname}`}
-      />
+      <PartyHeader details={taxFreeDetailResponse.data} partyType="individuals" />
       <TabLayout
         classNames={{
           vertical: {

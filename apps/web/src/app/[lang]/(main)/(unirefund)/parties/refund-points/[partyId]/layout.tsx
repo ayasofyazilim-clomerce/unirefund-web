@@ -47,11 +47,7 @@ export default async function Layout({
     refundPointDetailResponse.data.parentId === null || refundPointDetailResponse.data.parentId === "";
   return (
     <>
-      <PartyHeader
-        link={`${baseLink}details`}
-        name={refundPointDetailResponse.data.name}
-        parentId={refundPointDetailResponse.data.parentId}
-      />
+      <PartyHeader details={refundPointDetailResponse.data} partyType="refund-points" />
       <TabLayout
         classNames={{
           vertical: {

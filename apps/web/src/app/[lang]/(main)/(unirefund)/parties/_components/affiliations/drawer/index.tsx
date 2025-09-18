@@ -104,11 +104,7 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
       }
       setIsSubmitting(true);
       const data = {
-        merchantId: params.partyId,
-        refundPointId: params.partyId,
-        taxFreeId: params.partyId,
-        taxOfficeId: params.partyId,
-        customId: params.partyId,
+        id: params.partyId,
         requestBody: {
           individualId: selectedIndividual.individualId,
           abpRoleId: selectedRole.id,

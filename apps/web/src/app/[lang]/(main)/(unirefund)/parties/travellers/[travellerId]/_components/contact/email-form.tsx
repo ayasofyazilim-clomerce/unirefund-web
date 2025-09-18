@@ -15,7 +15,6 @@ import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {DefaultResource} from "@/language-data/core/Default";
-import {EmailWithTypeField} from "./email-with-type";
 
 export function EmailForm({languageData, emails}: {languageData: DefaultResource; emails: EmailDto[]}) {
   const router = useRouter();
@@ -51,16 +50,20 @@ export function EmailForm({languageData, emails}: {languageData: DefaultResource
       cta: languageData["Form.email.create"],
       type: "schemaform-dialog",
       schema: $EmailDto,
-
       uiSchema: createUiSchemaWithResource({
         resources: languageData,
         schema: $EmailDto,
         name: "Form.email",
-        extend: {"ui:field": "email"},
+        extend: {
+          "ui:className": "p-px border-none rounded-none",
+          displayLabel: false,
+          emailAddress: {
+            "ui:title": languageData["Form.email"],
+            "ui:widget": "email",
+            "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
+          },
+        },
       }),
-      fields: {
-        email: EmailWithTypeField({languageData}),
-      },
       formData: {
         type: "WORK",
       },
@@ -124,9 +127,6 @@ function EditForm({
     <SchemaForm<EmailDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      fields={{
-        email: EmailWithTypeField({languageData}),
-      }}
       filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
       id="edit-email-form"

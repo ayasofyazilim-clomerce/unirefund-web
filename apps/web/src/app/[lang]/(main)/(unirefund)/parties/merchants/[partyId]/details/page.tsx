@@ -1,10 +1,10 @@
 "use server";
 
 import {
-  getMerchantAddressesByMerchantIdApi,
+  getMerchantAddressesByIdApi,
   getMerchantByIdApi,
-  getMerchantEmailsByMerchantIdApi,
-  getMerchantTelephonesByMerchantIdApi,
+  getMerchantEmailsByIdApi,
+  getMerchantTelephonesByIdApi,
   getTaxOfficesApi,
 } from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
@@ -24,9 +24,9 @@ async function getApiRequests({partyId}: {partyId: string}) {
     const session = await auth();
     const requiredRequests = await Promise.all([getMerchantByIdApi(partyId, session), getTaxOfficesApi({}, session)]);
     const optionalRequests = await Promise.allSettled([
-      getMerchantTelephonesByMerchantIdApi(partyId, session),
-      getMerchantEmailsByMerchantIdApi(partyId, session),
-      getMerchantAddressesByMerchantIdApi(partyId, session),
+      getMerchantTelephonesByIdApi(partyId, session),
+      getMerchantEmailsByIdApi(partyId, session),
+      getMerchantAddressesByIdApi(partyId, session),
     ]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -74,6 +74,7 @@ export default async function Page({
           variant="compact">
           <PhoneForm
             languageData={languageData}
+            partyType="merchants"
             phones={phoneResponse.status === "fulfilled" ? phoneResponse.value.data : []}
           />
         </FormReadyComponent>
@@ -88,6 +89,7 @@ export default async function Page({
           <EmailForm
             emails={emailResponse.status === "fulfilled" ? emailResponse.value.data : []}
             languageData={languageData}
+            partyType="merchants"
           />
         </FormReadyComponent>
         <FormReadyComponent

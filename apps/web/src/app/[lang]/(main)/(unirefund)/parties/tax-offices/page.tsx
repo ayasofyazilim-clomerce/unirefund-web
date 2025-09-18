@@ -1,6 +1,6 @@
 "use server";
 
-import type {GetApiCrmServiceTaxofficesData} from "@repo/saas/CRMService";
+import type {GetApiCrmServiceTaxOfficesData} from "@repo/saas/CRMService";
 import {getTaxOfficesApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
@@ -18,7 +18,7 @@ interface SearchParamType {
   typeCode?: string;
 }
 
-async function getApiRequests(filters: GetApiCrmServiceTaxofficesData) {
+async function getApiRequests(filters: GetApiCrmServiceTaxOfficesData) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([getTaxOfficesApi(filters, session)]);
@@ -45,7 +45,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
     name: searchParams?.name || "",
     maxResultCount: searchParams?.maxResultCount || 10,
     skipCount: searchParams?.skipCount || 0,
-  } as GetApiCrmServiceTaxofficesData);
+  } as GetApiCrmServiceTaxOfficesData);
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;

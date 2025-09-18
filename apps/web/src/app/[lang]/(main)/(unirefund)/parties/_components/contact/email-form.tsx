@@ -1,23 +1,38 @@
 "use client";
 
-import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-// import { putMerchantEmailsByMerchantIdApi } from "@repo/actions/unirefund/CrmService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import type {UniRefund_CRMService_Emails_EmailDto as EmailDto} from "@repo/saas/CRMService";
-import {$UniRefund_CRMService_Emails_EmailDto as $EmailDto} from "@repo/saas/CRMService";
-// import { handlePutResponse } from "@repo/utils/api";
-import {useParams} from "next/navigation";
+import type {
+  UniRefund_CRMService_Emails_EmailDto as EmailDto,
+  UniRefund_CRMService_Emails_EmailUpSertDto as EmailUpSertDto,
+} from "@repo/saas/CRMService";
+import {
+  $UniRefund_CRMService_Emails_EmailDto as $EmailDto,
+  $UniRefund_CRMService_Emails_EmailUpSertDto as $EmailUpSertDto,
+} from "@repo/saas/CRMService";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
-import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {DefaultResource} from "@/language-data/core/Default";
+import type {PartyType} from "../party-header";
+import {emailActionByPartyType} from "./utils";
 
-export function EmailForm({languageData, emails}: {languageData: CRMServiceServiceResource; emails: EmailDto[]}) {
+export function EmailForm({
+  languageData,
+  emails,
+  partyType,
+}: {
+  languageData: DefaultResource;
+  emails: EmailDto[];
+  partyType: PartyType;
+}) {
+  const router = useRouter();
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
 
@@ -28,13 +43,22 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
     },
     languageData: {
       languageData,
-      constantKey: "CRM.email",
+      constantKey: "Form.email",
     },
     custom: {
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({row, partyId, isPending, startTransition, languageData, isActive: emails.length === 1}),
+          IsPrimaryAction({
+            row,
+            partyId,
+            partyType,
+            isPending,
+            startTransition,
+            languageData,
+            isActive: emails.length === 1 && row.isPrimary,
+            router,
+          }),
       },
       type: {
         showHeader: true,
@@ -47,18 +71,18 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
     {
       id: "create-email",
       actionLocation: "table",
-      cta: languageData["CRM.email.create"],
+      cta: languageData["Form.email.create"],
       type: "schemaform-dialog",
       schema: $EmailDto,
       uiSchema: createUiSchemaWithResource({
         resources: languageData,
         schema: $EmailDto,
-        name: "CRM.email",
+        name: "Form.email",
         extend: {
           "ui:className": "p-px border-none rounded-none",
           displayLabel: false,
           emailAddress: {
-            "ui:title": languageData["CRM.email"],
+            "ui:title": languageData["Form.email"],
             "ui:widget": "email",
             "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
           },
@@ -67,15 +91,16 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
       formData: {
         type: "WORK",
         emailAddress: "",
+        isPrimary: false,
       },
       withScrollArea: false,
       disabled: isPending,
       filter: {type: "exclude", keys: ["id", "isPrimary"]},
-      submitText: languageData["CRM.email.create"],
-      title: languageData["CRM.email.create"],
-      onSubmit: () => {
+      submitText: languageData["Form.email.create"],
+      title: languageData["Form.email.create"],
+      onSubmit: (editedFormData) => {
         startTransition(() => {
-          toast.error(languageData.NotImplemented);
+          emailActionByPartyType({partyId, partyType, requestBody: {...editedFormData, isPrimary: false}, router});
         });
       },
     },
@@ -89,65 +114,62 @@ export function EmailForm({languageData, emails}: {languageData: CRMServiceServi
       }}
       columns={columns}
       data={emails}
-      expandedRowComponent={(row) => EditForm({row, languageData, isPending, startTransition})}
+      expandedRowComponent={(row) =>
+        EditForm({row, languageData, isPending, startTransition, partyId, partyType, router})
+      }
       fillerColumn="emailAddress"
       showPagination={false}
       tableActions={tableActions}
     />
   );
 }
-function TypeRow({row, languageData}: {row: EmailDto; languageData: CRMServiceServiceResource}) {
-  return <div> {languageData[`CRM.email.type.${row.type}`]}</div>;
+
+function TypeRow({row, languageData}: {row: EmailDto; languageData: DefaultResource}) {
+  return <div> {languageData[`Form.email.type.${row.type}`]}</div>;
 }
 
 function EditForm({
   row,
-  // partyId,
+  partyId,
+  partyType,
   languageData,
   isPending,
   startTransition,
+  router,
 }: {
   row: EmailDto;
-  // partyId: string;
-  languageData: CRMServiceServiceResource;
+  partyId: string;
+  partyType: PartyType;
+  languageData: DefaultResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
+  router: AppRouterInstance;
 }) {
   return (
-    <SchemaForm<EmailDto>
+    <SchemaForm<EmailUpSertDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
+      filter={{type: "exclude", keys: ["emailId", "isPrimary"]}}
       formData={row}
       id="edit-email-form"
       key={JSON.stringify(row)}
-      onSubmit={({formData}) => {
-        if (!formData) return;
-        // const data = {
-        //   merchantId: partyId,
-        //   requestBody: {
-        //     id: row.id,
-        //     emailAddress: formData.emailAddress !== row.emailAddress ? formData.emailAddress : undefined,
-        //     type: formData.type !== row.type ? formData.type : undefined,
-        //   },
-        // };
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
         startTransition(() => {
-          startTransition(() => {
-            toast.error(languageData.NotImplemented);
-          });
+          emailActionByPartyType({partyId, partyType, requestBody: {...editedFormData, emailId: row.id}, router});
         });
       }}
-      schema={$EmailDto}
-      submitText={languageData["CRM.email.update"]}
+      schema={$EmailUpSertDto}
+      submitText={languageData["Form.email.update"]}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
-        schema: $EmailDto,
-        name: "CRM.email",
+        schema: $EmailUpSertDto,
+        name: "Form.email",
         extend: {
           displayLabel: false,
           "ui:className": "border-none p-2 rounded-none",
           emailAddress: {
-            "ui:title": languageData["CRM.email"],
+            "ui:title": languageData["Form.email"],
             "ui:widget": "email",
             "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
           },
@@ -160,36 +182,31 @@ function EditForm({
 
 function IsPrimaryAction({
   row,
-  // partyId,
+  partyId,
+  partyType,
   isActive,
   isPending,
   startTransition,
   languageData,
+  router,
 }: {
   row: EmailDto;
   partyId: string;
+  partyType: PartyType;
   isActive: boolean;
   isPending: boolean;
   startTransition: TransitionStartFunction;
-  languageData: CRMServiceServiceResource;
+  languageData: DefaultResource;
+  router: AppRouterInstance;
 }) {
   const switchComponent = (
     <Switch
-      checked={row.isPrimary === true}
+      checked={row.isPrimary}
       data-testid="email-is-primary"
       disabled={isActive || isPending}
-      onCheckedChange={() => {
+      onCheckedChange={(value) => {
         startTransition(() => {
-          toast.error(languageData.NotImplemented);
-          // void putMerchantEmailsByMerchantIdApi({
-          //   merchantId: partyId,
-          //   requestBody: {
-          //     id: row.id,
-          //     isPrimary: !row.isPrimary,
-          //   },
-          // }).then((response) => {
-          //   handlePutResponse(response);
-          // });
+          emailActionByPartyType({partyId, partyType, requestBody: {isPrimary: value, emailId: row.id}, router});
         });
       }}
     />
@@ -201,7 +218,7 @@ function IsPrimaryAction({
         <TooltipTrigger asChild>
           <div className="flex size-full items-center justify-center">{switchComponent}</div>
         </TooltipTrigger>
-        <TooltipContent>{languageData["CRM.Messages.address.isPrimary.atLeastOnePrimaryRequired"]}</TooltipContent>
+        <TooltipContent>{languageData["Messages.address.isPrimary.atLeastOnePrimaryRequired"]}</TooltipContent>
       </Tooltip>
     );
   }

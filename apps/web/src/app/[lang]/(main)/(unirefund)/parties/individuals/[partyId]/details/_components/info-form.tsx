@@ -43,7 +43,7 @@ export function IndividualForm({
         if (!formData) return;
         startTransition(() => {
           void putIndividualByIdApi({
-            individualId: partyId,
+            id: partyId,
             requestBody: formData,
           }).then((res) => {
             handlePutResponse(res, router);

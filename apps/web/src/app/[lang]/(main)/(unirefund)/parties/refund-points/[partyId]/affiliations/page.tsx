@@ -1,8 +1,8 @@
 "use server";
 
-import type {GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData} from "@repo/saas/CRMService";
+import type {GetApiCrmServiceRefundPointsByIdAffiliationsData} from "@repo/saas/CRMService";
 import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
-import {getRefundPointAffiliationsByRefundPointIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getRefundPointAffiliationsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isErrorOnRequest, structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -10,10 +10,10 @@ import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "../../../_components/affiliations/table";
 
-async function getApiRequests(filters: GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData) {
+async function getApiRequests(filters: GetApiCrmServiceRefundPointsByIdAffiliationsData) {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getRefundPointAffiliationsByRefundPointIdApi(filters, session)]);
+    const requiredRequests = await Promise.all([getRefundPointAffiliationsByIdApi(filters, session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -31,13 +31,13 @@ export default async function Page({
     partyId: string;
     lang: string;
   };
-  searchParams?: GetApiCrmServiceRefundpointsByRefundPointIdAffiliationsData;
+  searchParams?: GetApiCrmServiceRefundPointsByIdAffiliationsData;
 }) {
   const {lang, partyId} = params;
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
-    refundPointId: partyId,
+    id: partyId,
     name: searchParams?.name || "",
     roleName: searchParams?.roleName || "",
     maxResultCount: searchParams?.maxResultCount || 10,

@@ -10,6 +10,7 @@ import {useParams, useRouter} from "next/navigation";
 import {useCallback, useMemo, useState, useTransition} from "react";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
+import {PhoneWithTypeField} from "../../_components/contact/phone-with-type";
 
 const DEFAULT_FORMDATA: CreateTaxOfficeDto = {
   name: "",
@@ -17,12 +18,14 @@ const DEFAULT_FORMDATA: CreateTaxOfficeDto = {
   email: {
     type: "WORK",
     emailAddress: "",
+    isPrimary: true,
   },
   telephone: {
     type: "WORK",
-    number: "",
+    isPrimary: true,
   },
   address: {
+    isPrimary: true,
     type: "WORK",
     addressLine: "",
     adminAreaLevel1Id: "00000000-0000-0000-0000-000000000000",
@@ -72,24 +75,14 @@ export default function CreateTaxOfficeForm({
             "ui:widget": "switch",
             "ui:className": "border px-2 rounded-md col-span-full",
           },
-          telephone: createUiSchemaWithResource({
-            resources: languageData,
-            schema: $CreateTaxOfficeDto.properties.telephone,
-            name: "CRM.telephone",
-            extend: {
-              "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
-              displayLabel: false,
-              number: {
-                "ui:widget": "phone-with-value",
-                "ui:title": languageData["CRM.telephone.number"],
-              },
-            },
-          }),
+          telephone: {
+            "ui:field": "telephone",
+            "ui:className": "grid grid-cols-2 col-span-full",
+          },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateTaxOfficeDto.properties.address,
-            name: "CRM.address",
+            name: "Form.address",
             extend: {
               "ui:className": "col-span-full grid grid-cols-2 gap-4",
               countryId: {
@@ -107,18 +100,24 @@ export default function CreateTaxOfficeForm({
               addressLine: {
                 "ui:className": "col-span-full",
               },
+              isPrimary: {
+                "ui:widget": "hidden",
+              },
             },
           }),
           email: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateTaxOfficeDto.properties.email,
-            name: "CRM.email",
+            name: "Form.email",
             extend: {
               "ui:className":
                 "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
+              isPrimary: {
+                "ui:widget": "hidden",
+              },
               emailAddress: {
-                "ui:title": languageData["CRM.email"],
+                "ui:title": languageData["Form.email"],
                 "ui:widget": "email",
                 "ui:baseList": ["unirefund.com", "clomerce.com", "ayasofyazilim.com"],
               },
@@ -130,6 +129,7 @@ export default function CreateTaxOfficeForm({
           },
           vatNumber: {
             ...{"ui:className": typeCode !== "TAXOFFICE" && "col-span-full"},
+            ...{"ui:required": typeCode === "HEADQUARTER" && true},
           },
           parentId: {
             "ui:className": "col-span-full",
@@ -158,9 +158,7 @@ export default function CreateTaxOfficeForm({
       type: "exclude" as const,
       keys: [
         "email.id",
-        "email.isPrimary",
         "telephone.id",
-        "telephone.isPrimary",
         "typeCode",
         "parentId",
         "address.partyType",
@@ -168,12 +166,20 @@ export default function CreateTaxOfficeForm({
         "address.placeId",
         "address.latitude",
         "address.longitude",
-        "address.isPrimary",
         ...(typeCode === "TAXOFFICE" ? ["vatNumber"] : []),
       ],
     }),
     [typeCode],
   );
+
+  const fields = useMemo(() => {
+    return {
+      telephone: PhoneWithTypeField({
+        languageData,
+        typeOptions: $CreateTaxOfficeDto.properties.telephone.properties.type.enum,
+      }),
+    };
+  }, []);
 
   const handleFormChange = useCallback(({formData: editedFormData}: {formData?: CreateTaxOfficeDto}) => {
     if (editedFormData) {
@@ -184,7 +190,6 @@ export default function CreateTaxOfficeForm({
   const handleFormSubmit = useCallback(
     ({formData: editedFormData}: {formData?: CreateTaxOfficeDto}) => {
       if (!editedFormData) return;
-
       startTransition(() => {
         void postTaxOfficeApi({
           ...editedFormData,
@@ -205,6 +210,7 @@ export default function CreateTaxOfficeForm({
     <SchemaForm<CreateTaxOfficeDto>
       defaultSubmitClassName="max-w-2xl mx-auto [&>button]:w-full"
       disabled={isPending}
+      fields={fields}
       filter={filter}
       formData={form}
       id="create-tax-office-form"

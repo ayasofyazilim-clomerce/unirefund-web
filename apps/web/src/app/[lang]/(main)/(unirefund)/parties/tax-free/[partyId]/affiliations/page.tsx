@@ -1,8 +1,8 @@
 "use server";
 
-import type {GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData} from "@repo/saas/CRMService";
+import type {GetApiCrmServiceTaxFreesByIdAffiliationsData} from "@repo/saas/CRMService";
 import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
-import {getTaxFreeAffiliationsByTaxFreeIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getTaxFreeAffiliationsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isErrorOnRequest, structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -10,10 +10,10 @@ import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import AffiliationsTable from "../../../_components/affiliations/table";
 
-async function getApiRequests(filters: GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData) {
+async function getApiRequests(filters: GetApiCrmServiceTaxFreesByIdAffiliationsData) {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getTaxFreeAffiliationsByTaxFreeIdApi(filters, session)]);
+    const requiredRequests = await Promise.all([getTaxFreeAffiliationsByIdApi(filters, session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -31,13 +31,13 @@ export default async function Page({
     partyId: string;
     lang: string;
   };
-  searchParams?: GetApiCrmServiceTaxfreesByTaxFreeIdAffiliationsData;
+  searchParams?: GetApiCrmServiceTaxFreesByIdAffiliationsData;
 }) {
   const {lang, partyId} = params;
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({
-    taxFreeId: partyId,
+    id: partyId,
     name: searchParams?.name || "",
     roleName: searchParams?.roleName || "",
     maxResultCount: searchParams?.maxResultCount || 10,

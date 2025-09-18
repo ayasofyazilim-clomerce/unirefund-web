@@ -6,7 +6,7 @@ import {FileText} from "lucide-react";
 import Link from "next/link";
 import Button from "@repo/ayasofyazilim-ui/molecules/button";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getMerchantProductGroupByMerchantIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantProductGroupByIdApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getProductGroupsApi} from "@repo/actions/unirefund/SettingService/actions";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {structuredError} from "@repo/utils/api";
@@ -18,7 +18,7 @@ async function getApiRequests(partyId: string) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([
-      getMerchantProductGroupByMerchantIdApi(partyId, session),
+      getMerchantProductGroupByIdApi(partyId, session),
       getProductGroupsApi({maxResultCount: 999}),
     ]);
     const optionalRequests = await Promise.allSettled([]);

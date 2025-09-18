@@ -21,7 +21,7 @@ import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {TravellerServiceResource} from "@/language-data/unirefund/TravellerService";
-import {PhoneWithTypeField} from "./phone-with-type";
+import {PhoneWithTypeField} from "../../../../_components/contact/phone-with-type";
 
 export function PhoneForm({languageData, phones}: {languageData: TravellerServiceResource; phones: TelephoneDto[]}) {
   const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();

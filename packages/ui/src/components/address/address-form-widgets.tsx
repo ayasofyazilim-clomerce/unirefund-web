@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useEffect, useRef } from "react";
 import type { WidgetProps } from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
+import { useCallback, useEffect, useMemo } from "react";
 import { AddressCombobox } from "./address-combobox";
-import { useAddressData } from "./use-address-data";
 import { AddressLanguageData } from "./types";
+import { useAddressData } from "./use-address-data";
 
 export function createAddressWidgets({ languageData }: { languageData: AddressLanguageData }) {
     return function AddressWidgets({ initialValue }: { initialValue?: { countryId?: string, adminAreaLevel1Id?: string, adminAreaLevel2Id?: string } } = {}) {
@@ -132,7 +132,8 @@ export function createAddressWidgets({ languageData }: { languageData: AddressLa
                         error: languageData.error,
                         loading: languageData["country.loading"],
                         placeholder: languageData["country.placeholder"],
-                        search: languageData["country.search"]
+                        search: languageData["country.search"],
+                        notFound: languageData["country.notFound"]
                     }}
                     {...widget}
                 />
@@ -152,7 +153,8 @@ export function createAddressWidgets({ languageData }: { languageData: AddressLa
                         error: languageData.error,
                         loading: languageData["adminAreaLevel1.loading"],
                         placeholder: languageData["adminAreaLevel1.placeholder"],
-                        search: languageData["adminAreaLevel1.search"]
+                        search: languageData["adminAreaLevel1.search"],
+                        notFound: languageData["adminAreaLevel1.notFound"]
                     }}
                     {...widget}
                 />
@@ -172,7 +174,8 @@ export function createAddressWidgets({ languageData }: { languageData: AddressLa
                         error: languageData.error,
                         loading: languageData["adminAreaLevel2.loading"],
                         placeholder: languageData["adminAreaLevel2.placeholder"],
-                        search: languageData["adminAreaLevel2.search"]
+                        search: languageData["adminAreaLevel2.search"],
+                        notFound: languageData["adminAreaLevel2.notFound"]
                     }}
                     {...widget}
                 />
@@ -192,7 +195,8 @@ export function createAddressWidgets({ languageData }: { languageData: AddressLa
                         error: languageData.error,
                         loading: languageData["neighborhood.loading"],
                         placeholder: languageData["neighborhood.placeholder"],
-                        search: languageData["neighborhood.search"]
+                        search: languageData["neighborhood.search"],
+                        notFound: languageData["neighborhood.notFound"]
                     }}
                     {...widget}
                 />
