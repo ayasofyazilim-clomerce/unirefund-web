@@ -73,6 +73,10 @@ export function AddressForm({
         resources: languageData,
         schema: $AddressUpSertDto,
         name: "Form.address",
+        extend: {
+          displayLabel: false,
+          "ui:className": "border-none p-0",
+        },
       }),
       formData: {
         type: "HOME",
@@ -128,7 +132,7 @@ function EditForm({
   isPending,
   startTransition,
 }: {
-  row: AddressUpSertDto;
+  row: AddressDto;
   lang: string;
   travellerId: string;
   languageData: TravellerServiceResource;
@@ -140,7 +144,7 @@ function EditForm({
     <SchemaForm<AddressUpSertDto>
       defaultSubmitClassName="p-2 pt-0"
       disabled={isPending}
-      filter={{type: "exclude", keys: ["addressId", "isPrimary"]}}
+      filter={{type: "exclude", keys: ["id", "isPrimary"]}}
       formData={row}
       id="edit-address-form"
       key={JSON.stringify(row)}
@@ -150,17 +154,18 @@ function EditForm({
         const data = {
           id: travellerId,
           requestBody: {
-            addressId: row.addressId,
+            addressId: row.id,
             ...formData,
           },
         };
+        console.log(data);
         startTransition(() => {
           void putTravellerAddressesByTravellerIdApi(data).then((response) => {
             handlePutResponse(response, router);
           });
         });
       }}
-      schema={$AddressUpSertDto}
+      schema={$AddressDto}
       submitText={languageData["Form.address.update"]}
       uiSchema={createUiSchemaWithResource({
         resources: languageData,
@@ -184,7 +189,7 @@ function IsPrimaryAction({
   startTransition,
   languageData,
 }: {
-  row: AddressUpSertDto;
+  row: AddressDto;
   travellerId: string;
   isActive: boolean;
   isPending: boolean;
@@ -201,7 +206,7 @@ function IsPrimaryAction({
           void putTravellerAddressesByTravellerIdApi({
             id: travellerId,
             requestBody: {
-              addressId: row.addressId,
+              addressId: row.id,
               isPrimary: !row.isPrimary,
             },
           }).then((response) => {
