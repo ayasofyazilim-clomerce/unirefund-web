@@ -8,16 +8,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "../../packages/ayasofyazilim-ui/@/*",
-        "./src/*"
-      ],
-      "components/*": [
-        "./src/components/*"
-      ],
-      "@uni/*": [
-        "tests/unirefund/_support/*"
-      ]
+      "@/*": ["../../packages/ayasofyazilim-ui/@/*", "./src/*"],
+      "components/*": ["./src/components/*"],
+      "@uni/*": ["tests/unirefund/_support/*"]
     }
   },
   "include": [
@@ -29,7 +22,5 @@
     ".eslintrc.js",
     ".lintstagedrc.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
