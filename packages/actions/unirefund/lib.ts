@@ -11,11 +11,19 @@ import { TagServiceClient } from "@repo/saas/TagService";
 import { TravellerServiceClient } from "@repo/saas/TravellerService";
 import { Session } from "@repo/utils/auth";
 import { auth } from "@repo/utils/auth/next-auth";
-
 const HEADERS = {
   "X-Requested-With": "XMLHttpRequest",
   "Content-Type": "application/json",
 };
+// import { client as CRMServiceClient } from "@repo/saas/CRMService"
+// const COMMON_CONFIG = {
+//   baseUrl: process.env.BASE_URL,
+//   auth: () => auth().then((res) => {
+//     return res?.user?.access_token
+//   }),
+//   headers: HEADERS,
+// };
+// CRMServiceClient.setConfig(COMMON_CONFIG);
 
 export async function getCRMServiceClient(session?: Session | null) {
   const userData = session || (await auth());
