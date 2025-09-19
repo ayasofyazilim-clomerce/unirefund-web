@@ -5,19 +5,27 @@ function randDigits(len: number) {
   return Array.from({length: len}, () => Math.floor(Math.random() * 10)).join("");
 }
 
-async function fillStable(page: Page, locator: Locator, value: string) {
+async function fillStable(page: Page, locator: Locator, value: string, opts?: {hard?: boolean}) {
   await locator.waitFor({state: "visible", timeout: 15000});
   await expect(locator).toBeEditable({timeout: 15000});
-
-  await locator.click();
-  await locator.focus();
-  await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
-  await locator.press("Delete");
-  await page.keyboard.insertText(value);
-
-  await expect.soft(locator).toHaveValue(value);
+  async function tryFill(attempts: number): Promise<void> {
+    await locator.click({timeout: 5000});
+    await page.waitForTimeout(100); // Give time for focus
+    await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
+    await locator.press("Delete");
+    await locator.type(value, {delay: 50}); // Type slower
+    const current = await locator.inputValue();
+    if (current === value || attempts >= 2) return;
+    await page.waitForTimeout(200);
+    await tryFill(attempts + 1);
+  }
+  await tryFill(0);
+  if (opts?.hard) {
+    await expect(locator).toHaveValue(value);
+  } else {
+    await expect.soft(locator).toHaveValue(value);
+  }
 }
-
 const digitsOnly = (s: string) => (s || "").replace(/\D/g, "");
 
 async function fillPhoneTR(page: Page, locator: Locator, rawDigits: string) {
@@ -61,11 +69,13 @@ test("create merchant", async ({page}) => {
   await by("root_email_type").click();
   await by("root_email_type_WORK").click();
   await by("root_address_countryId-trigger").click();
-  await page.locator('[data-value="türkiye"]').click();
+  await page.locator('[data-value="türkiye" i]').click();
+
   await by("root_address_adminAreaLevel1Id-trigger").click();
-  await page.locator('[data-value="adıyaman"]').click();
+  await page.locator('[data-value="adıyaman" i]').click();
+
   await by("root_address_adminAreaLevel2Id-trigger").click();
-  await page.locator('[data-value="merkez"]').click();
+  await page.locator('[data-value="merkez" i]').click();
   await fillStable(page, by("root_address_addressLine"), "adıyaman");
   await fillStable(page, by("root_address_postalCode"), "41410");
   await by("root_address_type").click();
