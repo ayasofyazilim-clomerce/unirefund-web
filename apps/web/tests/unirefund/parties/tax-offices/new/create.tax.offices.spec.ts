@@ -78,13 +78,13 @@ test("create tax office", async ({page}) => {
   await by("root_email_type_WORK").click();
 
   await by("root_address_countryId-trigger").click();
-  await page.locator('[data-value="türkiye"]').click();
+  await page.locator('[data-value="türkiye" i]').click();
 
   await by("root_address_adminAreaLevel1Id-trigger").click();
-  await page.locator('[data-value="adıyaman"]').click();
+  await page.locator('[data-value="adıyaman" i]').click();
 
   await by("root_address_adminAreaLevel2Id-trigger").click();
-  await page.locator('[data-value="merkez"]').click();
+  await page.locator('[data-value="merkez" i]').click();
 
   await fillStable(page, by("root_address_addressLine"), "lorem ipsum");
   await fillStable(page, by("root_address_postalCode"), "41700");
