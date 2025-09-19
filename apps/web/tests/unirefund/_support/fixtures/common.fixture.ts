@@ -13,7 +13,6 @@ type Helpers = {
 };
 
 export const test = base.extend<{h: Helpers; by: (id: string) => Locator}>({
-  // "h" toplu yardımcılar
   h: async ({page}, use) => {
     const helpers: Helpers = {
       by: (id: string) => byTestId(page)(id),
@@ -24,7 +23,6 @@ export const test = base.extend<{h: Helpers; by: (id: string) => Locator}>({
     };
     await use(helpers);
   },
-  // "by" tek başına da mevcut (geri uyumluluk)
   by: async ({page}, use) => {
     await use(byTestId(page));
   },
