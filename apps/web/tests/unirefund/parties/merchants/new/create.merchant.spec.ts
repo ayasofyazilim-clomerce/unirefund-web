@@ -13,7 +13,7 @@ async function fillStable(page: Page, locator: Locator, value: string, opts?: {h
     await page.waitForTimeout(100); // Give time for focus
     await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
     await locator.press("Delete");
-    await locator.type(value, {delay: 50}); // Type slower
+    await locator.fill(value); // Fill value reliably
     const current = await locator.inputValue();
     if (current === value || attempts >= 2) return;
     await page.waitForTimeout(200);
