@@ -9,14 +9,12 @@ async function fillStable(page: Page, locator: Locator, value: string, opts?: {h
   await locator.waitFor({state: "visible", timeout: 15000});
   await expect(locator).toBeEditable({timeout: 15000});
 
-  // 1. deneme
   await locator.click({timeout: 5000});
   await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
   await locator.press("Delete");
   await locator.type(value);
   let current = await locator.inputValue();
 
-  // Gerekirse 2. deneme
   if (current !== value) {
     await page.waitForTimeout(200);
     await locator.click({timeout: 5000});
@@ -42,7 +40,6 @@ async function fillPhoneTR(page: Page, locator: Locator, rawDigits: string) {
   await expect(locator).toBeEditable({timeout: 15000});
   await locator.scrollIntoViewIfNeeded();
 
-  // Alanı temizle
   await locator.click();
   await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
   await locator.press("Delete");
