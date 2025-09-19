@@ -107,7 +107,6 @@ test("create tax office", async ({page}) => {
     },
     {timeout: 15000},
   );
-
   const nameInput = by("root_name");
   await nameInput.waitFor({state: "attached", timeout: 5000});
   await expect.soft(nameInput).toHaveValue(randomName, {timeout: 5000});
