@@ -9,10 +9,16 @@
     "gen": "node index.mjs",
     "gen:dev": "pnpm gen -u \"https://dev-api.unirefund.com\"",
     "gen:kadir": "pnpm gen -u \"http://192.168.1.252:44335\"",
-    "gen:uat": "pnpm gen -u \"https://uat-api.unirefund.com\""
+    "gen:uat": "pnpm gen -u \"https://uat-api.unirefund.com\"",
+    "g": "node new.mjs",
+    "g:dev": "pnpm g \"https://dev-api.unirefund.com\"",
+    "g:uat": "pnpm g \"https://uat-api.unirefund.com\"",
+    "g:kadir": "pnpm g \"http://192.168.1.252:44335\""
   },
   "dependencies": {
     "@ayasofyazilim/sdk_generator": "latest",
+    "@apidevtools/swagger-parser": "^12.0.0",
+    "@hey-api/openapi-ts": "^0.83.1",
     "commander": "^13.0.0"
   }
 }
