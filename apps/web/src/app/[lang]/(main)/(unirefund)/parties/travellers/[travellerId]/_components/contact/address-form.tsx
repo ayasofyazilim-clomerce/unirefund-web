@@ -20,6 +20,7 @@ import {handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {TravellerServiceResource} from "@/language-data/unirefund/TravellerService";
 
 export function AddressForm({
@@ -53,6 +54,7 @@ export function AddressForm({
             startTransition,
             languageData,
             isActive: addresses.length === 1,
+            router,
           }),
       },
       type: {
@@ -111,7 +113,9 @@ export function AddressForm({
       }}
       columns={columns}
       data={addresses}
-      expandedRowComponent={(row) => EditForm({row, lang, languageData, travellerId, isPending, startTransition})}
+      expandedRowComponent={(row) =>
+        EditForm({row, lang, languageData, travellerId, isPending, startTransition, router})
+      }
       fillerColumn="fullAddress"
       showPagination={false}
       tableActions={tableActions}
@@ -131,6 +135,7 @@ function EditForm({
   languageData,
   isPending,
   startTransition,
+  router,
 }: {
   row: AddressDto;
   lang: string;
@@ -138,8 +143,8 @@ function EditForm({
   languageData: TravellerServiceResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
+  router: AppRouterInstance;
 }) {
-  const router = useRouter();
   return (
     <SchemaForm<AddressUpSertDto>
       defaultSubmitClassName="p-2 pt-0"
@@ -188,6 +193,7 @@ function IsPrimaryAction({
   isPending,
   startTransition,
   languageData,
+  router,
 }: {
   row: AddressDto;
   travellerId: string;
@@ -195,6 +201,7 @@ function IsPrimaryAction({
   isPending: boolean;
   startTransition: TransitionStartFunction;
   languageData: TravellerServiceResource;
+  router: AppRouterInstance;
 }) {
   const switchComponent = (
     <Switch
@@ -210,7 +217,7 @@ function IsPrimaryAction({
               isPrimary: !row.isPrimary,
             },
           }).then((response) => {
-            handlePutResponse(response);
+            handlePutResponse(response, router);
           });
         });
       }}

@@ -1,4 +1,13 @@
 {
+  "INDIVIDUAL": "Birey",
+  "MERCHANT": "Mağaza",
+  "REFUNDPOINT": "İade Noktası",
+  "CUSTOM": "Gümrük",
+  "TAXFREE": "Taxfree",
+  "TAXOFFICE": "Vergi Dairesi",
+  "TOURGUIDE": "Tur Rehberi",
+  "TRAVELLER": "Turist",
+
   "Missing.ProductGroup.Title": "Product Group is missing",
   "Missing.ProductGroup.Message": "Please create a product group to continue.",
 
@@ -208,6 +217,10 @@
   "CRM.Affiliations.selectUserAndRole": "Kullanıcı ve Rol Seç",
   "CRM.Affiliations.fillDetails": "Ayrıntıları Doldur",
   "CRM.Affiliations.selectRole": "Rol Seç",
+
+  "CRM.Affiliations.search": "Bağlılık ara",
+  "CRM.Affiliations.notFound": "Bağlılık bulunamadı.",
+  "CRM.Affiliations.switchTo.{0}": "{0} ile işlem yap.",
 
   "CRM.Messages.email.isPrimary.atLeastOnePrimaryRequired": "Bu alan değiştirilemez çünkü en az bir varsayılan e-posta olmalıdır.",
   "CRM.Messages.address.isPrimary.atLeastOnePrimaryRequired": "Bu alan değiştirilemez çünkü en az bir varsayılan adres olmalıdır.",

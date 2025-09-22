@@ -1,7 +1,7 @@
 "use server";
 import {myProfileApi} from "@repo/actions/core/AccountService/actions";
 import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
-import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantsApi, getUserAffiliationsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
@@ -12,9 +12,11 @@ import type {Policy} from "@repo/utils/policies";
 import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import unirefund from "public/unirefund.png";
-import {getResourceData} from "src/language-data/core/AbpUiNavigation";
+import {getResourceData} from "@/language-data/core/AbpUiNavigation";
+import {getResourceData as getResourceDataCRM} from "@/language-data/unirefund/CRMService";
 import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
+import AffiliationSwitch from "@/utils/affiliation-switch";
 import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
 
@@ -29,8 +31,8 @@ async function getApiRequests(session: Session | null) {
     const requiredRequests = await Promise.all([
       getGrantedPoliciesApi(),
       getInfoForCurrentTenantApi(session),
+      getUserAffiliationsApi(session),
       myProfileApi(),
-      // getUserAffiliationsApi(session),
     ]);
 
     const optionalRequests = await Promise.allSettled([]);
@@ -46,6 +48,7 @@ async function getApiRequests(session: Session | null) {
 export default async function Layout({children, params}: LayoutProps) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
+  const {languageData: languageDataCRM} = await getResourceDataCRM(lang);
   const session = await auth();
   const apiRequests = await getApiRequests(session);
 
@@ -67,7 +70,7 @@ export default async function Layout({children, params}: LayoutProps) {
     },
   ];
 
-  const [grantedPolicies, tenantData] = apiRequests.requiredRequests;
+  const [grantedPolicies, tenantData, affiliations] = apiRequests.requiredRequests;
   const navbarFromDB = await getNavbarFromDB(lang, languageData, grantedPolicies as Record<Policy, boolean>);
 
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
@@ -110,8 +113,13 @@ export default async function Layout({children, params}: LayoutProps) {
               title: "Merchants",
             },
           ]}
-          tenantData={tenantData.data}
-        />
+          tenantData={tenantData.data}>
+          <AffiliationSwitch
+            activeIds={session?.user?.MerchantId || []}
+            affiliations={affiliations.data}
+            languageData={languageDataCRM}
+          />
+        </MainAdminLayout>
         <div className="flex w-full max-w-full flex-col overflow-auto px-2 py-2 sm:px-4 md:px-8 lg:px-16">
           {children}
         </div>

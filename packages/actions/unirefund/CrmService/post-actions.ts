@@ -187,3 +187,22 @@ export async function postIndividualApi(
     return structuredError(error);
   }
 }
+
+
+
+export async function postUserAffiliationApi(
+  id: string,
+  session?: Session | null,
+) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.userAffiliation.postApiCrmServiceUserAffiliationsSetActiveAffiliation({
+      requestBody: {
+        partyId: id
+      }
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
