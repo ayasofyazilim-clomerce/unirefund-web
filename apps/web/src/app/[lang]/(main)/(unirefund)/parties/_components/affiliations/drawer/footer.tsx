@@ -3,18 +3,13 @@ import {Stepper, StepperItem, StepperTrigger, StepperIndicator} from "@/componen
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {getStepTitle, INITIAL_STEP, STEP_KEYS} from ".";
 
-/**
- * StepperFooter Component
- *
- * Footer component with navigation buttons and step indicator.
- */
 export interface StepperFooterProps {
   currentStep: number;
   languageData: CRMServiceServiceResource;
   buttonText: string;
   isNextStepDisabled: boolean;
   onPreviousStep: () => void;
-  onNextStep: () => Promise<void>;
+  onNextStep: () => void;
   onStepChange: (step: number) => void;
   isSubmitting: boolean;
 }
@@ -46,11 +41,13 @@ export function StepperFooter({
           className="w-32"
           data-testid="next-step"
           disabled={isNextStepDisabled || isSubmitting}
-          onClick={() => void onNextStep()}
+          onClick={() => {
+            onNextStep();
+          }}
           variant="outline">
           {STEP_KEYS.length === currentStep + 1
-            ? languageData["Form.Custom.affiliation.create"] || "Create"
-            : languageData["CRM.Affiliations.Drawer.next"] || "Next step"}
+            ? languageData["CRM.Affiliation.create"]
+            : languageData["CRM.Affiliations.Drawer.next"]}
         </Button>
       </div>
 

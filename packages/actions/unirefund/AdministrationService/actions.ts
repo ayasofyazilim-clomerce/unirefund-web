@@ -1,7 +1,7 @@
 "use server";
-import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
-import type {Session} from "next-auth";
-import {getAdministrationServiceClient} from "../lib";
+import { structuredError, structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "next-auth";
+import { getAdministrationServiceClient } from "../lib";
 export async function getInfoForCurrentTenantApi(session?: Session | null) {
   try {
     const client = await getAdministrationServiceClient(session);
