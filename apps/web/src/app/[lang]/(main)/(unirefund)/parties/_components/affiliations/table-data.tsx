@@ -1,13 +1,6 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import type {Volo_Abp_Identity_IdentityRoleDto as RoleDto} from "@ayasofyazilim/core-saas/IdentityService";
-import type {UniRefund_CRMService_Affiliations_AffiliationListResponseDto as AffiliationListResponseDto} from "@repo/saas/CRMService";
-import {
-  $UniRefund_CRMService_Affiliations_AffiliationListResponseDto as $AffiliationListResponseDto,
-  $UniRefund_CRMService_Affiliations_UpdateAffiliationDto as $UpdateAffiliationDto,
-} from "@repo/saas/CRMService";
-import {deleteMerchantAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/delete-actions";
-import {putMerchantAffiliationByIdApi} from "@repo/actions/unirefund/CrmService/put-actions";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import type {
   TanstackTableCreationProps,
@@ -17,15 +10,21 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
+import type {UniRefund_CRMService_Affiliations_AffiliationListResponseDto as AffiliationListResponseDto} from "@repo/saas/CRMService";
+import {
+  $UniRefund_CRMService_Affiliations_AffiliationListResponseDto as $AffiliationListResponseDto,
+  $UniRefund_CRMService_Affiliations_UpdateAffiliationDto as $UpdateAffiliationDto,
+} from "@repo/saas/CRMService";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import {PlusCircle, Trash2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams} from "next/navigation";
-import type {Dispatch, SetStateAction} from "react";
-import {useState} from "react";
+import type {Dispatch, TransitionStartFunction} from "react";
+import {useTransition} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {PartyTypeHasAffiliations} from "../party-header";
+import {deleteAffiliationByPartyType, updateAffiliationByPartyType} from "./utils";
 
 type AffiliationTableType = TanstackTableCreationProps<AffiliationListResponseDto>;
 
@@ -53,12 +52,7 @@ function affiliationTableActions(
   return actions;
 }
 
-function affiliationColumns(
-  locale: string,
-  languageData: CRMServiceServiceResource,
-  // router: AppRouterInstance,
-  // grantedPolicies: Record<Policy, boolean>,
-) {
+function affiliationColumns(locale: string, languageData: CRMServiceServiceResource) {
   return tanstackTableCreateColumnsByRowData<AffiliationListResponseDto>({
     rows: $AffiliationListResponseDto.properties,
     languageData: {
@@ -73,6 +67,7 @@ function affiliationColumns(
 }
 
 function AffiliationTable(
+  partyType: PartyTypeHasAffiliations,
   languageData: CRMServiceServiceResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
@@ -82,7 +77,7 @@ function AffiliationTable(
   setOpen: Dispatch<React.SetStateAction<boolean>>,
 ) {
   const {partyId} = useParams<{lang: string; partyId: string}>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const table: AffiliationTableType = {
     tableActions: affiliationTableActions(languageData, grantedPolicies, isUsersAvailable, isRolesAvailable, setOpen),
@@ -104,10 +99,11 @@ function AffiliationTable(
       EditForm({
         row,
         partyId,
+        partyType,
         languageData,
         roles,
-        isSubmitting,
-        setIsSubmitting,
+        isPending,
+        startTransition,
         router,
       }),
     columnVisibility: {
@@ -128,41 +124,43 @@ export const tableData = {
 function EditForm({
   row,
   partyId,
+  partyType,
   languageData,
   roles,
-  isSubmitting,
-  setIsSubmitting,
+  isPending,
+  startTransition,
   router,
 }: {
   row: AffiliationListResponseDto;
   partyId: string;
+  partyType: PartyTypeHasAffiliations;
   languageData: CRMServiceServiceResource;
   roles: RoleDto[];
-  isSubmitting: boolean;
-  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+  isPending: boolean;
+  startTransition: TransitionStartFunction;
   router: AppRouterInstance;
 }) {
   return (
     <SchemaForm<AffiliationListResponseDto>
-      disabled={isSubmitting}
+      disabled={isPending}
       filter={{type: "include", sort: true, keys: ["abpRoleId", "isPrimary", "startDate", "endDate"]}}
       formData={row}
       key={JSON.stringify(row)}
       onSubmit={({formData}) => {
         if (!formData) return;
-        setIsSubmitting(true);
-        void putMerchantAffiliationByIdApi({
-          affiliationId: row.id || "",
-          merchantId: partyId,
-          requestBody: {
-            abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
-            isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
-            startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
-            endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
-          },
-        }).then((res) => {
-          handlePutResponse(res, router);
-          setIsSubmitting(false);
+        startTransition(() => {
+          updateAffiliationByPartyType({
+            router,
+            affiliationId: row.id || "",
+            partyId,
+            partyType,
+            requestBody: {
+              abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
+              isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
+              startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
+              endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
+            },
+          });
         });
       }}
       schema={$UpdateAffiliationDto}
@@ -197,27 +195,25 @@ function EditForm({
           closeProps={{children: languageData.Cancel}}
           confirmProps={{
             type: "button",
-            children: languageData["Form.Merchant.affiliation.delete"],
+            children: languageData["CRM.Affiliation.delete"],
             closeAfterConfirm: true,
             onConfirm: () => {
-              setIsSubmitting(true);
-              void deleteMerchantAffiliationByIdApi({merchantId: partyId, affiliationId: row.id || ""}).then((res) => {
-                handleDeleteResponse(res, router);
-                setIsSubmitting(false);
+              startTransition(() => {
+                deleteAffiliationByPartyType({partyId, partyType, router, affiliationId: row.id || ""});
               });
             },
           }}
-          description={languageData["Form.Merchant.affiliation.delete.confirm"]}
-          loading={isSubmitting}
-          title={languageData["Form.Merchant.affiliation.delete"]}
+          description={languageData["CRM.Affiliation.delete.confirm"]}
+          loading={isPending}
+          title={languageData["CRM.Affiliation.delete"]}
           type="without-trigger">
-          <Button className="" data-testid="delete-affiliation" disabled={isSubmitting} type="button" variant="outline">
+          <Button className="" data-testid="delete-affiliation" disabled={isPending} type="button" variant="outline">
             <Trash2Icon className="mr-2 size-4" />
-            {languageData["Form.Merchant.affiliation.delete"]}
+            {languageData["CRM.Affiliation.delete"]}
           </Button>
         </ConfirmDialog>
-        <Button data-testid="update-affiliation" disabled={isSubmitting}>
-          {languageData["Form.Merchant.affiliation.update"]}
+        <Button data-testid="update-affiliation" disabled={isPending}>
+          {languageData["CRM.Affiliation.update"]}
         </Button>
       </div>
     </SchemaForm>

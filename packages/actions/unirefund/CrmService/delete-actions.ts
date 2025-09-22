@@ -61,7 +61,6 @@ export async function deleteMerchantProductGroupsByIdApi({
     return structuredError(error);
   }
 }
-
 /*RefundPoint */
 export async function deleteRefundPointByRefundPointIdApi({
   refundPointId,
@@ -133,6 +132,100 @@ export async function deleteTaxOfficeAffiliationByIdApi({
     const response = await crmClient.taxOffice.deleteApiCrmServiceTaxOfficesByTaxOfficeIdAffiliationsByAffiliationId({
       taxOfficeId,
       affiliationId,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+/*TaxFree */
+export async function deleteTaxFreeByTaxFreeIdApi({
+  taxFreeId,
+  session,
+}: {
+  taxFreeId: string;
+  session?: Session | null;
+}) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.deleteApiCrmServiceTaxFreesById({
+      id: taxFreeId,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function deleteTaxFreeAffiliationByIdApi({
+  taxFreeId,
+  affiliationId,
+  session,
+}: {
+  taxFreeId: string;
+  affiliationId: string;
+  session?: Session | null;
+}) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.taxFree.deleteApiCrmServiceTaxFreesByTaxFreeIdAffiliationsByAffiliationId({
+      taxFreeId,
+      affiliationId,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+/*Customs */
+export async function deleteCustomByCustomIdApi({
+  customId,
+  session,
+}: {
+  customId: string;
+  session?: Session | null;
+}) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.custom.deleteApiCrmServiceCustomsById({
+      id: customId,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+export async function deleteCustomAffiliationByIdApi({
+  customId,
+  affiliationId,
+  session,
+}: {
+  customId: string;
+  affiliationId: string;
+  session?: Session | null;
+}) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.custom.deleteApiCrmServiceCustomsByCustomIdAffiliationsByAffiliationId({
+      customId,
+      affiliationId,
+    });
+    return structuredSuccessResponse(response);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+/*Individual */
+export async function deleteIndividualByIdApi({
+  individualId,
+  session,
+}: {
+  individualId: string;
+  session?: Session | null;
+}) {
+  try {
+    const crmClient = await getCRMServiceClient(session);
+    const response = await crmClient.individual.deleteApiCrmServiceIndividualsById({
+      id: individualId,
     });
     return structuredSuccessResponse(response);
   } catch (error) {

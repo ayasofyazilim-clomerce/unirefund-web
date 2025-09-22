@@ -1,12 +1,13 @@
 "use client";
 
 import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
-import type {PagedResultDto_AffiliationListResponseDto} from "@repo/saas/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
+import type {PagedResultDto_AffiliationListResponseDto} from "@repo/saas/CRMService";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useParams, useRouter} from "next/navigation";
 import {useState} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {PartyTypeHasAffiliations} from "../party-header";
 import {AffiliationDrawer} from "./drawer";
 import {tableData} from "./table-data";
 
@@ -20,13 +21,10 @@ function AffiliationsTable({
 }: {
   affiliations: PagedResultDto_AffiliationListResponseDto;
   languageData: CRMServiceServiceResource;
-
   roles: Volo_Abp_Identity_IdentityRoleDto[];
   isRolesAvailable: boolean;
-
   isUsersAvailable: boolean;
-
-  partyType: "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs";
+  partyType: PartyTypeHasAffiliations;
 }) {
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
@@ -35,6 +33,7 @@ function AffiliationsTable({
 
   const columns = tableData.affiliations.columns(lang, languageData);
   const table = tableData.affiliations.table(
+    partyType,
     languageData,
     router,
     grantedPolicies,

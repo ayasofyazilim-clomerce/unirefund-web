@@ -4,15 +4,15 @@ import type {
   GetApiAccountSecurityLogsData,
   GetApiAccountSessionsData,
 } from "@ayasofyazilim/core-saas/AccountService";
-import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
-import {signIn} from "@repo/utils/auth/next-auth";
-import {getAccountServiceClient} from "../lib";
-import {Session} from "@repo/utils/auth";
+import { structuredError, structuredResponse, structuredSuccessResponse } from "@repo/utils/api";
+import { signIn } from "@repo/utils/auth/next-auth";
+import { getAccountServiceClient } from "../lib";
+import { Session } from "@repo/utils/auth";
 
 export async function getTenantByNameApi(name: string) {
   try {
     const client = await getAccountServiceClient();
-    const dataResponse = await client.abpTenant.getApiAbpMultiTenancyTenantsByNameByName({name});
+    const dataResponse = await client.abpTenant.getApiAbpMultiTenancyTenantsByNameByName({ name });
     return structuredSuccessResponse(dataResponse);
   } catch (error) {
     throw structuredError(error);
@@ -39,7 +39,7 @@ export async function signInServerApi({
     });
     return structuredSuccessResponse("");
   } catch (error) {
-    const err = error as {message: string};
+    const err = error as { message: string };
     if (err.message === "NEXT_REDIRECT") {
       throw error;
     }
@@ -75,14 +75,14 @@ export async function signUpServerApi({
     });
     return structuredSuccessResponse("");
   } catch (error) {
-    const err = error as {body: {error: {message: string}}};
+    const err = error as { body: { error: { message: string } } };
     return {
       type: "error" as const,
       message: err?.body?.error.message,
     };
   }
 }
-export async function sendPasswordResetCodeApi({tenantId, email}: {tenantId: string; email: string}) {
+export async function sendPasswordResetCodeApi({ tenantId, email }: { tenantId: string; email: string }) {
   try {
     const client = await getAccountServiceClient({
       __tenant: tenantId || "",
