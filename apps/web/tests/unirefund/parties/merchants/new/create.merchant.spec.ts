@@ -1,5 +1,6 @@
 import type {Locator, Page} from "@playwright/test";
 import {expect, test} from "@playwright/test";
+import {appReady} from "tests/unirefund/_support/app-ready";
 
 function randDigits(len: number) {
   return Array.from({length: len}, () => Math.floor(Math.random() * 10)).join("");
@@ -53,6 +54,8 @@ test("create merchant", async ({page}) => {
   const randomChainCodeId = `${randDigits(8)}-${randDigits(4)}-${randDigits(4)}-${randDigits(4)}-${randDigits(12)}`;
 
   await page.goto("/en/parties/merchants/new");
+  await appReady(page);
+
   const by = (id: string) => page.getByTestId(id);
 
   await fillStable(page, by("root_name"), randomName);
