@@ -1844,6 +1844,8 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:010059": "A region with the same name already exists.";
   "UniRefund.CRMService:010060": "User is not authenticated.";
   "UniRefund.CRMService:018003": "Party with PartyId '{partyId}' and does not have an affiliation with the current user.";
+  "UniRefund.CRMService:019001": "At least ITU Country Code or AreaCode must exist!";
+  "UniRefund.CRMService:020001": "At least and just one {contactTypeName} can be primary!";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";

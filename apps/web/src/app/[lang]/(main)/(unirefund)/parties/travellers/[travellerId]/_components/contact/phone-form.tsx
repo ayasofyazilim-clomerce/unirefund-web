@@ -2,21 +2,22 @@
 
 import {Switch} from "@/components/ui/switch";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-import type {
-  UniRefund_TravellerService_Telephones_TelephoneUpSertDto as TelephoneUpSertDto,
-  UniRefund_TravellerService_Telephones_TelephoneDto as TelephoneDto,
-} from "@repo/saas/TravellerService";
-import {
-  $UniRefund_TravellerService_Telephones_TelephoneUpSertDto as $TelephoneUpSertDto,
-  $UniRefund_TravellerService_Telephones_TelephoneDto as $TelephoneDto,
-} from "@repo/saas/TravellerService";
 import {putTravellerTelephonesByTravellerIdApi} from "@repo/actions/unirefund/TravellerService/put-actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {TanstackTableTableActionsType} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import type {
+  UniRefund_TravellerService_Telephones_TelephoneDto as TelephoneDto,
+  UniRefund_TravellerService_Telephones_TelephoneUpSertDto as TelephoneUpSertDto,
+} from "@repo/saas/TravellerService";
+import {
+  $UniRefund_TravellerService_Telephones_TelephoneDto as $TelephoneDto,
+  $UniRefund_TravellerService_Telephones_TelephoneUpSertDto as $TelephoneUpSertDto,
+} from "@repo/saas/TravellerService";
 import {handlePutResponse} from "@repo/utils/api";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
@@ -41,7 +42,15 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({row, travellerId, isPending, startTransition, languageData, isActive: phones.length === 1}),
+          IsPrimaryAction({
+            row,
+            travellerId,
+            isPending,
+            startTransition,
+            languageData,
+            isActive: phones.length === 1,
+            router,
+          }),
       },
       type: {
         showHeader: true,
@@ -180,6 +189,7 @@ function IsPrimaryAction({
   isPending,
   startTransition,
   languageData,
+  router,
 }: {
   row: TelephoneDto;
   travellerId: string;
@@ -187,6 +197,7 @@ function IsPrimaryAction({
   isPending: boolean;
   startTransition: TransitionStartFunction;
   languageData: TravellerServiceResource;
+  router: AppRouterInstance;
 }) {
   const switchComponent = (
     <Switch
@@ -202,7 +213,7 @@ function IsPrimaryAction({
               isPrimary: !row.isPrimary,
             },
           }).then((response) => {
-            handlePutResponse(response);
+            handlePutResponse(response, router);
           });
         });
       }}
