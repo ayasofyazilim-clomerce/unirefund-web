@@ -20,6 +20,7 @@ import {handlePostResponse, handlePutResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
 
 export function EmailForm({languageData, emails}: {languageData: DefaultResource; emails: EmailDto[]}) {
@@ -40,7 +41,15 @@ export function EmailForm({languageData, emails}: {languageData: DefaultResource
       isPrimary: {
         showHeader: true,
         content: (row) =>
-          IsPrimaryAction({row, travellerId, isPending, startTransition, languageData, isActive: emails.length === 1}),
+          IsPrimaryAction({
+            row,
+            travellerId,
+            isPending,
+            startTransition,
+            languageData,
+            isActive: emails.length === 1,
+            router,
+          }),
       },
       type: {
         showHeader: true,
@@ -104,7 +113,7 @@ export function EmailForm({languageData, emails}: {languageData: DefaultResource
       }}
       columns={columns}
       data={emails}
-      expandedRowComponent={(row) => EditForm({row, languageData, travellerId, isPending, startTransition})}
+      expandedRowComponent={(row) => EditForm({row, languageData, travellerId, isPending, startTransition, router})}
       fillerColumn="emailAddress"
       showPagination={false}
       tableActions={tableActions}
@@ -122,12 +131,14 @@ function EditForm({
   languageData,
   isPending,
   startTransition,
+  router,
 }: {
   row: EmailDto;
   travellerId: string;
   languageData: DefaultResource;
   isPending: boolean;
   startTransition: TransitionStartFunction;
+  router: AppRouterInstance;
 }) {
   return (
     <SchemaForm<EmailUpSertDto>
@@ -149,7 +160,7 @@ function EditForm({
         };
         startTransition(() => {
           void putTravellerEmailsByTravellerIdApi(data).then((response) => {
-            handlePutResponse(response);
+            handlePutResponse(response, router);
           });
         });
       }}
@@ -177,6 +188,7 @@ function IsPrimaryAction({
   isPending,
   startTransition,
   languageData,
+  router,
 }: {
   row: EmailDto;
   travellerId: string;
@@ -184,6 +196,7 @@ function IsPrimaryAction({
   isPending: boolean;
   startTransition: TransitionStartFunction;
   languageData: DefaultResource;
+  router: AppRouterInstance;
 }) {
   const switchComponent = (
     <Switch
@@ -199,7 +212,7 @@ function IsPrimaryAction({
               isPrimary: !row.isPrimary,
             },
           }).then((response) => {
-            handlePutResponse(response);
+            handlePutResponse(response, router);
           });
         });
       }}
