@@ -6,7 +6,7 @@ export const $PagedResultDto_TagListItemDto = {
         items: {
             type: 'array',
             items: {
-                required: ['exportValidationExpirationDate', 'issueDate', 'merchantTitle', 'status', 'tagNumber', 'travellerDocumentNumber', 'travellerFullName'],
+                required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -35,16 +35,16 @@ export const $PagedResultDto_TagListItemDto = {
                         nullable: true
                     },
                     travellerFullName: {
-                        minLength: 1,
-                        type: 'string'
+                        type: 'string',
+                        nullable: true
                     },
                     travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
                     },
                     merchantTitle: {
-                        minLength: 1,
-                        type: 'string'
+                        type: 'string',
+                        nullable: true
                     },
                     status: {
                         enum: ['None', 'Open', 'PreIssued', 'Issued', 'WaitingGoodsValidation', 'WaitingStampValidation', 'Declined', 'ExportValidated', 'PaymentBlocked', 'PaymentInProgress', 'PaymentProblem', 'Paid', 'Cancelled', 'Expired', 'Correction', 'OptedOut', 'EarlyPaid'],
@@ -110,7 +110,7 @@ export const $TagListResponseDto_TagListItemDto = {
         items: {
             type: 'array',
             items: {
-                required: ['exportValidationExpirationDate', 'issueDate', 'merchantTitle', 'status', 'tagNumber', 'travellerDocumentNumber', 'travellerFullName'],
+                required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -139,16 +139,16 @@ export const $TagListResponseDto_TagListItemDto = {
                         nullable: true
                     },
                     travellerFullName: {
-                        minLength: 1,
-                        type: 'string'
+                        type: 'string',
+                        nullable: true
                     },
                     travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
                     },
                     merchantTitle: {
-                        minLength: 1,
-                        type: 'string'
+                        type: 'string',
+                        nullable: true
                     },
                     status: {
                         enum: ['None', 'Open', 'PreIssued', 'Issued', 'WaitingGoodsValidation', 'WaitingStampValidation', 'Declined', 'ExportValidated', 'PaymentBlocked', 'PaymentInProgress', 'PaymentProblem', 'Paid', 'Cancelled', 'Expired', 'Correction', 'OptedOut', 'EarlyPaid'],
@@ -209,6 +209,7 @@ This DTO captures different types of monetary amounts relevant to the tag, such 
 } as const;
 
 export const $UniRefund_CRMService_Addresses_AddressDto = {
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -216,7 +217,7 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
             format: 'uuid'
         },
         partyType: {
-            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
             type: 'string'
         },
         partyId: {
@@ -267,8 +268,7 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
             nullable: true
         },
         isPrimary: {
-            type: 'boolean',
-            nullable: true
+            type: 'boolean'
         }
     },
     additionalProperties: false
@@ -280,6 +280,7 @@ export const $UniRefund_CRMService_Addresses_AddressType = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
+    required: ['address', 'name', 'productGroups'],
     type: 'object',
     properties: {
         id: {
@@ -292,6 +293,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
             nullable: true
         },
         address: {
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -299,7 +301,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -350,8 +352,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -621,7 +622,7 @@ export const $UniRefund_SettingService_ProductGroups_UnitTypeCode = {
 } as const;
 
 export const $UniRefund_Shared_Contracts_Enums_PartyType = {
-    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
     type: 'string'
 } as const;
 
@@ -933,7 +934,7 @@ Required for itemized billing and calculations.`
 } as const;
 
 export const $UniRefund_TagService_Merchants_MerchantRequestDto = {
-    required: ['branchId', 'countryCode', 'vatNumber'],
+    required: ['countryCode', 'externalStoreIdentifier', 'vatNumber'],
     type: 'object',
     properties: {
         vatNumber: {
@@ -948,7 +949,7 @@ This number is used for tax reporting and legal identification of the business.`
             description: `ISO 3166-1 alpha-2 country code where the merchant is registered (e.g., "DE" for Germany, "TR" for Turkey).
 Determines jurisdiction for tax and regulatory purposes.`
         },
-        branchId: {
+        externalStoreIdentifier: {
             minLength: 1,
             type: 'string',
             description: `Unique identifier of the merchant's branch or store within the organization.
@@ -964,7 +965,7 @@ export const $UniRefund_TagService_Tags_CreateTagRequestDto = {
     type: 'object',
     properties: {
         merchant: {
-            required: ['branchId', 'countryCode', 'vatNumber'],
+            required: ['countryCode', 'externalStoreIdentifier', 'vatNumber'],
             type: 'object',
             properties: {
                 vatNumber: {
@@ -979,7 +980,7 @@ This number is used for tax reporting and legal identification of the business.`
                     description: `ISO 3166-1 alpha-2 country code where the merchant is registered (e.g., "DE" for Germany, "TR" for Turkey).
 Determines jurisdiction for tax and regulatory purposes.`
                 },
-                branchId: {
+                externalStoreIdentifier: {
                     minLength: 1,
                     type: 'string',
                     description: `Unique identifier of the merchant's branch or store within the organization.
@@ -1141,25 +1142,24 @@ export const $UniRefund_TagService_Tags_ExpirationReason = {
 } as const;
 
 export const $UniRefund_TagService_Tags_ExportValidationRequestDto = {
-    required: ['customsId', 'referenceId', 'responseCode'],
+    required: ['customsId', 'exportDate', 'referenceId', 'responseCode'],
     type: 'object',
     properties: {
         exportDate: {
             type: 'string',
-            format: 'date-time',
-            nullable: true
+            format: 'date-time'
         },
         customsId: {
             type: 'string',
             format: 'uuid'
         },
         referenceId: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         responseCode: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         description: {
             type: 'string',
@@ -1453,6 +1453,7 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
             nullable: true
         },
         merchant: {
+            required: ['address', 'name', 'productGroups'],
             type: 'object',
             properties: {
                 id: {
@@ -1465,6 +1466,7 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                     nullable: true
                 },
                 address: {
+                    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                     type: 'object',
                     properties: {
                         id: {
@@ -1472,7 +1474,7 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                             format: 'uuid'
                         },
                         partyType: {
-                            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                             type: 'string'
                         },
                         partyId: {
@@ -1523,8 +1525,7 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                             nullable: true
                         },
                         isPrimary: {
-                            type: 'boolean',
-                            nullable: true
+                            type: 'boolean'
                         }
                     },
                     additionalProperties: false
@@ -1594,7 +1595,8 @@ This DTO is used for transferring and displaying core merchant data.`
             properties: {
                 id: {
                     type: 'string',
-                    format: 'uuid'
+                    format: 'uuid',
+                    nullable: true
                 },
                 travelDocumentNumber: {
                     type: 'string',
@@ -2131,7 +2133,7 @@ export const $UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto = {
 } as const;
 
 export const $UniRefund_TagService_Tags_TagListItemDto = {
-    required: ['exportValidationExpirationDate', 'issueDate', 'merchantTitle', 'status', 'tagNumber', 'travellerDocumentNumber', 'travellerFullName'],
+    required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         id: {
@@ -2160,16 +2162,16 @@ export const $UniRefund_TagService_Tags_TagListItemDto = {
             nullable: true
         },
         travellerFullName: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         },
         merchantTitle: {
-            minLength: 1,
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         status: {
             enum: ['None', 'Open', 'PreIssued', 'Issued', 'WaitingGoodsValidation', 'WaitingStampValidation', 'Declined', 'ExportValidated', 'PaymentBlocked', 'PaymentInProgress', 'PaymentProblem', 'Paid', 'Cancelled', 'Expired', 'Correction', 'OptedOut', 'EarlyPaid'],
@@ -2590,7 +2592,8 @@ export const $UniRefund_TagService_Travellers_TravellerDetailDto = {
     properties: {
         id: {
             type: 'string',
-            format: 'uuid'
+            format: 'uuid',
+            nullable: true
         },
         travelDocumentNumber: {
             type: 'string',

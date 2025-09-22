@@ -2,12 +2,13 @@
 
 import type { CancelablePromise } from './core/CancelablePromise';
 import type { BaseHttpRequest } from './core/BaseHttpRequest';
-import type { PostApiTagServiceTagData, PostApiTagServiceTagResponse, GetApiTagServiceTagData, GetApiTagServiceTagResponse, PutApiTagServiceTagByIdData, PutApiTagServiceTagByIdResponse, DeleteApiTagServiceTagByIdData, DeleteApiTagServiceTagByIdResponse, GetApiTagServiceTagByIdDetailData, GetApiTagServiceTagByIdDetailResponse, GetApiTagServiceTagTagsRefundData, GetApiTagServiceTagTagsRefundResponse, GetApiTagServiceTagSummaryData, GetApiTagServiceTagSummaryResponse, GetApiTagServiceTagTagsRefundFeesData, GetApiTagServiceTagTagsRefundFeesResponse, PutApiTagServiceTagExportValidationByIdData, PutApiTagServiceTagExportValidationByIdResponse } from './types.gen';
+import type { PostApiTagServiceTagData, PostApiTagServiceTagResponse, GetApiTagServiceTagData, GetApiTagServiceTagResponse, PutApiTagServiceTagByIdData, PutApiTagServiceTagByIdResponse, DeleteApiTagServiceTagByIdData, DeleteApiTagServiceTagByIdResponse, GetApiTagServiceTagByIdDetailData, GetApiTagServiceTagByIdDetailResponse, GetApiTagServiceTagByTagNumberDetailByTagNumberData, GetApiTagServiceTagByTagNumberDetailByTagNumberResponse, GetApiTagServiceTagTagsRefundData, GetApiTagServiceTagTagsRefundResponse, GetApiTagServiceTagSummaryData, GetApiTagServiceTagSummaryResponse, GetApiTagServiceTagTagsRefundFeesData, GetApiTagServiceTagTagsRefundFeesResponse, PutApiTagServiceTagExportValidationByIdData, PutApiTagServiceTagExportValidationByIdResponse } from './types.gen';
 
 export class TagService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -29,8 +30,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.View
      * @param data The data for the request.
      * @param data.tagNumber
      * @param data.invoiceNumber
@@ -87,8 +89,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -114,8 +117,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -138,8 +142,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.Detail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -162,8 +167,34 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.DetailByTagNumber
+     * @param data The data for the request.
+     * @param data.tagNumber
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public getApiTagServiceTagByTagNumberDetailByTagNumber(data: GetApiTagServiceTagByTagNumberDetailByTagNumberData): CancelablePromise<GetApiTagServiceTagByTagNumberDetailByTagNumberResponse> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/tag-service/tag/{tagNumber}/detail-by-tag-number',
+            path: {
+                tagNumber: data.tagNumber
+            },
+            errors: {
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                403: 'Forbidden',
+                404: 'Not Found',
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
+            }
+        });
+    }
+
+    /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.ViewForRefund
      * @param data The data for the request.
      * @param data.travellerDocumentNumber
      * @param data.isExportValidated
@@ -198,8 +229,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.ViewSummary
      * @param data The data for the request.
      * @param data.tagNumber
      * @param data.invoiceNumber
@@ -256,8 +288,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.ViewTagsRefundFees
      * @param data The data for the request.
      * @param data.tagIds
      * @param data.refundPointId
@@ -286,8 +319,9 @@ export class TagService {
             }
         });
     }
-    
+
     /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.ExportValidation
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -313,5 +347,5 @@ export class TagService {
             }
         });
     }
-    
+
 }
