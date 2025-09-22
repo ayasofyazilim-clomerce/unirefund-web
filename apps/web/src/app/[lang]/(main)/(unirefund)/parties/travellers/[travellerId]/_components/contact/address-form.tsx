@@ -163,7 +163,6 @@ function EditForm({
             ...formData,
           },
         };
-        console.log(data);
         startTransition(() => {
           void putTravellerAddressesByTravellerIdApi(data).then((response) => {
             handlePutResponse(response, router);

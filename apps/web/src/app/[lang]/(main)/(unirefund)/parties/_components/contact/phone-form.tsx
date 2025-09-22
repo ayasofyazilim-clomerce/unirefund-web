@@ -193,7 +193,7 @@ function IsPrimaryAction({
   languageData,
   router,
 }: {
-  row: TelephoneUpSertDto;
+  row: TelephoneDto;
   partyId: string;
   partyType: PartyType;
   isActive: boolean;
@@ -210,7 +210,7 @@ function IsPrimaryAction({
       onCheckedChange={(value) => {
         startTransition(() => {
           telephoneActionByPartyType({
-            requestBody: {isPrimary: value, telephoneId: row.telephoneId},
+            requestBody: {isPrimary: value, telephoneId: row.id},
             partyType,
             partyId,
             router,

@@ -6,19 +6,13 @@ import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
   UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
 } from "@repo/saas/CRMService";
-import {
-  postCustomAffiliationApi,
-  postMerchantAffiliationApi,
-  postRefundPointAffiliationApi,
-  postTaxFreeAffiliationApi,
-  postTaxOfficesAffiliationApi,
-} from "@repo/actions/unirefund/CrmService/post-actions";
-import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback, useMemo, useState, useTransition} from "react";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 import {CreateIndividualForm} from "../../individual-form";
+import type {PartyTypeHasAffiliations} from "../../party-header";
+import {createAffiliationByPartyType} from "../utils";
 import {StepperFooter} from "./footer";
 import {SelectIndividualStep} from "./step-1";
 import {SelectUserAndRoleStep} from "./step-2";
@@ -28,7 +22,7 @@ interface AffiliationDrawerProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   languageData: CRMServiceServiceResource;
   roles: Volo_Abp_Identity_IdentityRoleDto[];
-  partyType: "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs";
+  partyType: PartyTypeHasAffiliations;
 }
 
 interface FormResponse {
@@ -37,13 +31,11 @@ interface FormResponse {
   message?: string;
 }
 
-// Constants
 export const STEP_KEYS = ["select-individual", "select-user-and-role"] as const;
 export const INITIAL_STEP = 0;
 
 type StepKey = (typeof STEP_KEYS)[number];
 
-// Utility functions
 export const getStepTitle = (languageData: CRMServiceServiceResource, stepKey: StepKey): string => {
   const stepTitleMap: Record<StepKey, keyof CRMServiceServiceResource> = {
     "select-individual": "CRM.Affiliations.createOrSelect",
@@ -53,10 +45,9 @@ export const getStepTitle = (languageData: CRMServiceServiceResource, stepKey: S
 };
 
 export function AffiliationDrawer({open, setOpen, languageData, roles, partyType}: AffiliationDrawerProps) {
-  // State management
   const router = useRouter();
-  const params = useParams<{partyId: string}>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {partyId} = useParams<{partyId: string}>();
+  const [isPending, startTransition] = useTransition();
   const [currentStep, setCurrentStep] = useState(INITIAL_STEP);
   const [selectedRole, setSelectedRole] = useState<Volo_Abp_Identity_IdentityRoleDto | null>(null);
   const [date, setDate] = useState<Date | null>(null);
@@ -64,7 +55,6 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
 
   const [selectedIndividual, setSelectedIndividual] = useState<{individualId: string; fullname: string} | undefined>();
 
-  // Memoized values
   const currentStepKey = useMemo(() => STEP_KEYS[currentStep], [currentStep]);
   const currentStepTitle = useMemo(() => getStepTitle(languageData, currentStepKey), [languageData, currentStepKey]);
 
@@ -78,7 +68,6 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
     ? languageData["CRM.Affiliations.Drawer.cancel"]
     : languageData["CRM.Affiliations.Drawer.previous"];
 
-  // Event handlers
   const handleDrawerOpenChange = useCallback(
     (isOpen: boolean) => {
       if (preventClose) return;
@@ -96,42 +85,26 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
     }
   }, [isFirstStep, setOpen]);
 
-  const handleNextStep = useCallback(async () => {
+  const handleNextStep = useCallback(() => {
     if (currentStep === 1) {
       if (!selectedIndividual || !selectedRole?.id || !date) {
         toast.error("Error");
         return;
       }
-      setIsSubmitting(true);
-      const data = {
-        id: params.partyId,
-        requestBody: {
+      startTransition(() => {
+        const requestBody = {
           individualId: selectedIndividual.individualId,
-          abpRoleId: selectedRole.id,
+          abpRoleId: selectedRole.id || "",
           startDate: date.toISOString(),
           isPrimary: false,
-        },
-      };
-      let res;
-      switch (partyType) {
-        case "merchants":
-          res = await postMerchantAffiliationApi(data);
-          break;
-        case "refund-points":
-          res = await postRefundPointAffiliationApi(data);
-          break;
-        case "customs":
-          res = await postCustomAffiliationApi(data);
-          break;
-        case "tax-free":
-          res = await postTaxFreeAffiliationApi(data);
-          break;
-        case "tax-offices":
-          res = await postTaxOfficesAffiliationApi(data);
-          break;
-      }
-      handlePostResponse(res, router);
-      setIsSubmitting(false);
+        };
+        createAffiliationByPartyType({
+          partyId,
+          partyType,
+          requestBody,
+          router,
+        });
+      });
       setSelectedIndividual(undefined);
       setSelectedRole(null);
       setCurrentStep(INITIAL_STEP);
@@ -141,7 +114,7 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
       return;
     }
     setCurrentStep((prev) => Math.min(prev + 1, STEP_KEYS.length - 1));
-  }, [currentStep, date, selectedIndividual, selectedRole, params.partyId, partyType, router, setOpen]);
+  }, [currentStep, date, selectedIndividual, selectedRole, partyId, partyType, router, setOpen]);
 
   const handleStepChange = useCallback((step: number) => {
     const normalizedStep = Math.max(INITIAL_STEP, Math.min(step - 1, STEP_KEYS.length - 1));
@@ -203,7 +176,7 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
           buttonText={buttonText}
           currentStep={currentStep}
           isNextStepDisabled={isNextStepDisabled}
-          isSubmitting={isSubmitting}
+          isSubmitting={isPending}
           languageData={languageData}
           onNextStep={handleNextStep}
           onPreviousStep={handlePreviousStep}

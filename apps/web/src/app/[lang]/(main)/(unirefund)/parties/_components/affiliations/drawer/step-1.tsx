@@ -125,7 +125,7 @@ export function SelectIndividualStep({
       </div>
 
       <span className="w-full text-center text-sm text-slate-600" role="separator">
-        {languageData["Form.Merchant.affiliation.or"]}
+        {languageData["CRM.Affiliation.or"]}
       </span>
 
       <IndividualDrawer languageData={languageData} onIndividualUpdate={onIndividualUpdate} />

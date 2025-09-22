@@ -13,6 +13,8 @@ import {getBaseLink} from "@/utils";
 
 export type PartyType = "merchants" | "refund-points" | "tax-free" | "tax-offices" | "customs" | "individuals";
 
+export type PartyTypeHasAffiliations = Omit<PartyType, "individuals">;
+
 export default function PartyHeader({
   details,
   partyType,
