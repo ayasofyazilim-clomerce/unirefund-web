@@ -1,4 +1,13 @@
 {
+  "INDIVIDUAL": "Individual",
+  "MERCHANT": "Merchant",
+  "REFUNDPOINT": "Refund point",
+  "CUSTOM": "Custom",
+  "TAXFREE": "Taxfree",
+  "TAXOFFICE": "Tax office",
+  "TOURGUIDE": "Tourguide",
+  "TRAVELLER": "Traveller",
+
   "Missing.ProductGroup.Title": "Product Group is missing",
   "Missing.ProductGroup.Message": "Please create a product group to continue.",
 
@@ -208,6 +217,10 @@
   "CRM.Affiliations.selectUserAndRole": "Select User and Role",
   "CRM.Affiliations.fillDetails": "Fill Details",
   "CRM.Affiliations.selectRole": "Select Role",
+
+  "CRM.Affiliations.search": "Search affiliation",
+  "CRM.Affiliations.notFound": "No affiliation found.",
+  "CRM.Affiliations.switchTo.{0}": "Switch to {0}",
 
   "CRM.Messages.email.isPrimary.atLeastOnePrimaryRequired": "This field cannot be edited because at least one primary email is required.",
   "CRM.Messages.address.isPrimary.atLeastOnePrimaryRequired": "This field cannot be edited because at least one primary address is required.",
