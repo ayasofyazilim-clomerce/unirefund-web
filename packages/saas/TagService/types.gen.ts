@@ -12,19 +12,19 @@ export type TagListResponseDto_TagListItemDto = {
 
 export type UniRefund_CRMService_Addresses_AddressDto = {
     id?: string;
-    partyType?: UniRefund_Shared_Contracts_Enums_PartyType;
-    partyId?: string;
-    countryId?: string;
-    adminAreaLevel1Id?: string;
-    adminAreaLevel2Id?: string;
-    neighborhoodId?: (string) | null;
-    addressLine?: (string) | null;
+    partyType: UniRefund_Shared_Contracts_Enums_PartyType;
+    partyId: string;
+    countryId: string;
+    adminAreaLevel1Id: string;
+    adminAreaLevel2Id: string;
+    neighborhoodId: (string) | null;
+    addressLine: (string) | null;
     postalCode?: (string) | null;
-    type?: UniRefund_CRMService_Addresses_AddressType;
+    type: UniRefund_CRMService_Addresses_AddressType;
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
-    isPrimary?: (boolean) | null;
+    isPrimary: boolean;
 };
 
 export type UniRefund_CRMService_Addresses_AddressType = 'UNKNOWN' | 'HOME' | 'WORK';
@@ -38,13 +38,13 @@ export type UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
     /**
      * The **business name** of the merchant. This is the official trading name.
      */
-    name?: (string) | null;
-    address?: UniRefund_CRMService_Addresses_AddressDto;
+    name: (string) | null;
+    address: UniRefund_CRMService_Addresses_AddressDto;
     /**
      * A list of **product groups** that this merchant sells,
      * relevant for tax-free eligibility categorization.
      */
-    productGroups?: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto> | null;
+    productGroups: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto> | null;
 };
 
 /**
@@ -168,7 +168,7 @@ export type UniRefund_SettingService_ProductGroups_ProductGroupDto = {
 
 export type UniRefund_SettingService_ProductGroups_UnitTypeCode = 'QNT' | 'BAG' | 'BOX';
 
-export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE';
+export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE' | 'TRAVELLER';
 
 /**
  * Represents an invoice within the tax-free system.
@@ -293,7 +293,7 @@ export type UniRefund_TagService_Merchants_MerchantRequestDto = {
      * Unique identifier of the merchant's branch or store within the organization.
      * Used to distinguish between different locations or subdivisions of the same merchant.
      */
-    branchId: string;
+    externalStoreIdentifier: string;
 };
 
 export type UniRefund_TagService_Tags_CreateTagRequestDto = {
@@ -312,10 +312,10 @@ export type UniRefund_TagService_Tags_Enums_RefundType = 'Cash' | 'CreditCard' |
 export type UniRefund_TagService_Tags_ExpirationReason = 'ExportValidationExpirationDate' | 'RefundExpirationDate' | 'EarlyRefundExpirationDate';
 
 export type UniRefund_TagService_Tags_ExportValidationRequestDto = {
-    exportDate?: (string) | null;
+    exportDate: string;
     customsId: string;
-    referenceId: string;
-    responseCode: string;
+    referenceId: (string) | null;
+    responseCode: (string) | null;
     description?: (string) | null;
 };
 
@@ -538,9 +538,9 @@ export type UniRefund_TagService_Tags_TagListItemDto = {
     exportValidationExpirationDate: string;
     refundExpirationDate?: (string) | null;
     isEarlyRefunded?: (boolean) | null;
-    travellerFullName: string;
+    travellerFullName?: (string) | null;
     travellerDocumentNumber: string;
-    merchantTitle: string;
+    merchantTitle?: (string) | null;
     status: UniRefund_TagService_Tags_TagStatusType;
     expirationReason?: UniRefund_TagService_Tags_ExpirationReason;
     totals?: Array<UniRefund_TagService_Tags_TagTotalDto> | null;
@@ -661,7 +661,7 @@ export type UniRefund_TagService_Tags_UpdateTagDto = {
  * This DTO is used to capture essential information about the individual making a tax-free purchase.
  */
 export type UniRefund_TagService_Travellers_TravellerDetailDto = {
-    id?: string;
+    id?: (string) | null;
     /**
      * The unique identification number from the traveller's travel document (e.g., passport number).
      */
@@ -1112,10 +1112,10 @@ export type PostApiTagServiceTagResponse = (UniRefund_TagService_Tags_TagDto);
 export type GetApiTagServiceTagData = {
     exportEndDate?: string;
     exportStartDate?: string;
-    invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
+    invoiceNumber?: string;
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
@@ -1151,6 +1151,12 @@ export type GetApiTagServiceTagByIdDetailData = {
 
 export type GetApiTagServiceTagByIdDetailResponse = (UniRefund_TagService_Tags_TagDetailDto);
 
+export type GetApiTagServiceTagByTagNumberDetailByTagNumberData = {
+    tagNumber: string;
+};
+
+export type GetApiTagServiceTagByTagNumberDetailByTagNumberResponse = (UniRefund_TagService_Tags_TagDetailDto);
+
 export type GetApiTagServiceTagTagsRefundData = {
     isExportValidated: boolean;
     maxResultCount?: number;
@@ -1166,10 +1172,10 @@ export type GetApiTagServiceTagTagsRefundResponse = (PagedResultDto_TagListItemD
 export type GetApiTagServiceTagSummaryData = {
     exportEndDate?: string;
     exportStartDate?: string;
-    invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
+    invoiceNumber?: string;
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;

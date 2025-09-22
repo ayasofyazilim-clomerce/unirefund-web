@@ -12,6 +12,7 @@ import {postTagApi} from "@repo/actions/unirefund/TagService/post-actions";
 import {getTravellersDetailsApi} from "@repo/actions/unirefund/TravellerService/actions";
 import {searchTravellers} from "@repo/actions/unirefund/TravellerService/search";
 import {handlePostResponse} from "@repo/utils/api";
+import type {UniRefund_TagService_Tags_CreateTagRequestDto} from "@repo/saas/TagService";
 import {getBaseLink} from "@/utils";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import ProductGroupAmountInput from "./_components/product-group-amount-input";
@@ -89,11 +90,11 @@ export default function ClientPage({
 
       const merchantInfoResponse = await getMerchantByIdApi(merchantIds[0].id);
       const travellerInfoResponse = await getTravellersDetailsApi(travellerIds[0].id);
-      const data = {
+      const data: UniRefund_TagService_Tags_CreateTagRequestDto = {
         merchant: {
           vatNumber: merchantInfoResponse.data.vatNumber || "",
           countryCode: "TR",
-          branchId: merchantInfoResponse.data.chainCodeId || "0",
+          externalStoreIdentifier: merchantInfoResponse.data.chainCodeId || "0",
         },
         traveller: {
           travelDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travelDocumentNumber || "",
