@@ -38,14 +38,15 @@ function ProductGroupAmountInput({
                   disabled={isPending}
                   onChange={(e) => {
                     setInvoiceLines((prev) => {
+                      const taxAmount =
+                        parseFloat(e.target.value) - parseFloat(e.target.value) / (1 + productGroup.vatRate / 100);
                       return {
                         ...prev,
                         [productGroup.productGroupId]: {
-                          taxRate: productGroup.vatRate,
-                          taxBase: 0,
-                          amount: parseFloat(e.target.value),
-                          taxAmount:
-                            parseFloat(e.target.value) - parseFloat(e.target.value) / (1 + productGroup.vatRate / 100),
+                          taxRate: productGroup.vatRate, //Vergi oranı
+                          taxBase: parseFloat(e.target.value) - taxAmount, // Vergi hariç tutar
+                          amount: parseFloat(e.target.value), //Vergi dahil tutar
+                          taxAmount, //Vergi tutarı
                         },
                       };
                     });
