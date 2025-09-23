@@ -1,6 +1,7 @@
 import type {Locator, Page} from "@playwright/test";
 import {expect, test} from "@playwright/test";
 import {appReady} from "tests/unirefund/_support/app-ready";
+import {safeClick} from "tests/unirefund/_support/retry-utils";
 
 function randDigits(len: number) {
   return Array.from({length: len}, () => Math.floor(Math.random() * 10)).join("");
@@ -61,25 +62,25 @@ test("customs form - stable random", async ({page}) => {
   await fillStable(page, by("root_gateNumber"), randomGateNumber);
   await fillStable(page, by("root_vatNumber"), randomVatNumber);
   await fillPhoneTR(page, by("phone"), "5055555555");
-  await by("type-select").click();
-  await by("type_2").click();
+  await safeClick(by("type-select"));
+  await safeClick(by("type_2"));
   await fillStable(page, by("root_email_emailAddress"), "admin@abp.io");
-  await by("root_email_type").click();
-  await by("root_email_type_WORK").click();
-  await by("root_address_countryId-trigger").click();
-  await page.locator('[data-value="türkiye" i]').click();
+  await safeClick(by("root_email_type"));
+  await safeClick(by("root_email_type_WORK"));
+  await safeClick(by("root_address_countryId-trigger"));
+  await safeClick(page.locator('[data-value="türkiye" i]'));
 
-  await by("root_address_adminAreaLevel1Id-trigger").click();
-  await page.locator('[data-value="adıyaman" i]').click();
+  await safeClick(by("root_address_adminAreaLevel1Id-trigger"));
+  await safeClick(page.locator('[data-value="adıyaman" i]'));
 
-  await by("root_address_adminAreaLevel2Id-trigger").click();
-  await page.locator('[data-value="merkez" i]').click();
+  await safeClick(by("root_address_adminAreaLevel2Id-trigger"));
+  await safeClick(page.locator('[data-value="merkez" i]'));
   await fillStable(page, by("root_address_addressLine"), "adıyaman");
   await fillStable(page, by("root_address_postalCode"), "41700");
-  await by("root_address_type").click();
-  await by("root_address_type_WORK").click();
+  await safeClick(by("root_address_type"));
+  await safeClick(by("root_address_type_WORK"));
   const prevUrl = page.url();
-  await by("create-custom-form_submit").click();
+  await safeClick(by("create-custom-form_submit"));
 
   await page.waitForURL(
     (url) => {
