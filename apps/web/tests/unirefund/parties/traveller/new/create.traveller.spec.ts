@@ -93,18 +93,13 @@ test("traveller form - stable random", async ({page}) => {
   await page.locator('[id^="react-aria"]').first().click();
 
   await by("root_travellerDocument_residenceCountryCode2").click();
-  await by("root_travellerDocument_residenceCountryCode2_search").fill("tür");
-  await by("root_travellerDocument_residenceCountryCode2_214").click();
-  await by("root_travellerDocument_nationalityCountryCode2").click();
-  await by("root_travellerDocument_nationalityCountryCode2_search").fill("tür");
-  await by("root_travellerDocument_nationalityCountryCode2_214").click();
+  await page.locator('[data-value="türkiye" i]').click();
 
   await fillStable(page, by("root_firstName"), randomFirstName, {});
   await fillStable(page, by("root_lastName"), randomLastName, {});
   await fillDateInput(page, "root_birthDate_calendar_input_1", {day: "23", month: "09", year: "1990"});
-  await by("root_nationalityCountryCode2").click();
-  await by("root_nationalityCountryCode2_search").fill("tür");
-  await by("root_nationalityCountryCode2_214").click();
+  await by("root_travellerDocument_nationalityCountryCode2").click();
+  await page.locator('[data-value="türkiye" i]').click();
   await by("root_languagePreferenceCultureName").click();
   await by("root_languagePreferenceCultureName_tr").click();
   await by("root_gender").click();
