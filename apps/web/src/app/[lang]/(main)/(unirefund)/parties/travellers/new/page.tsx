@@ -1,16 +1,17 @@
 "use server";
 
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
+import {getAllCountriesApi} from "@repo/actions/unirefund/LocationService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {getAllCountriesApi} from "@repo/actions/unirefund/LocationService/actions";
 import {getResourceData} from "src/language-data/unirefund/TravellerService";
 import TravellerNewForm from "./form";
 
 async function getApiRequests() {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getAllCountriesApi({}, session)]);
+    const apiRequests = await Promise.all([getAllCountriesApi({}, session), getAllLanguagesApi(session)]);
     return {
       type: "success" as const,
       data: apiRequests,
@@ -35,11 +36,18 @@ export default async function Page({params}: {params: {lang: string}}) {
   if (apiRequests.type === "error") {
     return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
-  const [countriesResponse] = apiRequests.data;
+  const [countriesResponse, languagesResponse] = apiRequests.data;
 
   return (
     <>
-      <TravellerNewForm countryList={countriesResponse.data.items || []} languageData={languageData} />;
+      <TravellerNewForm
+        countryList={countriesResponse.data.items || []}
+        languageData={languageData}
+        languagesList={(languagesResponse.data.items || []).map((language) => ({
+          cultureName: language.cultureName ?? "",
+          displayName: language.displayName ?? "",
+        }))}
+      />
       <div className="hidden" id="page-description">
         {languageData["Travellers.Create.Description"]}
       </div>
