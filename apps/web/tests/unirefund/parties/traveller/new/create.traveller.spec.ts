@@ -1,8 +1,10 @@
+import type {Page, Locator} from "@playwright/test";
 import {test, expect} from "@playwright/test";
 import {appReady} from "tests/unirefund/_support/app-ready";
+import {safeClick} from "tests/unirefund/_support/retry-utils";
 
 async function fillDateInput(
-  page: import("@playwright/test").Page,
+  page: Page,
   calendarTestId: string,
   {day, month, year}: {day: string; month: string; year: string},
 ): Promise<void> {
@@ -31,12 +33,7 @@ function randDigits(len: number): string {
   return Array.from({length: len}, () => Math.floor(Math.random() * 10)).join("");
 }
 
-async function fillStable(
-  page: import("@playwright/test").Page,
-  locator: import("@playwright/test").Locator,
-  value: string,
-  opts?: {hard?: boolean},
-): Promise<void> {
+async function fillStable(page: Page, locator: Locator, value: string, opts?: {hard?: boolean}): Promise<void> {
   await locator.waitFor({state: "visible", timeout: 15000});
   await expect(locator).toBeEditable({timeout: 15000});
   async function tryFill(attempts: number): Promise<void> {
@@ -69,8 +66,8 @@ test("traveller form - stable random", async ({page}) => {
   await appReady(page);
   const by = (id: string) => page.getByTestId(id);
 
-  await by("root_travellerDocument_identificationType").click();
-  await by("root_travellerDocument_identificationType_IdCard").click();
+  await safeClick(by("root_travellerDocument_identificationType"));
+  await safeClick(by("root_travellerDocument_identificationType_IdCard"));
   await fillStable(page, by("root_travellerDocument_travelDocumentNumber"), randomDocNumber, {});
   await fillStable(page, by("root_travellerDocument_firstName"), randomFirstName, {});
   await fillStable(page, by("root_travellerDocument_lastName"), randomLastName, {});
@@ -90,22 +87,22 @@ test("traveller form - stable random", async ({page}) => {
     year: "2030",
   });
 
-  await page.locator('[id^="react-aria"]').first().click();
+  await safeClick(page.locator('[id^="react-aria"]').first());
 
-  await by("root_travellerDocument_residenceCountryCode2").click();
-  await page.locator('[data-value="türkiye" i]').click();
+  await safeClick(by("root_travellerDocument_residenceCountryCode2"));
+  await safeClick(page.locator('[data-value="türkiye" i]'));
 
   await fillStable(page, by("root_firstName"), randomFirstName, {});
   await fillStable(page, by("root_lastName"), randomLastName, {});
   await fillDateInput(page, "root_birthDate_calendar_input_1", {day: "23", month: "09", year: "1990"});
-  await by("root_travellerDocument_nationalityCountryCode2").click();
-  await page.locator('[data-value="türkiye" i]').click();
-  await by("root_languagePreferenceCultureName").click();
-  await by("root_languagePreferenceCultureName_tr").click();
-  await by("root_gender").click();
-  await by("root_gender_MALE").click();
+  await safeClick(by("root_travellerDocument_nationalityCountryCode2"));
+  await safeClick(page.locator('[data-value="türkiye" i]'));
+  await safeClick(by("root_languagePreferenceCultureName"));
+  await safeClick(by("root_languagePreferenceCultureName_tr"));
+  await safeClick(by("root_gender"));
+  await safeClick(by("root_gender_MALE"));
   const prevUrl = page.url();
-  await by("new-traveller-form_submit").click();
+  await safeClick(by("new-traveller-form_submit"));
 
   await page.waitForURL(
     (url) => {
