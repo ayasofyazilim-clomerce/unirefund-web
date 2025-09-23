@@ -1,5 +1,6 @@
 import type {Locator, Page} from "@playwright/test";
 import {expect, test} from "@playwright/test";
+import {appReady} from "tests/unirefund/_support/app-ready";
 
 function randDigits(len: number) {
   return Array.from({length: len}, () => Math.floor(Math.random() * 10)).join("");
@@ -53,6 +54,7 @@ test("customs form - stable random", async ({page}) => {
   const randomVatNumber = randDigits(9);
 
   await page.goto("/en/parties/customs/new");
+  await appReady(page);
   const by = (id: string) => page.getByTestId(id);
 
   await fillStable(page, by("root_name"), randomName);
