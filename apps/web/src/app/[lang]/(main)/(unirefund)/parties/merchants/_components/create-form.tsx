@@ -141,7 +141,7 @@ export default function CreateMerchantForm({
             "ui:title": languageData["Form.Merchant.typeCode"],
           },
           vatNumber: {
-            ...{"ui:className": typeCode === "STORE" && "col-span-full"},
+            "ui:className": "col-span-full",
             ...{"ui:required": typeCode === "HEADQUARTER" && true},
           },
           parentId: {
@@ -151,7 +151,6 @@ export default function CreateMerchantForm({
           "ui:order": [
             "name",
             "taxOfficeId",
-            "chainCodeId",
             "externalStoreIdentifier",
             "isPersonalCompany",
             "typeCode",
@@ -192,6 +191,7 @@ export default function CreateMerchantForm({
         "address.placeId",
         "address.latitude",
         "address.longitude",
+        "chainCodeId",
         ...(typeCode === "STORE" ? ["vatNumber", "taxOfficeId"] : []),
       ],
     }),

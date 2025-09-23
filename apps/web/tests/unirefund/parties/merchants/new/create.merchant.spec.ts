@@ -51,7 +51,6 @@ test("create merchant", async ({page}) => {
   const randomName = `Mavi-${unique}`;
   const randomExternalId = randDigits(9);
   const randomVatNumber = randDigits(10);
-  const randomChainCodeId = `${randDigits(8)}-${randDigits(4)}-${randDigits(4)}-${randDigits(4)}-${randDigits(12)}`;
 
   await page.goto("/en/parties/merchants/new");
   await appReady(page);
@@ -61,7 +60,6 @@ test("create merchant", async ({page}) => {
   await fillStable(page, by("root_name"), randomName);
   await by("root_taxOfficeId").click();
   await by("root_taxOfficeId_0").click();
-  await fillStable(page, by("root_chainCodeId"), randomChainCodeId);
   await fillStable(page, by("root_externalStoreIdentifier"), randomExternalId);
   await by("root_isPersonalCompany").click();
   await fillStable(page, by("root_vatNumber"), randomVatNumber);
