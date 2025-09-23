@@ -13,10 +13,15 @@ import {useMemo, useTransition} from "react";
 import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 
+type LanguageOption = {cultureName: string; displayName: string};
+
+interface LanguageSelectUiOptions {
+  languagesList?: LanguageOption[];
+}
+
 function LanguageSelectWidget(props: WidgetProps) {
-  const languagesList =
-    (props.uiSchema?.["ui:options"] as {languagesList?: {cultureName: string; displayName: string}[]} | undefined)
-      ?.languagesList ?? [];
+  const uiOptions = props.uiSchema?.["ui:options"] as LanguageSelectUiOptions | undefined;
+  const languagesList = uiOptions?.languagesList ?? [];
 
   const enumOptions = languagesList.map((l) => ({
     value: l.cultureName,
@@ -27,10 +32,7 @@ function LanguageSelectWidget(props: WidgetProps) {
     <CustomSelect
       {...props}
       options={{enumOptions}}
-      uiSchema={{
-        ...props.uiSchema,
-        "ui:placeholder": "Select language",
-      }}
+      uiSchema={{...props.uiSchema, "ui:placeholder": "Select language"}}
     />
   );
 }
