@@ -5,12 +5,31 @@ import {$UniRefund_TravellerService_Travellers_CreateTravellerDto} from "@repo/s
 import {postTravellerApi} from "@repo/actions/unirefund/TravellerService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import {CustomComboboxWidget, CustomSelect} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {countries} from "node_modules/@repo/ui/src/theme/main-admin-layout/components/language-selector/country-data";
+import type {WidgetProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/types";
 import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+
+function LanguageSelectWidget(props: WidgetProps) {
+  const enumOptions = countries.map((country) => ({
+    value: country.cultureName,
+    label: country.displayName,
+  }));
+  return (
+    <CustomSelect
+      {...props}
+      options={{enumOptions}}
+      uiSchema={{
+        ...props.uiSchema,
+        "ui:placeholder": "Select language",
+      }}
+    />
+  );
+}
 
 export default function TravellerNewForm({
   languageData,
@@ -27,11 +46,36 @@ export default function TravellerNewForm({
     resources: languageData,
     extend: {
       "ui:className": "md:grid md:grid-cols-2 border rounded-md md:p-6 p-2 my-6 gap-y-6 gap-x-4",
+      "ui:order": [
+        "travellerDocument",
+        "firstName",
+        "lastName",
+        "birthDate",
+        "nationalityCountryCode2",
+        "languagePreferenceCultureName",
+        "gender",
+      ],
+
       nationalityCountryCode2: {
         "ui:widget": "countryWidget",
       },
+      languagePreferenceCultureName: {
+        "ui:widget": "languageSelectWidget",
+      },
       travellerDocument: {
         "ui:className": "md:grid md:grid-cols-2 md:gap-4 md:col-span-full",
+        "ui:order": [
+          "identificationType",
+          "travelDocumentNumber",
+          "firstName",
+          "lastName",
+          "birthDate",
+          "expirationDate",
+          "issueDate",
+          "expiryDate",
+          "residenceCountryCode2",
+          "nationalityCountryCode2",
+        ],
         residenceCountryCode2: {
           "ui:widget": "countryWidget",
         },
@@ -67,6 +111,7 @@ export default function TravellerNewForm({
           selectIdentifier: "code2",
           selectLabel: "name",
         }),
+        languageSelectWidget: LanguageSelectWidget,
       }}
     />
   );
