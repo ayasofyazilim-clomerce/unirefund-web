@@ -8,13 +8,13 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {CheckIcon} from "lucide-react";
-import {useRouter} from "next/navigation";
+import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
-import {countries} from "./country-data";
-import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
-
-function LanguageSelector({lang}: {lang: string}) {
+import { countries } from "./country-data";
+import { DropdownMenuSub } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types"
+function LanguageSelector({ lang, languagesList }: { lang: string; languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[] }) {
   const router = useRouter();
   const selectedLanguageId =
     countries.find((i) => i.cultureName === lang)?.id || "75fe277d-5138-285d-8088-3a1171b61635";
@@ -51,7 +51,7 @@ function LanguageSelector({lang}: {lang: string}) {
             <CommandList>
               <CommandEmpty>No language found.</CommandEmpty>
               <CommandGroup>
-                {countries.map((label) => (
+                {languagesList.map((label) => (
                   <CommandItem
                     key={label.id}
                     value={label.id}
@@ -67,8 +67,8 @@ function LanguageSelector({lang}: {lang: string}) {
                     )}
                     <img
                       className="mr-2 h-5 w-5 rounded-full object-cover"
-                      src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.flagIcon}.svg`}
-                      alt={label.displayName}
+                      src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.cultureName === "en" ? "gb" : label.cultureName}.svg`}
+                      alt={label.displayName || ""}
                     />
                     {label.displayName}
                   </CommandItem>

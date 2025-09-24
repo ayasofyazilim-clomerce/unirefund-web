@@ -46,6 +46,7 @@ import LanguageSelector from "./language-selector";
 import Logo from "./logo";
 import SearchBar from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
+import { useTheme } from "../../../providers/theme";
 
 export default function Navbar({
   prefix,
@@ -53,7 +54,7 @@ export default function Navbar({
   navigation,
   lang,
   tenantData,
-  notification
+  notification,
 }: {
   prefix: string;
   lang: string;
@@ -62,6 +63,7 @@ export default function Navbar({
   tenantData?: { tenantId: string; tenantName: string };
   notification?: NotificationProps;
 }) {
+  const { languagesList } = useTheme();
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
       <nav className="bg-white px-1 py-2.5 md:px-4">
@@ -89,7 +91,7 @@ export default function Navbar({
           </div>
           <div className="flex items-center lg:order-2">
             <SearchBar navbarItems={navbarItems} prefix={prefix} />
-            <LanguageSelector lang={lang} />
+            <LanguageSelector lang={lang} languagesList={languagesList || []} />
             {notification && <Notification {...notification} />}
             <ProfileMenu />
           </div>
