@@ -122,6 +122,7 @@ export default function ClientPage({
         ],
       };
       console.log("Creating tag with data", data);
+      console.time();
       const response = await postTagApi({
         requestBody: data,
       });
@@ -129,6 +130,7 @@ export default function ClientPage({
         prefix: getBaseLink("operations/tax-free-tags"),
         identifier: "id",
       });
+      console.timeEnd();
     });
   }
 

@@ -57,18 +57,23 @@ export default function Invoices({
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>{languageData.ProductGroups}</SelectLabel>
-                  {tagDetail.merchant?.productGroups?.map((productGroup, index) => {
-                    return (
-                      <SelectItem
-                        data-testid={`product-group-item-${index}`}
-                        key={productGroup.id || ""}
-                        value={productGroup.id || ""}>
-                        {productGroup.name || ""}
-                      </SelectItem>
-                    );
-                  }) || (
-                    <SelectItem data-testid="product-group-item" key={line.id || ""} value={line.id || ""}>
-                      {line.description || ""}
+                  {tagDetail.merchant?.productGroups?.length ? (
+                    tagDetail.merchant.productGroups.map((productGroup, index) => {
+                      return (
+                        <SelectItem
+                          data-testid={`product-group-item-${index}`}
+                          key={productGroup.id || ""}
+                          value={productGroup.id || ""}>
+                          {productGroup.name || ""}
+                        </SelectItem>
+                      );
+                    })
+                  ) : (
+                    <SelectItem
+                      data-testid="product-group-item"
+                      key={line.productGroup?.id || ""}
+                      value={line.productGroup?.id || ""}>
+                      {line.productGroup?.name || ""}
                     </SelectItem>
                   )}
                 </SelectGroup>
