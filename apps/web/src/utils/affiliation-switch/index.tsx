@@ -13,28 +13,39 @@ import {
 import {Popover, PopoverContent, PopoverTrigger} from "@repo/ayasofyazilim-ui/atoms/popover";
 import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import type {UniRefund_CRMService_UserAffiliations_UserAffiliationDto as Affiliation} from "@repo/saas/CRMService";
-import {fetchNewAccessTokenByRefreshToken, useSession} from "@repo/utils/auth";
-import {Building2, ChevronDownIcon, Store} from "lucide-react";
-import {useState} from "react";
+import {fetchNewAccessTokenByRefreshToken, getUserData, useSession} from "@repo/utils/auth";
+import {Building2, ChevronDownIcon, LoaderCircle, Store} from "lucide-react";
+import {useState, useTransition} from "react";
+import {toast} from "@/components/ui/sonner";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export default function AffiliationSwitch({
-  activeIds,
   affiliations: originalAffiliations,
   languageData,
 }: {
-  activeIds: string | string[];
   affiliations: Affiliation[];
   languageData: CRMServiceServiceResource;
 }) {
   const {session, sessionUpdate} = useSession();
+  const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState<boolean>(false);
+  const [tempActive, setTempActive] = useState<string | null>(null);
   const affiliations = originalAffiliations.map((aff) => {
     return {
       ...aff,
       icon: aff.parentId !== null ? Store : Building2,
     };
   });
+  const activeIds =
+    session?.user?.CustomsId ||
+    session?.user?.IndividualId ||
+    session?.user?.MerchantId ||
+    session?.user?.RefundPointId ||
+    session?.user?.TaxFreeId ||
+    session?.user?.TaxOfficeId ||
+    session?.user?.TourGuideId ||
+    session?.user?.TravellerId ||
+    "";
   const activeId =
     typeof activeIds === "string"
       ? activeIds
@@ -42,26 +53,38 @@ export default function AffiliationSwitch({
   const [selectedPartyId, setSelectedPartyId] = useState<string>(activeId);
 
   if (!originalAffiliations.length || !activeIds.length) return null;
-
+  const isSwitching =
+    isPending ||
+    (tempActive !== null && tempActive !== affiliations.find((aff) => aff.partyId === activeId)?.partyName);
   return (
-    <Popover onOpenChange={setOpen} open={open}>
+    <Popover key={session?.user?.access_token} onOpenChange={setOpen} open={open}>
       <PopoverTrigger asChild data-testid="affiliation-switch-trigger">
         <Button
           aria-expanded={open}
           className="bg-background hover:bg-background border-input w-full min-w-60 max-w-60 justify-between px-3 font-normal outline-none outline-offset-0 focus-visible:outline-[3px]"
           data-testid="affiliation-switch-button"
+          disabled={isSwitching}
           role="combobox"
           variant="outline">
-          <span className="flex min-w-0 items-center gap-2">
-            {(() => {
-              const selectedItem = affiliations.find((aff) => aff.partyId === activeId);
-              if (selectedItem) {
-                const Icon = selectedItem.icon;
-                return <Icon className="text-muted-foreground size-4 min-w-4" />;
-              }
-              return null;
-            })()}
-            <span className="truncate">{affiliations.find((aff) => aff.partyId === activeId)?.partyName}</span>
+          <span className="flex min-w-0 items-center gap-1">
+            {isSwitching ? (
+              <span className="flex items-center gap-1 truncate font-medium">
+                <LoaderCircle className="animate size-4 min-w-4 animate-spin" />
+                {tempActive}
+              </span>
+            ) : (
+              <>
+                {(() => {
+                  const selectedItem = affiliations.find((aff) => aff.partyId === activeId);
+                  if (selectedItem) {
+                    const Icon = selectedItem.icon;
+                    return <Icon className="text-muted-foreground size-4 min-w-4" />;
+                  }
+                  return null;
+                })()}
+                <span className="truncate">{affiliations.find((aff) => aff.partyId === activeId)?.partyName}</span>
+              </>
+            )}
           </span>
           <ChevronDownIcon aria-hidden="true" className="text-muted-foreground/80 shrink-0" size={16} />
         </Button>
@@ -118,18 +141,22 @@ export default function AffiliationSwitch({
           <Button
             className="w-full gap-1"
             data-testid="affiliation-switch-select-button"
-            disabled={selectedPartyId === activeId}
+            disabled={isSwitching || selectedPartyId === activeId}
             onClick={() => {
-              void postUserAffiliationApi(selectedPartyId).then(async (res) => {
-                if (res.type !== "success") return;
-                const {access_token, refresh_token} = await fetchNewAccessTokenByRefreshToken(
-                  session?.user?.refresh_token || "",
-                );
-                void sessionUpdate({
-                  info: {
-                    access_token,
-                    refresh_token,
-                  },
+              setTempActive(affiliations.find((aff) => aff.partyId === selectedPartyId)?.partyName || null);
+              startTransition(() => {
+                void postUserAffiliationApi(selectedPartyId).then(async (res) => {
+                  setOpen(false);
+                  if (res.type !== "success") {
+                    toast.error(res.message);
+                    setTempActive(null);
+                    setSelectedPartyId(activeId);
+                    return;
+                  }
+                  const {access_token, refresh_token, expires_in} = await fetchNewAccessTokenByRefreshToken(
+                    session?.user?.refresh_token || "",
+                  );
+                  await sessionUpdate({info: (await getUserData(access_token, refresh_token, expires_in)) as object});
                 });
               });
             }}>
