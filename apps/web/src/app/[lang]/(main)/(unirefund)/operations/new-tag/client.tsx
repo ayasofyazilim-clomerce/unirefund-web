@@ -87,9 +87,12 @@ export default function ClientPage({
     startTransition(async () => {
       const totalAmount = Object.values(invoiceLines).reduce((acc, curr) => acc + curr.amount, 0);
       const totalTaxAmount = Object.values(invoiceLines).reduce((acc, curr) => acc + curr.taxAmount, 0);
-
+      console.time("MerchantDetailsForTagCreate");
       const merchantInfoResponse = await getMerchantByIdApi(merchantIds[0].id);
+      console.timeEnd("MerchantDetailsForTagCreate");
+      console.time("TravellerDetailsForTagCreate");
       const travellerInfoResponse = await getTravellersDetailsApi(travellerIds[0].id);
+      console.timeEnd("TravellerDetailsForTagCreate");
       const data: UniRefund_TagService_Tags_CreateTagRequestDto = {
         merchant: {
           vatNumber: merchantInfoResponse.data.vatNumber || "",
