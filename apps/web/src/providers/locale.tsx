@@ -1,5 +1,5 @@
 "use client";
-
+import {I18nProvider} from "react-aria";
 import type {Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationLocalizationResourceDto} from "@ayasofyazilim/core-saas/AccountService";
 import {createContext, useContext} from "react";
 import type {ResourceResult} from "src/utils";
@@ -32,5 +32,9 @@ export function LocaleProvider({children, lang, resources}: LocaleProviderProps)
     location.href = `/${cultureName}/${location.pathname.split("/").slice(2).join("/")}/${location.search}`;
   }
   const providerValue = {resources, cultureName: lang, changeLocale};
-  return <LocaleContext.Provider value={providerValue}>{children}</LocaleContext.Provider>;
+  return (
+    <LocaleContext.Provider value={providerValue}>
+      <I18nProvider locale={lang}>{children}</I18nProvider>
+    </LocaleContext.Provider>
+  );
 }
