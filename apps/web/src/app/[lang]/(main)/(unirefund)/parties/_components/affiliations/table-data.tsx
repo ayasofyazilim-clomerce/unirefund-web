@@ -143,7 +143,7 @@ function EditForm({
   return (
     <SchemaForm<AffiliationListResponseDto>
       disabled={isPending}
-      filter={{type: "include", sort: true, keys: ["abpRoleId", "isPrimary", "startDate", "endDate"]}}
+      filter={{type: "include", sort: true, keys: ["abpRoleId", "startDate", "endDate"]}}
       formData={row}
       key={JSON.stringify(row)}
       onSubmit={({formData}) => {
@@ -156,7 +156,6 @@ function EditForm({
             partyType,
             requestBody: {
               abpRoleId: row.abpRoleId === formData.abpRoleId ? undefined : formData.abpRoleId,
-              isPrimary: row.isPrimary === formData.isPrimary ? undefined : formData.isPrimary,
               startDate: row.startDate === formData.startDate ? undefined : formData.startDate,
               endDate: row.endDate === formData.endDate ? undefined : formData.endDate,
             },
@@ -171,10 +170,6 @@ function EditForm({
         extend: {
           "ui:className": "grid grid-cols-2 border-none rounded-none p-2",
           displayLabel: false,
-          isPrimary: {
-            "ui:widget": "switch",
-            "ui:className": "border rounded-md px-2 self-end",
-          },
           abpRoleId: {
             "ui:widget": "roleWidget",
           },

@@ -194,7 +194,6 @@ export type UniRefund_CRMService_Affiliations_UpdateAffiliationDto = {
     abpRoleId?: (string) | null;
     startDate?: (string) | null;
     endDate?: (string) | null;
-    isPrimary?: (boolean) | null;
 };
 
 export type UniRefund_CRMService_Countries_CountryDto = {
@@ -1363,7 +1362,7 @@ export type PostApiCrmServiceIndividualsResponse = (string);
 
 export type GetApiCrmServiceIndividualsData = {
     email?: string;
-    ıdentificationNumber?: string;
+    identificationNumber?: string;
     maxResultCount?: number;
     name?: string;
     skipCount?: number;

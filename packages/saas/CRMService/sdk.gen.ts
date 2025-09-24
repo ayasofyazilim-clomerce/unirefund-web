@@ -888,7 +888,7 @@ export class IndividualService {
      * @param data.name
      * @param data.email
      * @param data.telephone
-     * @param data.ıdentificationNumber
+     * @param data.identificationNumber
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
@@ -903,7 +903,7 @@ export class IndividualService {
                 Name: data.name,
                 Email: data.email,
                 Telephone: data.telephone,
-                IdentificationNumber: data.ıdentificationNumber,
+                IdentificationNumber: data.identificationNumber,
                 Sorting: data.sorting,
                 SkipCount: data.skipCount,
                 MaxResultCount: data.maxResultCount

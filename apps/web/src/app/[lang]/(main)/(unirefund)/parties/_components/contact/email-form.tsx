@@ -15,6 +15,7 @@ import {
   $UniRefund_CRMService_Emails_EmailDto as $EmailDto,
   $UniRefund_CRMService_Emails_EmailUpSertDto as $EmailUpSertDto,
 } from "@repo/saas/CRMService";
+import {Edit} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
@@ -63,6 +64,9 @@ export function EmailForm({
       type: {
         showHeader: true,
         content: (row) => TypeRow({row, languageData}),
+      },
+      emailAddress: {
+        content: (row) => EditRowTrigger({row}),
       },
     },
     expandRowTrigger: "emailAddress",
@@ -120,6 +124,7 @@ export function EmailForm({
       fillerColumn="emailAddress"
       showPagination={false}
       tableActions={tableActions}
+      title={languageData["Form.emails"]}
     />
   );
 }
@@ -127,7 +132,14 @@ export function EmailForm({
 function TypeRow({row, languageData}: {row: EmailDto; languageData: DefaultResource}) {
   return <div> {languageData[`Form.email.type.${row.type}`]}</div>;
 }
-
+function EditRowTrigger({row}: {row: EmailDto}) {
+  return (
+    <div className="flex items-center gap-1">
+      <Edit className="w-4" />
+      {row.emailAddress}
+    </div>
+  );
+}
 function EditForm({
   row,
   partyId,

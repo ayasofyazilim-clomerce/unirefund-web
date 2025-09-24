@@ -21,13 +21,23 @@ export function CustomForm({
   customDetails: CustomDto;
 }) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const isHeadquarter = customDetails.typeCode === "HEADQUARTER";
+  const disabled = {
+    "ui:options": {
+      readOnly: true,
+      disabled: true,
+    },
+  };
+
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.Custom",
     schema: $UpdateCustomDto,
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end",
-
+      name: {
+        ...(isHeadquarter && {"ui:className": "col-span-full"}),
+      },
       telephone: {
         "ui:className": "col-span-full",
         "ui:field": "phone",
@@ -39,17 +49,12 @@ export function CustomForm({
         "ui:className": "col-span-full",
         "ui:field": "email",
       },
-      typeCode: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+      vatNumber: {
+        ...(!isHeadquarter && disabled),
       },
       parentId: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+        ...(isHeadquarter && {"ui:widget": "hidden"}),
+        ...disabled,
       },
     },
   });

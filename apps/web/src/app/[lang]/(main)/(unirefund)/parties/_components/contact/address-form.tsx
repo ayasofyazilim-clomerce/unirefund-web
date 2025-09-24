@@ -21,6 +21,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useCallback, useState, useTransition} from "react";
+import {Edit} from "lucide-react";
 import type {DefaultResource} from "@/language-data/core/Default";
 import type {PartyType} from "../party-header";
 import {addressActionByPartyType} from "./utils";
@@ -65,6 +66,9 @@ export function AddressForm({
       type: {
         showHeader: true,
         content: (row) => TypeRow({row, languageData}),
+      },
+      addressLine: {
+        content: (row) => EditRowTrigger({row}),
       },
     },
     expandRowTrigger: "addressLine",
@@ -166,6 +170,14 @@ export function AddressForm({
 
 function TypeRow({row, languageData}: {row: AddressDto; languageData: DefaultResource}) {
   return <div> {languageData[`Form.address.type.${row.type}`]}</div>;
+}
+function EditRowTrigger({row}: {row: AddressDto}) {
+  return (
+    <div className="flex items-center gap-1">
+      <Edit className="w-4" />
+      {row.addressLine}
+    </div>
+  );
 }
 
 function EditForm({

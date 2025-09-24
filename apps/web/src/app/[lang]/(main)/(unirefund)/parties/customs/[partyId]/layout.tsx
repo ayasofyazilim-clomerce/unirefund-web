@@ -43,7 +43,7 @@ export default async function Layout({
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [customDetailResponse] = apiRequests.requiredRequests;
-  const isHeadquarter = customDetailResponse.data.typeCode === "HEADQUARTER";
+  // const isHeadquarter = customDetailResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
       <PartyHeader details={customDetailResponse.data} partyType="customs" />
@@ -60,7 +60,7 @@ export default async function Layout({
             label: languageData["CRM.Details"],
             href: `${baseLink}details`,
           },
-          ...(!isHeadquarter ? [] : [{label: languageData["CRM.SubOrganization"], href: `${baseLink}sub-stores`}]),
+          // ...(!isHeadquarter ? [] : [{label: languageData["CRM.Customs.SubOrganization"], href: `${baseLink}sub-stores`}]),
           {
             label: languageData["CRM.Affiliations"],
             href: `${baseLink}affiliations`,
