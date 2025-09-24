@@ -87,9 +87,12 @@ export default function ClientPage({
     startTransition(async () => {
       const totalAmount = Object.values(invoiceLines).reduce((acc, curr) => acc + curr.amount, 0);
       const totalTaxAmount = Object.values(invoiceLines).reduce((acc, curr) => acc + curr.taxAmount, 0);
-
+      console.time("MerchantDetailsForTagCreate");
       const merchantInfoResponse = await getMerchantByIdApi(merchantIds[0].id);
+      console.timeEnd("MerchantDetailsForTagCreate");
+      console.time("TravellerDetailsForTagCreate");
       const travellerInfoResponse = await getTravellersDetailsApi(travellerIds[0].id);
+      console.timeEnd("TravellerDetailsForTagCreate");
       const data: UniRefund_TagService_Tags_CreateTagRequestDto = {
         merchant: {
           vatNumber: merchantInfoResponse.data.vatNumber || "",
@@ -122,7 +125,7 @@ export default function ClientPage({
         ],
       };
       console.log("Creating tag with data", data);
-      console.time();
+      console.time("CreateTag");
       const response = await postTagApi({
         requestBody: data,
       });
@@ -130,7 +133,7 @@ export default function ClientPage({
         prefix: getBaseLink("operations/tax-free-tags"),
         identifier: "id",
       });
-      console.timeEnd();
+      console.timeEnd("CreateTag");
     });
   }
 
