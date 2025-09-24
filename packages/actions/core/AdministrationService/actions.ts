@@ -9,9 +9,9 @@ import type {
   GetApiPermissionManagementPermissionsData,
   GetApiTextTemplateManagementTemplateDefinitionsData,
 } from "@ayasofyazilim/core-saas/AdministrationService";
-import {structuredError, structuredResponse, structuredSuccessResponse} from "@repo/utils/api";
-import type {Session} from "next-auth";
-import {getAdministrationServiceClient} from "../lib";
+import { structuredError, structuredResponse, structuredSuccessResponse } from "@repo/utils/api";
+import type { Session } from "next-auth";
+import { getAdministrationServiceClient } from "../lib";
 
 export async function getPermissionsApi(data: GetApiPermissionManagementPermissionsData) {
   try {
@@ -86,10 +86,20 @@ export async function getLanguagesApi(data: GetApiLanguageManagementLanguagesDat
   }
 }
 
+export async function getAllLanguagesApi(session: Session | null) {
+  try {
+    const client = await getAdministrationServiceClient(session);
+    const dataResponse = await client.languages.getApiLanguageManagementLanguagesAll();
+    return structuredSuccessResponse(dataResponse);
+  } catch (error) {
+    throw structuredError(error);
+  }
+}
+
 export async function getLanguageDetailsByIdApi(id: string) {
   try {
     const client = await getAdministrationServiceClient();
-    const dataResponse = await client.languages.getApiLanguageManagementLanguagesById({id});
+    const dataResponse = await client.languages.getApiLanguageManagementLanguagesById({ id });
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);

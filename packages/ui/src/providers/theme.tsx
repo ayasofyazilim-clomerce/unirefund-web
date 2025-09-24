@@ -4,6 +4,7 @@ import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { createContext, useContext } from "react";
 import { NotificationProps } from "../components/notification";
+import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types";
 
 interface ThemeProviderProps {
   appName: string;
@@ -16,6 +17,7 @@ interface ThemeProviderProps {
   tenantData?: { tenantId: string; tenantName: string };
   children: JSX.Element;
   notification: NotificationProps;
+  languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }
 interface ThemeContextProps {
   appName: string;
@@ -27,6 +29,7 @@ interface ThemeContextProps {
   navbarItems: NavbarItemsFromDB[];
   tenantData?: { tenantId: string; tenantName: string };
   notification?: NotificationProps
+  languagesList?: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }
 
 const ThemeProviderContext = createContext<ThemeContextProps>({
@@ -39,6 +42,7 @@ const ThemeProviderContext = createContext<ThemeContextProps>({
   tenantData: undefined,
   notification: undefined,
   logo: "",
+  languagesList: [],
 });
 
 export const useTheme = () => {
@@ -55,7 +59,8 @@ export function ThemeProvider({
   lang,
   navbarItems,
   tenantData,
-  notification
+  notification,
+  languagesList
 }: ThemeProviderProps) {
   return (
     <ThemeProviderContext.Provider
@@ -68,7 +73,8 @@ export function ThemeProvider({
         lang,
         profileMenu,
         tenantData,
-        notification
+        notification,
+        languagesList
       }}>
       {children}
     </ThemeProviderContext.Provider>
