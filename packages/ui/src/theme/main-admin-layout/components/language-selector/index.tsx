@@ -59,7 +59,6 @@ function LanguageSelector({ lang, languagesList }: { lang: string; languagesList
                       const selected = languagesList.find((i) => i.id === value);
                       const newUrl = selected?.cultureName + "/" + location.pathname.split("/").slice(2).join("/");
                       router.push("/" + newUrl);
-                      console.log(newUrl);
                     }}>
                     {selectedLanguageId === label.id ? (
                       <CheckIcon className="mr-2 h-4 w-4" />
