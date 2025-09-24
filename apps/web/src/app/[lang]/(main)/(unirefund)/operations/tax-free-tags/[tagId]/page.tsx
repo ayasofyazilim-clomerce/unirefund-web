@@ -24,6 +24,7 @@ import TagStatusDiagram from "./_components/tag-status-diagram";
 async function getApiRequests(tagId: string) {
   try {
     const session = await auth();
+    console.time();
     const requiredRequests = await Promise.all([
       getTagByIdApi({id: tagId}),
       getProductGroupsApi({maxResultCount: 1}, session),
@@ -35,6 +36,7 @@ async function getApiRequests(tagId: string) {
       tagDetail.vatStatementHeaderId ? getVatStatementHeadersByIdApi(tagDetail.vatStatementHeaderId) : {data: null},
       tagDetail.refundId ? getRefundDetailByIdApi(tagDetail.refundId) : {data: null},
     ]);
+    console.timeEnd();
     return {requiredRequests, optionalRequests};
   } catch (error) {
     if (!isRedirectError(error)) {
