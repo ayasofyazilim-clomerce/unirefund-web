@@ -101,7 +101,7 @@ function ProductGroupListItem(
 ) {
   return (
     <div className="flex w-full items-center justify-between">
-      <div className="flex items-center gap-2 ">
+      <div className="flex items-center gap-2">
         {value.name}
         <span className="text-muted-foreground text-xs">%{value.vatPercent}</span>
       </div>
