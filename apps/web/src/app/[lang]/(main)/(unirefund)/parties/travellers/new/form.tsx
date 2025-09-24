@@ -64,15 +64,15 @@ export default function TravellerNewForm({
     schema: $UniRefund_TravellerService_Travellers_CreateTravellerDto,
     resources: languageData,
     extend: {
-      "ui:className": "md:grid md:grid-cols-2 border rounded-md md:p-6 p-2 my-6 gap-y-6 gap-x-4",
+      "ui:className": "md:grid md:grid-cols-2",
       "ui:order": [
-        "travellerDocument",
         "firstName",
         "lastName",
         "birthDate",
         "nationalityCountryCode2",
         "languagePreferenceCultureName",
         "gender",
+        "travellerDocument",
       ],
 
       nationalityCountryCode2: {
@@ -84,7 +84,7 @@ export default function TravellerNewForm({
       },
 
       travellerDocument: {
-        "ui:className": "md:grid md:grid-cols-2 md:gap-4 md:col-span-full",
+        "ui:className": "md:grid md:grid-cols-2 col-span-full",
         "ui:order": [
           "identificationType",
           "travelDocumentNumber",
@@ -104,8 +104,8 @@ export default function TravellerNewForm({
 
   return (
     <SchemaForm<UniRefund_TravellerService_Travellers_CreateTravellerDto>
-      className="mx-auto flex max-w-6xl flex-col gap-0 p-0"
-      defaultSubmitClassName="p-0"
+      className="mx-auto flex max-w-4xl flex-col gap-0 p-0"
+      defaultSubmitClassName="p-0 pt-2"
       disabled={isPending}
       id="new-traveller-form"
       onSubmit={({formData}) => {

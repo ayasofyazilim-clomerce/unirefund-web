@@ -37,20 +37,14 @@ export default async function Page({params}: {params: {lang: string}}) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
   }
   const [countriesResponse, languagesResponse] = apiRequests.data;
-
   return (
-    <>
-      <TravellerNewForm
-        countryList={countriesResponse.data.items || []}
-        languageData={languageData}
-        languagesList={(languagesResponse.data.items || []).map((language) => ({
-          cultureName: language.cultureName ?? "",
-          displayName: language.displayName ?? "",
-        }))}
-      />
-      <div className="hidden" id="page-description">
-        {languageData["Travellers.Create.Description"]}
-      </div>
-    </>
+    <TravellerNewForm
+      countryList={countriesResponse.data.items || []}
+      languageData={languageData}
+      languagesList={(languagesResponse.data.items || []).map((language) => ({
+        cultureName: language.cultureName ?? "",
+        displayName: language.displayName ?? "",
+      }))}
+    />
   );
 }
