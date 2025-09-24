@@ -101,7 +101,10 @@ function ProductGroupListItem(
 ) {
   return (
     <div className="flex w-full items-center justify-between">
-      {value.name}
+      <div className="flex items-center gap-2">
+        {value.name}
+        <span className="text-muted-foreground text-xs">%{value.vatPercent}</span>
+      </div>
       <Badge className={cn(value.active ? "text-green-500" : "text-muted-foreground")} variant="outline">
         {value.active
           ? languageData["Form.Merchant.productGroup.active"]
