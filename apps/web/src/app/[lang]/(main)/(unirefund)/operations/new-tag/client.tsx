@@ -94,7 +94,7 @@ export default function ClientPage({
         merchant: {
           vatNumber: merchantInfoResponse.data.vatNumber || "",
           countryCode: "TR",
-          externalStoreIdentifier: merchantInfoResponse.data.chainCodeId || "0",
+          externalStoreIdentifier: merchantInfoResponse.data.externalStoreIdentifier || "0",
         },
         traveller: {
           travelDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travelDocumentNumber || "",
@@ -121,6 +121,7 @@ export default function ClientPage({
           },
         ],
       };
+      console.log("Creating tag with data", data);
       const response = await postTagApi({
         requestBody: data,
       });
