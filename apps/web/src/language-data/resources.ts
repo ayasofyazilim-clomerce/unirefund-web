@@ -1883,6 +1883,13 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100030": "Tags without an early refund fee in their contract cannot be refunded. Affected Tags: '{tagNumbersStr}'";
   "UniRefund.TagService:0100031": "Refund operation can not be performed due to some tags' refund expiration date have passed! Related Tags: '{tagNumbers}'";
   "UniRefund.TagService:0100032": "Multi Invoices in a Tag currently not supported. Tag can just have one Invoice!";
+  "UniRefund.TagService:0100033": "Invalid Tax Amount. TaxBase={taxBase}, TaxRate={taxRate}, ProvidedTaxAmount={taxAmount}, CalculatedTaxAmount={calculatedTaxAmount}.";
+  "UniRefund.TagService:0100034": "Invalid Total Amount. TaxBase={taxBase}, ProvidedTaxAmount={taxAmount}, ProvidedAmount={amount}, CalculatedAmount={calculatedAmount}.";
+  "UniRefund.TagService:0100035": "Invalid total invoice amount. Calculated total from lines = {calculatedTotalAmountOfLines}, but provided total invoice amount = {invoiceTotalAmount}.";
+  "UniRefund.TagService:0100036": "Invalid total VAT amount. Calculated VAT total from lines = {calculatedTotalTaxAmountOfLines}, but provided invoice VAT amount = {invoiceVATAmount}.";
+  "NameSpace:TagsNameSpace": "TagsNameSpace";
+  "NameSpace:ViewEarnings": "View Earnings";
+  "NameSpace:ViewTotals": "View Totals";
 };
 export type ContractServiceResources = {
   "UniRefund.ContractService:01001": "There is no any active ContractHeader related with given {contractType}: {contractTypeIdentifier}!";
