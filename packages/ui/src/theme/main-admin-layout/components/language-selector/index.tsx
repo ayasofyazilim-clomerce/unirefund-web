@@ -56,7 +56,7 @@ function LanguageSelector({ lang, languagesList }: { lang: string; languagesList
                     key={label.id}
                     value={label.id}
                     onSelect={(value) => {
-                      const selected = countries.find((i) => i.id === value);
+                      const selected = languagesList.find((i) => i.id === value);
                       const newUrl = selected?.cultureName + "/" + location.pathname.split("/").slice(2).join("/");
                       router.push("/" + newUrl);
                     }}>
