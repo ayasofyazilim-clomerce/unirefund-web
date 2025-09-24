@@ -21,12 +21,22 @@ export function TaxOfficeForm({
   taxOfficeDetails: TaxOfficeDto;
 }) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const isHeadquarter = taxOfficeDetails.typeCode === "HEADQUARTER";
+  const disabled = {
+    "ui:options": {
+      readOnly: true,
+      disabled: true,
+    },
+  };
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.TaxOffice",
     schema: $UpdateTaxOfficeDto,
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end",
+      name: {
+        ...(isHeadquarter && {"ui:className": "col-span-full"}),
+      },
       telephone: {
         "ui:className": "col-span-full",
         "ui:field": "phone",
@@ -38,17 +48,12 @@ export function TaxOfficeForm({
         "ui:className": "col-span-full",
         "ui:field": "email",
       },
-      typeCode: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+      vatNumber: {
+        ...(!isHeadquarter && disabled),
       },
       parentId: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+        ...(isHeadquarter && {"ui:widget": "hidden"}),
+        ...disabled,
       },
     },
   });

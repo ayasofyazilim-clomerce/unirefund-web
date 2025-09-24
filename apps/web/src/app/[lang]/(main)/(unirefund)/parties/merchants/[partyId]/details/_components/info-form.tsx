@@ -26,6 +26,14 @@ export function MerchantForm({
   taxOffices: TaxOfficeDto[];
 }) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const isHeadquarter = merchantDetails.typeCode === "HEADQUARTER";
+  const disabled = {
+    "ui:options": {
+      readOnly: true,
+      disabled: true,
+    },
+  };
+
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.Merchant",
@@ -53,17 +61,12 @@ export function MerchantForm({
         "ui:className": "col-span-full",
         "ui:field": "email",
       },
-      typeCode: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+      vatNumber: {
+        ...(!isHeadquarter && disabled),
       },
       parentId: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+        ...(isHeadquarter && {"ui:widget": "hidden"}),
+        ...disabled,
       },
     },
   });
@@ -74,7 +77,6 @@ export function MerchantForm({
       className="sticky top-0 h-fit"
       defaultSubmitClassName="[&>button]:w-full"
       disabled={isPending}
-      filter={merchantDetails.typeCode === "STORE" ? {type: "exclude", keys: ["vatNumber"]} : undefined}
       formData={{
         ...merchantDetails,
         parentId: merchantDetails.parentName || "",

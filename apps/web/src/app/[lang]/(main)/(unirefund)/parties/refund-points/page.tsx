@@ -6,6 +6,7 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import RefundPointsTable from "./_components/table";
 
@@ -34,10 +35,10 @@ async function getApiRequests(filters: GetApiCrmServiceRefundPointsData) {
 
 export default async function Page({params, searchParams}: {params: {lang: string}; searchParams?: SearchParamType}) {
   const {lang} = params;
-  // await isUnauthorized({
-  //   requiredPolicies: ["CRMService.RefundPoints"],
-  //   lang,
-  // });
+  await isUnauthorized({
+    requiredPolicies: ["CRMService.RefundPoints"],
+    lang,
+  });
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests({

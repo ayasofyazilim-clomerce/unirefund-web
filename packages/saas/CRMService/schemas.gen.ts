@@ -1342,10 +1342,6 @@ export const $UniRefund_CRMService_Affiliations_UpdateAffiliationDto = {
             type: 'string',
             format: 'date-time',
             nullable: true
-        },
-        isPrimary: {
-            type: 'boolean',
-            nullable: true
         }
     },
     additionalProperties: false

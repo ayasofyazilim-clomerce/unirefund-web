@@ -25,12 +25,22 @@ export function TaxFreeForm({
   taxOffices: TaxOfficeDto[];
 }) {
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const isHeadquarter = taxFreeDetails.typeCode === "HEADQUARTER";
+  const disabled = {
+    "ui:options": {
+      readOnly: true,
+      disabled: true,
+    },
+  };
   const uiSchema = createUiSchemaWithResource({
     resources: languageData,
     name: "Form.TaxFree",
     schema: $UpdateTaxFreeDto,
     extend: {
       "ui:className": "grid md:grid-cols-2 gap-4 items-end",
+      name: {
+        ...(isHeadquarter && {"ui:className": "col-span-full"}),
+      },
       taxOfficeId: {
         "ui:widget": "taxOfficeWidget",
       },
@@ -45,17 +55,12 @@ export function TaxFreeForm({
         "ui:className": "col-span-full",
         "ui:field": "email",
       },
-      typeCode: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+      vatNumber: {
+        ...(!isHeadquarter && disabled),
       },
       parentId: {
-        "ui:options": {
-          readOnly: true,
-          disabled: true,
-        },
+        ...(isHeadquarter && {"ui:widget": "hidden"}),
+        ...disabled,
       },
     },
   });

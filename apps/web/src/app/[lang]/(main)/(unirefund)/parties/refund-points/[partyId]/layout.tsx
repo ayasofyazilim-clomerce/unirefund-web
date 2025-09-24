@@ -61,7 +61,9 @@ export default async function Layout({
             label: languageData["CRM.Details"],
             href: `${baseLink}details`,
           },
-          ...(!isHeadquarter ? [] : [{label: languageData["CRM.SubOrganization"], href: `${baseLink}sub-stores`}]),
+          ...(!isHeadquarter
+            ? []
+            : [{label: languageData["CRM.RefundPoint.SubOrganization"], href: `${baseLink}sub-stores`}]),
           {
             label: languageData["CRM.Affiliations"],
             href: `${baseLink}affiliations`,

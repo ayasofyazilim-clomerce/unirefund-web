@@ -43,7 +43,7 @@ export default async function Layout({
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [taxFreeDetailResponse] = apiRequests.requiredRequests;
-  const isHeadquarter = taxFreeDetailResponse.data.typeCode === "HEADQUARTER";
+  // const isHeadquarter = taxFreeDetailResponse.data.typeCode === "HEADQUARTER";
   return (
     <>
       <PartyHeader details={taxFreeDetailResponse.data} partyType="tax-offices" />
@@ -60,7 +60,7 @@ export default async function Layout({
             label: languageData["CRM.Details"],
             href: `${baseLink}details`,
           },
-          ...(!isHeadquarter ? [] : [{label: languageData["CRM.SubOrganization"], href: `${baseLink}sub-stores`}]),
+          // ...(!isHeadquarter ? [] : [{label: languageData["CRM.SubOrganization"], href: `${baseLink}sub-stores`}]),
           {
             label: languageData["CRM.Affiliations"],
             href: `${baseLink}affiliations`,

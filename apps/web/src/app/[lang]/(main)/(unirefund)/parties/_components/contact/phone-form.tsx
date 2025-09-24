@@ -19,6 +19,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
+import {Edit} from "lucide-react";
 import type {DefaultResource} from "@/language-data/core/Default";
 import type {PartyType} from "../party-header";
 import {PhoneWithTypeField} from "./phone-with-type";
@@ -64,6 +65,9 @@ export function PhoneForm({
             partyType,
             router,
           }),
+      },
+      normalizedPhoneNumber: {
+        content: (row) => EditRowTrigger({row}),
       },
     },
     expandRowTrigger: "normalizedPhoneNumber",
@@ -125,7 +129,14 @@ export function PhoneForm({
 function TypeRow({row, languageData}: {row: TelephoneDto; languageData: DefaultResource}) {
   return <div> {languageData[`Form.telephone.type.${row.type}`]}</div>;
 }
-
+function EditRowTrigger({row}: {row: TelephoneDto}) {
+  return (
+    <div className="flex items-center gap-1">
+      <Edit className="w-4" />
+      {row.normalizedPhoneNumber}
+    </div>
+  );
+}
 function EditForm({
   row,
   lang,
