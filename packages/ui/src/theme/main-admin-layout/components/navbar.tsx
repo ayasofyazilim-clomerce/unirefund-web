@@ -57,6 +57,7 @@ import LanguageSelector from "./language-selector";
 import Logo from "./logo";
 import SearchBar, { type SearchFromDB } from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
+import { useTheme } from "../../../providers/theme";
 
 export default function Navbar({
   prefix,
@@ -79,6 +80,7 @@ export default function Navbar({
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const { languagesList } = useTheme();
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
       <nav className="bg-white py-2.5">
@@ -111,7 +113,7 @@ export default function Navbar({
               <Menu size={20} />
             </button>
             {children}
-            <LanguageSelector lang={lang} showEarthIcon={true} />
+            <LanguageSelector lang={lang} showEarthIcon={true} languagesList={languagesList || []} />
             {notification && <NotificationPopover {...notification} />}
             <ProfileMenu />
           </div>
