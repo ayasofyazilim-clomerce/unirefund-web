@@ -3,8 +3,9 @@
 import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { createContext, useContext } from "react";
+import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types";
+import { SearchFromDB } from "../theme/main-admin-layout/components/navbar-searchbar";
 import { NotificationProps } from "../notification";
-import { SearchFromDB } from "./../theme/main-admin-layout/components/navbar-searchbar";
 
 interface ThemeProviderProps {
   appName: string;
@@ -18,6 +19,7 @@ interface ThemeProviderProps {
   children: JSX.Element;
   notification: NotificationProps;
   searchFromDB: SearchFromDB[];
+  languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }
 interface ThemeContextProps {
   appName: string;
@@ -30,6 +32,7 @@ interface ThemeContextProps {
   tenantData?: { tenantId: string; tenantName: string };
   notification?: NotificationProps;
   searchFromDB?: SearchFromDB[];
+  languagesList?: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }
 
 const ThemeProviderContext = createContext<ThemeContextProps>({
@@ -43,6 +46,7 @@ const ThemeProviderContext = createContext<ThemeContextProps>({
   notification: undefined,
   logo: "",
   searchFromDB: [],
+  languagesList: [],
 });
 
 export const useTheme = () => {
@@ -61,6 +65,7 @@ export function ThemeProvider({
   tenantData,
   notification,
   searchFromDB,
+  languagesList
 }: ThemeProviderProps) {
   return (
     <ThemeProviderContext.Provider
@@ -75,6 +80,7 @@ export function ThemeProvider({
         tenantData,
         notification,
         searchFromDB,
+        languagesList
       }}>
       {children}
     </ThemeProviderContext.Provider>

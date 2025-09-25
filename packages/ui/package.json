@@ -29,6 +29,7 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@repo/actions": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
