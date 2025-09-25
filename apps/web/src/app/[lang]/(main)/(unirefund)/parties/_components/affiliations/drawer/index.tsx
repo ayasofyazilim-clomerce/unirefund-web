@@ -141,7 +141,7 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
       <DrawerContent
         aria-describedby="drawer-description"
         aria-labelledby="drawer-title"
-        className="bottom-4 mx-auto max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
+        className="bottom-4 mx-auto max-w-2xl overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
         role="dialog">
         <DrawerHeader>
           <h2 className="text-lg font-semibold" id="drawer-title">
@@ -236,7 +236,7 @@ export function IndividualDrawer({languageData, onIndividualUpdate}: OptimizedIn
       <DrawerContent
         aria-describedby="individual-drawer-description"
         aria-labelledby="individual-drawer-title"
-        className="bottom-4 mx-auto h-full max-h-[80dvh] max-w-lg overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
+        className="bottom-4 mx-auto h-full max-h-[80dvh] max-w-2xl overflow-hidden rounded-md border-0 p-0 [&>div.bg-muted]:hidden"
         role="dialog">
         <DrawerHeader>
           <h2 className="text-lg font-semibold" id="individual-drawer-title">
