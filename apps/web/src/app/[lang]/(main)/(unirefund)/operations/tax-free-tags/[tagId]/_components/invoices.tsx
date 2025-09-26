@@ -50,7 +50,7 @@ export default function Invoices({
             <Label data-testid="product-group-label" htmlFor="product-group">
               {languageData.ProductGroups}
             </Label>
-            <Select defaultValue={line.productGroup?.id} name="product-group">
+            <Select defaultValue={line.productGroup?.id} disabled={tagDetail.status !== "Issued"} name="product-group">
               <SelectTrigger data-testid="product-group-trigger">
                 <SelectValue placeholder={languageData["ProductGroups.Select"]} />
               </SelectTrigger>
