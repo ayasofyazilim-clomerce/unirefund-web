@@ -34,7 +34,7 @@ interface ContractSettingsTable {
   id: string;
   name: string;
   isDefault?: boolean;
-  details?: ContractSettingDto;
+  details?: Partial<ContractSettingDto & ContractSettingCreateUpdateDto>;
 }
 const $ContractSettingsTable = {
   id: {
@@ -101,12 +101,22 @@ export function ContractSettings({
 
   const RowForm = useCallback(
     (row: ContractSettingsTable) => {
+      const invoicingAddressCommonDataId: string | undefined = (() => {
+        if (!row.details) return undefined;
+        if (row.details.invoicingAddressCommonData?.id) return row.details.invoicingAddressCommonData.id;
+        if ("invoicingAddressCommonDataId" in row.details) {
+          const v = (row.details as {invoicingAddressCommonDataId?: unknown}).invoicingAddressCommonDataId;
+          return typeof v === "string" ? v : undefined;
+        }
+        return undefined;
+      })();
+
       return (
         <SchemaFormForContractSettings
           addressList={addressList}
           formData={{
             ...row.details,
-            invoicingAddressCommonDataId: row.details?.invoicingAddressCommonData.id,
+            invoicingAddressCommonDataId,
           }}
           handleFetch={handleFetch}
           languageData={languageData}
@@ -181,7 +191,20 @@ export function ContractSettings({
           cta: languageData.New,
           type: "simple",
           onClick: () => {
-            setTempSettings({name: "New", id: "$temp"});
+            const tempDetails: Partial<ContractSettingDto & ContractSettingCreateUpdateDto> = {
+              name: languageData["Contracts.Default"], // Bu iyi bir seçim
+            };
+
+            // Address kontrolü daha açık yapılabilir
+            if (addressList.length > 0) {
+              tempDetails.invoicingAddressCommonDataId = addressList[0].id;
+            }
+
+            setTempSettings({
+              name: languageData["Contracts.Default"], // Tutarlılık için aynı değer
+              id: "$temp",
+              details: tempDetails,
+            });
           },
         },
       ]

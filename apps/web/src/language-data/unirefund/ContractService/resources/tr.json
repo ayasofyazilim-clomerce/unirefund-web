@@ -9,7 +9,6 @@
   "Missing.ContractStores.Message": "Lütfen genel merkeze en az bir mağaza ekleyin.",
   "Missing.ContractSettings.Title": "Sözleşme ayarları eksik",
   "Missing.ContractSettings.Message": "Lütfen sözleşmeye en az bir ayar ekleyin.",
-
   "Contracts.Contract": "Sözleşme",
   "Contracts.Contracts": "Sözleşmeler",
   "Contracts.Validate": "Onayla",
@@ -28,12 +27,11 @@
   "Contracts.Customized": "Özelleştirilmiş",
   "Contracts.Clone": "Klonla",
   "Contracts.CloningFrom": "Buradan klonla",
-
+  "Contracts.Validate.Success": "Sözleşme başarıyla onaylandı",
+  "Contracts.Validate.Error": "Sözleşme onaylanırken bir hata oluştu",
   "Contracts.Settings": "Sözleşme Ayarları",
   "Contracts.Settings.SetDefault": "Varsayılan olarak ayarla",
-
   "Contracts.RebateSettings": "Rebate Ayarları",
-
   "Contracts.Stores": "Mağazalar",
   "Contracts.Stores.Save.Title": "Mağaza ayarlarını geçersiz kıl",
   "Contracts.Stores.Save.Description": "Mağaza ayarlarını geçersiz kılmak istediğinizden emin misiniz?",
@@ -43,7 +41,6 @@
   "Contracts.Stores.receiptType.Barcode": "Barkod",
   "Contracts.Stores.receiptType.QRCodeIntegration": "QR Kodu Entegrasyonu",
   "Contracts.Stores.receiptType.UniRefundVoucherIntegration": "UniRefundVoucher Entegrasyonu",
-
   "Contracts.FillFrom": "Şuradan doldur",
   "Contracts.Form.name": "İsim",
   "Contracts.Form.calculateNetCommissionInsteadOfRefund": "İade yerine net komisyon hesapla",
