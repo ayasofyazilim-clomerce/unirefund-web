@@ -1,23 +1,23 @@
 "use client";
 import * as Select from "@/components/ui/select";
-import type {
-  UniRefund_FileService_Files_FileForHumanValidationDto,
-  UniRefund_FileService_FileTypes_FileTypeListDto,
-} from "@repo/saas/FileService";
-import {$UniRefund_FileService_Files_FileForHumanValidationDto} from "@repo/saas/FileService";
-import {getApiFileTypeGroupsRulesetApi} from "@repo/actions/unirefund/FileService/actions";
+import { getApiFileTypeGroupsRulesetApi } from "@repo/actions/unirefund/FileService/actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {
   BooleanOptions,
   tanstackTableCreateColumnsByRowData,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type {Ruleset} from "@repo/ui/unirefund/file-upload";
-import {FileUpload} from "@repo/ui/unirefund/file-upload";
-import {DownloadIcon, UploadCloudIcon} from "lucide-react";
-import {useParams} from "next/navigation";
-import {useEffect, useState, useTransition} from "react";
-import {getBaseLink} from "@/utils";
-import type {FileServiceResource} from "@/language-data/unirefund/FileService";
+import type {
+  UniRefund_FileService_Files_FileForHumanValidationDto,
+  UniRefund_FileService_FileTypes_FileTypeListDto,
+} from "@repo/saas/FileService";
+import { $UniRefund_FileService_Files_FileForHumanValidationDto } from "@repo/saas/FileService";
+import type { Ruleset } from "@repo/ui/unirefund/file-upload";
+import { FileUpload } from "@repo/ui/unirefund/file-upload";
+import { DownloadIcon, UploadCloudIcon } from "lucide-react";
+import { useEffect, useState, useTransition } from "react";
+import { getBaseLink } from "@/utils";
+import { useTenant, type Localization } from "@/providers/tenant";
+import type { FileServiceResource } from "@/language-data/unirefund/FileService";
 
 type TableType = UniRefund_FileService_Files_FileForHumanValidationDto;
 
@@ -30,8 +30,8 @@ export function Table({
   languageData: FileServiceResource;
   availableFileTypes: UniRefund_FileService_FileTypes_FileTypeListDto[];
 }) {
-  const {lang} = useParams<{lang: string}>();
-  const columns = tableColumns(lang, languageData);
+  const { localization } = useTenant();
+  const columns = tableColumns(localization, languageData);
   return (
     <TanstackTable<TableType, TableType>
       columnOrder={[
@@ -88,13 +88,14 @@ export function Table({
   );
 }
 
-function tableColumns(lang: string, languageData: FileServiceResource) {
+function tableColumns(localization: Localization, languageData: FileServiceResource) {
   return tanstackTableCreateColumnsByRowData<TableType>({
     languageData,
+    localization,
     rows: $UniRefund_FileService_Files_FileForHumanValidationDto.properties,
     links: {
       fileName: {
-        prefix: getBaseLink("management/file/verification", lang),
+        prefix: getBaseLink("management/file/verification", localization.lang),
         targetAccessorKey: "id",
         suffix: "verify",
       },
@@ -133,7 +134,7 @@ function FileUploadDialog({
         setRuleset(null);
         return;
       }
-      void getApiFileTypeGroupsRulesetApi({namespace: selectedFileType})
+      void getApiFileTypeGroupsRulesetApi({ namespace: selectedFileType })
         .then((res) => {
           setRuleset(res.data);
         })
