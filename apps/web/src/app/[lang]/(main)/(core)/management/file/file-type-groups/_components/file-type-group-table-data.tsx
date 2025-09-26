@@ -21,6 +21,7 @@ import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {Edit, Plus, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
+import type {Localization} from "@/providers/tenant";
 
 type FileTypeGroupTable = TanstackTableCreationProps<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>;
 
@@ -107,12 +108,10 @@ function fileTypeGroupRowActions(
   return actions;
 }
 
-function fileTypeGroupColumns(locale: string) {
+function fileTypeGroupColumns(localization: Localization) {
   return tanstackTableCreateColumnsByRowData<UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto>({
     rows: $UniRefund_FileService_FileTypeGroups_FileTypeGroupListDto.properties,
-    config: {
-      locale,
-    },
+    localization,
   });
 }
 

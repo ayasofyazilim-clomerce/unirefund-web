@@ -23,6 +23,7 @@ import {useParams} from "next/navigation";
 import type {Dispatch, TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 import type {PartyTypeHasAffiliations} from "../party-header";
 import {deleteAffiliationByPartyType, updateAffiliationByPartyType} from "./utils";
 
@@ -52,16 +53,14 @@ function affiliationTableActions(
   return actions;
 }
 
-function affiliationColumns(locale: string, languageData: CRMServiceServiceResource) {
+function affiliationColumns(localization: Localization, languageData: CRMServiceServiceResource) {
   return tanstackTableCreateColumnsByRowData<AffiliationListResponseDto>({
     rows: $AffiliationListResponseDto.properties,
     languageData: {
       name: languageData.Name,
       roleName: languageData["CRM.roleName"],
     },
-    config: {
-      locale,
-    },
+    localization,
     expandRowTrigger: "name",
   });
 }

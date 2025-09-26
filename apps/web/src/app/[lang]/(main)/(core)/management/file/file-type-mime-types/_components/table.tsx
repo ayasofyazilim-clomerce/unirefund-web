@@ -1,12 +1,13 @@
 "use client";
+import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {
   PagedResultDto_FileTypeMimeTypeListDto,
   UniRefund_FileService_FileTypes_FileTypeListDto,
   UniRefund_FileService_MimeTypes_MimeTypeListDto,
 } from "@repo/saas/FileService";
-import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 import {tableData} from "./file-type-mime-type-table-data";
 
@@ -25,7 +26,8 @@ function FileTypeMimeTypesTable({
 }) {
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.fileTypeMimeTypes.columns(locale);
+  const {localization} = useTenant();
+  const columns = tableData.fileTypeMimeTypes.columns(localization);
   const table = tableData.fileTypeMimeTypes.table(
     locale,
     languageData,

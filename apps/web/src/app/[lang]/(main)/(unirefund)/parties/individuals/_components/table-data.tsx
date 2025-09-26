@@ -13,6 +13,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type IndividualTable = TanstackTableCreationProps<IndividualListResponseDto>;
 
@@ -37,8 +38,8 @@ function individualTableActions(
   return actions;
 }
 
-function individualColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/individuals", locale);
+function individualColumns(localization: Localization, languageData: CRMServiceServiceResource) {
+  const baseLink = getBaseLink("parties/individuals", localization.lang);
   return tanstackTableCreateColumnsByRowData<IndividualListResponseDto>({
     rows: $IndividualListResponseDto.properties,
     languageData: {
@@ -47,9 +48,7 @@ function individualColumns(locale: string, languageData: CRMServiceServiceResour
       gender: languageData["Form.Individual.gender"],
       identificationNumber: languageData["Form.Individual.identificationNumber"],
     },
-    config: {
-      locale,
-    },
+    localization,
     custom: {
       firstname: {
         showHeader: true,

@@ -15,6 +15,7 @@ import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {Edit, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
+import type {Localization} from "@/providers/tenant";
 
 type FileTypeTable = TanstackTableCreationProps<UniRefund_FileService_FileTypes_FileTypeListDto>;
 
@@ -71,12 +72,10 @@ function fileTypeRowActions(
   return actions;
 }
 
-function fileTypeColumns(locale: string) {
+function fileTypeColumns(localization: Localization) {
   return tanstackTableCreateColumnsByRowData<UniRefund_FileService_FileTypes_FileTypeListDto>({
     rows: $UniRefund_FileService_FileTypes_FileTypeListDto.properties,
-    config: {
-      locale,
-    },
+    localization,
     faceted: {
       isPublic: BooleanOptions,
       dateRequired: BooleanOptions,
@@ -92,7 +91,7 @@ function fileTypeTable(
   languageData: DefaultResource,
   router: AppRouterInstance,
   grantedPolicies: Record<Policy, boolean>,
-  locale: string,
+  localization: Localization,
 ): FileTypeTable {
   const table: FileTypeTable = {
     fillerColumn: "namespace",
@@ -101,8 +100,8 @@ function fileTypeTable(
       columns: ["id", "providerID"],
     },
     columnOrder: ["name"],
-    tableActions: fileTypeTableActions(router, languageData, locale),
-    rowActions: fileTypeRowActions(languageData, router, grantedPolicies, locale),
+    tableActions: fileTypeTableActions(router, languageData, localization.lang),
+    rowActions: fileTypeRowActions(languageData, router, grantedPolicies, localization.lang),
   };
   return table;
 }

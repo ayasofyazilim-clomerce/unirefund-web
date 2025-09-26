@@ -21,6 +21,7 @@ import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {DefaultResource} from "@/language-data/core/Default";
+import {useTenant} from "@/providers/tenant";
 import type {PartyType} from "../party-header";
 import {emailActionByPartyType} from "./utils";
 
@@ -34,14 +35,13 @@ export function EmailForm({
   partyType: PartyType;
 }) {
   const router = useRouter();
-  const {lang, partyId} = useParams<{lang: string; partyId: string}>();
+  const {partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
+  const {localization} = useTenant();
 
   const columns = tanstackTableCreateColumnsByRowData<EmailDto>({
     rows: $EmailDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form.email",

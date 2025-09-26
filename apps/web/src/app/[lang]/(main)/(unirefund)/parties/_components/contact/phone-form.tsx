@@ -21,6 +21,7 @@ import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import {Edit} from "lucide-react";
 import type {DefaultResource} from "@/language-data/core/Default";
+import {useTenant} from "@/providers/tenant";
 import type {PartyType} from "../party-header";
 import {PhoneWithTypeField} from "./phone-with-type";
 import {telephoneActionByPartyType} from "./utils";
@@ -38,11 +39,10 @@ export function PhoneForm({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  const {localization} = useTenant();
   const columns = tanstackTableCreateColumnsByRowData<TelephoneDto>({
     rows: $TelephoneDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form.telephone",

@@ -5,20 +5,19 @@ import {
 } from "@ayasofyazilim/core-saas/AdministrationService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {Localization} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 type AuditLogsEntityChangeTable = TanstackTableCreationProps<Volo_Abp_AuditLogging_EntityChangeDto>;
 
-const entityChangesColumns = (locale: string, languageData: AdministrationServiceResource) => {
+const entityChangesColumns = (localization: Localization, languageData: AdministrationServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_AuditLogging_EntityChangeDto>({
     rows: $Volo_Abp_AuditLogging_EntityChangeDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.Log.EntityChanges",
     },
-    config: {
-      locale,
-    },
+    localization,
   });
 };
 function entityChangesTable(languageData: AdministrationServiceResource) {

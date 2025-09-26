@@ -20,6 +20,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type TaxOfficeTable = TanstackTableCreationProps<TaxOfficeListResponseDto>;
 
@@ -44,8 +45,8 @@ function taxOfficeTableActions(
   return actions;
 }
 
-function taxOfficeColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/tax-offices", locale);
+function taxOfficeColumns(localization: Localization, languageData: CRMServiceServiceResource) {
+  const baseLink = getBaseLink("parties/tax-offices", localization.lang);
   return tanstackTableCreateColumnsByRowData<TaxOfficeListResponseDto>({
     rows: $TaxOfficeListResponseDto.properties,
     languageData: {
@@ -54,9 +55,7 @@ function taxOfficeColumns(locale: string, languageData: CRMServiceServiceResourc
       vatNumber: languageData["CRM.vatNumber"],
       externalStoreIdentifier: languageData["Form.TaxOffice.externalStoreIdentifier"],
     },
-    config: {
-      locale,
-    },
+    localization,
     custom: {
       name: {
         showHeader: true,

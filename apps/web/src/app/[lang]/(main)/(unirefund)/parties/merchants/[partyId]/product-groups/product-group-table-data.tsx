@@ -30,6 +30,7 @@ import {
 import {Badge} from "@/components/ui/badge";
 import {cn} from "@/lib/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type ProductGroupsTable =
   TanstackTableCreationProps<UniRefund_SettingService_ProductGroupMerchants_ProductGroupMerchantRelationDto>;
@@ -170,9 +171,9 @@ function productGroupsRowActions(
 }
 
 export function productGroupsColumns(
+  localization: Localization,
   languageData: CRMServiceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
-  locale: string,
 ) {
   const links: Partial<
     Record<
@@ -199,9 +200,7 @@ export function productGroupsColumns(
         constantKey: "Form.Merchant.productGroup",
       },
       links,
-      config: {
-        locale,
-      },
+      localization,
       faceted: {
         isActive: {
           options: [

@@ -52,7 +52,6 @@ export default async function Page({
   const [refundFeeHeadersResponse, refundPointsResponse] = apiRequests.data;
   return (
     <RefundFees
-      lang={lang}
       languageData={languageData}
       refundFeeHeaders={refundFeeHeadersResponse.data.items || []}
       refundPoints={refundPointsResponse.data.items || []}

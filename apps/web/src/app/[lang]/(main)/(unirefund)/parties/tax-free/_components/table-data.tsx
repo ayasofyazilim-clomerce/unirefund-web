@@ -20,6 +20,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type TaxFreeTable = TanstackTableCreationProps<TaxFreeListResponseDto>;
 
@@ -44,8 +45,8 @@ function taxFreeTableActions(
   return actions;
 }
 
-function taxFreeColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/tax-free", locale);
+function taxFreeColumns(localization: Localization, languageData: CRMServiceServiceResource) {
+  const baseLink = getBaseLink("parties/tax-free", localization.lang);
   return tanstackTableCreateColumnsByRowData<TaxFreeListResponseDto>({
     rows: $TaxFreeListResponseDto.properties,
     languageData: {
@@ -54,9 +55,7 @@ function taxFreeColumns(locale: string, languageData: CRMServiceServiceResource)
       vatNumber: languageData["CRM.vatNumber"],
       externalStoreIdentifier: languageData["CRM.externalStoreIdentifier"],
     },
-    config: {
-      locale,
-    },
+    localization,
     custom: {
       name: {
         showHeader: true,

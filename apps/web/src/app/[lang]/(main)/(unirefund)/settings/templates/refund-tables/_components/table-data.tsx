@@ -17,20 +17,19 @@ import {isActionGranted} from "@repo/utils/policies";
 import {postRefundTableHeaderCloneByIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {getBaseLink} from "@/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import type {Localization} from "@/providers/tenant";
 
 type RefundTableHeaders = TanstackTableCreationProps<RefundTableHeaderDto>;
 
 const refundTableHeadersColumns = (
-  locale: string,
+  localization: Localization,
   merchants: MerchantProfileDto[],
   languageData: ContractServiceResource,
 ) =>
   tanstackTableCreateColumnsByRowData<RefundTableHeaderDto>({
     rows: $RefundTableHeaderDto.properties,
     languageData,
-    config: {
-      locale,
-    },
+    localization,
     links: {
       name: {
         prefix: `refund-tables`,
@@ -102,7 +101,7 @@ const refundTableHeadersColumns = (
           return (
             <Link
               data-testid={`${row.merchantId}-name-link`}
-              href={getBaseLink(`parties/merchants/${row.merchantId}/details`, locale)}>
+              href={getBaseLink(`parties/merchants/${row.merchantId}/details`, localization.lang)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{merchant.name}</Badge>
             </Link>
           );

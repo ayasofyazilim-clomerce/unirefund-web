@@ -1,9 +1,10 @@
 "use client";
 
-import type {PagedResultDto_TaxFreeListResponseDto} from "@repo/saas/CRMService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams, useRouter} from "next/navigation";
+import type {PagedResultDto_TaxFreeListResponseDto} from "@repo/saas/CRMService";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import {tableData} from "./table-data";
 
@@ -18,8 +19,9 @@ function TaxFreesTable({
 }) {
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
-  const {lang} = useParams<{lang: string}>();
-  const columns = tableData.taxFrees.columns(lang, languageData);
+
+  const {localization} = useTenant();
+  const columns = tableData.taxFrees.columns(localization, languageData);
   const table = tableData.taxFrees.table(languageData, router, grantedPolicies, newLink);
 
   return <TanstackTable {...table} columns={columns} data={taxFrees.items || []} rowCount={taxFrees.totalCount} />;

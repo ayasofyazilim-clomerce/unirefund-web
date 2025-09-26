@@ -2,8 +2,9 @@
 
 import type {PagedResultDto_ProductGroupDto} from "@ayasofyazilim/saas/SettingService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
 import {tableData} from "./product-groups-table-data";
 
@@ -15,9 +16,9 @@ function ProductGroupsTable({
   languageData: SettingServiceResource;
 }) {
   const router = useRouter();
-  const {lang} = useParams<{lang: string}>();
+  const {localization} = useTenant();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.productGroups.columns(lang, languageData, grantedPolicies);
+  const columns = tableData.productGroups.columns(localization, languageData, grantedPolicies);
   const table = tableData.productGroups.table(languageData, router, grantedPolicies);
 
   return (

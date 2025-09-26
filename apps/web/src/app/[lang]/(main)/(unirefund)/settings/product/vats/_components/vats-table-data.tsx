@@ -11,6 +11,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
+import type {Localization} from "@/providers/tenant";
 
 type VatsTable = TanstackTableCreationProps<UniRefund_SettingService_Vats_VatDto>;
 
@@ -37,7 +38,7 @@ function vatsTableActions(
 }
 
 const vatsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: SettingServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -53,9 +54,7 @@ const vatsColumns = (
       languageData,
       constantKey: "Form.Vat",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     faceted: {
       active: {

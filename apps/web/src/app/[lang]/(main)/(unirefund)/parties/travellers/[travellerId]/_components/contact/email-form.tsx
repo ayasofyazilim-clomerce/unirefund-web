@@ -17,22 +17,22 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import {handlePostResponse, handlePutResponse} from "@repo/utils/api";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {useTenant} from "@/providers/tenant";
 import type {DefaultResource} from "@/language-data/core/Default";
 
 export function EmailForm({languageData, emails}: {languageData: DefaultResource; emails: EmailDto[]}) {
   const router = useRouter();
-  const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();
+  const {travellerId} = useParams<{travellerId: string}>();
   const [isPending, startTransition] = useTransition();
+  const {localization} = useTenant();
 
   const columns = tanstackTableCreateColumnsByRowData<EmailDto>({
     rows: $EmailDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form.email",

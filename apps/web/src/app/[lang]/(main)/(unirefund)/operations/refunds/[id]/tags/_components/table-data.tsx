@@ -3,11 +3,12 @@ import {$UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import type {Localization} from "@/providers/tenant";
 import {TextWithSubText} from "../../_components/text-with-subtext";
 
 type RefundsTable = TanstackTableCreationProps<UniRefund_TagService_Tags_TagListItemDto>;
 
-const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
+const taxFreeTagsColumns = (localization: Localization, languageData: TagServiceResource) =>
   tanstackTableCreateColumnsByRowData<UniRefund_TagService_Tags_TagListItemDto>({
     rows: $UniRefund_TagService_Tags_TagListItemDto.properties,
     languageData: {
@@ -17,7 +18,6 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
       invoiceNumber: languageData.InvoiceNumber,
     },
     config: {
-      locale,
       dateOptions: {
         day: "2-digit",
         month: "short",
@@ -26,6 +26,7 @@ const taxFreeTagsColumns = (locale: string, languageData: TagServiceResource) =>
         minute: "2-digit",
       },
     },
+    localization,
     links: {
       tagNumber: {
         prefix: "tax-free-tags",

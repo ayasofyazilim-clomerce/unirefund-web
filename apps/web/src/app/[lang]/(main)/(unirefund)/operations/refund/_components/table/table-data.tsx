@@ -4,13 +4,14 @@ import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {Dispatch, SetStateAction} from "react";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import type {Localization} from "@/providers/tenant";
 
 const statusArray = $UniRefund_TagService_Tags_TagListItemDto.properties.status.enum;
 
 type RefundsTable = TanstackTableCreationProps<UniRefund_TagService_Tags_TagListItemDto>;
 
 const taxFreeTagsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: TagServiceResource,
   setSelectedRows: Dispatch<SetStateAction<UniRefund_TagService_Tags_TagListItemDto[]>>,
 ) =>
@@ -27,12 +28,10 @@ const taxFreeTagsColumns = (
       refundType: languageData.RefundMethod,
       invoiceNumber: languageData.InvoiceNumber,
     },
-    config: {
-      locale,
-    },
+    localization,
     links: {
       tagNumber: {
-        prefix: `/${locale}/operations/tax-free-tags`,
+        prefix: `/${localization.locale}/operations/tax-free-tags`,
         targetAccessorKey: "id",
       },
     },

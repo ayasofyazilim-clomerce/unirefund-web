@@ -23,6 +23,7 @@ import type {TransitionStartFunction} from "react";
 import {useCallback, useState, useTransition} from "react";
 import {Edit} from "lucide-react";
 import type {DefaultResource} from "@/language-data/core/Default";
+import {useTenant} from "@/providers/tenant";
 import type {PartyType} from "../party-header";
 import {addressActionByPartyType} from "./utils";
 
@@ -38,12 +39,11 @@ export function AddressForm({
   const router = useRouter();
   const {lang, partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
+  const {localization} = useTenant();
 
   const columns = tanstackTableCreateColumnsByRowData<AddressDto>({
     rows: $AddressDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form.address",

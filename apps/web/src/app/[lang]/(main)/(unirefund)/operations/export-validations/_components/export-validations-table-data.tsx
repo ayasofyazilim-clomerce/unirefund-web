@@ -12,6 +12,7 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {ExportValidationServiceResource} from "src/language-data/unirefund/ExportValidationService";
+import type {Localization} from "@/providers/tenant";
 
 type ExportValidationsTable =
   TanstackTableCreationProps<UniRefund_ExportValidationService_ExportValidations_ExportValidationDto>;
@@ -21,7 +22,7 @@ const links: Partial<
 > = {};
 
 const exportValidationsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: ExportValidationServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -37,9 +38,7 @@ const exportValidationsColumns = (
       languageData,
       constantKey: "Form.ExportValidation",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     faceted: {
       status: {

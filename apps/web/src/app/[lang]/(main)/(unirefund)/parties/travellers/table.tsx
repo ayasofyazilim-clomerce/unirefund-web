@@ -1,11 +1,12 @@
 "use client";
 
-import type {PagedResultDto_TravellerListDto} from "@repo/saas/TravellerService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams, useRouter} from "next/navigation";
+import type {PagedResultDto_TravellerListDto} from "@repo/saas/TravellerService";
 import {useGrantedPolicies} from "@repo/utils/policies";
-import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import {useRouter} from "next/navigation";
 import type {CountryDto} from "@/utils/address-hook/types";
+import {useTenant} from "@/providers/tenant";
+import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
 import {tableData} from "./travellers-table-data";
 
 function TravellersTable({
@@ -19,8 +20,9 @@ function TravellersTable({
 }) {
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
-  const {lang} = useParams<{lang: string}>();
-  const columns = tableData.travellers.columns(lang, languageData, grantedPolicies);
+
+  const {localization} = useTenant();
+  const columns = tableData.travellers.columns(localization, languageData, grantedPolicies);
   const table = tableData.travellers.table(languageData, router, countryList, grantedPolicies);
 
   return (

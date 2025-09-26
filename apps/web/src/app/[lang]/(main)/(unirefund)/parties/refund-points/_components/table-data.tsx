@@ -20,6 +20,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type RefundPointTable = TanstackTableCreationProps<RefundPointListResponseDto>;
 
@@ -44,8 +45,8 @@ function refundPointTableActions(
   return actions;
 }
 
-function refundPointColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/refund-points", locale);
+function refundPointColumns(localization: Localization, languageData: CRMServiceServiceResource) {
+  const baseLink = getBaseLink("parties/refund-points", localization.lang);
   return tanstackTableCreateColumnsByRowData<RefundPointListResponseDto>({
     rows: $RefundPointListResponseDto.properties,
     languageData: {
@@ -54,9 +55,7 @@ function refundPointColumns(locale: string, languageData: CRMServiceServiceResou
       vatNumber: languageData["Form.RefundPoint.vatNumber"],
       externalStoreIdentifier: languageData["Form.RefundPoint.externalStoreIdentifier"],
     },
-    config: {
-      locale,
-    },
+    localization,
     custom: {
       name: {
         showHeader: true,

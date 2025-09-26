@@ -12,6 +12,7 @@ import {useTransition} from "react";
 import {postMerchantContractHeadersByMerchantIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {useTenant} from "@/providers/tenant";
 import {RefundTableHeadersField} from "../../_components/refund-table-headers-field";
 
 export default function MerchantContractHeaderCreateForm({
@@ -23,6 +24,7 @@ export default function MerchantContractHeaderCreateForm({
   languageData: ContractServiceResource;
   refundTableHeaders: AssignableRefundTableHeaders[];
 }) {
+  const {localization} = useTenant();
   const router = useRouter();
   const {partyId} = useParams<{
     partyId: string;
@@ -63,6 +65,7 @@ export default function MerchantContractHeaderCreateForm({
           ],
           refundTableHeaders,
           languageData,
+          localization,
         }),
       }}
       formData={{

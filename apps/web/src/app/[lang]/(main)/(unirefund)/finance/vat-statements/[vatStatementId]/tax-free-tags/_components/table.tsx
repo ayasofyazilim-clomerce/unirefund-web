@@ -1,10 +1,10 @@
 "use client";
 
-import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@repo/saas/FinanceService";
-import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useGrantedPolicies} from "@repo/utils/policies";
-import {useParams} from "next/navigation";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
+import type {UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto} from "@repo/saas/FinanceService";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {useTenant} from "@/providers/tenant";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {tableData} from "./tax-free-tag-table-data";
 
@@ -16,9 +16,10 @@ function TaxFreeTagTable({
   languageData: FinanceServiceResource;
 }) {
   const {grantedPolicies} = useGrantedPolicies();
-  const {lang} = useParams<{lang: string}>();
 
-  const columns = tableData.TaxFreeTag.columns(lang, languageData, grantedPolicies);
+  const {localization} = useTenant();
+
+  const columns = tableData.TaxFreeTag.columns(localization, languageData, grantedPolicies);
   const table = tableData.TaxFreeTag.table();
 
   const hasData = taxFreeTagsData.vatStatementTagDetails && taxFreeTagsData.vatStatementTagDetails.length > 0;
