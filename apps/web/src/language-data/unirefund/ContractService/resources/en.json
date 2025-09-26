@@ -28,7 +28,7 @@
   "Contracts.Clone": "Clone",
   "Contracts.CloningFrom": "Cloning from",
   "Contracts.Validate.Success": "Contract validated successfully",
-  "Contracts.Validate.Error": "Contract is already validated",
+  "Contracts.Validate.Error": "An error occurred while validating the contract",
   "Contracts.Settings": "Contract Settings",
   "Contracts.Settings.SetDefault": "Set as default",
   "Contracts.RebateSettings": "Rebate Settings",
