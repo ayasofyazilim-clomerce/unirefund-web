@@ -48,7 +48,7 @@ export function TenantProvider(props: TenantProviderProps) {
       value={{
         ...defaultTenantData,
         localization: {
-          locale: getLocaleFromCountryCode(defaultTenantData.countryCode2 || "UK"),
+          locale: getLocaleFromCountryCode(defaultTenantData.countryCode2 || "GB"),
           timeZone: findIana(defaultTenantData.timeZone || "UTC")[0] || "UTC",
           lang: props.lang,
         },
