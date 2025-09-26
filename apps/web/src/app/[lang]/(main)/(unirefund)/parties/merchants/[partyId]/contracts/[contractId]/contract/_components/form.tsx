@@ -163,9 +163,9 @@ function ContractActions({
           startTransition(() => {
             void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
               if (response.type === "success" && response.data) {
-                toast.success(response.message);
+                toast.success(response.message || languageData["Contracts.Validate.Success"]);
               } else {
-                toast.error(response.message);
+                toast.error(response.message || languageData["Contracts.Validate.Error"]);
               }
             });
           });
