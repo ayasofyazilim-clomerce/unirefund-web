@@ -41,7 +41,7 @@ export default async function Providers({children, lang}: ProvidersProps) {
   const [grantedPolicies, tenantData] = apiRequests.requiredRequests;
 
   return (
-    <TenantProvider tenantData={tenantData.data}>
+    <TenantProvider lang={lang} tenantData={tenantData.data}>
       <SessionProvider session={session}>
         <GrantedPoliciesProvider grantedPolicies={grantedPolicies || {}}>
           <NovuProvider
