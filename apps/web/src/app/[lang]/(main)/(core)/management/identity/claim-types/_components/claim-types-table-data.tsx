@@ -11,6 +11,7 @@ import {Plus} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {isActionGranted} from "@repo/utils/policies";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {Localization} from "@/providers/tenant";
 
 type ClaimTypesTable = TanstackTableCreationProps<Volo_Abp_Identity_ClaimTypeDto>;
 
@@ -36,7 +37,7 @@ function claimTypesTableActions(
   return actions;
 }
 const claimTypesColumns = (
-  locale: string,
+  localization: Localization,
   languageData: IdentityServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -52,9 +53,7 @@ const claimTypesColumns = (
       languageData,
       constantKey: "Form.ClaimType",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     badges: {
       name: {

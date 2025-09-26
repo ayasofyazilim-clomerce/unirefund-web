@@ -7,10 +7,11 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handlePutResponse} from "@repo/utils/api";
 import {putOrganizationUnitsByIdRolesApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {Localization} from "@/providers/tenant";
 
 type RolesTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityRoleDto>;
 const rolesColumns = (
-  locale: string,
+  localization: Localization,
   languageData: IdentityServiceResource,
   unitRoles: Volo_Abp_Identity_IdentityRoleDto[],
 ) => {
@@ -20,9 +21,7 @@ const rolesColumns = (
       languageData,
       constantKey: "Form.Role",
     },
-    config: {
-      locale,
-    },
+    localization,
     selectableRows: true,
     disabledRowIds: unitRoles.map((role) => role.id || ""),
   });
