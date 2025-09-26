@@ -34,7 +34,12 @@ export function SelectUserAndRoleStep({
         selectLabel="name"
         value={selectedRole}
       />
-      <DatePicker id="start-date" label={languageData["CRM.Affiliation.startDate"]} onChange={onDateSelect} />
+      <DatePicker
+        defaultValue={new Date()}
+        id="start-date"
+        label={languageData["CRM.Affiliation.startDate"]}
+        onChange={onDateSelect}
+      />
     </div>
   );
 }
