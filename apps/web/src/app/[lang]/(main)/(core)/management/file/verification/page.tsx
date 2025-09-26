@@ -4,7 +4,6 @@ import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "@/language-data/unirefund/FileService";
-import {useTenant} from "@/providers/tenant";
 import {Table} from "./_components/table";
 
 async function getApiRequests() {
@@ -34,8 +33,6 @@ export default async function Page({
   const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests();
 
-  const {localization} = useTenant();
-
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
@@ -47,12 +44,7 @@ export default async function Page({
 
   return (
     <div className="my-2">
-      <Table
-        availableFileTypes={fileTypes}
-        data={fileResponse.data.items || []}
-        languageData={languageData}
-        localization={localization}
-      />
+      <Table availableFileTypes={fileTypes} data={fileResponse.data.items || []} languageData={languageData} />
     </div>
   );
 }

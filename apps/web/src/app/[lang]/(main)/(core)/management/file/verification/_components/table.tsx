@@ -16,22 +16,21 @@ import {FileUpload} from "@repo/ui/unirefund/file-upload";
 import {DownloadIcon, UploadCloudIcon} from "lucide-react";
 import {useEffect, useState, useTransition} from "react";
 import {getBaseLink} from "@/utils";
-import type {Localization} from "@/providers/tenant";
+import {useTenant, type Localization} from "@/providers/tenant";
 import type {FileServiceResource} from "@/language-data/unirefund/FileService";
 
 type TableType = UniRefund_FileService_Files_FileForHumanValidationDto;
 
 export function Table({
-  localization,
   data,
   languageData,
   availableFileTypes,
 }: {
-  localization: Localization;
   data: TableType[];
   languageData: FileServiceResource;
   availableFileTypes: UniRefund_FileService_FileTypes_FileTypeListDto[];
 }) {
+  const {localization} = useTenant();
   const columns = tableColumns(localization, languageData);
   return (
     <TanstackTable<TableType, TableType>
