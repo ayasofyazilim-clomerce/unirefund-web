@@ -68,5 +68,5 @@ const countryToLocale = {
 
 function getLocaleFromCountryCode(code2: string) {
   const upperCode = code2.toUpperCase();
-  return upperCode in countryToLocale ? countryToLocale[upperCode as keyof typeof countryToLocale] : "en-UK";
+  return upperCode in countryToLocale ? countryToLocale[upperCode as keyof typeof countryToLocale] : "en-GB";
 }
