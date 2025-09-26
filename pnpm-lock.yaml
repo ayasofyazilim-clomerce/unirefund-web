@@ -53,13 +53,13 @@ importers:
         version: 3.798.0
       '@ayasofyazilim/core-saas':
         specifier: latest
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@ayasofyazilim/saas':
         specifier: 0.0.165
-        version: 0.0.165(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.165
       '@ayasofyazilim/unirefund-saas-dev':
         specifier: ^0.0.4
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@radix-ui/react-icons':
         specifier: ^1.3.0
         version: 1.3.2(react@18.3.1)
@@ -86,7 +86,7 @@ importers:
         version: 0.1.3
       '@tailwindcss/typography':
         specifier: ^0.5.10
-        version: 0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)))
+        version: 0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
       '@tanstack/react-table':
         specifier: 8.16.0
         version: 8.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -143,7 +143,7 @@ importers:
         version: 7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)))
+        version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 14.1.1
@@ -180,7 +180,7 @@ importers:
         version: 8.4.35
       tailwindcss:
         specifier: 3.4.1
-        version: 3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))
+        version: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -192,13 +192,13 @@ importers:
         version: 0.30.0
       '@ayasofyazilim/core-saas':
         specifier: latest
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@ayasofyazilim/saas':
         specifier: 0.0.165
-        version: 0.0.165(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.165
       '@ayasofyazilim/unirefund-saas-dev':
         specifier: ^0.0.4
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@clickhouse/client':
         specifier: ^1.11.2
         version: 1.11.2
@@ -225,7 +225,7 @@ importers:
         version: 0.1.3
       '@tailwindcss/typography':
         specifier: ^0.5.10
-        version: 0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)))
+        version: 0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
       '@tanstack/react-table':
         specifier: 8.16.0
         version: 8.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -270,7 +270,10 @@ importers:
         version: 18.3.1(react@18.3.1)
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)))
+        version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))
+      windows-iana:
+        specifier: ^5.1.0
+        version: 5.1.0
       zod:
         specifier: 3.24.2
         version: 3.24.2
@@ -310,7 +313,7 @@ importers:
         version: 8.4.35
       tailwindcss:
         specifier: 3.4.1
-        version: 3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))
+        version: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -328,13 +331,13 @@ importers:
         version: 3.798.0
       '@ayasofyazilim/core-saas':
         specifier: latest
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@ayasofyazilim/saas':
         specifier: 0.0.165
-        version: 0.0.165(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.165
       '@ayasofyazilim/unirefund-saas-dev':
         specifier: ^0.0.4
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@novu/api':
         specifier: latest
         version: 1.6.0
@@ -942,7 +945,7 @@ importers:
         version: link:../config-typescript
       tailwindcss:
         specifier: ^3.4.1
-        version: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2))
+        version: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.8.2))
 
   packages/config-typescript: {}
 
@@ -965,10 +968,10 @@ importers:
     dependencies:
       '@ayasofyazilim/core-saas':
         specifier: latest
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@ayasofyazilim/unirefund-saas-dev':
         specifier: ^0.0.4
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1059,7 +1062,7 @@ importers:
         version: 2.2.2
       tailwindcss:
         specifier: 3.4.1
-        version: 3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))
+        version: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.3.3))
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -1071,7 +1074,7 @@ importers:
         version: 0.30.0
       '@ayasofyazilim/core-saas':
         specifier: latest
-        version: 0.0.4(magicast@0.3.5)(openapi-types@12.1.3)
+        version: 0.0.4
       '@formatjs/intl-localematcher':
         specifier: ^0.5.4
         version: 0.5.10
@@ -6704,7 +6707,6 @@ packages:
 
   '@tiptap-pro/extension-node-range@2.11.2':
     resolution: {integrity: sha512-fEhe/QlJj4b+EzhNUEEQHVO5kzmN5P8JrxmUMCXE5JEma6nineyFbxFSjPlTr2IewWvpkuJPJdxc+p1bXM8+vg==}
-    deprecated: '"@tiptap-pro/extension-node-range" was made open source and can now be installed from "@tiptap/extension-node-range" instead.'
     peerDependencies:
       '@tiptap/core': ^2.0.0
       '@tiptap/pm': ^2.0.0
@@ -13380,6 +13382,10 @@ packages:
   wildcard-match@5.1.3:
     resolution: {integrity: sha512-a95hPUk+BNzSGLntNXYxsjz2Hooi5oL7xOfJR6CKwSsSALh7vUNuTlzsrZowtYy38JNduYFRVhFv19ocqNOZlg==}
 
+  windows-iana@5.1.0:
+    resolution: {integrity: sha512-WS7dbeBltaq8JcazH7hVCi17lqZBdQdKppMLk8rUQwz+My6dSRW8dFoQqzSi+UjPrsh7TV5AEnboRKneWy8b/A==}
+    engines: {node: '>=12'}
+
   windows-release@5.1.1:
     resolution: {integrity: sha512-NMD00arvqcq2nwqc5Q6KtrSRHK+fVD31erE5FEMahAw5PmVCgD7MUXodq3pdZSUkqA9Cda2iWx6s1XYwiJWRmw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -15024,7 +15030,7 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
-  '@ayasofyazilim/core-saas@0.0.4(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/core-saas@0.0.4':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.1.0
@@ -15033,7 +15039,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/saas@0.0.165(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/saas@0.0.165':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.1.0
@@ -15051,7 +15057,7 @@ snapshots:
       - magicast
       - openapi-types
 
-  '@ayasofyazilim/unirefund-saas-dev@0.0.4(magicast@0.3.5)(openapi-types@12.1.3)':
+  '@ayasofyazilim/unirefund-saas-dev@0.0.4':
     dependencies:
       '@ayasofyazilim/sdk_generator': 0.0.13(magicast@0.3.5)(openapi-types@12.1.3)
       commander: 13.1.0
@@ -21035,6 +21041,14 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
+  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)))':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))
+
   '@tailwindcss/typography@0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2)))':
     dependencies:
       lodash.castarray: 4.4.0
@@ -21042,14 +21056,6 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2))
-
-  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)))':
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))
 
   '@tanstack/query-core@5.87.4': {}
 
@@ -21957,7 +21963,7 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint@8.57.0)(typescript@5.8.2)
       '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.8.2)
       eslint-config-prettier: 9.1.0(eslint@8.57.0)
-      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0))
+      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.30.0)
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.57.0)
       eslint-plugin-import: 2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
@@ -23823,7 +23829,7 @@ snapshots:
       eslint: 8.57.0
       eslint-plugin-turbo: 2.1.2(eslint@8.57.0)
 
-  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)):
+  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.30.0):
     dependencies:
       eslint-plugin-import: 2.30.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
 
@@ -23841,7 +23847,7 @@ snapshots:
       debug: 4.3.7(supports-color@5.5.0)
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
-      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.8.1
       is-bun-module: 1.2.1
@@ -23854,7 +23860,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -23892,7 +23898,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.11.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -26413,6 +26419,14 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.47
 
+  postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)):
+    dependencies:
+      lilconfig: 3.1.2
+      yaml: 2.5.1
+    optionalDependencies:
+      postcss: 8.4.47
+      ts-node: 10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)
+
   postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2)):
     dependencies:
       lilconfig: 3.1.2
@@ -26421,13 +26435,21 @@ snapshots:
       postcss: 8.4.47
       ts-node: 10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2)
 
-  postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)):
+  postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.3.3)):
     dependencies:
       lilconfig: 3.1.2
       yaml: 2.5.1
     optionalDependencies:
       postcss: 8.4.47
-      ts-node: 10.9.2(@types/node@20.11.24)(typescript@5.3.3)
+      ts-node: 10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.3.3)
+
+  postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.8.2)):
+    dependencies:
+      lilconfig: 3.1.2
+      yaml: 2.5.1
+    optionalDependencies:
+      postcss: 8.4.47
+      ts-node: 10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.8.2)
 
   postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.4.47)(tsx@4.19.1)(yaml@2.5.1):
     dependencies:
@@ -28095,13 +28117,40 @@ snapshots:
 
   tailwind-merge@3.3.1: {}
 
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))):
+    dependencies:
+      tailwindcss: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))
+
   tailwindcss-animate@1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2))):
     dependencies:
       tailwindcss: 3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2))
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))):
+  tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3)):
     dependencies:
-      tailwindcss: 3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))
+      '@alloc/quick-lru': 5.2.0
+      arg: 5.0.2
+      chokidar: 3.6.0
+      didyoumean: 1.2.2
+      dlv: 1.1.3
+      fast-glob: 3.3.2
+      glob-parent: 6.0.2
+      is-glob: 4.0.3
+      jiti: 1.21.6
+      lilconfig: 2.1.0
+      micromatch: 4.0.8
+      normalize-path: 3.0.0
+      object-hash: 3.0.0
+      picocolors: 1.1.0
+      postcss: 8.4.47
+      postcss-import: 15.1.0(postcss@8.4.47)
+      postcss-js: 4.0.1(postcss@8.4.47)
+      postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3))
+      postcss-nested: 6.2.0(postcss@8.4.47)
+      postcss-selector-parser: 6.1.2
+      resolve: 1.22.8
+      sucrase: 3.35.0
+    transitivePeerDependencies:
+      - ts-node
 
   tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2)):
     dependencies:
@@ -28130,7 +28179,7 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3)):
+  tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.3.3)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -28149,7 +28198,34 @@ snapshots:
       postcss: 8.4.47
       postcss-import: 15.1.0(postcss@8.4.47)
       postcss-js: 4.0.1(postcss@8.4.47)
-      postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3))
+      postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.3.3))
+      postcss-nested: 6.2.0(postcss@8.4.47)
+      postcss-selector-parser: 6.1.2
+      resolve: 1.22.8
+      sucrase: 3.35.0
+    transitivePeerDependencies:
+      - ts-node
+
+  tailwindcss@3.4.1(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.8.2)):
+    dependencies:
+      '@alloc/quick-lru': 5.2.0
+      arg: 5.0.2
+      chokidar: 3.6.0
+      didyoumean: 1.2.2
+      dlv: 1.1.3
+      fast-glob: 3.3.2
+      glob-parent: 6.0.2
+      is-glob: 4.0.3
+      jiti: 1.21.6
+      lilconfig: 2.1.0
+      micromatch: 4.0.8
+      normalize-path: 3.0.0
+      object-hash: 3.0.0
+      picocolors: 1.1.0
+      postcss: 8.4.47
+      postcss-import: 15.1.0(postcss@8.4.47)
+      postcss-js: 4.0.1(postcss@8.4.47)
+      postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.8.2))
       postcss-nested: 6.2.0(postcss@8.4.47)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.8
@@ -28303,6 +28379,27 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
+  ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.24)(typescript@5.3.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 20.11.24
+      acorn: 8.12.1
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.3.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optionalDependencies:
+      '@swc/core': 1.7.26(@swc/helpers@0.5.5)
+    optional: true
+
   ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@20.11.25)(typescript@5.6.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
@@ -28323,14 +28420,14 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.7.26(@swc/helpers@0.5.5)
 
-  ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3):
+  ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.3.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.11.24
+      '@types/node': 22.5.5
       acorn: 8.12.1
       acorn-walk: 8.3.4
       arg: 4.1.3
@@ -28340,6 +28437,29 @@ snapshots:
       typescript: 5.3.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+    optionalDependencies:
+      '@swc/core': 1.7.26(@swc/helpers@0.5.5)
+    optional: true
+
+  ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.5))(@types/node@22.5.5)(typescript@5.8.2):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 22.5.5
+      acorn: 8.12.1
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.8.2
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optionalDependencies:
+      '@swc/core': 1.7.26(@swc/helpers@0.5.5)
     optional: true
 
   ts-pnp@1.2.0(typescript@5.6.2):
@@ -28961,6 +29081,8 @@ snapshots:
       string-width: 5.1.2
 
   wildcard-match@5.1.3: {}
+
+  windows-iana@5.1.0: {}
 
   windows-release@5.1.1:
     dependencies:

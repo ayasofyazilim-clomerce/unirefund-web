@@ -55,6 +55,7 @@
     "react-aria": "^3.37.0",
     "react-dom": "18.3.1",
     "tailwindcss-animate": "^1.0.7",
+    "windows-iana": "^5.1.0",
     "zod": "3.24.2"
   },
   "devDependencies": {
