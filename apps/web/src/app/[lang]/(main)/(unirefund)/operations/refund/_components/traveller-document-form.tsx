@@ -7,6 +7,7 @@ import type {UniRefund_CRMService_RefundPoints_RefundPointListResponseDto} from 
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useState, useTransition} from "react";
+import {useSession} from "@repo/utils/auth";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 
 export default function TravellerDocumentForm({
@@ -19,11 +20,14 @@ export default function TravellerDocumentForm({
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
+  const {session} = useSession();
 
   const tagIds = searchParams.get("tagIds") || "";
   const travellerDocumentNo = searchParams.get("travellerDocumentNumber") || "";
-  const refundPointId = accessibleRefundPoints.find((i) => i.id === searchParams.get("refundPointId"))?.id || "";
-
+  const refundPointId =
+    session?.user?.RefundPointId ||
+    accessibleRefundPoints.find((i) => i.id === searchParams.get("refundPointId"))?.id ||
+    "";
   const [travellerDocumentNoInput, setTravellerDocumentNoInput] = useState(travellerDocumentNo);
   const [tagIdInput, setTagIdInput] = useState(tagIds);
   const [refundPointIdInput, setRefundPointIdInput] = useState<
@@ -50,12 +54,12 @@ export default function TravellerDocumentForm({
 
   return (
     <form
-      className="mt-6 grid w-full grid-cols-1 items-end justify-center gap-6 rounded-lg border border-gray-200 p-2 md:grid-cols-4 md:p-6"
+      className="grid w-full items-end gap-4 rounded-lg border border-gray-200 p-4 md:grid-cols-4 md:justify-center"
       data-testid="traveller-document-form"
       onSubmit={(e) => {
         e.preventDefault();
       }}>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="flex w-full flex-col gap-1.5">
         <Label data-testid="traveller-document-no-label" htmlFor="traveller-document-no">
           {languageData.TravellerDocumentNo}
         </Label>
@@ -70,7 +74,7 @@ export default function TravellerDocumentForm({
           value={travellerDocumentNoInput}
         />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="flex w-full flex-col gap-1.5">
         <Label data-testid="traveller-tagid-label" htmlFor="traveller-tagid">
           {languageData.TaxFreeTagID}
         </Label>
@@ -84,7 +88,7 @@ export default function TravellerDocumentForm({
           value={tagIdInput}
         />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="flex w-full flex-col gap-1.5 overflow-hidden">
         <Label data-testid="refund-point-label" htmlFor="refund-point">
           {languageData.RefundPoint}
         </Label>
