@@ -1,5 +1,5 @@
 "use server";
-import {myProfileApi} from "@repo/actions/core/AccountService/actions";
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
 import {getMerchantsApi, getUserAffiliationsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
@@ -11,14 +11,15 @@ import {auth} from "@repo/utils/auth/next-auth";
 import type {Policy} from "@repo/utils/policies";
 import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
+import {myProfileApi} from "@repo/actions/core/AccountService/actions";
 import unirefund from "public/unirefund.png";
-import {getResourceData} from "@/language-data/core/AbpUiNavigation";
-import {getResourceData as getResourceDataCRM} from "@/language-data/unirefund/CRMService";
 import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
 import AffiliationSwitch from "@/utils/affiliation-switch";
-import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
+import {getResourceData as getResourceDataCRM} from "@/language-data/unirefund/CRMService";
+import {getResourceData} from "@/language-data/core/AbpUiNavigation";
 import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
+import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
 
 interface LayoutProps {
   params: {lang: string};
@@ -32,6 +33,7 @@ async function getApiRequests(session: Session | null) {
       getGrantedPoliciesApi(),
       getInfoForCurrentTenantApi(session),
       getUserAffiliationsApi(session),
+      getAllLanguagesApi(session),
       myProfileApi(),
     ]);
 
@@ -70,7 +72,7 @@ export default async function Layout({children, params}: LayoutProps) {
     },
   ];
 
-  const [grantedPolicies, tenantData, affiliations] = apiRequests.requiredRequests;
+  const [grantedPolicies, tenantData, affiliations, languagesResponse] = apiRequests.requiredRequests;
   const navbarFromDB = await getNavbarFromDB(lang, languageData, grantedPolicies as Record<Policy, boolean>);
 
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
@@ -81,6 +83,7 @@ export default async function Layout({children, params}: LayoutProps) {
           appName={appName}
           baseURL={baseURL}
           lang={lang}
+          languagesList={languagesResponse.data.items || []}
           logo={logo}
           navbarItems={navbarFromDB}
           notification={{

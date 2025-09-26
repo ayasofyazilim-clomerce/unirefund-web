@@ -1,6 +1,7 @@
 "use client";
 
 import { NotificationProps } from "../../notification";
+import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types";
 import { ThemeProvider } from "../../providers/theme";
 import HeaderSection from "./header-section";
 
@@ -16,9 +17,11 @@ function MainAdminLayout(props: {
   tenantData: any;
   searchFromDB: any;
   children?: React.ReactElement
+  languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[]
 }) {
   return (
     <ThemeProvider
+      languagesList={props.languagesList}
       appName={props.appName}
       logo={props.logo}
       baseURL={props.baseURL}

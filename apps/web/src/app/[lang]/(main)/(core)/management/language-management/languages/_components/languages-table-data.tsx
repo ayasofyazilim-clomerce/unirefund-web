@@ -1,5 +1,13 @@
-import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
-import {$Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
+import type {
+  Volo_Abp_LanguageManagement_Dto_LanguageDto,
+  Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto,
+} from "@ayasofyazilim/core-saas/AdministrationService";
+import {
+  $Volo_Abp_LanguageManagement_Dto_LanguageDto,
+  $Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto,
+} from "@ayasofyazilim/core-saas/AdministrationService";
+import {deleteLanguageByIdApi} from "@repo/actions/core/AdministrationService/delete-actions";
+import {putLanguageApi, putLanguagesByIdSetAsDefaultApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {
   TanstackTableColumnLink,
   TanstackTableCreationProps,
@@ -7,12 +15,13 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import {CheckCircle, Languages, Plus, XCircle} from "lucide-react";
-import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
-import {handlePutResponse} from "@repo/utils/api";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {putLanguagesByIdSetAsDefaultApi} from "@repo/actions/core/AdministrationService/put-actions";
+import {CheckCircle, Languages, Plus, Trash2, XCircle} from "lucide-react";
+import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 type LanguagesTable = TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageDto>;
@@ -61,19 +70,26 @@ function languagesRowActions(
       },
     });
   }
+  if (isActionGranted(["LanguageManagement.Languages.Delete"], grantedPolicies)) {
+    actions.push({
+      type: "confirmation-dialog",
+      cta: languageData.Delete,
+      title: languageData["Language.Delete"],
+      actionLocation: "row",
+      confirmationText: languageData["Language.Confirm"],
+      cancelText: languageData.Cancel,
+      description: languageData["Delete.Assurance"],
+      icon: Trash2,
+      onConfirm: (row) => {
+        void deleteLanguageByIdApi(row.id || "").then((response) => {
+          handleDeleteResponse(response, router);
+        });
+      },
+    });
+  }
   return actions;
 }
-const languagesColumns = (
-  locale: string,
-  languageData: AdministrationServiceResource,
-  grantedPolicies: Record<Policy, boolean>,
-) => {
-  if (isActionGranted(["LanguageManagement.Languages.Edit"], grantedPolicies)) {
-    links.displayName = {
-      prefix: "languages",
-      targetAccessorKey: "id",
-    };
-  }
+const languagesColumns = (locale: string, languageData: AdministrationServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_LanguageManagement_Dto_LanguageDto>({
     rows: $Volo_Abp_LanguageManagement_Dto_LanguageDto.properties,
     languageData: {
@@ -127,6 +143,7 @@ const languagesColumns = (
         ],
       },
     },
+    expandRowTrigger: "displayName",
   });
 };
 function languagesTable(
@@ -141,9 +158,49 @@ function languagesTable(
       type: "show",
       columns: ["displayName", "cultureName", "uiCultureName", "isEnabled"],
     },
+    expandedRowComponent: (row) => {
+      const uiSchema = createUiSchemaWithResource({
+        resources: languageData,
+        schema: $Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto,
+        name: "Form.Language",
+        extend: {
+          isEnabled: {
+            "ui:widget": "switch",
+          },
+          "ui:className": "flex flex-row gap-8 items-end",
+        },
+      });
+
+      return (
+        <div className="bg-white p-4">
+          <SchemaForm<Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto>
+            className="grid grid-cols-1 items-end gap-4 md:grid-cols-2"
+            defaultSubmitClassName="flex items-end p-0 w-full"
+            filter={{type: "include", sort: true, keys: ["displayName", "isEnabled"]}}
+            formData={row}
+            key={JSON.stringify(row)}
+            onChange={({formData}) => {
+              console.log(formData);
+            }}
+            onSubmit={({formData}) => {
+              if (!formData) return;
+              void putLanguageApi({id: row.id || "", requestBody: formData}).then((res) => {
+                handlePutResponse(res, router);
+              });
+            }}
+            schema={$Volo_Abp_LanguageManagement_Dto_UpdateLanguageDto}
+            submitText={languageData["Edit.Save"]}
+            uiSchema={uiSchema}
+            withScrollArea={false}
+          />
+        </div>
+      );
+    },
+
     filters: {
       textFilters: ["filter"],
     },
+
     tableActions: languagesTableActions(languageData, router, grantedPolicies),
     rowActions: languagesRowActions(languageData, router, grantedPolicies),
   };

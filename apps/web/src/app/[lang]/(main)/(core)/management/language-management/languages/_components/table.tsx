@@ -17,7 +17,7 @@ function LanguagesTable({
   const router = useRouter();
   const {lang} = useParams<{lang: string}>();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.languages.columns(lang, languageData, grantedPolicies);
+  const columns = tableData.languages.columns(lang, languageData);
   const table = tableData.languages.table(languageData, router, grantedPolicies);
 
   return (

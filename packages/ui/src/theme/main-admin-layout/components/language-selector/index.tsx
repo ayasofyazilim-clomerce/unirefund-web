@@ -8,23 +8,22 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {CheckIcon, Globe} from "lucide-react";
-import {useRouter} from "next/navigation";
+import { CheckIcon, Globe } from "lucide-react";
+import { useRouter } from "next/navigation";
 import NavbarDropdown from "../navbar-dropdown";
-import {countries} from "./country-data";
-import {DropdownMenuSub} from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
+import { countries } from "./country-data";
+import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types"
+import { DropdownMenuSub } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 
-function LanguageSelector({
-  lang,
+function LanguageSelector({ lang,
   availableLocals = [],
   showFlag,
-  showEarthIcon,
-}: {
-  lang: string;
-  availableLocals?: string[];
-  showFlag?: boolean;
-  showEarthIcon?: boolean;
-}) {
+  showEarthIcon, languagesList }: {
+    lang: string;
+    availableLocals?: string[];
+    showFlag?: boolean;
+    showEarthIcon?: boolean; languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[]
+  }) {
   const router = useRouter();
 
   const filteredCountries = countries.filter((country) => {
@@ -68,12 +67,12 @@ function LanguageSelector({
             <CommandList>
               <CommandEmpty>No language found.</CommandEmpty>
               <CommandGroup>
-                {filteredCountries.map((label) => (
+                {languagesList.map((label) => (
                   <CommandItem
                     key={label.id}
                     value={label.id}
                     onSelect={(value) => {
-                      const selected = filteredCountries.find((i) => i.id === value);
+                      const selected = languagesList.find((i) => i.id === value);
                       const newUrl = selected?.cultureName + "/" + location.pathname.split("/").slice(2).join("/");
                       router.push("/" + newUrl);
                     }}>
@@ -85,17 +84,17 @@ function LanguageSelector({
                     {showFlag && (
                       <img
                         className="mr-2 h-5 w-5 rounded-full object-cover"
-                        src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.flagIcon}.svg`}
-                        alt={label.displayName}
+                        src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/1x1/${label.cultureName === "en" ? "gb" : label.cultureName}.svg`}
+                        alt={label.displayName || ""}
                       />
                     )}
                     {label.displayName}
-                  </CommandItem>
+                  </ CommandItem>
                 ))}
               </CommandGroup>
-            </CommandList>
-          </Command>
-        </DropdownMenuSub>
+            </CommandList >
+          </Command >
+        </DropdownMenuSub >
       }
     />
   );

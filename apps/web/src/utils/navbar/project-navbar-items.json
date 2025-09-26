@@ -721,8 +721,7 @@
     "href": null,
     "icon": "tax",
     "parentNavbarItemKey": "/",
-    "displayOrder": 1,
-    "requiredPolicies": ["FinanceService.Billings"]
+    "displayOrder": 1
   },
   {
     "key": "finance/vat-statements",
@@ -732,7 +731,7 @@
     "icon": "log",
     "parentNavbarItemKey": "finance",
     "displayOrder": 1,
-    "requiredPolicies": ["FinanceService.VATStatementHeader"]
+    "requiredPolicies": ["FinanceService.VATStatementHeaders"]
   },
   {
     "key": "finance/vat-statements/new",
