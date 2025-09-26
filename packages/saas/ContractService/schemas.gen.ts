@@ -4268,7 +4268,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
         refundFeeDetails: {
             type: 'array',
             items: {
-                required: ['amountFrom', 'amountTo', 'feeType', 'fixedFeeValue', 'maxFee', 'minFee', 'percentFeeValue', 'refundMethod'],
+                required: ['amountFrom', 'amountTo', 'feeType', 'fixedFeeValue', 'percentFeeValue', 'refundMethod'],
                 type: 'object',
                 properties: {
                     extraProperties: {
