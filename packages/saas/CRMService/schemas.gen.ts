@@ -1979,7 +1979,6 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             additionalProperties: false
         },
         address: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'type'],
             type: 'object',
             properties: {
                 partyType: {
