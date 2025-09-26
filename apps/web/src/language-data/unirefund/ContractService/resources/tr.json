@@ -28,7 +28,7 @@
   "Contracts.Clone": "Klonla",
   "Contracts.CloningFrom": "Buradan klonla",
   "Contracts.Validate.Success": "Sözleşme başarıyla onaylandı",
-  "Contracts.Validate.Error": "Sözleşme zaten onaylanmış",
+  "Contracts.Validate.Error": "Sözleşme onaylanırken bir hata oluştu",
   "Contracts.Settings": "Sözleşme Ayarları",
   "Contracts.Settings.SetDefault": "Varsayılan olarak ayarla",
   "Contracts.RebateSettings": "Rebate Ayarları",
