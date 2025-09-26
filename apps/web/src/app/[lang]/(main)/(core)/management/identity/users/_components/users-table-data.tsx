@@ -29,6 +29,7 @@ import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import {putUsersByIdUnlockApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {Localization} from "@/providers/tenant";
 
 type UsersTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentityUserDto>;
 
@@ -146,7 +147,7 @@ function usersRowActions(
   return actions;
 }
 const usersColumns = (
-  locale: string,
+  localization: Localization,
   languageData: IdentityServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -162,9 +163,7 @@ const usersColumns = (
       languageData,
       constantKey: "Form.User",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     badges: {
       userName: {

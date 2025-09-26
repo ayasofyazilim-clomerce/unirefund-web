@@ -2,8 +2,9 @@
 
 import type {PagedResultDto_LanguageDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams, useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import {tableData} from "./languages-table-data";
 
@@ -15,9 +16,9 @@ function LanguagesTable({
   languageData: AdministrationServiceResource;
 }) {
   const router = useRouter();
-  const {lang} = useParams<{lang: string}>();
+  const {localization} = useTenant();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.languages.columns(lang, languageData);
+  const columns = tableData.languages.columns(localization, languageData);
   const table = tableData.languages.table(languageData, router, grantedPolicies);
 
   return (

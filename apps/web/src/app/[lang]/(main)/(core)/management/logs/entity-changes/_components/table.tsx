@@ -2,7 +2,7 @@
 
 import type {PagedResultDto_EntityChangeDto} from "@ayasofyazilim/core-saas/AdministrationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import {tableData} from "./entity-changes-table-data";
 
@@ -13,8 +13,8 @@ function EntityChangesTable({
   response: PagedResultDto_EntityChangeDto;
   languageData: AdministrationServiceResource;
 }) {
-  const {lang} = useParams<{lang: string}>();
-  const columns = tableData.entityChanges.columns(lang, languageData);
+  const {localization} = useTenant();
+  const columns = tableData.entityChanges.columns(localization, languageData);
   const table = tableData.entityChanges.table(languageData);
 
   return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;

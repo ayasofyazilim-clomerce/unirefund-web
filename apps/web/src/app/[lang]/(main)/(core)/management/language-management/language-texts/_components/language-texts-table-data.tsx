@@ -17,6 +17,7 @@ import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import {putLanguageTextsByResourceNameByCultureNameByNameRestoreApi} from "@repo/actions/core/AdministrationService/put-actions";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
+import type {Localization} from "@/providers/tenant";
 import LanguageTextsEdit from "./language-text-edit";
 
 type LanguageTextsTable = TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageTextDto>;
@@ -62,16 +63,14 @@ function languageTextsRowActions(
   }
   return actions;
 }
-const languageTextsColumns = (locale: string, languageData: AdministrationServiceResource) => {
+const languageTextsColumns = (localization: Localization, languageData: AdministrationServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_LanguageManagement_Dto_LanguageTextDto>({
     rows: $Volo_Abp_LanguageManagement_Dto_LanguageTextDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.LanguageText",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 };

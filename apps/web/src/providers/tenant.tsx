@@ -1,12 +1,11 @@
 "use client";
 
-import {createContext, useContext, useEffect} from "react";
-import {findIana} from "windows-iana";
-import type {UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto} from "@ayasofyazilim/saas/AdministrationService";
+import type { UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto } from "@ayasofyazilim/saas/AdministrationService";
+import { createContext, useContext, useEffect } from "react";
 
-export type Localization = {locale: string; timeZone: string; lang: string};
+export type Localization = { locale: string; timeZone: string; lang: string };
 type TenantData = UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto & {
-  localization: {locale: string; timeZone: string; lang: string};
+  localization: { locale: string; timeZone: string; lang: string };
 };
 interface TenantProviderProps {
   children: JSX.Element;
@@ -18,7 +17,7 @@ export const TenantContext = createContext<TenantData>({
   tenantName: "",
   tenantId: "",
   timeZone: "",
-  localization: {locale: "", timeZone: "", lang: "en"},
+  localization: { locale: "", timeZone: "", lang: "en" },
   countryCode2: "",
   countryCode3: "",
   currency: "",
@@ -39,7 +38,7 @@ export function TenantProvider(props: TenantProviderProps) {
         ...props.tenantData,
         localization: {
           locale: getLocaleFromCountryCode(props.tenantData.countryCode2 || "UK"),
-          timeZone: findIana(props.tenantData.timeZone || "UTC")[0] || "UTC",
+          timeZone: props.tenantData.timeZone || "UTC",
           lang: props.lang,
         },
       }}>
