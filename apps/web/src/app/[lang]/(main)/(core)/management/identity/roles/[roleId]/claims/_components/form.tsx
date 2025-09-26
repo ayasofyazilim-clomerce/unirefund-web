@@ -96,6 +96,7 @@ export default function Claims({
           }}>
           <Button
             className="mb-4"
+            data-testid="Role.Claim.Add"
             onClick={(e) => {
               e.preventDefault();
               handleAddClaim();
@@ -110,6 +111,7 @@ export default function Claims({
             <span className="w-32 overflow-hidden text-ellipsis whitespace-nowrap">{claim.claimType}</span>
             <Input
               className="flex-grow"
+              data-testid="Role.Claim.Value"
               onChange={(e) => {
                 setRoleClaimsData((prevList) => {
                   const updatedList = [...prevList];
@@ -121,6 +123,7 @@ export default function Claims({
             />
             <Button
               className="ml-2 bg-red-100 hover:bg-red-200"
+              data-testid="Role.Claim.Remove"
               onClick={() => {
                 handleRemoveClaim(index);
               }}
@@ -133,6 +136,7 @@ export default function Claims({
       <div className="mt-8 flex justify-end">
         <Button
           className="ml-4"
+          data-testid="Role.Claim.Save"
           disabled={isPending}
           onClick={() => {
             startTransition(() => {

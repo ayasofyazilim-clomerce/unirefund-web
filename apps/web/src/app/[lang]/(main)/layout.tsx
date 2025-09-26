@@ -8,6 +8,7 @@ import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {myProfileApi} from "@repo/actions/core/AccountService/actions";
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import unirefund from "public/unirefund.png";
 import {getResourceData} from "src/language-data/core/AbpUiNavigation";
 import Providers from "src/providers/providers";
@@ -23,8 +24,8 @@ const appName = process.env.APPLICATION_NAME || "UNIREFUND";
 
 async function getApiRequests() {
   try {
-    const requiredRequests = await Promise.all([getGrantedPoliciesApi(), myProfileApi()]);
-
+    const session = await auth();
+    const requiredRequests = await Promise.all([getGrantedPoliciesApi(), getAllLanguagesApi(session), myProfileApi()]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -46,7 +47,8 @@ export default async function Layout({children, params}: LayoutProps) {
   }
 
   const baseURL = getBaseLink("", lang);
-  const [grantedPolicies] = apiRequests.requiredRequests;
+  // requiredRequests contains [grantedPolicies, profileResponse, languagesResponse]
+  const [grantedPolicies, languagesResponse] = apiRequests.requiredRequests;
 
   const navbarFromDB = await getNavbarFromDB(lang, languageData, grantedPolicies as Record<Policy, boolean>);
   const profileMenuProps = getProfileMenuFromDB(languageData);
@@ -70,6 +72,7 @@ export default async function Layout({children, params}: LayoutProps) {
           appName={appName}
           baseURL={baseURL}
           lang={lang}
+          languagesList={languagesResponse.data.items || []}
           logo={logo}
           navbarItems={navbarFromDB}
           notification={{

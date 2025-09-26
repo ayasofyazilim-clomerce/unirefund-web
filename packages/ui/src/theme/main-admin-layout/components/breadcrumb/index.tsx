@@ -9,6 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuPortal,
+  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -18,8 +19,51 @@ import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {icons} from "../navbar";
 
 function BreadcrumbIcon({item}: {item: NavbarItemsFromDB}) {
-  return item.icon in icons ? icons[item.icon as keyof typeof icons] : null;
+  return icons[item.icon as keyof typeof icons] || null;
 }
+
+function RenderLinkOrTrigger({href, children}: {href?: string | null; children: React.ReactNode}) {
+  return href ? (
+    <Link href={"/" + href || "#"} className="flex items-center gap-1">
+      {children}
+    </Link>
+  ) : (
+    <>{children}</>
+  );
+}
+
+function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; navbarItems: NavbarItemsFromDB[]}) {
+  return items.map((item) => {
+    const subItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === item.key);
+    return subItems.length > 0 ? (
+      <DropdownMenuSub key={item.key}>
+        <DropdownMenuSubTrigger className="cursor-pointer">
+          <RenderLinkOrTrigger href={item.href}>
+            <BreadcrumbIcon item={item} />
+            <span>{item.displayName}</span>
+          </RenderLinkOrTrigger>
+        </DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent>
+            <RenderDropdownMenu items={subItems} navbarItems={navbarItems} />
+          </DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+    ) : (
+      <>
+        {item.split && (item.split === "top" || item.split === "both") && <DropdownMenuSeparator />}
+        <DropdownMenuItem key={item.key} className="cursor-pointer">
+          <RenderLinkOrTrigger href={item.href}>
+            <BreadcrumbIcon item={item} />
+            {item.displayName}
+          </RenderLinkOrTrigger>
+        </DropdownMenuItem>
+        {item.split && (item.split === "bottom" || item.split === "both") && <DropdownMenuSeparator />}
+      </>
+    );
+  });
+}
+
 export function BreadcrumbDropdown({
   item,
   navbarItems,
@@ -31,90 +75,30 @@ export function BreadcrumbDropdown({
 }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-1" asChild>
+      <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className={`px-2 text-gray-600 outline-none ring-0 focus-visible:ring-0 ${isLastNavbarItem ? "bg-accent" : ""}`}>
+          className={`cursor-pointer px-2 text-gray-600 outline-none ring-0 focus-visible:ring-0 ${
+            isLastNavbarItem ? "bg-accent" : ""
+          }`}>
           <BreadcrumbIcon item={item} />
           {item.displayName}
           <ChevronDown className="ml-1 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" style={{zIndex: 1000}}>
-        {item.subNavbarItems?.map((subItem) => {
-          const subSubItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === subItem.key);
-          return (
-            <Link key={subItem.key} href={"/" + subItem.href || "#"}>
-              {subSubItems.length > 0 ? (
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>
-                    <BreadcrumbIcon item={subItem} />
-                    <span>{subItem.displayName}</span>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
-                      {subSubItems
-                        ?.filter((i) => i.href)
-                        .map((subSubItem) => {
-                          const subSubSubItems = navbarItems.filter(
-                            (i) => i.href && i.parentNavbarItemKey === subSubItem.key,
-                          );
-                          return subSubSubItems.length > 0 ? (
-                            <DropdownMenuSub key={subSubItem.key}>
-                              <Link key={subSubItem.key} href={"/" + subSubItem.href || "#"}>
-                                <DropdownMenuSubTrigger>
-                                  <BreadcrumbIcon item={subSubItem} />
-                                  <span>{subSubItem.displayName}</span>
-                                </DropdownMenuSubTrigger>
-                              </Link>
-                              <DropdownMenuPortal>
-                                <DropdownMenuSubContent>
-                                  {subSubSubItems
-                                    ?.filter((i) => i.href)
-                                    .map((subSubSubItem) => (
-                                      <Link key={subSubSubItem.key} href={"/" + subSubSubItem.href || "#"}>
-                                        <DropdownMenuItem>
-                                          <BreadcrumbIcon item={subSubSubItem} />
-                                          {subSubSubItem.displayName}
-                                        </DropdownMenuItem>
-                                      </Link>
-                                    ))}
-                                </DropdownMenuSubContent>
-                              </DropdownMenuPortal>
-                            </DropdownMenuSub>
-                          ) : (
-                            <Link key={subSubItem.key} href={"/" + subSubItem.href || "#"}>
-                              <DropdownMenuItem>
-                                <BreadcrumbIcon item={subSubItem} />
-                                {subSubItem.displayName}
-                              </DropdownMenuItem>
-                            </Link>
-                          );
-                        })}
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-              ) : (
-                <DropdownMenuItem>
-                  <BreadcrumbIcon item={subItem} />
-                  {subItem.displayName}
-                </DropdownMenuItem>
-              )}
-            </Link>
-          );
-        })}
+        <RenderDropdownMenu items={item.subNavbarItems || []} navbarItems={navbarItems} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+
 function BreadcrumbSingleItem({item, isActive}: {item: BreadcrumbItemType; isActive: boolean}) {
   return (
-    <Button variant="ghost" className={`px-2 text-gray-600 ${isActive ? "bg-accent" : ""}`} asChild>
-      <Link href={"/" + item.href || "#"} className="flex flex-row items-center gap-1 px-2 text-gray-600">
-        <>
-          {item.icon in icons ? icons[item.icon as keyof typeof icons] : null}
-          {item.displayName}
-        </>
+    <Button variant="ghost" className={`cursor-pointer px-2 text-gray-600 ${isActive ? "bg-accent" : ""}`} asChild>
+      <Link href={"/" + item.href || "#"} className="flex items-center gap-1 px-2 text-gray-600">
+        <BreadcrumbIcon item={item} />
+        {item.displayName}
       </Link>
     </Button>
   );
@@ -135,7 +119,6 @@ function BreadcrumbNavigation({
           ?.map((item, index) => (
             <Fragment key={item.key}>
               {index !== 0 && <BreadcrumbSeparator />}
-
               <BreadcrumbItem>
                 {item.subNavbarItems?.filter((i) => i.href)?.length > 1 ? (
                   <BreadcrumbDropdown
