@@ -10,22 +10,21 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import {handleDeleteResponse} from "@repo/utils/api";
 import {deleteUserSessionsByIdApi} from "@repo/actions/core/IdentityService/delete-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {Localization} from "@/providers/tenant";
 import DetailsInformation from "./details-information";
 
 type SessionsTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentitySessionDto>;
 
 const links: Partial<Record<keyof Volo_Abp_Identity_IdentitySessionDto, TanstackTableColumnLink>> = {};
 
-const sessionsColumns = (locale: string, languageData: IdentityServiceResource) => {
+const sessionsColumns = (localization: Localization, languageData: IdentityServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentitySessionDto>({
     rows: $Volo_Abp_Identity_IdentitySessionDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.User.Session",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 };

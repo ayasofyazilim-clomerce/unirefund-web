@@ -12,6 +12,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {Localization} from "@/providers/tenant";
 
 type ApplicationsTable = TanstackTableCreationProps<Volo_Abp_OpenIddict_Applications_Dtos_ApplicationDto>;
 
@@ -69,7 +70,7 @@ function tenantsRowActions(
 }
 
 const applicationsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: IdentityServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -85,9 +86,7 @@ const applicationsColumns = (
       languageData,
       constantKey: "Form.Application",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 };

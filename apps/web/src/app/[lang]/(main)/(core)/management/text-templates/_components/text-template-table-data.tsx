@@ -6,6 +6,7 @@ import type {
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import {CheckCircle, XCircle} from "lucide-react";
+import type {Localization} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 type TextTemplateTable =
@@ -15,16 +16,14 @@ const links: Partial<
   Record<keyof Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto, TanstackTableColumnLink>
 > = {};
 
-const textTemplateColumns = (locale: string, languageData: AdministrationServiceResource) => {
+const textTemplateColumns = (localization: Localization, languageData: AdministrationServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto>({
     rows: $Volo_Abp_TextTemplateManagement_TextTemplates_TemplateDefinitionDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.TextTemplate",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     badges: {
       displayName: {
