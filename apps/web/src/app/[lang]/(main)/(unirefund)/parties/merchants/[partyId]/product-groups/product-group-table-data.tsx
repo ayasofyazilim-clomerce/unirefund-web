@@ -51,7 +51,7 @@ function productGroupsTableActions(
       cta: languageData["Form.Merchant.productGroup.create"],
       title: languageData["Form.Merchant.productGroup.create"],
       icon: Plus,
-      content: (
+      content: (closeDialog) => (
         <SchemaForm<UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto>
           onSubmit={({formData}) => {
             if (!formData) return;
@@ -60,6 +60,10 @@ function productGroupsTableActions(
               requestBody: [formData],
             }).then((res) => {
               handlePostResponse(res, router);
+              // Close dialog if post is successful
+              if (res.type === "success") {
+                closeDialog?.();
+              }
             });
           }}
           schema={$UniRefund_SettingService_ProductGroupMerchants_CreateProductGroupMerchantBaseDto}
