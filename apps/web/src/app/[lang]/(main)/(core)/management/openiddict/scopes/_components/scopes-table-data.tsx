@@ -11,6 +11,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import type {Localization} from "@/providers/tenant";
 
 type ScopesTable = TanstackTableCreationProps<Volo_Abp_OpenIddict_Scopes_Dtos_ScopeDto>;
 
@@ -37,7 +38,7 @@ function scopesTableActions(
 }
 
 const scopesColumns = (
-  locale: string,
+  localization: Localization,
   languageData: IdentityServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -53,9 +54,7 @@ const scopesColumns = (
       languageData,
       constantKey: "Form.Scope",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 };

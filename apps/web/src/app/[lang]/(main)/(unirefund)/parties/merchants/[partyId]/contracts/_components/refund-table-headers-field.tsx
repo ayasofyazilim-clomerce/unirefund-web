@@ -7,6 +7,7 @@ import {tanstackTableEditableColumnsByRowData} from "@repo/ayasofyazilim-ui/mole
 import {TableField} from "@repo/ayasofyazilim-ui/organisms/schema-form/fields";
 import {PlusCircle} from "lucide-react";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import type {Localization} from "@/providers/tenant";
 
 export function RefundTableHeadersField({
   data = [
@@ -18,10 +19,12 @@ export function RefundTableHeadersField({
   ],
   refundTableHeaders,
   languageData,
+  localization,
 }: {
   refundTableHeaders: AssignableRefundTableHeaders[];
   data?: ContractHeaderRefundTableHeaderCreateAndUpdateDto[];
   languageData: ContractServiceResource;
+  localization: Localization;
 }) {
   return TableField<ContractHeaderRefundTableHeaderCreateAndUpdateDto>({
     fillerColumn: "refundTableHeaderId",
@@ -38,6 +41,7 @@ export function RefundTableHeadersField({
           })),
         },
       },
+      localization,
       excludeColumns: ["extraProperties"],
     }),
     tableActions: [

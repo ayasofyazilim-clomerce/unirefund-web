@@ -5,22 +5,21 @@ import type {
   TanstackTableCreationProps,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {Localization} from "@/providers/tenant";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 
 type SessionsTable = TanstackTableCreationProps<Volo_Abp_Identity_IdentitySecurityLogDto>;
 
 const links: Partial<Record<keyof Volo_Abp_Identity_IdentitySecurityLogDto, TanstackTableColumnLink>> = {};
 
-const securityLogsColumns = (locale: string, languageData: AccountServiceResource) => {
+const securityLogsColumns = (localization: Localization, languageData: AccountServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_Identity_IdentitySecurityLogDto>({
     rows: $Volo_Abp_Identity_IdentitySecurityLogDto.properties,
     languageData: {
       languageData,
       constantKey: "Form",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 };

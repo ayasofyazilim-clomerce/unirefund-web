@@ -15,6 +15,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
+import type {Localization} from "@/providers/tenant";
 
 type RebateStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto>;
@@ -23,7 +24,7 @@ const links: Partial<
   Record<keyof UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderForListDto, TanstackTableColumnLink>
 > = {};
 const rebateStatementsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -41,9 +42,7 @@ const rebateStatementsColumns = (
         languageData,
         constantKey: "Form.RebateStatement",
       },
-      config: {
-        locale,
-      },
+      localization,
       links,
       faceted: {
         status: {

@@ -30,6 +30,7 @@ import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import {useTenant} from "@/providers/tenant";
 
 export function TravellerDocuments({
   languageData,
@@ -42,15 +43,14 @@ export function TravellerDocuments({
   travellerDetails: TravellerDetailProfileDto;
   countryList: CountryDto[];
 }) {
-  const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();
+  const {travellerId} = useParams<{lang: string; travellerId: string}>();
+  const {localization} = useTenant();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const columns = tanstackTableCreateColumnsByRowData<TravellerDocumentProfileDto>({
     rows: $TravellerDocumentProfileDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form",

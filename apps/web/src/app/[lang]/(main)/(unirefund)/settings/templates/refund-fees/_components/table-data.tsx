@@ -16,21 +16,20 @@ import {isActionGranted} from "@repo/utils/policies";
 import {postRefundFeeHeaderCloneByIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {getBaseLink} from "@/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import type {Localization} from "@/providers/tenant";
 
 type RefundFeeHeaders =
   TanstackTableCreationProps<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>;
 
 const refundFeeHeadersColumns = (
-  locale: string,
+  localization: Localization,
   refundPoints: RefundPointProfileDto[],
   languageData: ContractServiceResource,
 ) =>
   tanstackTableCreateColumnsByRowData<UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto>({
     rows: $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto.properties,
     languageData,
-    config: {
-      locale,
-    },
+    localization,
     links: {
       name: {
         prefix: `refund-fees`,
@@ -92,7 +91,7 @@ const refundFeeHeadersColumns = (
           return (
             <Link
               data-testid={`${row.refundPointId}-name-link`}
-              href={getBaseLink(`parties/refund-points/${row.refundPointId}/details`, locale)}>
+              href={getBaseLink(`parties/refund-points/${row.refundPointId}/details`, localization.lang)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{refundPoint.name}</Badge>
             </Link>
           );

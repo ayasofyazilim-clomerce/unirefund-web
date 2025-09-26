@@ -1,15 +1,16 @@
 "use client";
 import {toast} from "@/components/ui/sonner";
+import {postMerchantContractHeaderContractStoresByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
+import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
+import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {
   UniRefund_ContractService_ContractsForMerchant_ContractSettings_ContractSettingDto as ContractSettingDto,
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreCreateAndUpdateDto as ContractStoreCreateAndUpdateDto,
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as ContractStoreDetailedDto,
 } from "@repo/saas/ContractService";
-import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useParams, useRouter} from "next/navigation";
 import {useState} from "react";
-import {postMerchantContractHeaderContractStoresByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
+import {useTenant} from "@/providers/tenant";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import {tableData} from "./table-data";
 
@@ -24,12 +25,12 @@ export function ContractStoresTable({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const {lang, contractId} = useParams<{
-    lang: string;
+  const {contractId} = useParams<{
     contractId: string;
   }>();
+  const {localization} = useTenant();
   const columns = tableData.columns({
-    lang,
+    localization,
     languageData,
     contractSettings,
   });

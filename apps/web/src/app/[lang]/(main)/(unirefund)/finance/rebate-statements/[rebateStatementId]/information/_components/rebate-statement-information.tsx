@@ -1,9 +1,9 @@
 "use client";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@repo/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
+import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@repo/saas/FinanceService";
 import {useGrantedPolicies} from "@repo/utils/policies";
-import {useParams} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import {dateToString} from "@/app/[lang]/(main)/(unirefund)/operations/_components/utils";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {tableData} from "./rebate-information-table-data";
@@ -31,9 +31,10 @@ export default function RebateStatementInformation({
   languageData: FinanceServiceResource;
 }) {
   const {grantedPolicies} = useGrantedPolicies();
-  const {lang} = useParams<{lang: string}>();
 
-  const columns = tableData.rebateInformation.columns(lang, languageData, grantedPolicies);
+  const {localization} = useTenant();
+
+  const columns = tableData.rebateInformation.columns(localization, languageData, grantedPolicies);
   const table = tableData.rebateInformation.table();
 
   const formatCurrency = (value: number | undefined) => {

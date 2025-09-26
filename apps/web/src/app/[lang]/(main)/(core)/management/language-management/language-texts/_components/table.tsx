@@ -7,7 +7,8 @@ import type {
 } from "@ayasofyazilim/core-saas/AdministrationService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
-import {useParams, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import {tableData} from "./language-texts-table-data";
 
@@ -22,10 +23,10 @@ function LanguageTextsTable({
   languageList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
   languagesResourcesData: Volo_Abp_LanguageManagement_Dto_LanguageResourceDto[];
 }) {
-  const {lang} = useParams<{lang: string}>();
+  const {localization} = useTenant();
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.languageTexts.columns(lang, languageData);
+  const columns = tableData.languageTexts.columns(localization, languageData);
   const table = tableData.languageTexts.table(
     languageData,
     languageList,

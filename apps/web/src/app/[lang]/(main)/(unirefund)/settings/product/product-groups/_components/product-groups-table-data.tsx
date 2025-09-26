@@ -14,6 +14,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {SettingServiceResource} from "src/language-data/unirefund/SettingService";
+import type {Localization} from "@/providers/tenant";
 
 type ProductGroupsTable = TanstackTableCreationProps<UniRefund_SettingService_ProductGroups_ProductGroupDto>;
 
@@ -41,7 +42,7 @@ function productGroupsTableActions(
 }
 
 const productGroupsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: SettingServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -61,9 +62,7 @@ const productGroupsColumns = (
       languageData,
       constantKey: "Form.ProductGroup",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     badges: {
       name: {

@@ -28,6 +28,7 @@ import {deleteMerchantContractContractSettingsByIdApi} from "@repo/actions/unire
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
 import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {useTenant} from "@/providers/tenant";
 
 interface ContractSettingsTable {
   id: string;
@@ -54,7 +55,6 @@ export function ContractSettings({
   contractSettings,
   contractHeaderDetails,
   addressList,
-  lang,
 }: {
   languageData: ContractServiceResource;
   contractSettings: ContractSettingDto[];
@@ -65,6 +65,7 @@ export function ContractSettings({
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const {localization} = useTenant();
   const [settings, setSettings] = useState<ContractSettingsTable[]>(
     contractSettings.map((item) => {
       return {
@@ -148,9 +149,7 @@ export function ContractSettings({
   }, []);
   const columns = tanstackTableCreateColumnsByRowData<ContractSettingsTable>({
     rows: $ContractSettingsTable,
-    config: {
-      locale: lang,
-    },
+    localization,
     custom: {
       isDefault: {
         showHeader: false,
