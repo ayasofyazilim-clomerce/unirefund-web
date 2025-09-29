@@ -1,12 +1,11 @@
 "use server";
 
-import ErrorComponent from "@repo/ui/components/error-component";
-import {getAllEditionsApi} from "@repo/actions/core/SaasService/actions";
-import {auth} from "@repo/utils/auth/next-auth";
 import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
+import {getAllEditionsApi} from "@repo/actions/core/SaasService/actions";
 import {getAllCountriesApi, getCurrencyApi} from "@repo/actions/unirefund/LocationService/actions";
-import {getTimeZoneApi} from "@repo/actions/unirefund/SettingService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
@@ -19,7 +18,6 @@ async function getApiRequests() {
       getAllLanguagesApi(session),
       getAllCountriesApi({}, session),
       getCurrencyApi({}, session),
-      getTimeZoneApi(session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
@@ -40,8 +38,7 @@ export default async function Page({params}: {params: {lang: string}}) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const {requiredRequests} = apiRequests;
-  const [editionsResponse, languagesResponse, countriesResponse, currenciesResponse, timezonesResponse] =
-    requiredRequests;
+  const [editionsResponse, languagesResponse, countriesResponse, currenciesResponse] = requiredRequests;
 
   return (
     <>
@@ -51,7 +48,6 @@ export default async function Page({params}: {params: {lang: string}}) {
         editionList={editionsResponse.data}
         languageData={languageData}
         languageList={languagesResponse.data.items || []}
-        timezoneList={timezonesResponse.data}
       />
       <div className="hidden" id="page-description">
         {languageData["Tenant.Create.Description"]}

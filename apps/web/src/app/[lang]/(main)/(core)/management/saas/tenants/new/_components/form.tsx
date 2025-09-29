@@ -21,20 +21,20 @@ import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
 
+const timezoneList = Intl.supportedValuesOf("timeZone").map((tz) => ({name: tz, value: tz}));
+
 export default function Page({
   languageData,
   editionList,
   languageList,
   countryList,
   currencyList,
-  timezoneList,
 }: {
   languageData: SaasServiceResource;
   editionList: Volo_Saas_Host_Dtos_EditionDto[];
   languageList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
   countryList: UniRefund_LocationService_Countries_CountryDto[];
   currencyList: UniRefund_LocationService_Currencies_CurrencyDto[];
-  timezoneList: Volo_Abp_NameValue[];
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
