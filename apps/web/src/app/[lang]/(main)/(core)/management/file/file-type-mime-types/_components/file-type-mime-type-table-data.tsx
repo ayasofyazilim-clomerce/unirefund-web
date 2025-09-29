@@ -25,6 +25,7 @@ import {Edit, Plus, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {FormReadyComponent} from "@repo/ui/form-ready";
 import type {FileServiceResource} from "@/language-data/unirefund/FileService";
+import type {Localization} from "@/providers/tenant";
 import {checkIsFormReady} from "../../_components/utils";
 
 type FileRelationEntityTable =
@@ -171,12 +172,10 @@ function fileTypeMimeTypesRowActions(
   return actions;
 }
 
-function fileTypeMimeTypesColumns(locale: string) {
+function fileTypeMimeTypesColumns(localization: Localization) {
   return tanstackTableCreateColumnsByRowData<UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto>({
     rows: $UniRefund_FileService_FileTypeMimeTypes_FileTypeMimeTypeListDto.properties,
-    config: {
-      locale,
-    },
+    localization,
   });
 }
 

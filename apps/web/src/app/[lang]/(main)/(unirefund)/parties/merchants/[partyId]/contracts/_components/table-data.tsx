@@ -9,22 +9,23 @@ import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Contract
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {Localization} from "@/providers/tenant";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "src/utils";
 
 const contractsTableColumns = ({
   languageData,
-  lang,
+  localization,
   partyId,
 }: {
   languageData: CRMServiceServiceResource & ContractServiceResource;
-  lang: string;
+  localization: Localization;
   partyId: string;
 }) => {
   return columnsByData<ContractsForMerchantDto>({
     rows: $ContractsForMerchantDto.properties,
-    config: {locale: lang},
+    localization,
     languageData: {
       constantKey: "Contracts",
       languageData,

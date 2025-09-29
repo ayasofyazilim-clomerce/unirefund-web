@@ -65,7 +65,6 @@ export default async function Page({
   return (
     <ContractsTable
       contractsData={contractsResponse.data}
-      lang={lang}
       languageData={{...languageData, ...contractsLanguageData}}
       partyId={partyId}
     />

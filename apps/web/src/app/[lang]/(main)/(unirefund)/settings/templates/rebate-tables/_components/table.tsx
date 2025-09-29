@@ -5,12 +5,12 @@ import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import {useRouter} from "next/navigation";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {useTenant} from "@/providers/tenant";
 import {tableData} from "./table-data";
 
 export default function RebateTable({
   languageData,
   rebateTableHeaders,
-  lang,
   merchants,
 }: {
   languageData: ContractServiceResource;
@@ -19,8 +19,9 @@ export default function RebateTable({
   merchants: MerchantProfileDto[];
 }) {
   const router = useRouter();
+  const {localization} = useTenant();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.rebateTableHeaders.columns(lang, merchants, languageData);
+  const columns = tableData.rebateTableHeaders.columns(localization, merchants, languageData);
   const table = tableData.rebateTableHeaders.table({languageData, router, grantedPolicies, merchants});
   return (
     <div className="mt-6 rounded-md border p-6">

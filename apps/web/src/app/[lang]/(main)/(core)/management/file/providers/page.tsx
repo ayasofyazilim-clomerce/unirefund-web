@@ -43,5 +43,5 @@ export default async function Page({
   }
   const [providerResponse] = apiRequests.requiredRequests;
 
-  return <ProvidersTable languageData={languageData} locale={lang} response={providerResponse.data} />;
+  return <ProvidersTable languageData={languageData} response={providerResponse.data} />;
 }

@@ -5,16 +5,17 @@ import type {
   UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as ContractStoreDetailedDto,
 } from "@repo/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForMerchant_ContractStores_ContractStoreDetailedDto as $ContractStoreDetailedDto} from "@repo/saas/ContractService";
+import type {Localization} from "@/providers/tenant";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 const contractStoresTableColumns = ({
   languageData,
-  lang,
   contractSettings,
+  localization,
 }: {
   languageData: ContractServiceResource;
   contractSettings: ContractSettingDto[];
-  lang: string;
+  localization: Localization;
 }) => {
   return tanstackTableEditableColumnsByRowData<ContractStoreDetailedDto>({
     rows: {
@@ -45,9 +46,7 @@ const contractStoresTableColumns = ({
         },
       ],
     },
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Contracts.Stores",

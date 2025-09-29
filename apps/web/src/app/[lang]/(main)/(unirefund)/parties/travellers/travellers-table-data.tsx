@@ -11,6 +11,7 @@ import {PlusCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {CountryDto} from "@/utils/address-hook/types";
 import type {TravellerServiceResource} from "src/language-data/unirefund/TravellerService";
+import type {Localization} from "@/providers/tenant";
 
 type TravellersTable = TanstackTableCreationProps<UniRefund_TravellerService_Travellers_TravellerListDto>;
 
@@ -34,7 +35,7 @@ function travellersTableActions(
   return actions;
 }
 function travellersColumns(
-  locale: string,
+  localization: Localization,
   languageData: TravellerServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) {
@@ -44,9 +45,7 @@ function travellersColumns(
       languageData,
       constantKey: "Form",
     },
-    config: {
-      locale,
-    },
+    localization,
     links: {
       fullName: {
         prefix: "/parties/travellers",

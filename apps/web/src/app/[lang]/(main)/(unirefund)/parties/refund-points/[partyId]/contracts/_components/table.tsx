@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import {useGrantedPolicies} from "@repo/utils/policies";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import {useTenant} from "@/providers/tenant";
 import {tableData} from "./table-data";
 
 export default function Contracts(props: {
@@ -16,7 +17,8 @@ export default function Contracts(props: {
 }) {
   const {grantedPolicies} = useGrantedPolicies();
   const router = useRouter();
-  const columns = tableData.columns({...props});
+  const {localization} = useTenant();
+  const columns = tableData.columns({...props, localization});
   const table = tableData.table({...props, router, grantedPolicies});
 
   return <TanstackTable columns={columns} data={props.contractsData.items || []} {...table} />;

@@ -17,11 +17,12 @@ import {isActionGranted} from "@repo/utils/policies";
 import {postRebateTableHeaderCloneByIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "@/utils";
+import type {Localization} from "@/providers/tenant";
 
 type RebateTableHeaders = TanstackTableCreationProps<RebateTableHeaderDto>;
 
 const rebateTableHeadersColumns = (
-  locale: string,
+  localization: Localization,
   merchants: MerchantProfileDto[],
   languageData: ContractServiceResource,
 ) =>
@@ -31,9 +32,7 @@ const rebateTableHeadersColumns = (
       constantKey: "Rebate.Form",
       languageData,
     },
-    config: {
-      locale,
-    },
+    localization,
     links: {
       name: {
         prefix: `/settings/templates/rebate-tables`,
@@ -99,13 +98,13 @@ const rebateTableHeadersColumns = (
     custom: {
       merchantId: {
         content(row) {
-          if (!row.merchantId) return <></>;
+          if (!row.merchantId) return null;
           const merchant = merchants.find((mc) => mc.id === row.merchantId);
-          if (!merchant) return <></>;
+          if (!merchant) return null;
           return (
             <Link
               data-testid={`${row.merchantId}-name-link`}
-              href={getBaseLink(`parties/merchants/${row.merchantId}/details`, locale)}>
+              href={getBaseLink(`parties/merchants/${row.merchantId}/details`, localization.lang)}>
               <Badge className="block max-w-52 overflow-hidden text-ellipsis">{merchant.name}</Badge>
             </Link>
           );
