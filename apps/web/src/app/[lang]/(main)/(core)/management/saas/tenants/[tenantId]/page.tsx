@@ -1,13 +1,12 @@
 "use server";
 
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
+import {getAllEditionsApi, getTenantDetailsByIdApi} from "@repo/actions/core/SaasService/actions";
+import {getAllCountriesApi, getCurrencyApi} from "@repo/actions/unirefund/LocationService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
-import {getAllEditionsApi, getTenantDetailsByIdApi} from "@repo/actions/core/SaasService/actions";
-import {getAllCountriesApi, getCurrencyApi} from "@repo/actions/unirefund/LocationService/actions";
-import {getTimeZoneApi} from "@repo/actions/unirefund/SettingService/actions";
-import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/core/SaasService";
 import Form from "./_components/form";
 
@@ -19,7 +18,6 @@ async function getApiRequests(tenantId: string) {
       getAllLanguagesApi(session),
       getAllCountriesApi({}, session),
       getCurrencyApi({}, session),
-      getTimeZoneApi(session),
       getTenantDetailsByIdApi(tenantId, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
@@ -41,14 +39,8 @@ export default async function Page({params}: {params: {lang: string; tenantId: s
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const {requiredRequests} = apiRequests;
-  const [
-    editionsResponse,
-    languagesResponse,
-    countriesResponse,
-    currenciesResponse,
-    timezonesResponse,
-    tenantDetailsDataResponse,
-  ] = requiredRequests;
+  const [editionsResponse, languagesResponse, countriesResponse, currenciesResponse, tenantDetailsDataResponse] =
+    requiredRequests;
 
   return (
     <>
@@ -59,7 +51,6 @@ export default async function Page({params}: {params: {lang: string; tenantId: s
         languageData={languageData}
         languageList={languagesResponse.data.items || []}
         tenantDetailsData={tenantDetailsDataResponse.data}
-        timezoneList={timezonesResponse.data}
       />
       <div className="hidden" id="page-title">
         {`${languageData.Tenant} (${tenantDetailsDataResponse.data.name})`}
