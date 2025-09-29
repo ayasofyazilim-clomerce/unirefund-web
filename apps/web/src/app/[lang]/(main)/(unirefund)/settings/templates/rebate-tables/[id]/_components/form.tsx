@@ -1,45 +1,49 @@
 "use client";
-import { putRebateTableHeadersByIdApi } from "@repo/actions/unirefund/ContractService/put-actions";
+import {putRebateTableHeadersByIdApi} from "@repo/actions/unirefund/ContractService/put-actions";
+import {handlePutResponse} from "@repo/utils/api";
+import {Button} from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFieldArray,
+  useForm,
+} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {toast} from "@/components/ui/sonner";
+import {Switch} from "@/components/ui/switch";
+import {Label} from "@/components/ui/label";
+import {zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import type {UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto} from "@repo/saas/ContractService";
+import {Asterisk, Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useTransition} from "react";
+import type {z} from "zod";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {createRebateTableFormSchemas} from "../../_components/schema";
 
-import { handlePutResponse } from "@repo/utils/api";
-
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFieldArray, useForm } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "@/components/ui/sonner";
-import { Switch } from "@/components/ui/switch";
-
-import { Label } from "@/components/ui/label";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { zodResolver } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import type {
-  UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto
-} from "@repo/saas/ContractService";
-import { Asterisk, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { z } from "zod";
-import { createRebateTableFormSchemas } from "../../_components/schema";
-
-type RefundMethod = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'All';
-const refundMethod: RefundMethod[] = ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'All'];
-
+type RefundMethod = "Cash" | "CreditCard" | "BankTransfer" | "Wallet" | "CashViaPartner" | "All";
+const refundMethod: RefundMethod[] = ["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All"];
 
 export default function RebateTableHeaderCreateForm({
   languageData,
-  formData
+  formData,
 }: {
   languageData: ContractServiceResource;
   formData: RebateTableHeaderDto;
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const { createFormSchema } = createRebateTableFormSchemas({ languageData })
+  const {createFormSchema} = createRebateTableFormSchemas({languageData});
 
   const form = useForm<z.infer<typeof createFormSchema>>({
     resolver: zodResolver(createFormSchema),
-    defaultValues: formData
+    defaultValues: formData,
   });
 
   const rebateTableFieldArray = useFieldArray({
@@ -51,7 +55,7 @@ export default function RebateTableHeaderCreateForm({
     name: "processingFeeDetails",
   });
   const rebateTableDetailValues = form.watch("rebateTableDetails") ?? [];
-  const hasAll = rebateTableDetailValues.some(row => row.refundMethod === "All");
+  const hasAll = rebateTableDetailValues.some((row) => row.refundMethod === "All");
 
   function handleRebateTableAddRow() {
     if (hasAll) {
@@ -59,7 +63,7 @@ export default function RebateTableHeaderCreateForm({
       return;
     }
     const availableOptions = getRefundMethodOptions(rebateTableFieldArray.fields.length);
-    const firstAvailable = availableOptions.find(opt => !opt.disabled);
+    const firstAvailable = availableOptions.find((opt) => !opt.disabled);
 
     if (!firstAvailable) {
       toast.error(languageData["RebateTable.Form.rebateTableDetails.allRefundMethodsAlreadyUsed"]);
@@ -70,7 +74,7 @@ export default function RebateTableHeaderCreateForm({
       fixedFeeValue: 0,
       percentFeeValue: 0,
       refundMethod: firstAvailable.value,
-      variableFee: "PercentOfGC"
+      variableFee: "PercentOfGC",
     });
   }
   function handleProcessingFeeAddRow() {
@@ -81,17 +85,16 @@ export default function RebateTableHeaderCreateForm({
   }
   function getRefundMethodOptions(rowIndex: number) {
     const rowIsAll = rebateTableDetailValues[rowIndex]?.refundMethod === "All";
-    const selectedMethods = rebateTableDetailValues.map(row => row.refundMethod);
+    const selectedMethods = rebateTableDetailValues.map((row) => row.refundMethod);
 
-    return refundMethod.map(method => {
+    return refundMethod.map((method) => {
       const isSelectedInAnotherRow =
-        selectedMethods.includes(method) &&
-        rebateTableDetailValues[rowIndex]?.refundMethod !== method;
+        selectedMethods.includes(method) && rebateTableDetailValues[rowIndex]?.refundMethod !== method;
 
       return {
         value: method,
         disabled:
-          (method === "All" && (!rowIsAll && rebateTableDetailValues.length > 1)) ||
+          (method === "All" && !rowIsAll && rebateTableDetailValues.length > 1) ||
           (method !== "All" && isSelectedInAnotherRow),
       };
     });
@@ -110,17 +113,28 @@ export default function RebateTableHeaderCreateForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-12 grid-flow-dense h-full overflow-hidden gap-4">
-        <div className="col-span-3 p-px flex flex-col h-full overflow-hidden gap-4">
-          <div className="space-y-4 h-max">
+      <form
+        className="grid h-full grid-flow-dense grid-cols-12 gap-4 overflow-hidden"
+        data-testid=""
+        onSubmit={(event) => void form.handleSubmit(onSubmit)(event)}>
+        <div className="col-span-3 flex h-full flex-col gap-4 overflow-hidden p-px">
+          <div className="h-max space-y-4">
             <FormField
               control={form.control}
               name="name"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="space-y-0">
-                  <FormLabel>{languageData["RebateTable.Form.name"]}<Asterisk className="size-3 inline-flex mb-2 text-destructive" /></FormLabel>
+                  <FormLabel>
+                    {languageData["RebateTable.Form.name"]}
+                    <Asterisk className="text-destructive mb-2 inline-flex size-3" />
+                  </FormLabel>
                   <FormControl>
-                    <Input disabled={isPending} placeholder={languageData["RebateTable.Form.name.default"]} {...field} />
+                    <Input
+                      data-testid="name"
+                      disabled={isPending}
+                      placeholder={languageData["RebateTable.Form.name.default"]}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,16 +143,19 @@ export default function RebateTableHeaderCreateForm({
             <FormField
               control={form.control}
               name="calculateNetCommissionInsteadOfRefund"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
                     <FormLabel>{languageData["RebateTable.Form.calculateNetCommissionInsteadOfRefund"]}</FormLabel>
-                    <FormDescription>{languageData["RebateTable.Form.calculateNetCommissionInsteadOfRefund.description"]}</FormDescription>
+                    <FormDescription>
+                      {languageData["RebateTable.Form.calculateNetCommissionInsteadOfRefund.description"]}
+                    </FormDescription>
                   </div>
                   <FormControl>
                     <Switch
-                      disabled={isPending}
                       checked={field.value}
+                      data-testid="calculateNetCommissionInsteadOfRefund"
+                      disabled={isPending}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
@@ -147,32 +164,44 @@ export default function RebateTableHeaderCreateForm({
             />
           </div>
           <div className="h-full overflow-auto">
-            <div className="flex items-end justify-between sticky top-0 bg-white pb-4 z-10">
-              <Label>{languageData["RebateTable.Form.processingFeeDetails"]}</Label>
+            <div className="sticky top-0 z-10 flex items-end justify-between bg-white pb-4">
+              <Label data-testid="rebateTable.processingFee.label">
+                {languageData["RebateTable.Form.processingFeeDetails"]}
+              </Label>
               <Button
+                data-testid="rebateTable.processingFee.addRowButton"
                 disabled={isPending}
-                type="button"
-                variant="outline"
                 onClick={handleProcessingFeeAddRow}
-              >
+                type="button"
+                variant="outline">
                 {languageData["Table.Add"]}
               </Button>
             </div>
-            <div className="flex rounded-md bg-border border flex-col gap-px [&>div:last-child>div:first-child>input]:rounded-bl-md [&>div:last-child>:last-child]:rounded-br-md [&>div:last-child>:first-child]:rounded-bl-md group">
+            <div className="bg-border group flex flex-col gap-px rounded-md border [&>div:last-child>:first-child]:rounded-bl-md [&>div:last-child>:last-child]:rounded-br-md [&>div:last-child>div:first-child>input]:rounded-bl-md">
               <div className="flex gap-px overflow-hidden rounded-t-md">
-                <span className="bg-white px-3 h-9 text-sm font-medium w-full flex items-center">{languageData["RebateTable.Form.processingFeeDetails.name"]}</span>
-                <span className="bg-white px-3 h-9 text-sm font-medium w-full flex items-center">{languageData["RebateTable.Form.processingFeeDetails.amount"]}</span>
-                <span className="ring ring-white h-9 min-w-10 bg-white rounded-md"></span>
+                <span className="flex h-9 w-full items-center bg-white px-3 text-sm font-medium">
+                  {languageData["RebateTable.Form.processingFeeDetails.name"]}
+                </span>
+                <span className="flex h-9 w-full items-center bg-white px-3 text-sm font-medium">
+                  {languageData["RebateTable.Form.processingFeeDetails.amount"]}
+                </span>
+                <span className="h-9 min-w-10 rounded-md bg-white ring ring-white" />
               </div>
-              {processingFeeFieldArray.fields.map((field, index) => (
-                <div key={field.id} className="flex gap-px bg-border row-item">
+              {processingFeeFieldArray.fields.map((arrayField, index) => (
+                <div className="bg-border row-item flex gap-px" key={arrayField.id}>
                   <FormField
                     control={form.control}
                     name={`processingFeeDetails.${index}.name`}
-                    render={({ field }) => (
+                    render={({field}) => (
                       <FormItem className="space-y-0">
                         <FormControl>
-                          <Input disabled={isPending} type="text" className="bg-white border-0 rounded-none shadow-none" {...field} />
+                          <Input
+                            className="rounded-none border-0 bg-white shadow-none"
+                            data-testid={`processingFeeDetails.${index}.name`}
+                            disabled={isPending}
+                            type="text"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -181,22 +210,31 @@ export default function RebateTableHeaderCreateForm({
                   <FormField
                     control={form.control}
                     name={`processingFeeDetails.${index}.amount`}
-                    render={({ field }) => (
+                    render={({field}) => (
                       <FormItem className="space-y-0">
                         <FormControl>
-                          <Input disabled={isPending} type="number" step="any" className="bg-white border-0 rounded-none shadow-none" {...field} />
+                          <Input
+                            className="rounded-none border-0 bg-white shadow-none"
+                            data-testid={`processingFeeDetails.${index}.amount`}
+                            disabled={isPending}
+                            step="any"
+                            type="number"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   <Button
-                    type="button"
+                    className="rounded-none border-0 bg-white px-3 shadow-none"
+                    data-testid={`processingFeeFieldArray.removeRow.${index}`}
                     disabled={isPending}
-                    variant="outline"
-                    className="bg-white border-0 rounded-none shadow-none px-3"
-                    onClick={() => processingFeeFieldArray.remove(index)}
-                  >
+                    onClick={() => {
+                      processingFeeFieldArray.remove(index);
+                    }}
+                    type="button"
+                    variant="outline">
                     <Trash2 className="w-4 min-w-4" />
                   </Button>
                 </div>
@@ -204,35 +242,52 @@ export default function RebateTableHeaderCreateForm({
             </div>
           </div>
         </div>
-        <div className="border-l col-span-9 pl-4 pt-2 h-full overflow-hidden flex flex-col gap-4">
-          <div className="flex flex-col h-full overflow-auto">
-            <div className="flex items-end justify-between sticky top-0 bg-white pb-4 z-10">
-              <Label>{languageData["RebateTable.Form.rebateTableDetails"]}</Label>
+        <div className="col-span-9 flex h-full flex-col gap-4 overflow-hidden border-l pl-4 pt-2">
+          <div className="flex h-full flex-col overflow-auto">
+            <div className="sticky top-0 z-10 flex items-end justify-between bg-white pb-4">
+              <Label data-testid="rebateTable.rebateTableDetails.label">
+                {languageData["RebateTable.Form.rebateTableDetails"]}
+              </Label>
               <Button
-                type="button"
-                variant="outline"
-                onClick={handleRebateTableAddRow}
+                data-testid="rebateTable.rebateTableDetails.addRowButton"
                 disabled={isPending || hasAll}
-              >
+                onClick={handleRebateTableAddRow}
+                type="button"
+                variant="outline">
                 {languageData["Table.Add"]}
               </Button>
             </div>
-            <div className="flex rounded-md bg-border border flex-col gap-px [&>div:last-child>div:first-child>input]:rounded-bl-md [&>div:last-child>:last-child]:rounded-br-md [&>div:last-child>:first-child]:rounded-bl-md group">
+            <div className="bg-border group flex flex-col gap-px rounded-md border [&>div:last-child>:first-child]:rounded-bl-md [&>div:last-child>:last-child]:rounded-br-md [&>div:last-child>div:first-child>input]:rounded-bl-md">
               <div className="flex gap-px overflow-hidden rounded-t-md">
-                <span className="bg-white px-3 h-9 text-sm font-medium min-w-52 flex items-center">{languageData["RebateTable.Form.rebateTableDetails.fixedFeeValue"]}</span>
-                <span className="bg-white px-3 h-9 text-sm font-medium min-w-52 flex items-center">{languageData["RebateTable.Form.rebateTableDetails.percentFeeValue"]}</span>
-                <span className="bg-white px-3 h-9 text-sm font-medium w-full max-w-60 flex items-center">{languageData["RebateTable.Form.rebateTableDetails.refundMethod"]}</span>
-                <span className="bg-white px-3 h-9 text-sm font-medium w-full flex items-center">{languageData["RebateTable.Form.rebateTableDetails.variableFee"]}</span>
+                <span className="flex h-9 min-w-52 items-center bg-white px-3 text-sm font-medium">
+                  {languageData["RebateTable.Form.rebateTableDetails.fixedFeeValue"]}
+                </span>
+                <span className="flex h-9 min-w-52 items-center bg-white px-3 text-sm font-medium">
+                  {languageData["RebateTable.Form.rebateTableDetails.percentFeeValue"]}
+                </span>
+                <span className="flex h-9 w-full max-w-60 items-center bg-white px-3 text-sm font-medium">
+                  {languageData["RebateTable.Form.rebateTableDetails.refundMethod"]}
+                </span>
+                <span className="flex h-9 w-full items-center bg-white px-3 text-sm font-medium">
+                  {languageData["RebateTable.Form.rebateTableDetails.variableFee"]}
+                </span>
               </div>
-              {rebateTableFieldArray.fields.map((field, index) => (
-                <div key={field.id} className="flex gap-px bg-border row-item">
+              {rebateTableFieldArray.fields.map((arrayField, index) => (
+                <div className="bg-border row-item flex gap-px" key={arrayField.id}>
                   <FormField
                     control={form.control}
                     name={`rebateTableDetails.${index}.fixedFeeValue`}
-                    render={({ field }) => (
-                      <FormItem className="space-y-0 min-w-52">
+                    render={({field}) => (
+                      <FormItem className="min-w-52 space-y-0">
                         <FormControl>
-                          <Input disabled={isPending} type="number" step="any" className="bg-white border-0 rounded-none shadow-none" {...field} />
+                          <Input
+                            className="rounded-none border-0 bg-white shadow-none"
+                            data-testid={`rebateTableDetails.${index}.fixedFeeValue`}
+                            disabled={isPending}
+                            step="any"
+                            type="number"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -241,10 +296,17 @@ export default function RebateTableHeaderCreateForm({
                   <FormField
                     control={form.control}
                     name={`rebateTableDetails.${index}.percentFeeValue`}
-                    render={({ field }) => (
-                      <FormItem className="space-y-0 min-w-52">
+                    render={({field}) => (
+                      <FormItem className="min-w-52 space-y-0">
                         <FormControl>
-                          <Input disabled={isPending} type="number" step="any" className="bg-white border-0 rounded-none shadow-none" {...field} />
+                          <Input
+                            className="rounded-none border-0 bg-white shadow-none"
+                            data-testid={`rebateTableDetails.${index}.percentFeeValue`}
+                            disabled={isPending}
+                            step="any"
+                            type="number"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -253,23 +315,29 @@ export default function RebateTableHeaderCreateForm({
                   <FormField
                     control={form.control}
                     name={`rebateTableDetails.${index}.refundMethod`}
-                    render={({ field }) => (
-                      <FormItem className="space-y-0 w-full max-w-60">
+                    render={({field}) => (
+                      <FormItem className="w-full max-w-60 space-y-0">
                         <FormControl>
-                          <Select
-                            disabled={isPending}
-                            value={field.value}
-                            onValueChange={field.onChange}
-                          >
-                            <SelectTrigger className="bg-white border-0 rounded-none shadow-none">
+                          <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger
+                              className="rounded-none border-0 bg-white shadow-none"
+                              data-testid={`rebateTableDetails.${index}.refundMethod`}>
                               <SelectValue placeholder="Select Refund Method" />
                             </SelectTrigger>
                             <SelectContent>
-                              {
-                                getRefundMethodOptions(index).map(({ value, disabled }) =>
-                                  <SelectItem key={value} value={value} disabled={disabled}>{languageData[`RebateTable.Form.rebateTableDetails.refundMethod.${value}` as keyof ContractServiceResource]}</SelectItem>
-                                )
-                              }
+                              {getRefundMethodOptions(index).map(({value, disabled}, idx) => (
+                                <SelectItem
+                                  data-testid={`rebateTableDetails.${index}.refundMethod.${idx}`}
+                                  disabled={disabled}
+                                  key={value}
+                                  value={value}>
+                                  {
+                                    languageData[
+                                      `RebateTable.Form.rebateTableDetails.refundMethod.${value}` as keyof ContractServiceResource
+                                    ]
+                                  }
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                         </FormControl>
@@ -280,22 +348,36 @@ export default function RebateTableHeaderCreateForm({
                   <FormField
                     control={form.control}
                     name={`rebateTableDetails.${index}.variableFee`}
-                    render={({ field }) => (
-                      <FormItem className="space-y-0 w-full">
+                    render={({field}) => (
+                      <FormItem className="w-full space-y-0">
                         <FormControl>
-                          <Select
-                            disabled={isPending}
-                            value={field.value}
-                            onValueChange={field.onChange}
-                          >
-                            <SelectTrigger className="bg-white border-0 rounded-none shadow-none">
+                          <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger
+                              className="rounded-none border-0 bg-white shadow-none"
+                              data-testid={`rebateTableDetails.${index}.variableFee`}>
                               <SelectValue placeholder="Select Variable Fee" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="PercentOfGC">{languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGC"]}</SelectItem>
-                              <SelectItem value="PercentOfGcWithoutVAT">{languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGcWithoutVAT"]}</SelectItem>
-                              <SelectItem value="PercentOfVAT">{languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfSIS"]}</SelectItem>
-                              <SelectItem value="PercentOfSIS">{languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfVAT"]}</SelectItem>
+                              <SelectItem
+                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfGC`}
+                                value="PercentOfGC">
+                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGC"]}
+                              </SelectItem>
+                              <SelectItem
+                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfGcWithoutVAT`}
+                                value="PercentOfGcWithoutVAT">
+                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGcWithoutVAT"]}
+                              </SelectItem>
+                              <SelectItem
+                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfVAT`}
+                                value="PercentOfVAT">
+                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfSIS"]}
+                              </SelectItem>
+                              <SelectItem
+                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfSIS`}
+                                value="PercentOfSIS">
+                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfVAT"]}
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                         </FormControl>
@@ -304,22 +386,26 @@ export default function RebateTableHeaderCreateForm({
                     )}
                   />
                   <Button
-                    type="button"
+                    className="rounded-none border-0 bg-white px-3 shadow-none"
+                    data-testid={`rebateTableDetails.removeRow.${index}`}
                     disabled={isPending}
-                    variant="outline"
-                    className="bg-white border-0 rounded-none shadow-none px-3"
-                    onClick={() => rebateTableFieldArray.remove(index)}
-                  >
+                    onClick={() => {
+                      rebateTableFieldArray.remove(index);
+                    }}
+                    type="button"
+                    variant="outline">
                     <Trash2 className="w-4 min-w-4" />
                   </Button>
                 </div>
               ))}
             </div>
           </div>
-          <Button disabled={isPending} className="max-w-lg mx-auto w-full"> {languageData.Save}</Button>
+          <Button className="mx-auto w-full max-w-lg" data-testid="submit-form-button" disabled={isPending}>
+            {" "}
+            {languageData.Save}
+          </Button>
         </div>
       </form>
     </Form>
   );
 }
-
