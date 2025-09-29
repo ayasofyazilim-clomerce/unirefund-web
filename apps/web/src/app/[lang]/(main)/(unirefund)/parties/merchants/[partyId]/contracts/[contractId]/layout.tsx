@@ -2,6 +2,7 @@
 import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import {getGrantedPoliciesApi} from "@repo/utils/api";
 import {isUnauthorized} from "@repo/utils/policies";
+import {permanentRedirect, RedirectType} from "next/navigation";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {getBaseLink} from "src/utils";
 
@@ -72,6 +73,9 @@ export default async function Layout({
       label: languageData["Contracts.Settings"],
       href: `${baseLink}contract-settings`,
     });
+  }
+  if (tabListItems.length === 0) {
+    return permanentRedirect(`/${lang}/unauthorized`, RedirectType.replace);
   }
   return <TabLayout tabList={tabListItems}>{children}</TabLayout>;
 }
