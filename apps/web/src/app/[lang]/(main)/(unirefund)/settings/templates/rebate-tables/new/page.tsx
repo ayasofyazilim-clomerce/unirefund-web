@@ -1,22 +1,22 @@
-import { auth } from "@repo/utils/auth/next-auth";
-import { isUnauthorized } from "@repo/utils/policies";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
-import { getMerchantsApi } from "@repo/actions/unirefund/CrmService/actions";
-import { getRebateTableHeadersApi } from "@repo/actions/unirefund/ContractService/action";
-import { getResourceData } from "src/language-data/unirefund/ContractService";
+import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/action";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
+import {getResourceData} from "src/language-data/unirefund/ContractService";
 import RebateTableHeaderCreateForm from "./_components/form";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { structuredError } from "@repo/utils/api";
 
 async function getApiRequests() {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([
-      getMerchantsApi({ typeCodes: ["HEADQUARTER"] }, session),
+      getMerchantsApi({typeCodes: ["HEADQUARTER"]}, session),
       getRebateTableHeadersApi({}, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);
-    return { requiredRequests, optionalRequests };
+    return {requiredRequests, optionalRequests};
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -25,8 +25,8 @@ async function getApiRequests() {
   }
 }
 
-export default async function Page({ params }: { params: { lang: string } }) {
-  const { lang } = params;
+export default async function Page({params}: {params: {lang: string}}) {
+  const {lang} = params;
   await isUnauthorized({
     requiredPolicies: [
       "CRMService.Merchants",
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
     ],
     lang,
   });
-  const { languageData } = await getResourceData(lang);
+  const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests();
 
   if ("message" in apiRequests) {
