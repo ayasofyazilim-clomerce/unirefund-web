@@ -3,28 +3,28 @@ import {isUnauthorized} from "@repo/utils/policies";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {getMerchantsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getRebateTableHeadersApi} from "@repo/actions/unirefund/ContractService/action";
+import {isRedirectError} from "next/dist/client/components/redirect";
+import {structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import RebateTableHeaderCreateForm from "./_components/form";
 
 async function getApiRequests() {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([
+    const requiredRequests = await Promise.all([
       getMerchantsApi({typeCodes: ["HEADQUARTER"]}, session),
       getRebateTableHeadersApi({}, session),
     ]);
-    return {
-      type: "success" as const,
-      data: apiRequests,
-    };
+    const optionalRequests = await Promise.allSettled([]);
+    return {requiredRequests, optionalRequests};
   } catch (error) {
-    const err = error as {data?: string; message?: string};
-    return {
-      type: "error" as const,
-      message: err.message,
-    };
+    if (!isRedirectError(error)) {
+      return structuredError(error);
+    }
+    throw error;
   }
 }
+
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;
   await isUnauthorized({
@@ -38,11 +38,11 @@ export default async function Page({params}: {params: {lang: string}}) {
   const {languageData} = await getResourceData(lang);
   const apiRequests = await getApiRequests();
 
-  if (apiRequests.type === "error") {
-    return <ErrorComponent languageData={languageData} message={apiRequests.message || "Unknown error occurred"} />;
+  if ("message" in apiRequests) {
+    return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
 
-  const [merchantsResponse, rebateTablesResponse] = apiRequests.data;
+  const [merchantsResponse, rebateTablesResponse] = apiRequests.requiredRequests;
 
   return (
     <RebateTableHeaderCreateForm
