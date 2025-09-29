@@ -5,7 +5,8 @@ import type {
   Volo_Abp_Identity_IdentityRoleDto,
 } from "@ayasofyazilim/core-saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 import {tableData} from "./organization-roles-table-data";
 
@@ -20,9 +21,9 @@ function OrganizationRolesTable({
   unitRoles: Volo_Abp_Identity_IdentityRoleDto[];
   selectedUnitId: string;
 }) {
-  const {lang} = useParams<{lang: string}>();
+  const {localization} = useTenant();
   const router = useRouter();
-  const columns = tableData.roles.columns(lang, languageData, unitRoles);
+  const columns = tableData.roles.columns(localization, languageData, unitRoles);
   const table = tableData.roles.table(languageData, selectedUnitId, router);
 
   return <TanstackTable {...table} columns={columns} data={roleList.items || []} rowCount={roleList.totalCount || 0} />;

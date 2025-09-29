@@ -21,6 +21,7 @@ import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {Edit, Plus, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
+import type {Localization} from "@/providers/tenant";
 
 type ProvidersTable = TanstackTableCreationProps<UniRefund_FileService_Providers_ProviderListDto>;
 
@@ -107,12 +108,10 @@ function providersRowActions(
   return actions;
 }
 
-function providersColumns(locale: string) {
+function providersColumns(localization: Localization) {
   return tanstackTableCreateColumnsByRowData<UniRefund_FileService_Providers_ProviderListDto>({
     rows: $UniRefund_FileService_Providers_ProviderListDto.properties,
-    config: {
-      locale,
-    },
+    localization,
   });
 }
 

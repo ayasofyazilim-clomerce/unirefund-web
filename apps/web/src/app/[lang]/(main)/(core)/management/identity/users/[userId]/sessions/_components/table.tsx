@@ -2,8 +2,9 @@
 
 import type {PagedResultDto_IdentitySessionDto} from "@ayasofyazilim/core-saas/IdentityService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useParams, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
+import {useTenant} from "@/providers/tenant";
 import {tableData} from "./sessions-table-data";
 
 function SessionsTable({
@@ -14,8 +15,8 @@ function SessionsTable({
   languageData: IdentityServiceResource;
 }) {
   const router = useRouter();
-  const {lang} = useParams<{lang: string}>();
-  const columns = tableData.sessions.columns(lang, languageData);
+  const {localization} = useTenant();
+  const columns = tableData.sessions.columns(localization, languageData);
   const table = tableData.sessions.table(languageData, router);
 
   return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;

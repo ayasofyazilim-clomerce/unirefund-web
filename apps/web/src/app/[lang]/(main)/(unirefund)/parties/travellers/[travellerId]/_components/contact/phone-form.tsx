@@ -22,18 +22,18 @@ import {useParams, useRouter} from "next/navigation";
 import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {TravellerServiceResource} from "@/language-data/unirefund/TravellerService";
+import {useTenant} from "@/providers/tenant";
 import {PhoneWithTypeField} from "../../../../_components/contact/phone-with-type";
 
 export function PhoneForm({languageData, phones}: {languageData: TravellerServiceResource; phones: TelephoneDto[]}) {
   const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const {localization} = useTenant();
 
   const columns = tanstackTableCreateColumnsByRowData<TelephoneDto>({
     rows: $TelephoneDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form.telephone",

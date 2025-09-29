@@ -19,6 +19,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type CustomTable = TanstackTableCreationProps<CustomListResponseDto>;
 
@@ -43,8 +44,8 @@ function customTableActions(
   return actions;
 }
 
-function customColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/customs", locale);
+function customColumns(localization: Localization, languageData: CRMServiceServiceResource) {
+  const baseLink = getBaseLink("parties/customs", localization.lang);
   return tanstackTableCreateColumnsByRowData<CustomListResponseDto>({
     rows: $CustomListResponseDto.properties,
     languageData: {
@@ -54,9 +55,7 @@ function customColumns(locale: string, languageData: CRMServiceServiceResource) 
       gateNumber: languageData["Form.Custom.gateNumber"],
       externalStoreIdentifier: languageData["CRM.externalStoreIdentifier"],
     },
-    config: {
-      locale,
-    },
+    localization,
     custom: {
       name: {
         showHeader: true,

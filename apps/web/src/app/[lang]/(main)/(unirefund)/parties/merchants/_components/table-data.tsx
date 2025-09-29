@@ -20,6 +20,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import Link from "next/link";
 import {getBaseLink} from "@/utils";
 import type {CRMServiceServiceResource} from "src/language-data/unirefund/CRMService";
+import type {Localization} from "@/providers/tenant";
 
 type MerchantTable = TanstackTableCreationProps<MerchantListResponseDto>;
 
@@ -44,8 +45,8 @@ function merchantTableActions(
   return actions;
 }
 
-function merchantColumns(locale: string, languageData: CRMServiceServiceResource) {
-  const baseLink = getBaseLink("parties/merchants", locale);
+function merchantColumns(localization: Localization, languageData: CRMServiceServiceResource) {
+  const baseLink = getBaseLink("parties/merchants", localization.lang);
   return tanstackTableCreateColumnsByRowData<MerchantListResponseDto>({
     rows: $MerchantListResponseDto.properties,
     languageData: {
@@ -54,9 +55,7 @@ function merchantColumns(locale: string, languageData: CRMServiceServiceResource
       vatNumber: languageData["Form.Merchant.vatNumber"],
       externalStoreIdentifier: languageData["Form.Merchant.externalStoreIdentifier"],
     },
-    config: {
-      locale,
-    },
+    localization,
     custom: {
       name: {
         showHeader: true,

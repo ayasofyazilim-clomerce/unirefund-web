@@ -14,6 +14,7 @@ import {ArchiveRestore, FileSignature, Plus, User2Icon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {deleteFeaturesApi} from "@repo/actions/core/AdministrationService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
+import type {Localization} from "@/providers/tenant";
 
 type EditionsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_EditionDto>;
 
@@ -91,7 +92,7 @@ function editionsRowActions(
 }
 
 const editionsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: SaasServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -107,9 +108,7 @@ const editionsColumns = (
       languageData,
       constantKey: "Form.Edition",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 };

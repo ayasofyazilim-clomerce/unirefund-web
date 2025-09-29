@@ -1,14 +1,14 @@
 "use client";
 
-import type {PagedResultDto_VATStatementHeaderForListDto} from "@repo/saas/FinanceService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
-import {useRouter} from "next/navigation";
+import type {PagedResultDto_VATStatementHeaderForListDto} from "@repo/saas/FinanceService";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {useRouter} from "next/navigation";
+import {useTenant} from "@/providers/tenant";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
 import {tableData} from "./vat-statements-table-data";
 
 function VatStatementTable({
-  locale,
   response,
   languageData,
 }: {
@@ -18,7 +18,8 @@ function VatStatementTable({
 }) {
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
-  const columns = tableData.vatStatements.columns(locale, languageData, grantedPolicies);
+  const {localization} = useTenant();
+  const columns = tableData.vatStatements.columns(localization, languageData, grantedPolicies);
   const table = tableData.vatStatements.table(languageData, router, grantedPolicies);
 
   return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;

@@ -8,6 +8,7 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
+import type {Localization} from "@/providers/tenant";
 
 type RebateStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto>;
@@ -19,7 +20,7 @@ const links: Partial<
   >
 > = {};
 const rebateInformationColumns = (
-  locale: string,
+  localization: Localization,
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -37,9 +38,7 @@ const rebateInformationColumns = (
         languageData,
         constantKey: "Form.RebateStatement",
       },
-      config: {
-        locale,
-      },
+      localization,
       links,
     },
   );

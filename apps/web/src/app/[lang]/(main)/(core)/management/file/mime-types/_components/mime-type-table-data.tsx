@@ -23,6 +23,7 @@ import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {Edit, Plus, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
+import type {Localization} from "@/providers/tenant";
 
 type MimeTypesTable = TanstackTableCreationProps<UniRefund_FileService_MimeTypes_MimeTypeListDto>;
 
@@ -109,12 +110,10 @@ function mimeTypesRowActions(
   return actions;
 }
 
-function mimeTypesColumns(locale: string) {
+function mimeTypesColumns(localization: Localization) {
   return tanstackTableCreateColumnsByRowData<UniRefund_FileService_MimeTypes_MimeTypeListDto>({
     rows: $UniRefund_FileService_MimeTypes_MimeTypeListDto.properties,
-    config: {
-      locale,
-    },
+    localization,
   });
 }
 

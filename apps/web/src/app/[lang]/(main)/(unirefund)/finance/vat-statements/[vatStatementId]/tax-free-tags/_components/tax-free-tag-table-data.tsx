@@ -8,6 +8,7 @@ import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecu
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
+import type {Localization} from "@/providers/tenant";
 
 type TaxFreeTagTable =
   TanstackTableCreationProps<UniRefund_FinanceService_VATStatementTagDetails_VATStatementTagDetailDto>;
@@ -17,7 +18,7 @@ const links: Partial<
 > = {};
 
 function taxFreeTagColumns(
-  locale: string,
+  localization: Localization,
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) {
@@ -33,9 +34,7 @@ function taxFreeTagColumns(
       languageData,
       constantKey: "Form.VatStatement",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
   });
 }

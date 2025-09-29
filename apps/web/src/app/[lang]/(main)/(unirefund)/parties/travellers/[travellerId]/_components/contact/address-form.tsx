@@ -22,6 +22,7 @@ import type {TransitionStartFunction} from "react";
 import {useTransition} from "react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {TravellerServiceResource} from "@/language-data/unirefund/TravellerService";
+import {useTenant} from "@/providers/tenant";
 
 export function AddressForm({
   languageData,
@@ -33,12 +34,11 @@ export function AddressForm({
   const {lang, travellerId} = useParams<{lang: string; travellerId: string}>();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const {localization} = useTenant();
 
   const columns = tanstackTableCreateColumnsByRowData<AddressDto>({
     rows: $AddressDto.properties,
-    config: {
-      locale: lang,
-    },
+    localization,
     languageData: {
       languageData,
       constantKey: "Form.address",

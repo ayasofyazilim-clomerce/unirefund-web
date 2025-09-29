@@ -14,6 +14,7 @@ import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {Edit, Trash} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {DefaultResource} from "@/language-data/core/Default";
+import type {Localization} from "@/providers/tenant";
 
 type FileRelationEntityTable =
   TanstackTableCreationProps<UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto>;
@@ -72,12 +73,10 @@ function fileRelationEntityRowActions(
   return actions;
 }
 
-function fileRelationEntityColumns(locale: string) {
+function fileRelationEntityColumns(localization: Localization) {
   return tanstackTableCreateColumnsByRowData<UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto>({
     rows: $UniRefund_FileService_FileRelationEntities_FileRelationEntityListDto.properties,
-    config: {
-      locale,
-    },
+    localization,
   });
 }
 

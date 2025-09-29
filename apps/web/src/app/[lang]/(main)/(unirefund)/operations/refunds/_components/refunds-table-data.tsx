@@ -8,10 +8,11 @@ import {
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
+import type {Localization} from "@/providers/tenant";
 
 type RefundsTable = TanstackTableCreationProps<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>;
 
-const refundsColumns = (locale: string, languageData: TagServiceResource) =>
+const refundsColumns = (localization: Localization, languageData: TagServiceResource) =>
   tanstackTableCreateColumnsByRowData<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>({
     rows: $PagedResultDto_RefundListItem.properties.items.items.properties,
     languageData: {
@@ -25,9 +26,7 @@ const refundsColumns = (locale: string, languageData: TagServiceResource) =>
       referenceNumber: languageData.ReferenceNumber,
       status: languageData.Status,
     },
-    config: {
-      locale,
-    },
+    localization,
     links: {
       referenceNumber: {
         prefix: "refunds",

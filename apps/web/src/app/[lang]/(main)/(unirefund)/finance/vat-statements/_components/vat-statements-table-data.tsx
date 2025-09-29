@@ -15,6 +15,7 @@ import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.sh
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
+import type {Localization} from "@/providers/tenant";
 
 type VatStatementsTable =
   TanstackTableCreationProps<UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto>;
@@ -23,7 +24,7 @@ const links: Partial<
   Record<keyof UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderForListDto, TanstackTableColumnLink>
 > = {};
 const vatStatementsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: FinanceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -41,9 +42,7 @@ const vatStatementsColumns = (
         languageData,
         constantKey: "Form.VatStatement",
       },
-      config: {
-        locale,
-      },
+      localization,
       links,
       badges: {
         merchantName: {
