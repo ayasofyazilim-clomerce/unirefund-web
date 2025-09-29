@@ -89,12 +89,12 @@ export function BreadcrumbDropdown({
                     {subItem.subNavbarItems
                       ?.filter((i) => i.href)
                       .map((subSubItem) => (
-                        <Link key={subSubItem.key} href={subSubItem.href || "#"}>
-                          <DropdownMenuItem>
+                        <DropdownMenuItem key={subSubItem.key} asChild>
+                          <Link href={subSubItem.href || "#"}>
                             <BreadcrumbIcon item={subSubItem} />
                             {subSubItem.displayName}
-                          </DropdownMenuItem>
-                        </Link>
+                          </Link>
+                        </DropdownMenuItem>
                       ))}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
