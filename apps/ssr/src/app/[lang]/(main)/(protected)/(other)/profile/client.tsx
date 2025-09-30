@@ -25,6 +25,7 @@ import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/langua
 import {useIsMobile} from "@/components/hooks/useIsMobile";
 import {QRCodeSVG} from "qrcode.react";
 import {NotificationInbox} from "@repo/ui/notification";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
 import type {SSRServiceResource} from "@/language-data/unirefund/SSRService";
 import type {AccountServiceResource} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund-logo.png";
@@ -43,12 +44,14 @@ export default function Profile({
   availableLocals,
   personalInformationData,
   novu,
+  languageList,
 }: {
   ssrLanguageData: SSRServiceResource;
   accountLanguageData: AccountServiceResource;
   availableLocals: string[];
   personalInformationData: Volo_Abp_Account_ProfileDto;
   novu: NovuProps;
+  languageList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }) {
   const router = useRouter();
   const [showQrCode, setShowQrCode] = useState(false);
@@ -246,7 +249,7 @@ export default function Profile({
 
             <CardDescription className="flex w-full items-center justify-between">
               {ssrLanguageData.SelectLanguage}
-              <LanguageSelector availableLocals={availableLocals} lang={lang} />
+              <LanguageSelector availableLocals={availableLocals} lang={lang} languagesList={languageList} />
             </CardDescription>
           </CardHeader>
         </Card>

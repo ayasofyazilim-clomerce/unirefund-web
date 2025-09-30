@@ -6,13 +6,15 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {signOutServer} from "@repo/utils/auth";
 import {auth} from "@repo/utils/auth/next-auth";
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData as ssrGetResourceData} from "src/language-data/unirefund/SSRService";
 import {getResourceData as accountGetResourceData} from "src/language-data/core/AccountService";
 import Profile from "./client";
 
 async function getApiRequests() {
   try {
-    const requiredRequests = await Promise.all([getPersonalInfomationApi()]);
+    const session = await auth();
+    const requiredRequests = await Promise.all([getPersonalInfomationApi(), getAllLanguagesApi(session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -42,11 +44,12 @@ export default async function Page({params}: {params: {lang: string}}) {
       />
     );
   }
-  const [response] = apiRequests.requiredRequests;
+  const [response, languagesResponse] = apiRequests.requiredRequests;
   return (
     <Profile
       accountLanguageData={accountLanguageData}
       availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
+      languageList={languagesResponse.data.items || []}
       novu={{
         appId: process.env.NOVU_APP_IDENTIFIER || "",
         appUrl: process.env.NOVU_APP_URL || "",
