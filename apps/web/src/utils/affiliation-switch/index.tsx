@@ -100,7 +100,6 @@ export default function AffiliationSwitch({
               {affiliations.map((affiliation) => {
                 const keywords = [
                   affiliation.partyName,
-                  affiliation.externalStoreIdentifier,
                   affiliation.identificationNumber,
                   affiliation.partyType?.toString(),
                 ]
@@ -124,11 +123,6 @@ export default function AffiliationSwitch({
                         <span className={cn("truncate text-xs font-medium", isSelected && "text-blue-600")}>
                           {affiliation.partyName}
                         </span>
-                        {affiliation.externalStoreIdentifier ? (
-                          <span className="text-muted-foreground mt-0.5 block text-xs">
-                            {affiliation.externalStoreIdentifier}
-                          </span>
-                        ) : null}
                       </div>
                     </div>
                   </CommandItem>

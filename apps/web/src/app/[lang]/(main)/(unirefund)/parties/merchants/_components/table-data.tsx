@@ -164,7 +164,7 @@ function merchantTable(
       type: "hide",
       columns: ["id", "chainCodeId", "status", "parentName", "isPersonalCompany"],
     },
-    columnOrder: ["name", "parentId", "typeCode", "externalStoreIdentifier", "vatNumber"],
+    columnOrder: ["name", "parentId", "typeCode", "externalIdentifier", "vatNumber"],
   };
   return table;
 }

@@ -148,7 +148,7 @@ function customTable(
       type: "hide",
       columns: ["id", "status", "parentName"],
     },
-    columnOrder: ["name", "parentId", "typeCode", "gateNumber", "vatNumber"],
+    columnOrder: ["name", "parentId", "typeCode", "externalIdentifier", "vatNumber"],
   };
   return table;
 }
