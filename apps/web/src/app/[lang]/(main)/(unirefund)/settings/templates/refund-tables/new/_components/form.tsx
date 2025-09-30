@@ -227,7 +227,7 @@ export default function RefundTableForm({
                 control={form.control}
                 name="merchantId"
                 render={({field}) => (
-                  <FormItem>
+                  <FormItem className="space-y-0.5">
                     <FormLabel>{languageData["RefundTable.Form.merchantId"]}</FormLabel>
                     <FormControl>
                       <Combobox<MerchantProfileDto>
