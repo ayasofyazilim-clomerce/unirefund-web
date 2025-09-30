@@ -97,7 +97,7 @@ export default function ClientPage({
         merchant: {
           vatNumber: merchantInfoResponse.data.vatNumber || "",
           countryCode: "TR",
-          externalStoreIdentifier: merchantInfoResponse.data.externalStoreIdentifier || "0",
+          externalIdentifier: merchantInfoResponse.data.externalIdentifier || "0",
         },
         traveller: {
           travelDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travelDocumentNumber || "",

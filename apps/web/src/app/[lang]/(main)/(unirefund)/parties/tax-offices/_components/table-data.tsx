@@ -148,7 +148,7 @@ function taxOfficeTable(
       type: "hide",
       columns: ["id", "status", "parentName"],
     },
-    columnOrder: ["name", "parentId", "typeCode", "externalStoreIdentifier", "vatNumber"],
+    columnOrder: ["name", "parentId", "typeCode", "externalIdentifier", "vatNumber"],
   };
   return table;
 }

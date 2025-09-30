@@ -934,7 +934,7 @@ Required for itemized billing and calculations.`
 } as const;
 
 export const $UniRefund_TagService_Merchants_MerchantRequestDto = {
-    required: ['countryCode', 'externalStoreIdentifier', 'vatNumber'],
+    required: ['countryCode', 'externalIdentifier', 'vatNumber'],
     type: 'object',
     properties: {
         vatNumber: {
@@ -949,7 +949,8 @@ This number is used for tax reporting and legal identification of the business.`
             description: `ISO 3166-1 alpha-2 country code where the merchant is registered (e.g., "DE" for Germany, "TR" for Turkey).
 Determines jurisdiction for tax and regulatory purposes.`
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             minLength: 1,
             type: 'string',
             description: `Unique identifier of the merchant's branch or store within the organization.
@@ -965,7 +966,7 @@ export const $UniRefund_TagService_Tags_CreateTagRequestDto = {
     type: 'object',
     properties: {
         merchant: {
-            required: ['countryCode', 'externalStoreIdentifier', 'vatNumber'],
+            required: ['countryCode', 'externalIdentifier', 'vatNumber'],
             type: 'object',
             properties: {
                 vatNumber: {
@@ -980,7 +981,8 @@ This number is used for tax reporting and legal identification of the business.`
                     description: `ISO 3166-1 alpha-2 country code where the merchant is registered (e.g., "DE" for Germany, "TR" for Turkey).
 Determines jurisdiction for tax and regulatory purposes.`
                 },
-                externalStoreIdentifier: {
+                externalIdentifier: {
+                    maxLength: 15,
                     minLength: 1,
                     type: 'string',
                     description: `Unique identifier of the merchant's branch or store within the organization.
