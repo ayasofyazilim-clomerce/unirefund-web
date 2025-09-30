@@ -38,9 +38,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
             {item.href && (
               <>
                 <DropdownMenuItem asChild>
-                  <Link
-                    href={item.href ? "/" + item.href : "#"}
-                    className="flex items-center gap-1 px-2 font-medium text-gray-600">
+                  <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2 text-gray-600">
                     <BreadcrumbIcon item={item} />
                     {item.displayName}
                   </Link>
