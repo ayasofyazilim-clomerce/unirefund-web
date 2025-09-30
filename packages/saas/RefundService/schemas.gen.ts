@@ -122,6 +122,7 @@ export const $PagedResultDto_RefundListItem = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
+    required: ['id', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -316,6 +317,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
     type: 'object',
     properties: {
         refundPoint: {
+            required: ['id', 'name'],
             type: 'object',
             properties: {
                 id: {

@@ -52,10 +52,6 @@ export function CustomForm({
       vatNumber: {
         ...(!isHeadquarter && disabled),
       },
-      parentId: {
-        ...(isHeadquarter && {"ui:widget": "hidden"}),
-        ...disabled,
-      },
     },
   });
   const router = useRouter();
@@ -67,7 +63,6 @@ export function CustomForm({
       disabled={isPending}
       formData={{
         ...customDetails,
-        parentId: customDetails.parentName || "",
         name: customDetails.name || "",
       }}
       locale={lang}
@@ -78,7 +73,6 @@ export function CustomForm({
             id: partyId,
             requestBody: {
               ...formData,
-              parentId: customDetails.parentId,
             },
           }).then((res) => {
             handlePutResponse(res, router);
@@ -89,9 +83,6 @@ export function CustomForm({
         ...$UpdateCustomDto,
         properties: {
           ...$UpdateCustomDto.properties,
-          parentId: {
-            type: "string",
-          },
         },
       }}
       submitText={languageData["Form.Custom.Update"]}

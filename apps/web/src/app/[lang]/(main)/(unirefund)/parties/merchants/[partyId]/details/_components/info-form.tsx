@@ -64,10 +64,6 @@ export function MerchantForm({
       vatNumber: {
         ...(!isHeadquarter && disabled),
       },
-      parentId: {
-        ...(isHeadquarter && {"ui:widget": "hidden"}),
-        ...disabled,
-      },
     },
   });
   const router = useRouter();
@@ -79,9 +75,7 @@ export function MerchantForm({
       disabled={isPending}
       formData={{
         ...merchantDetails,
-        parentId: merchantDetails.parentName || "",
         name: merchantDetails.name || "",
-        typeCode: merchantDetails.typeCode || "HEADQUARTER",
       }}
       locale={lang}
       onSubmit={({formData}) => {
@@ -91,7 +85,6 @@ export function MerchantForm({
             id: partyId,
             requestBody: {
               ...formData,
-              parentId: merchantDetails.parentId,
             },
           }).then((res) => {
             handlePutResponse(res, router);
@@ -102,9 +95,6 @@ export function MerchantForm({
         ...$UpdateMerchantDto,
         properties: {
           ...$UpdateMerchantDto.properties,
-          parentId: {
-            type: "string",
-          },
         },
       }}
       submitText={languageData["Form.Merchant.Update"]}

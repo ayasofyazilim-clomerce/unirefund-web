@@ -21,6 +21,7 @@ const DEFAULT_FORMDATA: CreateTaxOfficeDto = {
     isPrimary: true,
   },
   telephone: {
+    localNumber: "",
     type: "WORK",
     isPrimary: true,
   },
