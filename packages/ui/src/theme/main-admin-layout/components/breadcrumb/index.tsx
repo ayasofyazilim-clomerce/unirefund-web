@@ -17,57 +17,51 @@ import {
 } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {icons} from "../navbar";
+import {useRouter} from "next/navigation";
 
 function BreadcrumbIcon({item}: {item: NavbarItemsFromDB}) {
   return icons[item.icon as keyof typeof icons] || null;
 }
 
-function RenderLinkOrTrigger({
-  href,
-  children,
-  className,
-}: {
-  href?: string | null;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return href ? (
-    <Link href={"/" + href || "#"} className={`flex w-full items-center gap-1 ${className ?? ""}`}>
-      {children}
-    </Link>
-  ) : (
-    <>{children}</>
-  );
-}
-
 function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; navbarItems: NavbarItemsFromDB[]}) {
+  const router = useRouter();
   return items.map((item) => {
     const subItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === item.key);
     return subItems.length > 0 ? (
       <DropdownMenuSub key={item.key}>
-        <DropdownMenuSubTrigger className="p-0">
-          <RenderLinkOrTrigger href={item.href} className="px-2 py-1">
-            <BreadcrumbIcon item={item} />
-            <span>{item.displayName}</span>
-          </RenderLinkOrTrigger>
+        <DropdownMenuSubTrigger className="cursor-pointer">
+          <BreadcrumbIcon item={item} />
+          <span>{item.displayName}</span>
         </DropdownMenuSubTrigger>
         <DropdownMenuPortal>
           <DropdownMenuSubContent>
+            {item.href && (
+              <>
+                <DropdownMenuItem
+                  className="cursor-pointer px-2 py-1 font-medium"
+                  onSelect={() => router.push(item.href ? "/" + item.href : "#")}>
+                  <BreadcrumbIcon item={item} />
+                  {item.displayName}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
             <RenderDropdownMenu items={subItems} navbarItems={navbarItems} />
           </DropdownMenuSubContent>
         </DropdownMenuPortal>
       </DropdownMenuSub>
     ) : (
-      <>
+      <Fragment key={item.key}>
         {item.split && (item.split === "top" || item.split === "both") && <DropdownMenuSeparator />}
-        <DropdownMenuItem key={item.key} className="p-0">
-          <RenderLinkOrTrigger href={item.href} className="px-2 py-1">
-            <BreadcrumbIcon item={item} />
-            {item.displayName}
-          </RenderLinkOrTrigger>
+        <DropdownMenuItem
+          key={item.key}
+          className="cursor-pointer px-2 py-1"
+          onSelect={() => router.push(item.href ? "/" + item.href : "#")}>
+          <BreadcrumbIcon item={item} />
+          {item.displayName}
         </DropdownMenuItem>
         {item.split && (item.split === "bottom" || item.split === "both") && <DropdownMenuSeparator />}
-      </>
+      </Fragment>
     );
   });
 }
