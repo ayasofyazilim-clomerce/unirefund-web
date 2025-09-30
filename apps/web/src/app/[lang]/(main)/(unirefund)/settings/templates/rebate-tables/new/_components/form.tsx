@@ -217,7 +217,13 @@ export default function RebateTableHeaderCreateForm({
                       checked={field.value}
                       data-testid="isTemplate"
                       disabled={isPending}
-                      onCheckedChange={field.onChange}
+                      onCheckedChange={(value) => {
+                        if (value) {
+                          form.setValue("merchantId", null);
+                          form.clearErrors("merchantId");
+                        }
+                        field.onChange(value);
+                      }}
                     />
                   </FormControl>
                 </FormItem>
