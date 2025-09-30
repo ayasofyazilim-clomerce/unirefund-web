@@ -29,7 +29,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
     const subItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === item.key);
     return subItems.length > 0 ? (
       <DropdownMenuSub key={item.key}>
-        <DropdownMenuSubTrigger className="cursor-pointer">
+        <DropdownMenuSubTrigger className="gap-1 font-medium">
           <BreadcrumbIcon item={item} />
           <span>{item.displayName}</span>
         </DropdownMenuSubTrigger>
@@ -37,11 +37,13 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
           <DropdownMenuSubContent>
             {item.href && (
               <>
-                <DropdownMenuItem
-                  className="cursor-pointer px-2 py-1 font-medium"
-                  onSelect={() => router.push(item.href ? "/" + item.href : "#")}>
-                  <BreadcrumbIcon item={item} />
-                  {item.displayName}
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={item.href ? "/" + item.href : "#"}
+                    className="flex cursor-pointer items-center gap-1 px-2 font-medium">
+                    <BreadcrumbIcon item={item} />
+                    {item.displayName}
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
               </>
@@ -53,12 +55,13 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
     ) : (
       <Fragment key={item.key}>
         {item.split && (item.split === "top" || item.split === "both") && <DropdownMenuSeparator />}
-        <DropdownMenuItem
-          key={item.key}
-          className="cursor-pointer px-2 py-1"
-          onSelect={() => router.push(item.href ? "/" + item.href : "#")}>
-          <BreadcrumbIcon item={item} />
-          {item.displayName}
+        <DropdownMenuItem key={item.key} asChild>
+          <Link
+            href={item.href ? "/" + item.href : "#"}
+            className="flex cursor-pointer items-center gap-1 px-2 font-medium">
+            <BreadcrumbIcon item={item} />
+            {item.displayName}
+          </Link>
         </DropdownMenuItem>
         {item.split && (item.split === "bottom" || item.split === "both") && <DropdownMenuSeparator />}
       </Fragment>

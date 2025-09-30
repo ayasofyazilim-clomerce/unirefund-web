@@ -29,6 +29,7 @@ const DEFAULT_FORMDATA: CreateRefundPointDto = {
   },
   telephone: {
     type: "WORK",
+    localNumber: "",
     isPrimary: true,
   },
   address: {

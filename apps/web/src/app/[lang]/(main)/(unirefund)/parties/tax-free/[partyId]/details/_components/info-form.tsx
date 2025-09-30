@@ -58,10 +58,6 @@ export function TaxFreeForm({
       vatNumber: {
         ...(!isHeadquarter && disabled),
       },
-      parentId: {
-        ...(isHeadquarter && {"ui:widget": "hidden"}),
-        ...disabled,
-      },
     },
   });
   const router = useRouter();
@@ -73,9 +69,8 @@ export function TaxFreeForm({
       disabled={isPending}
       formData={{
         ...taxFreeDetails,
-        parentId: taxFreeDetails.parentName || "",
         name: taxFreeDetails.name || "",
-        status: taxFreeDetails.status || "DRAFT",
+        status: taxFreeDetails.status,
       }}
       locale={lang}
       onSubmit={({formData}) => {
@@ -85,7 +80,6 @@ export function TaxFreeForm({
             id: partyId,
             requestBody: {
               ...formData,
-              parentId: taxFreeDetails.parentId,
             },
           }).then((res) => {
             handlePutResponse(res, router);
@@ -96,9 +90,6 @@ export function TaxFreeForm({
         ...$UpdateTaxFreeDto,
         properties: {
           ...$UpdateTaxFreeDto.properties,
-          parentId: {
-            type: "string",
-          },
         },
       }}
       submitText={languageData["Form.TaxFree.Update"]}

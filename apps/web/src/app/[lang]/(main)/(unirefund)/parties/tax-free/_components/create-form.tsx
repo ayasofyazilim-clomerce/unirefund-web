@@ -27,6 +27,7 @@ const DEFAULT_FORMDATA: CreateTaxFreeDto = {
     isPrimary: true,
   },
   telephone: {
+    localNumber: "",
     type: "WORK",
     isPrimary: true,
   },

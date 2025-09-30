@@ -58,10 +58,6 @@ export function RefundPointForm({
       vatNumber: {
         ...(!isHeadquarter && disabled),
       },
-      parentId: {
-        ...(isHeadquarter && {"ui:widget": "hidden"}),
-        ...disabled,
-      },
     },
   });
   const router = useRouter();
@@ -73,7 +69,6 @@ export function RefundPointForm({
       disabled={isPending}
       formData={{
         ...refundPointDetails,
-        parentId: refundPointDetails.parentName || "",
         name: refundPointDetails.name || "",
       }}
       locale={lang}
@@ -84,7 +79,6 @@ export function RefundPointForm({
             id: partyId,
             requestBody: {
               ...formData,
-              parentId: refundPointDetails.parentId,
             },
           }).then((res) => {
             handlePutResponse(res, router);
@@ -95,9 +89,6 @@ export function RefundPointForm({
         ...$UpdateRefundPointDto,
         properties: {
           ...$UpdateRefundPointDto.properties,
-          parentId: {
-            type: "string",
-          },
         },
       }}
       submitText={languageData["Form.RefundPoint.Update"]}
