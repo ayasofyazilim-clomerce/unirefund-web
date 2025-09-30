@@ -5,7 +5,6 @@ import type {FieldProps} from "@repo/ayasofyazilim-ui/organisms/schema-form/type
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
 import type {UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto} from "@repo/saas/CRMService";
 import {$UniRefund_CRMService_Individuals_CreateIndividualDto as $CreateIndividualDto} from "@repo/saas/CRMService";
-import {createAddressWidgets} from "@repo/ui/components/address/address-form-widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useCallback, useMemo, useState, type TransitionStartFunction} from "react";
@@ -34,9 +33,6 @@ export function CreateIndividualForm({
   const router = useRouter();
 
   const [form, setForm] = useState<CreateIndividualDto>();
-  const AddressWidgets = createAddressWidgets({languageData});
-  const {widgets, schemaFormKey} = AddressWidgets();
-
   const uiSchema = useMemo(
     () =>
       createUiSchemaWithResource({
@@ -54,32 +50,6 @@ export function CreateIndividualForm({
             "ui:field": "telephone",
             "ui:className": "grid grid-cols-2 col-span-full",
           },
-          address: createUiSchemaWithResource({
-            resources: languageData,
-            schema: $CreateIndividualDto.properties.address,
-            name: "Form.address",
-            extend: {
-              "ui:className": "col-span-full grid grid-cols-2 gap-4",
-              countryId: {
-                "ui:widget": "countryWidget",
-              },
-              adminAreaLevel1Id: {
-                "ui:widget": "adminAreaLevel1Widget",
-              },
-              adminAreaLevel2Id: {
-                "ui:widget": "adminAreaLevel2Widget",
-              },
-              neighborhoodId: {
-                "ui:widget": "neighborhoodWidget",
-              },
-              addressLine: {
-                "ui:className": "col-span-full",
-              },
-              isPrimary: {
-                "ui:widget": "hidden",
-              },
-            },
-          }),
           email: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateIndividualDto.properties.email,
@@ -194,30 +164,16 @@ export function CreateIndividualForm({
       fields={fields}
       filter={{
         type: "exclude",
-        keys: [
-          "id",
-          "email.id",
-          "email.isPrimary",
-          "telephone.id",
-          "telephone.isPrimary",
-          "address.partyType",
-          "address.partyId",
-          "address.placeId",
-          "address.latitude",
-          "address.longitude",
-          "address.isPrimary",
-        ],
+        keys: ["id", "email.id", "email.isPrimary", "telephone.id", "telephone.isPrimary", "address"],
       }}
       formData={form}
       id="create-individual-form"
-      key={schemaFormKey}
       locale={lang}
       onChange={handleFormChange}
       onSubmit={handleFormSubmit}
       schema={$CreateIndividualDto}
       uiSchema={uiSchema}
-      useDefaultSubmit={useDefaultSubmit}
-      widgets={widgets}>
+      useDefaultSubmit={useDefaultSubmit}>
       {children}
     </SchemaForm>
   );
