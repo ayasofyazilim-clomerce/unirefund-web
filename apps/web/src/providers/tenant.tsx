@@ -1,8 +1,7 @@
 "use client";
 
-import {createContext, useContext, useEffect} from "react";
-import {findIana} from "windows-iana";
 import type {UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto} from "@ayasofyazilim/saas/AdministrationService";
+import {createContext, useContext, useEffect} from "react";
 
 export type Localization = {locale: string; timeZone: string; lang: string};
 type TenantData = UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto & {
@@ -39,7 +38,7 @@ export function TenantProvider(props: TenantProviderProps) {
         ...props.tenantData,
         localization: {
           locale: getLocaleFromCountryCode(props.tenantData.countryCode2 || "UK"),
-          timeZone: findIana(props.tenantData.timeZone || "UTC")[0] || "UTC",
+          timeZone: props.tenantData.timeZone || "UTC",
           lang: props.lang,
         },
       }}>

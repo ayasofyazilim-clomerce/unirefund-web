@@ -55,11 +55,9 @@ export function AddressCombobox({
   // Find the selected item's label for display
   const selectedItem = list?.find((item) => (item as any)[selectIdentifier] === value);
   const selectedLabel = selectedItem ? (selectedItem as any)[selectLabel] : "";
-  if (type === "country") console.log("render");
   useEffect(() => {
     if (value === "00000000-0000-0000-0000-000000000000" && type === "country" && list && list.length > 0) {
       const countryId = localStorage.getItem("countryCode2")?.toUpperCase();
-      console.log(selectIdentifier);
       const country = list.find((item) => (item as any)["code2"] === countryId)?.id;
       if (country) {
         onValueChange?.(country);
