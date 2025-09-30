@@ -18,9 +18,10 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {toast} from "@/components/ui/sonner";
 import {Switch} from "@/components/ui/switch";
 import {Label} from "@/components/ui/label";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderDto as RebateTableHeaderDto} from "@repo/saas/ContractService";
-import {Asterisk, Trash2} from "lucide-react";
+import {Asterisk, Plus, Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
 import type {z} from "zod";
@@ -77,12 +78,14 @@ export default function RebateTableHeaderCreateForm({
       variableFee: "PercentOfGC",
     });
   }
+
   function handleProcessingFeeAddRow() {
     processingFeeFieldArray.append({
       name: languageData["RebateTable.Form.processingFeeDetails.name.default"],
       amount: 0,
     });
   }
+
   function getRefundMethodOptions(rowIndex: number) {
     const rowIsAll = rebateTableDetailValues[rowIndex]?.refundMethod === "All";
     const selectedMethods = rebateTableDetailValues.map((row) => row.refundMethod);
@@ -177,68 +180,85 @@ export default function RebateTableHeaderCreateForm({
                 {languageData["Table.Add"]}
               </Button>
             </div>
-            <div className="bg-border group flex flex-col gap-px rounded-md border [&>div:last-child>:first-child]:rounded-bl-md [&>div:last-child>:last-child]:rounded-br-md [&>div:last-child>div:first-child>input]:rounded-bl-md">
-              <div className="flex gap-px overflow-hidden rounded-t-md">
-                <span className="flex h-9 w-full items-center bg-white px-3 text-sm font-medium">
-                  {languageData["RebateTable.Form.processingFeeDetails.name"]}
-                </span>
-                <span className="flex h-9 w-full items-center bg-white px-3 text-sm font-medium">
-                  {languageData["RebateTable.Form.processingFeeDetails.amount"]}
-                </span>
-                <span className="h-9 min-w-10 rounded-md bg-white ring ring-white" />
-              </div>
-              {processingFeeFieldArray.fields.map((arrayField, index) => (
-                <div className="bg-border row-item flex gap-px" key={arrayField.id}>
-                  <FormField
-                    control={form.control}
-                    name={`processingFeeDetails.${index}.name`}
-                    render={({field}) => (
-                      <FormItem className="space-y-0">
-                        <FormControl>
-                          <Input
-                            className="rounded-none border-0 bg-white shadow-none"
-                            data-testid={`processingFeeDetails.${index}.name`}
-                            disabled={isPending}
-                            type="text"
-                            {...field}
+            <div className="rounded-md border">
+              <Table>
+                <TableHeader>
+                  <TableRow className="divide-x [&_*]:text-black">
+                    <TableHead>{languageData["RebateTable.Form.processingFeeDetails.name"]}</TableHead>
+                    <TableHead>{languageData["RebateTable.Form.processingFeeDetails.amount"]}</TableHead>
+                    <TableHead className="w-9 border-none" />
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {processingFeeFieldArray.fields.length === 0 ? (
+                    <TableRow>
+                      <TableCell className="text-muted-foreground text-center" colSpan={3}>
+                        No processing fees added yet
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    processingFeeFieldArray.fields.map((arrayField, index) => (
+                      <TableRow className="divide-x" key={arrayField.id}>
+                        <TableCell className="p-px">
+                          <FormField
+                            control={form.control}
+                            name={`processingFeeDetails.${index}.name`}
+                            render={({field}) => (
+                              <FormItem className="space-y-0">
+                                <FormControl>
+                                  <Input
+                                    className="rounded-none border-0 shadow-none"
+                                    data-testid={`processingFeeDetails.${index}.name`}
+                                    disabled={isPending}
+                                    type="text"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`processingFeeDetails.${index}.amount`}
-                    render={({field}) => (
-                      <FormItem className="space-y-0">
-                        <FormControl>
-                          <Input
-                            className="rounded-none border-0 bg-white shadow-none"
-                            data-testid={`processingFeeDetails.${index}.amount`}
-                            disabled={isPending}
-                            step="any"
-                            type="number"
-                            {...field}
+                        </TableCell>
+                        <TableCell className="p-px">
+                          <FormField
+                            control={form.control}
+                            name={`processingFeeDetails.${index}.amount`}
+                            render={({field}) => (
+                              <FormItem className="space-y-0">
+                                <FormControl>
+                                  <Input
+                                    className="rounded-none border-0 shadow-none"
+                                    data-testid={`processingFeeDetails.${index}.amount`}
+                                    disabled={isPending}
+                                    step="any"
+                                    type="number"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button
-                    className="rounded-none border-0 bg-white px-3 shadow-none"
-                    data-testid={`processingFeeFieldArray.removeRow.${index}`}
-                    disabled={isPending}
-                    onClick={() => {
-                      processingFeeFieldArray.remove(index);
-                    }}
-                    type="button"
-                    variant="outline">
-                    <Trash2 className="w-4 min-w-4" />
-                  </Button>
-                </div>
-              ))}
+                        </TableCell>
+                        <TableCell className="w-9 p-px">
+                          <Button
+                            className="size-full h-9 rounded-none"
+                            data-testid={`processingFeeFieldArray.removeRow.${index}`}
+                            disabled={isPending}
+                            onClick={() => {
+                              processingFeeFieldArray.remove(index);
+                            }}
+                            size="sm"
+                            type="button"
+                            variant="ghost">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </div>
         </div>
@@ -252,156 +272,175 @@ export default function RebateTableHeaderCreateForm({
                 data-testid="rebateTable.rebateTableDetails.addRowButton"
                 disabled={isPending || hasAll}
                 onClick={handleRebateTableAddRow}
+                size="sm"
                 type="button"
                 variant="outline">
+                <Plus className="mr-1 h-4 w-4" />
                 {languageData["Table.Add"]}
               </Button>
             </div>
-            <div className="bg-border group flex flex-col gap-px rounded-md border [&>div:last-child>:first-child]:rounded-bl-md [&>div:last-child>:last-child]:rounded-br-md [&>div:last-child>div:first-child>input]:rounded-bl-md">
-              <div className="flex gap-px overflow-hidden rounded-t-md">
-                <span className="flex h-9 min-w-52 items-center bg-white px-3 text-sm font-medium">
-                  {languageData["RebateTable.Form.rebateTableDetails.fixedFeeValue"]}
-                </span>
-                <span className="flex h-9 min-w-52 items-center bg-white px-3 text-sm font-medium">
-                  {languageData["RebateTable.Form.rebateTableDetails.percentFeeValue"]}
-                </span>
-                <span className="flex h-9 w-full max-w-60 items-center bg-white px-3 text-sm font-medium">
-                  {languageData["RebateTable.Form.rebateTableDetails.refundMethod"]}
-                </span>
-                <span className="flex h-9 w-full items-center bg-white px-3 text-sm font-medium">
-                  {languageData["RebateTable.Form.rebateTableDetails.variableFee"]}
-                </span>
-              </div>
-              {rebateTableFieldArray.fields.map((arrayField, index) => (
-                <div className="bg-border row-item flex gap-px" key={arrayField.id}>
-                  <FormField
-                    control={form.control}
-                    name={`rebateTableDetails.${index}.fixedFeeValue`}
-                    render={({field}) => (
-                      <FormItem className="min-w-52 space-y-0">
-                        <FormControl>
-                          <Input
-                            className="rounded-none border-0 bg-white shadow-none"
-                            data-testid={`rebateTableDetails.${index}.fixedFeeValue`}
-                            disabled={isPending}
-                            step="any"
-                            type="number"
-                            {...field}
+            <div className="rounded-md border">
+              <Table>
+                <TableHeader>
+                  <TableRow className="divide-x [&_*]:text-black">
+                    <TableHead className="min-w-52">
+                      {languageData["RebateTable.Form.rebateTableDetails.fixedFeeValue"]}
+                    </TableHead>
+                    <TableHead className="min-w-52">
+                      {languageData["RebateTable.Form.rebateTableDetails.percentFeeValue"]}
+                    </TableHead>
+                    <TableHead className="w-full max-w-60">
+                      {languageData["RebateTable.Form.rebateTableDetails.refundMethod"]}
+                    </TableHead>
+                    <TableHead className="w-full min-w-52">
+                      {languageData["RebateTable.Form.rebateTableDetails.variableFee"]}
+                    </TableHead>
+                    <TableHead className="w-9 border-none" />
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {rebateTableFieldArray.fields.length > 0 ? (
+                    rebateTableFieldArray.fields.map((arrayField, index) => (
+                      <TableRow className="divide-x" key={arrayField.id}>
+                        <TableCell className="p-px">
+                          <FormField
+                            control={form.control}
+                            name={`rebateTableDetails.${index}.fixedFeeValue`}
+                            render={({field}) => (
+                              <FormItem className="space-y-0">
+                                <FormControl>
+                                  <Input
+                                    className="rounded-none border-0 shadow-none"
+                                    data-testid={`rebateTableDetails.${index}.fixedFeeValue`}
+                                    disabled={isPending}
+                                    step="any"
+                                    type="number"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`rebateTableDetails.${index}.percentFeeValue`}
-                    render={({field}) => (
-                      <FormItem className="min-w-52 space-y-0">
-                        <FormControl>
-                          <Input
-                            className="rounded-none border-0 bg-white shadow-none"
-                            data-testid={`rebateTableDetails.${index}.percentFeeValue`}
-                            disabled={isPending}
-                            step="any"
-                            type="number"
-                            {...field}
+                        </TableCell>
+                        <TableCell className="p-px">
+                          <FormField
+                            control={form.control}
+                            name={`rebateTableDetails.${index}.percentFeeValue`}
+                            render={({field}) => (
+                              <FormItem className="space-y-0">
+                                <FormControl>
+                                  <Input
+                                    className="rounded-none border-0 shadow-none"
+                                    data-testid={`rebateTableDetails.${index}.percentFeeValue`}
+                                    disabled={isPending}
+                                    step="any"
+                                    type="number"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`rebateTableDetails.${index}.refundMethod`}
-                    render={({field}) => (
-                      <FormItem className="w-full max-w-60 space-y-0">
-                        <FormControl>
-                          <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger
-                              className="rounded-none border-0 bg-white shadow-none"
-                              data-testid={`rebateTableDetails.${index}.refundMethod`}>
-                              <SelectValue placeholder="Select Refund Method" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {getRefundMethodOptions(index).map(({value, disabled}, idx) => (
-                                <SelectItem
-                                  data-testid={`rebateTableDetails.${index}.refundMethod.${idx}`}
-                                  disabled={disabled}
-                                  key={value}
-                                  value={value}>
-                                  {
-                                    languageData[
-                                      `RebateTable.Form.rebateTableDetails.refundMethod.${value}` as keyof ContractServiceResource
-                                    ]
-                                  }
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`rebateTableDetails.${index}.variableFee`}
-                    render={({field}) => (
-                      <FormItem className="w-full space-y-0">
-                        <FormControl>
-                          <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger
-                              className="rounded-none border-0 bg-white shadow-none"
-                              data-testid={`rebateTableDetails.${index}.variableFee`}>
-                              <SelectValue placeholder="Select Variable Fee" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem
-                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfGC`}
-                                value="PercentOfGC">
-                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGC"]}
-                              </SelectItem>
-                              <SelectItem
-                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfGcWithoutVAT`}
-                                value="PercentOfGcWithoutVAT">
-                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGcWithoutVAT"]}
-                              </SelectItem>
-                              <SelectItem
-                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfVAT`}
-                                value="PercentOfVAT">
-                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfSIS"]}
-                              </SelectItem>
-                              <SelectItem
-                                data-testid={`rebateTableDetails.${index}.variableFee.PercentOfSIS`}
-                                value="PercentOfSIS">
-                                {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfVAT"]}
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button
-                    className="rounded-none border-0 bg-white px-3 shadow-none"
-                    data-testid={`rebateTableDetails.removeRow.${index}`}
-                    disabled={isPending}
-                    onClick={() => {
-                      rebateTableFieldArray.remove(index);
-                    }}
-                    type="button"
-                    variant="outline">
-                    <Trash2 className="w-4 min-w-4" />
-                  </Button>
-                </div>
-              ))}
+                        </TableCell>
+                        <TableCell className="p-px">
+                          <FormField
+                            control={form.control}
+                            name={`rebateTableDetails.${index}.refundMethod`}
+                            render={({field}) => (
+                              <FormItem className="space-y-0">
+                                <FormControl>
+                                  <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
+                                    <SelectTrigger
+                                      className="rounded-none border-0 shadow-none"
+                                      data-testid={`rebateTableDetails.${index}.refundMethod`}>
+                                      <SelectValue placeholder="Select Refund Method" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {getRefundMethodOptions(index).map(({value, disabled}) => (
+                                        <SelectItem disabled={disabled} key={value} value={value}>
+                                          {
+                                            languageData[
+                                              `RebateTable.Form.rebateTableDetails.refundMethod.${value}` as keyof ContractServiceResource
+                                            ]
+                                          }
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </TableCell>
+                        <TableCell className="p-px">
+                          <FormField
+                            control={form.control}
+                            name={`rebateTableDetails.${index}.variableFee`}
+                            render={({field}) => (
+                              <FormItem className="space-y-0">
+                                <FormControl>
+                                  <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
+                                    <SelectTrigger
+                                      className="rounded-none border-0 shadow-none"
+                                      data-testid={`rebateTableDetails.${index}.variableFee`}>
+                                      <SelectValue placeholder="Select Variable Fee" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="PercentOfGC">
+                                        {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfGC"]}
+                                      </SelectItem>
+                                      <SelectItem value="PercentOfGcWithoutVAT">
+                                        {
+                                          languageData[
+                                            "RebateTable.Form.rebateTableDetails.variableFee.PercentOfGcWithoutVAT"
+                                          ]
+                                        }
+                                      </SelectItem>
+                                      <SelectItem value="PercentOfVAT">
+                                        {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfSIS"]}
+                                      </SelectItem>
+                                      <SelectItem value="PercentOfSIS">
+                                        {languageData["RebateTable.Form.rebateTableDetails.variableFee.PercentOfVAT"]}
+                                      </SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </TableCell>
+                        <TableCell className="p-px">
+                          <Button
+                            className="size-full h-9 rounded-none"
+                            data-testid={`rebateTableDetails.removeRow.${index}`}
+                            disabled={isPending}
+                            onClick={() => {
+                              rebateTableFieldArray.remove(index);
+                            }}
+                            size="sm"
+                            type="button"
+                            variant="ghost">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell className="text-muted-foreground text-center" colSpan={4}>
+                        No rebate table details added
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </div>
           <Button className="mx-auto w-full max-w-lg" data-testid="submit-form-button" disabled={isPending}>
-            {" "}
             {languageData.Save}
           </Button>
         </div>
