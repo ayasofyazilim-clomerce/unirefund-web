@@ -7,6 +7,7 @@ import {LogIn, Menu, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {useParams} from "next/navigation";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
 import unirefundLogo from "public/unirefund.png";
 import {getBaseLink} from "src/utils";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
@@ -14,9 +15,11 @@ import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 export default function Header({
   languageData,
   availableLocals,
+  languagesList,
 }: {
   languageData: SSRServiceResource;
   availableLocals: string[];
+  languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const params = useParams();
@@ -32,7 +35,7 @@ export default function Header({
         {/* Mobile menu button and language selector */}
         <div className="flex items-center space-x-2 md:hidden">
           {/* Mobile language selector outside menu */}
-          <LanguageSelector availableLocals={availableLocals} lang={lang} showEarthIcon />
+          <LanguageSelector availableLocals={availableLocals} lang={lang} languagesList={languagesList} showEarthIcon />
 
           <Button
             className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none"
@@ -66,7 +69,7 @@ export default function Header({
           {/* LanguageSelector for desktop (far right) */}
         </nav>
         <div className="hidden md:flex md:items-center md:gap-2">
-          <LanguageSelector availableLocals={availableLocals} lang={lang} />
+          <LanguageSelector availableLocals={availableLocals} lang={lang} languagesList={languagesList} />
           <Link className="ml-4" href={getBaseLink("evidence-new-login", lang)}>
             <Button className="rounded-full text-sm font-medium" size="sm">
               {languageData["Login.Login"]} <LogIn className="ml-2 h-4 w-4" />
