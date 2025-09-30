@@ -28,7 +28,7 @@ export default function HomePageClient({languageData, tagsResponse}: HomePageCli
         <div className="relative">
           <h1 className="mb-6 text-5xl font-bold leading-tight lg:text-6xl">
             <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
-              {languageData["Home.Welcome"]},
+              {languageData["Home.Welcome"]}
             </span>
             <br />
             <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-700 bg-clip-text text-transparent">
