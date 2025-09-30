@@ -6,7 +6,7 @@ import type { PostApiTagServiceTagData, PostApiTagServiceTagResponse, GetApiTagS
 
 export class TagService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.Create
      * @param data The data for the request.
@@ -30,7 +30,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.View
      * @param data The data for the request.
@@ -89,7 +89,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.Edit
      * @param data The data for the request.
@@ -117,7 +117,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.Delete
      * @param data The data for the request.
@@ -142,7 +142,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.Detail
      * @param data The data for the request.
@@ -167,7 +167,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.DetailByTagNumber
      * @param data The data for the request.
@@ -192,7 +192,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.ViewForRefund
      * @param data The data for the request.
@@ -229,7 +229,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.ViewSummary
      * @param data The data for the request.
@@ -288,7 +288,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.ViewTagsRefundFees
      * @param data The data for the request.
@@ -319,7 +319,7 @@ export class TagService {
             }
         });
     }
-
+    
     /**
      * **Requires permissions:** TagService.Tags, TagService.Tags.ExportValidation
      * @param data The data for the request.
@@ -347,5 +347,5 @@ export class TagService {
             }
         });
     }
-
+    
 }

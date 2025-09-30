@@ -1627,6 +1627,7 @@ export type AdministrationServiceResources = {
   "UniRefund.AdministrationService:010013": "Tenant not found by Id: '{tenantId}'!";
   "UniRefund.AdministrationService:010014": "'{givenLanguage}' is not supported. The supported languages are: '{supportedLanguages}'!";
   "UniRefund.AdministrationService:010015": "Specified value: '{value}' is not found in selection items that you must set just one of them: '{itemValues}' for the setting: '{key}'!";
+  "UniRefund.AdministrationService:010016": "'Abp.Timing.TimeZone' can not be changed in this method, you can only change IANA Timezone 'CountryManagement.MainSettings.IANATimezone'!";
 };
 export type AbpOpenIddictResources = {
   TheOpenIDConnectRequestCannotBeRetrieved: "The OpenID Connect request cannot be retrieved.";
