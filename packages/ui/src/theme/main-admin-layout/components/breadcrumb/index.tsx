@@ -32,7 +32,7 @@ function RenderLinkOrTrigger({
   className?: string;
 }) {
   return href ? (
-    <Link href={"/" + href || "#"} className={`flex w-full items-center gap-1 ${className}`}>
+    <Link href={"/" + href || "#"} className={`flex w-full items-center gap-1 ${className ?? ""}`}>
       {children}
     </Link>
   ) : (
