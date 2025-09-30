@@ -293,7 +293,7 @@ export type UniRefund_TagService_Merchants_MerchantRequestDto = {
      * Unique identifier of the merchant's branch or store within the organization.
      * Used to distinguish between different locations or subdivisions of the same merchant.
      */
-    externalStoreIdentifier: string;
+    externalIdentifier: string;
 };
 
 export type UniRefund_TagService_Tags_CreateTagRequestDto = {
@@ -1112,10 +1112,10 @@ export type PostApiTagServiceTagResponse = (UniRefund_TagService_Tags_TagDto);
 export type GetApiTagServiceTagData = {
     exportEndDate?: string;
     exportStartDate?: string;
+    invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
-    invoiceNumber?: string;
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
@@ -1172,10 +1172,10 @@ export type GetApiTagServiceTagTagsRefundResponse = (PagedResultDto_TagListItemD
 export type GetApiTagServiceTagSummaryData = {
     exportEndDate?: string;
     exportStartDate?: string;
+    invoiceNumber?: string;
     isEarlyRefunded?: boolean;
     issuedEndDate?: string;
     issuedStartDate?: string;
-    invoiceNumber?: string;
     maxResultCount?: number;
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
