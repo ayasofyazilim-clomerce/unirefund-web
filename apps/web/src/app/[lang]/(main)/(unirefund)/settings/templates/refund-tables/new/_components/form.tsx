@@ -1,6 +1,6 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import {Badge} from "@/components/ui/badge";
+import {Button} from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,25 +12,25 @@ import {
   useFieldArray,
   useForm,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { postRefundTableHeadersApi } from "@repo/actions/unirefund/ContractService/post-actions";
-import type { z } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import { zodResolver } from "@repo/ayasofyazilim-ui/lib/create-zod-object";
-import { Combobox } from "@repo/ayasofyazilim-ui/molecules/combobox";
-import type { UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto } from "@repo/saas/CRMService";
-import { handlePostResponse } from "@repo/utils/api";
-import { Asterisk, ChevronLeft, ChevronRight, Equal, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React, { useTransition } from "react";
-import { replacePlaceholders } from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
-import { getBaseLink } from "@/utils";
-import type { ContractServiceResource } from "@/language-data/unirefund/ContractService";
-import { createRefundTableFormSchemas } from "../../_components/schema";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {Switch} from "@/components/ui/switch";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import {cn} from "@/lib/utils";
+import {postRefundTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
+import type {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
+import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@repo/saas/CRMService";
+import {handlePostResponse} from "@repo/utils/api";
+import {Asterisk, ChevronLeft, ChevronRight, Equal, Trash2} from "lucide-react";
+import {useRouter} from "next/navigation";
+import React, {useTransition} from "react";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
+import {getBaseLink} from "@/utils";
+import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import {createRefundTableFormSchemas} from "../../_components/schema";
 
 export default function RefundTableForm({
   languageData,
@@ -41,7 +41,7 @@ export default function RefundTableForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const { createFormSchema, refundTableDetailSchema } = createRefundTableFormSchemas();
+  const {createFormSchema, refundTableDetailSchema} = createRefundTableFormSchemas();
 
   const validateRow = (
     // index: number,
@@ -116,7 +116,7 @@ export default function RefundTableForm({
     mode: "onChange",
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {fields, append, remove} = useFieldArray({
     control: form.control,
     name: "refundTableDetails",
   });
@@ -144,7 +144,7 @@ export default function RefundTableForm({
 
   function onSubmit(values: z.infer<typeof createFormSchema>) {
     startTransition(() => {
-      void postRefundTableHeadersApi({ requestBody: values }).then((response) => {
+      void postRefundTableHeadersApi({requestBody: values}).then((response) => {
         handlePostResponse(response, router, {
           prefix: getBaseLink("/settings/templates/refund-tables"),
           identifier: "id",
@@ -164,7 +164,7 @@ export default function RefundTableForm({
             <FormField
               control={form.control}
               name="name"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="space-y-0.5">
                   <FormLabel>
                     {languageData["RefundTable.Form.name"]}
@@ -180,7 +180,7 @@ export default function RefundTableForm({
             <FormField
               control={form.control}
               name="isDefault"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
                     <FormLabel>{languageData["RefundTable.Form.isDefault"]}</FormLabel>
@@ -195,7 +195,7 @@ export default function RefundTableForm({
             <FormField
               control={form.control}
               name="isBundling"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
                     <FormLabel>{languageData["RefundTable.Form.isBundling"]}</FormLabel>
@@ -210,7 +210,7 @@ export default function RefundTableForm({
             <FormField
               control={form.control}
               name="isTemplate"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
                     <FormLabel>{languageData["RefundTable.Form.isTemplate"]}</FormLabel>
@@ -226,7 +226,7 @@ export default function RefundTableForm({
               <FormField
                 control={form.control}
                 name="merchantId"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel>{languageData["RefundTable.Form.merchantId"]}</FormLabel>
                     <FormControl>
@@ -308,11 +308,19 @@ export default function RefundTableForm({
                         </Tooltip>
                       </div>
                     </TableHead>
-                    <TableHead className="text-black">{languageData["RefundTable.Form.refundTableDetails.vatRate"]}</TableHead>
-                    <TableHead className="text-black">{languageData["RefundTable.Form.refundTableDetails.refundAmount"]}</TableHead>
-                    <TableHead className="text-black">{languageData["RefundTable.Form.refundTableDetails.refundAmount"]}</TableHead>
-                    <TableHead className="text-black w-40">{languageData["RefundTable.Form.refundTableDetails.isLoyalty"]}</TableHead>
-                    <TableHead className="w-[50px]" />
+                    <TableHead className="text-black">
+                      {languageData["RefundTable.Form.refundTableDetails.vatRate"]}
+                    </TableHead>
+                    <TableHead className="text-black">
+                      {languageData["RefundTable.Form.refundTableDetails.refundAmount"]}
+                    </TableHead>
+                    <TableHead className="text-black">
+                      {languageData["RefundTable.Form.refundTableDetails.refundAmount"]}
+                    </TableHead>
+                    <TableHead className="w-40 text-black">
+                      {languageData["RefundTable.Form.refundTableDetails.isLoyalty"]}
+                    </TableHead>
+                    <TableHead className="w-[50px] border-none" />
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -330,7 +338,7 @@ export default function RefundTableForm({
                             <FormField
                               control={form.control}
                               name={`refundTableDetails.${index}.minValue`}
-                              render={({ field }) => (
+                              render={({field}) => (
                                 <FormItem>
                                   <FormControl>
                                     <Input
@@ -352,7 +360,7 @@ export default function RefundTableForm({
                             <FormField
                               control={form.control}
                               name={`refundTableDetails.${index}.maxValue`}
-                              render={({ field }) => (
+                              render={({field}) => (
                                 <FormItem>
                                   <FormControl>
                                     <Input
@@ -374,7 +382,7 @@ export default function RefundTableForm({
                             <FormField
                               control={form.control}
                               name={`refundTableDetails.${index}.vatRate`}
-                              render={({ field }) => (
+                              render={({field}) => (
                                 <FormItem>
                                   <FormControl>
                                     <Input
@@ -397,7 +405,7 @@ export default function RefundTableForm({
                             <FormField
                               control={form.control}
                               name={`refundTableDetails.${index}.refundAmount`}
-                              render={({ field }) => (
+                              render={({field}) => (
                                 <FormItem>
                                   <FormControl>
                                     <Input
@@ -419,7 +427,7 @@ export default function RefundTableForm({
                             <FormField
                               control={form.control}
                               name={`refundTableDetails.${index}.refundPercent`}
-                              render={({ field }) => (
+                              render={({field}) => (
                                 <FormItem>
                                   <FormControl>
                                     <Input
@@ -441,7 +449,7 @@ export default function RefundTableForm({
                             <FormField
                               control={form.control}
                               name={`refundTableDetails.${index}.isLoyalty`}
-                              render={({ field }) => (
+                              render={({field}) => (
                                 <FormItem className="flex size-full h-9 items-center justify-center">
                                   <FormControl>
                                     <Switch
