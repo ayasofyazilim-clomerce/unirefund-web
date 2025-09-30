@@ -38,7 +38,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
             {item.href && (
               <>
                 <DropdownMenuItem asChild>
-                  <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2 text-gray-600">
+                  <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2">
                     <BreadcrumbIcon item={item} />
                     {item.displayName}
                   </Link>
@@ -54,7 +54,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
       <Fragment key={item.key}>
         {item.split && (item.split === "top" || item.split === "both") && <DropdownMenuSeparator />}
         <DropdownMenuItem key={item.key} asChild>
-          <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2 text-gray-600">
+          <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2">
             <BreadcrumbIcon item={item} />
             {item.displayName}
           </Link>
