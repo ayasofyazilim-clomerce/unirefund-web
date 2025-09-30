@@ -39,7 +39,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
               <>
                 <DropdownMenuItem
                   className="cursor-pointer px-2 py-1 font-medium"
-                  onSelect={() => router.push("/" + item.href)}>
+                  onSelect={() => router.push(item.href ? "/" + item.href : "#")}>
                   <BreadcrumbIcon item={item} />
                   {item.displayName}
                 </DropdownMenuItem>
@@ -56,7 +56,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
         <DropdownMenuItem
           key={item.key}
           className="cursor-pointer px-2 py-1"
-          onSelect={() => router.push("/" + item.href || "#")}>
+          onSelect={() => router.push(item.href ? "/" + item.href : "#")}>
           <BreadcrumbIcon item={item} />
           {item.displayName}
         </DropdownMenuItem>
