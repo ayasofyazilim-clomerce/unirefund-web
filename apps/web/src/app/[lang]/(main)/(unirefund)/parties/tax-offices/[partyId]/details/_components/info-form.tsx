@@ -51,10 +51,6 @@ export function TaxOfficeForm({
       vatNumber: {
         ...(!isHeadquarter && disabled),
       },
-      parentId: {
-        ...(isHeadquarter && {"ui:widget": "hidden"}),
-        ...disabled,
-      },
     },
   });
   const router = useRouter();
@@ -66,7 +62,6 @@ export function TaxOfficeForm({
       disabled={isPending}
       formData={{
         ...taxOfficeDetails,
-        parentId: taxOfficeDetails.parentName || "",
         name: taxOfficeDetails.name || "",
       }}
       locale={lang}
@@ -77,7 +72,6 @@ export function TaxOfficeForm({
             id: partyId,
             requestBody: {
               ...formData,
-              parentId: taxOfficeDetails.parentId,
             },
           }).then((res) => {
             handlePutResponse(res, router);
@@ -88,9 +82,6 @@ export function TaxOfficeForm({
         ...$UpdateTaxOfficeDto,
         properties: {
           ...$UpdateTaxOfficeDto.properties,
-          parentId: {
-            type: "string",
-          },
         },
       }}
       submitText={languageData["Form.TaxOffice.Update"]}

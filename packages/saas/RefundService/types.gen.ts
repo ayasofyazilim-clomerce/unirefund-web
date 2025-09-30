@@ -11,8 +11,8 @@ export type PagedResultDto_RefundListItem = {
 };
 
 export type UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
-    id?: string;
-    name?: (string) | null;
+    id: string;
+    name: (string) | null;
     fullAddress?: (string) | null;
 };
 

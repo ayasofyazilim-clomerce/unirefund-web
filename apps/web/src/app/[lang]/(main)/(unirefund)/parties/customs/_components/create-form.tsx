@@ -22,6 +22,7 @@ const DEFAULT_FORMDATA: CreateCustomDto = {
   },
   telephone: {
     type: "WORK",
+    localNumber: "",
     isPrimary: true,
   },
   address: {
