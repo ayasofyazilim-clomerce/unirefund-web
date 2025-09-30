@@ -1,4 +1,5 @@
 import {auth} from "@repo/utils/auth/next-auth";
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getResourceData} from "src/language-data/unirefund/SSRService";
 import Header from "../_components/header";
 import ChatwootWidget from "../_components/chatwoot";
@@ -9,11 +10,15 @@ export default async function Layout({children, params}: {children: React.ReactN
   const {languageData} = await getResourceData(lang);
 
   const session = await auth();
+
+  const languagesList = await getAllLanguagesApi(session).then((res) => res.data.items || []);
+
   return (
     <div className="h-screen overflow-hidden">
       <Header
         availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
         languageData={languageData}
+        languagesList={languagesList}
         novu={{
           appId: process.env.NOVU_APP_IDENTIFIER || "",
           appUrl: process.env.NOVU_APP_URL || "",

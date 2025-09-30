@@ -3,12 +3,14 @@ import Link from "next/link";
 import LanguageSelector from "@repo/ui/theme/main-admin-layout/components/language-selector";
 import {auth} from "@repo/utils/auth/next-auth";
 import {redirect} from "next/navigation";
+import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getBaseLink} from "src/utils";
 import {getResourceData} from "src/language-data/core/AccountService";
 import unirefundLogo from "public/unirefund.png";
 
 export default async function Layout({children, params}: {children: JSX.Element; params: {lang: string}}) {
   const session = await auth();
+  const languagesList = await getAllLanguagesApi(session).then((res) => res.data.items || []);
   if (session) {
     redirect(getBaseLink("home", params.lang));
   }
@@ -32,6 +34,7 @@ export default async function Layout({children, params}: {children: JSX.Element;
             <LanguageSelector
               availableLocals={process.env.SUPPORTED_LOCALES?.split(",") || []}
               lang={params.lang}
+              languagesList={languagesList}
               showEarthIcon
             />
           </div>

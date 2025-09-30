@@ -19,7 +19,9 @@
     "precommit:lintstaged": "turbo lint-staged --filter ./apps/* --filter ./packages/*",
     "saas": "pnpm i @ayasofyazilim/saas@latest --filter ./apps/* --filter ./packages/actions --filter ./packages/ui",
     "saas-dev": "pnpm i @ayasofyazilim/unirefund-saas-dev@latest --filter ./apps/* --filter ./packages/actions --filter ./packages/ui",
-    "unused": "npx knip"
+    "unused": "npx knip",
+    "fix-changes:web": "cd apps/web && pnpm format && pnpm lint:fix && pnpm type-check",
+    "fix-changes:ssr": "cd apps/ssr && pnpm format && pnpm lint:fix && pnpm type-check"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.1",

@@ -1627,6 +1627,7 @@ export type AdministrationServiceResources = {
   "UniRefund.AdministrationService:010013": "Tenant not found by Id: '{tenantId}'!";
   "UniRefund.AdministrationService:010014": "'{givenLanguage}' is not supported. The supported languages are: '{supportedLanguages}'!";
   "UniRefund.AdministrationService:010015": "Specified value: '{value}' is not found in selection items that you must set just one of them: '{itemValues}' for the setting: '{key}'!";
+  "UniRefund.AdministrationService:010016": "'Abp.Timing.TimeZone' can not be changed in this method, you can only change IANA Timezone 'CountryManagement.MainSettings.IANATimezone'!";
 };
 export type AbpOpenIddictResources = {
   TheOpenIDConnectRequestCannotBeRetrieved: "The OpenID Connect request cannot be retrieved.";
@@ -1772,7 +1773,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
   "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
   "UniRefund.CRMService:011018": "A merchant without a filled ParentId cannot be of type headquarters";
-  "UniRefund.CRMService:011019": "ExternalStoreIdentifier cannot be empty";
+  "UniRefund.CRMService:011019": "ExternalIdentifier cannot be empty";
   "UniRefund.CRMService:012001": "No tax office with this id was found: {taxOfficeId}";
   "UniRefund.CRMService:012002": "Tax Office type cannot be changed. Because there are dependent child merchants.";
   "UniRefund.CRMService:013001": "There is no entity AffiliationCode with id = {id}!";
@@ -1844,6 +1845,8 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:010059": "A region with the same name already exists.";
   "UniRefund.CRMService:010060": "User is not authenticated.";
   "UniRefund.CRMService:018003": "Party with PartyId '{partyId}' and does not have an affiliation with the current user.";
+  "UniRefund.CRMService:019001": "At least ITU Country Code or AreaCode must exist!";
+  "UniRefund.CRMService:020001": "At least and just one {contactTypeName} can be primary!";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
@@ -1881,6 +1884,13 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100030": "Tags without an early refund fee in their contract cannot be refunded. Affected Tags: '{tagNumbersStr}'";
   "UniRefund.TagService:0100031": "Refund operation can not be performed due to some tags' refund expiration date have passed! Related Tags: '{tagNumbers}'";
   "UniRefund.TagService:0100032": "Multi Invoices in a Tag currently not supported. Tag can just have one Invoice!";
+  "UniRefund.TagService:0100033": "Invalid Tax Amount. TaxBase={taxBase}, TaxRate={taxRate}, ProvidedTaxAmount={taxAmount}, CalculatedTaxAmount={calculatedTaxAmount}.";
+  "UniRefund.TagService:0100034": "Invalid Total Amount. TaxBase={taxBase}, ProvidedTaxAmount={taxAmount}, ProvidedAmount={amount}, CalculatedAmount={calculatedAmount}.";
+  "UniRefund.TagService:0100035": "Invalid total invoice amount. Calculated total from lines = {calculatedTotalAmountOfLines}, but provided total invoice amount = {invoiceTotalAmount}.";
+  "UniRefund.TagService:0100036": "Invalid total VAT amount. Calculated VAT total from lines = {calculatedTotalTaxAmountOfLines}, but provided invoice VAT amount = {invoiceVATAmount}.";
+  "NameSpace:TagsNameSpace": "TagsNameSpace";
+  "NameSpace:ViewEarnings": "View Earnings";
+  "NameSpace:ViewTotals": "View Totals";
 };
 export type ContractServiceResources = {
   "UniRefund.ContractService:01001": "There is no any active ContractHeader related with given {contractType}: {contractTypeIdentifier}!";
