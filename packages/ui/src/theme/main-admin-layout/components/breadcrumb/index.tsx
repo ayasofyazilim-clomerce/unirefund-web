@@ -29,7 +29,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
     const subItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === item.key);
     return subItems.length > 0 ? (
       <DropdownMenuSub key={item.key}>
-        <DropdownMenuSubTrigger>
+        <DropdownMenuSubTrigger className="gap-1 font-medium">
           <BreadcrumbIcon item={item} />
           <span>{item.displayName}</span>
         </DropdownMenuSubTrigger>
@@ -38,7 +38,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
             {item.href && (
               <>
                 <DropdownMenuItem asChild>
-                  <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2">
+                  <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2 font-medium">
                     <BreadcrumbIcon item={item} />
                     {item.displayName}
                   </Link>
@@ -54,7 +54,7 @@ function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; n
       <Fragment key={item.key}>
         {item.split && (item.split === "top" || item.split === "both") && <DropdownMenuSeparator />}
         <DropdownMenuItem key={item.key} asChild>
-          <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2">
+          <Link href={item.href ? "/" + item.href : "#"} className="flex items-center gap-1 px-2 font-medium">
             <BreadcrumbIcon item={item} />
             {item.displayName}
           </Link>
