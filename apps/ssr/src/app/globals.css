@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -47,6 +48,7 @@
     --ring: 142.4 71.8% 29.2%;
   }
 }
+
 * {
   scroll-behavior: smooth;
 }
@@ -75,8 +77,16 @@ body {
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 body {
   height: 100%;
+}
+
+@media (max-width: 640px) {
+  .woot-widget-bubble {
+    bottom: 72px !important;
+    right: 4px !important;
+  }
 }
 
 .amplify-flex.amplify-liveness-overlay {
