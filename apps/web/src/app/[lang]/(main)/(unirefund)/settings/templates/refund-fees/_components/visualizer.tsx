@@ -140,8 +140,8 @@ export function RefundFeeDetailsVisualizer({languageData, details, onCellClick}:
 
         return (
           <div
-            className={`flex flex-wrap gap-2 rounded-md border p-2 shadow-none ${
-              isValidGroup ? "border-green-200 bg-green-50/30" : "border-red-200 bg-red-50/30"
+            className={`flex flex-wrap gap-2 rounded-md border bg-white p-2 shadow-none ${
+              isValidGroup ? "border-green-500 " : "border-red-500 "
             }`}
             key={groupKey}>
             <Badge className="text-xs" variant={isValidGroup ? "outline" : "destructive"}>
@@ -156,8 +156,8 @@ export function RefundFeeDetailsVisualizer({languageData, details, onCellClick}:
                     className={cn(
                       `border text-xs shadow-none transition-colors hover:bg-transparent`,
                       hasError && "cursor-pointer border-red-300 bg-red-100 text-red-800",
-                      hasError && isValidGroup && "border-green-300 bg-green-100 text-green-800",
-                      hasError && !isValidGroup && "bg-muted border-muted-foreground/50 text-muted-foreground",
+                      !hasError && isValidGroup && "border-green-300 bg-green-100 text-green-800",
+                      !hasError && !isValidGroup && "bg-muted border-muted-foreground/50 text-muted-foreground",
                     )}
                     data-testid={groupKey + index}
                     key={groupKey + index}
