@@ -126,6 +126,7 @@ export function RefundFeeDetailsTable({
             onClick={() => {
               setShowVisualizer(!showVisualizer);
             }}
+            size="sm"
             type="button"
             variant="outline">
             {showVisualizer ? <EyeOff className="mr-2 h-4 w-4" /> : <Eye className="mr-2 h-4 w-4" />}
@@ -135,9 +136,10 @@ export function RefundFeeDetailsTable({
             data-testid="refundTable.refundTableDetails.addRowButton"
             disabled={isPending}
             onClick={addNewRow}
+            size="sm"
             type="button"
             variant="outline">
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-1 h-4 w-4" />
             {languageData["Table.Add"]}
           </Button>
         </div>

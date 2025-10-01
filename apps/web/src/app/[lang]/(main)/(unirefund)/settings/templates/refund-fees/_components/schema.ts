@@ -132,7 +132,10 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
     });
   const createFormSchema = z
     .object({
-      name: z.string().min(2).max(50),
+      name: z
+        .string()
+        .min(2, {message: languageData ? languageData["Contracts.nameIsRequired"] : ""})
+        .max(50),
       isActive: z.boolean().optional(),
       isTemplate: z.boolean().optional(),
       refundPointId: z.string().uuid().nullable().optional(),
@@ -160,18 +163,20 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
         if (!data.refundPointId) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message:
-              languageData?.[
-                "RefundFeeTable.Form.refundFeeDetails.refundPointSelectionIsRequiredWhenIsTemplateOptionFalse"
-              ] || "Refund point is required when template option is false.",
+            message: languageData
+              ? languageData["RefundFeeTable.Form.refundPointSelectionIsRequiredWhenIsTemplateOptionFalse"]
+              : "Refund point is required when template option is false.",
             path: ["refundPointId"],
           });
         }
       }
     });
   const updateFormSchema = z.object({
-    name: z.string().min(2).max(50),
-    isActive: z.boolean().optional(),
+    name: z
+      .string()
+      .min(2, {message: languageData ? languageData["Contracts.nameIsRequired"] : ""})
+      .max(50),
+    isActive: z.boolean().default(false).optional(),
     refundFeeDetails: z
       .array(refundFeeDetailSchema)
       .nullable()
