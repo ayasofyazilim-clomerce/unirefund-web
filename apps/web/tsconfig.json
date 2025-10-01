@@ -4,8 +4,9 @@
     "plugins": [
       {
         "name": "next"
-      }
+      },
     ],
+    "downlevelIteration":true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["../../packages/ayasofyazilim-ui/@/*", "./src/*"],
