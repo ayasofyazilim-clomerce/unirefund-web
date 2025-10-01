@@ -1,8 +1,8 @@
 "use client";
 
-import { IdCardIcon } from "@radix-ui/react-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import {IdCardIcon} from "@radix-ui/react-icons";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 
 import {
   BookA,
@@ -50,14 +50,14 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
-import { useState } from "react";
-import { NotificationPopover, NotificationProps } from "../../../notification";
+import {useState} from "react";
+import {NotificationPopover, NotificationProps} from "../../../notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
-import SearchBar, { type SearchFromDB } from "./navbar-searchbar";
+import SearchBar, {type SearchFromDB} from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
-import { useTheme } from "../../../providers/theme";
+import {useTheme} from "../../../providers/theme";
 
 export default function Navbar({
   prefix,
@@ -67,20 +67,20 @@ export default function Navbar({
   tenantData,
   notification,
   searchFromDB,
-  children
+  children,
 }: {
   prefix: string;
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
-  tenantData?: { tenantId: string; tenantName: string };
+  tenantData?: {tenantId: string; tenantName: string};
   notification?: NotificationProps;
   searchFromDB?: SearchFromDB[];
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { languagesList } = useTheme();
+  const {languagesList} = useTheme();
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
       <nav className="bg-white py-2.5">
