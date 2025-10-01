@@ -40,7 +40,7 @@ type DBSearchResult = {
   title: string;
   key: string;
   icon: string;
-  items: {href: string; name: string; id: string; searhableText: string}[];
+  items: {href: string; name: string; id: string; searchableText: string}[];
 };
 let timeout: NodeJS.Timeout;
 
@@ -274,7 +274,7 @@ function SearchBar({
           )}
 
           <CommandInput
-            placeholder="Type to search or type merchants: to search merchants"
+            placeholder="Type to search or type : to see commands"
             onValueChange={(s) => onSearchValueChange(s)}
             onKeyDown={(s) => {
               if (s.key === "Backspace" && selectedSearchableItem && searchValue.length === 0) {
@@ -307,7 +307,7 @@ function SearchBar({
                       displayName: item.name,
                       href: item.href,
                       route: "",
-                      searchableText: item.searhableText.toLowerCase(),
+                      searchableText: item.searchableText.toLowerCase(),
                     }}
                   />
                 ))}
