@@ -33,16 +33,15 @@ export function RefundFeeDetailsVisualizer({languageData, details, onCellClick}:
     if (groupDetails.length > 0 && groupDetails[0].amountFrom !== 0) {
       errors.push({
         type: "missing_start",
-        message:
-          (replacePlaceholders(
-            languageData["RefundFeeTable.Form.refundFeeDetails.groupMustStartFromZeroButStartsFrom{0}"],
-            [
-              {
-                holder: "{0}",
-                replacement: groupDetails[0].amountFrom,
-              },
-            ],
-          )[0] as string) || "",
+        message: replacePlaceholders(
+          languageData["RefundFeeTable.Form.refundFeeDetails.groupMustStartFromZeroButStartsFrom{0}"],
+          [
+            {
+              holder: "{0}",
+              replacement: groupDetails[0].amountFrom,
+            },
+          ],
+        ).join(""),
         affectedRanges: [0],
         groupKey,
       });
@@ -55,45 +54,43 @@ export function RefundFeeDetailsVisualizer({languageData, details, onCellClick}:
       if (current.amountFrom > prev.amountTo) {
         errors.push({
           type: "gap",
-          message:
-            (replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.gapBetween{0}and{1}"], [
-              {
-                holder: "{0}",
-                replacement: prev.amountTo,
-              },
-              {
-                holder: "{1}",
-                replacement: current.amountFrom,
-              },
-            ])[0] as string) || "",
+          message: replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.gapBetween{0}and{1}"], [
+            {
+              holder: "{0}",
+              replacement: prev.amountTo,
+            },
+            {
+              holder: "{1}",
+              replacement: current.amountFrom,
+            },
+          ]).join(""),
           affectedRanges: [i - 1, i],
           groupKey,
         });
       } else if (current.amountFrom < prev.amountTo) {
         errors.push({
           type: "overlap",
-          message:
-            (replacePlaceholders(
-              languageData["RefundFeeTable.Form.refundFeeDetails.overlap{0}-{1}overlapsWith{2}-{3}"],
-              [
-                {
-                  holder: "{0}",
-                  replacement: prev.amountFrom,
-                },
-                {
-                  holder: "{1}",
-                  replacement: prev.amountTo,
-                },
-                {
-                  holder: "{2}",
-                  replacement: current.amountFrom,
-                },
-                {
-                  holder: "{3}",
-                  replacement: current.amountTo,
-                },
-              ],
-            )[0] as string) || "",
+          message: replacePlaceholders(
+            languageData["RefundFeeTable.Form.refundFeeDetails.overlap{0}-{1}overlapsWith{2}-{3}"],
+            [
+              {
+                holder: "{0}",
+                replacement: prev.amountFrom,
+              },
+              {
+                holder: "{1}",
+                replacement: prev.amountTo,
+              },
+              {
+                holder: "{2}",
+                replacement: current.amountFrom,
+              },
+              {
+                holder: "{3}",
+                replacement: current.amountTo,
+              },
+            ],
+          ).join(""),
           affectedRanges: [i - 1, i],
           groupKey,
         });
@@ -105,20 +102,19 @@ export function RefundFeeDetailsVisualizer({languageData, details, onCellClick}:
       if (detail.amountFrom >= detail.amountTo) {
         errors.push({
           type: "invalid_range",
-          message:
-            (replacePlaceholders(
-              languageData["RefundFeeTable.Form.refundFeeDetails.invalidRange{0}mustBeLessThan{1}"],
-              [
-                {
-                  holder: "{0}",
-                  replacement: detail.amountTo,
-                },
-                {
-                  holder: "{1}",
-                  replacement: detail.amountFrom,
-                },
-              ],
-            )[0] as string) || "",
+          message: replacePlaceholders(
+            languageData["RefundFeeTable.Form.refundFeeDetails.invalidRange{0}mustBeLessThan{1}"],
+            [
+              {
+                holder: "{0}",
+                replacement: detail.amountTo,
+              },
+              {
+                holder: "{1}",
+                replacement: detail.amountFrom,
+              },
+            ],
+          ).join(""),
           affectedRanges: [index],
           groupKey,
         });
