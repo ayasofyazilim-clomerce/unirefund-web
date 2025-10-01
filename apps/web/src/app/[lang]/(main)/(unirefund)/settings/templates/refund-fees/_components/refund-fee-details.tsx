@@ -146,7 +146,7 @@ export function RefundFeeDetailsTable({
         <Table>
           <TableHeader>
             <TableRow className="divide-x [&>th]:text-black">
-              <TableHead>
+              <TableHead className="min-w-max text-nowrap">
                 <div className="flex items-center gap-2">
                   {languageData["RefundFeeTable.Form.refundFeeDetails.amountFrom"]}
                   <Tooltip>
@@ -161,7 +161,7 @@ export function RefundFeeDetailsTable({
                   </Tooltip>
                 </div>
               </TableHead>
-              <TableHead>
+              <TableHead className="min-w-max text-nowrap">
                 <div className="flex items-center gap-2">
                   {languageData["RefundFeeTable.Form.refundFeeDetails.amountTo"]}
                   <Tooltip>

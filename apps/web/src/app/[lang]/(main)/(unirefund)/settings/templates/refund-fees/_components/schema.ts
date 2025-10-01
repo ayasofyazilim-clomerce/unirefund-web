@@ -35,7 +35,7 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
           index: sortedItems[0].originalIndex,
           field: "amountFrom",
           message: languageData
-            ? (replacePlaceholders(
+            ? replacePlaceholders(
                 languageData["RefundFeeTable.Form.refundFeeDetails.firstRangeIn{0}groupMustStartFrom0"],
                 [
                   {
@@ -43,7 +43,7 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
                     replacement: groupKey,
                   },
                 ],
-              )[0] as string) || ""
+              ).join("")
             : `First range in ${groupKey} group must start from 0`,
           groupKey,
         });
@@ -61,12 +61,12 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
               index: current.originalIndex,
               field: "amountFrom",
               message: languageData
-                ? (replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.shouldBeEqualsTo{0}"], [
+                ? replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.shouldBeEqualsTo{0}"], [
                     {
                       holder: "{0}",
                       replacement: prev.detail.amountTo,
                     },
-                  ])[0] as string) || ""
+                  ]).join("")
                 : `Should be equals to ${prev.detail.amountTo}`,
               groupKey,
             });
@@ -75,12 +75,12 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
               index: current.originalIndex,
               field: "amountFrom",
               message: languageData
-                ? (replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.shouldBeEqualsTo{0}"], [
+                ? replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.shouldBeEqualsTo{0}"], [
                     {
                       holder: "{0}",
                       replacement: prev.detail.amountTo,
                     },
-                  ])[0] as string) || ""
+                  ]).join("")
                 : `Should be equals to ${prev.detail.amountTo}`,
               groupKey,
             });
@@ -90,12 +90,12 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
             index: current.originalIndex,
             field: "amountTo",
             message: languageData
-              ? (replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.shouldBeGreaterThan{0}"], [
+              ? replacePlaceholders(languageData["RefundFeeTable.Form.refundFeeDetails.shouldBeGreaterThan{0}"], [
                   {
                     holder: "{0}",
                     replacement: prev.detail.amountTo,
                   },
-                ])[0] as string) || ""
+                ]).join("")
               : `Should be greater than ${current.detail.amountTo}`,
             groupKey,
           });
