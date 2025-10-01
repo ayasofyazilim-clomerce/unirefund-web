@@ -1,6 +1,6 @@
 "use client";
 import * as Select from "@/components/ui/select";
-import {getApiFileTypeGroupsRulesetApi} from "@repo/actions/unirefund/FileService/actions";
+import { getApiFileTypeGroupsRulesetApi } from "@repo/actions/unirefund/FileService/actions";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import {
   BooleanOptions,
@@ -10,14 +10,14 @@ import type {
   UniRefund_FileService_Files_FileForHumanValidationDto,
   UniRefund_FileService_FileTypes_FileTypeListDto,
 } from "@repo/saas/FileService";
-import {$UniRefund_FileService_Files_FileForHumanValidationDto} from "@repo/saas/FileService";
-import type {Ruleset} from "@repo/ui/unirefund/file-upload";
-import {FileUpload} from "@repo/ui/unirefund/file-upload";
-import {DownloadIcon, UploadCloudIcon} from "lucide-react";
-import {useEffect, useState, useTransition} from "react";
-import {getBaseLink} from "@/utils";
-import {useTenant, type Localization} from "@/providers/tenant";
-import type {FileServiceResource} from "@/language-data/unirefund/FileService";
+import { $UniRefund_FileService_Files_FileForHumanValidationDto } from "@repo/saas/FileService";
+import type { Ruleset } from "@repo/ui/unirefund/file-upload";
+import { FileUpload } from "@repo/ui/unirefund/file-upload";
+import { DownloadIcon, UploadCloudIcon } from "lucide-react";
+import { useEffect, useState, useTransition } from "react";
+import { getBaseLink } from "@/utils";
+import { useTenant, type Localization } from "@/providers/tenant";
+import type { FileServiceResource } from "@/language-data/unirefund/FileService";
 
 type TableType = UniRefund_FileService_Files_FileForHumanValidationDto;
 
@@ -30,7 +30,7 @@ export function Table({
   languageData: FileServiceResource;
   availableFileTypes: UniRefund_FileService_FileTypes_FileTypeListDto[];
 }) {
-  const {localization} = useTenant();
+  const { localization } = useTenant();
   const columns = tableColumns(localization, languageData);
   return (
     <TanstackTable<TableType, TableType>
@@ -134,7 +134,7 @@ function FileUploadDialog({
         setRuleset(null);
         return;
       }
-      void getApiFileTypeGroupsRulesetApi({namespace: selectedFileType})
+      void getApiFileTypeGroupsRulesetApi({ namespace: selectedFileType })
         .then((res) => {
           setRuleset(res.data);
         })

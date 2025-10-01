@@ -1,28 +1,28 @@
 "use server";
-import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
-import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
-import {getMerchantsApi, getUserAffiliationsApi} from "@repo/actions/unirefund/CrmService/actions";
+import { getAllLanguagesApi } from "@repo/actions/core/AdministrationService/actions";
+import { getInfoForCurrentTenantApi } from "@repo/actions/unirefund/AdministrationService/actions";
+import { getMerchantsApi, getUserAffiliationsApi } from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
-import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
-import type {Session} from "@repo/utils/auth";
-import {signOutServer} from "@repo/utils/auth";
-import {auth} from "@repo/utils/auth/next-auth";
-import type {Policy} from "@repo/utils/policies";
-import {LogOut} from "lucide-react";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {myProfileApi} from "@repo/actions/core/AccountService/actions";
+import { getGrantedPoliciesApi, structuredError } from "@repo/utils/api";
+import type { Session } from "@repo/utils/auth";
+import { signOutServer } from "@repo/utils/auth";
+import { auth } from "@repo/utils/auth/next-auth";
+import type { Policy } from "@repo/utils/policies";
+import { LogOut } from "lucide-react";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { myProfileApi } from "@repo/actions/core/AccountService/actions";
 import unirefund from "public/unirefund.png";
 import Providers from "src/providers/providers";
-import {getBaseLink} from "src/utils";
+import { getBaseLink } from "src/utils";
 import AffiliationSwitch from "@/utils/affiliation-switch";
-import {getResourceData as getResourceDataCRM} from "@/language-data/unirefund/CRMService";
-import {getResourceData} from "@/language-data/core/AbpUiNavigation";
-import {getProfileMenuFromDB} from "../../../utils/navbar/navbar-profile-data";
-import {getNavbarFromDB} from "../../../utils/navbar/navbar-data";
+import { getResourceData as getResourceDataCRM } from "@/language-data/unirefund/CRMService";
+import { getResourceData } from "@/language-data/core/AbpUiNavigation";
+import { getProfileMenuFromDB } from "../../../utils/navbar/navbar-profile-data";
+import { getNavbarFromDB } from "../../../utils/navbar/navbar-data";
 
 interface LayoutProps {
-  params: {lang: string};
+  params: { lang: string };
   children: JSX.Element;
 }
 const appName = process.env.APPLICATION_NAME || "UNIREFUND";
@@ -38,7 +38,7 @@ async function getApiRequests(session: Session | null) {
     ]);
 
     const optionalRequests = await Promise.allSettled([]);
-    return {requiredRequests, optionalRequests};
+    return { requiredRequests, optionalRequests };
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -47,10 +47,10 @@ async function getApiRequests(session: Session | null) {
   }
 }
 
-export default async function Layout({children, params}: LayoutProps) {
-  const {lang} = params;
-  const {languageData} = await getResourceData(lang);
-  const {languageData: languageDataCRM} = await getResourceDataCRM(lang);
+export default async function Layout({ children, params }: LayoutProps) {
+  const { lang } = params;
+  const { languageData } = await getResourceData(lang);
+  const { languageData: languageDataCRM } = await getResourceDataCRM(lang);
   const session = await auth();
   const apiRequests = await getApiRequests(session);
 
@@ -101,7 +101,7 @@ export default async function Layout({children, params}: LayoutProps) {
               search: async (search: string) => {
                 "use server";
                 try {
-                  const res = await getMerchantsApi({name: search});
+                  const res = await getMerchantsApi({ name: search });
                   return (
                     res.data.items?.map((i) => ({
                       id: i.id,
