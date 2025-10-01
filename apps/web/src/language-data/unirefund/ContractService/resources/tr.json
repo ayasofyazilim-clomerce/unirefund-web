@@ -71,6 +71,7 @@
   "Contracts.refundMethod.Wallet": "Cüzdan",
   "Contracts.refundMethod.CashViaPartner": "Partner üzerinden nakit",
   "Contracts.refundMethod.All": "Tümü",
+  "Contracts.nameIsRequired": "Tablo adı zorunludur",
 
   "RebateTable.Form.name": "Tablo adı",
   "RebateTable.Form.name.default": "Varsayılan",
@@ -79,6 +80,7 @@
   "RebateTable.Form.isTemplate": "Şablon olarak kullan",
   "RebateTable.Form.isTemplate.description": "Bu tabloyu gelecekte kullanmak üzere şablon olarak kaydet.",
   "RebateTable.Form.merchantId": "Mağazaya ata",
+  "RebateTable.Form.merchantSelectionIsRequiredWhenIsTemplateOptionFalse": "Şablon seçeneği aktif değilken mağaza seçimi zorunludur.",
   "RebateTable.Form.processingFeeDetails": "İşlem ücreti detayları",
   "RebateTable.Form.processingFeeDetails.name": "Ücret adı",
   "RebateTable.Form.processingFeeDetails.name.default": "Ücret",
@@ -100,7 +102,6 @@
   "RebateTable.Form.rebateTableDetails.variableFee.PercentOfSIS": "SIS'nin Yüzdesi",
   "RebateTable.Form.rebateTableDetails.refundMethodAllCannotBeCombined": "'Tümü' iade yöntemi diğer iade yöntemleriyle birleştirilemez.",
   "RebateTable.Form.rebateTableDetails.refundMethodOnlyOneRowAllowedWhenRefundPointIsAll": "İade yöntemi 'Tümü' olduğunda yalnızca bir satıra izin verilir.",
-  "RebateTable.Form.rebateTableDetails.merchantSelectionIsRequiredWhenIsTemplateOptionFalse": "Şablon seçeneği aktif değilken mağaza seçimi zorunludur.",
   "RebateTable.Form.rebateTableDetails.cannotAddRowWhenAllRefundMethodSelected": "'Tümü' iade yöntemi seçiliyken başka satır eklenemez.",
   "RebateTable.Form.rebateTableDetails.allRefundMethodsAlreadyUsed": "Tüm iade yöntemleri zaten kullanıldı.",
 
@@ -113,6 +114,7 @@
   "RefundTable.Form.isTemplate": "Şablon olarak kullan",
   "RefundTable.Form.isTemplate.description": "Bu tabloyu gelecekte kullanmak üzere şablon olarak kaydet.",
   "RefundTable.Form.merchantId": "Mağazaya ata",
+  "RefundTable.Form.merchantSelectionIsRequiredWhenIsTemplateOptionFalse": "Şablon seçeneği aktif değilken mağaza ataması zorunludur.",
   "RefundTable.Form.refundTableDetails": "İade tablosu detayları",
   "RefundTable.Form.refundTableDetails.minValue": "Minimum değer",
   "RefundTable.Form.refundTableDetails.minValue.tooltip": "Büyükten",
@@ -136,6 +138,7 @@
   "RefundFeeTable.Form.isTemplate": "Şablon olarak kullan",
   "RefundFeeTable.Form.isTemplate.description": "Bu tabloyu gelecekte kullanmak üzere şablon olarak kaydet.",
   "RefundFeeTable.Form.refundPointId": "İade noktasına ata",
+  "RefundFeeTable.Form.refundPointSelectionIsRequiredWhenIsTemplateOptionFalse": "Şablon seçeneği aktif değilken iade noktası ataması zorunludur.",
   "RefundFeeTable.Form.refundFeeDetails": "İade tablosu detayları",
   "RefundFeeTable.Form.refundFeeDetails.visualizer": "Görselleştirici",
   "RefundFeeTable.Form.refundFeeDetails.amountFrom": "Minimum değer",
@@ -161,6 +164,5 @@
   "RefundFeeTable.Form.refundFeeDetails.overlap{0}-{1}overlapsWith{2}-{3}": "Çakışma: {0}-{1}, {2}-{3} ile çakışıyor",
   "RefundFeeTable.Form.refundFeeDetails.invalidRange{0}mustBeLessThan{1}": "Geçersiz aralık: {0}, {1}'den küçük olmalı",
   "RefundFeeTable.Form.refundFeeDetails.maxFeeMustBeGreaterThanMinFee": "Maksimum ücret, minimum ücretten büyük olmalı.",
-  "RefundFeeTable.Form.refundFeeDetails.refundPointSelectionIsRequiredWhenIsTemplateOptionFalse": "Şablon seçeneği yanlış ise iade noktası zorunludur.",
   "RefundFeeTable.Form.refundFeeDetails.noRecord": "Henüz herhangi bir iade ücreti detayı eklenmedi."
 }

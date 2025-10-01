@@ -71,6 +71,7 @@
   "Contracts.refundMethod.Wallet": "Wallet",
   "Contracts.refundMethod.CashViaPartner": "Cash via partner",
   "Contracts.refundMethod.All": "All",
+  "Contracts.nameIsRequired": "Table name is required",
 
   "RebateTable.Form.name": "Table name",
   "RebateTable.Form.name.default": "Default",
@@ -79,6 +80,7 @@
   "RebateTable.Form.isTemplate": "Use as template",
   "RebateTable.Form.isTemplate.description": "Save this table as template for future use.",
   "RebateTable.Form.merchantId": "Assign to merchant",
+  "RebateTable.Form.merchantSelectionIsRequiredWhenIsTemplateOptionFalse": "Merchant is required when template option is false.",
   "RebateTable.Form.processingFeeDetails": "Processing fee details",
   "RebateTable.Form.processingFeeDetails.name": "Fee name",
   "RebateTable.Form.processingFeeDetails.name.default": "Fee",
@@ -100,7 +102,6 @@
   "RebateTable.Form.rebateTableDetails.variableFee.PercentOfSIS": "Percent of SIS",
   "RebateTable.Form.rebateTableDetails.refundMethodAllCannotBeCombined": "'All' refundMethod cannot be combined with other refundMethods.",
   "RebateTable.Form.rebateTableDetails.refundMethodOnlyOneRowAllowedWhenRefundPointIsAll": "Only one row allowed when refundMethod is 'All'.",
-  "RebateTable.Form.rebateTableDetails.merchantSelectionIsRequiredWhenIsTemplateOptionFalse": "Merchant is required when template option is false.",
   "RebateTable.Form.rebateTableDetails.cannotAddRowWhenAllRefundMethodSelected": "Cannot add another row when 'All' refund method is selected.",
   "RebateTable.Form.rebateTableDetails.allRefundMethodsAlreadyUsed": "All refund methods have already been used.",
 
@@ -113,6 +114,7 @@
   "RefundTable.Form.isTemplate": "Use as template",
   "RefundTable.Form.isTemplate.description": "Save this table as template for future use.",
   "RefundTable.Form.merchantId": "Assign to merchant",
+  "RefundTable.Form.merchantSelectionIsRequiredWhenIsTemplateOptionFalse": "Merchant is required when template option is false.",
   "RefundTable.Form.refundTableDetails": "Rebate table details",
   "RefundTable.Form.refundTableDetails.minValue": "Min value",
   "RefundTable.Form.refundTableDetails.minValue.tooltip": "Greater than",
@@ -136,6 +138,7 @@
   "RefundFeeTable.Form.isTemplate": "Use as template",
   "RefundFeeTable.Form.isTemplate.description": "Save this table as template for future use.",
   "RefundFeeTable.Form.refundPointId": "Assign to refund point",
+  "RefundFeeTable.Form.refundPointSelectionIsRequiredWhenIsTemplateOptionFalse": "Refund point is required when template option is false.",
   "RefundFeeTable.Form.refundFeeDetails": "Rebate table details",
   "RefundFeeTable.Form.refundFeeDetails.visualizer": "Visualizer",
   "RefundFeeTable.Form.refundFeeDetails.amountFrom": "Min value",
@@ -161,6 +164,5 @@
   "RefundFeeTable.Form.refundFeeDetails.overlap{0}-{1}overlapsWith{2}-{3}": "Overlap: {0}-{1} overlaps with {2}-{3}",
   "RefundFeeTable.Form.refundFeeDetails.invalidRange{0}mustBeLessThan{1}": "Invalid range: {0} must be less than {1}",
   "RefundFeeTable.Form.refundFeeDetails.maxFeeMustBeGreaterThanMinFee": "Max fee must be greater than min fee.",
-  "RefundFeeTable.Form.refundFeeDetails.refundPointSelectionIsRequiredWhenIsTemplateOptionFalse": "Refund point is required when template option is false.",
   "RefundFeeTable.Form.refundFeeDetails.noRecord": "No refund fee details added yet."
 }
