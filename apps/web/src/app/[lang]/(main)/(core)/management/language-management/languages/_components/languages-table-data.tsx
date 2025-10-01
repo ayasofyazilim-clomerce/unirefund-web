@@ -22,6 +22,7 @@ import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
 import {CheckCircle, Languages, Plus, Trash2, XCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type {Localization} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 type LanguagesTable = TanstackTableCreationProps<Volo_Abp_LanguageManagement_Dto_LanguageDto>;
@@ -89,16 +90,14 @@ function languagesRowActions(
   }
   return actions;
 }
-const languagesColumns = (locale: string, languageData: AdministrationServiceResource) => {
+const languagesColumns = (localization: Localization, languageData: AdministrationServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_LanguageManagement_Dto_LanguageDto>({
     rows: $Volo_Abp_LanguageManagement_Dto_LanguageDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.Language",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     badges: {
       displayName: {

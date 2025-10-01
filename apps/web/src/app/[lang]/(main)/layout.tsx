@@ -66,7 +66,7 @@ export default async function Layout({children, params}: LayoutProps) {
   ];
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
   return (
-    <Providers>
+    <Providers lang={lang}>
       <div className="flex h-full flex-col bg-white">
         <MainAdminLayout
           appName={appName}

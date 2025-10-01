@@ -5,6 +5,7 @@ import {
 } from "@ayasofyazilim/core-saas/AdministrationService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {Localization} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 type AuditLogsTable = TanstackTableCreationProps<Volo_Abp_AuditLogging_AuditLogDto>;
@@ -23,16 +24,14 @@ const badgeClassNames = {
   PUT: "text-orange-500 bg-orange-100 border-orange-500",
   DELETE: "text-red-500 bg-red-100 border-red-500",
 };
-const auditLogsColumns = (locale: string, languageData: AdministrationServiceResource) => {
+const auditLogsColumns = (localization: Localization, languageData: AdministrationServiceResource) => {
   return tanstackTableCreateColumnsByRowData<Volo_Abp_AuditLogging_AuditLogDto>({
     rows: $Volo_Abp_AuditLogging_AuditLogDto.properties,
     languageData: {
       languageData,
       constantKey: "Form.Log.Audit",
     },
-    config: {
-      locale,
-    },
+    localization,
     badges: {
       url: {
         values: Object.keys(badgeClassNames).map((key) => ({

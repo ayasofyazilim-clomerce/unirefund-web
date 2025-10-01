@@ -17,6 +17,7 @@ import {ArchiveRestore, Eye, FileSignature, Plus} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {deleteFeaturesApi} from "@repo/actions/core/AdministrationService/delete-actions";
 import type {SaasServiceResource} from "src/language-data/core/SaasService";
+import type {Localization} from "@/providers/tenant";
 
 type TenantsTable = TanstackTableCreationProps<Volo_Saas_Host_Dtos_SaasTenantDto>;
 const links: Partial<Record<keyof Volo_Saas_Host_Dtos_SaasTenantDto, TanstackTableColumnLink>> = {};
@@ -89,7 +90,7 @@ function tenantsRowActions(
   return actions;
 }
 const tenantsColumns = (
-  locale: string,
+  localization: Localization,
   languageData: SaasServiceResource,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
@@ -105,9 +106,7 @@ const tenantsColumns = (
       languageData,
       constantKey: "Form.Tenant",
     },
-    config: {
-      locale,
-    },
+    localization,
     links,
     badges: {
       name: {
