@@ -5,8 +5,8 @@ import {
 } from "@ayasofyazilim/core-saas/AdministrationService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import type {Localization} from "@/providers/tenant";
+import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 import DetailsModal from "./details-modal";
 
 type AuditLogsTable = TanstackTableCreationProps<Volo_Abp_AuditLogging_AuditLogDto>;
@@ -60,14 +60,6 @@ const auditLogsColumns = (localization: Localization, languageData: Administrati
 
           const detailsLabel = (languageData as Record<string, string> | undefined)?.Details ?? "Details";
 
-          const truncateUrl = (urlText: string, maxLength = 40) => {
-            if (urlText.length <= maxLength) return urlText;
-            return `${urlText.substring(0, maxLength)}...`;
-          };
-
-          const urlText = url;
-          const truncatedUrl = truncateUrl(urlText);
-
           return (
             <div className="flex w-full min-w-0 items-center gap-2">
               {httpStatusCode !== undefined && (
@@ -90,10 +82,10 @@ const auditLogsColumns = (localization: Localization, languageData: Administrati
                   languageData={languageData}
                   trigger={
                     <button
-                      className="m-0 block w-full max-w-full truncate border-0 bg-transparent p-0 text-left text-blue-700 underline"
+                      className="m-0 block w-full max-w-60 truncate border-0 bg-transparent p-0 text-left text-blue-700 underline"
                       data-testid="dialog-trigger"
-                      title={urlText}>
-                      {truncatedUrl || detailsLabel}
+                      title={url}>
+                      {url || detailsLabel}
                     </button>
                   }
                 />

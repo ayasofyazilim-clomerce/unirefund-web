@@ -4,10 +4,10 @@ import type {Volo_Abp_AuditLogging_AuditLogDto} from "@ayasofyazilim/core-saas/A
 import {getAuditLogsDetailsByIdApi} from "@repo/actions/core/AdministrationService/actions";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@repo/ayasofyazilim-ui/atoms/accordion";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
-import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from "@repo/ayasofyazilim-ui/atoms/dialog";
+import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@repo/ayasofyazilim-ui/atoms/drawer";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@repo/ayasofyazilim-ui/atoms/tabs";
 import {useSession} from "next-auth/react";
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
 
 type DetailsModalProps = {
@@ -138,12 +138,6 @@ export default function DetailsModal({id, getDetails, languageData, trigger}: De
     return Array.isArray(a) ? (a as Record<string, unknown>[]) : [];
   }, [data]);
 
-  useEffect(() => {
-    if (tab === "actions" && actions.length > 0) {
-      setOpenActions(actions.map((_, i: number) => `action-${i}`));
-    }
-  }, [tab, actions]);
-
   const fetchDetails = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -255,18 +249,18 @@ export default function DetailsModal({id, getDetails, languageData, trigger}: De
   }, [data, getText]);
 
   return (
-    <Dialog onOpenChange={handleOpenChange} open={open}>
-      <DialogTrigger asChild data-testid="details-modal-trigger">
+    <Drawer onOpenChange={handleOpenChange} open={open}>
+      <DrawerTrigger asChild data-testid="details-modal-trigger">
         {trigger ?? (
           <Button className="text-blue-700 underline" data-testid="dialog-open-trigger" variant="ghost">
             {getText("Details", "Details")}
           </Button>
         )}
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{getText("Details", "Details")}</DialogTitle>
-        </DialogHeader>
+      </DrawerTrigger>
+      <DrawerContent className="mx-auto max-w-7xl px-4 pb-8">
+        <DrawerHeader>
+          <DrawerTitle>{getText("Details", "Details")}</DrawerTitle>
+        </DrawerHeader>
 
         <div className="mt-2 h-[65vh] overflow-auto text-sm">
           {loading ? <div className="p-4">{getText("Loading", "Loading...")}</div> : null}
@@ -405,7 +399,7 @@ export default function DetailsModal({id, getDetails, languageData, trigger}: De
             </Tabs>
           )}
         </div>
-      </DialogContent>
-    </Dialog>
+      </DrawerContent>
+    </Drawer>
   );
 }
