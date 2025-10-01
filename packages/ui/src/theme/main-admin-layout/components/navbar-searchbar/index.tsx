@@ -143,6 +143,7 @@ function SearchBar({
       if (item && item.title.toLocaleLowerCase().includes(filteredSearchValue)) {
         return 1;
       }
+      return 0;
     }
     const item = searchableItems.find((i) => i.key === value);
     if (item && item.searchableText.includes(searchValue)) {
@@ -277,6 +278,10 @@ function SearchBar({
             placeholder="Type to search or type : to see commands"
             onValueChange={(s) => onSearchValueChange(s)}
             onKeyDown={(s) => {
+              if (s.key === "Backspace" && searchValue === ":") {
+                setIsSearchableItemsVisible(false);
+                return;
+              }
               if (s.key === "Backspace" && selectedSearchableItem && searchValue.length === 0) {
                 setSelectedSearchableItem(null);
                 setDbSearchResults(null);
