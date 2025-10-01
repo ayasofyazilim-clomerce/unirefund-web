@@ -1,15 +1,22 @@
 "use client";
-import {Search, Star} from "lucide-react";
-import {useRouter} from "next/navigation";
-import {useEffect, useMemo, useState} from "react";
 import {StarFilledIcon} from "@radix-ui/react-icons";
+import {Badge} from "@repo/ayasofyazilim-ui/atoms/badge";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
 import {
-    Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
-    CommandSeparator
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
 } from "@repo/ayasofyazilim-ui/atoms/command";
 import {DialogTitle} from "@repo/ayasofyazilim-ui/atoms/dialog";
 import {NavbarItemsFromDB} from "@repo/ui/theme/types";
+import {Search, Star, X} from "lucide-react";
+import {useRouter} from "next/navigation";
+import {useEffect, useMemo, useState} from "react";
 import {icons} from "../navbar";
 
 function getFavouriteSearches() {
@@ -29,8 +36,35 @@ type SearchableNavbarItem = {
   href: string;
   searchableText: string;
 };
-function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; prefix: string}) {
+type DBSearchResult = {
+  title: string;
+  key: string;
+  icon: string;
+  items: {href: string; name: string; id: string; searchableText: string}[];
+};
+let timeout: NodeJS.Timeout;
+
+export type SearchFromDB = {
+  key: string;
+  title: string;
+  icon: string;
+  search: (search: string) => Promise<{id: string; name: string; href: string}[]>;
+};
+
+function SearchBar({
+  navbarItems,
+  prefix,
+  searchFromDB,
+}: {
+  navbarItems: NavbarItemsFromDB[];
+  prefix: string;
+  searchFromDB: SearchFromDB[];
+}) {
+  const [searchValue, setSearchValue] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [selectedSearchableItem, setSelectedSearchableItem] = useState<SearchFromDB | null>(null);
+  const [isSearchableItemsVisible, setIsSearchableItemsVisible] = useState(false);
+  const [dbSearchResults, setDbSearchResults] = useState<DBSearchResult | null>();
   const [favouriteSearches, setFavouriteSearches] = useState(getFavouriteSearches());
   const router = useRouter();
 
@@ -78,10 +112,44 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  function searchDB(search: string) {
+    clearTimeout(timeout);
+    if (!selectedSearchableItem) return;
+
+    const searchValue = search.trim();
+    if (searchValue.length > 0) {
+      timeout = setTimeout(() => {
+        selectedSearchableItem.search(searchValue).then((res) => {
+          setDbSearchResults({
+            title: selectedSearchableItem.title,
+            key: selectedSearchableItem.key,
+            icon: selectedSearchableItem.icon,
+            items: res.map((i) => ({
+              id: i.id,
+              name: i.name,
+              href: i.href,
+              searchableText: `${selectedSearchableItem.key}: ${i.name}`,
+            })),
+          });
+        });
+      }, 400);
+    }
+  }
   function filterNavItems(value: string, search: string) {
     const searchValue = search.toLowerCase();
+    if (searchValue.length > 0 && searchValue[0] === ":") {
+      const filteredSearchValue = searchValue.slice(1);
+      const item = searchFromDB.find((i) => i.key === value);
+      if (item && item.title.toLocaleLowerCase().includes(filteredSearchValue)) {
+        return 1;
+      }
+      return 0;
+    }
     const item = searchableItems.find((i) => i.key === value);
     if (item && item.searchableText.includes(searchValue)) {
+      return 1;
+    }
+    if (dbSearchResults?.items.find((i) => i.id === value)) {
       return 1;
     }
     return 0;
@@ -106,7 +174,6 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
     }
     return false;
   }
-
   function CustomCommandItem({item}: {item: SearchableNavbarItem}) {
     return (
       <CommandItem
@@ -139,12 +206,44 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
       </CommandItem>
     );
   }
+  function CustomItem({item}: {item: SearchFromDB}) {
+    return (
+      <CommandItem
+        key={item.key + "-link"}
+        value={item.key}
+        onSelect={() => {
+          clearSearch();
+          setSelectedSearchableItem(item);
+        }}
+        keywords={[":" + item.key]}
+        className="relative !py-1">
+        {icons[item.icon as keyof typeof icons]}
+        <div className="ml-4 flex flex-col text-left">
+          <div className="text-md">{item.title}</div>
+        </div>
+      </CommandItem>
+    );
+  }
+  function onSearchValueChange(value: string) {
+    if (value === ":") {
+      setIsSearchableItemsVisible(true);
+    }
+    setSearchValue(value);
+    searchDB(value);
+  }
+
+  function clearSearch() {
+    setSelectedSearchableItem(null);
+    setIsSearchableItemsVisible(false);
+    setSearchValue("");
+    setDbSearchResults(null);
+  }
   return (
-    <div className="px-2">
+    <div>
       {/* Big Screen */}
       <Button
         variant="outline"
-        className="text-muted-foreground relative hidden w-48 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block md:w-48 "
+        className="text-muted-foreground relative hidden w-48 rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 md:block md:w-96"
         onClick={() => setSearchOpen(true)}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-xs">
           <Search className="mr-2 size-4 text-gray-500" />
@@ -164,9 +263,36 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogTitle></DialogTitle>
         <Command filter={filterNavItems}>
-          <CommandInput placeholder="Type a commond or search..." />
+          {selectedSearchableItem && (
+            <div className="mx-2 mb-2 mt-3 flex items-center">
+              <Badge variant={"secondary"} className="">
+                {selectedSearchableItem.title}
+                <Button variant="link" className="m-0 ml-2 h-min p-0 text-black" onClick={clearSearch}>
+                  <X className="h-3 w-3" />
+                </Button>
+              </Badge>
+            </div>
+          )}
+
+          <CommandInput
+            placeholder="Type to search or type : to see commands"
+            onValueChange={(s) => onSearchValueChange(s)}
+            onKeyDown={(s) => {
+              if (s.key === "Backspace" && searchValue === ":") {
+                setIsSearchableItemsVisible(false);
+                return;
+              }
+              if (s.key === "Backspace" && selectedSearchableItem && searchValue.length === 0) {
+                setSelectedSearchableItem(null);
+                setDbSearchResults(null);
+                setIsSearchableItemsVisible(false);
+              }
+            }}
+            value={searchValue}
+          />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            {!selectedSearchableItem && <CommandEmpty>No results found.</CommandEmpty>}
+
             {favourites.length > 0 && (
               <CommandGroup heading="Favourites">
                 {favourites.map((item) => (
@@ -175,13 +301,41 @@ function SearchBar({navbarItems, prefix}: {navbarItems: NavbarItemsFromDB[]; pre
               </CommandGroup>
             )}
             <CommandSeparator />
-            <CommandGroup heading="Links">
-              {searchableItems
-                .filter((i) => !isFavouriteSearch(i.key))
-                .map((item) => (
-                  <CustomCommandItem key={item.key} item={item} />
+            {dbSearchResults && (
+              <CommandGroup heading={dbSearchResults.title}>
+                {dbSearchResults.items.map((item) => (
+                  <CustomCommandItem
+                    key={item.id}
+                    item={{
+                      key: item.id,
+                      icon: dbSearchResults.icon,
+                      displayName: item.name,
+                      href: item.href,
+                      route: "",
+                      searchableText: item.searchableText.toLowerCase(),
+                    }}
+                  />
                 ))}
-            </CommandGroup>
+              </CommandGroup>
+            )}
+            {isSearchableItemsVisible && (
+              <CommandGroup heading="Commands">
+                {searchFromDB.map((item) => (
+                  <CustomItem key={item.key} item={item} />
+                ))}
+              </CommandGroup>
+            )}
+            {!isSearchableItemsVisible && !selectedSearchableItem && (
+              <>
+                <CommandGroup heading="Links">
+                  {searchableItems
+                    .filter((i) => !isFavouriteSearch(i.key))
+                    .map((item) => (
+                      <CustomCommandItem key={item.key} item={item} />
+                    ))}
+                </CommandGroup>
+              </>
+            )}
           </CommandList>
         </Command>
       </CommandDialog>
