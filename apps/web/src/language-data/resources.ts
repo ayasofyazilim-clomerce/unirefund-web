@@ -1627,6 +1627,7 @@ export type AdministrationServiceResources = {
   "UniRefund.AdministrationService:010013": "Tenant not found by Id: '{tenantId}'!";
   "UniRefund.AdministrationService:010014": "'{givenLanguage}' is not supported. The supported languages are: '{supportedLanguages}'!";
   "UniRefund.AdministrationService:010015": "Specified value: '{value}' is not found in selection items that you must set just one of them: '{itemValues}' for the setting: '{key}'!";
+  "UniRefund.AdministrationService:010016": "'Abp.Timing.TimeZone' can not be changed in this method, you can only change IANA Timezone 'CountryManagement.MainSettings.IANATimezone'!";
 };
 export type AbpOpenIddictResources = {
   TheOpenIDConnectRequestCannotBeRetrieved: "The OpenID Connect request cannot be retrieved.";
@@ -1772,7 +1773,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
   "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
   "UniRefund.CRMService:011018": "A merchant without a filled ParentId cannot be of type headquarters";
-  "UniRefund.CRMService:011019": "ExternalStoreIdentifier cannot be empty";
+  "UniRefund.CRMService:011019": "ExternalIdentifier cannot be empty";
   "UniRefund.CRMService:012001": "No tax office with this id was found: {taxOfficeId}";
   "UniRefund.CRMService:012002": "Tax Office type cannot be changed. Because there are dependent child merchants.";
   "UniRefund.CRMService:013001": "There is no entity AffiliationCode with id = {id}!";

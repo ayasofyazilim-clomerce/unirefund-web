@@ -63,6 +63,17 @@ export async function getAuditLogsApi(data: GetApiAuditLoggingAuditLogsData, ses
   }
 }
 
+export async function getAuditLogsDetailsByIdApi(id: string, session?: Session | null) {
+  try {
+    const client = await getAdministrationServiceClient(session);
+    const dataResponse = await client.auditLogs.getApiAuditLoggingAuditLogsById({ id });
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+
 export async function getAuditLogsEntityChangesApi(
   data: GetApiAuditLoggingAuditLogsEntityChangesData,
   session: Session | null,
