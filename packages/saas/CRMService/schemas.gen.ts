@@ -72,7 +72,7 @@ export const $PagedResultDto_CustomDto = {
         items: {
             type: 'array',
             items: {
-                required: ['name', 'status', 'typeCode', 'vatNumber'],
+                required: ['name', 'status', 'typeCode'],
                 type: 'object',
                 properties: {
                     id: {
@@ -227,7 +227,8 @@ export const $PagedResultDto_CustomDto = {
                         type: 'string',
                         nullable: true
                     },
-                    gateNumber: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -273,7 +274,8 @@ export const $PagedResultDto_CustomListResponseDto = {
                         type: 'string',
                         nullable: true
                     },
-                    gateNumber: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -355,7 +357,7 @@ export const $PagedResultDto_MerchantListResponseDto = {
         items: {
             type: 'array',
             items: {
-                required: ['isPersonalCompany', 'status', 'typeCode'],
+                required: ['externalIdentifier', 'isPersonalCompany', 'name', 'status', 'typeCode', 'vatNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -375,7 +377,8 @@ export const $PagedResultDto_MerchantListResponseDto = {
                         type: 'string',
                         nullable: true
                     },
-                    externalStoreIdentifier: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -418,7 +421,7 @@ export const $PagedResultDto_RefundPointListResponseDto = {
         items: {
             type: 'array',
             items: {
-                required: ['name', 'status', 'typeCode'],
+                required: ['name', 'status', 'typeCode', 'vatNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -433,7 +436,8 @@ export const $PagedResultDto_RefundPointListResponseDto = {
                         type: 'string',
                         nullable: true
                     },
-                    externalStoreIdentifier: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -446,12 +450,12 @@ export const $PagedResultDto_RefundPointListResponseDto = {
                         type: 'string',
                         nullable: true
                     },
-                    status: {
-                        enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
-                        type: 'string'
-                    },
                     typeCode: {
                         enum: ['HEADQUARTER', 'REFUNDPOINT'],
+                        type: 'string'
+                    },
+                    status: {
+                        enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
                         type: 'string'
                     }
                 },
@@ -473,7 +477,7 @@ export const $PagedResultDto_TaxFreeListResponseDto = {
         items: {
             type: 'array',
             items: {
-                required: ['externalStoreIdentifier', 'name', 'parentName', 'status', 'storeSequence', 'typeCode', 'vatNumber'],
+                required: ['externalIdentifier', 'name', 'status', 'typeCode', 'vatNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -488,11 +492,8 @@ export const $PagedResultDto_TaxFreeListResponseDto = {
                         type: 'string',
                         nullable: true
                     },
-                    storeSequence: {
-                        type: 'string',
-                        nullable: true
-                    },
-                    externalStoreIdentifier: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -532,6 +533,7 @@ export const $PagedResultDto_TaxOfficeDto = {
         items: {
             type: 'array',
             items: {
+                required: ['name', 'typeCode'],
                 type: 'object',
                 properties: {
                     id: {
@@ -686,7 +688,8 @@ export const $PagedResultDto_TaxOfficeDto = {
                         type: 'string',
                         nullable: true
                     },
-                    externalStoreIdentifier: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -728,7 +731,8 @@ export const $PagedResultDto_TaxOfficeListResponseDto = {
                         type: 'string',
                         nullable: true
                     },
-                    externalStoreIdentifier: {
+                    externalIdentifier: {
+                        maxLength: 15,
                         type: 'string',
                         nullable: true
                     },
@@ -1447,7 +1451,8 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             type: 'string',
             nullable: true
         },
-        gateNumber: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -1461,6 +1466,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
             type: 'string'
         },
         telephone: {
+            required: ['isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 ituCountryCode: {
@@ -1583,7 +1589,7 @@ export const $UniRefund_CRMService_Customs_CreateCustomDto = {
 } as const;
 
 export const $UniRefund_CRMService_Customs_CustomDto = {
-    required: ['name', 'status', 'typeCode', 'vatNumber'],
+    required: ['name', 'status', 'typeCode'],
     type: 'object',
     properties: {
         id: {
@@ -1738,7 +1744,8 @@ export const $UniRefund_CRMService_Customs_CustomDto = {
             type: 'string',
             nullable: true
         },
-        gateNumber: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -1770,7 +1777,8 @@ export const $UniRefund_CRMService_Customs_CustomListResponseDto = {
             type: 'string',
             nullable: true
         },
-        gateNumber: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -1806,7 +1814,6 @@ export const $UniRefund_CRMService_Customs_CustomTypeCode = {
 } as const;
 
 export const $UniRefund_CRMService_Customs_UpdateCustomDto = {
-    required: ['name'],
     type: 'object',
     properties: {
         name: {
@@ -1819,14 +1826,14 @@ export const $UniRefund_CRMService_Customs_UpdateCustomDto = {
             type: 'string',
             nullable: true
         },
-        gateNumber: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
-        parentId: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
+        status: {
+            enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
+            type: 'string'
         }
     },
     additionalProperties: false
@@ -1948,6 +1955,7 @@ export const $UniRefund_CRMService_Individuals_CreateIndividualDto = {
             nullable: true
         },
         telephone: {
+            required: ['isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 ituCountryCode: {
@@ -2364,7 +2372,7 @@ export const $UniRefund_CRMService_Individuals_UpdateIndividualDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
-    required: ['address', 'email', 'isPersonalCompany', 'name', 'telephone', 'typeCode'],
+    required: ['address', 'email', 'externalIdentifier', 'isPersonalCompany', 'name', 'telephone', 'typeCode'],
     type: 'object',
     properties: {
         chainCodeId: {
@@ -2387,7 +2395,8 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             format: 'uuid',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -2404,6 +2413,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
             type: 'boolean'
         },
         telephone: {
+            required: ['isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 ituCountryCode: {
@@ -2526,6 +2536,7 @@ export const $UniRefund_CRMService_Merchants_CreateMerchantDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_MerchantDto = {
+    required: ['externalIdentifier', 'isPersonalCompany', 'name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -2685,11 +2696,8 @@ export const $UniRefund_CRMService_Merchants_MerchantDto = {
             type: 'string',
             nullable: true
         },
-        storeSequence: {
-            type: 'string',
-            nullable: true
-        },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -2857,7 +2865,7 @@ This DTO is used for transferring and displaying core merchant data.`
 } as const;
 
 export const $UniRefund_CRMService_Merchants_MerchantListResponseDto = {
-    required: ['isPersonalCompany', 'status', 'typeCode'],
+    required: ['externalIdentifier', 'isPersonalCompany', 'name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -2877,7 +2885,8 @@ export const $UniRefund_CRMService_Merchants_MerchantListResponseDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -2917,7 +2926,8 @@ export const $UniRefund_CRMService_Merchants_MerchantSummaryRequestDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         }
@@ -2926,7 +2936,7 @@ export const $UniRefund_CRMService_Merchants_MerchantSummaryRequestDto = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_MerchantSummaryResponseDto = {
-    required: ['name', 'status', 'storeSequence', 'typeCode', 'vatNumber'],
+    required: ['externalIdentifier', 'name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -2941,11 +2951,8 @@ export const $UniRefund_CRMService_Merchants_MerchantSummaryResponseDto = {
             type: 'string',
             nullable: true
         },
-        storeSequence: {
-            type: 'string',
-            nullable: true
-        },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -2972,7 +2979,6 @@ export const $UniRefund_CRMService_Merchants_MerchantTypeCode = {
 } as const;
 
 export const $UniRefund_CRMService_Merchants_UpdateMerchantDto = {
-    required: ['name', 'typeCode'],
     type: 'object',
     properties: {
         chainCodeId: {
@@ -2995,22 +3001,18 @@ export const $UniRefund_CRMService_Merchants_UpdateMerchantDto = {
             format: 'uuid',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
-        },
-        parentId: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
-        },
-        typeCode: {
-            enum: ['HEADQUARTER', 'STORE', 'FRANCHISE'],
-            type: 'string'
         },
         isPersonalCompany: {
             type: 'boolean',
             nullable: true
+        },
+        status: {
+            enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
+            type: 'string'
         }
     },
     additionalProperties: false
@@ -3123,7 +3125,7 @@ export const $UniRefund_CRMService_Neighborhoods_UpdateNeighborhoodDto = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
-    required: ['name'],
+    required: ['address', 'email', 'name', 'telephone', 'typeCode'],
     type: 'object',
     properties: {
         name: {
@@ -3141,7 +3143,8 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             format: 'uuid',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -3155,6 +3158,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
             type: 'string'
         },
         telephone: {
+            required: ['isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 ituCountryCode: {
@@ -3277,6 +3281,7 @@ export const $UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
+    required: ['id', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -3296,6 +3301,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
+    required: ['name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -3438,6 +3444,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             nullable: true
         },
         vatNumber: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
             nullable: true
         },
@@ -3450,7 +3458,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -3463,6 +3472,10 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
             type: 'string',
             nullable: true
         },
+        typeCode: {
+            enum: ['HEADQUARTER', 'REFUNDPOINT'],
+            type: 'string'
+        },
         status: {
             enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
             type: 'string'
@@ -3472,7 +3485,7 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDto = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointListResponseDto = {
-    required: ['name', 'status', 'typeCode'],
+    required: ['name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -3487,7 +3500,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointListResponseDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -3500,12 +3514,12 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointListResponseDto = {
             type: 'string',
             nullable: true
         },
-        status: {
-            enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
-            type: 'string'
-        },
         typeCode: {
             enum: ['HEADQUARTER', 'REFUNDPOINT'],
+            type: 'string'
+        },
+        status: {
+            enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
             type: 'string'
         }
     },
@@ -3523,7 +3537,6 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointTypeCode = {
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto = {
-    required: ['name'],
     type: 'object',
     properties: {
         name: {
@@ -3541,13 +3554,9 @@ export const $UniRefund_CRMService_RefundPoints_UpdateRefundPointDto = {
             format: 'uuid',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
-            nullable: true
-        },
-        parentId: {
-            type: 'string',
-            format: 'uuid',
             nullable: true
         },
         status: {
@@ -3665,7 +3674,8 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             format: 'uuid',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -3679,6 +3689,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
             type: 'string'
         },
         telephone: {
+            required: ['isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 ituCountryCode: {
@@ -3801,6 +3812,7 @@ export const $UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
+    required: ['name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -3943,6 +3955,8 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             nullable: true
         },
         vatNumber: {
+            maxLength: 255,
+            minLength: 0,
             type: 'string',
             nullable: true
         },
@@ -3955,11 +3969,8 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
             type: 'string',
             nullable: true
         },
-        storeSequence: {
-            type: 'string',
-            nullable: true
-        },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -3985,7 +3996,7 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxFrees_TaxFreeListResponseDto = {
-    required: ['externalStoreIdentifier', 'name', 'parentName', 'status', 'storeSequence', 'typeCode', 'vatNumber'],
+    required: ['externalIdentifier', 'name', 'status', 'typeCode', 'vatNumber'],
     type: 'object',
     properties: {
         id: {
@@ -4000,11 +4011,8 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeListResponseDto = {
             type: 'string',
             nullable: true
         },
-        storeSequence: {
-            type: 'string',
-            nullable: true
-        },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -4040,7 +4048,6 @@ export const $UniRefund_CRMService_TaxFrees_TaxFreeTypeCode = {
 } as const;
 
 export const $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto = {
-    required: ['name', 'status'],
     type: 'object',
     properties: {
         name: {
@@ -4058,13 +4065,9 @@ export const $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto = {
             format: 'uuid',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
-            nullable: true
-        },
-        parentId: {
-            type: 'string',
-            format: 'uuid',
             nullable: true
         },
         status: {
@@ -4076,7 +4079,7 @@ export const $UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
-    required: ['address', 'email', 'name', 'telephone', 'typeCode'],
+    required: ['name', 'typeCode'],
     type: 'object',
     properties: {
         name: {
@@ -4089,7 +4092,8 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -4103,6 +4107,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
             type: 'string'
         },
         telephone: {
+            required: ['isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 ituCountryCode: {
@@ -4225,6 +4230,7 @@ export const $UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
 } as const;
 
 export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
+    required: ['name', 'typeCode'],
     type: 'object',
     properties: {
         id: {
@@ -4379,7 +4385,8 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -4407,7 +4414,8 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
@@ -4443,7 +4451,6 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeTypeCode = {
 } as const;
 
 export const $UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
-    required: ['name'],
     type: 'object',
     properties: {
         name: {
@@ -4456,20 +4463,21 @@ export const $UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
             type: 'string',
             nullable: true
         },
-        externalStoreIdentifier: {
+        externalIdentifier: {
+            maxLength: 15,
             type: 'string',
             nullable: true
         },
-        parentId: {
-            type: 'string',
-            format: 'uuid',
-            nullable: true
+        status: {
+            enum: ['DRAFT', 'WAITINGAPPROVAL', 'APPROVED', 'REJECTED', 'ACTIVE', 'INACTIVE', 'SUSPENDED'],
+            type: 'string'
         }
     },
     additionalProperties: false
 } as const;
 
 export const $UniRefund_CRMService_Telephones_TelephoneCreateDto = {
+    required: ['isPrimary', 'localNumber', 'type'],
     type: 'object',
     properties: {
         ituCountryCode: {
@@ -4615,10 +4623,6 @@ export const $UniRefund_CRMService_UserAffiliations_UserAffiliationDto = {
             nullable: true
         },
         vatNumber: {
-            type: 'string',
-            nullable: true
-        },
-        externalStoreIdentifier: {
             type: 'string',
             nullable: true
         },

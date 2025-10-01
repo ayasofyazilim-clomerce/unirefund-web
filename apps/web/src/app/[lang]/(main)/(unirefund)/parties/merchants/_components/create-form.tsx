@@ -22,6 +22,7 @@ const DEFAULT_FORMDATA: CreateMerchantDto = {
   name: "",
   typeCode: "HEADQUARTER",
   isPersonalCompany: false,
+  externalIdentifier: "",
   vatNumber: "",
   email: {
     type: "WORK",
@@ -30,6 +31,7 @@ const DEFAULT_FORMDATA: CreateMerchantDto = {
   },
   telephone: {
     type: "WORK",
+    localNumber: "",
     isPrimary: true,
   },
   address: {

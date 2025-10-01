@@ -21,13 +21,13 @@ import {cn} from "@/lib/utils";
 import {postRefundTableHeadersApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import type {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import type {UniRefund_CRMService_Merchants_MerchantListResponseDto as MerchantProfileDto} from "@repo/saas/CRMService";
 import {handlePostResponse} from "@repo/utils/api";
 import {Asterisk, ChevronLeft, ChevronRight, Equal, Trash2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import React, {useTransition} from "react";
-import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import {getBaseLink} from "@/utils";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {createRefundTableFormSchemas} from "../../_components/schema";
@@ -217,7 +217,17 @@ export default function RefundTableForm({
                     <FormDescription>{languageData["RefundTable.Form.isTemplate.description"]}</FormDescription>
                   </div>
                   <FormControl>
-                    <Switch checked={field.value} data-testid="isTemplate" onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      data-testid="isTemplate"
+                      onCheckedChange={(value) => {
+                        if (value) {
+                          form.setValue("merchantId", null);
+                          form.clearErrors("merchantId");
+                        }
+                        field.onChange(value);
+                      }}
+                    />
                   </FormControl>
                 </FormItem>
               )}

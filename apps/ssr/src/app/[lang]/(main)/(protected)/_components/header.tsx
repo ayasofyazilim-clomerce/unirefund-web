@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {useParams, usePathname} from "next/navigation";
 import {useState} from "react";
+import type {Volo_Abp_LanguageManagement_Dto_LanguageDto} from "@ayasofyazilim/saas/AdministrationService";
 import Straight from "public/straight.png";
 import unirefundLogo from "public/unirefund.png";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
@@ -52,10 +53,12 @@ export default function Header({
   languageData,
   availableLocals,
   novu,
+  languagesList,
 }: {
   languageData: SSRServiceResource;
   availableLocals: string[];
   novu: NovuProps;
+  languagesList: Volo_Abp_LanguageManagement_Dto_LanguageDto[];
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {lang} = useParams<{lang: string}>();
@@ -76,7 +79,7 @@ export default function Header({
           {/* Mobile menu button and language selector */}
           <div className="flex items-center space-x-2 md:hidden">
             {/* Mobile language selector outside menu */}
-            <LanguageSelector availableLocals={availableLocals} lang={lang} />
+            <LanguageSelector availableLocals={availableLocals} lang={lang} languagesList={languagesList} />
 
             <Button
               className="inline-flex items-center justify-center border-none p-2 text-gray-700 shadow-none"
@@ -112,7 +115,7 @@ export default function Header({
               </p>
             </Link>
             {/* LanguageSelector for desktop */}
-            <LanguageSelector availableLocals={availableLocals} lang={lang} />
+            <LanguageSelector availableLocals={availableLocals} lang={lang} languagesList={languagesList} />
             <NotificationPopover
               appearance={{}}
               langugageData={languageData}

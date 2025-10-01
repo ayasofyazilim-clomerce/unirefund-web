@@ -17,49 +17,54 @@ import {
 } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
 import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
 import {icons} from "../navbar";
+import {useRouter} from "next/navigation";
 
 function BreadcrumbIcon({item}: {item: NavbarItemsFromDB}) {
   return icons[item.icon as keyof typeof icons] || null;
 }
 
-function RenderLinkOrTrigger({href, children}: {href?: string | null; children: React.ReactNode}) {
-  return href ? (
-    <Link href={"/" + href || "#"} className="flex w-full items-center gap-1">
-      {children}
-    </Link>
-  ) : (
-    <>{children}</>
-  );
-}
-
 function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; navbarItems: NavbarItemsFromDB[]}) {
+  const router = useRouter();
   return items.map((item) => {
     const subItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === item.key);
     return subItems.length > 0 ? (
       <DropdownMenuSub key={item.key}>
-        <DropdownMenuSubTrigger className="cursor-pointer">
-          <RenderLinkOrTrigger href={item.href}>
-            <BreadcrumbIcon item={item} />
-            <span>{item.displayName}</span>
-          </RenderLinkOrTrigger>
+        <DropdownMenuSubTrigger className="gap-1 font-medium">
+          <BreadcrumbIcon item={item} />
+          <span>{item.displayName}</span>
         </DropdownMenuSubTrigger>
         <DropdownMenuPortal>
           <DropdownMenuSubContent>
+            {item.href && (
+              <>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={item.href ? "/" + item.href : "#"}
+                    className="flex cursor-pointer items-center gap-1 px-2 font-medium">
+                    <BreadcrumbIcon item={item} />
+                    {item.displayName}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
             <RenderDropdownMenu items={subItems} navbarItems={navbarItems} />
           </DropdownMenuSubContent>
         </DropdownMenuPortal>
       </DropdownMenuSub>
     ) : (
-      <>
+      <Fragment key={item.key}>
         {item.split && (item.split === "top" || item.split === "both") && <DropdownMenuSeparator />}
-        <DropdownMenuItem key={item.key} className="cursor-pointer">
-          <RenderLinkOrTrigger href={item.href}>
+        <DropdownMenuItem key={item.key} asChild>
+          <Link
+            href={item.href ? "/" + item.href : "#"}
+            className="flex cursor-pointer items-center gap-1 px-2 font-medium">
             <BreadcrumbIcon item={item} />
             {item.displayName}
-          </RenderLinkOrTrigger>
+          </Link>
         </DropdownMenuItem>
         {item.split && (item.split === "bottom" || item.split === "both") && <DropdownMenuSeparator />}
-      </>
+      </Fragment>
     );
   });
 }

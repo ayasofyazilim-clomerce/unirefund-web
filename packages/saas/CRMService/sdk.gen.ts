@@ -428,7 +428,7 @@ export class CustomService {
      * @param data.customIds
      * @param data.name
      * @param data.vatNumber
-     * @param data.gateNumber
+     * @param data.externalIdentifier
      * @param data.parentId
      * @param data.typeCodes
      * @param data.statuses
@@ -446,7 +446,7 @@ export class CustomService {
                 CustomIds: data.customIds,
                 Name: data.name,
                 VatNumber: data.vatNumber,
-                GateNumber: data.gateNumber,
+                ExternalIdentifier: data.externalIdentifier,
                 ParentId: data.parentId,
                 TypeCodes: data.typeCodes,
                 Statuses: data.statuses,
@@ -1273,7 +1273,7 @@ export class MerchantService {
      * @param data.name
      * @param data.vatNumber
      * @param data.typeCodes
-     * @param data.externalStoreIdentifier
+     * @param data.externalIdentifier
      * @param data.parentId
      * @param data.productGroupIds
      * @param data.statusCodes
@@ -1296,7 +1296,7 @@ export class MerchantService {
                 Name: data.name,
                 VatNumber: data.vatNumber,
                 TypeCodes: data.typeCodes,
-                ExternalStoreIdentifier: data.externalStoreIdentifier,
+                ExternalIdentifier: data.externalIdentifier,
                 ParentId: data.parentId,
                 ProductGroupIds: data.productGroupIds,
                 StatusCodes: data.statusCodes,
@@ -1605,7 +1605,7 @@ export class MerchantService {
      * @param data.name
      * @param data.vatNumber
      * @param data.typeCodes
-     * @param data.externalStoreIdentifier
+     * @param data.externalIdentifier
      * @param data.parentId
      * @param data.productGroupIds
      * @param data.statusCodes
@@ -1625,7 +1625,7 @@ export class MerchantService {
                 Name: data.name,
                 VatNumber: data.vatNumber,
                 TypeCodes: data.typeCodes,
-                ExternalStoreIdentifier: data.externalStoreIdentifier,
+                ExternalIdentifier: data.externalIdentifier,
                 ParentId: data.parentId,
                 ProductGroupIds: data.productGroupIds,
                 StatusCodes: data.statusCodes,
@@ -1945,7 +1945,7 @@ export class RefundPointService {
      * @param data.refundPointIds
      * @param data.name
      * @param data.vatNumber
-     * @param data.externalStoreIdentifier
+     * @param data.externalIdentifier
      * @param data.parentId
      * @param data.typeCodes
      * @param data.statuses
@@ -1963,7 +1963,7 @@ export class RefundPointService {
                 RefundPointIds: data.refundPointIds,
                 Name: data.name,
                 VatNumber: data.vatNumber,
-                ExternalStoreIdentifier: data.externalStoreIdentifier,
+                ExternalIdentifier: data.externalIdentifier,
                 ParentId: data.parentId,
                 TypeCodes: data.typeCodes,
                 Statuses: data.statuses,
@@ -2512,7 +2512,7 @@ export class TaxFreeService {
      * @param data.taxFreeIds
      * @param data.name
      * @param data.vatNumber
-     * @param data.externalStoreIdentifier
+     * @param data.externalIdentifier
      * @param data.parentId
      * @param data.typeCodes
      * @param data.statuses
@@ -2530,7 +2530,7 @@ export class TaxFreeService {
                 TaxFreeIds: data.taxFreeIds,
                 Name: data.name,
                 VatNumber: data.vatNumber,
-                ExternalStoreIdentifier: data.externalStoreIdentifier,
+                ExternalIdentifier: data.externalIdentifier,
                 ParentId: data.parentId,
                 TypeCodes: data.typeCodes,
                 Statuses: data.statuses,
@@ -2947,7 +2947,7 @@ export class TaxOfficeService {
      * @param data.taxOfficeIds
      * @param data.name
      * @param data.vatNumber
-     * @param data.externalStoreIdentifier
+     * @param data.externalIdentifier
      * @param data.parentId
      * @param data.typeCodes
      * @param data.statuses
@@ -2965,7 +2965,7 @@ export class TaxOfficeService {
                 TaxOfficeIds: data.taxOfficeIds,
                 Name: data.name,
                 VatNumber: data.vatNumber,
-                ExternalStoreIdentifier: data.externalStoreIdentifier,
+                ExternalIdentifier: data.externalIdentifier,
                 ParentId: data.parentId,
                 TypeCodes: data.typeCodes,
                 Statuses: data.statuses,
