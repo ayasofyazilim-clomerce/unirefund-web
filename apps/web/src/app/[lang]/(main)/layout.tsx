@@ -1,7 +1,7 @@
 "use server";
 import {getAllLanguagesApi} from "@repo/actions/core/AdministrationService/actions";
 import {getInfoForCurrentTenantApi} from "@repo/actions/unirefund/AdministrationService/actions";
-import {getMerchantsApi, getUserAffiliationsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getMerchantsApi, getRefundPointsApi, getUserAffiliationsApi} from "@repo/actions/unirefund/CrmService/actions";
 import ErrorComponent from "@repo/ui/components/error-component";
 import MainAdminLayout from "@repo/ui/theme/main-admin-layout";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
@@ -97,7 +97,7 @@ export default async function Layout({children, params}: LayoutProps) {
           searchFromDB={[
             {
               key: "merchants",
-              icon: "user",
+              icon: "shop",
               search: async (search: string) => {
                 "use server";
                 try {
@@ -113,7 +113,27 @@ export default async function Layout({children, params}: LayoutProps) {
                   return [];
                 }
               },
-              title: "Merchants",
+              title: languageDataCRM.MERCHANT,
+            },
+            {
+              key: "refund-points",
+              icon: "refund",
+              search: async (search: string) => {
+                "use server";
+                try {
+                  const res = await getRefundPointsApi({name: search});
+                  return (
+                    res.data.items?.map((i) => ({
+                      id: i.id,
+                      name: i.name,
+                      href: `parties/refund-points/${i.id}/details`,
+                    })) || []
+                  );
+                } catch (error) {
+                  return [];
+                }
+              },
+              title: languageDataCRM.REFUNDPOINT,
             },
           ]}
           tenantData={tenantData.data}>
