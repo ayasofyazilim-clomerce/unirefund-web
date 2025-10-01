@@ -7,6 +7,7 @@ import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {Localization} from "@/providers/tenant";
 import type {AdministrationServiceResource} from "src/language-data/core/AdministrationService";
+import DetailsModal from "./details-modal";
 
 type AuditLogsTable = TanstackTableCreationProps<Volo_Abp_AuditLogging_AuditLogDto>;
 
@@ -32,6 +33,68 @@ const auditLogsColumns = (localization: Localization, languageData: Administrati
       constantKey: "Form.Log.Audit",
     },
     localization,
+
+    custom: {
+      url: {
+        showHeader: true,
+        content: (row: Volo_Abp_AuditLogging_AuditLogDto) => {
+          const {id, url, httpStatusCode, httpMethod} = row;
+
+          if (!id || !url) {
+            return (
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500">—</span>
+              </div>
+            );
+          }
+
+          const statusKey =
+            httpStatusCode !== null && httpStatusCode !== undefined ? String(httpStatusCode) : undefined;
+          const methodKey = httpMethod ?? undefined;
+
+          const statusClass =
+            statusKey && statusKey in badgeClassNames ? badgeClassNames[statusKey as keyof typeof badgeClassNames] : "";
+
+          const methodClass =
+            methodKey && methodKey in badgeClassNames ? badgeClassNames[methodKey as keyof typeof badgeClassNames] : "";
+
+          const detailsLabel = (languageData as Record<string, string> | undefined)?.Details ?? "Details";
+
+          return (
+            <div className="flex w-full min-w-0 items-center gap-2">
+              {httpStatusCode !== undefined && (
+                <span
+                  className={`inline-flex flex-shrink-0 items-center rounded border px-2 py-0.5 text-xs ${statusClass}`}>
+                  {httpStatusCode}
+                </span>
+              )}
+
+              {httpMethod ? (
+                <span
+                  className={`inline-flex flex-shrink-0 items-center rounded border px-2 py-0.5 text-xs ${methodClass}`}>
+                  {httpMethod}
+                </span>
+              ) : null}
+
+              <div className="min-w-0 flex-1">
+                <DetailsModal
+                  id={id}
+                  languageData={languageData}
+                  trigger={
+                    <button
+                      className="m-0 block w-full max-w-60 truncate border-0 bg-transparent p-0 text-left text-blue-700 underline"
+                      data-testid="dialog-trigger"
+                      title={url}>
+                      {url || detailsLabel}
+                    </button>
+                  }
+                />
+              </div>
+            </div>
+          );
+        },
+      },
+    },
     badges: {
       url: {
         values: Object.keys(badgeClassNames).map((key) => ({
