@@ -128,7 +128,7 @@ function SearchBar({
               id: i.id,
               name: i.name,
               href: i.href,
-              searhableText: `${selectedSearchableItem.key}: ${i.name}`,
+              searchableText: `${selectedSearchableItem.key}: ${i.name}`,
             })),
           });
         });
