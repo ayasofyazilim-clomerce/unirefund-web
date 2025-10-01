@@ -1,7 +1,7 @@
-import {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {z} from "zod";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
-export function createRebateTableFormSchemas({languageData}: {languageData: ContractServiceResource}) {
+export function createRebateTableFormSchemas({languageData}: {languageData?: ContractServiceResource}) {
   const processingFeeDetailsSchema = z
     .array(
       z.object({
@@ -27,15 +27,18 @@ export function createRebateTableFormSchemas({languageData}: {languageData: Cont
       if (allRows.length === 1 && rows.length > 1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: languageData["RebateTable.Form.rebateTableDetails.refundMethodAllCannotBeCombined"],
+          message: languageData
+            ? languageData["RebateTable.Form.rebateTableDetails.refundMethodAllCannotBeCombined"]
+            : "'All' refundMethod cannot be combined with other refundMethods.",
           path: [],
         });
       }
       if (allRows.length > 1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message:
-            languageData["RebateTable.Form.rebateTableDetails.refundMethodOnlyOneRowAllowedWhenRefundPointIsAll"],
+          message: languageData
+            ? languageData["RebateTable.Form.rebateTableDetails.refundMethodOnlyOneRowAllowedWhenRefundPointIsAll"]
+            : "Only one row allowed when refundMethod is 'All'.",
           path: [],
         });
       }
@@ -55,8 +58,9 @@ export function createRebateTableFormSchemas({languageData}: {languageData: Cont
         if (!data.merchantId) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message:
-              languageData["RebateTable.Form.rebateTableDetails.merchantSelectionIsRequiredWhenIsTemplateOptionFalse"],
+            message: languageData
+              ? languageData["RebateTable.Form.rebateTableDetails.merchantSelectionIsRequiredWhenIsTemplateOptionFalse"]
+              : "Merchant is required when template option is false.",
             path: ["merchantId"],
           });
         }
