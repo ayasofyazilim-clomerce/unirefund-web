@@ -12,6 +12,7 @@ import type {Policy} from "@repo/utils/policies";
 import {LogOut} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {myProfileApi} from "@repo/actions/core/AccountService/actions";
+import {getTravellersApi} from "@repo/actions/unirefund/TravellerService/actions";
 import unirefund from "public/unirefund.png";
 import Providers from "src/providers/providers";
 import {getBaseLink} from "src/utils";
@@ -134,6 +135,26 @@ export default async function Layout({children, params}: LayoutProps) {
                 }
               },
               title: languageDataCRM.REFUNDPOINT,
+            },
+            {
+              key: "traveller",
+              icon: "plane",
+              search: async (search: string) => {
+                "use server";
+                try {
+                  const res = await getTravellersApi({travelDocumentNumber: search});
+                  return (
+                    res.data.items?.map((i) => ({
+                      id: i.id,
+                      name: `${i.fullName} (${i.nationalityCountryName})`,
+                      href: `parties/travellers/${i.id}`,
+                    })) || []
+                  );
+                } catch (error) {
+                  return [];
+                }
+              },
+              title: languageDataCRM.TRAVELLER,
             },
           ]}
           tenantData={tenantData.data}>
