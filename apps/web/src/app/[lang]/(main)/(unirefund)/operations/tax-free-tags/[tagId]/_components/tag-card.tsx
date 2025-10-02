@@ -1,8 +1,10 @@
 "use client";
 import {Card, CardHeader, CardTitle} from "@/components/ui/card";
 import {cn} from "@/lib/utils";
+import DateTooltip from "@repo/ayasofyazilim-ui/molecules/date-tooltip";
 import Link from "next/link";
 import {Fragment} from "react";
+import {useTenant} from "@/providers/tenant";
 
 function TagCardList({
   title,
@@ -12,20 +14,26 @@ function TagCardList({
 }: {
   title: string;
   icon: string | React.ReactNode;
-  rows: {name: string; value: string; link?: string; className?: string}[];
+  rows: {name: string; value: string; link?: string; className?: string; type?: "date"}[];
   className?: string;
 }) {
+  const {localization} = useTenant();
   return (
     <TagCard className={className} icon={icon} title={title}>
       <div className="grid grid-cols-6 2xl:gap-2">
         {rows.map((row, index) => {
-          const valueElement = row.link ? (
-            <Link className="text-blue-700" data-testid={`tag-link-${index}`} href={row.link} key={row.name}>
-              {row.value}
-            </Link>
-          ) : (
-            row.value
-          );
+          let valueElement: React.ReactNode = row.value;
+
+          if (row.link) {
+            valueElement = (
+              <Link className="text-blue-700" data-testid={`tag-link-${index}`} href={row.link} key={row.name}>
+                {row.value}
+              </Link>
+            );
+          } else if (row.type === "date") {
+            valueElement = <DateTooltip date={row.value} localization={localization} />;
+          }
+
           return (
             <Fragment key={row.name}>
               <div className="col-span-2">

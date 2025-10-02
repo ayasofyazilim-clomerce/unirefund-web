@@ -17,7 +17,7 @@ import Link from "next/link";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {getResourceData} from "src/language-data/unirefund/TagService";
 import {getBaseLink} from "src/utils";
-import {dateToString, getStatusColor} from "../../_components/utils";
+import {getStatusColor} from "../../_components/utils";
 import Invoices from "./_components/invoices";
 import TagCardList, {TagCard} from "./_components/tag-card";
 import TagStatusDiagram from "./_components/tag-status-diagram";
@@ -122,7 +122,8 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.IssueDate,
-                value: dateToString(tagDetail.issueDate || "", "tr"),
+                value: tagDetail.issueDate,
+                type: "date",
               },
             ]}
             title={languageData.TagSummary}
