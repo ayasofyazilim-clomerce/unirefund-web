@@ -45,12 +45,5 @@ export default async function Page({params}: {params: {lang: string}}) {
   }
   const [merchantListResponse] = apiRequests.data;
 
-  return (
-    <>
-      <VatStatementForm languageData={languageData} merchantList={merchantListResponse.data.items || []} />
-      <div className="hidden" id="page-description">
-        {languageData["VATStatement.Create.Description"]}
-      </div>
-    </>
-  );
+  return <VatStatementForm languageData={languageData} merchantList={merchantListResponse.data.items || []} />;
 }

@@ -6,7 +6,7 @@ import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/FinanceService";
-import VatStatementInformation from "./_components/vat-statement-information";
+import Client from "./client";
 
 async function getApiRequests(vatStatementId: string) {
   try {
@@ -37,12 +37,5 @@ export default async function Page({params}: {params: {lang: string; vatStatemen
   const {requiredRequests} = apiRequests;
   const [vatStatementHeadersByIdResponse] = requiredRequests;
 
-  return (
-    <>
-      <VatStatementInformation VatStatementData={vatStatementHeadersByIdResponse.data} languageData={languageData} />
-      <div className="hidden" id="page-description">
-        {languageData["VatStatement.Information.Description"]}
-      </div>
-    </>
-  );
+  return <Client languageData={languageData} statement={vatStatementHeadersByIdResponse.data} />;
 }
