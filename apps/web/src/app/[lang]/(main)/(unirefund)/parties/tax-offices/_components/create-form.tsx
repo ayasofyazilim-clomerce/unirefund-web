@@ -129,8 +129,7 @@ export default function CreateTaxOfficeForm({
             "ui:title": languageData["Form.TaxOffice.typeCode"],
           },
           vatNumber: {
-            ...{"ui:className": typeCode !== "TAXOFFICE" && "col-span-full"},
-            ...{"ui:required": typeCode === "HEADQUARTER" && true},
+            "ui:widget": "hidden",
           },
           parentId: {
             "ui:className": "col-span-full",
@@ -140,7 +139,7 @@ export default function CreateTaxOfficeForm({
             "name",
             "taxOfficeId",
             "chainCodeId",
-            "externalStoreIdentifier",
+            "externalIdentifier",
             "isPersonalCompany",
             "typeCode",
             "parentId",

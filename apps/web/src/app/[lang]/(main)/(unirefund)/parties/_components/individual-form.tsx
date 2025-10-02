@@ -1,3 +1,4 @@
+"use client";
 import {cn} from "@/lib/utils";
 import {postIndividualApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";

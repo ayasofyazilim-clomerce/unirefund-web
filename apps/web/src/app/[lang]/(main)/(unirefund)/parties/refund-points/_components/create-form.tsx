@@ -155,7 +155,7 @@ export default function CreateRefundPointForm({
             "name",
             "taxOfficeId",
             "chainCodeId",
-            "externalStoreIdentifier",
+            "externalIdentifier",
             "isPersonalCompany",
             "typeCode",
             "parentId",
