@@ -54,7 +54,7 @@ const vatStatementsColumns = (
               OverPaid: "text-green-800 bg-orange-100 border-green-500",
             };
             return {
-              label: languageData[`Form.VatStatement.paymentStatus.${status}`],
+              label: languageData[`Finance.paymentStatus.${status}`],
               badgeClassName: badgeClasses[status],
               conditions: [
                 {
@@ -69,7 +69,7 @@ const vatStatementsColumns = (
       faceted: {
         status: {
           options: $UniRefund_FinanceService_Enums_VATStatementStatus.enum.map((x) => ({
-            label: languageData[`Form.VatStatement.status.${x}`],
+            label: languageData[`Finance.status.${x}`],
             value: x,
           })),
         },
@@ -88,7 +88,7 @@ function vatStatementTableActions(
   if (isActionGranted(["FinanceService.VATStatementHeaders.Create"], grantedPolicies)) {
     actions.push({
       type: "simple",
-      cta: languageData["VatStatement.New"],
+      cta: languageData["Finance.vatStatements.new"],
       icon: PlusIcon,
       actionLocation: "table",
       onClick: () => {
@@ -109,7 +109,7 @@ function vatStatementsTable(
     fillerColumn: "merchantName",
     columnVisibility: {
       type: "hide",
-      columns: ["id", "merchantId", "paymentStatus"],
+      columns: ["id", "merchantId", "paymentStatus", "currency", "rebateStatementHeaderId"],
     },
     columnOrder: [
       "merchantName",
