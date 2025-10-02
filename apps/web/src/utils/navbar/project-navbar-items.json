@@ -674,7 +674,7 @@
     "displayName": "TaxFreeTags",
     "description": "Manage tax-free tags and settings.",
     "href": "operations/tax-free-tags",
-    "icon": "dashboard",
+    "icon": "tag",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
     "requiredPolicies": ["TagService.Tags"]
