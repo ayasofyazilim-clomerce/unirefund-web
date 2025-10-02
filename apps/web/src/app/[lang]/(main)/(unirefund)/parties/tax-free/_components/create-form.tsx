@@ -151,7 +151,7 @@ export default function CreateTaxFreeForm({
             "name",
             "taxOfficeId",
             "chainCodeId",
-            "externalStoreIdentifier",
+            "externalIdentifier",
             "isPersonalCompany",
             "typeCode",
             "parentId",

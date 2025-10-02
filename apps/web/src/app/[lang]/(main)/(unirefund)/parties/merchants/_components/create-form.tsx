@@ -82,9 +82,7 @@ export default function CreateMerchantForm({
             "ui:widget": "taxOfficeWidget",
             ...{"ui:required": typeCode === "HEADQUARTER" && true},
           },
-          // externalStoreIdentifier: {
-          //   ...{ "ui:required": typeCode === "STORE" && true },
-          // },
+
           isPersonalCompany: {
             "ui:widget": "switch",
             "ui:className": "border px-2 rounded-md",
@@ -153,7 +151,7 @@ export default function CreateMerchantForm({
           "ui:order": [
             "name",
             "taxOfficeId",
-            "externalStoreIdentifier",
+            "externalIdentifier",
             "isPersonalCompany",
             "typeCode",
             "parentId",
