@@ -1,10 +1,12 @@
+"use client";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import DateTooltip from "@repo/ayasofyazilim-ui/molecules/date-tooltip";
 import type {GetApiFinanceServiceVatStatementHeadersByIdResponse} from "@repo/saas/FinanceService";
+import type {UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto} from "@repo/saas/RefundService";
 import type {GetApiTagServiceTagByIdDetailResponse} from "@repo/saas/TagService";
 import {ClockIcon, SquareArrowOutUpRight} from "lucide-react";
-import type {UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto} from "@repo/saas/RefundService";
+import {useTenant} from "@/providers/tenant";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
-import {dateToString} from "../../../_components/utils";
 import TagActions from "./tag-actions";
 
 function ValidStatus({
@@ -18,12 +20,13 @@ function ValidStatus({
   date?: string | null;
   message?: string[];
 }) {
+  const {localization} = useTenant();
   return (
     <Card className="rounded-none">
       <CardHeader className="text-primary-800 flex flex-row space-y-0 px-6 pb-0 pt-3 text-lg font-semibold">
         <div className="grid w-full grid-cols-6 gap-x-2 gap-y-1">
           <div className="col-span-full">
-            <div className={date ? "mb-2" : "text-muted-foreground mb-2"}>
+            <div className={date ? "" : "text-muted-foreground mb-2"}>
               {link ? (
                 <a className="flex flex-row items-center text-blue-700" data-testid="valid-status-link" href={link}>
                   <SquareArrowOutUpRight className="mr-2 h-4 w-4" />
@@ -34,9 +37,8 @@ function ValidStatus({
               )}
             </div>
             {date ? (
-              <span className="text-primary-800 inline-flex items-center rounded bg-blue-200 px-2 py-0.5 text-xs font-medium">
-                <ClockIcon className="mr-1 h-4 w-4" />
-                {date}
+              <span className="text-primary-800 inline-flex items-center rounded p-0 text-sm font-bold">
+                <DateTooltip date={date} icon={<ClockIcon className="h-4 w-4" />} localization={localization} />
               </span>
             ) : null}
           </div>
@@ -64,13 +66,13 @@ export default function TagStatusDiagram({
   return (
     <div className=" h-max gap-3">
       <ValidStatus
-        date={dateToString(tagDetail.issueDate, "tr")}
+        date={tagDetail.issueDate}
         link={`/operations/tax-free-tags/${tagDetail.id}`}
         title={languageData.Issue}
       />
       {tagDetail.exportValidation ? (
         <ValidStatus
-          date={dateToString(tagDetail.exportValidation.exportDate, "tr")}
+          date={tagDetail.exportValidation.exportDate}
           link={`/operations/export-validations/${tagDetail.exportValidation.id}`}
           message={[
             `${languageData.CustomTitle}: ${tagDetail.exportValidation.customsName}`,
@@ -83,7 +85,7 @@ export default function TagStatusDiagram({
       )}
       {tagRefundDetail ? (
         <ValidStatus
-          date={dateToString(tagRefundDetail.paidDate, "tr")}
+          date={tagRefundDetail.paidDate}
           // link={`/operations/refunds/${tagDetail.refundId}`}
           message={[
             `${languageData.RefundPoint}: ${tagRefundDetail.refundPoint.name}`,
@@ -96,7 +98,7 @@ export default function TagStatusDiagram({
       )}
       {tagVatStatementHeader?.id ? (
         <ValidStatus
-          date={dateToString(tagVatStatementHeader.vatStatementDate, "tr")}
+          date={tagVatStatementHeader.vatStatementDate}
           link={`/finance/vat-statements/${tagVatStatementHeader.id}/information`}
           message={[
             `${languageData.InvoiceNumber}: ${tagVatStatementHeader.invoiceNumber}`,

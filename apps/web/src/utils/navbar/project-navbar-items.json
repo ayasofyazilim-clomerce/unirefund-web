@@ -486,16 +486,7 @@
     "displayOrder": 1,
     "requiredPolicies": ["ContractService.RebateTableHeader.Create"]
   },
-  {
-    "key": "settings/affiliations",
-    "displayName": "Affiliation",
-    "description": "Manage affiliations for tenants.",
-    "href": "settings/affiliations/merchants",
-    "icon": "settings",
-    "parentNavbarItemKey": "settings",
-    "displayOrder": 1,
-    "requiredPolicies": ["UniRefund.Dashboard.Tenant"]
-  },
+
   {
     "key": "parties",
     "displayName": "Parties",
@@ -674,7 +665,7 @@
     "displayName": "TaxFreeTags",
     "description": "Manage tax-free tags and settings.",
     "href": "operations/tax-free-tags",
-    "icon": "dashboard",
+    "icon": "tag",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
     "requiredPolicies": ["TagService.Tags"]
