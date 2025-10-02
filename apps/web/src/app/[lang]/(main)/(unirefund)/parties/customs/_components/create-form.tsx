@@ -127,7 +127,17 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
           parentId: {
             "ui:widget": "customWidget",
           },
-          "ui:order": ["name", "gateNumber", "typeCode", "parentId", "vatNumber", "telephone", "email", "address"],
+          "ui:order": [
+            "name",
+            "gateNumber",
+            "typeCode",
+            "externalIdentifier",
+            "parentId",
+            "vatNumber",
+            "telephone",
+            "email",
+            "address",
+          ],
         },
       }),
     [languageData, typeCode],
