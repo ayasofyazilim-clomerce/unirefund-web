@@ -45,6 +45,7 @@ import {
   Settings,
   ShoppingBag,
   Table,
+  Tag,
   Text,
   TicketSlash,
   User,
@@ -131,6 +132,7 @@ export default function Navbar({
 export const icons = {
   home: <Home className="mr-1 size-4 text-gray-600" />,
   id: <IdCardIcon className="mr-1 size-4 text-gray-600" />,
+  tag: <Tag className="mr-1 size-4 text-gray-600" />,
   app: <Box className="mr-1 size-4 text-gray-600" />,
   dashboard: <LayoutDashboard className="mr-1 size-4 text-gray-600" />,
   identity: <Fingerprint className="mr-1 size-4 text-gray-600" />,
