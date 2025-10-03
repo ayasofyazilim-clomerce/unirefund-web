@@ -57,7 +57,7 @@ export default async function Page({
   const [phoneResponse, emailResponse, addressResponse] = apiRequests.optionalRequests;
 
   return (
-    <div className="grid h-full gap-4 overflow-auto md:grid-cols-2">
+    <div className="h-full gap-4 overflow-auto md:grid-cols-2 lg:grid">
       <TaxFreeForm
         languageData={languageData}
         taxFreeDetails={taxFreeDetailResponse.data}

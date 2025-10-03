@@ -57,7 +57,7 @@ export function TaxOfficeForm({
   const [isPending, startTransition] = useTransition();
   return (
     <SchemaForm<UpdateTaxOfficeDto>
-      className="sticky top-0 h-fit"
+      className="top-0 h-fit lg:sticky"
       defaultSubmitClassName="[&>button]:w-full"
       disabled={isPending}
       formData={{
