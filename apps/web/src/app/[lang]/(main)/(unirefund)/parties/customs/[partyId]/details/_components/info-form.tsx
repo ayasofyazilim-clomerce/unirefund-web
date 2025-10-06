@@ -58,7 +58,7 @@ export function CustomForm({
   const [isPending, startTransition] = useTransition();
   return (
     <SchemaForm<UpdateCustomDto>
-      className="sticky top-0 h-fit"
+      className="top-0 h-fit lg:sticky"
       defaultSubmitClassName="[&>button]:w-full"
       disabled={isPending}
       formData={{

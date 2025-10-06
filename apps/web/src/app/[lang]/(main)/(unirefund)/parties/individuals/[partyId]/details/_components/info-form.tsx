@@ -34,7 +34,7 @@ export function IndividualForm({
   const [isPending, startTransition] = useTransition();
   return (
     <SchemaForm<UpdateIndividualDto>
-      className="sticky top-0 h-fit"
+      className="top-0 h-fit lg:sticky"
       defaultSubmitClassName="[&>button]:w-full"
       disabled={isPending}
       formData={individualDetails}

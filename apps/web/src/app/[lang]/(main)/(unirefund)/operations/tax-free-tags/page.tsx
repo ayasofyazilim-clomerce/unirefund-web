@@ -37,12 +37,12 @@ export default async function Page({
   const currencyFormatter = localizeCurrency(lang);
   const summary = tagSummaryResponse.data;
   return (
-    <div className="mt-4 flex h-full w-full flex-row gap-4 overflow-auto">
-      <div className=" mb-3 gap-4">
+    <div className="mt-4 h-full w-full flex-row gap-4 overflow-auto md:flex">
+      <div className="mb-3 gap-4">
         <Filter className="peer data-[state=open]:col-span-4" defaultOpen isCollapsible languageData={languageData} />
       </div>
-      <div className="flex w-full flex-col peer-data-[state=closed]:w-full">
-        <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1">
+        <div className="grid gap-4 md:grid-cols-3">
           <TagSummary
             icon={<Tags className="size-4" />}
             title={languageData.TotalTags}
