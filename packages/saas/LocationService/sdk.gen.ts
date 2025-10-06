@@ -8,6 +8,7 @@ export class AddressCommonDataService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.AddressCommonDatas, LocationService.AddressCommonDatas.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -32,6 +33,7 @@ export class AddressCommonDataService {
     }
     
     /**
+     * **Requires permissions:** LocationService.AddressCommonDatas, LocationService.AddressCommonDatas.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -59,6 +61,7 @@ export class AddressCommonDataService {
     }
     
     /**
+     * **Requires permissions:** LocationService.AddressCommonDatas, LocationService.AddressCommonDatas.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -83,6 +86,7 @@ export class AddressCommonDataService {
     }
     
     /**
+     * **Requires permissions:** LocationService.AddressCommonDatas, LocationService.AddressCommonDatas.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -111,6 +115,7 @@ export class AddressCommonDataService {
     }
     
     /**
+     * **Requires permissions:** LocationService.AddressCommonDatas, LocationService.AddressCommonDatas.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -134,6 +139,7 @@ export class AddressCommonDataService {
     }
     
     /**
+     * **Requires permissions:** LocationService.AddressCommonDatas, LocationService.AddressCommonDatas.ViewListByIds
      * @param data The data for the request.
      * @param data.ids
      * @returns unknown OK
@@ -163,6 +169,7 @@ export class CityService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -191,6 +198,7 @@ export class CityService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -214,6 +222,7 @@ export class CityService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.ViewListByRegionId
      * @param data The data for the request.
      * @param data.regionId
      * @returns unknown OK
@@ -238,6 +247,7 @@ export class CityService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.ViewListByCountryId
      * @param data The data for the request.
      * @param data.countryId
      * @returns unknown OK
@@ -262,6 +272,7 @@ export class CityService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -286,6 +297,7 @@ export class CityService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -313,6 +325,7 @@ export class CityService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Cities, LocationService.Cities.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -342,6 +355,7 @@ export class CountryService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Countries, LocationService.Countries.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -370,6 +384,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Countries, LocationService.Countries.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -393,6 +408,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Countries, LocationService.Countries.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -417,6 +433,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Countries, LocationService.Countries.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -444,6 +461,7 @@ export class CountryService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Countries, LocationService.Countries.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -473,6 +491,7 @@ export class CountryDateService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -501,6 +520,7 @@ export class CountryDateService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -524,6 +544,7 @@ export class CountryDateService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -548,6 +569,7 @@ export class CountryDateService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -575,6 +597,7 @@ export class CountryDateService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -604,6 +627,7 @@ export class CountryNumberService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.CountryNumbers, LocationService.CountryNumbers.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -632,6 +656,7 @@ export class CountryNumberService {
     }
     
     /**
+     * **Requires permissions:** LocationService.CountryNumbers, LocationService.CountryNumbers.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -655,6 +680,7 @@ export class CountryNumberService {
     }
     
     /**
+     * **Requires permissions:** LocationService.CountryNumbers, LocationService.CountryNumbers.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -679,6 +705,7 @@ export class CountryNumberService {
     }
     
     /**
+     * **Requires permissions:** LocationService.CountryNumbers, LocationService.CountryNumbers.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -706,6 +733,7 @@ export class CountryNumberService {
     }
     
     /**
+     * **Requires permissions:** LocationService.CountryNumbers, LocationService.CountryNumbers.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -735,6 +763,7 @@ export class CountryTimeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -763,6 +792,7 @@ export class CountryTimeService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -786,6 +816,7 @@ export class CountryTimeService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -810,6 +841,7 @@ export class CountryTimeService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -837,6 +869,7 @@ export class CountryTimeService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -866,6 +899,7 @@ export class CurrencyService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -894,6 +928,7 @@ export class CurrencyService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -917,6 +952,7 @@ export class CurrencyService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -941,6 +977,7 @@ export class CurrencyService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -968,6 +1005,7 @@ export class CurrencyService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Currencies, LocationService.Currencies.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -997,6 +1035,7 @@ export class DistrictService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Districts, LocationService.Districts.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -1025,6 +1064,7 @@ export class DistrictService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Districts, LocationService.Districts.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1048,6 +1088,7 @@ export class DistrictService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Districts, LocationService.Districts.ViewListByCityId
      * @param data The data for the request.
      * @param data.cityId
      * @returns unknown OK
@@ -1072,6 +1113,7 @@ export class DistrictService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Districts, LocationService.Districts.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1096,6 +1138,7 @@ export class DistrictService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Districts, LocationService.Districts.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1123,6 +1166,7 @@ export class DistrictService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Districts, LocationService.Districts.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1152,6 +1196,7 @@ export class NeighborhoodService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Neighborhoods, LocationService.Neighborhoods.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -1180,6 +1225,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Neighborhoods, LocationService.Neighborhoods.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1203,6 +1249,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Neighborhoods, LocationService.Neighborhoods.ViewListByDistrictId
      * @param data The data for the request.
      * @param data.districtId
      * @returns unknown OK
@@ -1227,6 +1274,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Neighborhoods, LocationService.Neighborhoods.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1251,6 +1299,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Neighborhoods, LocationService.Neighborhoods.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1278,6 +1327,7 @@ export class NeighborhoodService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Neighborhoods, LocationService.Neighborhoods.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1307,6 +1357,7 @@ export class RegionService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -1335,6 +1386,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1358,6 +1410,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.ViewListByCountryId
      * @param data The data for the request.
      * @param data.countryId
      * @returns unknown OK
@@ -1382,6 +1435,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1406,6 +1460,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1433,6 +1488,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1457,6 +1513,7 @@ export class RegionService {
     }
     
     /**
+     * **Requires permissions:** LocationService.Regions, LocationService.Regions.GetDefault
      * @param data The data for the request.
      * @param data.countryId
      * @returns string OK
@@ -1486,6 +1543,7 @@ export class RegionalSettingService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** LocationService.RegionalSettings, LocationService.RegionalSettings.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -1514,6 +1572,7 @@ export class RegionalSettingService {
     }
     
     /**
+     * **Requires permissions:** LocationService.RegionalSettings, LocationService.RegionalSettings.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1537,6 +1596,7 @@ export class RegionalSettingService {
     }
     
     /**
+     * **Requires permissions:** LocationService.RegionalSettings, LocationService.RegionalSettings.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1561,6 +1621,7 @@ export class RegionalSettingService {
     }
     
     /**
+     * **Requires permissions:** LocationService.RegionalSettings, LocationService.RegionalSettings.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1588,6 +1649,7 @@ export class RegionalSettingService {
     }
     
     /**
+     * **Requires permissions:** LocationService.RegionalSettings, LocationService.RegionalSettings.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK

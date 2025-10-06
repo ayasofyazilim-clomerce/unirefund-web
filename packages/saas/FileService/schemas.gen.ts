@@ -6,7 +6,7 @@ export const $PagedResultDto_FileForHumanValidationDto = {
         items: {
             type: 'array',
             items: {
-                required: ['fileAIValidationStatus', 'fileHumanValidationStatus', 'fileLink', 'fileName', 'fileTypeId', 'fileTypeNamespace', 'id'],
+                required: ['fileAIValidationStatus', 'fileHumanValidationStatus', 'fileJsonSchema', 'fileLink', 'fileName', 'fileTypeId', 'fileTypeNamespace', 'fileUIJsonSchema', 'id'],
                 type: 'object',
                 properties: {
                     id: {
@@ -52,12 +52,12 @@ export const $PagedResultDto_FileForHumanValidationDto = {
                         nullable: true
                     },
                     fileJsonSchema: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     fileUIJsonSchema: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     isValidated: {
                         type: 'boolean',
@@ -1507,7 +1507,7 @@ export const $UniRefund_FileService_Files_FileDto = {
 } as const;
 
 export const $UniRefund_FileService_Files_FileForHumanValidationDto = {
-    required: ['fileAIValidationStatus', 'fileHumanValidationStatus', 'fileLink', 'fileName', 'fileTypeId', 'fileTypeNamespace', 'id'],
+    required: ['fileAIValidationStatus', 'fileHumanValidationStatus', 'fileJsonSchema', 'fileLink', 'fileName', 'fileTypeId', 'fileTypeNamespace', 'fileUIJsonSchema', 'id'],
     type: 'object',
     properties: {
         id: {
@@ -1553,12 +1553,12 @@ export const $UniRefund_FileService_Files_FileForHumanValidationDto = {
             nullable: true
         },
         fileJsonSchema: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fileUIJsonSchema: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         isValidated: {
             type: 'boolean',

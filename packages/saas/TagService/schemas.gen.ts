@@ -87,7 +87,8 @@ export const $PagedResultDto_TagListItemDto = {
                             },
                             additionalProperties: false,
                             description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+                            'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
                         },
                         nullable: true
                     }
@@ -191,7 +192,8 @@ export const $TagListResponseDto_TagListItemDto = {
                             },
                             additionalProperties: false,
                             description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+                            'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
                         },
                         nullable: true
                     }
@@ -238,12 +240,11 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
         },
         neighborhoodId: {
             type: 'string',
-            format: 'uuid',
-            nullable: true
+            format: 'uuid'
         },
         addressLine: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         postalCode: {
             type: 'string',
@@ -288,9 +289,9 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
             format: 'uuid'
         },
         name: {
+            minLength: 1,
             type: 'string',
-            description: 'The **business name** of the merchant. This is the official trading name.',
-            nullable: true
+            description: 'The **business name** of the merchant. This is the official trading name.'
         },
         address: {
             required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
@@ -322,12 +323,11 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
                 },
                 neighborhoodId: {
                     type: 'string',
-                    format: 'uuid',
-                    nullable: true
+                    format: 'uuid'
                 },
                 addressLine: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 postalCode: {
                     type: 'string',
@@ -409,8 +409,7 @@ export const $UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
                 description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
             },
             description: `A list of **product groups** that this merchant sells,
-relevant for tax-free eligibility categorization.`,
-            nullable: true
+relevant for tax-free eligibility categorization.`
         }
     },
     additionalProperties: false,
@@ -627,7 +626,7 @@ export const $UniRefund_Shared_Contracts_Enums_PartyType = {
 } as const;
 
 export const $UniRefund_TagService_Invoices_InvoiceDto = {
-    required: ['issueDate', 'totalAmount', 'vatAmount'],
+    required: ['invoiceLines', 'issueDate', 'totalAmount', 'vatAmount'],
     type: 'object',
     properties: {
         id: {
@@ -753,8 +752,7 @@ export const $UniRefund_TagService_Invoices_InvoiceDto = {
                 description: `Represents a single line item within an invoice.
 This DTO details a specific product or service and its associated financial breakdown.`
             },
-            description: 'A collection of individual line items included in this invoice.',
-            nullable: true
+            description: 'A collection of individual line items included in this invoice.'
         }
     },
     additionalProperties: false,
@@ -1156,12 +1154,12 @@ export const $UniRefund_TagService_Tags_ExportValidationRequestDto = {
             format: 'uuid'
         },
         referenceId: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         responseCode: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         description: {
             type: 'string',
@@ -1408,6 +1406,65 @@ export const $UniRefund_TagService_Tags_SetTagVATStatementHeaderIdRequestDto = {
     additionalProperties: false
 } as const;
 
+export const $UniRefund_TagService_Tags_TagCancelRequestDto = {
+    type: 'object',
+    properties: {
+        merchantVatNumber: {
+            type: 'string',
+            nullable: true
+        },
+        merchantCountryCode: {
+            type: 'string',
+            nullable: true
+        },
+        merchantBranchId: {
+            type: 'string',
+            nullable: true
+        },
+        receiptNumber: {
+            type: 'string',
+            nullable: true
+        },
+        invoiceUUID: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
+        tagId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        }
+    },
+    additionalProperties: false
+} as const;
+
+export const $UniRefund_TagService_Tags_TagCancelResponseDto = {
+    required: ['id', 'refundAmount', 'status', 'tagNumber'],
+    type: 'object',
+    properties: {
+        id: {
+            minLength: 1,
+            type: 'string'
+        },
+        tagNumber: {
+            minLength: 1,
+            type: 'string',
+            description: 'Unique identifier number of the tag.'
+        },
+        status: {
+            enum: ['None', 'Open', 'PreIssued', 'Issued', 'WaitingGoodsValidation', 'WaitingStampValidation', 'Declined', 'ExportValidated', 'PaymentBlocked', 'PaymentInProgress', 'PaymentProblem', 'Paid', 'Cancelled', 'Expired', 'Correction', 'OptedOut', 'EarlyPaid'],
+            type: 'string'
+        },
+        refundAmount: {
+            type: 'number',
+            description: 'The calculated amount to be refunded for the tag.',
+            format: 'double'
+        }
+    },
+    additionalProperties: false
+} as const;
+
 export const $UniRefund_TagService_Tags_TagDetailDto = {
     required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber'],
     type: 'object',
@@ -1463,9 +1520,9 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                     format: 'uuid'
                 },
                 name: {
+                    minLength: 1,
                     type: 'string',
-                    description: 'The **business name** of the merchant. This is the official trading name.',
-                    nullable: true
+                    description: 'The **business name** of the merchant. This is the official trading name.'
                 },
                 address: {
                     required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
@@ -1497,12 +1554,11 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                         },
                         neighborhoodId: {
                             type: 'string',
-                            format: 'uuid',
-                            nullable: true
+                            format: 'uuid'
                         },
                         addressLine: {
-                            type: 'string',
-                            nullable: true
+                            minLength: 1,
+                            type: 'string'
                         },
                         postalCode: {
                             type: 'string',
@@ -1584,8 +1640,7 @@ export const $UniRefund_TagService_Tags_TagDetailDto = {
                         description: 'Represents a group of products with common characteristics, used for categorization and tax purposes.'
                     },
                     description: `A list of **product groups** that this merchant sells,
-relevant for tax-free eligibility categorization.`,
-                    nullable: true
+relevant for tax-free eligibility categorization.`
                 }
             },
             additionalProperties: false,
@@ -1708,7 +1763,7 @@ This DTO captures information related to customs verification of exported goods.
         invoices: {
             type: 'array',
             items: {
-                required: ['issueDate', 'totalAmount', 'vatAmount'],
+                required: ['invoiceLines', 'issueDate', 'totalAmount', 'vatAmount'],
                 type: 'object',
                 properties: {
                     id: {
@@ -1834,8 +1889,7 @@ This DTO captures information related to customs verification of exported goods.
                             description: `Represents a single line item within an invoice.
 This DTO details a specific product or service and its associated financial breakdown.`
                         },
-                        description: 'A collection of individual line items included in this invoice.',
-                        nullable: true
+                        description: 'A collection of individual line items included in this invoice.'
                     }
                 },
                 additionalProperties: false,
@@ -1878,7 +1932,8 @@ This DTO captures key financial details of a purchase eligible for tax refunds.`
                 },
                 additionalProperties: false,
                 description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+                'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
             },
             description: 'Aggregated totals calculated for this tag.',
             nullable: true
@@ -1916,7 +1971,8 @@ This DTO captures different types of monetary amounts relevant to the tag, such 
                 },
                 additionalProperties: false,
                 description: `Represents an earning associated with a tax-free tag.
-This DTO captures different types of monetary amounts that represent earnings or commissions related to a tax-free transaction.`
+This DTO captures different types of monetary amounts that represent earnings or commissions related to a tax-free transaction.`,
+                'x-permissions': ['TagService.TagsNameSpace.ViewEarnings']
             },
             description: 'Earnings or revenues associated with this tag.',
             nullable: true
@@ -2075,7 +2131,8 @@ Used for grouping transactions under a single travel itinerary.`,
                 },
                 additionalProperties: false,
                 description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+                'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
             },
             nullable: true
         }
@@ -2115,7 +2172,8 @@ export const $UniRefund_TagService_Tags_TagEarningDto = {
     },
     additionalProperties: false,
     description: `Represents an earning associated with a tax-free tag.
-This DTO captures different types of monetary amounts that represent earnings or commissions related to a tax-free transaction.`
+This DTO captures different types of monetary amounts that represent earnings or commissions related to a tax-free transaction.`,
+    'x-permissions': ['TagService.TagsNameSpace.ViewEarnings']
 } as const;
 
 export const $UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto = {
@@ -2216,7 +2274,8 @@ export const $UniRefund_TagService_Tags_TagListItemDto = {
                 },
                 additionalProperties: false,
                 description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+                'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
             },
             nullable: true
         }
@@ -2348,7 +2407,8 @@ export const $UniRefund_TagService_Tags_TagTotalDto = {
     },
     additionalProperties: false,
     description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+    'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
 } as const;
 
 export const $UniRefund_TagService_Tags_TagValidForVATStatementResponseDto = {
@@ -2581,7 +2641,8 @@ export const $UniRefund_TagService_Tags_UpdateTagDto = {
                 },
                 additionalProperties: false,
                 description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`
+This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
+                'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
             },
             nullable: true
         }

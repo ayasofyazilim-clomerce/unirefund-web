@@ -43,7 +43,7 @@ export class FileServiceClient {
 			interceptors: {
 				request: config?.interceptors?.request ?? new Interceptors(),
 				response: config?.interceptors?.response ?? new Interceptors(),
-			},
+      },
 		});
 
 		this.file = new FileService(this.request);

@@ -2,7 +2,7 @@
 
 import type { CancelablePromise } from './core/CancelablePromise';
 import type { BaseHttpRequest } from './core/BaseHttpRequest';
-import type { PostApiTagServiceTagData, PostApiTagServiceTagResponse, GetApiTagServiceTagData, GetApiTagServiceTagResponse, PutApiTagServiceTagByIdData, PutApiTagServiceTagByIdResponse, DeleteApiTagServiceTagByIdData, DeleteApiTagServiceTagByIdResponse, GetApiTagServiceTagByIdDetailData, GetApiTagServiceTagByIdDetailResponse, GetApiTagServiceTagByTagNumberDetailByTagNumberData, GetApiTagServiceTagByTagNumberDetailByTagNumberResponse, GetApiTagServiceTagTagsRefundData, GetApiTagServiceTagTagsRefundResponse, GetApiTagServiceTagSummaryData, GetApiTagServiceTagSummaryResponse, GetApiTagServiceTagTagsRefundFeesData, GetApiTagServiceTagTagsRefundFeesResponse, PutApiTagServiceTagExportValidationByIdData, PutApiTagServiceTagExportValidationByIdResponse } from './types.gen';
+import type { PostApiTagServiceTagData, PostApiTagServiceTagResponse, GetApiTagServiceTagData, GetApiTagServiceTagResponse, PutApiTagServiceTagByIdData, PutApiTagServiceTagByIdResponse, DeleteApiTagServiceTagByIdData, DeleteApiTagServiceTagByIdResponse, PutApiTagServiceTagCancelData, PutApiTagServiceTagCancelResponse, GetApiTagServiceTagByIdDetailData, GetApiTagServiceTagByIdDetailResponse, GetApiTagServiceTagByTagNumberDetailByTagNumberData, GetApiTagServiceTagByTagNumberDetailByTagNumberResponse, GetApiTagServiceTagTagsRefundData, GetApiTagServiceTagTagsRefundResponse, GetApiTagServiceTagSummaryData, GetApiTagServiceTagSummaryResponse, GetApiTagServiceTagTagsRefundFeesData, GetApiTagServiceTagTagsRefundFeesResponse, PutApiTagServiceTagExportValidationByIdData, PutApiTagServiceTagExportValidationByIdResponse } from './types.gen';
 
 export class TagService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
@@ -49,6 +49,7 @@ export class TagService {
      * @param data.merchantIds
      * @param data.statuses
      * @param data.refundTypes
+     * @param data.refundId
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
@@ -75,6 +76,7 @@ export class TagService {
                 MerchantIds: data.merchantIds,
                 Statuses: data.statuses,
                 RefundTypes: data.refundTypes,
+                RefundId: data.refundId,
                 Sorting: data.sorting,
                 SkipCount: data.skipCount,
                 MaxResultCount: data.maxResultCount
@@ -132,6 +134,30 @@ export class TagService {
             path: {
                 id: data.id
             },
+            errors: {
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                403: 'Forbidden',
+                404: 'Not Found',
+                500: 'Internal Server Error',
+                501: 'Not Implemented'
+            }
+        });
+    }
+    
+    /**
+     * **Requires permissions:** TagService.Tags, TagService.Tags.Cancel
+     * @param data The data for the request.
+     * @param data.requestBody
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public putApiTagServiceTagCancel(data: PutApiTagServiceTagCancelData = {}): CancelablePromise<PutApiTagServiceTagCancelResponse> {
+        return this.httpRequest.request({
+            method: 'PUT',
+            url: '/api/tag-service/tag/cancel',
+            body: data.requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: 'Bad Request',
                 401: 'Unauthorized',
@@ -206,7 +232,7 @@ export class TagService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiTagServiceTagTagsRefund(data: GetApiTagServiceTagTagsRefundData): CancelablePromise<GetApiTagServiceTagTagsRefundResponse> {
+    public getApiTagServiceTagTagsRefund(data: GetApiTagServiceTagTagsRefundData = {}): CancelablePromise<GetApiTagServiceTagTagsRefundResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/tag-service/tag/tags-refund',
@@ -248,6 +274,7 @@ export class TagService {
      * @param data.merchantIds
      * @param data.statuses
      * @param data.refundTypes
+     * @param data.refundId
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
@@ -274,6 +301,7 @@ export class TagService {
                 MerchantIds: data.merchantIds,
                 Statuses: data.statuses,
                 RefundTypes: data.refundTypes,
+                RefundId: data.refundId,
                 Sorting: data.sorting,
                 SkipCount: data.skipCount,
                 MaxResultCount: data.maxResultCount
@@ -299,7 +327,7 @@ export class TagService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiTagServiceTagTagsRefundFees(data: GetApiTagServiceTagTagsRefundFeesData): CancelablePromise<GetApiTagServiceTagTagsRefundFeesResponse> {
+    public getApiTagServiceTagTagsRefundFees(data: GetApiTagServiceTagTagsRefundFeesData = {}): CancelablePromise<GetApiTagServiceTagTagsRefundFeesResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/tag-service/tag/tags-refund-fees',

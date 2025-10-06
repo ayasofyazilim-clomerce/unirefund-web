@@ -6,8 +6,9 @@ import type { GetApiFileServiceFilesByIdData, GetApiFileServiceFilesByIdResponse
 
 export class FileService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -30,8 +31,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.ViewForHumanValidation
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -54,8 +56,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.ListForHumanValidation
      * @param data The data for the request.
      * @param data.fileHumanValidationStatuses
      * @param data.fileTypeNamespace
@@ -80,8 +83,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.List
      * @param data The data for the request.
      * @param data.fileTypeGroup
      * @param data.fileType
@@ -118,8 +122,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.Save
      * @param data The data for the request.
      * @param data.formData
      * @returns unknown OK
@@ -141,13 +146,14 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.ListWithRelation
      * @param data The data for the request.
-     * @param data.relatedEntity
-     * @param data.relatedId
      * @param data.fileTypeGroup
      * @param data.fileType
+     * @param data.relatedEntity
+     * @param data.relatedId
      * @param data.isValidated
      * @param data.sorting
      * @param data.skipCount
@@ -155,7 +161,7 @@ export class FileService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public getApiFileServiceFilesWithRelation(data: GetApiFileServiceFilesWithRelationData): CancelablePromise<GetApiFileServiceFilesWithRelationResponse> {
+    public getApiFileServiceFilesWithRelation(data: GetApiFileServiceFilesWithRelationData = {}): CancelablePromise<GetApiFileServiceFilesWithRelationResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/file-service/files/with-relation',
@@ -179,8 +185,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.Download
      * @param data The data for the request.
      * @param data.id
      * @throws ApiError
@@ -202,8 +209,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.ValidateOrInvalidate
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -229,8 +237,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -256,8 +265,9 @@ export class FileService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.File, FileService.File.TriggerFileUnstractProcess
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -280,13 +290,14 @@ export class FileService {
             }
         });
     }
-
+    
 }
 
 export class FileAiInfoService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.FileAIInfo, FileService.FileAIInfo.GetFileAIInfoByFileId
      * @param data The data for the request.
      * @param data.fileId
      * @returns unknown OK
@@ -309,13 +320,14 @@ export class FileAiInfoService {
             }
         });
     }
-
+    
 }
 
 export class FileRelationService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelation, FileService.FileRelation.List
      * @param data The data for the request.
      * @param data.id
      * @param data.fileId
@@ -350,8 +362,9 @@ export class FileRelationService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelation, FileService.FileRelation.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -373,8 +386,9 @@ export class FileRelationService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelation, FileService.FileRelation.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -400,8 +414,9 @@ export class FileRelationService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelation, FileService.FileRelation.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -424,13 +439,14 @@ export class FileRelationService {
             }
         });
     }
-
+    
 }
 
 export class FileRelationEntityService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelationEntity, FileService.FileRelationEntity.List
      * @param data The data for the request.
      * @param data.id
      * @param data.fileTypeId
@@ -465,8 +481,9 @@ export class FileRelationEntityService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelationEntity, FileService.FileRelationEntity.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -488,8 +505,9 @@ export class FileRelationEntityService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelationEntity, FileService.FileRelationEntity.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -515,8 +533,9 @@ export class FileRelationEntityService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileRelationEntity, FileService.FileRelationEntity.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -539,13 +558,14 @@ export class FileRelationEntityService {
             }
         });
     }
-
+    
 }
 
 export class FileTypeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.FileType, FileService.FileType.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -568,8 +588,9 @@ export class FileTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileType, FileService.FileType.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -595,8 +616,9 @@ export class FileTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileType, FileService.FileType.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -619,8 +641,9 @@ export class FileTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileType, FileService.FileType.List
      * @param data The data for the request.
      * @param data.id
      * @param data.fileTypeGroupNamespace
@@ -677,8 +700,9 @@ export class FileTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileType, FileService.FileType.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -700,13 +724,14 @@ export class FileTypeService {
             }
         });
     }
-
+    
 }
 
 export class FileTypeGroupService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeGroup, FileService.MimeType.List
      * @param data The data for the request.
      * @param data.id
      * @param data.name
@@ -739,8 +764,9 @@ export class FileTypeGroupService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeGroup, FileService.MimeType.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -762,8 +788,9 @@ export class FileTypeGroupService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeGroup, FileService.MimeType.List
      * @param data The data for the request.
      * @param data.namespace
      * @returns unknown OK
@@ -786,8 +813,9 @@ export class FileTypeGroupService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeGroup, FileService.MimeType.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -813,8 +841,9 @@ export class FileTypeGroupService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeGroup, FileService.MimeType.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -837,13 +866,14 @@ export class FileTypeGroupService {
             }
         });
     }
-
+    
 }
 
 export class FileTypeMimeTypeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeMimeType, FileService.FileTypeMimeType.List
      * @param data The data for the request.
      * @param data.fileTypeNamespace
      * @param data.mimeTypeId
@@ -874,8 +904,9 @@ export class FileTypeMimeTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeMimeType, FileService.FileTypeMimeType.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -897,8 +928,9 @@ export class FileTypeMimeTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeMimeType, FileService.FileTypeMimeType.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -924,8 +956,9 @@ export class FileTypeMimeTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.FileTypeMimeType, FileService.FileTypeMimeType.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -948,13 +981,14 @@ export class FileTypeMimeTypeService {
             }
         });
     }
-
+    
 }
 
 export class MimeTypeService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.MimeType, FileService.MimeType.List
      * @param data The data for the request.
      * @param data.id
      * @param data.mimeTypeCode
@@ -987,8 +1021,9 @@ export class MimeTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.MimeType, FileService.MimeType.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1010,8 +1045,9 @@ export class MimeTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.MimeType, FileService.MimeType.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1037,8 +1073,9 @@ export class MimeTypeService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.MimeType, FileService.MimeType.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1061,13 +1098,14 @@ export class MimeTypeService {
             }
         });
     }
-
+    
 }
 
 export class ProviderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
-
+    
     /**
+     * **Requires permissions:** FileService.Provider, FileService.Provider.List
      * @param data The data for the request.
      * @param data.id
      * @param data.type
@@ -1098,8 +1136,9 @@ export class ProviderService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.Provider, FileService.Provider.Save
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1121,8 +1160,9 @@ export class ProviderService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.Provider, FileService.Provider.Update
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1148,8 +1188,9 @@ export class ProviderService {
             }
         });
     }
-
+    
     /**
+     * **Requires permissions:** FileService.Provider, FileService.Provider.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1172,5 +1213,5 @@ export class ProviderService {
             }
         });
     }
-
+    
 }
