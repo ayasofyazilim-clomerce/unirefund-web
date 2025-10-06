@@ -64,7 +64,7 @@ export function TaxFreeForm({
   const [isPending, startTransition] = useTransition();
   return (
     <SchemaForm<UpdateTaxFreeDto>
-      className="sticky top-0 h-fit"
+      className="top-0 h-fit lg:sticky"
       defaultSubmitClassName="[&>button]:w-full"
       disabled={isPending}
       formData={{

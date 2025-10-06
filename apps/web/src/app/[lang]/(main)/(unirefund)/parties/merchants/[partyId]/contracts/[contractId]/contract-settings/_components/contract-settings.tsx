@@ -192,16 +192,15 @@ export function ContractSettings({
           type: "simple",
           onClick: () => {
             const tempDetails: Partial<ContractSettingDto & ContractSettingCreateUpdateDto> = {
-              name: languageData["Contracts.Default"], // Bu iyi bir seçim
+              name: languageData["Contracts.Default"],
             };
 
-            // Address kontrolü daha açık yapılabilir
             if (addressList.length > 0) {
               tempDetails.invoicingAddressCommonDataId = addressList[0].id;
             }
 
             setTempSettings({
-              name: languageData["Contracts.Default"], // Tutarlılık için aynı değer
+              name: languageData["Contracts.Default"],
               id: "$temp",
               details: tempDetails,
             });
