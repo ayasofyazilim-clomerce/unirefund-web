@@ -12,7 +12,7 @@ export type PagedResultDto_RefundListItem = {
 
 export type UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
     id: string;
-    name: (string) | null;
+    name: string;
     fullAddress?: (string) | null;
 };
 
@@ -74,19 +74,19 @@ export type UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
 
 export type UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
     id?: string;
-    readonly userDeviceName: string;
+    userDeviceName: string;
     refundTypeEnum: UniRefund_TagService_Tags_Enums_RefundType;
-    readonly travellerDocumentNumber: string;
-    readonly refundAmount: number;
-    readonly refundCurrency: string;
-    readonly refundAmountInCurrency: number;
-    readonly travellerFeeAmount: number;
-    readonly referenceNumber: string;
+    travellerDocumentNumber: string;
+    refundAmount: number;
+    refundCurrency: string;
+    refundAmountInCurrency: number;
+    travellerFeeAmount: number;
+    referenceNumber: string;
     status: UniRefund_RefundService_Enums_RefundStatus;
     reconciliationStatus: UniRefund_RefundService_Enums_RefundReconciliationStatus;
-    readonly processedDate: string;
-    readonly tagIds: Array<(string)>;
-    readonly paidDate?: (string) | null;
+    processedDate: string;
+    tagIds: Array<(string)>;
+    paidDate?: (string) | null;
 };
 
 export type UniRefund_RefundService_Refunds_GetListAsync_RefundTextFilterType = 'TravellerDocumentNumber' | 'CardNumber' | 'ReferenceNumber' | 'InvoiceNumber';
@@ -136,28 +136,28 @@ export type UniRefund_TravellerService_Telephones_TelephoneDto = {
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
     id: string;
-    travelDocumentNumber: (string) | null;
-    residenceCountryCode2: (string) | null;
-    residenceCountryName: (string) | null;
-    nationalityCountryCode2: (string) | null;
-    nationalityCountryName: (string) | null;
-    firstName: (string) | null;
-    lastName: (string) | null;
+    travelDocumentNumber: string;
+    residenceCountryCode2: string;
+    residenceCountryName: string;
+    nationalityCountryCode2: string;
+    nationalityCountryName: string;
+    firstName: string;
+    lastName: string;
     readonly fullName?: (string) | null;
     birthDate?: (string) | null;
     issueDate?: (string) | null;
-    expirationDate: (string) | null;
+    expirationDate: string;
     identificationType: UniRefund_TravellerService_Enums_IdentificationType;
 };
 
 export type UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = {
     id: string;
-    firstName: (string) | null;
-    lastName: (string) | null;
+    firstName: string;
+    lastName: string;
     birthDate?: (string) | null;
-    nationalityCountryCode2: (string) | null;
-    nationalityCountryName: (string) | null;
-    languagePreferenceCultureName: (string) | null;
+    nationalityCountryCode2: string;
+    nationalityCountryName: string;
+    languagePreferenceCultureName: string;
     gender?: UniRefund_TravellerService_Enums_GenderType;
     userAccountId?: (string) | null;
     readonly hasUserAccount?: boolean;

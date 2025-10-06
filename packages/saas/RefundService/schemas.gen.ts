@@ -44,8 +44,7 @@ export const $PagedResultDto_RefundListItem = {
                     },
                     userDeviceName: {
                         minLength: 1,
-                        type: 'string',
-                        readOnly: true
+                        type: 'string'
                     },
                     refundTypeEnum: {
                         enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
@@ -53,33 +52,27 @@ export const $PagedResultDto_RefundListItem = {
                     },
                     travellerDocumentNumber: {
                         minLength: 1,
-                        type: 'string',
-                        readOnly: true
+                        type: 'string'
                     },
                     refundAmount: {
                         type: 'number',
-                        format: 'double',
-                        readOnly: true
+                        format: 'double'
                     },
                     refundCurrency: {
                         minLength: 1,
-                        type: 'string',
-                        readOnly: true
+                        type: 'string'
                     },
                     refundAmountInCurrency: {
                         type: 'number',
-                        format: 'double',
-                        readOnly: true
+                        format: 'double'
                     },
                     travellerFeeAmount: {
                         type: 'number',
-                        format: 'double',
-                        readOnly: true
+                        format: 'double'
                     },
                     referenceNumber: {
                         minLength: 1,
-                        type: 'string',
-                        readOnly: true
+                        type: 'string'
                     },
                     status: {
                         enum: ['NotPaid', 'PendingDeparture', 'Blocked', 'Processing', 'PartlyPaid', 'Paid', 'Overpaid', 'Rejected', 'Cancelled', 'Error'],
@@ -91,22 +84,19 @@ export const $PagedResultDto_RefundListItem = {
                     },
                     processedDate: {
                         type: 'string',
-                        format: 'date-time',
-                        readOnly: true
+                        format: 'date-time'
                     },
                     tagIds: {
                         type: 'array',
                         items: {
                             type: 'string',
                             format: 'uuid'
-                        },
-                        readOnly: true
+                        }
                     },
                     paidDate: {
                         type: 'string',
                         format: 'date-time',
-                        nullable: true,
-                        readOnly: true
+                        nullable: true
                     }
                 },
                 additionalProperties: false
@@ -130,8 +120,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
             format: 'uuid'
         },
         name: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fullAddress: {
             type: 'string',
@@ -325,8 +315,8 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                     format: 'uuid'
                 },
                 name: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 fullAddress: {
                     type: 'string',
@@ -344,12 +334,12 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                     format: 'uuid'
                 },
                 firstName: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 lastName: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 birthDate: {
                     type: 'string',
@@ -357,16 +347,16 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                     nullable: true
                 },
                 nationalityCountryCode2: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 nationalityCountryName: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 languagePreferenceCultureName: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 gender: {
                     enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
@@ -392,32 +382,32 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                                 format: 'uuid'
                             },
                             travelDocumentNumber: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             residenceCountryCode2: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             residenceCountryName: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             nationalityCountryCode2: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             nationalityCountryName: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             firstName: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             lastName: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             fullName: {
                                 type: 'string',
@@ -436,8 +426,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                             },
                             expirationDate: {
                                 type: 'string',
-                                format: 'date-time',
-                                nullable: true
+                                format: 'date-time'
                             },
                             identificationType: {
                                 enum: ['IdCard', 'Passport'],
@@ -616,8 +605,7 @@ export const $UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
         },
         userDeviceName: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         refundTypeEnum: {
             enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
@@ -625,33 +613,27 @@ export const $UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
         },
         travellerDocumentNumber: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         refundAmount: {
             type: 'number',
-            format: 'double',
-            readOnly: true
+            format: 'double'
         },
         refundCurrency: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         refundAmountInCurrency: {
             type: 'number',
-            format: 'double',
-            readOnly: true
+            format: 'double'
         },
         travellerFeeAmount: {
             type: 'number',
-            format: 'double',
-            readOnly: true
+            format: 'double'
         },
         referenceNumber: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         status: {
             enum: ['NotPaid', 'PendingDeparture', 'Blocked', 'Processing', 'PartlyPaid', 'Paid', 'Overpaid', 'Rejected', 'Cancelled', 'Error'],
@@ -663,22 +645,19 @@ export const $UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
         },
         processedDate: {
             type: 'string',
-            format: 'date-time',
-            readOnly: true
+            format: 'date-time'
         },
         tagIds: {
             type: 'array',
             items: {
                 type: 'string',
                 format: 'uuid'
-            },
-            readOnly: true
+            }
         },
         paidDate: {
             type: 'string',
             format: 'date-time',
-            nullable: true,
-            readOnly: true
+            nullable: true
         }
     },
     additionalProperties: false
@@ -835,32 +814,32 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentPro
             format: 'uuid'
         },
         travelDocumentNumber: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         residenceCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         residenceCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fullName: {
             type: 'string',
@@ -879,8 +858,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentPro
         },
         expirationDate: {
             type: 'string',
-            format: 'date-time',
-            nullable: true
+            format: 'date-time'
         },
         identificationType: {
             enum: ['IdCard', 'Passport'],
@@ -899,12 +877,12 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             format: 'uuid'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         birthDate: {
             type: 'string',
@@ -912,16 +890,16 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             nullable: true
         },
         nationalityCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         languagePreferenceCultureName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         gender: {
             enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
@@ -947,32 +925,32 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                         format: 'uuid'
                     },
                     travelDocumentNumber: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     residenceCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     residenceCountryName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     nationalityCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     nationalityCountryName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     firstName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     lastName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     fullName: {
                         type: 'string',
@@ -991,8 +969,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                     },
                     expirationDate: {
                         type: 'string',
-                        format: 'date-time',
-                        nullable: true
+                        format: 'date-time'
                     },
                     identificationType: {
                         enum: ['IdCard', 'Passport'],
