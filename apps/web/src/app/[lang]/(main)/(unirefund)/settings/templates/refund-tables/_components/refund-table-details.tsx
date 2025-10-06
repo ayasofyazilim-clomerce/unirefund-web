@@ -54,9 +54,9 @@ export function RefundTableDetailsTable({
     const lastRow = watchedDetails.at(-1);
     if (lastRow)
       append({
-        minValue: lastRow.minValue,
-        maxValue: lastRow.maxValue,
-        vatRate: lastRow.vatRate + 1,
+        minValue: lastRow.maxValue,
+        maxValue: lastRow.maxValue + 100,
+        vatRate: 0,
         refundAmount: 0,
         refundPercent: 0,
         isLoyalty: false,
@@ -65,7 +65,7 @@ export function RefundTableDetailsTable({
       append({
         minValue: 0,
         maxValue: 100,
-        vatRate: 1,
+        vatRate: 0,
         refundAmount: 0,
         refundPercent: 0,
         isLoyalty: false,
