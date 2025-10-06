@@ -129,7 +129,7 @@
   "RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanRefundAmount": "Maksimum değer, iade tutarından büyük olmalıdır.",
   "RefundTable.Form.refundTableDetails.refundPercentMustBeLowerThanVatRate": "İade yüzdesi KDV oranından yüksek olamaz.",
   "RefundTable.Form.refundTableDetails.refundPercentMin0": "İade yüzdesi 0 dan küçük olamaz.",
-  "RefundTable.Form.refundTableDetails.refundPercentMax100": "İade yüzdesi 100 den büyük olamaz",
+  "RefundTable.Form.refundTableDetails.refundPercentMax100": "İade yüzdesi 100 den büyük olamaz.",
   "RefundTable.Form.refundTableDetails.noRecord": "Henüz bir iade tablosu eklenmedi.",
 
   "RefundFeeTable.Form.name": "Tablo adı",
