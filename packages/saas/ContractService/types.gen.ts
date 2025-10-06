@@ -565,12 +565,9 @@ export type UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDeta
 };
 
 export type UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto = {
-    readonly extraProperties?: {
-        [key: string]: unknown;
-    } | null;
     name: string;
-    calculateNetCommissionInsteadOfRefund?: boolean;
-    isTemplate?: boolean;
+    calculateNetCommissionInsteadOfRefund: boolean;
+    isTemplate: boolean;
     merchantId?: (string) | null;
     rebateTableDetails?: Array<UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto> | null;
     processingFeeDetails?: Array<UniRefund_ContractService_Rebates_ProcessingFeeDetails_ProcessingFeeDetailCreateDto> | null;
@@ -634,9 +631,6 @@ export type UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHead
 };
 
 export type UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderUpdateDto = {
-    readonly extraProperties?: {
-        [key: string]: unknown;
-    } | null;
     name: string;
     calculateNetCommissionInsteadOfRefund?: boolean;
     rebateTableDetails?: Array<UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailUpdateWithRandomIdDto> | null;
@@ -695,8 +689,8 @@ export type UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderCr
         [key: string]: unknown;
     } | null;
     name: string;
-    isActive?: boolean;
-    isTemplate?: boolean;
+    isActive: boolean;
+    isTemplate: boolean;
     refundPointId?: (string) | null;
     refundFeeDetails?: Array<UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailCreateDto> | null;
 };
@@ -711,7 +705,7 @@ export type UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDt
     deleterId?: (string) | null;
     deletionTime?: (string) | null;
     name: string;
-    isActive?: boolean;
+    isActive: boolean;
     isTemplate: boolean;
     isAssigned: boolean;
     isEditable: boolean;
@@ -738,7 +732,7 @@ export type UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderLi
     deleterId?: (string) | null;
     deletionTime?: (string) | null;
     name: string;
-    isActive?: boolean;
+    isActive: boolean;
     isTemplate: boolean;
     isAssigned: boolean;
     isEditable: boolean;
@@ -753,7 +747,7 @@ export type UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderUp
         [key: string]: unknown;
     } | null;
     name: string;
-    isActive?: boolean;
+    isActive: boolean;
     refundFeeDetails?: Array<UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetailUpdateWithRandomIdDto> | null;
 };
 
@@ -766,7 +760,7 @@ export type UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDeta
     maxValue: number;
     refundAmount: number;
     refundPercent: number;
-    isLoyalty?: boolean;
+    isLoyalty: boolean;
 };
 
 export type UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailDto = {
@@ -783,7 +777,7 @@ export type UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDeta
     maxValue: number;
     refundAmount: number;
     refundPercent: number;
-    isLoyalty?: boolean;
+    isLoyalty: boolean;
 };
 
 export type UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailUpdateWithRandomIdDto = {
@@ -795,7 +789,7 @@ export type UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDeta
     maxValue: number;
     refundAmount: number;
     refundPercent: number;
-    isLoyalty?: boolean;
+    isLoyalty: boolean;
 };
 
 export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto = {
@@ -803,9 +797,9 @@ export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHead
         [key: string]: unknown;
     } | null;
     name: string;
-    isDefault?: boolean;
-    isBundling?: boolean;
-    isTemplate?: boolean;
+    isDefault: boolean;
+    isBundling: boolean;
+    isTemplate: boolean;
     merchantId?: (string) | null;
     refundTableDetails?: Array<UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailCreateDto> | null;
 };
@@ -820,8 +814,8 @@ export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHead
     deleterId?: (string) | null;
     deletionTime?: (string) | null;
     name: string;
-    isDefault?: boolean;
-    isBundling?: boolean;
+    isDefault: boolean;
+    isBundling: boolean;
     isTemplate: boolean;
     isAssigned: boolean;
     isEditable: boolean;
@@ -842,8 +836,8 @@ export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHead
     deleterId?: (string) | null;
     deletionTime?: (string) | null;
     name: string;
-    isDefault?: boolean;
-    isBundling?: boolean;
+    isDefault: boolean;
+    isBundling: boolean;
     isTemplate: boolean;
     isAssigned: boolean;
     isEditable: boolean;
@@ -871,8 +865,8 @@ export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHead
     deleterId?: (string) | null;
     deletionTime?: (string) | null;
     name: string;
-    isDefault?: boolean;
-    isBundling?: boolean;
+    isDefault: boolean;
+    isBundling: boolean;
     isTemplate: boolean;
     isAssigned: boolean;
     isEditable: boolean;
@@ -887,8 +881,8 @@ export type UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHead
         [key: string]: unknown;
     } | null;
     name: string;
-    isDefault?: boolean;
-    isBundling?: boolean;
+    isDefault: boolean;
+    isBundling: boolean;
     refundTableDetails?: Array<UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailUpdateWithRandomIdDto> | null;
 };
 
@@ -899,45 +893,45 @@ export type UniRefund_CRMService_Addresses_AddressDto = {
     countryId: string;
     adminAreaLevel1Id: string;
     adminAreaLevel2Id: string;
-    neighborhoodId: (string) | null;
-    addressLine: (string) | null;
+    neighborhoodId: string;
+    addressLine: string;
     postalCode?: (string) | null;
     type: UniRefund_CRMService_Addresses_AddressType;
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
-    isPrimary?: (boolean) | null;
+    isPrimary: boolean;
 };
 
 export type UniRefund_CRMService_Addresses_AddressType = 'UNKNOWN' | 'HOME' | 'WORK';
 
 export type UniRefund_CRMService_Individuals_IndividualIdNameDto = {
     id?: string;
-    name: (string) | null;
+    name: string;
 };
 
 export type UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
     id?: string;
-    name: (string) | null;
+    name: string;
     taxOffice: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
     numberOfStores: number;
-    accountManagers: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
+    accountManagers: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto>;
 };
 
 export type UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto = {
     id?: string;
-    name: (string) | null;
-    taxOffice: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
-    numberOfStores: number;
-    accountManagers: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
+    name?: (string) | null;
+    taxOffice?: UniRefund_CRMService_TaxOffices_TaxOfficeNameDto;
+    numberOfStores?: number;
+    accountManagers?: Array<UniRefund_CRMService_Individuals_IndividualIdNameDto> | null;
 };
 
 export type UniRefund_CRMService_TaxOffices_TaxOfficeNameDto = {
     id: string;
-    name: (string) | null;
+    name: string;
 };
 
-export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE';
+export type UniRefund_Shared_Contracts_Enums_PartyType = 'INDIVIDUAL' | 'MERCHANT' | 'REFUNDPOINT' | 'CUSTOM' | 'TAXFREE' | 'TAXOFFICE' | 'TOURGUIDE' | 'TRAVELLER';
 
 export type Volo_Abp_AspNetCore_Mvc_ApplicationConfigurations_ApplicationAuthConfigurationDto = {
     grantedPolicies?: {
