@@ -79,7 +79,7 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
       .min(0, {
         message: languageData
           ? languageData["RefundTable.Form.refundTableDetails.refundPercentMin0"]
-          : "Number must be less than or equal to 100",
+          : "Number must be greater than or equal to 0",
       })
       .max(100, {
         message: languageData
