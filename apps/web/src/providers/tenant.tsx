@@ -1,7 +1,6 @@
 "use client";
 
 import {createContext, useContext, useEffect} from "react";
-import {findIana} from "windows-iana";
 
 export type CountrySettingsInfo = {
   tenantId?: string | null;
@@ -15,7 +14,7 @@ export type CountrySettingsInfo = {
 const defaultTenantData: CountrySettingsInfo = {
   tenantId: "df64152b-9f76-e06b-d43f-3a1bd9644ea9",
   tenantName: "Türkiye",
-  timeZone: "Turkey Standard Time",
+  timeZone: "Europe/Istanbul",
   currency: "TRY",
   countryCode2: "TR",
   countryCode3: "TUR",
@@ -42,6 +41,7 @@ export const useTenant = () => {
 export function TenantProvider(props: TenantProviderProps) {
   useEffect(() => {
     localStorage.setItem("countryCode2", defaultTenantData.countryCode2?.toLocaleLowerCase() || "us");
+    localStorage.setItem("tenantTimeZone", defaultTenantData.timeZone || "UTC");
   }, [defaultTenantData.countryCode2]);
   return (
     <TenantContext.Provider
@@ -49,7 +49,7 @@ export function TenantProvider(props: TenantProviderProps) {
         ...defaultTenantData,
         localization: {
           locale: getLocaleFromCountryCode(defaultTenantData.countryCode2 || "GB"),
-          timeZone: findIana(defaultTenantData.timeZone || "UTC")[0] || "UTC",
+          timeZone: defaultTenantData.timeZone || "UTC",
           lang: props.lang,
         },
       }}>
