@@ -25,12 +25,12 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
         .min(0, {
           message: languageData
             ? languageData["RefundFeeTable.Form.refundFeeDetails.percentFeeValue.minError"]
-            : "Fixed fee cannot be lower than zero!",
+            : "Percent fee cannot be lower than zero!",
         })
         .max(100, {
           message: languageData
             ? languageData["RefundFeeTable.Form.refundFeeDetails.percentFeeValue.maxError"]
-            : "Fixed fee cannot be more than 100!",
+            : "Percent fee cannot be more than 100!",
         }),
       minFee: z.number().min(0, {
         message: languageData
