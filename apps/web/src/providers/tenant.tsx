@@ -31,6 +31,7 @@ export const useTenant = () => {
 export function TenantProvider(props: TenantProviderProps) {
   useEffect(() => {
     localStorage.setItem("countryCode2", props.tenantData.countryCode2?.toLocaleLowerCase() || "us");
+    localStorage.setItem("tenantTimeZone", props.tenantData.timeZone || "UTC");
   }, [props.tenantData.countryCode2]);
   return (
     <TenantContext.Provider
