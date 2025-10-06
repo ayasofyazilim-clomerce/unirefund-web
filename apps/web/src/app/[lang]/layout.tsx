@@ -7,6 +7,7 @@ import type {Metadata} from "next";
 import {LocaleProvider} from "src/providers/locale";
 import Tooltip from "src/providers/tooltip";
 import {getLocalizationResources} from "src/utils";
+import LoadingSpinner from "@/components/loading/loading-spinner";
 
 interface RootLayoutProps {
   params: {lang: string};
@@ -33,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   await Promise.resolve();
   return {
     title,
-    description: "Core project is a core web app for managing multi-tenant apps.",
+    description: "Unirefund Taxfree APP",
   };
 }
 export default async function RootLayout({children, params}: RootLayoutProps) {
@@ -44,7 +45,7 @@ export default async function RootLayout({children, params}: RootLayoutProps) {
       <body
         className={`overflow-hidden [&:has(>div[data-state=open])>main]:m-2 ${GeistSans.className}`}
         data-app-name={appName}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <Toaster richColors />
           <Tooltip>
             <LocaleProvider lang={lang} resources={resources}>
