@@ -1768,7 +1768,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011011": "Given Merchant '{id}' is not a HEADQUARTER!";
   "UniRefund.CRMService:011012": "No merchant found with VAT Number: '{vATNumber}', Country Code: '{countryCode}', Customer Number: '{customerNumber}'!";
   "UniRefund.CRMService:011013": "Given Merchant '{id}' is not a {wantedTypeCode}, is {existingTypeCode}!";
-  "UniRefund.CRMService:011014": "A store merchant with the same CustomerNumber already exists. Please provide a unique CustomerNumber.";
+  "UniRefund.CRMService:011014": "A store merchant with the same ExternalIdentifier already exists. Please provide a unique ExternalIdentifier.";
   "UniRefund.CRMService:011015": "Only Headquarter merchants can have a relationship with ProductGroup. This merchant is not of the Headquarter type.";
   "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
   "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
