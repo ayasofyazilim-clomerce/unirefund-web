@@ -44,7 +44,20 @@ export default function RefundFeeHeaderForm({
       isActive: true,
       isTemplate: false,
       refundPointId: null,
-      refundFeeDetails: [],
+      refundFeeDetails: [
+        {
+          feeType: "TouristFee",
+          refundMethod: "Cash",
+          amountFrom: 0,
+          amountTo: 100,
+        },
+        {
+          feeType: "AgentFee",
+          refundMethod: "Cash",
+          amountFrom: 0,
+          amountTo: 50,
+        },
+      ],
     },
     mode: "onChange",
   });

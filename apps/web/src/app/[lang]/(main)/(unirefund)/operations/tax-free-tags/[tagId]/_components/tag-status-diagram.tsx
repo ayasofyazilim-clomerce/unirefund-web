@@ -99,7 +99,7 @@ export default function TagStatusDiagram({
       {tagVatStatementHeader?.id ? (
         <ValidStatus
           date={tagVatStatementHeader.vatStatementDate}
-          link={`/finance/vat-statements/${tagVatStatementHeader.id}/information`}
+          link={`/finance/vat-statements/${tagVatStatementHeader.id}`}
           message={[
             `${languageData.InvoiceNumber}: ${tagVatStatementHeader.invoiceNumber}`,
             `${languageData.MerchantTitle}: ${tagVatStatementHeader.merchantName}`,

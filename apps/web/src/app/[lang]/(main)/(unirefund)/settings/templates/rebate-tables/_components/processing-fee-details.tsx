@@ -98,7 +98,7 @@ export function ProcessingFeeDetailsTable({
                               className="rounded-none border-0 shadow-none"
                               data-testid={`processingFeeDetails.${index}.amount`}
                               disabled={isPending}
-                              step="any"
+                              step="1"
                               type="number"
                               {...field}
                             />
