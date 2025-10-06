@@ -115,7 +115,7 @@ function VatStatementDetails({
         <span className="py-2 pl-4 text-lg font-bold">{languageData["Finance.statement"]}</span>
         <LabelValuePair
           icon={UserIcon}
-          label={languageData["Finance.merchant"]}
+          label={languageData["Finance.merchantId"]}
           link={merchantLink}
           value={statement.merchantName}
         />

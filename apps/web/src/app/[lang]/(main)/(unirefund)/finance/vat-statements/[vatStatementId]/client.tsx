@@ -11,5 +11,5 @@ export default function Client({
   statement: UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto;
   languageData: FinanceServiceResource;
 }) {
-  return <VatStatements emptyMessage={languageData.vatStatements.emptyMessage} languageData={languageData} statements={[statement]} />;
+  return <VatStatements emptyMessage="" languageData={languageData} statements={[statement]} />;
 }
