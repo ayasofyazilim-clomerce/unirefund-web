@@ -47,9 +47,5 @@ export default async function Page({
   }
   const [vatStatementHeadersResponse] = apiRequests.data;
 
-  return (
-    <div className="my-6 rounded-lg border border-gray-200 p-2 md:p-6 ">
-      <VatStatementTable languageData={languageData} locale={lang} response={vatStatementHeadersResponse.data} />
-    </div>
-  );
+  return <VatStatementTable languageData={languageData} locale={lang} response={vatStatementHeadersResponse.data} />;
 }
