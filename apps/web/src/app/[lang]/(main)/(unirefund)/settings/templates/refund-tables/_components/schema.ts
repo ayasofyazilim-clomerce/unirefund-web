@@ -1,4 +1,5 @@
 import {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
 export function createRefundTableFormSchemas({languageData}: {languageData?: ContractServiceResource}) {
@@ -14,25 +15,43 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
     }[],
     ctx: z.RefinementCtx,
   ) => {
-    // VAT Rate uniqueness validation
-    const seen = new Set<number>();
-    details.forEach((detail, i) => {
-      if (seen.has(detail.vatRate)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: languageData
-            ? languageData["RefundTable.Form.refundTableDetails.vatRateMustBeUnique"]
-            : "VAT Rate must be unique for each row.",
-          path: ["refundTableDetails", i, "vatRate"],
-        });
-      } else {
-        seen.add(detail.vatRate);
-      }
-    });
-
     // Individual row validations
     details.forEach((detail, index) => {
       const basePath = ["refundTableDetails", index];
+      if (index === 0 && detail.minValue !== 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: languageData
+            ? languageData["RefundTable.Form.refundTableDetails.firstRowMustStartFromZero"]
+            : "First row must start from 0",
+          path: [...basePath, "minValue"],
+        });
+      }
+      const sorted = [...details].sort((a, b) => a.minValue - b.minValue);
+      const currentIndex = sorted.findIndex(
+        (row) => row.minValue === detail.minValue && row.maxValue === detail.maxValue,
+      );
+
+      if (currentIndex > 0) {
+        const previousRow = sorted[currentIndex - 1];
+        if (detail.minValue !== previousRow.maxValue) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: replacePlaceholders(
+              languageData
+                ? languageData["RefundTable.Form.refundTableDetails.minValueMustBe{0}toContinueFromPreviousRow"]
+                : "Min value must be {0} to continue from previous row.",
+              [
+                {
+                  holder: "{0}",
+                  replacement: previousRow.maxValue,
+                },
+              ],
+            ).join(""),
+            path: [...basePath, "minValue"],
+          });
+        }
+      }
 
       // maxValue must be greater than minValue
       if (detail.maxValue <= detail.minValue) {
@@ -70,10 +89,22 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
   };
 
   const refundTableDetailSchema = z.object({
-    vatRate: z.number().min(0),
-    minValue: z.number().min(0),
+    vatRate: z.number().min(0, {
+      message: languageData
+        ? languageData["RefundTable.Form.refundTableDetails.vatRateMin0"]
+        : "Number must be greater than or equal to 0",
+    }),
+    minValue: z.number().min(0, {
+      message: languageData
+        ? languageData["RefundTable.Form.refundTableDetails.minValueMin0"]
+        : "Number must be greater than or equal to 0",
+    }),
     maxValue: z.number(),
-    refundAmount: z.number(),
+    refundAmount: z.number().min(0, {
+      message: languageData
+        ? languageData["RefundTable.Form.refundTableDetails.refundAmountMin0"]
+        : "Number must be greater than or equal to 0",
+    }),
     refundPercent: z
       .number()
       .min(0, {

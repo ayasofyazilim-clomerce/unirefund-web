@@ -54,9 +54,9 @@ export function RefundTableDetailsTable({
     const lastRow = watchedDetails.at(-1);
     if (lastRow)
       append({
-        minValue: lastRow.minValue,
-        maxValue: lastRow.maxValue,
-        vatRate: lastRow.vatRate + 1,
+        minValue: lastRow.maxValue,
+        maxValue: lastRow.maxValue + 100,
+        vatRate: 0,
         refundAmount: 0,
         refundPercent: 0,
         isLoyalty: false,
@@ -65,7 +65,7 @@ export function RefundTableDetailsTable({
       append({
         minValue: 0,
         maxValue: 100,
-        vatRate: 1,
+        vatRate: 0,
         refundAmount: 0,
         refundPercent: 0,
         isLoyalty: false,
@@ -165,7 +165,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.minValue`}
-                                step="0.01"
+                                step="1"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -187,7 +187,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.maxValue`}
-                                step="0.01"
+                                step="1"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -232,7 +232,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.refundAmount`}
-                                step="0.01"
+                                step="1"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -254,7 +254,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.refundPercent`}
-                                step="0.01"
+                                step="1"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
