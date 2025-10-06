@@ -216,7 +216,7 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
               message: languageData
                 ? replacePlaceholders(
                     languageData["RefundFeeTable.Form.refundFeeDetails.mustStartFromZero"] ||
-                      "Fee type '{0}', fefund method '{1}' must include a range starting from 0.",
+                      "Fee type '{0}', refund method '{1}' must include a range starting from 0.",
                     [
                       {holder: "{0}", replacement: feeType},
                       {holder: "{1}", replacement: method},
