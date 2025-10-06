@@ -1847,6 +1847,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:018003": "Party with PartyId '{partyId}' and does not have an affiliation with the current user.";
   "UniRefund.CRMService:019001": "At least ITU Country Code or AreaCode must exist!";
   "UniRefund.CRMService:020001": "At least and just one {contactTypeName} can be primary!";
+  "UniRefund.CRMService:021001": "ChainCode not found: {chainCodeId}";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
@@ -1891,6 +1892,12 @@ export type TagServiceResources = {
   "NameSpace:TagsNameSpace": "TagsNameSpace";
   "NameSpace:ViewEarnings": "View Earnings";
   "NameSpace:ViewTotals": "View Totals";
+  "UniRefund.TagService:0100037": "Tag found by 'Receipt Number: {invoiceNumber}' does not belong to the given merchant found by 'VAT Number: {merchantVatNumber} and BranchId: {merchantBranchId}'!";
+  "UniRefund.TagService:0100038": "Tag with the status: '{tagStatus}' can not be cancelled!";
+  "UniRefund.TagService:0100039": "Processed tag (Refunded or Export Validated etc.) can not be cancelled!";
+  "UniRefund.TagService:0100040": "Given tag is already cancelled!";
+  "UniRefund.TagService:0100041": "Cancelled tag cannot be processed (Export Validation or Refund etc.)!";
+  "UniRefund.TagService:0100042": "Invoice lines cannot be empty.";
 };
 export type ContractServiceResources = {
   "UniRefund.ContractService:01001": "There is no any active ContractHeader related with given {contractType}: {contractTypeIdentifier}!";
@@ -2172,6 +2179,7 @@ export type RefundServiceResources = {
   "UniRefund.RefundService:001003": "The provided traveller does not match with tags' traveller";
   "UniRefund.RefundService:001004": "Provided refund point does not exist";
   "UniRefund.RefundService:001005": "Payout creation failed";
+  "UniRefund.RefundService:001006": "Cancelled tag can not be refunded!";
 };
 export type RlsConfigResources = {
   SamplePageMessage: "A sample page for the RlsConfig module";
