@@ -69,7 +69,7 @@ export function RefundFeeDetailsTable({
     if (errors.refundFeeDetails && Array.isArray(errors.refundFeeDetails)) {
       const rowError = errors.refundFeeDetails[index] as Record<string, {message?: string}> | undefined;
       if (rowError && typeof rowError === "object") {
-        return rowError[fieldName].message;
+        return rowError[fieldName].message || null;
       }
     }
 
