@@ -205,7 +205,7 @@ export function RefundFeeDetailsTable({
                         <div className="relative">
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountFrom`}
-                            step="0.01"
+                            step="1"
                             type="number"
                             {...field}
                             className={cn(
@@ -236,7 +236,7 @@ export function RefundFeeDetailsTable({
                         <div className="relative">
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountTo`}
-                            step="0.01"
+                            step="1"
                             type="number"
                             {...field}
                             className={cn(
@@ -315,7 +315,7 @@ export function RefundFeeDetailsTable({
                       <div className="relative">
                         <Input
                           data-testid={`refundFeeDetails.${index}.fixedFeeValue`}
-                          step="0.01"
+                          step="1"
                           type="number"
                           {...field}
                           className={cn("rounded-none border-none shadow-none")}
@@ -336,7 +336,7 @@ export function RefundFeeDetailsTable({
                       <div className="relative">
                         <Input
                           data-testid={`refundFeeDetails.${index}.percentFeeValue`}
-                          step="0.01"
+                          step="1"
                           type="number"
                           {...field}
                           className={cn("rounded-none border-none shadow-none")}
@@ -357,7 +357,7 @@ export function RefundFeeDetailsTable({
                       <div className="relative">
                         <Input
                           data-testid={`refundFeeDetails.${index}.minFee`}
-                          step="0.01"
+                          step="1"
                           type="number"
                           {...field}
                           className={cn("rounded-none border-none shadow-none")}
@@ -380,7 +380,7 @@ export function RefundFeeDetailsTable({
                         <div className="relative">
                           <Input
                             data-testid={`refundFeeDetails.${index}.maxFee`}
-                            step="0.01"
+                            step="1"
                             type="number"
                             {...field}
                             className={cn(
