@@ -1897,6 +1897,7 @@ export type TagServiceResources = {
   "UniRefund.TagService:0100039": "Processed tag (Refunded or Export Validated etc.) can not be cancelled!";
   "UniRefund.TagService:0100040": "Given tag is already cancelled!";
   "UniRefund.TagService:0100041": "Cancelled tag cannot be processed (Export Validation or Refund etc.)!";
+  "UniRefund.TagService:0100042": "Invoice lines cannot be empty.";
 };
 export type ContractServiceResources = {
   "UniRefund.ContractService:01001": "There is no any active ContractHeader related with given {contractType}: {contractTypeIdentifier}!";
