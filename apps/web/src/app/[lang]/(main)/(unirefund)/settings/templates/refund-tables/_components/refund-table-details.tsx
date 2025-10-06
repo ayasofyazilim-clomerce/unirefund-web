@@ -9,10 +9,9 @@ import {Switch} from "@/components/ui/switch";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
-import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholders";
+import type {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {ChevronLeft, ChevronRight, Equal, Plus, Trash2} from "lucide-react";
 import React from "react";
-import type {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {createRefundTableFormSchemas} from "./schema";
 
@@ -27,85 +26,37 @@ export function RefundTableDetailsTable({
   form: UseFormReturn<z.infer<typeof createFormSchema>>;
   isPending: boolean;
 }) {
-  const {refundTableDetailSchema} = createRefundTableFormSchemas({languageData});
   const {fields, append, remove} = useFieldArray({
     control: form.control,
     name: "refundTableDetails",
   });
   const watchedDetails = form.watch("refundTableDetails") || [];
 
-  const validateRow = (
-    // index: number,
-    currentRow: z.infer<typeof refundTableDetailSchema>,
-    allRows: z.infer<typeof refundTableDetailSchema>[],
-  ): React.ReactNode | JSX.Element | null => {
-    if (currentRow.maxValue <= currentRow.minValue) {
-      return languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanMinValue"];
-    }
-    if (currentRow.maxValue <= currentRow.refundAmount) {
-      return languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanRefundAmount"];
-    }
-    if (currentRow.refundPercent >= currentRow.vatRate) {
-      return languageData["RefundTable.Form.refundTableDetails.refundPercentMustBeLowerThanVatRate"];
-    }
-    const sorted = [...allRows].sort((a, b) => a.minValue - b.minValue);
-    const currentIndex = sorted.findIndex(
-      (row) => row.minValue === currentRow.minValue && row.maxValue === currentRow.maxValue,
-    );
+  // Get form errors for each row
+  const getRowErrors = (index: number) => {
+    const errors = form.formState.errors.refundTableDetails?.[index];
+    if (!errors) return null;
 
-    if (currentIndex === 0 && currentRow.minValue !== 0) {
-      return languageData["RefundTable.Form.refundTableDetails.firstRowMustStartFromZero"];
-    }
+    // Return all error messages for this row
+    const errorMessages = Object.values(errors)
+      .filter(Boolean)
+      .map((error) => {
+        if (typeof error === "string") return error;
+        if (typeof error === "object" && "message" in error) return error.message;
+        return "Unknown error";
+      })
+      .filter(Boolean);
 
-    if (currentIndex > 0) {
-      const previousRow = sorted[currentIndex - 1];
-      if (currentRow.minValue !== previousRow.maxValue) {
-        return replacePlaceholders(
-          languageData["RefundTable.Form.refundTableDetails.minValueMustBe{0}toContinueFromPreviousRow"],
-          [
-            {
-              holder: "{0}",
-              replacement: previousRow.maxValue,
-            },
-          ],
-        );
-      }
-    }
-
-    // if (currentIndex < sorted.length - 1) {
-    //   const nextRow = sorted[currentIndex + 1];
-    //   if (nextRow.minValue !== currentRow.maxValue) {
-    //     return replacePlaceholders(languageData["RefundTable.Form.refundTableDetails.maxValueShouldBe{0}toConnectWithNextRow"], [{
-    //       holder: "{0}",
-    //       replacement: nextRow.minValue
-    //     }])
-    //   }
-    // }
-
-    // for (let i = 0; i < allRows.length; i++) {
-    //   if (i === index) continue;
-    //   const otherRow = allRows[i];
-    //   if (currentRow.minValue < otherRow.maxValue && currentRow.maxValue > otherRow.minValue) {
-    //     return replacePlaceholders(languageData["RefundTable.Form.refundTableDetails.rangeConflictsWithAnotherRow{0}-{1}"], [{
-    //       holder: "{0}",
-    //       replacement: otherRow.minValue
-    //     },
-    //     {
-    //       holder: "{1}",
-    //       replacement: otherRow.maxValue
-    //     }])
-    //   }
-    // }
-
-    return null;
+    return errorMessages.length > 0 ? errorMessages : null;
   };
+
   const addRow = () => {
     const lastRow = watchedDetails.at(-1);
     if (lastRow)
       append({
-        minValue: lastRow.maxValue,
-        maxValue: lastRow.maxValue + 100,
-        vatRate: 0,
+        minValue: lastRow.minValue,
+        maxValue: lastRow.maxValue,
+        vatRate: lastRow.vatRate + 1,
         refundAmount: 0,
         refundPercent: 0,
         isLoyalty: false,
@@ -114,7 +65,7 @@ export function RefundTableDetailsTable({
       append({
         minValue: 0,
         maxValue: 100,
-        vatRate: 0,
+        vatRate: 1,
         refundAmount: 0,
         refundPercent: 0,
         isLoyalty: false,
@@ -124,6 +75,7 @@ export function RefundTableDetailsTable({
   const removeRow = (index: number) => {
     remove(index);
   };
+
   return (
     <div className="flex h-full flex-col overflow-auto">
       <div className="sticky top-0 z-10 flex items-end justify-between bg-white pb-4">
@@ -164,7 +116,6 @@ export function RefundTableDetailsTable({
               <TableHead className="text-black">
                 <div className="flex items-center gap-2">
                   {languageData["RefundTable.Form.refundTableDetails.maxValue"]}
-
                   <Tooltip>
                     <TooltipTrigger>
                       <Badge className="text-muted-foreground size-6 p-0" variant="outline">
@@ -187,7 +138,7 @@ export function RefundTableDetailsTable({
                 {languageData["RefundTable.Form.refundTableDetails.refundAmount"]}
               </TableHead>
               <TableHead className="text-black">
-                {languageData["RefundTable.Form.refundTableDetails.refundAmount"]}
+                {languageData["RefundTable.Form.refundTableDetails.refundPercent"]}
               </TableHead>
               <TableHead className="w-40 text-black">
                 {languageData["RefundTable.Form.refundTableDetails.isLoyalty"]}
@@ -197,15 +148,13 @@ export function RefundTableDetailsTable({
           </TableHeader>
           <TableBody>
             {fields.map((row, index) => {
-              const rowError = validateRow(watchedDetails[index], watchedDetails);
+              const rowErrors = getRowErrors(index);
+              const hasErrors = rowErrors && rowErrors.length > 0;
 
               return (
                 <React.Fragment key={row.id}>
                   <TableRow
-                    className={cn(
-                      "h-9 divide-x",
-                      rowError !== null && "[&_*]:!text-destructive bg-red-50 [&_*]:!font-bold",
-                    )}>
+                    className={cn("h-9 divide-x", hasErrors && "[&_*]:!text-destructive bg-red-50 [&_*]:!font-bold")}>
                     <TableCell className="p-0">
                       <FormField
                         control={form.control}
@@ -261,7 +210,7 @@ export function RefundTableDetailsTable({
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.vatRate`}
                                 disabled={isPending}
-                                step="0.01"
+                                step="1"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -350,10 +299,10 @@ export function RefundTableDetailsTable({
                       </div>
                     </TableCell>
                   </TableRow>
-                  {rowError ? (
+                  {hasErrors ? (
                     <TableRow>
                       <TableCell className="text-destructive bg-red-50 p-2 text-xs" colSpan={7}>
-                        {rowError}
+                        {rowErrors.join(". ")}
                       </TableCell>
                     </TableRow>
                   ) : null}
