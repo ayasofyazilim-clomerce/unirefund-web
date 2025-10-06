@@ -14,8 +14,8 @@ export function createRebateTableFormSchemas({languageData}: {languageData?: Con
   const rebateTableDetailsSchema = z
     .array(
       z.object({
-        fixedFeeValue: z.coerce.number(),
-        percentFeeValue: z.coerce.number(),
+        fixedFeeValue: z.coerce.number().min(0),
+        percentFeeValue: z.coerce.number().min(0).max(100),
         refundMethod: z.enum(["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All"]),
         variableFee: z.enum(["PercentOfGC", "PercentOfGcWithoutVAT", "PercentOfVAT", "PercentOfSIS"]),
       }),
