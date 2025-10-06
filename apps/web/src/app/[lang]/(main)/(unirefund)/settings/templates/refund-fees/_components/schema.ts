@@ -110,11 +110,11 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
   };
   const refundFeeDetailSchema = z
     .object({
-      amountFrom: z.number(),
+      amountFrom: z.number().min(0),
       amountTo: z.number(),
-      fixedFeeValue: z.number(),
-      percentFeeValue: z.number(),
-      minFee: z.number(),
+      fixedFeeValue: z.number().min(0),
+      percentFeeValue: z.number().min(0).max(100),
+      minFee: z.number().min(0),
       maxFee: z.number(),
       feeType: FeeType,
       refundMethod: RefundMethod,
