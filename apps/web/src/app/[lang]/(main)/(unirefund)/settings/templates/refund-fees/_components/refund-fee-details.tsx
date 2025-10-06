@@ -1,23 +1,22 @@
+import {Badge} from "@/components/ui/badge";
+import {Button} from "@/components/ui/button";
 import type {UseFormReturn} from "@/components/ui/form";
 import {Controller, useFieldArray} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import {AlertTriangleIcon, ChevronLeft, ChevronRight, Equal, Eye, EyeOff, Plus, Trash2} from "lucide-react";
-import {useRef, useState} from "react";
-import {Badge} from "@/components/ui/badge";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
 import type {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
+import {AlertTriangleIcon, ChevronLeft, ChevronRight, Equal, Eye, EyeOff, Plus, Trash2} from "lucide-react";
+import {useRef, useState} from "react";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
+import type {createRefundFeeTableSchemas} from "./schema";
 import {RefundFeeDetailsVisualizer} from "./visualizer";
-import {createRefundFeeTableSchemas} from "./schema";
 
 const feeTypes = ["TouristFee", "TouristBonusFee", "AgentFee", "AirportFee", "EarlyRefundFee"] as const;
-const refundMethods = ["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner"] as const;
-const {createFormSchema} = createRefundFeeTableSchemas({});
+const refundMethods = ["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All"] as const;
 
 export function RefundFeeDetailsTable({
   languageData,
@@ -25,7 +24,7 @@ export function RefundFeeDetailsTable({
   isPending,
 }: {
   languageData: ContractServiceResource;
-  form: UseFormReturn<z.infer<typeof createFormSchema>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof createRefundFeeTableSchemas>["createFormSchema"]>>;
   isPending: boolean;
 }) {
   const watchedDetails = form.watch("refundFeeDetails");
@@ -34,15 +33,10 @@ export function RefundFeeDetailsTable({
     control: form.control,
     name: "refundFeeDetails",
   });
-  const {validateRefundFeeDetails} = createRefundFeeTableSchemas({languageData});
 
   const [showVisualizer, setShowVisualizer] = useState(true);
   const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
-  const validation = validateRefundFeeDetails(
-    watchedDetails?.map((item, originalIndex) => {
-      return {...item, originalIndex};
-    }) || [],
-  );
+
   const addNewRow = () => {
     const lastRow = watchedDetails?.at(-1);
     if (lastRow)
@@ -67,22 +61,26 @@ export function RefundFeeDetailsTable({
         refundMethod: "Cash",
       });
   };
+
   const getFieldError = (fieldName: string, index: number) => {
     const errors = form.formState.errors;
+
+    // Check for field-level errors
     if (errors.refundFeeDetails && Array.isArray(errors.refundFeeDetails)) {
       const rowError = errors.refundFeeDetails[index] as Record<string, {message?: string}> | undefined;
       if (rowError && typeof rowError === "object") {
         return rowError[fieldName].message;
       }
     }
-    const validationErrors = validation.errors.filter((error) => error.index === index && error.field === fieldName);
 
-    if (validationErrors.length > 0) {
-      return validationErrors[0].message;
+    // Check for array-level errors that reference specific indices
+    if (errors.refundFeeDetails?.root?.message) {
+      return errors.refundFeeDetails.root.message;
     }
 
     return null;
   };
+
   const handleVisualizerCellClick = (groupKey: string, rangeIndex: number) => {
     const [feeType, refundMethod] = groupKey.split("-");
 
@@ -104,7 +102,6 @@ export function RefundFeeDetailsTable({
     });
 
     if (matchingRowIndex !== -1) {
-      // Focus on the amountFrom input of the matching row
       const inputKey = `refundFeeDetails.${matchingRowIndex}.amountFrom`;
       const inputRef = inputRefs.current[inputKey];
       if (inputRef) {
@@ -113,6 +110,7 @@ export function RefundFeeDetailsTable({
       }
     }
   };
+
   return (
     <div className="flex h-full flex-col overflow-auto">
       <div className="sticky top-0 z-10 flex items-end justify-between bg-white pb-4">
@@ -144,6 +142,17 @@ export function RefundFeeDetailsTable({
           </Button>
         </div>
       </div>
+
+      {/* Show array-level errors below the header */}
+      {form.formState.errors.refundFeeDetails?.root ? (
+        <div className="mb-4 rounded-md border border-red-500 bg-red-50 p-4">
+          <div className="flex items-center gap-2 text-red-700">
+            <AlertTriangleIcon className="h-5 w-5" />
+            <span className="font-medium">{form.formState.errors.refundFeeDetails.root.message}</span>
+          </div>
+        </div>
+      ) : null}
+
       <div className="mb-4 rounded-md border">
         <Table>
           <TableHeader>
@@ -185,8 +194,8 @@ export function RefundFeeDetailsTable({
               <TableHead className="min-w-60">
                 {languageData["RefundFeeTable.Form.refundFeeDetails.refundMethod"]}
               </TableHead>
-              <TableHead>{languageData["RefundFeeTable.Form.refundFeeDetails.fixedFee"]}</TableHead>
-              <TableHead>{languageData["RefundFeeTable.Form.refundFeeDetails.percentFee"]}</TableHead>
+              <TableHead>{languageData["RefundFeeTable.Form.refundFeeDetails.fixedFeeValue"]}</TableHead>
+              <TableHead>{languageData["RefundFeeTable.Form.refundFeeDetails.percentFeeValue"]}</TableHead>
               <TableHead>{languageData["RefundFeeTable.Form.refundFeeDetails.minFee"]}</TableHead>
               <TableHead>{languageData["RefundFeeTable.Form.refundFeeDetails.maxFee"]}</TableHead>
               <TableHead className="w-[50px] border-none" />
@@ -205,7 +214,8 @@ export function RefundFeeDetailsTable({
                         <div className="relative">
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountFrom`}
-                            step="0.01"
+                            min={0}
+                            step="1"
                             type="number"
                             {...field}
                             className={cn(
@@ -236,7 +246,8 @@ export function RefundFeeDetailsTable({
                         <div className="relative">
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountTo`}
-                            step="0.01"
+                            min={0}
+                            step="1"
                             type="number"
                             {...field}
                             className={cn(
@@ -311,63 +322,87 @@ export function RefundFeeDetailsTable({
                   <Controller
                     control={form.control}
                     name={`refundFeeDetails.${index}.fixedFeeValue`}
-                    render={({field}) => (
-                      <div className="relative">
-                        <Input
-                          data-testid={`refundFeeDetails.${index}.fixedFeeValue`}
-                          step="0.01"
-                          type="number"
-                          {...field}
-                          className={cn("rounded-none border-none shadow-none")}
-                          disabled={isPending}
-                          onChange={(e) => {
-                            field.onChange(parseFloat(e.target.value) || 0);
-                          }}
-                        />
-                      </div>
-                    )}
+                    render={({field}) => {
+                      const error = getFieldError("fixedFeeValue", index);
+                      return (
+                        <div className="relative">
+                          <Input
+                            data-testid={`refundFeeDetails.${index}.fixedFeeValue`}
+                            min={0}
+                            step="1"
+                            type="number"
+                            {...field}
+                            className={cn(
+                              "rounded-none border-none shadow-none",
+                              error && "bg-red-50 font-bold italic text-red-500",
+                            )}
+                            disabled={isPending}
+                            onChange={(e) => {
+                              field.onChange(parseFloat(e.target.value) || 0);
+                            }}
+                          />
+                          <FieldError error={error} />
+                        </div>
+                      );
+                    }}
                   />
                 </TableCell>
                 <TableCell>
                   <Controller
                     control={form.control}
                     name={`refundFeeDetails.${index}.percentFeeValue`}
-                    render={({field}) => (
-                      <div className="relative">
-                        <Input
-                          data-testid={`refundFeeDetails.${index}.percentFeeValue`}
-                          step="0.01"
-                          type="number"
-                          {...field}
-                          className={cn("rounded-none border-none shadow-none")}
-                          disabled={isPending}
-                          onChange={(e) => {
-                            field.onChange(parseFloat(e.target.value) || 0);
-                          }}
-                        />
-                      </div>
-                    )}
+                    render={({field}) => {
+                      const error = getFieldError("percentFeeValue", index);
+                      return (
+                        <div className="relative">
+                          <Input
+                            data-testid={`refundFeeDetails.${index}.percentFeeValue`}
+                            min={0}
+                            step="1"
+                            type="number"
+                            {...field}
+                            className={cn(
+                              "rounded-none border-none shadow-none",
+                              error && "bg-red-50 font-bold italic text-red-500",
+                            )}
+                            disabled={isPending}
+                            onChange={(e) => {
+                              field.onChange(parseFloat(e.target.value) || 0);
+                            }}
+                          />
+                          <FieldError error={error} />
+                        </div>
+                      );
+                    }}
                   />
                 </TableCell>
                 <TableCell>
                   <Controller
                     control={form.control}
                     name={`refundFeeDetails.${index}.minFee`}
-                    render={({field}) => (
-                      <div className="relative">
-                        <Input
-                          data-testid={`refundFeeDetails.${index}.minFee`}
-                          step="0.01"
-                          type="number"
-                          {...field}
-                          className={cn("rounded-none border-none shadow-none")}
-                          disabled={isPending}
-                          onChange={(e) => {
-                            field.onChange(parseFloat(e.target.value) || 0);
-                          }}
-                        />
-                      </div>
-                    )}
+                    render={({field}) => {
+                      const error = getFieldError("minFee", index);
+                      return (
+                        <div className="relative">
+                          <Input
+                            data-testid={`refundFeeDetails.${index}.minFee`}
+                            min={0}
+                            step="1"
+                            type="number"
+                            {...field}
+                            className={cn(
+                              "rounded-none border-none shadow-none",
+                              error && "bg-red-50 font-bold italic text-red-500",
+                            )}
+                            disabled={isPending}
+                            onChange={(e) => {
+                              field.onChange(parseFloat(e.target.value) || 0);
+                            }}
+                          />
+                          <FieldError error={error} />
+                        </div>
+                      );
+                    }}
                   />
                 </TableCell>
                 <TableCell>
@@ -380,7 +415,8 @@ export function RefundFeeDetailsTable({
                         <div className="relative">
                           <Input
                             data-testid={`refundFeeDetails.${index}.maxFee`}
-                            step="0.01"
+                            min={0}
+                            step="1"
                             type="number"
                             {...field}
                             className={cn(

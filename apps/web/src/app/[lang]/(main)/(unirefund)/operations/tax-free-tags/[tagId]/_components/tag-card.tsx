@@ -64,7 +64,7 @@ export function TagCard({
   className?: string;
 }) {
   return (
-    <Card className={cn("col-span-2 h-full flex-1 rounded-none", className)}>
+    <Card className={cn("col-span-2 flex-1 rounded-none", className)}>
       <CardHeader className="h-full py-4">
         <CardTitle className=" flex items-center gap-2 text-lg">
           {icon}

@@ -106,8 +106,8 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
           </Button>
         ),
       }}>
-      <div className="mb-3 grid h-full grid-cols-4 gap-1 pb-3 lg:gap-3">
-        <div className="col-span-3 grid h-full grid-cols-6 gap-1 overflow-hidden lg:gap-3">
+      <div className="mb-3 h-full grid-cols-4 gap-1 pb-3 md:grid lg:gap-3">
+        <div className="col-span-3 h-full grid-cols-6 gap-1 overflow-hidden md:grid lg:gap-3">
           <TagCardList
             icon={<FileIcon className="size-5" />}
             rows={[
@@ -176,7 +176,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
           />
           <div
             className={cn(
-              " row-span-2 h-full overflow-hidden",
+              "row-span-2 flex h-full overflow-hidden",
               !hasGrant.TagTotals && !hasGrant.TagEarnings ? "col-span-6" : "col-span-4",
             )}>
             <TagCard icon={<ReceiptText className="size-5" />} title={languageData.Invoices}>
@@ -184,7 +184,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
             </TagCard>
           </div>
           {hasGrant.TagTotals ? (
-            <div className={cn("col-span-2 ", !hasGrant.TagEarnings && "row-span-2")}>
+            <div className={cn("col-span-2 flex", !hasGrant.TagEarnings && "row-span-2")}>
               <TagCardList
                 icon={<Scale className="size-5" />}
                 rows={
@@ -198,7 +198,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
             </div>
           ) : null}
           {hasGrant.TagEarnings ? (
-            <div className={cn("col-span-2", !hasGrant.TagTotals && "row-span-2")}>
+            <div className={cn("col-span-2 flex", !hasGrant.TagTotals && "row-span-2")}>
               <TagCardList
                 icon={<HandCoins className="size-5" />}
                 rows={

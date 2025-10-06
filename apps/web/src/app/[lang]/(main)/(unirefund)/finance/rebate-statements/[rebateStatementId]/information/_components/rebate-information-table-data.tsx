@@ -28,7 +28,6 @@ const rebateInformationColumns = (
     links.invoiceNumber = {
       prefix: `/finance/vat-statements/`,
       targetAccessorKey: "vatStatementHeaderId",
-      suffix: "/information",
     };
   }
   return tanstackTableCreateColumnsByRowData<UniRefund_FinanceService_RebateStatementStoreDetails_RebateStatementStoreDetailDraftDto>(

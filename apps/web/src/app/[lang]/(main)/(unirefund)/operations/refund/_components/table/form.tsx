@@ -144,8 +144,11 @@ export function RefundMethodForm({
           cardInfo: refundMethod === "CreditCard" ? (formData as CardInfoDto) : undefined,
         },
       }).then((response) => {
-        if (response.type !== "success") return;
-        handlePostResponse(response, router, `/operations/refunds/${response.data.id}/tags`);
+        handlePostResponse(
+          response,
+          router,
+          response.type === "success" ? `/operations/refunds/${response.data.id}/tags` : undefined,
+        );
       });
     });
   }

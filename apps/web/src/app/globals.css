@@ -89,3 +89,34 @@ body {
   pointer-events: none;
   display: none;
 }
+
+.loading-stroke path {
+  stroke-width: 1;
+  animation: loadingStroke 4s infinite;
+}
+
+@keyframes loadingStroke {
+  0% {
+    stroke-dasharray: 360px, 0px;
+    stroke-dashoffset: 460px;
+  }
+
+  50% {
+    stroke-dasharray: 360px, 100px;
+  }
+
+  100% {
+    stroke-dasharray: 360px, 0px;
+  }
+}
+.loading-text {
+  --ch-size: 1ch;
+  clip-path: inset(0 var(--ch-size) 0 0);
+  animation: l 2s steps(4, jump-none) infinite;
+}
+
+@keyframes l {
+  to {
+    clip-path: inset(0);
+  }
+}

@@ -652,8 +652,8 @@ importers:
         specifier: ^2.9.0
         version: 2.9.0
       lucide-react:
-        specifier: ^0.445.0
-        version: 0.445.0(react@18.3.1)
+        specifier: 0.544.0
+        version: 0.544.0(react@18.3.1)
       next:
         specifier: ^14.2.5
         version: 14.2.11(@babel/core@7.25.2)(@playwright/test@1.55.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6704,6 +6704,7 @@ packages:
 
   '@tiptap-pro/extension-node-range@2.11.2':
     resolution: {integrity: sha512-fEhe/QlJj4b+EzhNUEEQHVO5kzmN5P8JrxmUMCXE5JEma6nineyFbxFSjPlTr2IewWvpkuJPJdxc+p1bXM8+vg==}
+    deprecated: '"@tiptap-pro/extension-node-range" was made open source and can now be installed from "@tiptap/extension-node-range" instead.'
     peerDependencies:
       '@tiptap/core': ^2.0.0
       '@tiptap/pm': ^2.0.0
@@ -10485,11 +10486,6 @@ packages:
   lru-cache@7.18.3:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
-
-  lucide-react@0.445.0:
-    resolution: {integrity: sha512-YrLf3aAHvmd4dZ8ot+mMdNFrFpJD7YRwQ2pUcBhgqbmxtrMP4xDzIorcj+8y+6kpuXBF4JB0NOCTUWIYetJjgA==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
   lucide-react@0.544.0:
     resolution: {integrity: sha512-t5tS44bqd825zAW45UQxpG2CvcC4urOwn2TrwSH8u+MjeE+1NnWl6QqeQ/6NdjMqdOygyiT9p3Ev0p1NJykxjw==}
@@ -25586,10 +25582,6 @@ snapshots:
       yallist: 3.1.1
 
   lru-cache@7.18.3: {}
-
-  lucide-react@0.445.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   lucide-react@0.544.0(react@18.3.1):
     dependencies:
