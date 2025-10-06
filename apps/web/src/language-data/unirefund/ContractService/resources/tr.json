@@ -125,6 +125,8 @@
   "RefundTable.Form.refundTableDetails.refundPercent": "İade yüzdesi",
   "RefundTable.Form.refundTableDetails.isLoyalty": "Sadakat mi",
   "RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanMinValue": "Maksimum değer, minimum değerden büyük olmalıdır.",
+  "RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanRefundAmount": "Maksimum değer, iade tutarından büyük olmalıdır.",
+  "RefundTable.Form.refundTableDetails.refundPercentMustBeLowerThanVatRate": "İade yüzdesi KDV oranından yüksek olamaz.",
   "RefundTable.Form.refundTableDetails.firstRowMustStartFromZero": "İlk satır 0'dan başlamalıdır.",
   "RefundTable.Form.refundTableDetails.minValueMustBe{0}toContinueFromPreviousRow": "Önceki satırdan devam etmek için minimum değer {0} olmalıdır.",
   "RefundTable.Form.refundTableDetails.maxValueShouldBe{0}toConnectWithNextRow": "Sonraki satır ile bağlantı için maksimum değer {0} olmalıdır.",

@@ -42,6 +42,12 @@ export function RefundTableDetailsTable({
     if (currentRow.maxValue <= currentRow.minValue) {
       return languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanMinValue"];
     }
+    if (currentRow.maxValue <= currentRow.refundAmount) {
+      return languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanRefundAmount"];
+    }
+    if (currentRow.refundPercent >= currentRow.vatRate) {
+      return languageData["RefundTable.Form.refundTableDetails.refundPercentMustBeLowerThanVatRate"];
+    }
     const sorted = [...allRows].sort((a, b) => a.minValue - b.minValue);
     const currentIndex = sorted.findIndex(
       (row) => row.minValue === currentRow.minValue && row.maxValue === currentRow.maxValue,

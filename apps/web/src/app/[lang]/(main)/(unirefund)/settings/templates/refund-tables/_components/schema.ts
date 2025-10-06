@@ -3,11 +3,11 @@ import type {ContractServiceResource} from "@/language-data/unirefund/ContractSe
 
 export function createRefundTableFormSchemas({languageData}: {languageData?: ContractServiceResource}) {
   const refundTableDetailSchema = z.object({
-    vatRate: z.number(),
-    minValue: z.number(),
+    vatRate: z.number().min(0),
+    minValue: z.number().min(0),
     maxValue: z.number(),
     refundAmount: z.number(),
-    refundPercent: z.number(),
+    refundPercent: z.number().min(0).max(100),
     isLoyalty: z.boolean().default(false),
   });
 
