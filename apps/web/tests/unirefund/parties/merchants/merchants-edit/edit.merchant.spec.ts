@@ -39,7 +39,7 @@ test("merchant edit - randomized inputs", async ({page}) => {
 
   await page.getByTestId("root_name").fill(title);
   await page.getByTestId("root_vatNumber").fill(vat);
-  await page.getByTestId("root_externalStoreIdentifier").fill(storeCode);
+  await page.getByTestId("root_externalIdentifier").fill(storeCode);
 
   await expectNewToastAfter(
     page,
