@@ -29,6 +29,9 @@ export default function Form({
     name: "Form.ExportValidation",
     extend: {
       "ui:className": "md:grid md:grid-cols-2 md:gap-2",
+      exportDate: {
+        "ui:widget": "DateWidget",
+      },
     },
   });
   return (
@@ -41,6 +44,7 @@ export default function Form({
         keys: ["referenceId", "exportDate", "status", "stampType", "initialValidationResult", "finalValidationResult"],
       }}
       formData={exportValidationData}
+      liveValidate={false}
       onSubmit={(data) => {
         setLoading(true);
         const formData = data.formData;
