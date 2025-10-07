@@ -169,7 +169,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.ProductGroups,
-                value: tagDetail.merchant?.productGroups?.map((p) => p.name).join(", ") || "",
+                value: tagDetail.merchant?.productGroups.map((p) => p.name).join(", ") || "",
               },
             ]}
             title={languageData.MerchantDetails}
