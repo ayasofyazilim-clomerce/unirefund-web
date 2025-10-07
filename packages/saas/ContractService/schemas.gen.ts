@@ -76,8 +76,8 @@ export const $PagedResultDto_ContractHeaderDetailForMerchantDto = {
                                 format: 'uuid'
                             },
                             name: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             taxOffice: {
                                 required: ['id', 'name'],
@@ -88,8 +88,8 @@ export const $PagedResultDto_ContractHeaderDetailForMerchantDto = {
                                         format: 'uuid'
                                     },
                                     name: {
-                                        type: 'string',
-                                        nullable: true
+                                        minLength: 1,
+                                        type: 'string'
                                     }
                                 },
                                 additionalProperties: false
@@ -109,13 +109,12 @@ export const $PagedResultDto_ContractHeaderDetailForMerchantDto = {
                                             format: 'uuid'
                                         },
                                         name: {
-                                            type: 'string',
-                                            nullable: true
+                                            minLength: 1,
+                                            type: 'string'
                                         }
                                     },
                                     additionalProperties: false
-                                },
-                                nullable: true
+                                }
                             }
                         },
                         additionalProperties: false
@@ -257,7 +256,6 @@ export const $PagedResultDto_ContractHeaderDetailForRefundPointDto = {
                         type: 'string'
                     },
                     refundPointBasicInformationDto: {
-                        required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
                         type: 'object',
                         properties: {
                             id: {
@@ -277,8 +275,8 @@ export const $PagedResultDto_ContractHeaderDetailForRefundPointDto = {
                                         format: 'uuid'
                                     },
                                     name: {
-                                        type: 'string',
-                                        nullable: true
+                                        minLength: 1,
+                                        type: 'string'
                                     }
                                 },
                                 additionalProperties: false
@@ -298,8 +296,8 @@ export const $PagedResultDto_ContractHeaderDetailForRefundPointDto = {
                                             format: 'uuid'
                                         },
                                         name: {
-                                            type: 'string',
-                                            nullable: true
+                                            minLength: 1,
+                                            type: 'string'
                                         }
                                     },
                                     additionalProperties: false
@@ -648,7 +646,7 @@ export const $PagedResultDto_ContractSettingDto = {
                         type: 'boolean'
                     },
                     invoicingAddressCommonData: {
-                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+                        required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
                         type: 'object',
                         properties: {
                             id: {
@@ -656,7 +654,7 @@ export const $PagedResultDto_ContractSettingDto = {
                                 format: 'uuid'
                             },
                             partyType: {
-                                enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                                enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                                 type: 'string'
                             },
                             partyId: {
@@ -677,12 +675,11 @@ export const $PagedResultDto_ContractSettingDto = {
                             },
                             neighborhoodId: {
                                 type: 'string',
-                                format: 'uuid',
-                                nullable: true
+                                format: 'uuid'
                             },
                             addressLine: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             },
                             postalCode: {
                                 type: 'string',
@@ -707,8 +704,7 @@ export const $PagedResultDto_ContractSettingDto = {
                                 nullable: true
                             },
                             isPrimary: {
-                                type: 'boolean',
-                                nullable: true
+                                type: 'boolean'
                             }
                         },
                         additionalProperties: false
@@ -893,7 +889,7 @@ export const $PagedResultDto_RefundFeeHeaderListDto = {
         items: {
             type: 'array',
             items: {
-                required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+                required: ['id', 'isActive', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
                 type: 'object',
                 properties: {
                     id: {
@@ -986,7 +982,7 @@ export const $PagedResultDto_RefundTableHeaderListDto = {
         items: {
             type: 'array',
             items: {
-                required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+                required: ['id', 'isAssigned', 'isBundling', 'isDefault', 'isEditable', 'isTemplate', 'name'],
                 type: 'object',
                 properties: {
                     id: {
@@ -1077,7 +1073,7 @@ export const $PagedResultDto_RefundTableHeaderListDto = {
 } as const;
 
 export const $UniRefund_CRMService_Addresses_AddressDto = {
-    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+    required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -1085,7 +1081,7 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
             format: 'uuid'
         },
         partyType: {
-            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+            enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
             type: 'string'
         },
         partyId: {
@@ -1106,12 +1102,11 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
         },
         neighborhoodId: {
             type: 'string',
-            format: 'uuid',
-            nullable: true
+            format: 'uuid'
         },
         addressLine: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         postalCode: {
             type: 'string',
@@ -1136,8 +1131,7 @@ export const $UniRefund_CRMService_Addresses_AddressDto = {
             nullable: true
         },
         isPrimary: {
-            type: 'boolean',
-            nullable: true
+            type: 'boolean'
         }
     },
     additionalProperties: false
@@ -1157,8 +1151,8 @@ export const $UniRefund_CRMService_Individuals_IndividualIdNameDto = {
             format: 'uuid'
         },
         name: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         }
     },
     additionalProperties: false
@@ -1173,8 +1167,8 @@ export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
             format: 'uuid'
         },
         name: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         taxOffice: {
             required: ['id', 'name'],
@@ -1185,8 +1179,8 @@ export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
                     format: 'uuid'
                 },
                 name: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 }
             },
             additionalProperties: false
@@ -1206,20 +1200,18 @@ export const $UniRefund_CRMService_Merchants_MerchantBasicInformationDto = {
                         format: 'uuid'
                     },
                     name: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     }
                 },
                 additionalProperties: false
-            },
-            nullable: true
+            }
         }
     },
     additionalProperties: false
 } as const;
 
 export const $UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto = {
-    required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
     type: 'object',
     properties: {
         id: {
@@ -1239,8 +1231,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto =
                     format: 'uuid'
                 },
                 name: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 }
             },
             additionalProperties: false
@@ -1260,8 +1252,8 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointBasicInformationDto =
                         format: 'uuid'
                     },
                     name: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     }
                 },
                 additionalProperties: false
@@ -1281,8 +1273,8 @@ export const $UniRefund_CRMService_TaxOffices_TaxOfficeNameDto = {
             format: 'uuid'
         },
         name: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         }
     },
     additionalProperties: false
@@ -1417,8 +1409,8 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Con
                     format: 'uuid'
                 },
                 name: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 taxOffice: {
                     required: ['id', 'name'],
@@ -1429,8 +1421,8 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Con
                             format: 'uuid'
                         },
                         name: {
-                            type: 'string',
-                            nullable: true
+                            minLength: 1,
+                            type: 'string'
                         }
                     },
                     additionalProperties: false
@@ -1450,13 +1442,12 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractHeaders_Con
                                 format: 'uuid'
                             },
                             name: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             }
                         },
                         additionalProperties: false
-                    },
-                    nullable: true
+                    }
                 }
             },
             additionalProperties: false
@@ -1965,7 +1956,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractSettings_Co
             type: 'boolean'
         },
         invoicingAddressCommonData: {
-            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'neighborhoodId', 'partyId', 'partyType', 'type'],
+            required: ['addressLine', 'adminAreaLevel1Id', 'adminAreaLevel2Id', 'countryId', 'isPrimary', 'neighborhoodId', 'partyId', 'partyType', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1973,7 +1964,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractSettings_Co
                     format: 'uuid'
                 },
                 partyType: {
-                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+                    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
                     type: 'string'
                 },
                 partyId: {
@@ -1994,12 +1985,11 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractSettings_Co
                 },
                 neighborhoodId: {
                     type: 'string',
-                    format: 'uuid',
-                    nullable: true
+                    format: 'uuid'
                 },
                 addressLine: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 postalCode: {
                     type: 'string',
@@ -2024,8 +2014,7 @@ export const $UniRefund_ContractService_ContractsForMerchant_ContractSettings_Co
                     nullable: true
                 },
                 isPrimary: {
-                    type: 'boolean',
-                    nullable: true
+                    type: 'boolean'
                 }
             },
             additionalProperties: false
@@ -2641,7 +2630,6 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
             type: 'string'
         },
         refundPointBasicInformationDto: {
-            required: ['accountManagers', 'name', 'numberOfStores', 'taxOffice'],
             type: 'object',
             properties: {
                 id: {
@@ -2661,8 +2649,8 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
                             format: 'uuid'
                         },
                         name: {
-                            type: 'string',
-                            nullable: true
+                            minLength: 1,
+                            type: 'string'
                         }
                     },
                     additionalProperties: false
@@ -2682,8 +2670,8 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
                                 format: 'uuid'
                             },
                             name: {
-                                type: 'string',
-                                nullable: true
+                                minLength: 1,
+                                type: 'string'
                             }
                         },
                         additionalProperties: false
@@ -3571,15 +3559,9 @@ export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDe
 } as const;
 
 export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHeaderCreateDto = {
-    required: ['name'],
+    required: ['calculateNetCommissionInsteadOfRefund', 'isTemplate', 'name'],
     type: 'object',
     properties: {
-        extraProperties: {
-            type: 'object',
-            additionalProperties: {},
-            nullable: true,
-            readOnly: true
-        },
         name: {
             maxLength: 255,
             minLength: 0,
@@ -3967,12 +3949,6 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
     required: ['name'],
     type: 'object',
     properties: {
-        extraProperties: {
-            type: 'object',
-            additionalProperties: {},
-            nullable: true,
-            readOnly: true
-        },
         name: {
             maxLength: 255,
             minLength: 0,
@@ -4240,7 +4216,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetail
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderCreateDto = {
-    required: ['name'],
+    required: ['isActive', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -4319,7 +4295,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto = {
-    required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+    required: ['id', 'isActive', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -4496,7 +4472,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderListDto = {
-    required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+    required: ['id', 'isActive', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -4575,7 +4551,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderUpdateDto = {
-    required: ['name'],
+    required: ['isActive', 'name'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -4646,7 +4622,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailCreateDto = {
-    required: ['maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+    required: ['isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -4683,7 +4659,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailDto = {
-    required: ['id', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+    required: ['id', 'isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
     type: 'object',
     properties: {
         id: {
@@ -4750,7 +4726,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDetailUpdateWithRandomIdDto = {
-    required: ['maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+    required: ['isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -4787,7 +4763,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableDetails_RefundTableDe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderCreateDto = {
-    required: ['name'],
+    required: ['isBundling', 'isDefault', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -4818,7 +4794,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
         refundTableDetails: {
             type: 'array',
             items: {
-                required: ['maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+                required: ['isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
                 type: 'object',
                 properties: {
                     extraProperties: {
@@ -4860,7 +4836,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderDto = {
-    required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+    required: ['id', 'isAssigned', 'isBundling', 'isDefault', 'isEditable', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -4940,7 +4916,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
         refundTableDetails: {
             type: 'array',
             items: {
-                required: ['id', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+                required: ['id', 'isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
                 type: 'object',
                 properties: {
                     id: {
@@ -5012,7 +4988,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderForTagDto = {
-    required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+    required: ['id', 'isAssigned', 'isBundling', 'isDefault', 'isEditable', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -5092,7 +5068,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
         refundTableDetails: {
             type: 'array',
             items: {
-                required: ['id', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+                required: ['id', 'isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
                 type: 'object',
                 properties: {
                     id: {
@@ -5187,7 +5163,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderListDto = {
-    required: ['id', 'isAssigned', 'isEditable', 'isTemplate', 'name'],
+    required: ['id', 'isAssigned', 'isBundling', 'isDefault', 'isEditable', 'isTemplate', 'name'],
     type: 'object',
     properties: {
         id: {
@@ -5269,7 +5245,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
 } as const;
 
 export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderUpdateDto = {
-    required: ['name'],
+    required: ['isBundling', 'isDefault', 'name'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -5292,7 +5268,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
         refundTableDetails: {
             type: 'array',
             items: {
-                required: ['maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
+                required: ['isLoyalty', 'maxValue', 'minValue', 'refundAmount', 'refundPercent', 'vatRate'],
                 type: 'object',
                 properties: {
                     extraProperties: {
@@ -5334,7 +5310,7 @@ export const $UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHe
 } as const;
 
 export const $UniRefund_Shared_Contracts_Enums_PartyType = {
-    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE'],
+    enum: ['INDIVIDUAL', 'MERCHANT', 'REFUNDPOINT', 'CUSTOM', 'TAXFREE', 'TAXOFFICE', 'TOURGUIDE', 'TRAVELLER'],
     type: 'string'
 } as const;
 
