@@ -75,7 +75,7 @@ export function SelectIndividualStep({
           <div className="flex items-center space-x-4">
             <Avatar>
               <AvatarImage alt="Image" src="/avatars/01.png" />
-              <AvatarFallback>{selectedIndividual.fullname?.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{selectedIndividual.fullname.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
               <p className="text-sm font-medium leading-none">{selectedIndividual.fullname}</p>

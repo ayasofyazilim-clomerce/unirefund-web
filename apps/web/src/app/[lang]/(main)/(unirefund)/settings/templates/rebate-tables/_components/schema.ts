@@ -71,7 +71,7 @@ export function createRebateTableFormSchemas({languageData}: {languageData?: Con
     });
   const updateFormSchema = z.object({
     name: z.string().min(2).max(50),
-    calculateNetCommissionInsteadOfRefund: z.boolean().default(false).optional(),
+    calculateNetCommissionInsteadOfRefund: z.boolean().default(false),
     processingFeeDetails: processingFeeDetailsSchema,
     rebateTableDetails: rebateTableDetailsSchema,
   });
