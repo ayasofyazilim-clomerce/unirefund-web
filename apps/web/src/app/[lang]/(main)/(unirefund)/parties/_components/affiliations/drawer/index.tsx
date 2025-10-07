@@ -132,6 +132,8 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
     setSelectedRole(role || null);
   }, []);
 
+  const assignableRoles = useMemo(() => roles.filter((r) => !(r.isStatic || r.isDefault)), [roles]);
+
   const handleDateSelect = useCallback((selectedDate: Date | null) => {
     setDate(selectedDate);
   }, []);
@@ -165,7 +167,7 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
               languageData={languageData}
               onDateSelect={handleDateSelect}
               onRoleSelect={handleRoleSelect}
-              roleList={roles}
+              roleList={assignableRoles}
               selectedRole={selectedRole}
             />
           )}
