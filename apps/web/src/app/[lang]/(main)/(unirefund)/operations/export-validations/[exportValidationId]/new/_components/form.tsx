@@ -26,6 +26,14 @@ export default function Form({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  const defaultFormData: UniRefund_TagService_Tags_ExportValidationRequestDto = {
+    exportDate: new Date().toISOString(),
+    customsId: customList[0]?.id || "",
+    referenceId: "",
+    responseCode: "",
+    description: "",
+  } as UniRefund_TagService_Tags_ExportValidationRequestDto;
+
   const uiSchema = createUiSchemaWithResource({
     schema: $UniRefund_TagService_Tags_ExportValidationRequestDto,
     resources: languageData,
@@ -33,6 +41,10 @@ export default function Form({
     extend: {
       customsId: {
         "ui:widget": "CustomWidget",
+      },
+      "ui:className": "grid grid-cols-1 lg:grid-cols-2 gap-4 py-4",
+      description: {
+        "ui:className": "col-span-full",
       },
     },
   });
@@ -45,6 +57,7 @@ export default function Form({
         sort: true,
         keys: ["customsId", "referenceId", "exportDate", "responseCode", "description"],
       }}
+      formData={defaultFormData}
       onSubmit={(data) => {
         setLoading(true);
         const formData = data.formData;

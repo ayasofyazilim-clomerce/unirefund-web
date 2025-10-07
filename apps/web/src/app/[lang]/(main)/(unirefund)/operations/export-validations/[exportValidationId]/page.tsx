@@ -19,7 +19,7 @@ export default async function Page({params}: {params: {lang: string; exportValid
     return <ErrorComponent languageData={languageData} message={exportValidationDetailsResponse.message} />;
   }
   return (
-    <div className="my-6 rounded-md border p-2 md:p-6">
+    <div className="my-6">
       <Form exportValidationData={exportValidationDetailsResponse.data} languageData={languageData} />
       <div className="hidden" id="page-title">
         {`${languageData.ExportValidation} (${exportValidationDetailsResponse.data.tagNumber})`}
