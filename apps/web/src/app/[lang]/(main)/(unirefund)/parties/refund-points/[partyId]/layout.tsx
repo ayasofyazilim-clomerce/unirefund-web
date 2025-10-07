@@ -46,7 +46,7 @@ export default async function Layout({
   const [refundPointDetailResponse, grantedPolicies] = apiRequests.requiredRequests;
   const isHeadquarter =
     refundPointDetailResponse.data.parentId === null || refundPointDetailResponse.data.parentId === "";
-  const isAffilationsAvailable =
+  const isAffiliationsAvailable =
     grantedPolicies &&
     !(await isUnauthorized({
       requiredPolicies: ["CRMService.RefundPoints.ViewAffiliationList", "AbpIdentity.Roles"],
@@ -82,7 +82,7 @@ export default async function Layout({
   if (isSubRefundPointsAvailable) {
     tabListItems.push({label: languageData["CRM.RefundPoint.SubOrganization"], href: `${baseLink}sub-stores`});
   }
-  if (isAffilationsAvailable) {
+  if (isAffiliationsAvailable) {
     tabListItems.push({
       label: languageData["CRM.Affiliations"],
       href: `${baseLink}affiliations`,
