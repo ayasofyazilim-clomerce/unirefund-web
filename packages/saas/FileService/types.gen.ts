@@ -163,8 +163,8 @@ export type UniRefund_FileService_Files_FileForHumanValidationDto = {
     isHumanOutputEqualToAI?: (boolean) | null;
     llmChallengeAccuracy?: (number) | null;
     similarityRateForAIAndHumanOutput?: (number) | null;
-    fileJsonSchema?: (string) | null;
-    fileUIJsonSchema?: (string) | null;
+    fileJsonSchema: string;
+    fileUIJsonSchema: string;
     isValidated?: (boolean) | null;
     fileAIValidationStatus: UniRefund_FileService_Enums_FileValidationStatus;
     fileHumanValidationStatus: UniRefund_FileService_Enums_FileValidationStatus;
@@ -872,9 +872,9 @@ export type GetApiFileServiceFilesResponse = (Array<UniRefund_FileService_Files_
 export type PostApiFileServiceFilesData = {
     formData?: {
         file?: (Blob | File);
-        FileType: string;
-        RelatedEntity: string;
-        Property: string;
+        FileType?: string;
+        RelatedEntity?: string;
+        Property?: string;
         DocumentDate?: string;
         DocumentOriginator?: string;
         FileDescription?: string;
@@ -889,8 +889,8 @@ export type GetApiFileServiceFilesWithRelationData = {
     fileTypeGroup?: string;
     isValidated?: boolean;
     maxResultCount?: number;
-    relatedEntity: string;
-    relatedId: string;
+    relatedEntity?: string;
+    relatedId?: string;
     skipCount?: number;
     sorting?: string;
 };

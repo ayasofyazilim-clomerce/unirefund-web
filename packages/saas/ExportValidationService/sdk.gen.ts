@@ -8,6 +8,7 @@ export class ExportValidationService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** ExportValidationService.ExportValidations, ExportValidationService.ExportValidations.ViewList
      * @param data The data for the request.
      * @param data.referenceId
      * @param data.tagIds
@@ -50,6 +51,7 @@ export class ExportValidationService {
     }
     
     /**
+     * **Requires permissions:** ExportValidationService.ExportValidations, ExportValidationService.ExportValidations.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -74,6 +76,7 @@ export class ExportValidationService {
     }
     
     /**
+     * **Requires permissions:** ExportValidationService.ExportValidations, ExportValidationService.ExportValidations.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -101,6 +104,7 @@ export class ExportValidationService {
     }
     
     /**
+     * **Requires permissions:** ExportValidationService.ExportValidations, ExportValidationService.ExportValidations.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK

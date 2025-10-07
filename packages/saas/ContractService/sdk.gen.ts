@@ -8,6 +8,7 @@ export class ContractsMerchantService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ViewDetail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -32,6 +33,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -59,6 +61,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -83,6 +86,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ViewList
      * @param data The data for the request.
      * @param data.isDraft
      * @param data.sorting
@@ -113,6 +117,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.GetListDetailByMerchantId
      * @param data The data for the request.
      * @param data.id
      * @param data.isDraft
@@ -147,6 +152,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.Create
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -174,6 +180,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.Validate
      * @param data The data for the request.
      * @param data.id
      * @returns boolean OK
@@ -198,6 +205,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.MakePassive
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -222,6 +230,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ViewRebateSetting
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -246,6 +255,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.UpSertRebateSetting
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -273,6 +283,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ConractSettingView
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -297,6 +308,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ContractSettingEdit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -324,6 +336,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ConractSettingDelete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -348,6 +361,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ConractSettingGetListByContractHeaderId
      * @param data The data for the request.
      * @param data.id
      * @param data.sorting
@@ -380,6 +394,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ConractSettingCreate
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -407,6 +422,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ContractSettingChangeDefault
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -434,6 +450,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.GetStoreListByContractHeaderId
      * @param data The data for the request.
      * @param data.id
      * @param data.sorting
@@ -466,6 +483,7 @@ export class ContractsMerchantService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForMerchant, ContractService.ContractHeaderForMerchant.ContractStoreUpSert
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -498,6 +516,7 @@ export class ContractsRefundPointService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.Detail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -522,6 +541,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -549,6 +569,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.Delete
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -573,6 +594,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.ViewList
      * @param data The data for the request.
      * @param data.isDraft
      * @param data.sorting
@@ -603,6 +625,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.GetListDetailByRefundPointId
      * @param data The data for the request.
      * @param data.id
      * @param data.isDraft
@@ -637,6 +660,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.Create
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -664,6 +688,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.Validate
      * @param data The data for the request.
      * @param data.id
      * @returns boolean OK
@@ -688,6 +713,7 @@ export class ContractsRefundPointService {
     }
     
     /**
+     * **Requires permissions:** ContractService.ContractHeaderForRefundPoint, ContractService.ContractHeaderForRefundPoint.MakePassive
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -717,6 +743,7 @@ export class RebateTableHeaderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** ContractService.RebateTableHeader, ContractService.RebateTableHeader.GetAssignablesByMerchantId
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.sorting
@@ -743,6 +770,7 @@ export class RebateTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RebateTableHeader, ContractService.RebateTableHeader.ViewDetail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -767,6 +795,7 @@ export class RebateTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RebateTableHeader, ContractService.RebateTableHeader.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -795,6 +824,7 @@ export class RebateTableHeaderService {
     
     /**
      * Retrieves a paginated list of rebate table headers based on input criteria.
+     * **Requires permissions:** ContractService.RebateTableHeader, ContractService.RebateTableHeader.ViewList
      * @param data The data for the request.
      * @param data.isTemplate
      * @param data.sorting
@@ -825,6 +855,7 @@ export class RebateTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RebateTableHeader, ContractService.RebateTableHeader.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -848,6 +879,7 @@ export class RebateTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RebateTableHeader, ContractService.RebateTableHeader.Clone
      * @param data The data for the request.
      * @param data.id
      * @param data.isTemplate
@@ -883,6 +915,7 @@ export class RefundFeeHeaderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** ContractService.RefundFeeHeader, ContractService.RefundFeeHeader.GetAssignablesByRefundPointId
      * @param data The data for the request.
      * @param data.refundPointId
      * @param data.sorting
@@ -909,6 +942,7 @@ export class RefundFeeHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundFeeHeader, ContractService.RefundFeeHeader.ViewDetail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -933,6 +967,7 @@ export class RefundFeeHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundFeeHeader, ContractService.RefundFeeHeader.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -960,6 +995,7 @@ export class RefundFeeHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundFeeHeader, ContractService.RefundFeeHeader.ViewList
      * @param data The data for the request.
      * @param data.isTemplate
      * @param data.skipCount
@@ -988,6 +1024,7 @@ export class RefundFeeHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundFeeHeader, ContractService.RefundFeeHeader.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1011,6 +1048,7 @@ export class RefundFeeHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundFeeHeader, ContractService.RefundFeeHeader.Clone
      * @param data The data for the request.
      * @param data.id
      * @param data.isTemplate
@@ -1046,6 +1084,7 @@ export class RefundTableHeaderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** ContractService.RefundTableHeader, ContractService.RefundTableHeader.GetAssignablesByMerchantId
      * @param data The data for the request.
      * @param data.merchantId
      * @param data.sorting
@@ -1072,6 +1111,7 @@ export class RefundTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundTableHeader, ContractService.RefundTableHeader.ViewDetail
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -1096,6 +1136,7 @@ export class RefundTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundTableHeader, ContractService.RefundTableHeader.Edit
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
@@ -1123,6 +1164,7 @@ export class RefundTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundTableHeader, ContractService.RefundTableHeader.ViewList
      * @param data The data for the request.
      * @param data.isTemplate
      * @param data.skipCount
@@ -1151,6 +1193,7 @@ export class RefundTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundTableHeader, ContractService.RefundTableHeader.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -1174,6 +1217,7 @@ export class RefundTableHeaderService {
     }
     
     /**
+     * **Requires permissions:** ContractService.RefundTableHeader, ContractService.RefundTableHeader.Clone
      * @param data The data for the request.
      * @param data.id
      * @param data.isTemplate
