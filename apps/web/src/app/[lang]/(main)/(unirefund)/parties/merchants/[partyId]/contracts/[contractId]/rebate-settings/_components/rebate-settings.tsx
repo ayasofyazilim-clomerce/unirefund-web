@@ -70,7 +70,6 @@ export function RebateSettings({
     ["ContractService.ContractHeaderForMerchant.UpSertRebateSetting"],
     grantedPolicies,
   );
-  console.log(rebateSettings);
   return (
     <SchemaForm<RebateSettingUpSertDto>
       disabled={!hasEditPermission || isPending}
