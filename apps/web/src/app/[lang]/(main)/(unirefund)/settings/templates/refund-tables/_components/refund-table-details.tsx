@@ -53,7 +53,7 @@ export function RefundTableDetailsTable({
     if (lastRow)
       append({
         minValue: lastRow.maxValue,
-        maxValue: lastRow.maxValue + 100,
+        maxValue: lastRow.maxValue * 10,
         vatRate: 0,
         refundAmount: 0,
         refundPercent: 0,
@@ -62,7 +62,7 @@ export function RefundTableDetailsTable({
     else
       append({
         minValue: 0,
-        maxValue: 100,
+        maxValue: 1000,
         vatRate: 0,
         refundAmount: 0,
         refundPercent: 0,
