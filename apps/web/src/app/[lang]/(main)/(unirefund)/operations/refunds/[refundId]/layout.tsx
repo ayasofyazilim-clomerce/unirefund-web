@@ -30,10 +30,10 @@ export default async function Layout({
   params,
   children,
 }: {
-  params: {id: string; lang: string};
+  params: {refundId: string; lang: string};
   children: React.ReactNode;
 }) {
-  const {id: refundId, lang} = params;
+  const {refundId, lang} = params;
   const {languageData} = await getResourceData(lang);
 
   const apiRequests = await getApiRequests(refundId);

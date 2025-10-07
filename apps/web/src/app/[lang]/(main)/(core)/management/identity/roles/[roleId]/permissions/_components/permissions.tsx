@@ -55,7 +55,6 @@ export default function RolePermissions({
     newGrant: boolean,
   ) => {
     let currentParentName = childPermission.parentName;
-
     while (currentParentName) {
       const parentNameForIteration = currentParentName;
       const parentPermission = group.permissions?.find((p) => p.name === parentNameForIteration);
@@ -93,9 +92,8 @@ export default function RolePermissions({
             permissionChange(permissionName, newGrant);
 
             if (!permission.parentName) {
-              if (!newGrant) {
-                toggleChildren(group, permissionName, false);
-              }
+              toggleChildren(group, permissionName, newGrant);
+
               return {...permission, isGranted: newGrant};
             }
             if (!newGrant) {
