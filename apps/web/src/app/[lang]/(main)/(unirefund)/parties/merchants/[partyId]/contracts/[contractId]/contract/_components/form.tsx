@@ -1,30 +1,30 @@
 "use client";
 
 import {toast} from "@/components/ui/sonner";
-import type {
-  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
-  UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
-  UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
-} from "@repo/saas/ContractService";
-import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto} from "@repo/saas/ContractService";
-import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
-import {ActionButton, ActionList} from "@repo/ui/action-button";
-import {CheckCircle, CircleX, Trash} from "lucide-react";
-import {useParams, useRouter} from "next/navigation";
-import type {TransitionStartFunction} from "react";
-import {useTransition} from "react";
-import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
 import {deleteMerchantContractHeaderByIdApi} from "@repo/actions/unirefund/ContractService/delete-actions";
 import {postMerchantContractHeaderValidateByHeaderIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
 import {
   putMerchantContractHeadersByIdApi,
   putMerchantsContractHeadersByIdMakePassiveApi,
 } from "@repo/actions/unirefund/ContractService/put-actions";
-import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
+import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type {
+  UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
+  UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderDetailForMerchantDto as ContractHeaderDetailForMerchantDto,
+  UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as ContractHeaderForMerchantUpdateDto,
+} from "@repo/saas/ContractService";
+import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantUpdateDto as $ContractHeaderForMerchantUpdateDto} from "@repo/saas/ContractService";
 import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
+import {ActionButton, ActionList} from "@repo/ui/action-button";
+import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
+import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
+import {CheckCircle, CircleX, Trash} from "lucide-react";
+import {useParams, useRouter} from "next/navigation";
+import type {TransitionStartFunction} from "react";
+import {useTransition} from "react";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
 
 export function MerchantContractHeaderUpdateForm({
@@ -39,6 +39,7 @@ export function MerchantContractHeaderUpdateForm({
   languageData: ContractServiceResource;
 }) {
   const router = useRouter();
+  console.log("contractHeaderDetails", contractHeaderDetails);
   const {lang, contractId} = useParams<{
     lang: string;
     contractId: string;
@@ -156,22 +157,31 @@ function ContractActions({
   const router = useRouter();
   return (
     <ActionList>
-      <ActionButton
-        icon={CheckCircle}
-        loading={isPending}
-        onClick={() => {
-          startTransition(() => {
-            void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
-              if (response.type === "success" && response.data) {
-                toast.success(response.message || languageData["Contracts.Validate.Success"]);
-              } else {
-                toast.error(response.message || languageData["Contracts.Validate.Error"]);
-              }
+      <div className={`flex w-full items-center ${contractDetails.isDraft ? "justify-between" : "justify-end"}`}>
+        {contractDetails.isDraft ? (
+          <div className="mr-2 inline-flex items-center">
+            <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
+              {languageData["Contracts.Draft"]}
+            </span>
+          </div>
+        ) : null}
+        <ActionButton
+          icon={CheckCircle}
+          loading={isPending}
+          onClick={() => {
+            startTransition(() => {
+              void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
+                if (response.type === "success" && response.data) {
+                  toast.success(response.message || languageData["Contracts.Validate.Success"]);
+                } else {
+                  toast.error(response.message || languageData["Contracts.Validate.Error"]);
+                }
+              });
             });
-          });
-        }}
-        text={languageData["Contracts.Validate"]}
-      />
+          }}
+          text={languageData["Contracts.Validate"]}
+        />
+      </div>
       {!contractDetails.isDraft && !contractDetails.isActive && (
         <ConfirmDialog
           confirmProps={{
