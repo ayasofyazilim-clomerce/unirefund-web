@@ -57,8 +57,6 @@ async function fillStable(page: Page, locator: Locator, value: string, opts?: {h
   }
 }
 
-// Re-using safeClick and selectFromPopover from tests/unirefund/_support/retry-utils
-
 const digitsOnly = (s: string) => (s || "").replace(/\D/g, "");
 
 async function fillPhoneTR(page: Page, locator: Locator, rawDigits: string) {
@@ -81,8 +79,6 @@ async function fillPhoneTR(page: Page, locator: Locator, rawDigits: string) {
   expect.soft(got).toBe(expectedDigits);
 }
 
-// selectFromPopover is imported from tests/unirefund/_support/retry-utils
-
 test("create individual - stable random", async ({page}) => {
   test.setTimeout(45_000);
 
@@ -95,8 +91,6 @@ test("create individual - stable random", async ({page}) => {
   const randomUsername = `user${unique}`;
   const randomPassword = "1q2w3E*";
   const randomEmail = `random${unique}@random.com`;
-  const randomAddressLine = `Address-${unique}`;
-  const randomPostalCode = randDigits(5);
 
   await page.goto("/en/parties/individuals/new");
   const by = (id: string) => page.getByTestId(id);
@@ -121,23 +115,6 @@ test("create individual - stable random", async ({page}) => {
   await fillStable(page, by("root_email_emailAddress"), randomEmail);
   await safeClick(by("root_email_type"));
   await by("root_email_type_WORK").click();
-
-  await safeClick(by("root_address_countryId-trigger"));
-  await page.locator('[data-value="türkiye" i]').click();
-
-  await safeClick(by("root_address_adminAreaLevel1Id-trigger"));
-  await page.locator('[data-value="adıyaman" i]').click();
-
-  await safeClick(by("root_address_adminAreaLevel2Id-trigger"));
-  await page.locator('[data-value="merkez" i]').click();
-
-  await fillStable(page, by("root_address_addressLine"), randomAddressLine);
-  await fillStable(page, by("root_address_postalCode"), randomPostalCode);
-
-  await safeClick(by("root_address_type"));
-  await by("root_address_type_HOME").click();
-  await safeClick(by("root_address_type"));
-  await by("root_address_type_WORK").click();
 
   await by("create-new-user-checkbox").click();
   await fillStable(page, by("root_username"), randomUsername);
