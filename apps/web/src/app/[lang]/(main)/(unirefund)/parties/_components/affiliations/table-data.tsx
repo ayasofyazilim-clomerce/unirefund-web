@@ -32,7 +32,6 @@ type AffiliationTableType = TanstackTableCreationProps<AffiliationListResponseDt
 function affiliationTableActions(
   languageData: CRMServiceServiceResource,
   grantedPolicies: Record<Policy, boolean>,
-  isUsersAvailable: boolean,
   isRolesAvailable: boolean,
   setOpen: Dispatch<React.SetStateAction<boolean>>,
 ) {
@@ -42,8 +41,7 @@ function affiliationTableActions(
       actionLocation: "table",
       cta: languageData.New,
       icon: PlusCircle,
-      condition: () =>
-        isActionGranted(["CRMService.Merchants.Create"], grantedPolicies) && isUsersAvailable && isRolesAvailable,
+      condition: () => isActionGranted(["CRMService.Merchants.Create"], grantedPolicies) && isRolesAvailable,
       onClick: () => {
         setOpen(true);
       },
@@ -72,14 +70,13 @@ function AffiliationTable(
   grantedPolicies: Record<Policy, boolean>,
   roles: RoleDto[],
   isRolesAvailable: boolean,
-  isUsersAvailable: boolean,
   setOpen: Dispatch<React.SetStateAction<boolean>>,
 ) {
   const {partyId} = useParams<{lang: string; partyId: string}>();
   const [isPending, startTransition] = useTransition();
 
   const table: AffiliationTableType = {
-    tableActions: affiliationTableActions(languageData, grantedPolicies, isUsersAvailable, isRolesAvailable, setOpen),
+    tableActions: affiliationTableActions(languageData, grantedPolicies, isRolesAvailable, setOpen),
     filters: {
       textFilters: ["name"],
       facetedFilters: isRolesAvailable

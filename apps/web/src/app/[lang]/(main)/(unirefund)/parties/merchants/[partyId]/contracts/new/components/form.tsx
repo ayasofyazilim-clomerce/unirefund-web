@@ -1,19 +1,17 @@
 "use client";
+import {postMerchantContractHeadersByMerchantIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
+import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
+import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import type {
   UniRefund_ContractService_Refunds_RefundTableHeaders_RefundTableHeaderInformationDto as AssignableRefundTableHeaders,
   UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as ContractHeaderForMerchantCreateDto,
 } from "@repo/saas/ContractService";
 import {$UniRefund_ContractService_ContractsForMerchant_ContractHeaders_ContractHeaderForMerchantCreateDto as $ContractHeaderForMerchantCreateDto} from "@repo/saas/ContractService";
-import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
-import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
+import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
 import {handlePostResponse} from "@repo/utils/api";
 import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {postMerchantContractHeadersByMerchantIdApi} from "@repo/actions/unirefund/ContractService/post-actions";
-import type {UniRefund_CRMService_Addresses_AddressDto} from "@repo/saas/CRMService";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {useTenant} from "@/providers/tenant";
-import {RefundTableHeadersField} from "../../_components/refund-table-headers-field";
 
 export default function MerchantContractHeaderCreateForm({
   addressList,
@@ -24,7 +22,8 @@ export default function MerchantContractHeaderCreateForm({
   languageData: ContractServiceResource;
   refundTableHeaders: AssignableRefundTableHeaders[];
 }) {
-  const {localization} = useTenant();
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
   const router = useRouter();
   const {partyId} = useParams<{
     partyId: string;
@@ -47,45 +46,38 @@ export default function MerchantContractHeaderCreateForm({
     },
     refundTableHeaders: {
       "ui:className": "md:col-span-full",
-      "ui:field": "RefundTableHeadersField",
+      items: {
+        isDefault: {
+          "ui:widget": "switch",
+        },
+        refundTableHeaderId: {
+          "ui:widget": "refundTableHeader",
+        },
+      },
     },
   };
-  const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
+
   return (
     <SchemaForm<ContractHeaderForMerchantCreateDto>
       disabled={isPending}
-      fields={{
-        RefundTableHeadersField: RefundTableHeadersField({
-          data: [
-            {
-              refundTableHeaderId: refundTableHeaders[0]?.id || "",
-              validFrom: today.toISOString(),
-            },
-          ],
-          refundTableHeaders,
-          languageData,
-          localization,
-        }),
-      }}
       formData={{
         validFrom: today.toISOString(),
         refundTableHeaders: [
           {
             refundTableHeaderId: refundTableHeaders[0]?.id || "",
             validFrom: today.toISOString(),
+            isDefault: true,
           },
         ],
         merchantClassification: "Satisfactory",
-
         addressCommonDataId: addressList[0].id || "",
       }}
-      onSubmit={({formData}) => {
-        if (!formData) return;
+      onSubmit={({formData: editedFormData}) => {
+        if (!editedFormData) return;
         startTransition(() => {
           void postMerchantContractHeadersByMerchantIdApi({
             id: partyId,
-            requestBody: formData,
+            requestBody: editedFormData,
           }).then((response) => {
             handlePostResponse(response, router, {
               prefix: `/parties/merchants/${partyId}/contracts`,
@@ -97,12 +89,19 @@ export default function MerchantContractHeaderCreateForm({
       }}
       schema={$ContractHeaderForMerchantCreateDto}
       uiSchema={uiSchema}
+      useTableForArrayItems
       widgets={{
         address: CustomComboboxWidget<UniRefund_CRMService_Addresses_AddressDto>({
           list: addressList,
           languageData,
           selectIdentifier: "id",
           selectLabel: "addressLine",
+        }),
+        refundTableHeader: CustomComboboxWidget<AssignableRefundTableHeaders>({
+          list: refundTableHeaders,
+          languageData,
+          selectIdentifier: "id",
+          selectLabel: "name",
         }),
       }}
     />
