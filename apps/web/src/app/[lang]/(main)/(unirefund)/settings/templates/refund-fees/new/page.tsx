@@ -9,7 +9,9 @@ import RefundFeeHeaderCreateForm from "./_components/form";
 async function getApiRequests() {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getRefundPointsApi({typeCodes: ["HEADQUARTER"]}, session)]);
+    const apiRequests = await Promise.all([
+      getRefundPointsApi({typeCodes: ["HEADQUARTER"], maxResultCount: 999}, session),
+    ]);
     return {
       type: "success" as const,
       data: apiRequests,
