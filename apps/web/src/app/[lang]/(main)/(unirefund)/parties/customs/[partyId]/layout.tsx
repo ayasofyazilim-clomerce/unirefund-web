@@ -5,15 +5,16 @@ import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
-import {structuredError} from "@repo/utils/api";
+import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
 import PartyHeader from "../../_components/party-header";
+import {isUnauthorized} from "@repo/utils/policies";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getCustomByIdApi(partyId, session)]);
+    const requiredRequests = await Promise.all([getCustomByIdApi(partyId, session), getGrantedPoliciesApi()]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
@@ -42,8 +43,29 @@ export default async function Layout({
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const [customDetailResponse] = apiRequests.requiredRequests;
+  const [customDetailResponse, grantedPolicies] = apiRequests.requiredRequests;
   // const isHeadquarter = customDetailResponse.data.typeCode === "HEADQUARTER";
+  const isAffiliationsAvailable =
+    grantedPolicies &&
+    !(await isUnauthorized({
+      requiredPolicies: ["CRMService.Customs.ViewAffiliationList", "AbpIdentity.Roles"],
+      grantedPolicies,
+      lang,
+      redirect: false,
+    }));
+
+  const tabListItems = [
+    {
+      label: languageData["CRM.Details"],
+      href: `${baseLink}details`,
+    },
+  ];
+  if (isAffiliationsAvailable) {
+    tabListItems.push({
+      label: languageData["CRM.Affiliations"],
+      href: `${baseLink}affiliations`,
+    });
+  }
   return (
     <>
       <PartyHeader details={customDetailResponse.data} partyType="customs" />
@@ -55,17 +77,7 @@ export default async function Layout({
           },
         }}
         orientation="vertical"
-        tabList={[
-          {
-            label: languageData["CRM.Details"],
-            href: `${baseLink}details`,
-          },
-          // ...(!isHeadquarter ? [] : [{label: languageData["CRM.Customs.SubOrganization"], href: `${baseLink}sub-stores`}]),
-          {
-            label: languageData["CRM.Affiliations"],
-            href: `${baseLink}affiliations`,
-          },
-        ]}
+        tabList={tabListItems}
         variant="simple">
         {children}
       </TabLayout>
