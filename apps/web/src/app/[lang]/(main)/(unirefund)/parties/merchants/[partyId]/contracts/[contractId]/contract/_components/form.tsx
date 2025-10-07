@@ -39,7 +39,6 @@ export function MerchantContractHeaderUpdateForm({
   languageData: ContractServiceResource;
 }) {
   const router = useRouter();
-  console.log("contractHeaderDetails", contractHeaderDetails);
   const {lang, contractId} = useParams<{
     lang: string;
     contractId: string;
