@@ -12,7 +12,7 @@ async function getApiRequests() {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([
-      getMerchantsApi({typeCodes: ["HEADQUARTER"]}, session),
+      getMerchantsApi({typeCodes: ["HEADQUARTER"], maxResultCount: 999}, session),
       getRebateTableHeadersApi({}, session),
     ]);
     const optionalRequests = await Promise.allSettled([]);

@@ -8,7 +8,9 @@ import RefundTableForm from "./_components/form";
 async function getApiRequests() {
   try {
     const session = await auth();
-    const apiRequests = await Promise.all([getMerchantsApi({typeCodes: ["HEADQUARTER"]}, session)]);
+    const apiRequests = await Promise.all([
+      getMerchantsApi({typeCodes: ["HEADQUARTER"], maxResultCount: 999}, session),
+    ]);
     return {
       type: "success" as const,
       data: apiRequests,
