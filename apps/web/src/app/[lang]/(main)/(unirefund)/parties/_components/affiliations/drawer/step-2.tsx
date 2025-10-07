@@ -1,14 +1,14 @@
 import {Label} from "@/components/ui/label";
-import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {UniRefund_IdentityService_AssignableRoles_AssignableRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {Combobox} from "@repo/ayasofyazilim-ui/molecules/combobox";
 import {DatePicker} from "@repo/ayasofyazilim-ui/molecules/date-picker";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export interface SelectUserAndRoleStepProps {
   languageData: CRMServiceServiceResource;
-  selectedRole: Volo_Abp_Identity_IdentityRoleDto | null | undefined;
-  roleList: Volo_Abp_Identity_IdentityRoleDto[];
-  onRoleSelect: (role: Volo_Abp_Identity_IdentityRoleDto | null | undefined) => void;
+  selectedRole: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto | null | undefined;
+  roleList: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto[];
+  onRoleSelect: (role: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto | null | undefined) => void;
   onDateSelect: (date: Date | null) => void;
 }
 
@@ -24,14 +24,14 @@ export function SelectUserAndRoleStep({
       <Label className="text-slate-600" data-testid="individuals-label" htmlFor="individuals-combobox">
         {languageData["CRM.Affiliations.selectRole"] || "Select User and Role"}
       </Label>
-      <Combobox<Volo_Abp_Identity_IdentityRoleDto>
+      <Combobox<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto>
         aria-describedby="individuals-help"
         disabled={!roleList}
         id="individuals-combobox"
         list={roleList}
         onValueChange={onRoleSelect}
-        selectIdentifier="id"
-        selectLabel="name"
+        selectIdentifier="roleId"
+        selectLabel="roleName"
         value={selectedRole}
       />
       <DatePicker

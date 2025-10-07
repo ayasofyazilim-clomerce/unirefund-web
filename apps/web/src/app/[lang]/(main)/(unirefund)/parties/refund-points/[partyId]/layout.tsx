@@ -49,7 +49,11 @@ export default async function Layout({
   const isAffiliationsAvailable =
     grantedPolicies &&
     !(await isUnauthorized({
-      requiredPolicies: ["CRMService.RefundPoints.ViewAffiliationList", "AbpIdentity.Roles"],
+      requiredPolicies: [
+        "CRMService.RefundPoints.ViewAffiliationList",
+        "IdentityService.AssignableRoles.ViewAllRolesAssignableList",
+        "IdentityService.AssignableRoles",
+      ],
       grantedPolicies,
       lang,
       redirect: false,

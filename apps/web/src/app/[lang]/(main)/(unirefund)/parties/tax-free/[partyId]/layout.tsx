@@ -56,7 +56,11 @@ export default async function Layout({
   const isAffiliationsAvailable =
     grantedPolicies &&
     !(await isUnauthorized({
-      requiredPolicies: ["CRMService.TaxFrees.ViewAffiliationList", "AbpIdentity.Roles"],
+      requiredPolicies: [
+        "CRMService.TaxFrees.ViewAffiliationList",
+        "IdentityService.AssignableRoles.ViewAllRolesAssignableList",
+        "IdentityService.AssignableRoles",
+      ],
       grantedPolicies,
       lang,
       redirect: false,
