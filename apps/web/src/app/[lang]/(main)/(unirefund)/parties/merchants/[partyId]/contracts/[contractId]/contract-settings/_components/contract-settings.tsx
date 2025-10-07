@@ -232,7 +232,15 @@ export function ContractSettings({
   return (
     <SchemaFormForContractSettings
       addressList={addressList}
-      formData={{}}
+      formData={{
+        name: languageData["Contracts.Default"],
+        referenceNumber: 0,
+        invoiceChannel: "ElectronicInvoice",
+        invoicingFrequency: "OneTimePerMonth",
+        termOfPayment: 15,
+        receiptType: "Barcode",
+        invoicingAddressCommonDataId: addressList[0]?.id || "",
+      }}
       handleFetch={handleFetch}
       languageData={languageData}
       loading={!hasEditPermission || loading}
