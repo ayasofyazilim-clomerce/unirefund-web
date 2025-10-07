@@ -46,7 +46,7 @@ export default async function Layout({
   const [merchantDetailResponse, grantedPolicies] = apiRequests.requiredRequests;
   const isHeadquarter = merchantDetailResponse.data.typeCode === "HEADQUARTER";
 
-  const isAffilationsAvailable =
+  const isAffiliationsAvailable =
     grantedPolicies &&
     !(await isUnauthorized({
       requiredPolicies: ["CRMService.Merchants.ViewAffiliationList", "AbpIdentity.Roles"],
@@ -99,7 +99,7 @@ export default async function Layout({
       href: `${baseLink}product-groups`,
     });
   }
-  if (isAffilationsAvailable) {
+  if (isAffiliationsAvailable) {
     tabListItems.push({
       label: languageData["CRM.Affiliations"],
       href: `${baseLink}affiliations`,
