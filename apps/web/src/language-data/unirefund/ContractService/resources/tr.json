@@ -74,7 +74,6 @@
   "Contracts.nameIsRequired": "Tablo adı zorunludur",
 
   "RebateTable.Form.name": "Tablo adı",
-  "RebateTable.Form.name.default": "Varsayılan",
   "RebateTable.Form.calculateNetCommissionInsteadOfRefund": "Net komisyonu kullan",
   "RebateTable.Form.calculateNetCommissionInsteadOfRefund.description": "İade yerine net komisyonu hesapla.",
   "RebateTable.Form.isTemplate": "Şablon olarak kullan",

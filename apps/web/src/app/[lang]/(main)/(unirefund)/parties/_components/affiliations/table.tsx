@@ -17,14 +17,12 @@ function AffiliationsTable({
   languageData,
   roles,
   isRolesAvailable,
-  isUsersAvailable,
   partyType,
 }: {
   affiliations: PagedResultDto_AffiliationListResponseDto;
   languageData: CRMServiceServiceResource;
   roles: Volo_Abp_Identity_IdentityRoleDto[];
   isRolesAvailable: boolean;
-  isUsersAvailable: boolean;
   partyType: PartyTypeHasAffiliations;
 }) {
   const {grantedPolicies} = useGrantedPolicies();
@@ -41,7 +39,6 @@ function AffiliationsTable({
     grantedPolicies,
     roles,
     isRolesAvailable,
-    isUsersAvailable,
     setOpen,
   );
 

@@ -29,8 +29,8 @@ export default function Form({
   const defaultFormData: UniRefund_TagService_Tags_ExportValidationRequestDto = {
     exportDate: new Date().toISOString(),
     customsId: customList[0]?.id || "",
-    referenceId: "",
-    responseCode: "",
+    referenceId: "Name",
+    responseCode: "Code",
     description: "",
   } as UniRefund_TagService_Tags_ExportValidationRequestDto;
 
@@ -45,6 +45,9 @@ export default function Form({
       "ui:className": "grid grid-cols-1 lg:grid-cols-2 gap-4 py-4",
       description: {
         "ui:className": "col-span-full",
+      },
+      exportDate: {
+        "ui:widget": "DateWidget",
       },
     },
   });

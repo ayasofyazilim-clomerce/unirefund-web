@@ -1,8 +1,8 @@
 "use server";
 
-import type {GetApiCrmServiceRefundPointsByIdAffiliationsData} from "@repo/saas/CRMService";
-import {getRolesApi, getUsersApi} from "@repo/actions/core/IdentityService/actions";
+import {getRolesApi} from "@repo/actions/core/IdentityService/actions";
 import {getRefundPointAffiliationsByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import type {GetApiCrmServiceRefundPointsByIdAffiliationsData} from "@repo/saas/CRMService";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {isErrorOnRequest, structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -50,16 +50,12 @@ export default async function Page({
   const [affiliationsResponse] = apiRequests.requiredRequests;
 
   const roleResponse = await getRolesApi({});
-  const usersResponse = await getUsersApi({});
-
   const isRolesAvailable = !isErrorOnRequest(roleResponse, lang, false);
-  const isUsersAvailable = !isErrorOnRequest(usersResponse, lang, false);
 
   return (
     <AffiliationsTable
       affiliations={affiliationsResponse.data}
       isRolesAvailable={isRolesAvailable}
-      isUsersAvailable={isUsersAvailable}
       languageData={languageData}
       partyType="refund-points"
       roles={isRolesAvailable ? roleResponse.data.items || [] : []}

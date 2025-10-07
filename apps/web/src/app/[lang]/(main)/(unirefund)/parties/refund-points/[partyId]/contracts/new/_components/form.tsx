@@ -65,6 +65,7 @@ export default function RefundPointContractHeaderCreateForm({
           {
             refundFeeHeaderId: refundFeeHeaders[0]?.id || "",
             validFrom: today.toISOString(),
+            isDefault: true,
           },
         ],
         merchantClassification: "Satisfactory",

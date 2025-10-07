@@ -155,6 +155,13 @@ function ContractActions({
   const router = useRouter();
   return (
     <ActionList>
+      {contractDetails.isDraft ? (
+        <div className="mr-auto inline-flex items-center">
+          <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
+            {languageData["Contracts.Draft"]}
+          </span>
+        </div>
+      ) : null}
       <ActionButton
         icon={CheckCircle}
         loading={isPending}
