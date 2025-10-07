@@ -52,8 +52,8 @@ export type UniRefund_CRMService_Addresses_AddressDto = {
     countryId: string;
     adminAreaLevel1Id: string;
     adminAreaLevel2Id: string;
-    neighborhoodId: (string) | null;
-    addressLine: (string) | null;
+    neighborhoodId: string;
+    addressLine: string;
     postalCode?: (string) | null;
     type: UniRefund_CRMService_Addresses_AddressType;
     placeId?: (string) | null;
@@ -86,7 +86,7 @@ export type UniRefund_CRMService_Addresses_CreateAddressDto = {
     adminAreaLevel1Id: string;
     adminAreaLevel2Id: string;
     neighborhoodId?: (string) | null;
-    addressLine: (string) | null;
+    addressLine: string;
     postalCode?: (string) | null;
     type: UniRefund_CRMService_Addresses_AddressType;
     placeId?: (string) | null;
@@ -99,9 +99,9 @@ export type UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto = {
     id?: string;
     countryId: string;
     regionId?: (string) | null;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
-    plateCode: (string) | null;
+    plateCode: string;
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
@@ -110,9 +110,9 @@ export type UniRefund_CRMService_AdminAreaLevel1_AdminAreaLevel1Dto = {
 export type UniRefund_CRMService_AdminAreaLevel1_CreateAdminAreaLevel1Dto = {
     countryId: string;
     regionId?: (string) | null;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
-    plateCode: (string) | null;
+    plateCode: string;
     placeId?: (string) | null;
     latitude?: (number) | null;
     longitude?: (number) | null;
@@ -132,7 +132,7 @@ export type UniRefund_CRMService_AdminAreaLevel1_UpdateAdminAreaLevel1Dto = {
 export type UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto = {
     id?: string;
     adminAreaLevel1Id: string;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
     placeId?: (string) | null;
     latitude?: (number) | null;
@@ -141,7 +141,7 @@ export type UniRefund_CRMService_AdminAreaLevel2_AdminAreaLevel2Dto = {
 
 export type UniRefund_CRMService_AdminAreaLevel2_CreateAdminAreaLevel2Dto = {
     adminAreaLevel1Id: string;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
     placeId?: (string) | null;
     latitude?: (number) | null;
@@ -172,8 +172,8 @@ export type UniRefund_CRMService_Affiliations_AffiliationDto = {
 
 export type UniRefund_CRMService_Affiliations_AffiliationListResponseDto = {
     id?: string;
-    name: (string) | null;
-    roleName: (string) | null;
+    name: string;
+    roleName: string;
     individualId: string;
     abpRoleId: string;
     abpUserId?: (string) | null;
@@ -206,10 +206,10 @@ export type UniRefund_CRMService_Countries_CountryDto = {
 };
 
 export type UniRefund_CRMService_Countries_CreateCountryDto = {
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
-    code2: (string) | null;
-    code3: (string) | null;
+    code2: string;
+    code3: string;
     placeId?: (string) | null;
 };
 
@@ -222,7 +222,7 @@ export type UniRefund_CRMService_Countries_UpdateCountryDto = {
 };
 
 export type UniRefund_CRMService_Customs_CreateCustomDto = {
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     externalIdentifier?: (string) | null;
     parentId?: (string) | null;
@@ -237,7 +237,7 @@ export type UniRefund_CRMService_Customs_CustomDto = {
     telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
     address?: UniRefund_CRMService_Addresses_AddressDto;
     email?: UniRefund_CRMService_Emails_EmailDto;
-    name: (string) | null;
+    name: string;
     parentId?: (string) | null;
     parentName?: (string) | null;
     vatNumber?: (string) | null;
@@ -248,7 +248,7 @@ export type UniRefund_CRMService_Customs_CustomDto = {
 
 export type UniRefund_CRMService_Customs_CustomListResponseDto = {
     id?: string;
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     externalIdentifier?: (string) | null;
     parentId?: (string) | null;
@@ -270,14 +270,14 @@ export type UniRefund_CRMService_Customs_UpdateCustomDto = {
 
 export type UniRefund_CRMService_Emails_EmailCreateDto = {
     id?: (string) | null;
-    emailAddress: (string) | null;
+    emailAddress: string;
     isPrimary: boolean;
     type: UniRefund_CRMService_Emails_EmailType;
 };
 
 export type UniRefund_CRMService_Emails_EmailDto = {
     id?: string;
-    emailAddress: (string) | null;
+    emailAddress: string;
     type: UniRefund_CRMService_Emails_EmailType;
     isPrimary: boolean;
 };
@@ -293,8 +293,8 @@ export type UniRefund_CRMService_Emails_EmailUpSertDto = {
 
 export type UniRefund_CRMService_Individuals_CreateIndividualDto = {
     id?: string;
-    firstname: (string) | null;
-    lastname: (string) | null;
+    firstname: string;
+    lastname: string;
     gender: UniRefund_CRMService_Individuals_IndividualGender;
     identificationNumber?: (string) | null;
     birthDate?: (string) | null;
@@ -307,8 +307,8 @@ export type UniRefund_CRMService_Individuals_CreateIndividualDto = {
 
 export type UniRefund_CRMService_Individuals_IndividualDto = {
     id?: string;
-    firstname: (string) | null;
-    lastname: (string) | null;
+    firstname: string;
+    lastname: string;
     gender: UniRefund_CRMService_Individuals_IndividualGender;
     identificationNumber?: (string) | null;
     birthDate?: (string) | null;
@@ -323,8 +323,8 @@ export type UniRefund_CRMService_Individuals_IndividualGender = 'UNKNOWN' | 'MAL
 
 export type UniRefund_CRMService_Individuals_IndividualListResponseDto = {
     id?: string;
-    firstname: (string) | null;
-    lastname: (string) | null;
+    firstname: string;
+    lastname: string;
     gender: UniRefund_CRMService_Individuals_IndividualGender;
     identificationNumber?: (string) | null;
 };
@@ -333,13 +333,13 @@ export type UniRefund_CRMService_Individuals_IndividualStatus = 'DRAFT' | 'WAITI
 
 export type UniRefund_CRMService_Individuals_IndividualWithAbpUserDto = {
     individualId: string;
-    fullname: (string) | null;
+    fullname: string;
     abpUserId?: (string) | null;
 };
 
 export type UniRefund_CRMService_Individuals_NewUser = {
-    username: (string) | null;
-    password: (string) | null;
+    username: string;
+    password: string;
 };
 
 export type UniRefund_CRMService_Individuals_UpdateIndividualDto = {
@@ -353,10 +353,10 @@ export type UniRefund_CRMService_Individuals_UpdateIndividualDto = {
 
 export type UniRefund_CRMService_Merchants_CreateMerchantDto = {
     chainCodeId?: (string) | null;
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     taxOfficeId?: (string) | null;
-    externalIdentifier: (string) | null;
+    externalIdentifier: string;
     parentId?: (string) | null;
     typeCode: UniRefund_CRMService_Merchants_MerchantTypeCode;
     isPersonalCompany: boolean;
@@ -371,11 +371,11 @@ export type UniRefund_CRMService_Merchants_MerchantDto = {
     address?: UniRefund_CRMService_Addresses_AddressDto;
     email?: UniRefund_CRMService_Emails_EmailDto;
     chainCodeId?: (string) | null;
-    name: (string) | null;
-    vatNumber: (string) | null;
+    name: string;
+    vatNumber: string;
     taxOfficeId?: (string) | null;
     taxOfficeName?: (string) | null;
-    externalIdentifier: (string) | null;
+    externalIdentifier: string;
     parentId?: (string) | null;
     parentName?: (string) | null;
     typeCode: UniRefund_CRMService_Merchants_MerchantTypeCode;
@@ -392,21 +392,21 @@ export type UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
     /**
      * The **business name** of the merchant. This is the official trading name.
      */
-    name: (string) | null;
+    name: string;
     address: UniRefund_CRMService_Addresses_AddressDto;
     /**
      * A list of **product groups** that this merchant sells,
      * relevant for tax-free eligibility categorization.
      */
-    productGroups: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto> | null;
+    productGroups: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto>;
 };
 
 export type UniRefund_CRMService_Merchants_MerchantListResponseDto = {
     id?: string;
     chainCodeId?: (string) | null;
-    name: (string) | null;
-    vatNumber: (string) | null;
-    externalIdentifier: (string) | null;
+    name: string;
+    vatNumber: string;
+    externalIdentifier: string;
     typeCode: UniRefund_CRMService_Merchants_MerchantTypeCode;
     isPersonalCompany: boolean;
     parentId?: (string) | null;
@@ -423,9 +423,9 @@ export type UniRefund_CRMService_Merchants_MerchantSummaryRequestDto = {
 
 export type UniRefund_CRMService_Merchants_MerchantSummaryResponseDto = {
     id?: string;
-    name: (string) | null;
-    vatNumber: (string) | null;
-    externalIdentifier: (string) | null;
+    name: string;
+    vatNumber: string;
+    externalIdentifier: string;
     parentId?: (string) | null;
     typeCode: UniRefund_CRMService_Merchants_MerchantTypeCode;
     status: UniRefund_CRMService_Merchants_MerchantStatus;
@@ -445,7 +445,7 @@ export type UniRefund_CRMService_Merchants_UpdateMerchantDto = {
 
 export type UniRefund_CRMService_Neighborhoods_CreateNeighborhoodDto = {
     adminAreaLevel2Id: string;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
     placeId?: (string) | null;
     latitude?: (number) | null;
@@ -455,7 +455,7 @@ export type UniRefund_CRMService_Neighborhoods_CreateNeighborhoodDto = {
 export type UniRefund_CRMService_Neighborhoods_NeighborhoodDto = {
     id?: string;
     adminAreaLevel2Id: string;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
     placeId?: (string) | null;
     latitude?: (number) | null;
@@ -472,7 +472,7 @@ export type UniRefund_CRMService_Neighborhoods_UpdateNeighborhoodDto = {
 };
 
 export type UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     taxOfficeId?: (string) | null;
     externalIdentifier?: (string) | null;
@@ -485,7 +485,7 @@ export type UniRefund_CRMService_RefundPoints_CreateRefundPointDto = {
 
 export type UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
     id: string;
-    name: (string) | null;
+    name: string;
     fullAddress?: (string) | null;
 };
 
@@ -494,8 +494,8 @@ export type UniRefund_CRMService_RefundPoints_RefundPointDto = {
     telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
     address?: UniRefund_CRMService_Addresses_AddressDto;
     email?: UniRefund_CRMService_Emails_EmailDto;
-    name: (string) | null;
-    vatNumber: (string) | null;
+    name: string;
+    vatNumber: string;
     taxOfficeId?: (string) | null;
     taxOfficeName?: (string) | null;
     externalIdentifier?: (string) | null;
@@ -507,8 +507,8 @@ export type UniRefund_CRMService_RefundPoints_RefundPointDto = {
 
 export type UniRefund_CRMService_RefundPoints_RefundPointListResponseDto = {
     id?: string;
-    name: (string) | null;
-    vatNumber: (string) | null;
+    name: string;
+    vatNumber: string;
     externalIdentifier?: (string) | null;
     parentId?: (string) | null;
     parentName?: (string) | null;
@@ -530,7 +530,7 @@ export type UniRefund_CRMService_RefundPoints_UpdateRefundPointDto = {
 
 export type UniRefund_CRMService_Regions_CreateRegionDto = {
     countryId: string;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
     code?: (string) | null;
     placeId?: (string) | null;
@@ -539,7 +539,7 @@ export type UniRefund_CRMService_Regions_CreateRegionDto = {
 export type UniRefund_CRMService_Regions_RegionDto = {
     id?: string;
     countryId: string;
-    name: (string) | null;
+    name: string;
     shortName?: (string) | null;
     code?: (string) | null;
     placeId?: (string) | null;
@@ -554,7 +554,7 @@ export type UniRefund_CRMService_Regions_UpdateRegionDto = {
 };
 
 export type UniRefund_CRMService_TaxFrees_CreateTaxFreeDto = {
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     taxOfficeId?: (string) | null;
     externalIdentifier?: (string) | null;
@@ -570,8 +570,8 @@ export type UniRefund_CRMService_TaxFrees_TaxFreeDto = {
     telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
     address?: UniRefund_CRMService_Addresses_AddressDto;
     email?: UniRefund_CRMService_Emails_EmailDto;
-    name: (string) | null;
-    vatNumber: (string) | null;
+    name: string;
+    vatNumber: string;
     taxOfficeId?: (string) | null;
     taxOfficeName?: (string) | null;
     externalIdentifier?: (string) | null;
@@ -583,9 +583,9 @@ export type UniRefund_CRMService_TaxFrees_TaxFreeDto = {
 
 export type UniRefund_CRMService_TaxFrees_TaxFreeListResponseDto = {
     id?: string;
-    name: (string) | null;
-    vatNumber: (string) | null;
-    externalIdentifier: (string) | null;
+    name: string;
+    vatNumber: string;
+    externalIdentifier: string;
     parentId?: (string) | null;
     parentName?: (string) | null;
     typeCode: UniRefund_CRMService_TaxFrees_TaxFreeTypeCode;
@@ -605,7 +605,7 @@ export type UniRefund_CRMService_TaxFrees_UpdateTaxFreeDto = {
 };
 
 export type UniRefund_CRMService_TaxOffices_CreateTaxOfficeDto = {
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     externalIdentifier?: (string) | null;
     parentId?: (string) | null;
@@ -620,7 +620,7 @@ export type UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
     telephone?: UniRefund_CRMService_Telephones_TelephoneDto;
     address?: UniRefund_CRMService_Addresses_AddressDto;
     email?: UniRefund_CRMService_Emails_EmailDto;
-    name: (string) | null;
+    name: string;
     parentId?: (string) | null;
     parentName?: (string) | null;
     vatNumber?: (string) | null;
@@ -630,7 +630,7 @@ export type UniRefund_CRMService_TaxOffices_TaxOfficeDto = {
 
 export type UniRefund_CRMService_TaxOffices_TaxOfficeListResponseDto = {
     id?: string;
-    name: (string) | null;
+    name: string;
     vatNumber?: (string) | null;
     externalIdentifier?: (string) | null;
     parentId?: (string) | null;
@@ -653,7 +653,7 @@ export type UniRefund_CRMService_TaxOffices_UpdateTaxOfficeDto = {
 export type UniRefund_CRMService_Telephones_TelephoneCreateDto = {
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
-    localNumber: (string) | null;
+    localNumber: string;
     isPrimary: boolean;
     type: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
 };
@@ -662,7 +662,7 @@ export type UniRefund_CRMService_Telephones_TelephoneDto = {
     id: string;
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
-    localNumber: (string) | null;
+    localNumber: string;
     normalizedPhoneNumber?: (string) | null;
     isPrimary: boolean;
     type: UniRefund_Shared_ContactInfo_Enums_TelephoneType;

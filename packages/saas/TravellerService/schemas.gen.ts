@@ -1413,12 +1413,12 @@ export const $PagedResultDto_TravellerListDto = {
                         format: 'uuid'
                     },
                     firstName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     lastName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     fullName: {
                         type: 'string',
@@ -1431,16 +1431,16 @@ export const $PagedResultDto_TravellerListDto = {
                         nullable: true
                     },
                     nationalityCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     nationalityCountryName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     languagePreferenceCultureName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     gender: {
                         enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
@@ -1489,8 +1489,7 @@ export const $UniRefund_TravellerService_Addresses_AddressCreateDto = {
         fullAddress: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         isPrimary: {
             type: 'boolean'
@@ -1564,8 +1563,7 @@ export const $UniRefund_TravellerService_Emails_EmailCreateDto = {
             maxLength: 255,
             minLength: 0,
             type: 'string',
-            format: 'email',
-            nullable: true
+            format: 'email'
         },
         isPrimary: {
             type: 'boolean'
@@ -2686,8 +2684,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
         localNumber: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         isPrimary: {
             type: 'boolean'
@@ -2787,16 +2784,16 @@ export const $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocum
     type: 'object',
     properties: {
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         travelDocumentNumber: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         birthDate: {
             type: 'string',
@@ -2817,14 +2814,12 @@ when the client does not send it`,
         residenceCountryCode2: {
             maxLength: 2,
             minLength: 2,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         nationalityCountryCode2: {
             maxLength: 2,
             minLength: 2,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         identificationType: {
             enum: ['IdCard', 'Passport'],
@@ -2859,12 +2854,12 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto
             format: 'uuid'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fullName: {
             type: 'string',
@@ -2872,8 +2867,8 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto
             readOnly: true
         },
         travelDocumentNumber: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         birthDate: {
             type: 'string',
@@ -2887,20 +2882,19 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto
         },
         expirationDate: {
             type: 'string',
-            format: 'date-time',
-            nullable: true
+            format: 'date-time'
         },
         identificationType: {
             enum: ['IdCard', 'Passport'],
             type: 'string'
         },
         residenceCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         residenceCountryName: {
             type: 'string',
@@ -2923,32 +2917,32 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentPro
             format: 'uuid'
         },
         travelDocumentNumber: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         residenceCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         residenceCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fullName: {
             type: 'string',
@@ -2967,8 +2961,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentPro
         },
         expirationDate: {
             type: 'string',
-            format: 'date-time',
-            nullable: true
+            format: 'date-time'
         },
         identificationType: {
             enum: ['IdCard', 'Passport'],
@@ -3063,13 +3056,12 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerDto = {
             maxLength: 255,
             minLength: 0,
             type: 'string',
-            nullable: true
+            description: 'Gets or sets the first name of the traveller.'
         },
         lastName: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         birthDate: {
             type: 'string',
@@ -3079,8 +3071,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerDto = {
         nationalityCountryCode2: {
             maxLength: 2,
             minLength: 2,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         languagePreferenceCultureName: {
             maxLength: 255,
@@ -3088,7 +3079,6 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerDto = {
             type: 'string',
             description: `Preferred UI language of the traveller as a culture name (e.g., \`en-US\`, \`tr-TR\`).
 Must match one of the ABP-configured languages returned by \`ILanguageProvider\`.`,
-            nullable: true,
             example: 'en-US'
         },
         gender: {
@@ -3100,16 +3090,16 @@ Must match one of the ABP-configured languages returned by \`ILanguageProvider\`
             type: 'object',
             properties: {
                 firstName: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 lastName: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 travelDocumentNumber: {
-                    type: 'string',
-                    nullable: true
+                    minLength: 1,
+                    type: 'string'
                 },
                 birthDate: {
                     type: 'string',
@@ -3130,14 +3120,12 @@ when the client does not send it`,
                 residenceCountryCode2: {
                     maxLength: 2,
                     minLength: 2,
-                    type: 'string',
-                    nullable: true
+                    type: 'string'
                 },
                 nationalityCountryCode2: {
                     maxLength: 2,
                     minLength: 2,
-                    type: 'string',
-                    nullable: true
+                    type: 'string'
                 },
                 identificationType: {
                     enum: ['IdCard', 'Passport'],
@@ -3175,14 +3163,12 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         firstName: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         lastName: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         birthDate: {
             type: 'string',
@@ -3192,14 +3178,12 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         nationalityCountryCode2: {
             maxLength: 2,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         languagePreferenceCultureName: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         gender: {
             enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
@@ -3212,16 +3196,16 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
                 type: 'object',
                 properties: {
                     firstName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     lastName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     travelDocumentNumber: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     birthDate: {
                         type: 'string',
@@ -3242,14 +3226,12 @@ when the client does not send it`,
                     residenceCountryCode2: {
                         maxLength: 2,
                         minLength: 2,
-                        type: 'string',
-                        nullable: true
+                        type: 'string'
                     },
                     nationalityCountryCode2: {
                         maxLength: 2,
                         minLength: 2,
-                        type: 'string',
-                        nullable: true
+                        type: 'string'
                     },
                     identificationType: {
                         enum: ['IdCard', 'Passport'],
@@ -3257,8 +3239,7 @@ when the client does not send it`,
                     }
                 },
                 additionalProperties: false
-            },
-            nullable: true
+            }
         },
         addresses: {
             type: 'array',
@@ -3269,8 +3250,7 @@ when the client does not send it`,
                     fullAddress: {
                         maxLength: 255,
                         minLength: 0,
-                        type: 'string',
-                        nullable: true
+                        type: 'string'
                     },
                     isPrimary: {
                         type: 'boolean'
@@ -3281,8 +3261,7 @@ when the client does not send it`,
                     }
                 },
                 additionalProperties: false
-            },
-            nullable: true
+            }
         },
         telephones: {
             type: 'array',
@@ -3305,8 +3284,7 @@ when the client does not send it`,
                     localNumber: {
                         maxLength: 255,
                         minLength: 0,
-                        type: 'string',
-                        nullable: true
+                        type: 'string'
                     },
                     isPrimary: {
                         type: 'boolean'
@@ -3317,8 +3295,7 @@ when the client does not send it`,
                     }
                 },
                 additionalProperties: false
-            },
-            nullable: true
+            }
         },
         emails: {
             type: 'array',
@@ -3335,8 +3312,7 @@ when the client does not send it`,
                         maxLength: 255,
                         minLength: 0,
                         type: 'string',
-                        format: 'email',
-                        nullable: true
+                        format: 'email'
                     },
                     isPrimary: {
                         type: 'boolean'
@@ -3347,8 +3323,7 @@ when the client does not send it`,
                     }
                 },
                 additionalProperties: false
-            },
-            nullable: true
+            }
         }
     },
     additionalProperties: false
@@ -3363,12 +3338,12 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             format: 'uuid'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         birthDate: {
             type: 'string',
@@ -3376,16 +3351,16 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             nullable: true
         },
         nationalityCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         languagePreferenceCultureName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         gender: {
             enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
@@ -3411,32 +3386,32 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                         format: 'uuid'
                     },
                     travelDocumentNumber: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     residenceCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     residenceCountryName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     nationalityCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     nationalityCountryName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     firstName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     lastName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     fullName: {
                         type: 'string',
@@ -3455,8 +3430,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                     },
                     expirationDate: {
                         type: 'string',
-                        format: 'date-time',
-                        nullable: true
+                        format: 'date-time'
                     },
                     identificationType: {
                         enum: ['IdCard', 'Passport'],
@@ -3589,12 +3563,12 @@ export const $UniRefund_TravellerService_Travellers_TravellerDto = {
                         format: 'uuid'
                     },
                     firstName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     lastName: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     fullName: {
                         type: 'string',
@@ -3602,8 +3576,8 @@ export const $UniRefund_TravellerService_Travellers_TravellerDto = {
                         readOnly: true
                     },
                     travelDocumentNumber: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     birthDate: {
                         type: 'string',
@@ -3617,20 +3591,19 @@ export const $UniRefund_TravellerService_Travellers_TravellerDto = {
                     },
                     expirationDate: {
                         type: 'string',
-                        format: 'date-time',
-                        nullable: true
+                        format: 'date-time'
                     },
                     identificationType: {
                         enum: ['IdCard', 'Passport'],
                         type: 'string'
                     },
                     residenceCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     nationalityCountryCode2: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     residenceCountryName: {
                         type: 'string',
@@ -3654,12 +3627,12 @@ export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto =
     type: 'object',
     properties: {
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fullName: {
             type: 'string',
@@ -3764,12 +3737,12 @@ export const $UniRefund_TravellerService_Travellers_TravellerListDto = {
             format: 'uuid'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         fullName: {
             type: 'string',
@@ -3782,16 +3755,16 @@ export const $UniRefund_TravellerService_Travellers_TravellerListDto = {
             nullable: true
         },
         nationalityCountryCode2: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         languagePreferenceCultureName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         gender: {
             enum: ['MALE', 'FEMALE', 'OTHER', 'NOTSPECIFIED'],
@@ -3876,28 +3849,26 @@ export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto =
             nullable: true
         },
         travelDocumentNumber: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         nationalityCountryCode2: {
             maxLength: 2,
             minLength: 2,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         firstName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         lastName: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         residenceCountryCode2: {
             maxLength: 2,
             minLength: 2,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         expirationDate: {
             type: 'string',
@@ -3933,8 +3904,8 @@ export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentRespo
             format: 'uuid'
         },
         travelDocumentNumber: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         }
     },
     additionalProperties: false

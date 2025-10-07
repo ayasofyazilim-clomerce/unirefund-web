@@ -17,8 +17,8 @@ export type UniRefund_CRMService_Addresses_AddressDto = {
     countryId: string;
     adminAreaLevel1Id: string;
     adminAreaLevel2Id: string;
-    neighborhoodId: (string) | null;
-    addressLine: (string) | null;
+    neighborhoodId: string;
+    addressLine: string;
     postalCode?: (string) | null;
     type: UniRefund_CRMService_Addresses_AddressType;
     placeId?: (string) | null;
@@ -38,13 +38,13 @@ export type UniRefund_CRMService_Merchants_MerchantInfoForTagDto = {
     /**
      * The **business name** of the merchant. This is the official trading name.
      */
-    name: (string) | null;
+    name: string;
     address: UniRefund_CRMService_Addresses_AddressDto;
     /**
      * A list of **product groups** that this merchant sells,
      * relevant for tax-free eligibility categorization.
      */
-    productGroups: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto> | null;
+    productGroups: Array<UniRefund_SettingService_ProductGroups_ProductGroupDto>;
 };
 
 /**
@@ -199,7 +199,7 @@ export type UniRefund_TagService_Invoices_InvoiceDto = {
     /**
      * A collection of individual line items included in this invoice.
      */
-    invoiceLines?: Array<UniRefund_TagService_Invoices_InvoiceLineDto> | null;
+    invoiceLines: Array<UniRefund_TagService_Invoices_InvoiceLineDto>;
 };
 
 /**
@@ -314,8 +314,8 @@ export type UniRefund_TagService_Tags_ExpirationReason = 'ExportValidationExpira
 export type UniRefund_TagService_Tags_ExportValidationRequestDto = {
     exportDate: string;
     customsId: string;
-    referenceId: (string) | null;
-    responseCode: (string) | null;
+    referenceId: string;
+    responseCode: string;
     description?: (string) | null;
 };
 
@@ -365,6 +365,28 @@ export type UniRefund_TagService_Tags_SetTagRefundResponseDto = {
 
 export type UniRefund_TagService_Tags_SetTagVATStatementHeaderIdRequestDto = {
     tagIdAndVATStatementHeaderIdPairs?: Array<UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto> | null;
+};
+
+export type UniRefund_TagService_Tags_TagCancelRequestDto = {
+    merchantVatNumber?: (string) | null;
+    merchantCountryCode?: (string) | null;
+    merchantBranchId?: (string) | null;
+    receiptNumber?: (string) | null;
+    invoiceUUID?: (string) | null;
+    tagId?: (string) | null;
+};
+
+export type UniRefund_TagService_Tags_TagCancelResponseDto = {
+    id: string;
+    /**
+     * Unique identifier number of the tag.
+     */
+    tagNumber: string;
+    status: UniRefund_TagService_Tags_TagStatusType;
+    /**
+     * The calculated amount to be refunded for the tag.
+     */
+    refundAmount: number;
 };
 
 /**
@@ -1120,6 +1142,7 @@ export type GetApiTagServiceTagData = {
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
     paidStartDate?: string;
+    refundId?: string;
     refundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
     skipCount?: number;
     sorting?: string;
@@ -1145,6 +1168,12 @@ export type DeleteApiTagServiceTagByIdData = {
 
 export type DeleteApiTagServiceTagByIdResponse = (unknown);
 
+export type PutApiTagServiceTagCancelData = {
+    requestBody?: UniRefund_TagService_Tags_TagCancelRequestDto;
+};
+
+export type PutApiTagServiceTagCancelResponse = (UniRefund_TagService_Tags_TagCancelResponseDto);
+
 export type GetApiTagServiceTagByIdDetailData = {
     id: string;
 };
@@ -1158,13 +1187,13 @@ export type GetApiTagServiceTagByTagNumberDetailByTagNumberData = {
 export type GetApiTagServiceTagByTagNumberDetailByTagNumberResponse = (UniRefund_TagService_Tags_TagDetailDto);
 
 export type GetApiTagServiceTagTagsRefundData = {
-    isExportValidated: boolean;
+    isExportValidated?: boolean;
     maxResultCount?: number;
-    refundPointId: string;
-    refundType: UniRefund_TagService_Tags_Enums_RefundType;
+    refundPointId?: string;
+    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
     skipCount?: number;
     tagIds?: Array<(string)>;
-    travellerDocumentNumber: string;
+    travellerDocumentNumber?: string;
 };
 
 export type GetApiTagServiceTagTagsRefundResponse = (PagedResultDto_TagListItemDto);
@@ -1180,6 +1209,7 @@ export type GetApiTagServiceTagSummaryData = {
     merchantIds?: Array<(string)>;
     paidEndDate?: string;
     paidStartDate?: string;
+    refundId?: string;
     refundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
     skipCount?: number;
     sorting?: string;
@@ -1193,10 +1223,10 @@ export type GetApiTagServiceTagSummaryData = {
 export type GetApiTagServiceTagSummaryResponse = (UniRefund_TagService_Tags_TagListSummaryDto);
 
 export type GetApiTagServiceTagTagsRefundFeesData = {
-    refundDate: string;
-    refundPointId: string;
-    refundType: UniRefund_TagService_Tags_Enums_RefundType;
-    tagIds: Array<(string)>;
+    refundDate?: string;
+    refundPointId?: string;
+    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    tagIds?: Array<(string)>;
 };
 
 export type GetApiTagServiceTagTagsRefundFeesResponse = (Array<UniRefund_TagService_Tags_TagRefundFeesDto>);
