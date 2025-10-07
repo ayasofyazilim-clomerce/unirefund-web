@@ -43,7 +43,7 @@ export function RefundFeeDetailsTable({
       append({
         ...lastRow,
         amountFrom: lastRow.amountTo,
-        amountTo: lastRow.amountTo + 100,
+        amountTo: lastRow.amountTo * 10,
         fixedFeeValue: 0,
         percentFeeValue: 0,
         minFee: 0,
@@ -52,7 +52,7 @@ export function RefundFeeDetailsTable({
     else
       append({
         amountFrom: 0,
-        amountTo: 100,
+        amountTo: 1000,
         fixedFeeValue: 0,
         percentFeeValue: 0,
         minFee: 0,
@@ -63,22 +63,24 @@ export function RefundFeeDetailsTable({
   };
 
   const getFieldError = (fieldName: string, index: number) => {
-    const errors = form.formState.errors;
-
-    // Check for field-level errors
-    if (errors.refundFeeDetails && Array.isArray(errors.refundFeeDetails)) {
-      const rowError = errors.refundFeeDetails[index] as Record<string, {message?: string}> | undefined;
-      if (rowError && typeof rowError === "object") {
-        return rowError[fieldName].message;
+    try {
+      const errors = form.formState.errors;
+      // Check for field-level errors
+      if (errors.refundFeeDetails && Array.isArray(errors.refundFeeDetails)) {
+        const rowError = errors.refundFeeDetails[index] as Record<string, {message?: string}> | undefined;
+        if (rowError && typeof rowError === "object") {
+          return rowError[fieldName].message || null;
+        }
       }
-    }
+      // Check for array-level errors that reference specific indices
+      if (errors.refundFeeDetails?.root?.message) {
+        return errors.refundFeeDetails.root.message;
+      }
 
-    // Check for array-level errors that reference specific indices
-    if (errors.refundFeeDetails?.root?.message) {
-      return errors.refundFeeDetails.root.message;
+      return null;
+    } catch {
+      return null;
     }
-
-    return null;
   };
 
   const handleVisualizerCellClick = (groupKey: string, rangeIndex: number) => {

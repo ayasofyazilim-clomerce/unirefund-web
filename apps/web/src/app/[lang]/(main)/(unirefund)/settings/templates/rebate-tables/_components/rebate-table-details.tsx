@@ -120,6 +120,7 @@ export function RebateTableDetailsTable({
                               className="rounded-none border-0 shadow-none"
                               data-testid={`rebateTableDetails.${index}.fixedFeeValue`}
                               disabled={isPending}
+                              min={0}
                               step="1"
                               type="number"
                               {...field}
@@ -141,6 +142,7 @@ export function RebateTableDetailsTable({
                               className="rounded-none border-0 shadow-none"
                               data-testid={`rebateTableDetails.${index}.percentFeeValue`}
                               disabled={isPending}
+                              min={0}
                               step="1"
                               type="number"
                               {...field}

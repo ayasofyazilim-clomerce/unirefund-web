@@ -128,7 +128,7 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
         .max(50),
       isDefault: z.boolean().default(false),
       isBundling: z.boolean().default(false),
-      isTemplate: z.boolean().default(false),
+      isTemplate: z.boolean().default(false).optional(),
       merchantId: z.string().uuid().nullable().optional(),
       refundTableDetails: z.array(refundTableDetailSchema).nullable().optional(),
     })
@@ -157,9 +157,7 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
         .min(2, {message: languageData ? languageData["Contracts.nameIsRequired"] : ""})
         .max(50),
       isDefault: z.boolean().default(false),
-
       isBundling: z.boolean().default(false),
-      isTemplate: z.boolean().default(false),
       refundTableDetails: z.array(refundTableDetailSchema).nullable().optional(),
     })
     .superRefine((data, ctx) => {

@@ -52,7 +52,12 @@ export default function RefundTableForm({
 
   function onSubmit(values: z.infer<typeof createFormSchema>) {
     startTransition(() => {
-      void postRefundTableHeadersApi({requestBody: values}).then((response) => {
+      void postRefundTableHeadersApi({
+        requestBody: {
+          ...values,
+          isTemplate: values.isTemplate || false,
+        },
+      }).then((response) => {
         handlePostResponse(response, router, {
           prefix: getBaseLink("/settings/templates/refund-tables"),
           identifier: "id",
