@@ -6,10 +6,10 @@ import ErrorComponent from "@repo/ui/components/error-component";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
+import {isUnauthorized} from "@repo/utils/policies";
 import {getResourceData} from "src/language-data/unirefund/CRMService";
 import {getBaseLink} from "src/utils";
 import PartyHeader from "../../_components/party-header";
-import {isUnauthorized} from "@repo/utils/policies";
 
 async function getApiRequests({partyId}: {partyId: string}) {
   try {
