@@ -83,10 +83,6 @@ export function MerchantContractHeaderUpdateForm({
       },
     },
   });
-  const validFrom = new Date(contractHeaderDetails.validFrom);
-  validFrom.setUTCHours(0, 0, 0, 0);
-  const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;
-  validTo?.setUTCHours(0, 0, 0, 0);
   const hasEditPermission = isActionGranted(["ContractService.ContractHeaderForMerchant.Edit"], grantedPolicies);
   return (
     <div className="space-y-2">
@@ -102,8 +98,6 @@ export function MerchantContractHeaderUpdateForm({
         disabled={!hasEditPermission || isPending}
         formData={{
           ...contractHeaderDetails,
-          validFrom: validFrom.toISOString(),
-          validTo: validTo ? validTo.toISOString() : undefined,
           refundTableHeaders: contractHeaderDetails.refundTableHeaders.map((x) => ({
             ...x,
             refundTableHeaderId: x.id,
@@ -171,6 +165,7 @@ function ContractActions({
             void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
               if (response.type === "success" && response.data) {
                 toast.success(response.message || languageData["Contracts.Validate.Success"]);
+                router.refresh();
               } else {
                 toast.error(response.message || languageData["Contracts.Validate.Error"]);
               }

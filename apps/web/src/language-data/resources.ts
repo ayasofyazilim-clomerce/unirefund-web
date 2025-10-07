@@ -1848,6 +1848,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:019001": "At least ITU Country Code or AreaCode must exist!";
   "UniRefund.CRMService:020001": "At least and just one {contactTypeName} can be primary!";
   "UniRefund.CRMService:021001": "ChainCode not found: {chainCodeId}";
+  "UniRefund.CRMService:010061": "VAT number can not null for {partyTypeName} Headquarter!";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
