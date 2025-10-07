@@ -23,7 +23,7 @@ export default function Invoices({
 }) {
   return tagDetail.invoices?.map((invoice) => (
     <div className="flex flex-col gap-4 overflow-auto" key={invoice.id || ""}>
-      {invoice.invoiceLines?.map((line) => (
+      {invoice.invoiceLines.map((line) => (
         <div className="grid grid-cols-3 items-center gap-4" key={line.id || ""}>
           <div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -57,7 +57,7 @@ export default function Invoices({
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>{languageData.ProductGroups}</SelectLabel>
-                  {tagDetail.merchant?.productGroups?.length ? (
+                  {tagDetail.merchant?.productGroups.length ? (
                     tagDetail.merchant.productGroups.map((productGroup, index) => {
                       return (
                         <SelectItem

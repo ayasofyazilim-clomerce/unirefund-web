@@ -346,8 +346,8 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
         .string()
         .min(2, {message: languageData ? languageData["Contracts.nameIsRequired"] : ""})
         .max(50),
-      isActive: z.boolean().optional(),
-      isTemplate: z.boolean().optional(),
+      isActive: z.boolean().default(true),
+      isTemplate: z.boolean().default(false).optional(),
       refundPointId: z.string().uuid().nullable().optional(),
       refundFeeDetails: refundFeeDetailsArraySchema,
     })
@@ -370,7 +370,7 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
       .string()
       .min(2, {message: languageData ? languageData["Contracts.nameIsRequired"] : ""})
       .max(50),
-    isActive: z.boolean().default(false).optional(),
+    isActive: z.boolean().default(false),
     refundFeeDetails: refundFeeDetailsArraySchema,
   });
 

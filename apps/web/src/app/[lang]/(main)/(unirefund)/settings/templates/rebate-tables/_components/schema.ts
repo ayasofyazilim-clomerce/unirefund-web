@@ -50,8 +50,8 @@ export function createRebateTableFormSchemas({languageData}: {languageData?: Con
         .string()
         .min(2, {message: languageData ? languageData["Contracts.nameIsRequired"] : ""})
         .max(50),
-      isTemplate: z.boolean().default(false).optional(),
-      calculateNetCommissionInsteadOfRefund: z.boolean().default(false).optional(),
+      isTemplate: z.boolean().default(false),
+      calculateNetCommissionInsteadOfRefund: z.boolean().default(false),
       merchantId: z.string().uuid().optional().nullable(),
       processingFeeDetails: processingFeeDetailsSchema,
       rebateTableDetails: rebateTableDetailsSchema,
@@ -71,7 +71,7 @@ export function createRebateTableFormSchemas({languageData}: {languageData?: Con
     });
   const updateFormSchema = z.object({
     name: z.string().min(2).max(50),
-    calculateNetCommissionInsteadOfRefund: z.boolean().default(false).optional(),
+    calculateNetCommissionInsteadOfRefund: z.boolean().default(false),
     processingFeeDetails: processingFeeDetailsSchema,
     rebateTableDetails: rebateTableDetailsSchema,
   });

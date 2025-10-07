@@ -49,13 +49,21 @@ export default function RefundFeeHeaderForm({
           feeType: "TouristFee",
           refundMethod: "Cash",
           amountFrom: 0,
-          amountTo: 100,
+          amountTo: 10000,
+          fixedFeeValue: 0,
+          percentFeeValue: 0,
+          minFee: 0,
+          maxFee: 10,
         },
         {
           feeType: "AgentFee",
           refundMethod: "Cash",
           amountFrom: 0,
-          amountTo: 50,
+          amountTo: 10000,
+          fixedFeeValue: 0,
+          percentFeeValue: 0,
+          minFee: 0,
+          maxFee: 10,
         },
       ],
     },
@@ -65,7 +73,7 @@ export default function RefundFeeHeaderForm({
     console.log("Creating refund fee table with:", data);
     startTransition(() => {
       void postRefundFeeHeadersApi({
-        requestBody: data,
+        requestBody: {...data, isTemplate: data.isTemplate || false},
       }).then((response) => {
         handlePostResponse(response, router, {
           prefix: getBaseLink("/settings/templates/refund-fees"),

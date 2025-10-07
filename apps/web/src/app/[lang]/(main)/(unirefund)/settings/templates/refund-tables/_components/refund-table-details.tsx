@@ -13,9 +13,7 @@ import type {z} from "@repo/ayasofyazilim-ui/lib/create-zod-object";
 import {ChevronLeft, ChevronRight, Equal, Plus, Trash2} from "lucide-react";
 import React from "react";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
-import {createRefundTableFormSchemas} from "./schema";
-
-const {createFormSchema} = createRefundTableFormSchemas({});
+import type {createRefundTableFormSchemas} from "./schema";
 
 export function RefundTableDetailsTable({
   languageData,
@@ -23,7 +21,7 @@ export function RefundTableDetailsTable({
   isPending,
 }: {
   languageData: ContractServiceResource;
-  form: UseFormReturn<z.infer<typeof createFormSchema>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof createRefundTableFormSchemas>["createFormSchema"]>>;
   isPending: boolean;
 }) {
   const {fields, append, remove} = useFieldArray({
@@ -165,6 +163,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.minValue`}
+                                min={0}
                                 step="1"
                                 type="number"
                                 {...field}
@@ -187,6 +186,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.maxValue`}
+                                min={0}
                                 step="1"
                                 type="number"
                                 {...field}
@@ -210,6 +210,7 @@ export function RefundTableDetailsTable({
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.vatRate`}
                                 disabled={isPending}
+                                min={0}
                                 step="1"
                                 type="number"
                                 {...field}
@@ -232,6 +233,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.refundAmount`}
+                                min={0}
                                 step="1"
                                 type="number"
                                 {...field}
@@ -254,6 +256,7 @@ export function RefundTableDetailsTable({
                               <Input
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.refundPercent`}
+                                min={0}
                                 step="1"
                                 type="number"
                                 {...field}
