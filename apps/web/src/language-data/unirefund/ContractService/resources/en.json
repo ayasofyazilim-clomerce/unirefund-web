@@ -74,7 +74,6 @@
   "Contracts.nameIsRequired": "Table name is required",
 
   "RebateTable.Form.name": "Table name",
-  "RebateTable.Form.name.default": "Default",
   "RebateTable.Form.calculateNetCommissionInsteadOfRefund": "Use net comission",
   "RebateTable.Form.calculateNetCommissionInsteadOfRefund.description": "Calculate net comission instead of refund.",
   "RebateTable.Form.isTemplate": "Use as template",
@@ -139,7 +138,6 @@
   "RefundTable.Form.refundTableDetails.noRecord": "No refund table details added yet.",
 
   "RefundFeeTable.Form.name": "Table name",
-  "RefundFeeTable.Form.name.default": "Default",
   "RefundFeeTable.Form.isActive": "Active",
   "RefundFeeTable.Form.isActive.description": "Activate this table.",
   "RefundFeeTable.Form.isTemplate": "Use as template",

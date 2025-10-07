@@ -48,7 +48,7 @@ export default function RebateTableHeaderCreateForm({
   const form = useForm<z.infer<typeof createFormSchema>>({
     resolver: zodResolver(createFormSchema),
     defaultValues: {
-      name: "Default",
+      name: languageData["Contracts.Default"],
       rebateTableDetails: [],
     },
   });
@@ -112,7 +112,7 @@ export default function RebateTableHeaderCreateForm({
                     <Input
                       data-testid="name"
                       disabled={isPending}
-                      placeholder={languageData["RebateTable.Form.name.default"]}
+                      placeholder={languageData["Contracts.Default"]}
                       {...field}
                     />
                   </FormControl>
