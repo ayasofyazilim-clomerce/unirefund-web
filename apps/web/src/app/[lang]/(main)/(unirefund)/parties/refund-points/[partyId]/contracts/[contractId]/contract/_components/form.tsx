@@ -78,10 +78,6 @@ export default function RefundPointContractHeaderUpdateForm({
       },
     },
   });
-  const validFrom = new Date(contractHeaderDetails.validFrom);
-  validFrom.setUTCHours(0, 0, 0, 0);
-  const validTo = contractHeaderDetails.validTo ? new Date(contractHeaderDetails.validTo) : undefined;
-  validTo?.setUTCHours(0, 0, 0, 0);
   const hasEditPermission = isActionGranted(["ContractService.ContractHeaderForRefundPoint.Edit"], grantedPolicies);
   return (
     <div className="space-y-2">
@@ -97,8 +93,6 @@ export default function RefundPointContractHeaderUpdateForm({
         disabled={!hasEditPermission || isPending}
         formData={{
           ...contractHeaderDetails,
-          validFrom: validFrom.toISOString(),
-          validTo: validTo ? validTo.toISOString() : undefined,
           refundFeeHeaders: contractHeaderDetails.refundFeeHeaders.map((x) => ({
             refundFeeHeaderId: x.id,
             ...x,
@@ -169,9 +163,10 @@ function ContractActions({
           startTransition(() => {
             void postRefundPointContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
               if (response.type === "success" && response.data) {
-                toast.success(response.message);
+                toast.success(response.message || languageData["Contracts.Validate.Success"]);
+                router.refresh();
               } else {
-                toast.error(response.message);
+                toast.error(response.message || languageData["Contracts.Validate.Error"]);
               }
             });
           });
