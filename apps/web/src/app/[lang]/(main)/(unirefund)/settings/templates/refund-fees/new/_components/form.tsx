@@ -73,7 +73,7 @@ export default function RefundFeeHeaderForm({
     console.log("Creating refund fee table with:", data);
     startTransition(() => {
       void postRefundFeeHeadersApi({
-        requestBody: data,
+        requestBody: {...data, isTemplate: data.isTemplate || false},
       }).then((response) => {
         handlePostResponse(response, router, {
           prefix: getBaseLink("/settings/templates/refund-fees"),

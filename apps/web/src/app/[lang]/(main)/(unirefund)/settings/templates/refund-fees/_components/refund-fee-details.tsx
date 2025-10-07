@@ -63,22 +63,22 @@ export function RefundFeeDetailsTable({
   };
 
   const getFieldError = (fieldName: string, index: number) => {
-    const errors = form.formState.errors;
-
-    // Check for field-level errors
-    if (errors.refundFeeDetails && Array.isArray(errors.refundFeeDetails)) {
-      const rowError = errors.refundFeeDetails[index] as Record<string, {message?: string}> | undefined;
-      if (rowError && typeof rowError === "object") {
-        return rowError[fieldName].message || null;
+    try {
+      const errors = form.formState.errors;
+      // Check for field-level errors
+      if (errors.refundFeeDetails?.[index]) {
+        const rowError = errors.refundFeeDetails[index];
+        return (rowError[fieldName as keyof typeof rowError] as {message: string}).message;
       }
-    }
+      // Check for array-level errors that reference specific indices
+      if (errors.refundFeeDetails?.root?.message) {
+        return errors.refundFeeDetails.root.message;
+      }
 
-    // Check for array-level errors that reference specific indices
-    if (errors.refundFeeDetails?.root?.message) {
-      return errors.refundFeeDetails.root.message;
+      return null;
+    } catch {
+      return null;
     }
-
-    return null;
   };
 
   const handleVisualizerCellClick = (groupKey: string, rangeIndex: number) => {
