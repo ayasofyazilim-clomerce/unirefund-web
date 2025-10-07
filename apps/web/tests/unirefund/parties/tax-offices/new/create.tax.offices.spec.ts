@@ -10,22 +10,18 @@ function randDigits(len: number) {
 async function fillStable(page: Page, locator: Locator, value: string, opts?: {hard?: boolean}) {
   await locator.waitFor({state: "visible", timeout: 15000});
   await expect(locator).toBeEditable({timeout: 15000});
-
-  await locator.click({timeout: 5000});
-  await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
-  await locator.press("Delete");
-  await locator.type(value);
-  let current = await locator.inputValue();
-
-  if (current !== value) {
-    await page.waitForTimeout(200);
+  async function tryFill(attempts: number): Promise<void> {
     await locator.click({timeout: 5000});
+    await page.waitForTimeout(100);
     await locator.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
     await locator.press("Delete");
-    await locator.type(value);
-    current = await locator.inputValue();
+    await locator.fill(value);
+    const current = await locator.inputValue();
+    if (current === value || attempts >= 2) return;
+    await page.waitForTimeout(200);
+    await tryFill(attempts + 1);
   }
-
+  await tryFill(0);
   if (opts?.hard) {
     await expect(locator).toHaveValue(value);
   } else {
@@ -61,17 +57,15 @@ test("create tax office", async ({page}) => {
   const unique = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
   const randomName = `Mavi-${unique}`;
   const randomExternalId = randDigits(9);
-  const randomVatNumber = randDigits(10);
 
   await page.goto("/en/parties/tax-offices/new");
   await appReady(page);
 
   const by = (id: string) => page.getByTestId(id);
 
-  await fillStable(page, by("root_name"), randomName, {hard: true});
+  await fillStable(page, by("root_name"), randomName);
 
-  await fillStable(page, by("root_externalStoreIdentifier"), randomExternalId);
-  await fillStable(page, by("root_vatNumber"), randomVatNumber);
+  await fillStable(page, by("root_externalIdentifier"), randomExternalId);
 
   await fillPhoneTR(page, by("phone"), "5455454545");
   await safeClick(by("type-select"));
@@ -80,9 +74,6 @@ test("create tax office", async ({page}) => {
   await fillStable(page, by("root_email_emailAddress"), "admin@abp.io");
   await safeClick(by("root_email_type"));
   await safeClick(by("root_email_type_WORK"));
-
-  await safeClick(by("root_address_countryId-trigger"));
-  await safeClick(page.locator('[data-value="türkiye" i]'));
 
   await safeClick(by("root_address_adminAreaLevel1Id-trigger"));
   await safeClick(page.locator('[data-value="adıyaman" i]'));

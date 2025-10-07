@@ -1,12 +1,12 @@
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
-import ErrorComponent from "@repo/ui/components/error-component";
 import {
   getMerchantContractHeaderByIdApi,
   getRefundTableHeadersAssignablesByMerchantIdApi,
 } from "@repo/actions/unirefund/ContractService/action";
 import {getMerchantAddressesByIdApi} from "@repo/actions/unirefund/CrmService/actions";
+import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
+import {auth} from "@repo/utils/auth/next-auth";
+import {isUnauthorized} from "@repo/utils/policies";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import {getResourceData} from "src/language-data/unirefund/ContractService";
 import {MerchantContractHeaderUpdateForm} from "./_components/form";
@@ -18,7 +18,6 @@ async function getApiRequests(partyId: string, contractId: string) {
       getRefundTableHeadersAssignablesByMerchantIdApi({
         merchantId: partyId,
       }),
-
       getMerchantContractHeaderByIdApi(contractId),
       getMerchantAddressesByIdApi(partyId, session),
     ]);
@@ -57,15 +56,7 @@ export default async function Page({
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
-  const [
-    refundTableHeadersResponse,
-    // otherContractHeadersResponse,
-    contractHeaderDetailsResponse,
-    addressListResponse,
-  ] = apiRequests.requiredRequests;
-
-  // const contractHeaders = otherContractHeadersResponse.data.items;
-  // const activeContract = contractHeaders?.find((i) => i.isActive === true);
+  const [refundTableHeadersResponse, contractHeaderDetailsResponse, addressListResponse] = apiRequests.requiredRequests;
 
   return (
     <MerchantContractHeaderUpdateForm

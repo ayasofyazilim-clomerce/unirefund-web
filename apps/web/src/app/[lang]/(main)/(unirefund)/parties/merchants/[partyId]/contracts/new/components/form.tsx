@@ -22,8 +22,6 @@ export default function MerchantContractHeaderCreateForm({
   languageData: ContractServiceResource;
   refundTableHeaders: AssignableRefundTableHeaders[];
 }) {
-  const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
   const router = useRouter();
   const {partyId} = useParams<{
     partyId: string;
@@ -56,7 +54,8 @@ export default function MerchantContractHeaderCreateForm({
       },
     },
   };
-
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   return (
     <SchemaForm<ContractHeaderForMerchantCreateDto>
       disabled={isPending}

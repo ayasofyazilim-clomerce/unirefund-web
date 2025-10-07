@@ -61,7 +61,7 @@ test("create merchant", async ({page}) => {
   await fillStable(page, by("root_name"), randomName);
   await safeClick(by("root_taxOfficeId"));
   await safeClick(by("root_taxOfficeId_0"));
-  await fillStable(page, by("root_externalStoreIdentifier"), randomExternalId);
+  await fillStable(page, by("root_externalIdentifier"), randomExternalId);
   await safeClick(by("root_isPersonalCompany"));
   await fillStable(page, by("root_vatNumber"), randomVatNumber);
   await fillPhoneTR(page, by("phone"), "5445444444");
@@ -70,8 +70,6 @@ test("create merchant", async ({page}) => {
   await fillStable(page, by("root_email_emailAddress"), "admin@abp.io");
   await safeClick(by("root_email_type"));
   await safeClick(by("root_email_type_WORK"));
-  await safeClick(by("root_address_countryId-trigger"));
-  await safeClick(page.locator('[data-value="türkiye" i]'));
 
   await safeClick(by("root_address_adminAreaLevel1Id-trigger"));
   await safeClick(page.locator('[data-value="adıyaman" i]'));
