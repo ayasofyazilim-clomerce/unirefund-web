@@ -1,6 +1,6 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import type {Volo_Abp_Identity_IdentityRoleDto as RoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {UniRefund_IdentityService_AssignableRoles_AssignableRoleDto as RoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
 import type {
   TanstackTableCreationProps,
@@ -84,8 +84,8 @@ function AffiliationTable(
             roleName: {
               title: languageData["CRM.roleName"],
               options: roles.map((role) => ({
-                label: role.name || "",
-                value: role.name || "",
+                label: role.roleName || "",
+                value: role.roleName || "",
               })),
             },
           }
@@ -176,8 +176,8 @@ function EditForm({
         roleWidget: CustomComboboxWidget<RoleDto>({
           languageData,
           list: roles,
-          selectIdentifier: "id",
-          selectLabel: "name",
+          selectIdentifier: "roleId",
+          selectLabel: "roleName",
         }),
       }}
       withScrollArea={false}>

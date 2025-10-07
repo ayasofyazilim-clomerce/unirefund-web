@@ -44,11 +44,14 @@ export default async function Layout({
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
   }
   const [customDetailResponse, grantedPolicies] = apiRequests.requiredRequests;
-  // const isHeadquarter = customDetailResponse.data.typeCode === "HEADQUARTER";
   const isAffiliationsAvailable =
     grantedPolicies &&
     !(await isUnauthorized({
-      requiredPolicies: ["CRMService.Customs.ViewAffiliationList", "AbpIdentity.Roles"],
+      requiredPolicies: [
+        "CRMService.Customs.ViewAffiliationList",
+        "IdentityService.AssignableRoles.ViewAllRolesAssignableList",
+        "IdentityService.AssignableRoles",
+      ],
       grantedPolicies,
       lang,
       redirect: false,
