@@ -73,6 +73,7 @@ export function CreateIndividualForm({
             "ui:field": "newUser",
             username: {
               "ui:autocomplete": "off",
+              "ui:disabled": true,
             },
             password: {
               "ui:widget": "password",
@@ -110,7 +111,16 @@ export function CreateIndividualForm({
 
   const handleFormChange = useCallback(({formData: editedFormData}: {formData?: CreateIndividualDto}) => {
     if (editedFormData) {
-      setForm(editedFormData);
+      setForm({
+        ...editedFormData,
+        newUser: {
+          username:
+            editedFormData.email?.emailAddress && editedFormData.email.emailAddress.includes("@")
+              ? editedFormData.email.emailAddress.split("@")[0]
+              : "",
+          password: editedFormData.newUser?.password || "",
+        },
+      });
     }
   }, []);
 
