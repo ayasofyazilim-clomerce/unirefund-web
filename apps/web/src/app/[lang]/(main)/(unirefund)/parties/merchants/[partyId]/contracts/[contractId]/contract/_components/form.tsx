@@ -156,31 +156,29 @@ function ContractActions({
   const router = useRouter();
   return (
     <ActionList>
-      <div className={`flex w-full items-center ${contractDetails.isDraft ? "justify-between" : "justify-end"}`}>
-        {contractDetails.isDraft ? (
-          <div className="mr-2 inline-flex items-center">
-            <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
-              {languageData["Contracts.Draft"]}
-            </span>
-          </div>
-        ) : null}
-        <ActionButton
-          icon={CheckCircle}
-          loading={isPending}
-          onClick={() => {
-            startTransition(() => {
-              void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
-                if (response.type === "success" && response.data) {
-                  toast.success(response.message || languageData["Contracts.Validate.Success"]);
-                } else {
-                  toast.error(response.message || languageData["Contracts.Validate.Error"]);
-                }
-              });
+      {contractDetails.isDraft ? (
+        <div className="mr-auto inline-flex items-center">
+          <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
+            {languageData["Contracts.Draft"]}
+          </span>
+        </div>
+      ) : null}
+      <ActionButton
+        icon={CheckCircle}
+        loading={isPending}
+        onClick={() => {
+          startTransition(() => {
+            void postMerchantContractHeaderValidateByHeaderIdApi(contractDetails.id).then((response) => {
+              if (response.type === "success" && response.data) {
+                toast.success(response.message || languageData["Contracts.Validate.Success"]);
+              } else {
+                toast.error(response.message || languageData["Contracts.Validate.Error"]);
+              }
             });
-          }}
-          text={languageData["Contracts.Validate"]}
-        />
-      </div>
+          });
+        }}
+        text={languageData["Contracts.Validate"]}
+      />
       {!contractDetails.isDraft && !contractDetails.isActive && (
         <ConfirmDialog
           confirmProps={{

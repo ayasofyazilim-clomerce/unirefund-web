@@ -70,7 +70,6 @@ export function RebateSettings({
     ["ContractService.ContractHeaderForMerchant.UpSertRebateSetting"],
     grantedPolicies,
   );
-
   return (
     <SchemaForm<RebateSettingUpSertDto>
       disabled={!hasEditPermission || isPending}
@@ -83,7 +82,17 @@ export function RebateSettings({
                 rebateTableHeaderId: rebateTableHeader.id,
               })),
             }
-          : undefined
+          : {
+              referenceNumber: "0",
+              rebateStatementPeriod: "None",
+              affiliationIdForContact: individuals[0]?.id || "",
+              rebateTableHeaders: [
+                {
+                  rebateTableHeaderId: rebateTableHeaders[0].id,
+                  validFrom: new Date().toISOString(),
+                },
+              ],
+            }
       }
       onSubmit={({formData: editedFormData}) => {
         if (!editedFormData) return;
