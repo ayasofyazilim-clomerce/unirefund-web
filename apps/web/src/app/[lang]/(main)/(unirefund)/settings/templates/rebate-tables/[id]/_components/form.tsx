@@ -73,7 +73,7 @@ export default function RebateTableHeaderCreateForm({
                     <Input
                       data-testid="name"
                       disabled={isPending}
-                      placeholder={languageData["RebateTable.Form.name.default"]}
+                      placeholder={languageData["Contracts.Default"]}
                       {...field}
                     />
                   </FormControl>

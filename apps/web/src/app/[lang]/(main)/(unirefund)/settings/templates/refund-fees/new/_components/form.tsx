@@ -40,7 +40,7 @@ export default function RefundFeeHeaderForm({
   const form = useForm<z.infer<typeof createFormSchema>>({
     resolver: zodResolver(createFormSchema),
     defaultValues: {
-      name: languageData["RefundFeeTable.Form.name.default"],
+      name: languageData["Contracts.Default"],
       isActive: true,
       isTemplate: false,
       refundPointId: null,
