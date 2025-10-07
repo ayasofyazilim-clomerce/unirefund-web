@@ -43,7 +43,7 @@ export function RefundFeeDetailsTable({
       append({
         ...lastRow,
         amountFrom: lastRow.amountTo,
-        amountTo: lastRow.amountTo + 100,
+        amountTo: lastRow.amountTo * 10,
         fixedFeeValue: 0,
         percentFeeValue: 0,
         minFee: 0,
@@ -52,7 +52,7 @@ export function RefundFeeDetailsTable({
     else
       append({
         amountFrom: 0,
-        amountTo: 100,
+        amountTo: 1000,
         fixedFeeValue: 0,
         percentFeeValue: 0,
         minFee: 0,
