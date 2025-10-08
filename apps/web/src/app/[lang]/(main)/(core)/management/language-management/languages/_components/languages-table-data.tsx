@@ -152,11 +152,12 @@ function languagesTable(
 ) {
   const table: LanguagesTable = {
     fillerColumn: "displayName",
-    pinColumns: ["displayName"],
     columnVisibility: {
       type: "show",
       columns: ["displayName", "cultureName", "uiCultureName", "isEnabled"],
     },
+    columnOrder: ["displayName", "cultureName", "uiCultureName", "isEnabled"],
+
     expandedRowComponent: (row) => {
       const uiSchema = createUiSchemaWithResource({
         resources: languageData,
