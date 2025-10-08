@@ -10,8 +10,11 @@ import type {
 } from "@repo/saas/ContractService";
 import {useParams, useRouter} from "next/navigation";
 import {useState} from "react";
+import {useGrantedPolicies} from "@repo/utils/policies";
+import {FormReadyComponent} from "@repo/ui/form-ready";
 import {useTenant} from "@/providers/tenant";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {checkIsFormReady} from "../../../_components/utils";
 import {tableData} from "./table-data";
 
 export function ContractStoresTable({
@@ -25,8 +28,9 @@ export function ContractStoresTable({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const {contractId} = useParams<{
+  const {contractId, lang} = useParams<{
     contractId: string;
+    lang: string;
   }>();
   const {localization} = useTenant();
   const columns = tableData.columns({
@@ -34,65 +38,77 @@ export function ContractStoresTable({
     languageData,
     contractSettings,
   });
+  const {grantedPolicies} = useGrantedPolicies();
   const table = tableData.table();
   const [updatedData, setUpdatedData] = useState<ContractStoreDetailedDto[]>([]);
+
+  const isFormReady = checkIsFormReady({
+    lang,
+    languageData,
+    grantedPolicies,
+    storesLength: contractStores.length,
+    contractSettingsLength: contractSettings.length,
+  });
+
   return (
-    <div className="flex w-full flex-col items-center gap-4">
-      <TanstackTable
-        columns={columns}
-        data={contractStores}
-        editable
-        onTableDataChange={(data) => {
-          setUpdatedData(data);
-        }}
-        {...table}
-      />
-      <ConfirmDialog
-        closeProps={{
-          children: languageData.Cancel,
-        }}
-        confirmProps={{
-          children: languageData.Save,
-          onConfirm: () => {
-            const mappedData: ContractStoreCreateAndUpdateDto[] = updatedData.map((item) => {
-              return {
-                contractSettingId: item.contractSettingId || "",
-                receiptType: item.receiptType,
-                contractTypeIdentifiersSubId: item.contractTypeIdentifiersSubId,
-              };
-            });
-            setLoading(true);
-            void postMerchantContractHeaderContractStoresByHeaderIdApi({
-              id: contractId,
-              requestBody: {
-                contractStores: mappedData,
-              },
-            })
-              .then((response) => {
-                if (response.type === "success") {
-                  toast.success(response.message);
-                  router.refresh();
-                  setUpdatedData([]);
-                } else {
-                  toast.error(response.message);
-                }
-              })
-              .finally(() => {
-                setLoading(false);
+    <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
+      <div className="flex w-full flex-col items-center gap-4">
+        <TanstackTable
+          columns={columns}
+          data={contractStores}
+          editable
+          onTableDataChange={(data) => {
+            setUpdatedData(data);
+          }}
+          {...table}
+        />
+        <ConfirmDialog
+          closeProps={{
+            children: languageData.Cancel,
+          }}
+          confirmProps={{
+            children: languageData.Save,
+            onConfirm: () => {
+              const mappedData: ContractStoreCreateAndUpdateDto[] = updatedData.map((item) => {
+                return {
+                  contractSettingId: item.contractSettingId || "",
+                  receiptType: item.receiptType,
+                  contractTypeIdentifiersSubId: item.contractTypeIdentifiersSubId,
+                };
               });
-          },
-          closeAfterConfirm: true,
-        }}
-        description={languageData["Contracts.Stores.Save.Description"]}
-        loading={loading}
-        title={languageData["Contracts.Stores.Save.Title"]}
-        triggerProps={{
-          className: "w-full max-w-lg",
-          disabled: updatedData.length === 0 || loading,
-          children: languageData.Save,
-        }}
-        type="with-trigger"
-      />
-    </div>
+              setLoading(true);
+              void postMerchantContractHeaderContractStoresByHeaderIdApi({
+                id: contractId,
+                requestBody: {
+                  contractStores: mappedData,
+                },
+              })
+                .then((response) => {
+                  if (response.type === "success") {
+                    toast.success(response.message);
+                    router.refresh();
+                    setUpdatedData([]);
+                  } else {
+                    toast.error(response.message);
+                  }
+                })
+                .finally(() => {
+                  setLoading(false);
+                });
+            },
+            closeAfterConfirm: true,
+          }}
+          description={languageData["Contracts.Stores.Save.Description"]}
+          loading={loading}
+          title={languageData["Contracts.Stores.Save.Title"]}
+          triggerProps={{
+            className: "w-full max-w-lg",
+            disabled: updatedData.length === 0 || loading,
+            children: languageData.Save,
+          }}
+          type="with-trigger"
+        />
+      </div>
+    </FormReadyComponent>
   );
 }
