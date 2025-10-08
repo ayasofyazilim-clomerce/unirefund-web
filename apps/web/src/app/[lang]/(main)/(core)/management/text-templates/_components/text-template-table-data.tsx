@@ -73,7 +73,6 @@ const textTemplateColumns = (localization: Localization, languageData: Administr
 
 function textTemplateTable() {
   const table: TextTemplateTable = {
-    fillerColumn: "name",
     pinColumns: ["name"],
     filters: {
       textFilters: ["filterText"],

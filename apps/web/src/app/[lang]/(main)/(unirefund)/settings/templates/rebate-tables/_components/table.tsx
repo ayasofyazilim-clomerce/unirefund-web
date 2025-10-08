@@ -24,7 +24,7 @@ export default function RebateTable({
   const columns = tableData.rebateTableHeaders.columns(localization, merchants, languageData);
   const table = tableData.rebateTableHeaders.table({languageData, router, grantedPolicies, merchants});
   return (
-    <div className="mt-6 rounded-md border p-6">
+    <div className="mt-6 rounded-md border p-1 md:p-6">
       <TanstackTable
         {...table}
         columns={columns}
