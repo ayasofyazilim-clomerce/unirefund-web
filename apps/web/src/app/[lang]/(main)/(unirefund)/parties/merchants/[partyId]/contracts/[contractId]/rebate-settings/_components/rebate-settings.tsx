@@ -16,9 +16,11 @@ import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schem
 import {CustomComboboxWidget} from "@repo/ayasofyazilim-ui/organisms/schema-form/widgets";
 import {handlePostResponse} from "@repo/utils/api";
 import {isActionGranted, useGrantedPolicies} from "@repo/utils/policies";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {useTransition} from "react";
+import {FormReadyComponent} from "@repo/ui/form-ready";
 import type {ContractServiceResource} from "src/language-data/unirefund/ContractService";
+import {checkIsFormReady} from "../../../_components/utils";
 
 export function RebateSettings({
   languageData,
@@ -36,6 +38,7 @@ export function RebateSettings({
   contractId: string;
 }) {
   const router = useRouter();
+  const {lang} = useParams<{lang: string}>();
   const {grantedPolicies} = useGrantedPolicies();
   const [isPending, startTransition] = useTransition();
   const uiSchema = createUiSchemaWithResource({
@@ -70,69 +73,80 @@ export function RebateSettings({
     ["ContractService.ContractHeaderForMerchant.UpSertRebateSetting"],
     grantedPolicies,
   );
+
+  const isFormReady = checkIsFormReady({
+    lang,
+    languageData,
+    grantedPolicies,
+    affiliationsLength: individuals.length,
+    rebateTableHeadersLength: rebateTableHeaders.length,
+  });
+
   return (
-    <SchemaForm<RebateSettingUpSertDto>
-      disabled={!hasEditPermission || isPending}
-      formData={
-        rebateSettings
-          ? {
-              ...rebateSettings,
-              rebateTableHeaders: rebateSettings.rebateTableHeaders?.map((rebateTableHeader) => ({
-                ...rebateTableHeader,
-                rebateTableHeaderId: rebateTableHeader.id,
-              })),
-            }
-          : {
-              referenceNumber: "0",
-              rebateStatementPeriod: "None",
-              affiliationIdForContact: individuals[0]?.id || "",
-              rebateTableHeaders: [
-                {
-                  rebateTableHeaderId: rebateTableHeaders[0].id,
-                  validFrom: new Date().toISOString(),
-                },
-              ],
-            }
-      }
-      onSubmit={({formData: editedFormData}) => {
-        if (!editedFormData) return;
-        startTransition(() => {
-          void postMerchantContractHeaderRebateSettingByHeaderIdApi({
-            id: contractId,
-            requestBody: editedFormData,
-          }).then((res) => {
-            handlePostResponse(res, router);
+    <FormReadyComponent active={isFormReady.isActive} content={isFormReady.content}>
+      <SchemaForm<RebateSettingUpSertDto>
+        disabled={!hasEditPermission || isPending}
+        formData={
+          rebateSettings
+            ? {
+                ...rebateSettings,
+                rebateTableHeaders: rebateSettings.rebateTableHeaders?.map((rebateTableHeader) => ({
+                  ...rebateTableHeader,
+                  rebateTableHeaderId: rebateTableHeader.id,
+                })),
+              }
+            : {
+                referenceNumber: "0",
+                rebateStatementPeriod: "None",
+                affiliationIdForContact: individuals[0]?.id || "",
+                rebateTableHeaders: [
+                  {
+                    rebateTableHeaderId: rebateTableHeaders[0].id,
+                    validFrom: new Date().toISOString(),
+                  },
+                ],
+              }
+        }
+        onSubmit={({formData: editedFormData}) => {
+          if (!editedFormData) return;
+          startTransition(() => {
+            void postMerchantContractHeaderRebateSettingByHeaderIdApi({
+              id: contractId,
+              requestBody: editedFormData,
+            }).then((res) => {
+              handlePostResponse(res, router);
+            });
           });
-        });
-      }}
-      schema={$RebateSettingUpSertDto}
-      uiSchema={uiSchema}
-      useTableForArrayItems
-      widgets={{
-        Individuals: CustomComboboxWidget<UniRefund_CRMService_Affiliations_AffiliationListResponseDto>({
-          languageData,
-          selectLabel: "name",
-          selectIdentifier: "id",
-          list: individuals,
-          badges: {
-            roleName: {
-              className: "",
+        }}
+        schema={$RebateSettingUpSertDto}
+        uiSchema={uiSchema}
+        useTableForArrayItems
+        widgets={{
+          Individuals: CustomComboboxWidget<UniRefund_CRMService_Affiliations_AffiliationListResponseDto>({
+            languageData,
+            selectLabel: "name",
+            selectIdentifier: "id",
+            list: individuals,
+            badges: {
+              roleName: {
+                className: "",
+              },
             },
-          },
-        }),
-        rebateTableHeader: CustomComboboxWidget<AssignableRebateTableHeaders>({
-          list: rebateTableHeaders,
-          languageData,
-          selectIdentifier: "id",
-          selectLabel: "name",
-        }),
-        subMerchants: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantDto>({
-          list: subMerchants,
-          languageData,
-          selectIdentifier: "id",
-          selectLabel: "name",
-        }),
-      }}
-    />
+          }),
+          rebateTableHeader: CustomComboboxWidget<AssignableRebateTableHeaders>({
+            list: rebateTableHeaders,
+            languageData,
+            selectIdentifier: "id",
+            selectLabel: "name",
+          }),
+          subMerchants: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantDto>({
+            list: subMerchants,
+            languageData,
+            selectIdentifier: "id",
+            selectLabel: "name",
+          }),
+        }}
+      />
+    </FormReadyComponent>
   );
 }

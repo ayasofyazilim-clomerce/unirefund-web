@@ -9,6 +9,9 @@
   "Missing.ContractStores.Message": "Lütfen genel merkeze en az bir mağaza ekleyin.",
   "Missing.ContractSettings.Title": "Sözleşme ayarları eksik",
   "Missing.ContractSettings.Message": "Lütfen sözleşmeye en az bir ayar ekleyin.",
+  "Missing.Affiliations.Title": "Bağlılık eksik",
+  "Missing.Affiliations.Message": "Lütfen en az bir bağlılık oluşturun.",
+
   "Contracts.Contract": "Sözleşme",
   "Contracts.Contracts": "Sözleşmeler",
   "Contracts.Validate": "Onayla",

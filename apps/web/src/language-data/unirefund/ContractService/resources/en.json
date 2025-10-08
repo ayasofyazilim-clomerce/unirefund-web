@@ -9,6 +9,9 @@
   "Missing.ContractStores.Message": "Please add at least one store to the headquarter.",
   "Missing.ContractSettings.Title": "Missing contract setting",
   "Missing.ContractSettings.Message": "Please add at least one setting to the contract.",
+  "Missing.Affiliations.Title": "Missing affilition",
+  "Missing.Affiliations.Message": "Please create at least one affiliation to the this party.",
+
   "Contracts.Contract": "Contract",
   "Contracts.Contracts": "Contracts",
   "Contracts.Validate": "Validate",
