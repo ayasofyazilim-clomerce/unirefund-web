@@ -89,7 +89,7 @@ export default function RefundFeeHeaderForm({
         className="grid h-full grid-flow-dense grid-cols-12 gap-4 overflow-hidden"
         data-testid="refund-fee-table-create-form"
         onSubmit={(event) => void form.handleSubmit(onSubmit)(event)}>
-        <div className="col-span-3 flex h-full flex-col gap-4 overflow-hidden p-px">
+        <div className="col-span-12 flex h-full flex-col gap-4 overflow-hidden p-px md:col-span-3">
           <FormField
             control={form.control}
             name="name"
@@ -183,7 +183,7 @@ export default function RefundFeeHeaderForm({
             />
           )}
         </div>
-        <div className="col-span-9 flex h-full flex-col gap-4 overflow-hidden border-l pl-4 pt-2">
+        <div className="col-span-12 flex h-full flex-col gap-4 overflow-hidden md:col-span-9 md:border-l md:pl-4 md:pt-2">
           <RefundFeeDetailsTable form={form} isPending={isPending} languageData={languageData} />
           <Button
             className="mx-auto w-full max-w-lg"
