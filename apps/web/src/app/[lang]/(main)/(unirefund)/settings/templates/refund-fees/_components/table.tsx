@@ -25,7 +25,7 @@ function Table({
   const table = tableData.refundFeeHeaders.table({languageData, router, grantedPolicies, refundPoints});
 
   return (
-    <div className="mt-6 rounded-md border p-6">
+    <div className="mt-6 rounded-md border p-1 md:p-6">
       <TanstackTable {...table} columns={columns} data={refundFeeHeaders} rowCount={refundFeeHeaders.length} />
     </div>
   );

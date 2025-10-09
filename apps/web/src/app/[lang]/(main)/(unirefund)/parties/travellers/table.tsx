@@ -26,7 +26,7 @@ function TravellersTable({
   const table = tableData.travellers.table(languageData, router, countryList, grantedPolicies);
 
   return (
-    <div className="mt-6 rounded-md border p-6">
+    <div className="mt-6 rounded-md border p-1 md:p-6">
       <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />
     </div>
   );
