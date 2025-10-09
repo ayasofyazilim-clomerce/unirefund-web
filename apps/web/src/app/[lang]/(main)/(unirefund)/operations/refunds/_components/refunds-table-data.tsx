@@ -7,12 +7,18 @@ import {
 } from "@repo/saas/RefundService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import type {Localization} from "@/providers/tenant";
 
 type RefundsTable = TanstackTableCreationProps<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>;
 
-const refundsColumns = (localization: Localization, languageData: TagServiceResource) =>
+const refundsColumns = (
+  localization: Localization,
+  languageData: TagServiceResource,
+  grantedPolicies: Record<Policy, boolean>,
+) =>
   tanstackTableCreateColumnsByRowData<UniRefund_RefundService_Refunds_GetListAsync_RefundListItem>({
     rows: $PagedResultDto_RefundListItem.properties.items.items.properties,
     languageData: {
@@ -32,6 +38,12 @@ const refundsColumns = (localization: Localization, languageData: TagServiceReso
         prefix: "refunds",
         targetAccessorKey: "id",
         suffix: "tags",
+        conditions: [
+          {
+            when: () => isActionGranted(["RefundService.Refunds", "RefundService.Refunds.Detail"], grantedPolicies),
+            conditionAccessorKey: "referenceNumber",
+          },
+        ],
       },
     },
   });

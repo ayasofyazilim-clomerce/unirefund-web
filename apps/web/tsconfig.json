@@ -11,7 +11,8 @@
     "paths": {
       "@/*": ["../../packages/ayasofyazilim-ui/@/*", "./src/*"],
       "components/*": ["./src/components/*"]
-    }
+    },
+    "target": "es2018"
   },
   "include": [
     "next.config.js",
