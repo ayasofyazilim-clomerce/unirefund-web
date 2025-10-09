@@ -217,7 +217,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountFrom`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -225,9 +225,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                             ref={(el) => {
                               inputRefs.current[`refundFeeDetails.${index}.amountFrom`] = el;
                             }}
@@ -249,7 +246,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountTo`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -257,9 +254,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                             ref={(el) => {
                               inputRefs.current[`refundFeeDetails.${index}.amountTo`] = el;
                             }}
@@ -331,7 +325,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.fixedFeeValue`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -339,9 +333,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                           />
                           <FieldError error={error} />
                         </div>
@@ -360,7 +351,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.percentFeeValue`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -368,9 +359,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                           />
                           <FieldError error={error} />
                         </div>
@@ -389,7 +377,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.minFee`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -397,9 +385,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                           />
                           <FieldError error={error} />
                         </div>
@@ -418,7 +403,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.maxFee`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -426,9 +411,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                             ref={(el) => {
                               inputRefs.current[`refundFeeDetails.${index}.maxFee`] = el;
                             }}

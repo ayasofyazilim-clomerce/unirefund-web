@@ -9,18 +9,18 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
   // Individual RefundFeeDetail validation (1.1 - 1.6)
   const refundFeeDetailSchema = z
     .object({
-      amountFrom: z.number().min(0, {
+      amountFrom: z.coerce.number().min(0, {
         message: languageData
           ? languageData["RefundFeeTable.Form.refundFeeDetails.amountFrom.minError"]
           : "Amount from cannot be lower than zero!",
       }),
-      amountTo: z.number(),
-      fixedFeeValue: z.number().min(0, {
+      amountTo: z.coerce.number(),
+      fixedFeeValue: z.coerce.number().min(0, {
         message: languageData
           ? languageData["RefundFeeTable.Form.refundFeeDetails.fixedFeeValue.minError"]
           : "Fixed fee cannot be lower than zero!",
       }),
-      percentFeeValue: z
+      percentFeeValue: z.coerce
         .number()
         .min(0, {
           message: languageData
@@ -32,12 +32,12 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
             ? languageData["RefundFeeTable.Form.refundFeeDetails.percentFeeValue.maxError"]
             : "Percent fee cannot be more than 100!",
         }),
-      minFee: z.number().min(0, {
+      minFee: z.coerce.number().min(0, {
         message: languageData
           ? languageData["RefundFeeTable.Form.refundFeeDetails.minFee.minError"]
           : "Min fee cannot be lower than zero!",
       }),
-      maxFee: z.number(),
+      maxFee: z.coerce.number(),
       feeType: FeeType,
       refundMethod: RefundMethod,
     })
@@ -378,14 +378,14 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
 }
 
 export interface RefundFeeDetail {
-  amountFrom: number;
-  amountTo: number;
+  amountFrom: number | string;
+  amountTo: number | string;
   feeType: string;
   refundMethod: string;
-  fixedFeeValue: number;
-  percentFeeValue: number;
-  minFee: number;
-  maxFee: number;
+  fixedFeeValue: number | string;
+  percentFeeValue: number | string;
+  minFee: number | string;
+  maxFee: number | string;
   originalIndex: number;
 }
 
