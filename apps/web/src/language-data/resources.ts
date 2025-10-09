@@ -1768,7 +1768,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:011011": "Given Merchant '{id}' is not a HEADQUARTER!";
   "UniRefund.CRMService:011012": "No merchant found with VAT Number: '{vATNumber}', Country Code: '{countryCode}', Customer Number: '{customerNumber}'!";
   "UniRefund.CRMService:011013": "Given Merchant '{id}' is not a {wantedTypeCode}, is {existingTypeCode}!";
-  "UniRefund.CRMService:011014": "A store merchant with the same CustomerNumber already exists. Please provide a unique CustomerNumber.";
+  "UniRefund.CRMService:011014": "A store merchant with the same ExternalIdentifier already exists. Please provide a unique ExternalIdentifier.";
   "UniRefund.CRMService:011015": "Only Headquarter merchants can have a relationship with ProductGroup. This merchant is not of the Headquarter type.";
   "UniRefund.CRMService:011016": "No merchant found either headquarter with VAT Number: '{vATNumber}' or sub merchant with customer number: '{customerNumber}'!";
   "UniRefund.CRMService:011017": "There is not a headquarter merchant related to given merchant. So, it is not possible to get product groups of non-existent merchant!";
@@ -1848,6 +1848,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:019001": "At least ITU Country Code or AreaCode must exist!";
   "UniRefund.CRMService:020001": "At least and just one {contactTypeName} can be primary!";
   "UniRefund.CRMService:021001": "ChainCode not found: {chainCodeId}";
+  "UniRefund.CRMService:010061": "VAT number can not null for {partyTypeName} Headquarter!";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
@@ -2023,6 +2024,7 @@ export type ContractServiceResources = {
   "Permission:Clone": "Clone";
   "Permission:UpSertRebateSetting": "UpSert Rebate Setting";
   "Permission:MakePassive": "Make Passive";
+  "Permission:GetPaymentTypesByRefundPointId": "Get Payment Types by RefundPointId";
 };
 export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";
