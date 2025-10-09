@@ -11,7 +11,7 @@ import {FormReadyComponent} from "@repo/ui/form-ready";
 import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
 import {isUnauthorized} from "@repo/utils/policies";
-import {FileIcon, FileText, HandCoins, Plane, ReceiptText, Scale, Store} from "lucide-react";
+import {FileIcon, FileText, HandCoins, Plane, ReceiptText, Store} from "lucide-react";
 import {isRedirectError} from "next/dist/client/components/redirect";
 import Link from "next/link";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
@@ -185,30 +185,42 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
           </div>
           {hasGrant.TagTotals ? (
             <div className={cn("col-span-2 flex", !hasGrant.TagEarnings && "row-span-2")}>
-              <TagCardList
-                icon={<Scale className="size-5" />}
-                rows={
-                  tagDetail.totals?.map((total) => ({
-                    name: languageData[total.totalType],
-                    value: `${total.amount} ${total.currency}`,
-                  })) || []
-                }
-                title={languageData.Totals}
-              />
+              {tagDetail.totals ? (
+                <TagCard icon={<HandCoins className="size-5" />} title={languageData.Totals}>
+                  {tagDetail.totals.map((total, index) => {
+                    return (
+                      <div className="relative flex justify-between" key={total.totalType + index}>
+                        <span className="min-w-content w-full max-w-40 truncate text-sm text-gray-500 hover:absolute  hover:overflow-visible hover:bg-white hover:pr-1">
+                          {languageData[total.totalType]}
+                        </span>
+                        <span className="w-full text-right text-sm font-semibold">
+                          {total.amount} {total.currency}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </TagCard>
+              ) : null}
             </div>
           ) : null}
           {hasGrant.TagEarnings ? (
             <div className={cn("col-span-2 flex", !hasGrant.TagTotals && "row-span-2")}>
-              <TagCardList
-                icon={<HandCoins className="size-5" />}
-                rows={
-                  tagDetail.earnings?.map((earning) => ({
-                    name: languageData[earning.earningType],
-                    value: `${earning.amount} ${earning.currency}`,
-                  })) || []
-                }
-                title={languageData.Earnings}
-              />
+              {tagDetail.earnings ? (
+                <TagCard icon={<HandCoins className="size-5" />} title={languageData.Earnings}>
+                  {tagDetail.earnings.map((earning, index) => {
+                    return (
+                      <div className="relative flex justify-between" key={earning.earningType + index}>
+                        <span className="min-w-content w-full max-w-40 truncate text-sm text-gray-500 hover:absolute  hover:overflow-visible hover:bg-white hover:pr-1">
+                          {languageData[earning.earningType]}
+                        </span>
+                        <span className="w-full text-right text-sm font-semibold">
+                          {earning.amount} {earning.currency}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </TagCard>
+              ) : null}
             </div>
           ) : null}
         </div>
