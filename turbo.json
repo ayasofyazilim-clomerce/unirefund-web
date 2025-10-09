@@ -1,9 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    ".env.local",
-    ".env"
-  ],
+  "globalDependencies": [".env.local", ".env"],
   "globalEnv": [
     "NODE_ENV",
     "HOSTNAME",
@@ -15,7 +12,6 @@
     "CLIENT_ID",
     "CLIENT_SECRET",
     "AUTH_SECRET",
-    "FETCH_TENANT",
     "TENANT_ID",
     "HOME_ROUTE",
     "PROTECTED_ROUTES",
@@ -39,14 +35,8 @@
   ],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**",
-        "!.next/cache/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {},
     "type-check": {},
