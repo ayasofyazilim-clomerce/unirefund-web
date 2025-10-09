@@ -225,9 +225,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                             ref={(el) => {
                               inputRefs.current[`refundFeeDetails.${index}.amountFrom`] = el;
                             }}
@@ -257,9 +254,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                             ref={(el) => {
                               inputRefs.current[`refundFeeDetails.${index}.amountTo`] = el;
                             }}
@@ -339,9 +333,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                           />
                           <FieldError error={error} />
                         </div>
@@ -368,9 +359,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                           />
                           <FieldError error={error} />
                         </div>
@@ -397,9 +385,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                           />
                           <FieldError error={error} />
                         </div>
@@ -426,9 +411,6 @@ export function RefundFeeDetailsTable({
                               error && "bg-red-50 font-bold italic text-red-500",
                             )}
                             disabled={isPending}
-                            onChange={(e) => {
-                              field.onChange(parseFloat(e.target.value) || 0);
-                            }}
                             ref={(el) => {
                               inputRefs.current[`refundFeeDetails.${index}.maxFee`] = el;
                             }}

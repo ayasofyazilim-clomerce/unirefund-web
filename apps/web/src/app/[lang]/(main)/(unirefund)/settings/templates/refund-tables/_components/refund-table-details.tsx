@@ -167,9 +167,6 @@ export function RefundTableDetailsTable({
                                 step="any"
                                 type="number"
                                 {...field}
-                                onChange={(e) => {
-                                  field.onChange(parseFloat(e.target.value) || 0);
-                                }}
                               />
                             </FormControl>
                           </FormItem>
@@ -190,9 +187,6 @@ export function RefundTableDetailsTable({
                                 step="any"
                                 type="number"
                                 {...field}
-                                onChange={(e) => {
-                                  field.onChange(parseFloat(e.target.value) || 0);
-                                }}
                               />
                             </FormControl>
                           </FormItem>
@@ -214,9 +208,6 @@ export function RefundTableDetailsTable({
                                 step="any"
                                 type="number"
                                 {...field}
-                                onChange={(e) => {
-                                  field.onChange(parseFloat(e.target.value) || 0);
-                                }}
                               />
                             </FormControl>
                           </FormItem>
@@ -237,9 +228,6 @@ export function RefundTableDetailsTable({
                                 step="any"
                                 type="number"
                                 {...field}
-                                onChange={(e) => {
-                                  field.onChange(parseFloat(e.target.value) || 0);
-                                }}
                               />
                             </FormControl>
                           </FormItem>
@@ -260,9 +248,6 @@ export function RefundTableDetailsTable({
                                 step="any"
                                 type="number"
                                 {...field}
-                                onChange={(e) => {
-                                  field.onChange(parseFloat(e.target.value) || 0);
-                                }}
                               />
                             </FormControl>
                           </FormItem>
