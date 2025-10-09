@@ -73,7 +73,6 @@ export function CreateIndividualForm({
             "ui:field": "newUser",
             username: {
               "ui:autocomplete": "off",
-              "ui:disabled": true,
             },
             password: {
               "ui:widget": "password",
