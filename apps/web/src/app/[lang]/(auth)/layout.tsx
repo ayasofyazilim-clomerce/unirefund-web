@@ -1,6 +1,5 @@
 "use client";
 import {CountrySelector, lang} from "@repo/ayasofyazilim-ui/organisms/country-selector";
-import {Logo} from "@repo/ui/logo";
 import LightRays from "@/components/light-rays";
 import {useLocale} from "src/providers/locale";
 
@@ -16,16 +15,7 @@ export default function Layout({children, params}: {children: JSX.Element; param
           menuAlign="end"
           onValueChange={changeLocale}
         />
-        <div className="space-y-4">
-          <Logo
-            iconProps={{
-              fill: "#DB0000",
-              className: "max-h-20 mx-auto",
-            }}
-            variant="icon"
-          />
-          {children}
-        </div>
+        <div className="space-y-4">{children}</div>
       </div>
       <LightRays
         className="!absolute z-0"
