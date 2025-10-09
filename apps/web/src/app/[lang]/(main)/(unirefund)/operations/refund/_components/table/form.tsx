@@ -65,7 +65,7 @@ export function RefundForm({
             setRefundMethod(value as RefundTypeEnum);
           }}>
           <div>
-            <RadioGroupItem aria-label="Card" className="peer sr-only" id="card" value="CreditCard" />
+            <RadioGroupItem aria-label="Card" className="peer sr-only" disabled id="card" value="CreditCard" />
             <Label
               className="border-muted hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 bg-transparent p-4"
               data-testid="card-label"
@@ -88,6 +88,7 @@ export function RefundForm({
             <RadioGroupItem
               aria-label="Bank Transfer"
               className="peer sr-only"
+              disabled
               id="bank-transfer"
               value="BankTransfer"
             />
