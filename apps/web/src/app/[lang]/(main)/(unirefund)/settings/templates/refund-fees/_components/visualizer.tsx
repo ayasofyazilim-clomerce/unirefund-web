@@ -30,7 +30,7 @@ export function RefundFeeDetailsVisualizer({languageData, details, onCellClick}:
 
   groups.forEach((groupDetails, groupKey) => {
     const errors: ValidationError[] = [];
-    if (groupDetails.length > 0 && groupDetails[0].amountFrom !== 0) {
+    if (groupDetails.length > 0 && groupDetails[0].amountFrom !== 0 && groupDetails[0].amountFrom !== "0") {
       errors.push({
         type: "missing_start",
         message: replacePlaceholders(

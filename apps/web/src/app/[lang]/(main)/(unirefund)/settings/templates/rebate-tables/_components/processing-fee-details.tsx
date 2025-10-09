@@ -99,7 +99,7 @@ export function ProcessingFeeDetailsTable({
                               data-testid={`processingFeeDetails.${index}.amount`}
                               disabled={isPending}
                               min={0}
-                              step="1"
+                              step="any"
                               type="number"
                               {...field}
                             />
