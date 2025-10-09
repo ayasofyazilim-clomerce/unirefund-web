@@ -1,4 +1,7 @@
 {
+  "Missing.Permission.Title": "Eksik yetki",
+  "Missing.Permission.Description": "Görüntüleme yetkiniz yok.",
+
   "NotImplemented": "Geliştirme aşamasında.",
   "Back": "Geri",
   "Save": "Kaydet",

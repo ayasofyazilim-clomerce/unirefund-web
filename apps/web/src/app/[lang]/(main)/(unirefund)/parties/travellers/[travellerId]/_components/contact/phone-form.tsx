@@ -77,6 +77,9 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
       },
       formData: {
         type: "HOME",
+        id: "",
+        isPrimary: false,
+        localNumber: "",
       },
       withScrollArea: false,
       disabled: isPending,
@@ -88,8 +91,8 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
         const data = {
           id: travellerId,
           requestBody: {
-            isPrimary: phones.length === 0,
             ...formData,
+            isPrimary: phones.length === 0,
           },
         };
         startTransition(() => {
@@ -201,7 +204,7 @@ function IsPrimaryAction({
 }) {
   const switchComponent = (
     <Switch
-      checked={row.isPrimary === true}
+      checked={row.isPrimary}
       data-testid="phone-is-primary"
       disabled={isActive || isPending}
       onCheckedChange={() => {

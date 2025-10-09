@@ -1,20 +1,12 @@
 "use server";
 
-import RegisterForm from "@repo/ui/theme/auth/register";
-import {getTenantByNameApi, signUpServerApi} from "@repo/actions/core/AccountService/actions";
+import {RegisterForm} from "@/components/auth/register-form";
 import {getResourceData} from "src/language-data/core/AccountService";
 
 export default async function Page({params}: {params: {lang: string}}) {
   const {lang} = params;
   const {languageData} = await getResourceData(lang);
-  const isTenantDisabled = process.env.FETCH_TENANT !== "true";
+  const TENANT_ID = process.env.TENANT_ID;
 
-  return (
-    <RegisterForm
-      isTenantDisabled={isTenantDisabled}
-      languageData={languageData}
-      onSubmitAction={signUpServerApi}
-      onTenantSearchAction={getTenantByNameApi}
-    />
-  );
+  return <RegisterForm defaultTenantId={TENANT_ID} languageData={languageData} />;
 }
