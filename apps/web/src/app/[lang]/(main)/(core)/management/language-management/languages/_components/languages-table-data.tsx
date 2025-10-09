@@ -157,6 +157,8 @@ function languagesTable(
       type: "show",
       columns: ["displayName", "cultureName", "uiCultureName", "isEnabled"],
     },
+    columnOrder: ["displayName", "cultureName", "uiCultureName", "isEnabled"],
+
     expandedRowComponent: (row) => {
       const uiSchema = createUiSchemaWithResource({
         resources: languageData,
