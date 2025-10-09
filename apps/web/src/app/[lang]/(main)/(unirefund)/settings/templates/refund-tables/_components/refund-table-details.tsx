@@ -164,7 +164,7 @@ export function RefundTableDetailsTable({
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.minValue`}
                                 min={0}
-                                step="1"
+                                step="any"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -187,7 +187,7 @@ export function RefundTableDetailsTable({
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.maxValue`}
                                 min={0}
-                                step="1"
+                                step="any"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -211,7 +211,7 @@ export function RefundTableDetailsTable({
                                 data-testid={`refundTableDetails.${index}.vatRate`}
                                 disabled={isPending}
                                 min={0}
-                                step="1"
+                                step="any"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -234,7 +234,7 @@ export function RefundTableDetailsTable({
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.refundAmount`}
                                 min={0}
-                                step="1"
+                                step="any"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {
@@ -257,7 +257,7 @@ export function RefundTableDetailsTable({
                                 className="border-0 shadow-none focus-visible:ring-0"
                                 data-testid={`refundTableDetails.${index}.refundPercent`}
                                 min={0}
-                                step="1"
+                                step="any"
                                 type="number"
                                 {...field}
                                 onChange={(e) => {

@@ -121,7 +121,7 @@ export function RebateTableDetailsTable({
                               data-testid={`rebateTableDetails.${index}.fixedFeeValue`}
                               disabled={isPending}
                               min={0}
-                              step="1"
+                              step="any"
                               type="number"
                               {...field}
                             />
@@ -143,7 +143,7 @@ export function RebateTableDetailsTable({
                               data-testid={`rebateTableDetails.${index}.percentFeeValue`}
                               disabled={isPending}
                               min={0}
-                              step="1"
+                              step="any"
                               type="number"
                               {...field}
                             />

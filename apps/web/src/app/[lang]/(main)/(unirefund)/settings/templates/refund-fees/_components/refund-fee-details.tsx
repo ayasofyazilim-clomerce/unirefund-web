@@ -217,7 +217,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountFrom`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -249,7 +249,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.amountTo`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -331,7 +331,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.fixedFeeValue`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -360,7 +360,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.percentFeeValue`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -389,7 +389,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.minFee`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
@@ -418,7 +418,7 @@ export function RefundFeeDetailsTable({
                           <Input
                             data-testid={`refundFeeDetails.${index}.maxFee`}
                             min={0}
-                            step="1"
+                            step="any"
                             type="number"
                             {...field}
                             className={cn(
