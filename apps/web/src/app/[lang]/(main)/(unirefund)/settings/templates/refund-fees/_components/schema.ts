@@ -378,14 +378,14 @@ export function createRefundFeeTableSchemas({languageData}: {languageData?: Cont
 }
 
 export interface RefundFeeDetail {
-  amountFrom: number;
-  amountTo: number;
+  amountFrom: number | string;
+  amountTo: number | string;
   feeType: string;
   refundMethod: string;
-  fixedFeeValue: number;
-  percentFeeValue: number;
-  minFee: number;
-  maxFee: number;
+  fixedFeeValue: number | string;
+  percentFeeValue: number | string;
+  minFee: number | string;
+  maxFee: number | string;
   originalIndex: number;
 }
 
