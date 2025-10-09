@@ -2304,7 +2304,7 @@ export const $UniRefund_TagService_Tags_TagListSummaryDto = {
 } as const;
 
 export const $UniRefund_TagService_Tags_TagRefundFeesDto = {
-    required: ['agentFee', 'earlyRefundFee', 'id', 'netRefundAmount', 'touristFee'],
+    required: ['agentFee', 'id', 'netRefundAmount', 'touristFee'],
     type: 'object',
     properties: {
         id: {
@@ -2321,7 +2321,8 @@ export const $UniRefund_TagService_Tags_TagRefundFeesDto = {
         },
         earlyRefundFee: {
             type: 'number',
-            format: 'double'
+            format: 'double',
+            nullable: true
         },
         netRefundAmount: {
             type: 'number',
@@ -2480,7 +2481,7 @@ export const $UniRefund_TagService_Tags_TagsSumForRefundResponseDto = {
         tagRefundFees: {
             type: 'array',
             items: {
-                required: ['agentFee', 'earlyRefundFee', 'id', 'netRefundAmount', 'touristFee'],
+                required: ['agentFee', 'id', 'netRefundAmount', 'touristFee'],
                 type: 'object',
                 properties: {
                     id: {
@@ -2497,7 +2498,8 @@ export const $UniRefund_TagService_Tags_TagsSumForRefundResponseDto = {
                     },
                     earlyRefundFee: {
                         type: 'number',
-                        format: 'double'
+                        format: 'double',
+                        nullable: true
                     },
                     netRefundAmount: {
                         type: 'number',

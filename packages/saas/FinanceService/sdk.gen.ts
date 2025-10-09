@@ -8,6 +8,7 @@ export class RebateStatementHeaderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** FinanceService.RebateStatementHeaders, FinanceService.RebateStatementHeaders.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -32,6 +33,7 @@ export class RebateStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.RebateStatementHeaders, FinanceService.RebateStatementHeaders.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -60,6 +62,7 @@ export class RebateStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.RebateStatementHeaders, FinanceService.RebateStatementHeaders.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -83,6 +86,7 @@ export class RebateStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.RebateStatementHeaders, FinanceService.RebateStatementHeaders.FormDraft
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -106,6 +110,7 @@ export class RebateStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.RebateStatementHeaders, FinanceService.RebateStatementHeaders.FormBulkPreview
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -134,6 +139,7 @@ export class VatStatementHeaderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * **Requires permissions:** FinanceService.VATStatementHeaders, FinanceService.VATStatementHeaders.View
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -158,6 +164,7 @@ export class VatStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.VATStatementHeaders, FinanceService.VATStatementHeaders.ViewBasicInformation
      * @param data The data for the request.
      * @param data.id
      * @returns unknown OK
@@ -182,6 +189,7 @@ export class VatStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.VATStatementHeaders, FinanceService.VATStatementHeaders.ViewList
      * @param data The data for the request.
      * @param data.sorting
      * @param data.skipCount
@@ -210,6 +218,7 @@ export class VatStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.VATStatementHeaders, FinanceService.VATStatementHeaders.Create
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -233,6 +242,7 @@ export class VatStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.VATStatementHeaders, FinanceService.VATStatementHeaders.FormDraft
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
@@ -256,6 +266,7 @@ export class VatStatementHeaderService {
     }
     
     /**
+     * **Requires permissions:** FinanceService.VATStatementHeaders, FinanceService.VATStatementHeaders.FormBulkPreview
      * @param data The data for the request.
      * @param data.requestBody
      * @returns unknown OK
