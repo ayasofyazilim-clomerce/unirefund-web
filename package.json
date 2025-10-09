@@ -21,7 +21,8 @@
     "precommit": "turbo lint && turbo type-check",
     "precommit:web": "npm run format:web && turbo lint --filter web && turbo type-check --filter web",
     "precommit:lintstaged": "cd apps/web && npx lint-staged",
-    "unused": "npx knip"
+    "unused": "npx knip",
+    "fix-changes:web": "cd apps/web && pnpm format && pnpm lint:fix && pnpm type-check"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.1",
