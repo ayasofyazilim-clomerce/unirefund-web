@@ -89,23 +89,23 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
   };
 
   const refundTableDetailSchema = z.object({
-    vatRate: z.number().min(0, {
+    vatRate: z.coerce.number().min(0, {
       message: languageData
         ? languageData["RefundTable.Form.refundTableDetails.vatRateMin0"]
         : "Number must be greater than or equal to 0",
     }),
-    minValue: z.number().min(0, {
+    minValue: z.coerce.number().min(0, {
       message: languageData
         ? languageData["RefundTable.Form.refundTableDetails.minValueMin0"]
         : "Number must be greater than or equal to 0",
     }),
-    maxValue: z.number(),
-    refundAmount: z.number().min(0, {
+    maxValue: z.coerce.number(),
+    refundAmount: z.coerce.number().min(0, {
       message: languageData
         ? languageData["RefundTable.Form.refundTableDetails.refundAmountMin0"]
         : "Number must be greater than or equal to 0",
     }),
-    refundPercent: z
+    refundPercent: z.coerce
       .number()
       .min(0, {
         message: languageData
