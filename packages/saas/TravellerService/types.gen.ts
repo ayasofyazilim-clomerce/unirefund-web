@@ -400,13 +400,13 @@ export type UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
 };
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
-    id?: string;
+    id: string;
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
-    localNumber?: (string) | null;
+    localNumber: string;
     normalizedPhoneNumber?: (string) | null;
-    isPrimary?: boolean;
-    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
+    isPrimary: boolean;
+    type: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
     isConfirmed?: (boolean) | null;
 };
 

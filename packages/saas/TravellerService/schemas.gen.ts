@@ -2698,6 +2698,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneCreateDto = {
 } as const;
 
 export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
+    required: ['id', 'isPrimary', 'localNumber', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -2719,8 +2720,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
         localNumber: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         normalizedPhoneNumber: {
             type: 'string',
@@ -3484,6 +3484,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             additionalProperties: false
         },
         primaryTelephone: {
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3505,8 +3506,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                 localNumber: {
                     maxLength: 255,
                     minLength: 0,
-                    type: 'string',
-                    nullable: true
+                    type: 'string'
                 },
                 normalizedPhoneNumber: {
                     type: 'string',
@@ -3682,6 +3682,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto =
             additionalProperties: false
         },
         primaryTelephone: {
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -3703,8 +3704,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerInfoForPaymentDto =
                 localNumber: {
                     maxLength: 255,
                     minLength: 0,
-                    type: 'string',
-                    nullable: true
+                    type: 'string'
                 },
                 normalizedPhoneNumber: {
                     type: 'string',

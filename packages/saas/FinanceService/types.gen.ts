@@ -168,7 +168,7 @@ export type UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetai
     tagCount: number;
     totalAmount: number;
     unpaidAmount: number;
-    currency?: (string) | null;
+    currency: string;
     status: UniRefund_FinanceService_Enums_VATStatementStatus;
     billingPeriod: UniRefund_ContractService_Enums_InvoicingFrequency;
     termOfPayment: number;
@@ -195,7 +195,7 @@ export type UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDraft
     tagCount: number;
     totalAmount: number;
     unpaidAmount: number;
-    currency?: (string) | null;
+    currency: string;
     status: UniRefund_FinanceService_Enums_VATStatementStatus;
     billingPeriod: UniRefund_ContractService_Enums_InvoicingFrequency;
     termOfPayment: number;
@@ -219,7 +219,7 @@ export type UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDraft
     tagCount: number;
     totalAmount: number;
     unpaidAmount: number;
-    currency?: (string) | null;
+    currency: string;
     status: UniRefund_FinanceService_Enums_VATStatementStatus;
     billingPeriod: UniRefund_ContractService_Enums_InvoicingFrequency;
     termOfPayment: number;
@@ -238,7 +238,7 @@ export type UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto =
     tagCount: number;
     totalAmount: number;
     unpaidAmount: number;
-    currency?: (string) | null;
+    currency: string;
     status: UniRefund_FinanceService_Enums_VATStatementStatus;
     billingPeriod: UniRefund_ContractService_Enums_InvoicingFrequency;
     termOfPayment: number;
