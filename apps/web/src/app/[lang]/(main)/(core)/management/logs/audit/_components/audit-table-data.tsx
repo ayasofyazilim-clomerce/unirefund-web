@@ -118,8 +118,7 @@ const auditLogsColumns = (localization: Localization, languageData: Administrati
 };
 function auditLogsTable(languageData: AdministrationServiceResource) {
   const table: AuditLogsTable = {
-    fillerColumn: "tenantName",
-    pinColumns: ["url"],
+    fillerColumn: "url",
     filters: {
       textFilters: [
         "userName",

@@ -1,7 +1,7 @@
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTrigger} from "@/components/ui/drawer";
 import {toast} from "@/components/ui/sonner";
-import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
+import type {UniRefund_IdentityService_AssignableRoles_AssignableRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import type {
   UniRefund_CRMService_Individuals_CreateIndividualDto as CreateIndividualDto,
   UniRefund_CRMService_Individuals_IndividualListResponseDto as IndividualListResponseDto,
@@ -21,7 +21,7 @@ interface AffiliationDrawerProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   languageData: CRMServiceServiceResource;
-  roles: Volo_Abp_Identity_IdentityRoleDto[];
+  roles: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto[];
   partyType: PartyTypeHasAffiliations;
 }
 
@@ -49,7 +49,9 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
   const {partyId} = useParams<{partyId: string}>();
   const [isPending, startTransition] = useTransition();
   const [currentStep, setCurrentStep] = useState(INITIAL_STEP);
-  const [selectedRole, setSelectedRole] = useState<Volo_Abp_Identity_IdentityRoleDto | null>(null);
+  const [selectedRole, setSelectedRole] = useState<UniRefund_IdentityService_AssignableRoles_AssignableRoleDto | null>(
+    null,
+  );
   const [date, setDate] = useState<Date | null>(null);
   const [preventClose, setPreventClose] = useState(true);
 
@@ -87,14 +89,14 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
 
   const handleNextStep = useCallback(() => {
     if (currentStep === 1) {
-      if (!selectedIndividual || !selectedRole?.id || !date) {
+      if (!selectedIndividual || !selectedRole?.roleId || !date) {
         toast.error("Error");
         return;
       }
       startTransition(() => {
         const requestBody = {
           individualId: selectedIndividual.individualId,
-          abpRoleId: selectedRole.id || "",
+          abpRoleId: selectedRole.roleId || "",
           startDate: date.toISOString(),
           isPrimary: false,
         };
@@ -128,9 +130,12 @@ export function AffiliationDrawer({open, setOpen, languageData, roles, partyType
     });
   }, []);
 
-  const handleRoleSelect = useCallback((role: Volo_Abp_Identity_IdentityRoleDto | null | undefined) => {
-    setSelectedRole(role || null);
-  }, []);
+  const handleRoleSelect = useCallback(
+    (role: UniRefund_IdentityService_AssignableRoles_AssignableRoleDto | null | undefined) => {
+      setSelectedRole(role || null);
+    },
+    [],
+  );
 
   const handleDateSelect = useCallback((selectedDate: Date | null) => {
     setDate(selectedDate);
