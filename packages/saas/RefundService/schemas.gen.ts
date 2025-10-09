@@ -480,6 +480,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                     additionalProperties: false
                 },
                 primaryTelephone: {
+                    required: ['id', 'isPrimary', 'localNumber', 'type'],
                     type: 'object',
                     properties: {
                         id: {
@@ -501,8 +502,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                         localNumber: {
                             maxLength: 255,
                             minLength: 0,
-                            type: 'string',
-                            nullable: true
+                            type: 'string'
                         },
                         normalizedPhoneNumber: {
                             type: 'string',
@@ -527,8 +527,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
         },
         userDeviceName: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         refundTypeEnum: {
             enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
@@ -536,33 +535,27 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
         },
         travellerDocumentNumber: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         refundAmount: {
             type: 'number',
-            format: 'double',
-            readOnly: true
+            format: 'double'
         },
         refundCurrency: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         refundAmountInCurrency: {
             type: 'number',
-            format: 'double',
-            readOnly: true
+            format: 'double'
         },
         travellerFeeAmount: {
             type: 'number',
-            format: 'double',
-            readOnly: true
+            format: 'double'
         },
         referenceNumber: {
             minLength: 1,
-            type: 'string',
-            readOnly: true
+            type: 'string'
         },
         status: {
             enum: ['NotPaid', 'PendingDeparture', 'Blocked', 'Processing', 'PartlyPaid', 'Paid', 'Overpaid', 'Rejected', 'Cancelled', 'Error'],
@@ -574,22 +567,19 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
         },
         processedDate: {
             type: 'string',
-            format: 'date-time',
-            readOnly: true
+            format: 'date-time'
         },
         paidDate: {
             type: 'string',
             format: 'date-time',
-            nullable: true,
-            readOnly: true
+            nullable: true
         },
         tagIds: {
             type: 'array',
             items: {
                 type: 'string',
                 format: 'uuid'
-            },
-            readOnly: true
+            }
         }
     },
     additionalProperties: false
@@ -762,6 +752,7 @@ export const $UniRefund_TravellerService_Enums_IdentificationType = {
 } as const;
 
 export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
+    required: ['id', 'isPrimary', 'localNumber', 'type'],
     type: 'object',
     properties: {
         id: {
@@ -783,8 +774,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
         localNumber: {
             maxLength: 255,
             minLength: 0,
-            type: 'string',
-            nullable: true
+            type: 'string'
         },
         normalizedPhoneNumber: {
             type: 'string',
@@ -1023,6 +1013,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
             additionalProperties: false
         },
         primaryTelephone: {
+            required: ['id', 'isPrimary', 'localNumber', 'type'],
             type: 'object',
             properties: {
                 id: {
@@ -1044,8 +1035,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
                 localNumber: {
                     maxLength: 255,
                     minLength: 0,
-                    type: 'string',
-                    nullable: true
+                    type: 'string'
                 },
                 normalizedPhoneNumber: {
                     type: 'string',
