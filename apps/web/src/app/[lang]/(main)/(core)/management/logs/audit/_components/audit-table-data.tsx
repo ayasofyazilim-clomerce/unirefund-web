@@ -82,7 +82,7 @@ const auditLogsColumns = (localization: Localization, languageData: Administrati
                   languageData={languageData}
                   trigger={
                     <button
-                      className="m-0 block w-full truncate border-0 bg-transparent p-0 text-left text-blue-700 underline"
+                      className="m-0 block w-full max-w-60 truncate border-0 bg-transparent p-0 text-left text-blue-700 underline"
                       data-testid="dialog-trigger"
                       title={url}>
                       {url || detailsLabel}
@@ -119,7 +119,6 @@ const auditLogsColumns = (localization: Localization, languageData: Administrati
 function auditLogsTable(languageData: AdministrationServiceResource) {
   const table: AuditLogsTable = {
     fillerColumn: "url",
-    pinColumns: ["url"],
     filters: {
       textFilters: [
         "userName",
