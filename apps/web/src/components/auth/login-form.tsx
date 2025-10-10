@@ -8,6 +8,7 @@ import {type z, zodResolver} from "@repo/ayasofyazilim-ui/lib/create-zod-object"
 import Link from "next/link";
 import {useEffect, useTransition} from "react";
 import {useParams, useSearchParams} from "next/navigation";
+import {Logo} from "@repo/ui/logo";
 import {createAuthSchemas, type LanguageData} from "./schema";
 import {TenantSelection} from "./tenant";
 
@@ -56,18 +57,27 @@ export function LoginForm({
         className="w-full space-y-4"
         data-testid="login-form"
         onSubmit={(event) => void form.handleSubmit(onSubmit)(event)}>
+        <Logo
+          iconProps={{
+            className: "max-w-20 mx-auto",
+            fill: "#DB0000",
+          }}
+          variant="icon"
+        />
         <div className="flex flex-col items-center gap-0 text-center">
           <h1 className="text-2xl font-bold">{languageData["Auth.LoginTitle"]}</h1>
           <p className="text-muted-foreground text-balance">{languageData["Auth.LoginMessage"]}</p>
         </div>
-        <TenantSelection
-          isPending={isPending}
-          languageData={languageData}
-          onTenantChange={(tenantId) => {
-            form.setValue("tenantId", tenantId);
-          }}
-          startTransition={startTransition}
-        />
+        {!defaultTenantId && (
+          <TenantSelection
+            isPending={isPending}
+            languageData={languageData}
+            onTenantChange={(tenantId) => {
+              form.setValue("tenantId", tenantId);
+            }}
+            startTransition={startTransition}
+          />
+        )}
         <FormField
           control={form.control}
           name="userName"
