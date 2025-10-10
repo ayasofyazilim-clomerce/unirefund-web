@@ -49,14 +49,16 @@ export function RegisterForm({
           <h1 className="text-2xl font-bold">{languageData["Auth.RegisterTitle"]}</h1>
           <p className="text-muted-foreground text-balance">{languageData["Auth.RegisterMessage"]}</p>
         </div>
-        <TenantSelection
-          isPending={isPending}
-          languageData={languageData}
-          onTenantChange={(tenantId) => {
-            form.setValue("tenantId", tenantId);
-          }}
-          startTransition={startTransition}
-        />
+        {!defaultTenantId && (
+          <TenantSelection
+            isPending={isPending}
+            languageData={languageData}
+            onTenantChange={(tenantId) => {
+              form.setValue("tenantId", tenantId);
+            }}
+            startTransition={startTransition}
+          />
+        )}
         <FormField
           control={form.control}
           name="email"
