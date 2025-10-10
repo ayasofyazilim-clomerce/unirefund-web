@@ -60,14 +60,16 @@ export function LoginForm({
           <h1 className="text-2xl font-bold">{languageData["Auth.LoginTitle"]}</h1>
           <p className="text-muted-foreground text-balance">{languageData["Auth.LoginMessage"]}</p>
         </div>
-        <TenantSelection
-          isPending={isPending}
-          languageData={languageData}
-          onTenantChange={(tenantId) => {
-            form.setValue("tenantId", tenantId);
-          }}
-          startTransition={startTransition}
-        />
+        {!defaultTenantId && (
+          <TenantSelection
+            isPending={isPending}
+            languageData={languageData}
+            onTenantChange={(tenantId) => {
+              form.setValue("tenantId", tenantId);
+            }}
+            startTransition={startTransition}
+          />
+        )}
         <FormField
           control={form.control}
           name="userName"

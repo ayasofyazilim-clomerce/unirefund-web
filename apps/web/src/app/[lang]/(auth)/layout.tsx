@@ -15,7 +15,7 @@ export default function Layout({children, params}: {children: JSX.Element; param
           menuAlign="end"
           onValueChange={changeLocale}
         />
-        <div className="space-y-4">{children}</div>
+        <div className="w-full space-y-4">{children}</div>
       </div>
       <LightRays
         className="!absolute z-0"
