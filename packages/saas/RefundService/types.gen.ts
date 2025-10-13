@@ -57,19 +57,19 @@ export type UniRefund_RefundService_Refunds_CreateRefundResponseDto = {
 export type UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
     refundPoint: UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund;
     traveller: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
-    readonly userDeviceName: string;
+    userDeviceName: string;
     refundTypeEnum: UniRefund_TagService_Tags_Enums_RefundType;
-    readonly travellerDocumentNumber: string;
-    readonly refundAmount: number;
-    readonly refundCurrency: string;
-    readonly refundAmountInCurrency: number;
-    readonly travellerFeeAmount: number;
-    readonly referenceNumber: string;
+    travellerDocumentNumber: string;
+    refundAmount: number;
+    refundCurrency: string;
+    refundAmountInCurrency: number;
+    travellerFeeAmount: number;
+    referenceNumber: string;
     status: UniRefund_RefundService_Enums_RefundStatus;
     reconciliationStatus: UniRefund_RefundService_Enums_RefundReconciliationStatus;
-    readonly processedDate: string;
-    readonly paidDate?: (string) | null;
-    readonly tagIds: Array<(string)>;
+    processedDate: string;
+    paidDate?: (string) | null;
+    tagIds: Array<(string)>;
 };
 
 export type UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
@@ -124,13 +124,13 @@ export type UniRefund_TravellerService_Enums_GenderType = 'MALE' | 'FEMALE' | 'O
 export type UniRefund_TravellerService_Enums_IdentificationType = 'IdCard' | 'Passport';
 
 export type UniRefund_TravellerService_Telephones_TelephoneDto = {
-    id?: string;
+    id: string;
     ituCountryCode?: (string) | null;
     areaCode?: (string) | null;
-    localNumber?: (string) | null;
+    localNumber: string;
     normalizedPhoneNumber?: (string) | null;
-    isPrimary?: boolean;
-    type?: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
+    isPrimary: boolean;
+    type: UniRefund_Shared_ContactInfo_Enums_TelephoneType;
     isConfirmed?: (boolean) | null;
 };
 

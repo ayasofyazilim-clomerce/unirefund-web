@@ -578,7 +578,7 @@ export type UniRefund_TagService_Tags_TagRefundFeesDto = {
     id: string;
     touristFee: number;
     agentFee: number;
-    earlyRefundFee: number;
+    earlyRefundFee?: (number) | null;
     netRefundAmount: number;
 };
 

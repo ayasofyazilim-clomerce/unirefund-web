@@ -2024,6 +2024,8 @@ export type ContractServiceResources = {
   "Permission:Clone": "Clone";
   "Permission:UpSertRebateSetting": "UpSert Rebate Setting";
   "Permission:MakePassive": "Make Passive";
+  "Permission:GetPaymentTypesByRefundPointId": "Get Payment Types by RefundPointId";
+  "UniRefund.ContractService:01068": "No refund fee detail found for TagId: '{tagId}', Amount: '{amount}', RefundMethod: '{refundMethod}', RefundDate: '{refundDate}'!";
 };
 export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";

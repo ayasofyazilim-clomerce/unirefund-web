@@ -11,7 +11,6 @@
     "CLIENT_ID",
     "CLIENT_SECRET",
     "AUTH_SECRET",
-    "FETCH_TENANT",
     "TENANT_ID",
     "HOME_ROUTE",
     "PROTECTED_ROUTES",

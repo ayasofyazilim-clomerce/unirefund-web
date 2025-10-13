@@ -46,7 +46,7 @@ export default async function RootLayout({children, params}: RootLayoutProps) {
         className={`overflow-hidden [&:has(>div[data-state=open])>main]:m-2 ${GeistSans.className}`}
         data-app-name={appName}>
         <Suspense fallback={<LoadingSpinner />}>
-          <Toaster richColors />
+          <Toaster closeButton richColors />
           <Tooltip>
             <LocaleProvider lang={lang} resources={resources}>
               {children}

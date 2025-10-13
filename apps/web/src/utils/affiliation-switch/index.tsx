@@ -1,4 +1,5 @@
 "use client";
+import {toast} from "@/components/ui/sonner";
 import {cn} from "@/lib/utils";
 import {postUserAffiliationApi} from "@repo/actions/unirefund/CrmService/post-actions";
 import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
@@ -15,8 +16,8 @@ import {replacePlaceholders} from "@repo/ayasofyazilim-ui/lib/replace-placeholde
 import type {UniRefund_CRMService_UserAffiliations_UserAffiliationDto as Affiliation} from "@repo/saas/CRMService";
 import {fetchNewAccessTokenByRefreshToken, getUserData, useSession} from "@repo/utils/auth";
 import {Building2, ChevronDownIcon, LoaderCircle, Store} from "lucide-react";
+import {useRouter} from "next/navigation";
 import {useState, useTransition} from "react";
-import {toast} from "@/components/ui/sonner";
 import type {CRMServiceServiceResource} from "@/language-data/unirefund/CRMService";
 
 export default function AffiliationSwitch({
@@ -26,6 +27,7 @@ export default function AffiliationSwitch({
   affiliations: Affiliation[];
   languageData: CRMServiceServiceResource;
 }) {
+  const router = useRouter();
   const {session, sessionUpdate} = useSession();
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState<boolean>(false);
@@ -151,6 +153,7 @@ export default function AffiliationSwitch({
                     session?.user?.refresh_token || "",
                   );
                   await sessionUpdate({info: (await getUserData(access_token, refresh_token, expires_in)) as object});
+                  router.refresh();
                 });
               });
             }}>

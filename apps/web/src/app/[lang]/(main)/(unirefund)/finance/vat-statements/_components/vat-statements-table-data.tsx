@@ -12,7 +12,7 @@ import {
 } from "@repo/saas/FinanceService";
 import type {Policy} from "@repo/utils/policies";
 import {isActionGranted} from "@repo/utils/policies";
-import {PlusIcon} from "lucide-react";
+import {PackagePlus, PlusIcon} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type {Localization} from "@/providers/tenant";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
@@ -111,6 +111,16 @@ function vatStatementTableActions(
         condition: () => isActionGranted(["FinanceService.VATStatementHeaders.Create"], grantedPolicies),
         onClick: () => {
           router.push("vat-statements/new");
+        },
+      },
+      {
+        type: "simple",
+        cta: languageData["Finance.vatStatements.bulk"],
+        icon: PackagePlus,
+        actionLocation: "table",
+        condition: () => isActionGranted(["FinanceService.VATStatementHeaders.Create"], grantedPolicies),
+        onClick: () => {
+          router.push("vat-statements/bulk");
         },
       },
     ];

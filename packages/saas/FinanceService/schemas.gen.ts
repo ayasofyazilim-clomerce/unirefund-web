@@ -950,7 +950,7 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderBul
         drafts: {
             type: 'array',
             items: {
-                required: ['billingPeriod', 'contractHeaderId', 'deliveryMethod', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount'],
+                required: ['billingPeriod', 'contractHeaderId', 'currency', 'deliveryMethod', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount'],
                 type: 'object',
                 properties: {
                     tagCount: {
@@ -966,8 +966,8 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderBul
                         format: 'double'
                     },
                     currency: {
-                        type: 'string',
-                        nullable: true
+                        minLength: 1,
+                        type: 'string'
                     },
                     status: {
                         enum: ['Sent', 'PaymentReminder1', 'PaymentReminder2', 'PaymentReminder3', 'DebtCollection', 'Cancelled', 'CreditNote', 'Paid'],
@@ -1056,7 +1056,7 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCre
 } as const;
 
 export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDetailDto = {
-    required: ['billingPeriod', 'contractHeaderId', 'deliveryMethod', 'dueDate', 'id', 'invoiceNumber', 'merchantId', 'merchantName', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount', 'vatStatementDate'],
+    required: ['billingPeriod', 'contractHeaderId', 'currency', 'deliveryMethod', 'dueDate', 'id', 'invoiceNumber', 'merchantId', 'merchantName', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount', 'vatStatementDate'],
     type: 'object',
     properties: {
         tagCount: {
@@ -1072,8 +1072,8 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDet
             format: 'double'
         },
         currency: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         status: {
             enum: ['Sent', 'PaymentReminder1', 'PaymentReminder2', 'PaymentReminder3', 'DebtCollection', 'Cancelled', 'CreditNote', 'Paid'],
@@ -1212,7 +1212,7 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDet
 } as const;
 
 export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDraftDto = {
-    required: ['billingPeriod', 'contractHeaderId', 'deliveryMethod', 'dueDate', 'merchantId', 'merchantName', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount', 'vatStatementDate'],
+    required: ['billingPeriod', 'contractHeaderId', 'currency', 'deliveryMethod', 'dueDate', 'merchantId', 'merchantName', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount', 'vatStatementDate'],
     type: 'object',
     properties: {
         tagCount: {
@@ -1228,8 +1228,8 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDra
             format: 'double'
         },
         currency: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         status: {
             enum: ['Sent', 'PaymentReminder1', 'PaymentReminder2', 'PaymentReminder3', 'DebtCollection', 'Cancelled', 'CreditNote', 'Paid'],
@@ -1351,7 +1351,7 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDra
 } as const;
 
 export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDraftSummaryDto = {
-    required: ['billingPeriod', 'contractHeaderId', 'deliveryMethod', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount'],
+    required: ['billingPeriod', 'contractHeaderId', 'currency', 'deliveryMethod', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount'],
     type: 'object',
     properties: {
         tagCount: {
@@ -1367,8 +1367,8 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDra
             format: 'double'
         },
         currency: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         status: {
             enum: ['Sent', 'PaymentReminder1', 'PaymentReminder2', 'PaymentReminder3', 'DebtCollection', 'Cancelled', 'CreditNote', 'Paid'],
@@ -1422,7 +1422,7 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDra
 } as const;
 
 export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto = {
-    required: ['billingPeriod', 'contractHeaderId', 'deliveryMethod', 'dueDate', 'id', 'invoiceNumber', 'merchantId', 'merchantName', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount', 'vatStatementDate'],
+    required: ['billingPeriod', 'contractHeaderId', 'currency', 'deliveryMethod', 'dueDate', 'id', 'invoiceNumber', 'merchantId', 'merchantName', 'paymentStatus', 'referenceDateBegin', 'referenceDateEnd', 'status', 'tagCount', 'termOfPayment', 'totalAmount', 'unpaidAmount', 'vatStatementDate'],
     type: 'object',
     properties: {
         tagCount: {
@@ -1438,8 +1438,8 @@ export const $UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderDto
             format: 'double'
         },
         currency: {
-            type: 'string',
-            nullable: true
+            minLength: 1,
+            type: 'string'
         },
         status: {
             enum: ['Sent', 'PaymentReminder1', 'PaymentReminder2', 'PaymentReminder3', 'DebtCollection', 'Cancelled', 'CreditNote', 'Paid'],
