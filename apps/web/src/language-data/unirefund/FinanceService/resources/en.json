@@ -6,7 +6,11 @@
   "VatStatement.Preview.NoData": "",
 
   "Finance.Preview": "Preview",
-  "Finance.Submit": "Create statement",
+
+  "Finance.createStatement": "Create statement",
+  "Finance.createStatements": "Creating statements",
+  "Finance.createStatement.success": "Statement created successfuly.",
+  "Finance.createStatement.pending": "Creating",
 
   "Finance.Form.merchantId": "Merchant",
   "Finance.Form.year": "Period year",
@@ -18,6 +22,7 @@
   "Finance.tags": "Tags",
   "Finance.statement": "Statement details",
   "Finance.merchantId": "Merchant",
+  "Finance.merchantName": "Merchant",
   "Finance.contract": "Contract",
   "Finance.contract.open": "Open contract",
   "Finance.status": "Status",
@@ -51,8 +56,10 @@
   "Finance.vatStatementDate": "Statement date",
   "Finance.dueDate": "Due date",
   "Finance.unpaidAmount": "Unpaid amount",
+  "Finance.isFactoring": "Is factoring",
 
   "Finance.vatStatements.new": "New VAT Statement",
+  "Finance.vatStatements.bulk": "Bulk VAT Statement",
   "Finance.vatStatements.empty": "Hit preview button to see vat statement preview",
   "Finance.Tags.tagNumber": "Tag number",
   "Finance.Tags.refundDate": "Refund date",

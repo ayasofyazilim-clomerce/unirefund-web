@@ -141,7 +141,7 @@ export default function VatStatementForm({
             disabled={isPending}
             onClick={handleCreateStatement}
             type="button">
-            {languageData["Finance.Submit"]}
+            {languageData["Finance.createStatement"]}
           </Button>
         </div>
       </VatStatements>
