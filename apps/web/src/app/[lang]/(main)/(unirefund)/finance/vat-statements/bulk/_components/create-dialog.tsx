@@ -62,7 +62,7 @@ export default function CreateStatementsModal({
         });
       });
     }
-  }, [open, statuses.length]);
+  }, [open, statuses.length, selectedRows, monthYearPair]);
 
   const handleOpenChange = () => {
     setOpen(false);
