@@ -244,7 +244,7 @@ function TaxFreeTags({
           },
         ],
         targetAccessorKey: "tagId",
-        prefix: getBaseLink("operations/tax-free-tags/"),
+        prefix: getBaseLink("operations/tax-free-tags"),
       },
     },
     custom: {
@@ -272,6 +272,7 @@ function TaxFreeTags({
       columnVisibility={{type: "hide", columns: ["merchantName", "tagId", "merchantId", "currency"]}}
       columns={columns}
       data={tags}
+      resizeable={false}
     />
   );
 }
