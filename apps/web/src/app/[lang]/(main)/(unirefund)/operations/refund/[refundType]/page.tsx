@@ -78,7 +78,6 @@ export default async function Page({
   if (!travellerDocumentNumber || !refundPointId) {
     return <TravellerDocumentForm accessibleRefundPoints={accessibleRefundPoints} languageData={languageData} />;
   }
-
   const requestBody = {
     travellerDocumentNumber,
     refundType: refundMethod || ("Cash" as const),
