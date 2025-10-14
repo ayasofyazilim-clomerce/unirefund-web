@@ -3,6 +3,7 @@ import type {
   PostApiFinanceServiceRebateStatementHeadersData,
   PostApiFinanceServiceRebateStatementHeadersFormDraftData,
   PostApiFinanceServiceVatStatementHeadersData,
+  PostApiFinanceServiceVatStatementHeadersFormBulkPreviewData,
   PostApiFinanceServiceVatStatementHeadersFormDraftData,
 } from "@repo/saas/FinanceService";
 import { structuredError, structuredResponse } from "@repo/utils/api";
@@ -12,6 +13,16 @@ export async function postVatStatementHeadersFormDraftApi(data: PostApiFinanceSe
   try {
     const client = await getFinanceServiceClient();
     const dataResponse = await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersFormDraft(data);
+    return structuredResponse(dataResponse);
+  } catch (error) {
+    return structuredError(error);
+  }
+}
+
+export async function postVatStatementHeadersFormBulkPreviewApi(data: PostApiFinanceServiceVatStatementHeadersFormBulkPreviewData) {
+  try {
+    const client = await getFinanceServiceClient();
+    const dataResponse = await client.vatStatementHeader.postApiFinanceServiceVatStatementHeadersFormBulkPreview(data);
     return structuredResponse(dataResponse);
   } catch (error) {
     return structuredError(error);
