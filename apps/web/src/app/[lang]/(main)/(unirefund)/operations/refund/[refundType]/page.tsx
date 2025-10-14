@@ -79,13 +79,15 @@ export default async function Page({
     return <TravellerDocumentForm accessibleRefundPoints={accessibleRefundPoints} languageData={languageData} />;
   }
 
-  const refundableTagsResponse = await getRefundableTagsApi({
+  const requestBody = {
     travellerDocumentNumber,
-    refundType: refundMethod || "Cash",
+    refundType: refundMethod || ("Cash" as const),
     refundPointId,
     isExportValidated: refundType === "export-validated",
     tagIds: tagIds?.split(",") || [],
-  });
+  };
+  console.log("Getting refundable tags with data:", requestBody);
+  const refundableTagsResponse = await getRefundableTagsApi(requestBody);
 
   if (isErrorOnRequest(refundableTagsResponse, lang, false)) {
     return <ErrorComponent languageData={languageData} message={refundableTagsResponse.message} />;
