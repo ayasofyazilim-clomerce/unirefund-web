@@ -563,7 +563,7 @@ export type UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto = {
 };
 
 export type UniRefund_TagService_Tags_TagListItemDto = {
-    id?: string;
+    id: string;
     tagNumber: string;
     issueDate: string;
     exportValidationExpirationDate: string;

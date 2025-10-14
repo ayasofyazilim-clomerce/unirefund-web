@@ -6,7 +6,7 @@ export const $PagedResultDto_TagListItemDto = {
         items: {
             type: 'array',
             items: {
-                required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
+                required: ['exportValidationExpirationDate', 'id', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -122,7 +122,7 @@ export const $TagListResponseDto_TagListItemDto = {
         items: {
             type: 'array',
             items: {
-                required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
+                required: ['exportValidationExpirationDate', 'id', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
@@ -2242,7 +2242,7 @@ export const $UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto = {
 } as const;
 
 export const $UniRefund_TagService_Tags_TagListItemDto = {
-    required: ['exportValidationExpirationDate', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
+    required: ['exportValidationExpirationDate', 'id', 'issueDate', 'status', 'tagNumber', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         id: {
