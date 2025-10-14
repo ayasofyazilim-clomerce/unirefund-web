@@ -127,7 +127,7 @@ export default function CreateRefundPointForm({
             name: "Form.email",
             extend: {
               "ui:className":
-                "col-span-full border-none grid-cols-1 md:grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+                "col-span-full border-none grid-cols-1 grid md:grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
                 "ui:title": languageData["Form.email"],

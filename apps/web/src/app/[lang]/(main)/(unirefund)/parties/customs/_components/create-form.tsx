@@ -77,7 +77,7 @@ export default function CreateCustomForm({languageData, formData, typeCode = "HE
             schema: $CreateCustomDto.properties.address,
             name: "Form.address",
             extend: {
-              "ui:className": "col-span-full grid-cols-1 md:grid grid-cols-2 gap-4",
+              "ui:className": "col-span-full grid-cols-1 grid md:grid-cols-2 gap-4",
               countryId: {
                 "ui:widget": "countryWidget",
               },
