@@ -13,10 +13,10 @@ export type ResourceResult = Record<
   | undefined
 >;
 
-export const formatCurrency = (value: number | null | undefined) => {
+export const formatCurrency = (locale: string, currency: string, value: number | null | undefined) => {
   if (value === null || value === undefined) return "-";
-  return new Intl.NumberFormat("tr-TR", {
+  return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "TRY",
+    currency: currency,
   }).format(value);
 };

@@ -143,7 +143,7 @@ function getSearchFromDB(
       search: async (search: string) => {
         "use server";
         try {
-          const res = await getTravellersApi({travelDocumentNumber: search});
+          const res = await getTravellersApi({travellerDocumentNumber: search});
           return (
             res.data.items?.map((i) => ({
               id: i.id,

@@ -38,6 +38,11 @@ export const $PagedResultDto_TagListItemDto = {
                         type: 'string',
                         nullable: true
                     },
+                    travellerDocumentId: {
+                        type: 'string',
+                        format: 'uuid',
+                        nullable: true
+                    },
                     travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
@@ -54,42 +59,48 @@ export const $PagedResultDto_TagListItemDto = {
                         enum: ['ExportValidationExpirationDate', 'RefundExpirationDate', 'EarlyRefundExpirationDate'],
                         type: 'string'
                     },
-                    totals: {
-                        type: 'array',
-                        items: {
-                            required: ['amount', 'currency', 'currencyRate', 'totalType'],
-                            type: 'object',
-                            properties: {
-                                totalType: {
-                                    enum: ['None', 'SalesAmount', 'VatAmount', 'GrossRefund', 'RefundFee', 'AgentRefundFee', 'Refund', 'EarlyRefundFee'],
-                                    type: 'string'
-                                },
-                                amount: {
-                                    type: 'number',
-                                    description: 'The monetary value of this total. This is **required**.',
-                                    format: 'double'
-                                },
-                                description: {
-                                    type: 'string',
-                                    description: 'An optional description providing more context for this total.',
-                                    nullable: true
-                                },
-                                currency: {
-                                    minLength: 1,
-                                    type: 'string',
-                                    description: 'The three-letter ISO currency code (e.g., "EUR" for Euro, "USD" for US Dollar) for this total. This is **required**.'
-                                },
-                                currencyRate: {
-                                    type: 'number',
-                                    description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
-                                    format: 'double'
-                                }
-                            },
-                            additionalProperties: false,
-                            description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
-                            'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
-                        },
+                    currency: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    currencyRate: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    salesAmount: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    vatAmount: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    grossRefund: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    refundFee: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    agentRefundFee: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    refund: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    earlyRefundFee: {
+                        type: 'number',
+                        format: 'double',
                         nullable: true
                     }
                 },
@@ -143,6 +154,11 @@ export const $TagListResponseDto_TagListItemDto = {
                         type: 'string',
                         nullable: true
                     },
+                    travellerDocumentId: {
+                        type: 'string',
+                        format: 'uuid',
+                        nullable: true
+                    },
                     travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
@@ -159,42 +175,48 @@ export const $TagListResponseDto_TagListItemDto = {
                         enum: ['ExportValidationExpirationDate', 'RefundExpirationDate', 'EarlyRefundExpirationDate'],
                         type: 'string'
                     },
-                    totals: {
-                        type: 'array',
-                        items: {
-                            required: ['amount', 'currency', 'currencyRate', 'totalType'],
-                            type: 'object',
-                            properties: {
-                                totalType: {
-                                    enum: ['None', 'SalesAmount', 'VatAmount', 'GrossRefund', 'RefundFee', 'AgentRefundFee', 'Refund', 'EarlyRefundFee'],
-                                    type: 'string'
-                                },
-                                amount: {
-                                    type: 'number',
-                                    description: 'The monetary value of this total. This is **required**.',
-                                    format: 'double'
-                                },
-                                description: {
-                                    type: 'string',
-                                    description: 'An optional description providing more context for this total.',
-                                    nullable: true
-                                },
-                                currency: {
-                                    minLength: 1,
-                                    type: 'string',
-                                    description: 'The three-letter ISO currency code (e.g., "EUR" for Euro, "USD" for US Dollar) for this total. This is **required**.'
-                                },
-                                currencyRate: {
-                                    type: 'number',
-                                    description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
-                                    format: 'double'
-                                }
-                            },
-                            additionalProperties: false,
-                            description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
-                            'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
-                        },
+                    currency: {
+                        type: 'string',
+                        nullable: true
+                    },
+                    currencyRate: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    salesAmount: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    vatAmount: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    grossRefund: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    refundFee: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    agentRefundFee: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    refund: {
+                        type: 'number',
+                        format: 'double',
+                        nullable: true
+                    },
+                    earlyRefundFee: {
+                        type: 'number',
+                        format: 'double',
                         nullable: true
                     }
                 },
@@ -415,6 +437,11 @@ relevant for tax-free eligibility categorization.`
     additionalProperties: false,
     description: `Represents the detailed business information for a merchant within the tax-free system.
 This DTO is used for transferring and displaying core merchant data.`
+} as const;
+
+export const $UniRefund_ContractService_Enums_RefundMethod = {
+    enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
+    type: 'string'
 } as const;
 
 export const $UniRefund_ExportValidationService_ExportValidations_ExportValidationDetailDto = {
@@ -991,7 +1018,7 @@ Used to distinguish between different locations or subdivisions of the same merc
             description: 'Data transfer object for merchant registration or update requests.'
         },
         traveller: {
-            required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+            required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber'],
             type: 'object',
             properties: {
                 id: {
@@ -1000,7 +1027,7 @@ Used to distinguish between different locations or subdivisions of the same merc
                     format: 'uuid',
                     nullable: true
                 },
-                travelDocumentNumber: {
+                travellerDocumentNumber: {
                     minLength: 1,
                     type: 'string',
                     description: `The travel document number (such as passport number) of the traveller.
@@ -1128,11 +1155,6 @@ Required for itemized billing and calculations.`
 
 export const $UniRefund_TagService_Tags_EarningType = {
     enum: ['None', 'GrossComission', 'RedefinedGC', 'Rebate', 'NetComission'],
-    type: 'string'
-} as const;
-
-export const $UniRefund_TagService_Tags_Enums_RefundType = {
-    enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
     type: 'string'
 } as const;
 
@@ -1655,7 +1677,7 @@ This DTO is used for transferring and displaying core merchant data.`
                     format: 'uuid',
                     nullable: true
                 },
-                travelDocumentNumber: {
+                travellerDocumentNumber: {
                     type: 'string',
                     description: "The unique identification number from the traveller's travel document (e.g., passport number).",
                     nullable: true
@@ -1902,7 +1924,7 @@ This DTO captures key financial details of a purchase eligible for tax refunds.`
         totals: {
             type: 'array',
             items: {
-                required: ['amount', 'currency', 'currencyRate', 'totalType'],
+                required: ['amount', 'currency', 'currencyRate', 'sortIndex', 'totalType'],
                 type: 'object',
                 properties: {
                     totalType: {
@@ -1928,6 +1950,11 @@ This DTO captures key financial details of a purchase eligible for tax refunds.`
                         type: 'number',
                         description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
                         format: 'double'
+                    },
+                    sortIndex: {
+                        type: 'integer',
+                        description: 'The sort index for ordering totals, derived from the TotalType enum value. This is **required**.',
+                        format: 'int32'
                     }
                 },
                 additionalProperties: false,
@@ -1941,7 +1968,7 @@ This DTO captures different types of monetary amounts relevant to the tag, such 
         earnings: {
             type: 'array',
             items: {
-                required: ['amount', 'currency', 'currencyRate', 'earningType'],
+                required: ['amount', 'currency', 'currencyRate', 'earningType', 'sortIndex'],
                 type: 'object',
                 properties: {
                     earningType: {
@@ -1967,6 +1994,11 @@ This DTO captures different types of monetary amounts relevant to the tag, such 
                         type: 'number',
                         description: 'The currency exchange rate applicable to this earning, especially if converted from another currency. This is **required**.',
                         format: 'double'
+                    },
+                    sortIndex: {
+                        type: 'integer',
+                        description: 'The sort index for ordering earnings, derived from the EarningType enum value. This is **required**.',
+                        format: 'int32'
                     }
                 },
                 additionalProperties: false,
@@ -2067,7 +2099,14 @@ Used to connect the tag with the traveller's records for eligibility and history
             format: 'uuid',
             nullable: true
         },
-        travelDocumentNumber: {
+        travellerDocumentId: {
+            type: 'string',
+            description: `The unique identifier of the travel document associated with the traveller.
+Used for customs checks and traveller identification.`,
+            format: 'uuid',
+            nullable: true
+        },
+        travellerDocumentNumber: {
             type: 'string',
             description: `The travel document number (such as passport number) of the traveller.
 Used for customs checks and traveller identification.`,
@@ -2101,7 +2140,7 @@ Used for grouping transactions under a single travel itinerary.`,
         totals: {
             type: 'array',
             items: {
-                required: ['amount', 'currency', 'currencyRate', 'totalType'],
+                required: ['amount', 'currency', 'currencyRate', 'sortIndex', 'totalType'],
                 type: 'object',
                 properties: {
                     totalType: {
@@ -2127,6 +2166,11 @@ Used for grouping transactions under a single travel itinerary.`,
                         type: 'number',
                         description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
                         format: 'double'
+                    },
+                    sortIndex: {
+                        type: 'integer',
+                        description: 'The sort index for ordering totals, derived from the TotalType enum value. This is **required**.',
+                        format: 'int32'
                     }
                 },
                 additionalProperties: false,
@@ -2142,7 +2186,7 @@ This DTO captures different types of monetary amounts relevant to the tag, such 
 } as const;
 
 export const $UniRefund_TagService_Tags_TagEarningDto = {
-    required: ['amount', 'currency', 'currencyRate', 'earningType'],
+    required: ['amount', 'currency', 'currencyRate', 'earningType', 'sortIndex'],
     type: 'object',
     properties: {
         earningType: {
@@ -2168,6 +2212,11 @@ export const $UniRefund_TagService_Tags_TagEarningDto = {
             type: 'number',
             description: 'The currency exchange rate applicable to this earning, especially if converted from another currency. This is **required**.',
             format: 'double'
+        },
+        sortIndex: {
+            type: 'integer',
+            description: 'The sort index for ordering earnings, derived from the EarningType enum value. This is **required**.',
+            format: 'int32'
         }
     },
     additionalProperties: false,
@@ -2225,6 +2274,11 @@ export const $UniRefund_TagService_Tags_TagListItemDto = {
             type: 'string',
             nullable: true
         },
+        travellerDocumentId: {
+            type: 'string',
+            format: 'uuid',
+            nullable: true
+        },
         travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
@@ -2241,42 +2295,48 @@ export const $UniRefund_TagService_Tags_TagListItemDto = {
             enum: ['ExportValidationExpirationDate', 'RefundExpirationDate', 'EarlyRefundExpirationDate'],
             type: 'string'
         },
-        totals: {
-            type: 'array',
-            items: {
-                required: ['amount', 'currency', 'currencyRate', 'totalType'],
-                type: 'object',
-                properties: {
-                    totalType: {
-                        enum: ['None', 'SalesAmount', 'VatAmount', 'GrossRefund', 'RefundFee', 'AgentRefundFee', 'Refund', 'EarlyRefundFee'],
-                        type: 'string'
-                    },
-                    amount: {
-                        type: 'number',
-                        description: 'The monetary value of this total. This is **required**.',
-                        format: 'double'
-                    },
-                    description: {
-                        type: 'string',
-                        description: 'An optional description providing more context for this total.',
-                        nullable: true
-                    },
-                    currency: {
-                        minLength: 1,
-                        type: 'string',
-                        description: 'The three-letter ISO currency code (e.g., "EUR" for Euro, "USD" for US Dollar) for this total. This is **required**.'
-                    },
-                    currencyRate: {
-                        type: 'number',
-                        description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
-                        format: 'double'
-                    }
-                },
-                additionalProperties: false,
-                description: `Represents a financial total associated with a tax-free tag.
-This DTO captures different types of monetary amounts relevant to the tag, such as refund totals or purchase totals.`,
-                'x-permissions': ['TagService.TagsNameSpace.ViewTotals']
-            },
+        currency: {
+            type: 'string',
+            nullable: true
+        },
+        currencyRate: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        salesAmount: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        vatAmount: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        grossRefund: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        refundFee: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        agentRefundFee: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        refund: {
+            type: 'number',
+            format: 'double',
+            nullable: true
+        },
+        earlyRefundFee: {
+            type: 'number',
+            format: 'double',
             nullable: true
         }
     },
@@ -2378,7 +2438,7 @@ export const $UniRefund_TagService_Tags_TagSumTagsForVATStatementTagDetailRespon
 } as const;
 
 export const $UniRefund_TagService_Tags_TagTotalDto = {
-    required: ['amount', 'currency', 'currencyRate', 'totalType'],
+    required: ['amount', 'currency', 'currencyRate', 'sortIndex', 'totalType'],
     type: 'object',
     properties: {
         totalType: {
@@ -2404,6 +2464,11 @@ export const $UniRefund_TagService_Tags_TagTotalDto = {
             type: 'number',
             description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
             format: 'double'
+        },
+        sortIndex: {
+            type: 'integer',
+            description: 'The sort index for ordering totals, derived from the TotalType enum value. This is **required**.',
+            format: 'int32'
         }
     },
     additionalProperties: false,
@@ -2516,10 +2581,10 @@ export const $UniRefund_TagService_Tags_TagsSumForRefundResponseDto = {
             description: 'Gets or sets the unique identifier of the traveller.',
             format: 'uuid'
         },
-        travellerDocumentNumber: {
+        travellerDocumentId: {
             type: 'string',
             description: 'Gets or sets the document number of the traveller.',
-            nullable: true
+            format: 'uuid'
         },
         refundCurrency: {
             type: 'string',
@@ -2613,7 +2678,7 @@ export const $UniRefund_TagService_Tags_UpdateTagDto = {
         totals: {
             type: 'array',
             items: {
-                required: ['amount', 'currency', 'currencyRate', 'totalType'],
+                required: ['amount', 'currency', 'currencyRate', 'sortIndex', 'totalType'],
                 type: 'object',
                 properties: {
                     totalType: {
@@ -2639,6 +2704,11 @@ export const $UniRefund_TagService_Tags_UpdateTagDto = {
                         type: 'number',
                         description: 'The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.',
                         format: 'double'
+                    },
+                    sortIndex: {
+                        type: 'integer',
+                        description: 'The sort index for ordering totals, derived from the TotalType enum value. This is **required**.',
+                        format: 'int32'
                     }
                 },
                 additionalProperties: false,
@@ -2660,7 +2730,7 @@ export const $UniRefund_TagService_Travellers_TravellerDetailDto = {
             format: 'uuid',
             nullable: true
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             type: 'string',
             description: "The unique identification number from the traveller's travel document (e.g., passport number).",
             nullable: true
@@ -2692,7 +2762,7 @@ This DTO is used to capture essential information about the individual making a 
 } as const;
 
 export const $UniRefund_TagService_Travellers_TravellerRequestDto = {
-    required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+    required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         id: {
@@ -2701,7 +2771,7 @@ export const $UniRefund_TagService_Travellers_TravellerRequestDto = {
             format: 'uuid',
             nullable: true
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string',
             description: `The travel document number (such as passport number) of the traveller.

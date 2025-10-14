@@ -56,12 +56,12 @@ export function TravellerDocuments({
       constantKey: "Form",
     },
     custom: {
-      travelDocumentNumber: {
+      travellerDocumentNumber: {
         showHeader: true,
         content: (row) => DocumentNumberCell({row, languageData}),
       },
     },
-    expandRowTrigger: "travelDocumentNumber",
+    expandRowTrigger: "travellerDocumentNumber",
   });
   const tableActions: TanstackTableTableActionsType<
     TravellerDocumentProfileDto & Omit<CreateTravellerDocumentDto, "expirationDate">
@@ -100,7 +100,7 @@ export function TravellerDocuments({
         firstName: travellerDetails.firstName || "",
         lastName: travellerDetails.lastName || "",
         expirationDate: "",
-        travelDocumentNumber: "",
+        travellerDocumentNumber: "",
         residenceCountryCode2: travellerDetails.nationalityCountryCode2 || "",
         nationalityCountryCode2: travellerDetails.nationalityCountryCode2 || "",
         identificationType: "Passport",
@@ -127,10 +127,10 @@ export function TravellerDocuments({
 
   return (
     <TanstackTable
-      columnOrder={["travelDocumentNumber", "fullName"]}
+      columnOrder={["travellerDocumentNumber", "fullName"]}
       columnVisibility={{
         type: "show",
-        columns: ["travelDocumentNumber", "fullName", "issueDate", "expirationDate"],
+        columns: ["travellerDocumentNumber", "fullName", "issueDate", "expirationDate"],
       }}
       columns={columns}
       data={travellerDocuments}
@@ -165,7 +165,7 @@ function DocumentNumberCell({
           {languageData[`Form.identificationType.${row.identificationType}` as keyof typeof languageData]}
         </TooltipContent>
       </Tooltip>
-      {row.travelDocumentNumber}
+      {row.travellerDocumentNumber}
     </div>
   );
 }

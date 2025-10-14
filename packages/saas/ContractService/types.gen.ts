@@ -439,7 +439,7 @@ export type UniRefund_ContractService_Enums_RebateStatementPeriod = 'None' | 'Mo
 
 export type UniRefund_ContractService_Enums_ReceiptType = 'None' | 'NoBarcodeNumber' | 'NoBarcodeText' | 'Barcode' | 'QRCodeIntegration' | 'UniRefundVoucherIntegration';
 
-export type UniRefund_ContractService_Enums_RefundMethod = 'All' | 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner';
+export type UniRefund_ContractService_Enums_RefundMethod = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner';
 
 export type UniRefund_ContractService_Enums_VariableFee = 'PercentOfGC' | 'PercentOfGcWithoutVAT' | 'PercentOfVAT' | 'PercentOfSIS';
 
@@ -1585,6 +1585,12 @@ export type PostApiContractServiceRefundFeeHeadersCloneByIdData = {
 };
 
 export type PostApiContractServiceRefundFeeHeadersCloneByIdResponse = (UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto);
+
+export type GetApiContractServiceRefundFeeHeadersPaymentTypesByRefundPointByRefundPointIdData = {
+    refundPointId: string;
+};
+
+export type GetApiContractServiceRefundFeeHeadersPaymentTypesByRefundPointByRefundPointIdResponse = (Array<UniRefund_ContractService_Enums_RefundMethod>);
 
 export type GetApiContractServiceRefundTableHeadersAssignablesByMerchantData = {
     merchantId: string;

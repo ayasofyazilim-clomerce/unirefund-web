@@ -19,7 +19,7 @@ export default function TagActions({
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
   const {tagId} = useParams<{tagId: string}>();
-  const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
+  const travellerDocumentNo = tagDetail.traveller?.travellerDocumentNumber || "";
 
   const status = tagDetail.status;
   if (status !== "ExportValidated" && status !== "Issued" && status !== "EarlyPaid") return null;

@@ -4,7 +4,7 @@ import type {
   GetApiRefundServiceRefundsData,
   UniRefund_RefundService_Enums_RefundReconciliationStatus,
   UniRefund_RefundService_Enums_RefundStatus,
-  UniRefund_TagService_Tags_Enums_RefundType,
+  UniRefund_ContractService_Enums_RefundMethod,
 } from "@repo/saas/RefundService";
 import {structuredError} from "@repo/utils/api";
 import {auth} from "@repo/utils/auth/next-auth";
@@ -45,7 +45,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
       | UniRefund_RefundService_Enums_RefundStatus[]
       | undefined,
     statusesFilterRefundTypes: searchParams.statusesFilterRefundTypes?.split(",") as
-      | UniRefund_TagService_Tags_Enums_RefundType[]
+      | UniRefund_ContractService_Enums_RefundMethod[]
       | undefined,
     statusesFilterReconciliationStatuses: searchParams.statusesFilterReconciliationStatuses?.split(",") as
       | UniRefund_RefundService_Enums_RefundReconciliationStatus[]
