@@ -67,7 +67,7 @@ export default function CreateTaxOfficeForm({
         name: "Form.TaxOffice",
         schema: $CreateTaxOfficeDto,
         extend: {
-          "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
+          "ui:className": "grid grid-cols-1 md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
           taxOfficeId: {
             ...{"ui:disabled": typeCode === "TAXOFFICE" && true},
             "ui:widget": "taxOfficeWidget",
@@ -78,14 +78,14 @@ export default function CreateTaxOfficeForm({
           },
           telephone: {
             "ui:field": "telephone",
-            "ui:className": "grid grid-cols-2 col-span-full",
+            "ui:className": "grid grid-cols-1 md:grid-cols-2 col-span-full",
           },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateTaxOfficeDto.properties.address,
             name: "Form.address",
             extend: {
-              "ui:className": "col-span-full grid grid-cols-2 gap-4",
+              "ui:className": "col-span-full grid-cols-1 md:grid grid-cols-2 gap-4",
               countryId: {
                 "ui:widget": "countryWidget",
               },
@@ -112,7 +112,7 @@ export default function CreateTaxOfficeForm({
             name: "Form.email",
             extend: {
               "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+                "col-span-full border-none grid grid-cols-1 md:grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               isPrimary: {
                 "ui:widget": "hidden",
@@ -222,6 +222,7 @@ export default function CreateTaxOfficeForm({
       submitText={languageData["Form.TaxOffice.Create"]}
       uiSchema={uiSchema}
       widgets={widgets}
+      withScrollArea={false}
     />
   );
 }

@@ -92,7 +92,7 @@ export default function CreateRefundPointForm({
           },
           telephone: {
             "ui:field": "telephone",
-            "ui:className": "grid grid-cols-2 col-span-full",
+            "ui:className": "grid grid-cols-1 md:grid-cols-2 col-span-full",
             "ui:required": true,
           },
           address: createUiSchemaWithResource({
@@ -100,7 +100,7 @@ export default function CreateRefundPointForm({
             schema: $CreateRefundPointDto.properties.address,
             name: "Form.address",
             extend: {
-              "ui:className": "col-span-full grid grid-cols-2 gap-4",
+              "ui:className": "col-span-full grid grid-cols-1 md:grid-cols-2 gap-4",
               countryId: {
                 "ui:widget": "countryWidget",
               },
@@ -127,7 +127,7 @@ export default function CreateRefundPointForm({
             name: "Form.email",
             extend: {
               "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+                "col-span-full border-none grid-cols-1 md:grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
                 "ui:title": languageData["Form.email"],
@@ -259,6 +259,7 @@ export default function CreateRefundPointForm({
         submitText={languageData["Form.RefundPoint.Create"]}
         uiSchema={uiSchema}
         widgets={widgets}
+        withScrollArea={false}
       />
     </FormReadyComponent>
   );

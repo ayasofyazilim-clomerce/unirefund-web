@@ -78,7 +78,7 @@ export default function RebateStatementForm({
 
           <div className="flex-grow p-2 md:p-6">
             <TabsContent className="mt-0 h-full" value="Form">
-              <div className="space-y-6 rounded-lg border border-gray-200 p-6">
+              <div className="space-y-6 rounded-lg border-gray-200 p-2 md:border md:p-6">
                 <SchemaForm<UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderCreateDto>
                   disabled={isPending}
                   formData={
