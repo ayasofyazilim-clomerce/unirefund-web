@@ -118,7 +118,7 @@
   "RefundMethod.IbanTransfer": "IBAN Transfer",
 
   "Continue": "Continue",
-  "TransactionSelected": "transaction selected",
+  "TransactionSelected": "Transaction selected",
   "SearchTravellerToSeeTags": "Please search traveller document number to see tags.",
   "NoTravellerFound": "No traveller found.",
   "NoPaymentMethodExistsForSelectedRefundPoint": "No payment method exists for selected refund point.",
