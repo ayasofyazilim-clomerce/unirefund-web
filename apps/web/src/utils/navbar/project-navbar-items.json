@@ -674,7 +674,7 @@
     "key": "operations/refund",
     "displayName": "Refund",
     "description": "Manage refunds.",
-    "href": "operations/refund/export-validated",
+    "href": "operations/refund?status=export-validated",
     "icon": "dashboard",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
