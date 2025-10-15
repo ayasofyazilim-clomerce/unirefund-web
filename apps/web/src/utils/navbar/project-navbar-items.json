@@ -658,7 +658,14 @@
     "icon": "new",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
-    "requiredPolicies": ["TagService.Tags", "TagService.Tags.Create"]
+    "requiredPolicies": [
+      "CRMService.Merchants",
+      "CRMService.Merchants.View",
+      "TravellerService.Travellers",
+      "TravellerService.Travellers.Detail",
+      "TagService.Tags",
+      "TagService.Tags.Create"
+    ]
   },
   {
     "key": "operations/tax-free-tags",
@@ -668,7 +675,7 @@
     "icon": "tag",
     "parentNavbarItemKey": "operations",
     "displayOrder": 1,
-    "requiredPolicies": ["TagService.Tags"]
+    "requiredPolicies": ["TagService.Tags", "TagService.Tags.View", "TagService.Tags.ViewSummary"]
   },
   {
     "key": "operations/refund",
