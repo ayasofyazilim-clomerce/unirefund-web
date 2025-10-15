@@ -1849,6 +1849,7 @@ export type CRMServiceResources = {
   "UniRefund.CRMService:020001": "At least and just one {contactTypeName} can be primary!";
   "UniRefund.CRMService:021001": "ChainCode not found: {chainCodeId}";
   "UniRefund.CRMService:010061": "VAT number can not null for {partyTypeName} Headquarter!";
+  "Permission:ViewAffiliated": "View Affiliated Individuals";
 };
 export type ExportValidationServiceResources = {
   "UniRefund.ExportValidationService:010001": "Invalid date range: Both {startDatePropertyName} and {endDatePropertyName} must be provided!";
@@ -2025,6 +2026,7 @@ export type ContractServiceResources = {
   "Permission:UpSertRebateSetting": "UpSert Rebate Setting";
   "Permission:MakePassive": "Make Passive";
   "Permission:GetPaymentTypesByRefundPointId": "Get Payment Types by RefundPointId";
+  "UniRefund.ContractService:01068": "No refund fee detail found for TagId: '{tagId}', Amount: '{amount}', RefundMethod: '{refundMethod}', RefundDate: '{refundDate}'!";
 };
 export type TravellerServiceResources = {
   "UniRefund.TravellerService:010001": "Some of the provided travellers' document numbers could not be found: {ids}";
@@ -2055,6 +2057,7 @@ export type TravellerServiceResources = {
   "UniRefund.TravellerService:010018": "At least and just one {contactTypeName} can be primary!";
   "UniRefund.TravellerService:010019": "Given Language preference culture name '{invalidCode}' is not valid! Allowed Languages code are '{allowedCodes}'.";
   "UniRefund.TravellerService:010020": "At least ITU Country Code or AreaCode must exist!";
+  "UniRefund.TravellerService:010021": "No traveller found by given Traveller Document Number: {travellerDocumentNumber}";
 };
 export type FinanceServiceResources = {
   "UniRefund.FinanceService:01001": "Server error. Tags for VATStatement couldn't be taken from TagService!";

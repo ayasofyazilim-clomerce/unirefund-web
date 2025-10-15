@@ -67,7 +67,7 @@ export default async function Layout({children, params}: LayoutProps) {
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
   return (
     <Providers lang={lang}>
-      <div className="flex h-full flex-col bg-white">
+      <main className="m-0 grid h-dvh grid-rows-[max-content_1fr] overflow-hidden bg-white transition-all">
         <MainAdminLayout
           appName={appName}
           baseURL={baseURL}
@@ -85,8 +85,10 @@ export default async function Layout({children, params}: LayoutProps) {
           profileMenu={profileMenuProps}
           tenantData={undefined}
         />
-        <div className="flex h-full flex-col overflow-hidden px-16 py-2">{children}</div>
-      </div>
+        <div className="flex w-full max-w-full flex-col overflow-auto px-2 py-2 sm:px-4 md:px-8 lg:px-16">
+          {children}
+        </div>
+      </main>
     </Providers>
   );
 }

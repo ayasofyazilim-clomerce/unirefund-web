@@ -3,7 +3,7 @@
 import { NavbarItemsFromDB, ProfileMenuProps } from "@repo/ui/theme/types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { createContext, useContext } from "react";
-import { NotificationProps } from "../components/notification";
+import { NotificationProps } from "../notification";
 import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types";
 
 interface ThemeProviderProps {

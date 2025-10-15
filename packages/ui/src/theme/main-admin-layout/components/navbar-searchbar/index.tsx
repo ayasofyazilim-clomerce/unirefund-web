@@ -1,7 +1,7 @@
 "use client";
-import {StarFilledIcon} from "@radix-ui/react-icons";
-import {Badge} from "@repo/ayasofyazilim-ui/atoms/badge";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import { StarFilledIcon } from "@radix-ui/react-icons";
+import { Badge } from "@repo/ayasofyazilim-ui/atoms/badge";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
 import {
   Command,
   CommandDialog,
@@ -12,12 +12,12 @@ import {
   CommandList,
   CommandSeparator,
 } from "@repo/ayasofyazilim-ui/atoms/command";
-import {DialogTitle} from "@repo/ayasofyazilim-ui/atoms/dialog";
-import {NavbarItemsFromDB} from "@repo/ui/theme/types";
-import {Search, Star, X} from "lucide-react";
-import {useRouter} from "next/navigation";
-import {useEffect, useMemo, useState} from "react";
-import {icons} from "../navbar";
+import { DialogTitle } from "@repo/ayasofyazilim-ui/atoms/dialog";
+import { NavbarItemsFromDB } from "@repo/ui/theme/types";
+import { Search, Star, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { icons } from "../navbar";
 
 function getFavouriteSearches() {
   if (typeof window === "undefined") return [];
@@ -40,7 +40,7 @@ type DBSearchResult = {
   title: string;
   key: string;
   icon: string;
-  items: {href: string; name: string; id: string; searchableText: string}[];
+  items: { href: string; name: string; id: string; searchableText: string }[];
 };
 let timeout: NodeJS.Timeout;
 
@@ -48,7 +48,7 @@ export type SearchFromDB = {
   key: string;
   title: string;
   icon: string;
-  search: (search: string) => Promise<{id: string; name: string; href: string}[]>;
+  search: (search: string) => Promise<{ id: string; name: string; href: string }[]>;
 };
 
 function SearchBar({
@@ -174,7 +174,7 @@ function SearchBar({
     }
     return false;
   }
-  function CustomCommandItem({item}: {item: SearchableNavbarItem}) {
+  function CustomCommandItem({ item }: { item: SearchableNavbarItem }) {
     return (
       <CommandItem
         key={item.key + "-link"}
@@ -206,7 +206,7 @@ function SearchBar({
       </CommandItem>
     );
   }
-  function CustomItem({item}: {item: SearchFromDB}) {
+  function CustomItem({ item }: { item: SearchFromDB }) {
     return (
       <CommandItem
         key={item.key + "-link"}
@@ -255,7 +255,7 @@ function SearchBar({
       </Button>
 
       {/* Small Screen */}
-      <Button variant="ghost" onClick={() => setSearchOpen(true)} className="text-muted-foreground p-0 md:hidden">
+      <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)} className="text-muted-foreground p-0 md:hidden">
         <Search className="size-6 text-gray-500" />
       </Button>
 

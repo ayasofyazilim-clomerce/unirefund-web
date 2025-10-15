@@ -1,7 +1,7 @@
 "use client";
 
 import { Volo_Abp_LanguageManagement_Dto_LanguageDto } from "@repo/actions/core/AdministrationService/types";
-import { NotificationProps } from "../../components/notification";
+import { NotificationProps } from "../../notification";
 import { ThemeProvider } from "../../providers/theme";
 import HeaderSection from "./header-section";
 
