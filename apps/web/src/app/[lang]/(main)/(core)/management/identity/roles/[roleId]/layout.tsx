@@ -29,7 +29,7 @@ export default async function Layout({
   const nav: NavItem[] = [
     {
       id: "Details",
-      action: `${baseLink}?test=5`,
+      action: `${baseLink}`,
       icon: "SquarePen",
       name: languageData["Role.Edit"],
       permissions: ["AbpAccount.SettingManagement"],
