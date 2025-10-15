@@ -1,4 +1,6 @@
 {
+  "BackToList": "Back to list",
+
   "Missing.Permission.Title": "Permission not granted",
   "Missing.Permission.Description": "You are not authorized to see this.",
 

@@ -253,6 +253,10 @@ function SearchBar({
         </kbd>
       </Button>
 
+      {/* Small Screen */}
+      <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)} className="text-muted-foreground p-0 md:hidden">
+        <Search className="size-6 text-gray-500" />
+      </Button>
 
       {/* Dialog */}
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
