@@ -26,7 +26,7 @@ export function TravellerInformationCard({traveller, languageData}: TravellerInf
             <div className="text-sm font-medium text-gray-500">
               {languageData["TravellerInformation.PassportNumber"]}
             </div>
-            <div className="text-md font-semibold text-gray-800">{traveller?.travelDocumentNumber ?? "—"}</div>
+            <div className="text-md font-semibold text-gray-800">{traveller?.travellerDocumentNumber ?? "—"}</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
