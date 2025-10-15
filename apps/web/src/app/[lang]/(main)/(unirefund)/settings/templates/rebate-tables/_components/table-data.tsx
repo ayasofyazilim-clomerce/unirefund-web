@@ -63,7 +63,7 @@ const rebateTableHeadersColumns = (
       name: {
         values: [
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Assigned"],
             conditions: [
               {
@@ -73,7 +73,7 @@ const rebateTableHeadersColumns = (
             ],
           },
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Template"],
             conditions: [
               {
@@ -83,7 +83,7 @@ const rebateTableHeadersColumns = (
             ],
           },
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Customized"],
             conditions: [
               {

@@ -40,7 +40,7 @@ const refundFeeHeadersColumns = (
       name: {
         values: [
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Active"],
             conditions: [
               {
@@ -50,7 +50,7 @@ const refundFeeHeadersColumns = (
             ],
           },
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Assigned"],
             conditions: [
               {
@@ -60,7 +60,7 @@ const refundFeeHeadersColumns = (
             ],
           },
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Template"],
             conditions: [
               {
@@ -70,7 +70,7 @@ const refundFeeHeadersColumns = (
             ],
           },
           {
-            position: "before",
+            position: "after",
             label: languageData["Contracts.Customized"],
             conditions: [
               {
