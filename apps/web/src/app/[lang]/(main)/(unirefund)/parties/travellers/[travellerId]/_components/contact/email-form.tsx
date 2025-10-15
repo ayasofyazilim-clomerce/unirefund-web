@@ -115,6 +115,7 @@ export function EmailForm({languageData, emails}: {languageData: DefaultResource
       data={emails}
       expandedRowComponent={(row) => EditForm({row, languageData, travellerId, isPending, startTransition, router})}
       fillerColumn="emailAddress"
+      resizeable={false}
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Form.emails"]}

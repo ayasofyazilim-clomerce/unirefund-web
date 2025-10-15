@@ -21,7 +21,7 @@
 
   "Form.fullName": "Ad soyad",
   "Form.identificationType": "Kimlik türü",
-  "Form.travelDocumentNumber": "Seyahat belge numarası",
+  "Form.travellerDocumentNumber": "Seyahat belge numarası",
   "Form.nationalityCountryName": "Uyruk",
   "Form.identificationType.IdCard": "Kimlik kartı",
   "Form.identificationType.Passport": "Pasaport",
@@ -32,7 +32,7 @@
   "Form.travellerDocument": "Yolcu belgesi",
   "Form.travellerDocument.firstName": "Ad",
   "Form.travellerDocument.lastName": "Soyad",
-  "Form.travellerDocument.travelDocumentNumber": "Belge numarası",
+  "Form.travellerDocument.travellerDocumentNumber": "Belge numarası",
   "Form.travellerDocument.birthDate": "Doğum tarihi",
   "Form.travellerDocument.issueDate": "Veriliş tarihi",
   "Form.travellerDocument.expirationDate": "Geçerlilik tarihi",

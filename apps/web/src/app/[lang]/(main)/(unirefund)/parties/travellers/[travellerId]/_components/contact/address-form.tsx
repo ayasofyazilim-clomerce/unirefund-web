@@ -117,6 +117,7 @@ export function AddressForm({
         EditForm({row, lang, languageData, travellerId, isPending, startTransition, router})
       }
       fillerColumn="fullAddress"
+      resizeable={false}
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Form.addresses"]}

@@ -48,7 +48,6 @@ export default function TravellerNewForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
   const CountryWidget = useMemo(
     () =>
       CustomComboboxWidget<CountryDto>({
@@ -87,7 +86,7 @@ export default function TravellerNewForm({
         "ui:className": "md:grid md:grid-cols-2 grid-cols-1 col-span-full",
         "ui:order": [
           "identificationType",
-          "travelDocumentNumber",
+          "travellerDocumentNumber",
           "firstName",
           "lastName",
           "birthDate",
