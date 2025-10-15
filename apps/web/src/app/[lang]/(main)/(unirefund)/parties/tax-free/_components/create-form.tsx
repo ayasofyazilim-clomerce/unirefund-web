@@ -74,7 +74,7 @@ export default function CreateTaxFreeForm({
         name: "Form.TaxFree",
         schema: $CreateTaxFreeDto,
         extend: {
-          "ui:className": "grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
+          "ui:className": "grid grid-cols-1 md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto",
           taxOfficeId: {
             ...{"ui:disabled": typeCode === "TAXFREE" && true},
             ...{"ui:required": typeCode === "HEADQUARTER" && true},
@@ -89,14 +89,14 @@ export default function CreateTaxFreeForm({
           },
           telephone: {
             "ui:field": "telephone",
-            "ui:className": "grid grid-cols-2 col-span-full",
+            "ui:className": "grid grid-cols-1 md:grid-cols-2 col-span-full",
           },
           address: createUiSchemaWithResource({
             resources: languageData,
             schema: $CreateTaxFreeDto.properties.address,
             name: "Form.address",
             extend: {
-              "ui:className": "col-span-full grid grid-cols-2 gap-4",
+              "ui:className": "col-span-full grid grid-cols-1 md:grid-cols-2 gap-4",
               countryId: {
                 "ui:widget": "countryWidget",
               },
@@ -123,7 +123,7 @@ export default function CreateTaxFreeForm({
             name: "Form.email",
             extend: {
               "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+                "col-span-full border-none grid grid-cols-1 md:grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
                 "ui:title": languageData["Form.email"],
@@ -255,6 +255,7 @@ export default function CreateTaxFreeForm({
         submitText={languageData["Form.TaxFree.Create"]}
         uiSchema={uiSchema}
         widgets={widgets}
+        withScrollArea={false}
       />
     </FormReadyComponent>
   );

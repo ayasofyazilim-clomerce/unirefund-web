@@ -35,8 +35,8 @@ export default function TaxFreeTagsSearchForm({languageData}: {languageData: Tag
   }
 
   return (
-    <Card className="rounded-lg border border-gray-200 shadow-none">
-      <CardContent className="p-5">
+    <Card className="border-none shadow-none">
+      <CardContent className="p-0">
         <form
           className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4"
           data-testid="tax-free-tags-search-form"

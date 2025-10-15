@@ -106,13 +106,13 @@ function VatStatementDetails({
     grantedPolicies,
   );
   return (
-    <div className="flex h-full [&>div]:size-full">
-      <div className="pr-4 pt-2">
+    <div className="flex h-full flex-col md:flex-row [&>div]:size-full">
+      <div className="rounded-md border p-2 md:border-none md:p-0 md:pt-2">
         <span className="text-lg font-bold">{languageData["Finance.tags"]}</span>
         <TaxFreeTags languageData={languageData} tags={statement.vatStatementTagDetails || []} />
       </div>
-      <div className="flex max-w-xs flex-col divide-y overflow-auto border-l">
-        <span className="py-2 pl-4 text-lg font-bold">{languageData["Finance.statement"]}</span>
+      <div className="mt-4 flex flex-col overflow-auto rounded-md border p-2 md:mt-0 md:max-w-xs md:divide-y md:border-y-0 md:border-l md:border-r-0 md:p-0">
+        <span className="py-2 text-lg font-bold md:pl-4">{languageData["Finance.statement"]}</span>
         <LabelValuePair
           icon={UserIcon}
           label={languageData["Finance.merchantId"]}
@@ -204,7 +204,7 @@ function LabelValuePair({
   };
 }) {
   return (
-    <div className={cn("flex flex-col py-2 pl-4 text-sm", classNames?.container)}>
+    <div className={cn("flex flex-col py-2 text-sm md:pl-4", classNames?.container)}>
       <span className={cn("text-muted-foreground flex items-center gap-1", classNames?.label)}>
         {Icon ? <Icon className="size-4" /> : null}
         {label}

@@ -58,7 +58,7 @@ export default async function Page({
   return (
     <div className="h-full gap-4 overflow-auto md:grid-cols-2 lg:grid">
       <TaxOfficeForm languageData={languageData} taxOfficeDetails={taxOfficeDetailResponse.data} />
-      <div className="grid gap-4 self-start">
+      <div className="flex flex-col gap-4 self-start">
         <FormReadyComponent
           active={phoneResponse.status !== "fulfilled"}
           content={{
