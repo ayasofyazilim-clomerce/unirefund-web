@@ -67,6 +67,7 @@ export function PhoneForm({
           }),
       },
       normalizedPhoneNumber: {
+        showHeader: true,
         content: (row) => EditRowTrigger({row}),
       },
     },
