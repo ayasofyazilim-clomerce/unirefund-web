@@ -2,17 +2,12 @@
 
 import type {Volo_Abp_Identity_IdentityRoleDto} from "@ayasofyazilim/core-saas/IdentityService";
 import {$Volo_Abp_Identity_IdentityRoleUpdateDto} from "@ayasofyazilim/core-saas/IdentityService";
-import {ActionList} from "@repo/ayasofyazilim-ui/molecules/action-button";
-import ConfirmDialog from "@repo/ayasofyazilim-ui/molecules/confirm-dialog";
+import {putRoleApi} from "@repo/actions/core/IdentityService/put-actions";
 import {SchemaForm} from "@repo/ayasofyazilim-ui/organisms/schema-form";
 import {createUiSchemaWithResource} from "@repo/ayasofyazilim-ui/organisms/schema-form/utils";
-import {useGrantedPolicies, isActionGranted} from "@repo/utils/policies";
-import {Trash2} from "lucide-react";
+import {handlePutResponse} from "@repo/utils/api";
 import {useRouter} from "next/navigation";
 import {useTransition} from "react";
-import {handleDeleteResponse, handlePutResponse} from "@repo/utils/api";
-import {deleteRoleByIdApi} from "@repo/actions/core/IdentityService/delete-actions";
-import {putRoleApi} from "@repo/actions/core/IdentityService/put-actions";
 import type {IdentityServiceResource} from "src/language-data/core/IdentityService";
 
 export default function Form({
@@ -24,8 +19,6 @@ export default function Form({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const {grantedPolicies} = useGrantedPolicies();
-
   const uiSchema = createUiSchemaWithResource({
     schema: $Volo_Abp_Identity_IdentityRoleUpdateDto,
     resources: languageData,
@@ -40,62 +33,27 @@ export default function Form({
     },
   });
   return (
-    <div className="flex flex-col gap-4 overflow-auto">
-      <ActionList>
-        {isActionGranted(["AbpIdentity.Roles.Delete"], grantedPolicies) && (
-          <ConfirmDialog
-            closeProps={{
-              children: languageData.Cancel,
-            }}
-            confirmProps={{
-              variant: "destructive",
-              children: languageData.Delete,
-              onConfirm: () => {
-                startTransition(() => {
-                  void deleteRoleByIdApi(response.id || "").then((res) => {
-                    handleDeleteResponse(res, router, "../roles");
-                  });
-                });
-              },
-              closeAfterConfirm: true,
-            }}
-            description={languageData["Delete.Assurance"]}
-            title={languageData["Role.Delete"]}
-            triggerProps={{
-              children: (
-                <>
-                  <Trash2 className="mr-2 w-4" /> {languageData.Delete}
-                </>
-              ),
-              variant: "outline",
-              disabled: isPending,
-            }}
-            type="with-trigger"
-          />
-        )}
-      </ActionList>
-      <SchemaForm<Volo_Abp_Identity_IdentityRoleDto>
-        className="flex flex-col gap-4"
-        disabled={isPending}
-        filter={{
-          type: "exclude",
-          keys: ["concurrencyStamp"],
-        }}
-        formData={response}
-        onSubmit={({formData}) => {
-          startTransition(() => {
-            void putRoleApi({
-              id: response.id || "",
-              requestBody: {...formData, name: formData?.name || ""},
-            }).then((res) => {
-              handlePutResponse(res, router, "../roles");
-            });
+    <SchemaForm<Volo_Abp_Identity_IdentityRoleDto>
+      className="flex flex-col gap-4"
+      disabled={isPending}
+      filter={{
+        type: "exclude",
+        keys: ["concurrencyStamp"],
+      }}
+      formData={response}
+      onSubmit={({formData}) => {
+        startTransition(() => {
+          void putRoleApi({
+            id: response.id || "",
+            requestBody: {...formData, name: formData?.name || ""},
+          }).then((res) => {
+            handlePutResponse(res, router, "../roles");
           });
-        }}
-        schema={$Volo_Abp_Identity_IdentityRoleUpdateDto}
-        submitText={languageData["Edit.Save"]}
-        uiSchema={uiSchema}
-      />
-    </div>
+        });
+      }}
+      schema={$Volo_Abp_Identity_IdentityRoleUpdateDto}
+      submitText={languageData["Edit.Save"]}
+      uiSchema={uiSchema}
+    />
   );
 }
