@@ -113,6 +113,7 @@ export function PhoneForm({languageData, phones}: {languageData: TravellerServic
       data={phones}
       expandedRowComponent={(row) => EditForm({row, lang, languageData, travellerId, isPending, startTransition})}
       fillerColumn="normalizedPhoneNumber"
+      resizeable={false}
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Form.telephones"]}

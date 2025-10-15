@@ -21,7 +21,7 @@
 
   "Form.fullName": "Full name",
   "Form.identificationType": "Document type",
-  "Form.travelDocumentNumber": "Document number",
+  "Form.travellerDocumentNumber": "Document number",
   "Form.nationalityCountryName": "Nationality",
   "Form.identificationType.IdCard": "ID Card",
   "Form.identificationType.Passport": "Passport",
@@ -32,7 +32,7 @@
   "Form.travellerDocument": "Traveller Document",
   "Form.travellerDocument.firstName": "First name",
   "Form.travellerDocument.lastName": "Last name",
-  "Form.travellerDocument.travelDocumentNumber": "Document number",
+  "Form.travellerDocument.travellerDocumentNumber": "Document number",
   "Form.travellerDocument.birthDate": "Date of birth",
   "Form.travellerDocument.issueDate": "Issue date",
   "Form.travellerDocument.expirationDate": "Expiry date",

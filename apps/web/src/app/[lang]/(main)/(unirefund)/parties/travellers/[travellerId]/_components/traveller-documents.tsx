@@ -69,7 +69,7 @@ export function TravellerDocuments({
     {
       id: "create-document",
       actionLocation: "table",
-      cta: languageData["Travellers.Documents"],
+      cta: languageData["Travellers.New.Document"],
       type: "schemaform-dialog",
       schema: $CreateTravellerDocumentDto,
       uiSchema: createUiSchemaWithResource({
@@ -138,6 +138,7 @@ export function TravellerDocuments({
         EditForm({row, languageData, travellerId, isPending, startTransition, countryList})
       }
       fillerColumn="fullName"
+      resizeable={false}
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Travellers.New.Document"]}
