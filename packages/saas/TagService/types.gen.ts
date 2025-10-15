@@ -10,6 +10,8 @@ export type TagListResponseDto_TagListItemDto = {
     totalCount?: number;
 };
 
+export type UniRefund_ContractService_Enums_RefundMethod = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
+
 export type UniRefund_CRMService_Addresses_AddressDto = {
     id?: string;
     partyType: UniRefund_Shared_Contracts_Enums_PartyType;
@@ -307,8 +309,6 @@ export type UniRefund_TagService_Tags_CreateTagRequestDto = {
 
 export type UniRefund_TagService_Tags_EarningType = 'None' | 'GrossComission' | 'RedefinedGC' | 'Rebate' | 'NetComission';
 
-export type UniRefund_TagService_Tags_Enums_RefundType = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
-
 export type UniRefund_TagService_Tags_ExpirationReason = 'ExportValidationExpirationDate' | 'RefundExpirationDate' | 'EarlyRefundExpirationDate';
 
 export type UniRefund_TagService_Tags_ExportValidationRequestDto = {
@@ -343,7 +343,7 @@ export type UniRefund_TagService_Tags_RebateStatementPropertiesByMerchantIdsDto 
 export type UniRefund_TagService_Tags_SetTagRefundRequestDto = {
     tagRefunds?: Array<UniRefund_TagService_Tags_SetTagRefundRequestItemDto> | null;
     refundId?: string;
-    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    refundType?: UniRefund_ContractService_Enums_RefundMethod;
     refundDate?: string;
     status?: UniRefund_TagService_Tags_TagStatusType;
     refundPointId?: string;
@@ -400,7 +400,7 @@ export type UniRefund_TagService_Tags_TagDetailDto = {
     tagNumber: string;
     status: UniRefund_TagService_Tags_TagStatusType;
     expirationReason?: UniRefund_TagService_Tags_ExpirationReason;
-    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    refundType?: UniRefund_ContractService_Enums_RefundMethod;
     /**
      * Indicates if the tag was refunded earlier than usual.
      */
@@ -454,7 +454,7 @@ export type UniRefund_TagService_Tags_TagDto = {
     tagNumber: string;
     status: UniRefund_TagService_Tags_TagStatusType;
     expirationReason?: UniRefund_TagService_Tags_ExpirationReason;
-    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    refundType?: UniRefund_ContractService_Enums_RefundMethod;
     /**
      * Indicates whether the tag has been refunded before the standard period (early refund scenario).
      */
@@ -500,10 +500,15 @@ export type UniRefund_TagService_Tags_TagDto = {
      */
     travellerId?: (string) | null;
     /**
+     * The unique identifier of the travel document associated with the traveller.
+     * Used for customs checks and traveller identification.
+     */
+    travellerDocumentId?: (string) | null;
+    /**
      * The travel document number (such as passport number) of the traveller.
      * Used for customs checks and traveller identification.
      */
-    travelDocumentNumber?: (string) | null;
+    travellerDocumentNumber?: (string) | null;
     /**
      * The unique identifier of the trip related to this tag, if assigned.
      * Used for grouping transactions under a single travel itinerary.
@@ -546,6 +551,10 @@ export type UniRefund_TagService_Tags_TagEarningDto = {
      * The currency exchange rate applicable to this earning, especially if converted from another currency. This is **required**.
      */
     currencyRate: number;
+    /**
+     * The sort index for ordering earnings, derived from the EarningType enum value. This is **required**.
+     */
+    sortIndex: number;
 };
 
 export type UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto = {
@@ -554,18 +563,27 @@ export type UniRefund_TagService_Tags_TagIdAndVATStatementHeaderIdPairDto = {
 };
 
 export type UniRefund_TagService_Tags_TagListItemDto = {
-    id?: string;
+    id: string;
     tagNumber: string;
     issueDate: string;
     exportValidationExpirationDate: string;
     refundExpirationDate?: (string) | null;
     isEarlyRefunded?: (boolean) | null;
     travellerFullName?: (string) | null;
+    travellerDocumentId?: (string) | null;
     travellerDocumentNumber: string;
     merchantTitle?: (string) | null;
     status: UniRefund_TagService_Tags_TagStatusType;
     expirationReason?: UniRefund_TagService_Tags_ExpirationReason;
-    totals?: Array<UniRefund_TagService_Tags_TagTotalDto> | null;
+    currency?: (string) | null;
+    currencyRate?: (number) | null;
+    salesAmount?: (number) | null;
+    vatAmount?: (number) | null;
+    grossRefund?: (number) | null;
+    refundFee?: (number) | null;
+    agentRefundFee?: (number) | null;
+    refund?: (number) | null;
+    earlyRefundFee?: (number) | null;
 };
 
 export type UniRefund_TagService_Tags_TagListSummaryDto = {
@@ -597,7 +615,7 @@ export type UniRefund_TagService_Tags_TagsSumForRefundResponseDto = {
     /**
      * Gets or sets the document number of the traveller.
      */
-    travellerDocumentNumber?: (string) | null;
+    travellerDocumentId?: string;
     /**
      * Gets or sets the currency in which the refund is processed.
      */
@@ -640,6 +658,10 @@ export type UniRefund_TagService_Tags_TagTotalDto = {
      * The currency exchange rate applicable to this total, especially if converted from another currency. This is **required**.
      */
     currencyRate: number;
+    /**
+     * The sort index for ordering totals, derived from the TotalType enum value. This is **required**.
+     */
+    sortIndex: number;
 };
 
 export type UniRefund_TagService_Tags_TagValidForVATStatementResponseDto = {
@@ -662,7 +684,7 @@ export type UniRefund_TagService_Tags_TotalType = 'None' | 'SalesAmount' | 'VatA
 
 export type UniRefund_TagService_Tags_UpdateTagDto = {
     tagNumber?: (string) | null;
-    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    refundType?: UniRefund_ContractService_Enums_RefundMethod;
     issueDate?: string;
     exportValidationExpirationDate?: (string) | null;
     refundExpirationDate?: (string) | null;
@@ -687,7 +709,7 @@ export type UniRefund_TagService_Travellers_TravellerDetailDto = {
     /**
      * The unique identification number from the traveller's travel document (e.g., passport number).
      */
-    travelDocumentNumber?: (string) | null;
+    travellerDocumentNumber?: (string) | null;
     /**
      * The country where the traveller permanently resides.
      */
@@ -715,7 +737,7 @@ export type UniRefund_TagService_Travellers_TravellerRequestDto = {
      * The travel document number (such as passport number) of the traveller.
      * Required for identification and document verification.
      */
-    travelDocumentNumber: string;
+    travellerDocumentNumber: string;
     /**
      * The ISO 3166-1 alpha-2 country code representing the traveller's nationality (e.g., "TR" for Turkey).
      */
@@ -1143,7 +1165,7 @@ export type GetApiTagServiceTagData = {
     paidEndDate?: string;
     paidStartDate?: string;
     refundId?: string;
-    refundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
+    refundTypes?: Array<UniRefund_ContractService_Enums_RefundMethod>;
     skipCount?: number;
     sorting?: string;
     statuses?: Array<UniRefund_TagService_Tags_TagStatusType>;
@@ -1190,7 +1212,7 @@ export type GetApiTagServiceTagTagsRefundData = {
     isExportValidated?: boolean;
     maxResultCount?: number;
     refundPointId?: string;
-    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    refundType?: UniRefund_ContractService_Enums_RefundMethod;
     skipCount?: number;
     tagIds?: Array<(string)>;
     travellerDocumentNumber?: string;
@@ -1210,7 +1232,7 @@ export type GetApiTagServiceTagSummaryData = {
     paidEndDate?: string;
     paidStartDate?: string;
     refundId?: string;
-    refundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
+    refundTypes?: Array<UniRefund_ContractService_Enums_RefundMethod>;
     skipCount?: number;
     sorting?: string;
     statuses?: Array<UniRefund_TagService_Tags_TagStatusType>;
@@ -1225,7 +1247,7 @@ export type GetApiTagServiceTagSummaryResponse = (UniRefund_TagService_Tags_TagL
 export type GetApiTagServiceTagTagsRefundFeesData = {
     refundDate?: string;
     refundPointId?: string;
-    refundType?: UniRefund_TagService_Tags_Enums_RefundType;
+    refundType?: UniRefund_ContractService_Enums_RefundMethod;
     tagIds?: Array<(string)>;
 };
 

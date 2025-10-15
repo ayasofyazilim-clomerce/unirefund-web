@@ -13,7 +13,7 @@ export default async function Page({params}: {params: {lang: string}}) {
 
   const {languageData} = await getResourceData(lang);
   return (
-    <div className="mt-6 flex h-full flex-col overflow-auto">
+    <div className="mt-6 flex h-full flex-col overflow-auto md:mx-auto md:w-1/2">
       <ClientPage languageData={languageData} />
     </div>
   );

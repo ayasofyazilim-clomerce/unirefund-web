@@ -3,7 +3,7 @@ import {z} from "zod";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 
 const FeeType = z.enum(["TouristFee", "TouristBonusFee", "AgentFee", "AirportFee", "EarlyRefundFee"]);
-const RefundMethod = z.enum(["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All"]);
+const RefundMethod = z.enum(["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "IbanTransfer"]);
 
 export function createRefundFeeTableSchemas({languageData}: {languageData?: ContractServiceResource}) {
   // Individual RefundFeeDetail validation (1.1 - 1.6)

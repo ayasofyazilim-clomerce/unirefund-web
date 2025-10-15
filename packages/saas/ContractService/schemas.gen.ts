@@ -2346,8 +2346,8 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaderRe
 export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_CalculateFeesForRebateRequestDto = {
     type: 'object',
     properties: {
-        refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+        rebateMethod: {
+            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         },
         tagAmounts: {
@@ -2444,7 +2444,7 @@ export const $UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_
     type: 'object',
     properties: {
         refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+            enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         },
         tagAmounts: {
@@ -3005,6 +3005,11 @@ export const $UniRefund_ContractService_Enums_MerchantClassification = {
     type: 'string'
 } as const;
 
+export const $UniRefund_ContractService_Enums_RebateMethod = {
+    enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
+    type: 'string'
+} as const;
+
 export const $UniRefund_ContractService_Enums_RebateStatementPeriod = {
     enum: ['None', 'Monthly', 'Quarterly', 'BiAnnually', 'Annually'],
     type: 'string'
@@ -3016,7 +3021,7 @@ export const $UniRefund_ContractService_Enums_ReceiptType = {
 } as const;
 
 export const $UniRefund_ContractService_Enums_RefundMethod = {
-    enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+    enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
     type: 'string'
 } as const;
 
@@ -3435,7 +3440,7 @@ export const $UniRefund_ContractService_Rebates_RebateSettings_RebateSettingUpSe
 } as const;
 
 export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailCreateDto = {
-    required: ['fixedFeeValue', 'percentFeeValue', 'refundMethod', 'variableFee'],
+    required: ['fixedFeeValue', 'percentFeeValue', 'rebateMethod', 'variableFee'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -3452,8 +3457,8 @@ export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDe
             type: 'number',
             format: 'double'
         },
-        refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+        rebateMethod: {
+            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         },
         variableFee: {
@@ -3465,7 +3470,7 @@ export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDe
 } as const;
 
 export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailDto = {
-    required: ['fixedFeeValue', 'id', 'percentFeeValue', 'rebateTableHeaderId', 'refundMethod', 'variableFee'],
+    required: ['fixedFeeValue', 'id', 'percentFeeValue', 'rebateMethod', 'rebateTableHeaderId', 'variableFee'],
     type: 'object',
     properties: {
         id: {
@@ -3512,8 +3517,8 @@ export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDe
             type: 'number',
             format: 'double'
         },
-        refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+        rebateMethod: {
+            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         },
         variableFee: {
@@ -3529,7 +3534,7 @@ export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDe
 } as const;
 
 export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDetailUpdateWithRandomIdDto = {
-    required: ['fixedFeeValue', 'percentFeeValue', 'refundMethod', 'variableFee'],
+    required: ['fixedFeeValue', 'percentFeeValue', 'rebateMethod', 'variableFee'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -3546,8 +3551,8 @@ export const $UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDe
             type: 'number',
             format: 'double'
         },
-        refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+        rebateMethod: {
+            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         },
         variableFee: {
@@ -3581,7 +3586,7 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
         rebateTableDetails: {
             type: 'array',
             items: {
-                required: ['fixedFeeValue', 'percentFeeValue', 'refundMethod', 'variableFee'],
+                required: ['fixedFeeValue', 'percentFeeValue', 'rebateMethod', 'variableFee'],
                 type: 'object',
                 properties: {
                     extraProperties: {
@@ -3598,8 +3603,8 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
                         type: 'number',
                         format: 'double'
                     },
-                    refundMethod: {
-                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+                    rebateMethod: {
+                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
                     },
                     variableFee: {
@@ -3719,7 +3724,7 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
         rebateTableDetails: {
             type: 'array',
             items: {
-                required: ['fixedFeeValue', 'id', 'percentFeeValue', 'rebateTableHeaderId', 'refundMethod', 'variableFee'],
+                required: ['fixedFeeValue', 'id', 'percentFeeValue', 'rebateMethod', 'rebateTableHeaderId', 'variableFee'],
                 type: 'object',
                 properties: {
                     id: {
@@ -3766,8 +3771,8 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
                         type: 'number',
                         format: 'double'
                     },
-                    refundMethod: {
-                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+                    rebateMethod: {
+                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
                     },
                     variableFee: {
@@ -3960,7 +3965,7 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
         rebateTableDetails: {
             type: 'array',
             items: {
-                required: ['fixedFeeValue', 'percentFeeValue', 'refundMethod', 'variableFee'],
+                required: ['fixedFeeValue', 'percentFeeValue', 'rebateMethod', 'variableFee'],
                 type: 'object',
                 properties: {
                     extraProperties: {
@@ -3977,8 +3982,8 @@ export const $UniRefund_ContractService_Rebates_RebateTableHeaders_RebateTableHe
                         type: 'number',
                         format: 'double'
                     },
-                    refundMethod: {
-                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+                    rebateMethod: {
+                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
                     },
                     variableFee: {
@@ -4086,7 +4091,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetail
             type: 'string'
         },
         refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+            enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         }
     },
@@ -4162,7 +4167,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetail
             type: 'string'
         },
         refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+            enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         }
     },
@@ -4208,7 +4213,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeDetails_RefundFeeDetail
             type: 'string'
         },
         refundMethod: {
-            enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+            enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         }
     },
@@ -4282,7 +4287,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
                         type: 'string'
                     },
                     refundMethod: {
-                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+                        enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
                     }
                 },
@@ -4440,7 +4445,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
                         type: 'string'
                     },
                     refundMethod: {
-                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+                        enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
                     }
                 },
@@ -4609,7 +4614,7 @@ export const $UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeader
                         type: 'string'
                     },
                     refundMethod: {
-                        enum: ['All', 'Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner'],
+                        enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
                     }
                 },

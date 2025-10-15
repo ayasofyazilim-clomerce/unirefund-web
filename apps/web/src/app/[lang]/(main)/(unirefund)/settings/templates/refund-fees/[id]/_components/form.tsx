@@ -37,15 +37,7 @@ export default function RefundFeeHeaderUpdateForm({
 
   const form = useForm<z.infer<typeof updateFormSchema>>({
     resolver: zodResolver(updateFormSchema),
-    defaultValues: {
-      ...formData,
-      refundFeeDetails: formData.refundFeeDetails?.map((rfd) => {
-        return {
-          ...rfd,
-          refundMethod: rfd.refundMethod === "All" ? "Cash" : rfd.refundMethod,
-        };
-      }),
-    },
+    defaultValues: formData,
     mode: "onChange",
   });
   const onSubmit = (data: z.infer<typeof updateFormSchema>) => {

@@ -16,20 +16,20 @@ export function createRebateTableFormSchemas({languageData}: {languageData?: Con
       z.object({
         fixedFeeValue: z.coerce.number().min(0),
         percentFeeValue: z.coerce.number().min(0).max(100),
-        refundMethod: z.enum(["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All"]),
+        rebateMethod: z.enum(["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All", "IbanTransfer"]),
         variableFee: z.enum(["PercentOfGC", "PercentOfGcWithoutVAT", "PercentOfVAT", "PercentOfSIS"]),
       }),
     )
     .nullable()
     .superRefine((rows, ctx) => {
       if (!rows) return;
-      const allRows = rows.filter((r) => r.refundMethod === "All");
+      const allRows = rows.filter((r) => r.rebateMethod === "All");
       if (allRows.length === 1 && rows.length > 1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: languageData
-            ? languageData["RebateTable.Form.rebateTableDetails.refundMethodAllCannotBeCombined"]
-            : "'All' refundMethod cannot be combined with other refundMethods.",
+            ? languageData["RebateTable.Form.rebateTableDetails.rebateMethodAllCannotBeCombined"]
+            : "'All' rebateMethod cannot be combined with other rebateMethods.",
           path: [],
         });
       }
@@ -37,8 +37,8 @@ export function createRebateTableFormSchemas({languageData}: {languageData?: Con
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: languageData
-            ? languageData["RebateTable.Form.rebateTableDetails.refundMethodOnlyOneRowAllowedWhenRefundPointIsAll"]
-            : "Only one row allowed when refundMethod is 'All'.",
+            ? languageData["RebateTable.Form.rebateTableDetails.rebateMethodOnlyOneRowAllowedWhenRefundPointIsAll"]
+            : "Only one row allowed when rebateMethod is 'All'.",
           path: [],
         });
       }

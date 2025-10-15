@@ -63,7 +63,7 @@ export default async function Page({
         merchantDetails={merchantDetailResponse.data}
         taxOffices={taxOfficeResponse.data.items || []}
       />
-      <div className="grid gap-4 self-start">
+      <div className="flex flex-col gap-4 self-start">
         <FormReadyComponent
           active={phoneResponse.status !== "fulfilled"}
           content={{

@@ -10,6 +10,8 @@ export type PagedResultDto_RefundListItem = {
     totalCount?: number;
 };
 
+export type UniRefund_ContractService_Enums_RefundMethod = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
+
 export type UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
     id: string;
     name: string;
@@ -33,10 +35,11 @@ export type UniRefund_RefundService_Refunds_CreateRefundCardInfoDto = {
 
 export type UniRefund_RefundService_Refunds_CreateRefundDto = {
     tagIds: Array<(string)>;
-    refundTypeEnum: UniRefund_TagService_Tags_Enums_RefundType;
+    refundTypeEnum: UniRefund_ContractService_Enums_RefundMethod;
     cardInfo?: UniRefund_RefundService_Refunds_CreateRefundCardInfoDto;
     ibanInfo?: UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto;
     refundPointId: string;
+    paidDate?: (string) | null;
 };
 
 export type UniRefund_RefundService_Refunds_CreateRefundIbanInfoDto = {
@@ -58,7 +61,8 @@ export type UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
     refundPoint: UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund;
     traveller: UniRefund_TravellerService_Travellers_TravellerDetailProfileDto;
     userDeviceName: string;
-    refundTypeEnum: UniRefund_TagService_Tags_Enums_RefundType;
+    refundTypeEnum: UniRefund_ContractService_Enums_RefundMethod;
+    travellerDocumentId: string;
     travellerDocumentNumber: string;
     refundAmount: number;
     refundCurrency: string;
@@ -75,7 +79,8 @@ export type UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
 export type UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
     id?: string;
     userDeviceName: string;
-    refundTypeEnum: UniRefund_TagService_Tags_Enums_RefundType;
+    refundTypeEnum: UniRefund_ContractService_Enums_RefundMethod;
+    travellerDocumentId: string;
     travellerDocumentNumber: string;
     refundAmount: number;
     refundCurrency: string;
@@ -98,8 +103,6 @@ export type UniRefund_RefundService_Refunds_GetRefundStatistics_RefundStatistics
 };
 
 export type UniRefund_Shared_ContactInfo_Enums_TelephoneType = 'UNKNOWN' | 'HOME' | 'WORK' | 'MOBILE' | 'FAX' | 'OTHER';
-
-export type UniRefund_TagService_Tags_Enums_RefundType = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
 
 export type UniRefund_TravellerService_Addresses_AddressDto = {
     id?: string;
@@ -136,7 +139,7 @@ export type UniRefund_TravellerService_Telephones_TelephoneDto = {
 
 export type UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
     id: string;
-    travelDocumentNumber: string;
+    travellerDocumentNumber: string;
     residenceCountryCode2: string;
     residenceCountryName: string;
     nationalityCountryCode2: string;
@@ -563,7 +566,7 @@ export type GetApiRefundServiceRefundsData = {
     skipCount?: number;
     sorting?: string;
     statusesFilterReconciliationStatuses?: Array<UniRefund_RefundService_Enums_RefundReconciliationStatus>;
-    statusesFilterRefundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
+    statusesFilterRefundTypes?: Array<UniRefund_ContractService_Enums_RefundMethod>;
     statusesFilterStatuses?: Array<UniRefund_RefundService_Enums_RefundStatus>;
     textFilterFilter?: string;
     textFilterTextFilterType?: UniRefund_RefundService_Refunds_GetListAsync_RefundTextFilterType;
@@ -578,7 +581,7 @@ export type GetApiRefundServiceRefundsRefundPointNamesData = {
     refundUserDeviceIds?: Array<(string)>;
     skipCount?: number;
     statusesFilterReconciliationStatuses?: Array<UniRefund_RefundService_Enums_RefundReconciliationStatus>;
-    statusesFilterRefundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
+    statusesFilterRefundTypes?: Array<UniRefund_ContractService_Enums_RefundMethod>;
     statusesFilterStatuses?: Array<UniRefund_RefundService_Enums_RefundStatus>;
     textFilterFilter?: string;
     textFilterTextFilterType?: UniRefund_RefundService_Refunds_GetListAsync_RefundTextFilterType;
@@ -595,7 +598,7 @@ export type GetApiRefundServiceRefundsUserDevicesData = {
     refundPointIds?: Array<(string)>;
     skipCount?: number;
     statusesFilterReconciliationStatuses?: Array<UniRefund_RefundService_Enums_RefundReconciliationStatus>;
-    statusesFilterRefundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
+    statusesFilterRefundTypes?: Array<UniRefund_ContractService_Enums_RefundMethod>;
     statusesFilterStatuses?: Array<UniRefund_RefundService_Enums_RefundStatus>;
     textFilterFilter?: string;
     textFilterTextFilterType?: UniRefund_RefundService_Refunds_GetListAsync_RefundTextFilterType;
@@ -609,7 +612,7 @@ export type GetApiRefundServiceRefundsRefundStatisticsData = {
     refundPointIds?: Array<(string)>;
     refundUserDeviceIds?: Array<(string)>;
     statusesFilterReconciliationStatuses?: Array<UniRefund_RefundService_Enums_RefundReconciliationStatus>;
-    statusesFilterRefundTypes?: Array<UniRefund_TagService_Tags_Enums_RefundType>;
+    statusesFilterRefundTypes?: Array<UniRefund_ContractService_Enums_RefundMethod>;
     statusesFilterStatuses?: Array<UniRefund_RefundService_Enums_RefundStatus>;
     textFilterFilter?: string;
     textFilterTextFilterType?: UniRefund_RefundService_Refunds_GetListAsync_RefundTextFilterType;

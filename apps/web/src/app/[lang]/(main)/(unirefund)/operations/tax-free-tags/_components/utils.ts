@@ -2,7 +2,7 @@ import type {FilterComponentSearchItem} from "@repo/ayasofyazilim-ui/molecules/f
 import type {
   GetApiTagServiceTagData,
   UniRefund_TagService_Tags_TagStatusType,
-  UniRefund_TagService_Tags_Enums_RefundType,
+  UniRefund_ContractService_Enums_RefundMethod,
 } from "@repo/saas/TagService";
 import {getDateRanges} from "@/utils/utils-date";
 
@@ -42,7 +42,7 @@ export function initParams(searchParams: TagsSearchParamType) {
     ...searchParams,
     merchantIds,
     statuses: spStatuses?.split(",") as UniRefund_TagService_Tags_TagStatusType[],
-    refundTypes: spRefundTypes?.split(",") as UniRefund_TagService_Tags_Enums_RefundType[],
+    refundTypes: spRefundTypes?.split(",") as UniRefund_ContractService_Enums_RefundMethod[],
     travellerIds: spTravellerIds?.split(","),
   };
 

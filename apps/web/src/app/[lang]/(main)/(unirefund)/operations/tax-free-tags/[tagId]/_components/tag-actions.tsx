@@ -19,7 +19,7 @@ export default function TagActions({
   const router = useRouter();
   const {grantedPolicies} = useGrantedPolicies();
   const {tagId} = useParams<{tagId: string}>();
-  const travellerDocumentNo = tagDetail.traveller?.travelDocumentNumber || "";
+  const travellerDocumentNo = tagDetail.traveller?.travellerDocumentNumber || "";
 
   const status = tagDetail.status;
   if (status !== "ExportValidated" && status !== "Issued" && status !== "EarlyPaid") return null;
@@ -53,7 +53,7 @@ export default function TagActions({
             data-testid="early-refund"
             onClick={() => {
               router.push(
-                `/operations/refund/need-validation?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
+                `/operations/refund?status=need-validation&travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagDetail.id}`,
               );
             }}
             variant="default">
@@ -65,7 +65,7 @@ export default function TagActions({
             data-testid="refund"
             onClick={() => {
               router.push(
-                `/operations/refund/export-validated?travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagId}`,
+                `/operations/refund?status=export-validated&travellerDocumentNumber=${travellerDocumentNo}&tagIds=${tagId}`,
               );
             }}
             variant="default">

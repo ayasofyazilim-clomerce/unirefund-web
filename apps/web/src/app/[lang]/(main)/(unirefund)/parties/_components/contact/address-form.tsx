@@ -68,6 +68,7 @@ export function AddressForm({
         content: (row) => TypeRow({row, languageData}),
       },
       addressLine: {
+        showHeader: true,
         content: (row) => EditRowTrigger({row}),
       },
     },

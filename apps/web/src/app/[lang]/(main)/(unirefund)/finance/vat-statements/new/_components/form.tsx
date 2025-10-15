@@ -95,8 +95,8 @@ export default function VatStatementForm({
   }
 
   return (
-    <div className="flex h-full gap-4 overflow-hidden">
-      <div className="flex h-full w-full max-w-xs flex-col overflow-hidden border-r pr-4">
+    <div className="flex h-full flex-col gap-4 overflow-hidden md:flex-row">
+      <div className="flex w-full flex-col rounded-md border p-2 md:max-w-xs md:border-r md:border-none md:p-0 md:pr-4">
         <SchemaForm<VATStatementHeaderCreateDto>
           disabled={isPending}
           formData={formData}

@@ -64,7 +64,7 @@ export default function TravellerNewForm({
     schema: $UniRefund_TravellerService_Travellers_CreateTravellerDto,
     resources: languageData,
     extend: {
-      "ui:className": "md:grid md:grid-cols-2",
+      "ui:className": "border-none grid grid-cols-1 md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto p-0 md:p-4",
       "ui:order": [
         "firstName",
         "lastName",
@@ -84,7 +84,7 @@ export default function TravellerNewForm({
       },
 
       travellerDocument: {
-        "ui:className": "md:grid md:grid-cols-2 col-span-full",
+        "ui:className": "md:grid md:grid-cols-2 grid-cols-1 col-span-full",
         "ui:order": [
           "identificationType",
           "travelDocumentNumber",
@@ -104,7 +104,7 @@ export default function TravellerNewForm({
 
   return (
     <SchemaForm<UniRefund_TravellerService_Travellers_CreateTravellerDto>
-      className="mx-auto flex max-w-4xl flex-col gap-0 p-0"
+      className="p-0"
       defaultSubmitClassName="p-0 pt-2"
       disabled={isPending}
       id="new-traveller-form"
@@ -122,6 +122,7 @@ export default function TravellerNewForm({
         countryWidget: CountryWidget,
         languageSelectWidget: LanguageSelectWidget,
       }}
+      withScrollArea={false}
     />
   );
 }

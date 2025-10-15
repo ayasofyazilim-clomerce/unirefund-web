@@ -1429,6 +1429,14 @@ export type GetApiCrmServiceIndividualsByEmailData = {
 
 export type GetApiCrmServiceIndividualsByEmailResponse = (Array<UniRefund_CRMService_Individuals_IndividualWithAbpUserDto>);
 
+export type GetApiCrmServiceIndividualsByAffiliationsData = {
+    maxResultCount?: number;
+    skipCount?: number;
+    sorting?: string;
+};
+
+export type GetApiCrmServiceIndividualsByAffiliationsResponse = (PagedResultDto_IndividualListResponseDto);
+
 export type GetApiCrmServiceMerchantsByIdData = {
     id: string;
 };

@@ -1,23 +1,23 @@
 "use client";
 
-import type {PagedResultDto_TagListItemDto, UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
+import type {PagedResultDto_TagListItemDto, UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import type {Dispatch, SetStateAction} from "react";
+import type {Localization} from "@/providers/tenant";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
-import {useTenant} from "@/providers/tenant";
 import {tableData} from "./table-data";
 
 function RefundTable({
   response,
   languageData,
   setSelectedRows,
+  localization,
 }: {
-  locale: string;
+  localization: Localization;
   response: PagedResultDto_TagListItemDto;
   languageData: TagServiceResource;
   setSelectedRows: Dispatch<SetStateAction<UniRefund_TagService_Tags_TagListItemDto[]>>;
 }) {
-  const {localization} = useTenant();
   const columns = tableData.taxFreeTags.columns(localization, languageData, setSelectedRows);
   const table = tableData.taxFreeTags.table();
 

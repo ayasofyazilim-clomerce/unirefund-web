@@ -304,7 +304,7 @@ export type UniRefund_ContractService_ContractsForRefundPoint_ContractHeaderRefu
 };
 
 export type UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_CalculateFeesForRebateRequestDto = {
-    refundMethod?: UniRefund_ContractService_Enums_RefundMethod;
+    rebateMethod?: UniRefund_ContractService_Enums_RebateMethod;
     tagAmounts?: Array<UniRefund_ContractService_ContractsForRefundPoint_ContractHeaders_CalculateFeesForRebateTagAmountDto> | null;
     rebateDate?: string;
 };
@@ -435,11 +435,13 @@ export type UniRefund_ContractService_Enums_InvoicingFrequency = 'OneTimePerMont
 
 export type UniRefund_ContractService_Enums_MerchantClassification = 'Excellent' | 'Good' | 'Satisfactory' | 'Low';
 
+export type UniRefund_ContractService_Enums_RebateMethod = 'All' | 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
+
 export type UniRefund_ContractService_Enums_RebateStatementPeriod = 'None' | 'Monthly' | 'Quarterly' | 'BiAnnually' | 'Annually';
 
 export type UniRefund_ContractService_Enums_ReceiptType = 'None' | 'NoBarcodeNumber' | 'NoBarcodeText' | 'Barcode' | 'QRCodeIntegration' | 'UniRefundVoucherIntegration';
 
-export type UniRefund_ContractService_Enums_RefundMethod = 'All' | 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner';
+export type UniRefund_ContractService_Enums_RefundMethod = 'Cash' | 'CreditCard' | 'BankTransfer' | 'Wallet' | 'CashViaPartner' | 'IbanTransfer';
 
 export type UniRefund_ContractService_Enums_VariableFee = 'PercentOfGC' | 'PercentOfGcWithoutVAT' | 'PercentOfVAT' | 'PercentOfSIS';
 
@@ -534,7 +536,7 @@ export type UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDeta
     } | null;
     fixedFeeValue: number;
     percentFeeValue: number;
-    refundMethod: UniRefund_ContractService_Enums_RefundMethod;
+    rebateMethod: UniRefund_ContractService_Enums_RebateMethod;
     variableFee: UniRefund_ContractService_Enums_VariableFee;
 };
 
@@ -549,7 +551,7 @@ export type UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDeta
     deletionTime?: (string) | null;
     fixedFeeValue: number;
     percentFeeValue: number;
-    refundMethod: UniRefund_ContractService_Enums_RefundMethod;
+    rebateMethod: UniRefund_ContractService_Enums_RebateMethod;
     variableFee: UniRefund_ContractService_Enums_VariableFee;
     rebateTableHeaderId: string;
 };
@@ -560,7 +562,7 @@ export type UniRefund_ContractService_Rebates_RebateTableDetails_RebateTableDeta
     } | null;
     fixedFeeValue: number;
     percentFeeValue: number;
-    refundMethod: UniRefund_ContractService_Enums_RefundMethod;
+    rebateMethod: UniRefund_ContractService_Enums_RebateMethod;
     variableFee: UniRefund_ContractService_Enums_VariableFee;
 };
 
@@ -1585,6 +1587,12 @@ export type PostApiContractServiceRefundFeeHeadersCloneByIdData = {
 };
 
 export type PostApiContractServiceRefundFeeHeadersCloneByIdResponse = (UniRefund_ContractService_Refunds_RefundFeeHeaders_RefundFeeHeaderDto);
+
+export type GetApiContractServiceRefundFeeHeadersPaymentTypesByRefundPointByRefundPointIdData = {
+    refundPointId: string;
+};
+
+export type GetApiContractServiceRefundFeeHeadersPaymentTypesByRefundPointByRefundPointIdResponse = (Array<UniRefund_ContractService_Enums_RefundMethod>);
 
 export type GetApiContractServiceRefundTableHeadersAssignablesByMerchantData = {
     merchantId: string;

@@ -66,6 +66,7 @@ export function EmailForm({
         content: (row) => TypeRow({row, languageData}),
       },
       emailAddress: {
+        showHeader: true,
         content: (row) => EditRowTrigger({row}),
       },
     },

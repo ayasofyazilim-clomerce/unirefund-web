@@ -86,7 +86,6 @@ export default function TagStatusDiagram({
       {tagRefundDetail ? (
         <ValidStatus
           date={tagRefundDetail.paidDate}
-          // link={`/operations/refunds/${tagDetail.refundId}`}
           message={[
             `${languageData.RefundPoint}: ${tagRefundDetail.refundPoint.name}`,
             `${languageData.RefundMethod}: ${tagRefundDetail.refundTypeEnum}`,

@@ -42,14 +42,17 @@ export function CreateIndividualForm({
         schema: $CreateIndividualDto,
         extend: {
           displayLabel: false,
-          "ui:className": cn("border-none grid md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto", className),
+          "ui:className": cn(
+            "border-none grid grid-cols-1 md:grid-cols-2 gap-4 items-end max-w-2xl mx-auto p-0 md:p-4",
+            className,
+          ),
           isPersonalCompany: {
             "ui:widget": "switch",
             "ui:className": "border px-2 rounded-md",
           },
           telephone: {
             "ui:field": "telephone",
-            "ui:className": "grid grid-cols-2 col-span-full",
+            "ui:className": "grid grid-cols-1 md:grid-cols-2 col-span-full",
           },
           email: createUiSchemaWithResource({
             resources: languageData,
@@ -57,7 +60,7 @@ export function CreateIndividualForm({
             name: "Form.email",
             extend: {
               "ui:className":
-                "col-span-full border-none grid grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
+                "col-span-full border-none grid grid-cols-1 md:grid-cols-2 p-0 border-0 gap-y-2 gap-x-4 [&_*:is(input,button)]:h-9",
               displayLabel: false,
               emailAddress: {
                 "ui:title": languageData["Form.email"],
@@ -183,7 +186,8 @@ export function CreateIndividualForm({
       onSubmit={handleFormSubmit}
       schema={$CreateIndividualDto}
       uiSchema={uiSchema}
-      useDefaultSubmit={useDefaultSubmit}>
+      useDefaultSubmit={useDefaultSubmit}
+      withScrollArea={false}>
       {children}
     </SchemaForm>
   );

@@ -6,6 +6,7 @@ import {createContext, useContext, useEffect} from "react";
 export type Localization = {locale: string; timeZone: string; lang: string};
 type TenantData = UniRefund_AdministrationService_CountrySettings_CountrySettingInfoDto & {
   localization: {locale: string; timeZone: string; lang: string};
+  currency: string;
 };
 interface TenantProviderProps {
   children: JSX.Element;
@@ -37,6 +38,7 @@ export function TenantProvider(props: TenantProviderProps) {
     <TenantContext.Provider
       value={{
         ...props.tenantData,
+        currency: props.tenantData.currency || "USD",
         localization: {
           locale: getLocaleFromCountryCode(props.tenantData.countryCode2 || "UK"),
           timeZone: props.tenantData.timeZone || "UTC",

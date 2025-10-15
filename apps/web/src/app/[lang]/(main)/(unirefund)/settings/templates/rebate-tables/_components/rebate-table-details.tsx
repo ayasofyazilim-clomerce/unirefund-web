@@ -10,12 +10,20 @@ import {toast} from "@/components/ui/sonner";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Plus, Trash2} from "lucide-react";
 import type {z} from "zod";
+import type {UniRefund_ContractService_Enums_RebateMethod} from "@repo/saas/ContractService";
 import type {ContractServiceResource} from "@/language-data/unirefund/ContractService";
 import {createRebateTableFormSchemas} from "./schema";
 
 const {createFormSchema} = createRebateTableFormSchemas({});
-type RefundMethod = "Cash" | "CreditCard" | "BankTransfer" | "Wallet" | "CashViaPartner" | "All";
-const refundMethod: RefundMethod[] = ["Cash", "CreditCard", "BankTransfer", "Wallet", "CashViaPartner", "All"];
+const rebateMethod: UniRefund_ContractService_Enums_RebateMethod[] = [
+  "Cash",
+  "CreditCard",
+  "BankTransfer",
+  "Wallet",
+  "CashViaPartner",
+  "All",
+  "IbanTransfer",
+];
 
 export function RebateTableDetailsTable({
   languageData,
@@ -31,35 +39,35 @@ export function RebateTableDetailsTable({
     name: "rebateTableDetails",
   });
   const rebateTableDetailValues = form.watch("rebateTableDetails") ?? [];
-  const hasAll = rebateTableDetailValues.some((row) => row.refundMethod === "All");
+  const hasAll = rebateTableDetailValues.some((row) => row.rebateMethod === "All");
 
   function handleRebateTableAddRow() {
     if (hasAll) {
-      toast.error(languageData["RebateTable.Form.rebateTableDetails.cannotAddRowWhenAllRefundMethodSelected"]);
+      toast.error(languageData["RebateTable.Form.rebateTableDetails.cannotAddRowWhenAllRebateMethodSelected"]);
       return;
     }
-    const availableOptions = getRefundMethodOptions(rebateTableFieldArray.fields.length);
+    const availableOptions = getRebateMethodOptions(rebateTableFieldArray.fields.length);
     const firstAvailable = availableOptions.find((opt) => !opt.disabled);
 
     if (!firstAvailable) {
-      toast.error(languageData["RebateTable.Form.rebateTableDetails.allRefundMethodsAlreadyUsed"]);
+      toast.error(languageData["RebateTable.Form.rebateTableDetails.allRebateMethodsAlreadyUsed"]);
       return;
     }
 
     rebateTableFieldArray.append({
       fixedFeeValue: 0,
       percentFeeValue: 0,
-      refundMethod: firstAvailable.value,
+      rebateMethod: firstAvailable.value,
       variableFee: "PercentOfGC",
     });
   }
-  function getRefundMethodOptions(rowIndex: number) {
-    const rowIsAll = rebateTableDetailValues[rowIndex]?.refundMethod === "All";
-    const selectedMethods = rebateTableDetailValues.map((row) => row.refundMethod);
+  function getRebateMethodOptions(rowIndex: number) {
+    const rowIsAll = rebateTableDetailValues[rowIndex]?.rebateMethod === "All";
+    const selectedMethods = rebateTableDetailValues.map((row) => row.rebateMethod);
 
-    return refundMethod.map((method) => {
+    return rebateMethod.map((method) => {
       const isSelectedInAnotherRow =
-        selectedMethods.includes(method) && rebateTableDetailValues[rowIndex]?.refundMethod !== method;
+        selectedMethods.includes(method) && rebateTableDetailValues[rowIndex]?.rebateMethod !== method;
 
       return {
         value: method,
@@ -97,7 +105,7 @@ export function RebateTableDetailsTable({
                 {languageData["RebateTable.Form.rebateTableDetails.percentFeeValue"]}
               </TableHead>
               <TableHead className="w-full max-w-60">
-                {languageData["RebateTable.Form.rebateTableDetails.refundMethod"]}
+                {languageData["RebateTable.Form.rebateTableDetails.rebateMethod"]}
               </TableHead>
               <TableHead className="w-full min-w-52">
                 {languageData["RebateTable.Form.rebateTableDetails.variableFee"]}
@@ -156,22 +164,22 @@ export function RebateTableDetailsTable({
                   <TableCell className="p-px">
                     <FormField
                       control={form.control}
-                      name={`rebateTableDetails.${index}.refundMethod`}
+                      name={`rebateTableDetails.${index}.rebateMethod`}
                       render={({field}) => (
                         <FormItem className="space-y-0">
                           <FormControl>
                             <Select disabled={isPending} onValueChange={field.onChange} value={field.value}>
                               <SelectTrigger
                                 className="rounded-none border-0 shadow-none"
-                                data-testid={`rebateTableDetails.${index}.refundMethod`}>
+                                data-testid={`rebateTableDetails.${index}.rebateMethod`}>
                                 <SelectValue placeholder="Select Refund Method" />
                               </SelectTrigger>
                               <SelectContent>
-                                {getRefundMethodOptions(index).map(({value, disabled}) => (
+                                {getRebateMethodOptions(index).map(({value, disabled}) => (
                                   <SelectItem disabled={disabled} key={value} value={value}>
                                     {
                                       languageData[
-                                        `RebateTable.Form.rebateTableDetails.refundMethod.${value}` as keyof ContractServiceResource
+                                        `RebateTable.Form.rebateTableDetails.rebateMethod.${value}` as keyof ContractServiceResource
                                       ]
                                     }
                                   </SelectItem>

@@ -100,7 +100,7 @@ export default function ClientPage({
           externalIdentifier: merchantInfoResponse.data.externalIdentifier || "0",
         },
         traveller: {
-          travelDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travelDocumentNumber || "",
+          travellerDocumentNumber: travellerInfoResponse.data.travellerDocuments?.[0].travellerDocumentNumber || "",
           nationalityCountryCode2: travellerInfoResponse.data.travellerDocuments?.[0].nationalityCountryCode2 || "",
           firstName: travellerInfoResponse.data.firstName || "",
           lastName: travellerInfoResponse.data.lastName || "",

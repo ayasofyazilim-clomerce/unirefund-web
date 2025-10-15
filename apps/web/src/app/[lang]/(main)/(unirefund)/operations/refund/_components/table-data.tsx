@@ -1,10 +1,11 @@
-import type {UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
-import {$UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
+import type {UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
+import {$UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
+import {formatCurrency} from "@repo/ui/utils";
 import type {Dispatch, SetStateAction} from "react";
-import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import type {Localization} from "@/providers/tenant";
+import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 
 const statusArray = $UniRefund_TagService_Tags_TagListItemDto.properties.status.enum;
 
@@ -17,9 +18,57 @@ const taxFreeTagsColumns = (
 ) =>
   tanstackTableCreateColumnsByRowData<UniRefund_TagService_Tags_TagListItemDto>({
     rows: $UniRefund_TagService_Tags_TagListItemDto.properties,
+    custom: {
+      tagNumber: {
+        showHeader: true,
+        content(row) {
+          return (
+            <div>
+              <div>{row.tagNumber || ""}</div>
+              <div className="text-xs text-gray-500">{row.merchantTitle || ""}</div>
+            </div>
+          );
+        },
+      },
+      salesAmount: {
+        showHeader: true,
+        content(row) {
+          return formatCurrency(localization.locale, row.currency || "USD", row.salesAmount || 0);
+        },
+      },
+      vatAmount: {
+        showHeader: true,
+        content(row) {
+          return formatCurrency(localization.locale, row.currency || "USD", row.vatAmount || 0);
+        },
+      },
+      grossRefund: {
+        showHeader: true,
+        content(row) {
+          return formatCurrency(localization.locale, row.currency || "USD", row.grossRefund || 0);
+        },
+      },
+      refundFee: {
+        showHeader: true,
+        content(row) {
+          return formatCurrency(localization.locale, row.currency || "USD", row.refundFee || 0);
+        },
+      },
+      refund: {
+        showHeader: true,
+        content(row) {
+          return formatCurrency(localization.locale, row.currency || "USD", row.refund || 0);
+        },
+      },
+    },
     languageData: {
       tagNumber: languageData.TagNumber,
       status: languageData.Status,
+      salesAmount: languageData.SalesAmount,
+      vatAmount: languageData.VatAmount,
+      grossRefund: languageData.GrossRefund,
+      refundFee: languageData.RefundFee,
+      refund: languageData.Refund,
       travellerFullName: languageData.TravellerFullName,
       travellerDocumentNumber: languageData.TravellerDocumentNo,
       merchantTitle: languageData.MerchantTitle,
@@ -78,19 +127,11 @@ const taxFreeTagsColumns = (
 
 function taxFreeTagsTable(): RefundsTable {
   const table: RefundsTable = {
-    fillerColumn: "tagNumber",
-    columnOrder: ["status", "tagNumber", "travellerFullName", "travellerDocumentNumber", "merchantTitle"],
+    showPagination: false,
+    columnOrder: ["tagNumber", "issueDate"],
     columnVisibility: {
       type: "show",
-      columns: [
-        "select",
-        "merchantTitle",
-        "status",
-        "tagNumber",
-        "travellerFullName",
-        "travellerDocumentNumber",
-        "issueDate",
-      ],
+      columns: ["select", "issueDate", "tagNumber", "salesAmount", "vatAmount", "grossRefund", "refundFee", "refund"],
     },
   };
   return table;

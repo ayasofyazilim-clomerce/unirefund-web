@@ -53,7 +53,7 @@ export default async function Page({params, searchParams}: {params: {lang: strin
   const [individualResponse] = apiRequests.requiredRequests;
 
   return (
-    <div className="mt-6 rounded-lg border border-gray-200 p-6">
+    <div className="mt-6 rounded-lg border border-gray-200 p-2 md:p-6">
       <IndividualsTable individuals={individualResponse.data} languageData={languageData} newLink="individuals/new" />
     </div>
   );

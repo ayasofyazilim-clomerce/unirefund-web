@@ -118,6 +118,12 @@
   "RefundMethod.IbanTransfer": "IBAN Transferi",
 
   "Continue": "Devam Et",
-  "TransactionSelected": "işlem seçildi",
+  "TransactionSelected": "Seçilen işlem sayısı",
+
+  "SearchTravellerToSeeTags": "Etiketleri listelemek için lütfen yolcu arayın.",
+  "NoTravellerFound": "Yolcu bulunamadı",
+  "SelectARefundPoint": "İade noktası seçin.",
+  "NoPaymentMethodExistsForSelectedRefundPoint": "Seçili iade noktasının geçerli bir ödeme metodu yok.",
+
   "NoTransactionsFromDifferentTravellers": "Tek bir iade işlemi içerisinde birden fazla yolcuya ait işlem seçilemez."
 }
