@@ -35,7 +35,7 @@ export const $PagedResultDto_RefundListItem = {
         items: {
             type: 'array',
             items: {
-                required: ['processedDate', 'reconciliationStatus', 'referenceNumber', 'refundAmount', 'refundAmountInCurrency', 'refundCurrency', 'refundTypeEnum', 'status', 'tagIds', 'travellerDocumentNumber', 'travellerFeeAmount', 'userDeviceName'],
+                required: ['processedDate', 'reconciliationStatus', 'referenceNumber', 'refundAmount', 'refundAmountInCurrency', 'refundCurrency', 'refundTypeEnum', 'status', 'tagIds', 'travellerDocumentId', 'travellerDocumentNumber', 'travellerFeeAmount', 'userDeviceName'],
                 type: 'object',
                 properties: {
                     id: {
@@ -49,6 +49,10 @@ export const $PagedResultDto_RefundListItem = {
                     refundTypeEnum: {
                         enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
                         type: 'string'
+                    },
+                    travellerDocumentId: {
+                        type: 'string',
+                        format: 'uuid'
                     },
                     travellerDocumentNumber: {
                         minLength: 1,
@@ -129,6 +133,11 @@ export const $UniRefund_CRMService_RefundPoints_RefundPointDetailForRefund = {
         }
     },
     additionalProperties: false
+} as const;
+
+export const $UniRefund_ContractService_Enums_RefundMethod = {
+    enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
+    type: 'string'
 } as const;
 
 export const $UniRefund_IdentityService_Users_NameAndIdDto = {
@@ -253,6 +262,11 @@ export const $UniRefund_RefundService_Refunds_CreateRefundDto = {
         refundPointId: {
             type: 'string',
             format: 'uuid'
+        },
+        paidDate: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
         }
     },
     additionalProperties: false
@@ -303,7 +317,7 @@ export const $UniRefund_RefundService_Refunds_CreateRefundResponseDto = {
 } as const;
 
 export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
-    required: ['processedDate', 'reconciliationStatus', 'referenceNumber', 'refundAmount', 'refundAmountInCurrency', 'refundCurrency', 'refundPoint', 'refundTypeEnum', 'status', 'tagIds', 'traveller', 'travellerDocumentNumber', 'travellerFeeAmount', 'userDeviceName'],
+    required: ['processedDate', 'reconciliationStatus', 'referenceNumber', 'refundAmount', 'refundAmountInCurrency', 'refundCurrency', 'refundPoint', 'refundTypeEnum', 'status', 'tagIds', 'traveller', 'travellerDocumentId', 'travellerDocumentNumber', 'travellerFeeAmount', 'userDeviceName'],
     type: 'object',
     properties: {
         refundPoint: {
@@ -374,14 +388,14 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
                 travellerDocuments: {
                     type: 'array',
                     items: {
-                        required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
+                        required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travellerDocumentNumber'],
                         type: 'object',
                         properties: {
                             id: {
                                 type: 'string',
                                 format: 'uuid'
                             },
-                            travelDocumentNumber: {
+                            travellerDocumentNumber: {
                                 minLength: 1,
                                 type: 'string'
                             },
@@ -533,6 +547,10 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
             enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
         },
+        travellerDocumentId: {
+            type: 'string',
+            format: 'uuid'
+        },
         travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
@@ -586,7 +604,7 @@ export const $UniRefund_RefundService_Refunds_GetDetailAsync_RefundDetailDto = {
 } as const;
 
 export const $UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
-    required: ['processedDate', 'reconciliationStatus', 'referenceNumber', 'refundAmount', 'refundAmountInCurrency', 'refundCurrency', 'refundTypeEnum', 'status', 'tagIds', 'travellerDocumentNumber', 'travellerFeeAmount', 'userDeviceName'],
+    required: ['processedDate', 'reconciliationStatus', 'referenceNumber', 'refundAmount', 'refundAmountInCurrency', 'refundCurrency', 'refundTypeEnum', 'status', 'tagIds', 'travellerDocumentId', 'travellerDocumentNumber', 'travellerFeeAmount', 'userDeviceName'],
     type: 'object',
     properties: {
         id: {
@@ -600,6 +618,10 @@ export const $UniRefund_RefundService_Refunds_GetListAsync_RefundListItem = {
         refundTypeEnum: {
             enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
             type: 'string'
+        },
+        travellerDocumentId: {
+            type: 'string',
+            format: 'uuid'
         },
         travellerDocumentNumber: {
             minLength: 1,
@@ -679,11 +701,6 @@ export const $UniRefund_RefundService_Refunds_GetRefundStatistics_RefundStatisti
 
 export const $UniRefund_Shared_ContactInfo_Enums_TelephoneType = {
     enum: ['UNKNOWN', 'HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
-    type: 'string'
-} as const;
-
-export const $UniRefund_TagService_Tags_Enums_RefundType = {
-    enum: ['Cash', 'CreditCard', 'BankTransfer', 'Wallet', 'CashViaPartner', 'IbanTransfer'],
     type: 'string'
 } as const;
 
@@ -796,14 +813,14 @@ export const $UniRefund_TravellerService_Telephones_TelephoneDto = {
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
-    required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
+    required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         id: {
             type: 'string',
             format: 'uuid'
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         },
@@ -907,14 +924,14 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
         travellerDocuments: {
             type: 'array',
             items: {
-                required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
+                required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
                         type: 'string',
                         format: 'uuid'
                     },
-                    travelDocumentNumber: {
+                    travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
                     },

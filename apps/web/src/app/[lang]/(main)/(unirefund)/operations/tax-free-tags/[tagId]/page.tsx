@@ -140,7 +140,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
               },
               {
                 name: languageData.DocumentNo,
-                value: tagDetail.traveller?.travelDocumentNumber || "",
+                value: tagDetail.traveller?.travellerDocumentNumber || "",
               },
               {
                 name: languageData.Residences,

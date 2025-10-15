@@ -337,7 +337,7 @@ export class TravellerService {
     /**
      * **Requires permissions:** TravellerService.Travellers, TravellerService.Travellers.ViewList
      * @param data The data for the request.
-     * @param data.travelDocumentNumber
+     * @param data.travellerDocumentNumber
      * @param data.fullName
      * @param data.phoneNumber
      * @param data.email
@@ -356,7 +356,7 @@ export class TravellerService {
             method: 'GET',
             url: '/api/traveller-service/travellers',
             query: {
-                TravelDocumentNumber: data.travelDocumentNumber,
+                TravellerDocumentNumber: data.travellerDocumentNumber,
                 FullName: data.fullName,
                 PhoneNumber: data.phoneNumber,
                 Email: data.email,

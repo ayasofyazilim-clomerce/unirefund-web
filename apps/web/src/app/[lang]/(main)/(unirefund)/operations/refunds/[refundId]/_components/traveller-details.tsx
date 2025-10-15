@@ -69,13 +69,13 @@ function TravellerPersonalIdentifications({
       {personalIdentifications.map((identification) => (
         <AccordionItem
           className="border-none [&>div]:-mt-4"
-          key={identification.travelDocumentNumber}
-          value={identification.travelDocumentNumber || ""}>
+          key={identification.travellerDocumentNumber}
+          value={identification.travellerDocumentNumber || ""}>
           <AccordionTrigger className="rounded-md border px-2" data-testid="traveller-accordion-trigger">
             <IconWithTitle
               classNames={{icon: "size-4", title: "text-sm font-normal"}}
               icon={IdCard}
-              title={identification.travelDocumentNumber || ""}
+              title={identification.travellerDocumentNumber || ""}
             />
           </AccordionTrigger>
           <AccordionContent className="rounded-b-md border border-t-0 p-2 pt-6">
@@ -111,7 +111,7 @@ function TravellerPersonalIdentification({
               className="font-semibold text-blue-500"
               data-testid="traveller-personal-identification-link"
               href={`${travellerLink}/${identification.id}`}>
-              {identification.travelDocumentNumber}
+              {identification.travellerDocumentNumber}
             </Link>
           }
           text="Travel document number"

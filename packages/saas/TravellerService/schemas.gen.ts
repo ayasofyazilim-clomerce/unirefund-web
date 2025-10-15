@@ -2780,7 +2780,7 @@ export const $UniRefund_TravellerService_Telephones_TelephoneUpSertDto = {
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocumentDto = {
-    required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+    required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         firstName: {
@@ -2791,7 +2791,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocum
             minLength: 1,
             type: 'string'
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         },
@@ -2846,7 +2846,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_CreateTravellerDocum
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto = {
-    required: ['expirationDate', 'firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber', 'travellerId'],
+    required: ['expirationDate', 'firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber', 'travellerId'],
     type: 'object',
     properties: {
         travellerId: {
@@ -2866,7 +2866,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto
             nullable: true,
             readOnly: true
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         },
@@ -2909,14 +2909,14 @@ export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentDto
 } as const;
 
 export const $UniRefund_TravellerService_TravellerDocuments_TravellerDocumentProfileDto = {
-    required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
+    required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         id: {
             type: 'string',
             format: 'uuid'
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         },
@@ -2979,7 +2979,7 @@ export const $UniRefund_TravellerService_TravellerDocuments_UpdateTravellerDocum
             format: 'uuid',
             nullable: true
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             type: 'string',
             nullable: true
         },
@@ -3086,7 +3086,7 @@ Must match one of the ABP-configured languages returned by \`ILanguageProvider\`
             type: 'string'
         },
         travellerDocument: {
-            required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+            required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber'],
             type: 'object',
             properties: {
                 firstName: {
@@ -3097,7 +3097,7 @@ Must match one of the ABP-configured languages returned by \`ILanguageProvider\`
                     minLength: 1,
                     type: 'string'
                 },
-                travelDocumentNumber: {
+                travellerDocumentNumber: {
                     minLength: 1,
                     type: 'string'
                 },
@@ -3192,7 +3192,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
         travellerDocuments: {
             type: 'array',
             items: {
-                required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+                required: ['firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     firstName: {
@@ -3203,7 +3203,7 @@ export const $UniRefund_TravellerService_Travellers_CreateTravellerWithComponent
                         minLength: 1,
                         type: 'string'
                     },
-                    travelDocumentNumber: {
+                    travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
                     },
@@ -3378,14 +3378,14 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
         travellerDocuments: {
             type: 'array',
             items: {
-                required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travelDocumentNumber'],
+                required: ['expirationDate', 'firstName', 'id', 'identificationType', 'lastName', 'nationalityCountryCode2', 'nationalityCountryName', 'residenceCountryCode2', 'residenceCountryName', 'travellerDocumentNumber'],
                 type: 'object',
                 properties: {
                     id: {
                         type: 'string',
                         format: 'uuid'
                     },
-                    travelDocumentNumber: {
+                    travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
                     },
@@ -3530,14 +3530,18 @@ export const $UniRefund_TravellerService_Travellers_TravellerDetailProfileDto = 
     additionalProperties: false
 } as const;
 
-export const $UniRefund_TravellerService_Travellers_TravellerDocumentNumberDto = {
+export const $UniRefund_TravellerService_Travellers_TravellerDocumentInfoDto = {
     type: 'object',
     properties: {
         id: {
             type: 'string',
             format: 'uuid'
         },
-        travelDocumentNumber: {
+        travellerDocumentId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        travellerDocumentNumber: {
             type: 'string',
             nullable: true
         }
@@ -3555,7 +3559,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDto = {
         travellerDocuments: {
             type: 'array',
             items: {
-                required: ['expirationDate', 'firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber', 'travellerId'],
+                required: ['expirationDate', 'firstName', 'identificationType', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber', 'travellerId'],
                 type: 'object',
                 properties: {
                     travellerId: {
@@ -3575,7 +3579,7 @@ export const $UniRefund_TravellerService_Travellers_TravellerDto = {
                         nullable: true,
                         readOnly: true
                     },
-                    travelDocumentNumber: {
+                    travellerDocumentNumber: {
                         minLength: 1,
                         type: 'string'
                     },
@@ -3834,7 +3838,7 @@ export const $UniRefund_TravellerService_Travellers_UpdateTravellerDto = {
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto = {
-    required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travelDocumentNumber'],
+    required: ['firstName', 'lastName', 'nationalityCountryCode2', 'residenceCountryCode2', 'travellerDocumentNumber'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -3848,7 +3852,7 @@ export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto =
             format: 'uuid',
             nullable: true
         },
-        travelDocumentNumber: {
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         },
@@ -3890,7 +3894,7 @@ export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentDto =
 } as const;
 
 export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentResponseDto = {
-    required: ['id', 'travelDocumentNumber'],
+    required: ['travellerDocumentId', 'travellerDocumentNumber', 'travellerId'],
     type: 'object',
     properties: {
         extraProperties: {
@@ -3899,11 +3903,15 @@ export const $UniRefund_TravellerService_Travellers_UpsertTravellerDocumentRespo
             nullable: true,
             readOnly: true
         },
-        id: {
+        travellerId: {
             type: 'string',
             format: 'uuid'
         },
-        travelDocumentNumber: {
+        travellerDocumentId: {
+            type: 'string',
+            format: 'uuid'
+        },
+        travellerDocumentNumber: {
             minLength: 1,
             type: 'string'
         }

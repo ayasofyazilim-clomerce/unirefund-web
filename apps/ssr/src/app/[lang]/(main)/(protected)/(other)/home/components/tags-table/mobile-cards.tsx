@@ -3,7 +3,7 @@ import {formatCurrency} from "@repo/ui/utils";
 import {ChevronRight, Store, Tag, User} from "lucide-react";
 import type {SSRServiceResource} from "src/language-data/unirefund/SSRService";
 import {StatusBadge} from "./status-badge";
-import {formatDate, getAmountByType, type TagRowData, type TagItem} from "./types";
+import {formatDate, type TagItem, type TagRowData} from "./types";
 
 // Mobile cards component
 export function TagsMobileCards({
@@ -34,10 +34,12 @@ function TagMobileCard({
   onTagClick: (tagId: string) => void;
   languageData: SSRServiceResource;
 }) {
+  const currency = tag.currency || "USD";
+
   const tagRowData: TagRowData = {
-    salesAmount: getAmountByType(tag.totals, "SalesAmount"),
-    vatAmount: getAmountByType(tag.totals, "VatAmount"),
-    grossRefund: getAmountByType(tag.totals, "GrossRefund"),
+    salesAmount: {amount: tag.salesAmount || 0, currency},
+    vatAmount: {amount: tag.vatAmount || 0, currency},
+    grossRefund: {amount: tag.grossRefund || 0, currency},
   };
 
   return (
@@ -149,7 +151,9 @@ function FinancialDetails({tagRowData, languageData}: {tagRowData: TagRowData; l
           <div className={`rounded-lg ${bgColor} p-2 text-center`} key={label}>
             <div className={`mb-1 text-xs font-medium ${labelColor}`}>{label}</div>
             {amount ? (
-              <div className={`truncate text-sm font-bold ${valueColor}`}>{formatCurrency(amount.amount)}</div>
+              <div className={`truncate text-sm font-bold ${valueColor}`}>
+                {formatCurrency("tr-TR", amount.currency, amount.amount)}
+              </div>
             ) : (
               <div className="text-sm font-bold text-gray-400">{languageData["N/A"]}</div>
             )}

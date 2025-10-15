@@ -119,5 +119,11 @@
 
   "Continue": "Continue",
   "TransactionSelected": "transaction selected",
+  "SearchTravellerToSeeTags": "Please search traveller document number to see tags.",
+  "NoTravellerFound": "No traveller found.",
+  "NoPaymentMethodExistsForSelectedRefundPoint": "No payment method exists for selected refund point.",
+
+  "SelectARefundPoint": "Select a refund point.",
+
   "NoTransactionsFromDifferentTravellers": "You can not have transactions from different travellers in the same refund."
 }

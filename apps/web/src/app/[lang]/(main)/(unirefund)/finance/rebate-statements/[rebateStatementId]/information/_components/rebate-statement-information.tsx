@@ -3,6 +3,7 @@ import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {UniRefund_FinanceService_RebateStatementHeaders_RebateStatementHeaderDetailDto} from "@repo/saas/FinanceService";
 import {useGrantedPolicies} from "@repo/utils/policies";
+import {formatCurrency} from "@repo/ui/utils";
 import {useTenant} from "@/providers/tenant";
 import {dateToString} from "@/app/[lang]/(main)/(unirefund)/operations/_components/utils";
 import type {FinanceServiceResource} from "src/language-data/unirefund/FinanceService";
@@ -32,18 +33,10 @@ export default function RebateStatementInformation({
 }) {
   const {grantedPolicies} = useGrantedPolicies();
 
-  const {localization} = useTenant();
+  const {localization, currency} = useTenant();
 
   const columns = tableData.rebateInformation.columns(localization, languageData, grantedPolicies);
   const table = tableData.rebateInformation.table();
-
-  const formatCurrency = (value: number | undefined) => {
-    if (value === undefined) return "-";
-    return new Intl.NumberFormat("tr-TR", {
-      style: "currency",
-      currency: "EUR",
-    }).format(value);
-  };
 
   const getStatusColor = (status: string | undefined) => {
     if (!status) return "text-gray-600";
@@ -92,7 +85,7 @@ export default function RebateStatementInformation({
             <InformationItem
               highlight
               label={languageData["RebateStatement.Total"]}
-              value={formatCurrency(rebateStatementData.totalAmount)}
+              value={formatCurrency(localization.locale, currency, rebateStatementData.totalAmount)}
             />
             <InformationItem
               label={languageData["RebateStatement.RebateStatementDate"]}
