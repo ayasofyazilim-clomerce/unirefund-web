@@ -80,12 +80,14 @@ function RefundFilters({
 
   function handleSearchTraveller() {
     if (!travellerDocumentNumber) return;
-    if (travellerDocumentNumber === searchParams.get("travellerDocumentNumber") && travellerResponse) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (travellerDocumentNumber === params.get("travellerDocumentNumber") && travellerResponse) {
       setSearchTravellerDocumentNumberVisible(false);
       return;
     }
+    params.set("travellerDocumentNumber", travellerDocumentNumber);
     startTransition(() => {
-      router.push(`?travellerDocumentNumber=${travellerDocumentNumber}`);
+      router.push(`?${params.toString()}`);
     });
   }
   return (
