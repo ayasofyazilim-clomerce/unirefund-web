@@ -12,7 +12,7 @@ function ProfileMenu() {
     <NavbarDropdown
       title={profileMenu.menuTitle}
       hideChevron={true}
-      triggerContent={<img className="h-8 w-8 rounded-full" src={profileMenu?.info.image} alt="user photo" />}
+      triggerContent={<img className="h-8 min-w-8 w-8 rounded-full" src={profileMenu?.info.image} alt="user photo" />}
       dropdownContent={
         <>
           <div className="px-4 py-3">

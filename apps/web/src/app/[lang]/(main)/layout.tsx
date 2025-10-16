@@ -195,7 +195,7 @@ export default async function Layout({children, params}: LayoutProps) {
   const logo = appName === "UNIREFUND" ? unirefund : undefined;
   return (
     <Providers lang={lang}>
-      <main className="m-0 grid h-dvh grid-rows-[102px_1fr] overflow-hidden bg-white transition-all">
+      <main className="m-0 grid h-dvh grid-rows-[max-content_1fr] overflow-hidden bg-white transition-all">
         <MainAdminLayout
           appName={appName}
           baseURL={baseURL}

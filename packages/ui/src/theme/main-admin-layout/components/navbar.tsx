@@ -85,8 +85,8 @@ export default function Navbar({
   const { languagesList } = useTheme();
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
-      <nav className="bg-white py-2.5">
-        <div className="flex flex-wrap items-center justify-between">
+      <nav className="bg-white py-2.5 border-b">
+        <div className="flex flex-wrap items-center justify-between gap-y-2">
           <div className="flex items-center justify-start">
             <Logo />
             {tenantData && (
@@ -110,7 +110,7 @@ export default function Navbar({
               </>
             )}
           </div>
-          <div className="flex items-center gap-1 md:gap-2 lg:order-2">
+          <div className="flex justify-end items-center gap-1 md:gap-2 lg:order-2 w-full max-w-full sm:max-w-52 lg:max-w-2xl">
             <SearchBar navbarItems={navbarItems} prefix={prefix} searchFromDB={searchFromDB || []} />
             <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-1 md:hidden">
               <Menu size={20} />
@@ -123,9 +123,8 @@ export default function Navbar({
         </div>
       </nav>
       <div
-        className={`flex flex-col items-start justify-between border-y border-gray-200 bg-white py-1 md:flex-row md:items-center ${isMobileMenuOpen ? "block" : "hidden md:flex"}`}>
+        className={`flex flex-col items-start justify-between border-y border-gray-200 bg-white py-1 md:flex-row md:items-center ${isMobileMenuOpen ? "block border-t-0" : "hidden md:flex"}`}>
         <BreadcrumbNavigation navigation={navigation} navbarItems={navbarItems} />
-        <SearchBar navbarItems={navbarItems} prefix={prefix} searchFromDB={searchFromDB || []} />
       </div>
     </div>
   );
