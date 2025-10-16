@@ -57,7 +57,7 @@ function LanguageSelector({ lang,
               alt={selectedLanguage?.displayName}
             />
           )}
-          <span className="hidden md:block">{selectedLanguage?.displayName}</span>
+          <span className="uppercase">{selectedLanguage?.cultureName}</span>
         </div>
       }
       dropdownContent={

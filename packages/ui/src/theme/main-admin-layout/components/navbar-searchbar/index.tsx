@@ -242,23 +242,17 @@ function SearchBar({
     <div className="w-full md:w-auto">
       <Button
         variant="outline"
-        className="text-muted-foreground relative rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 w-full md:w-auto md:w-96"
+        className="text-muted-foreground relative rounded-lg border border-gray-300 bg-gray-50 py-1 pl-10 text-sm ring-0 focus:outline-none focus-visible:ring-0 w-full md:w-96"
         onClick={() => setSearchOpen(true)}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-xs">
           <Search className="mr-2 size-4 text-gray-500" />
-          Search...
+          <span className="hidden md:block">Search...</span>
+          <span className="sr-only">Search...</span>
         </div>
         <kbd className="bg-muted text-muted-foreground pointer-events-none absolute bottom-0 right-2 top-0 m-auto inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
-
-      {/* Small Screen */}
-      <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)} className="text-muted-foreground p-0 md:hidden">
-        <Search className="size-6 text-gray-500" />
-      </Button>
-
-      {/* Dialog */}
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogTitle></DialogTitle>
         <Command filter={filterNavItems}>
