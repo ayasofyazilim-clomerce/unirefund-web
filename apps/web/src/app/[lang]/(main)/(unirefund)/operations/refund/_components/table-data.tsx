@@ -1,9 +1,14 @@
-import type {TanstackTableCreationProps} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
+import type {
+  TanstackTableColumnLink,
+  TanstackTableCreationProps,
+} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
 import type {UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import {$UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import {formatCurrency} from "@repo/ui/utils";
 import type {Dispatch, SetStateAction} from "react";
+import type {Policy} from "@repo/utils/policies";
+import {isActionGranted} from "@repo/utils/policies";
 import type {Localization} from "@/providers/tenant";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 
@@ -15,8 +20,16 @@ const taxFreeTagsColumns = (
   localization: Localization,
   languageData: TagServiceResource,
   setSelectedRows: Dispatch<SetStateAction<UniRefund_TagService_Tags_TagListItemDto[]>>,
-) =>
-  tanstackTableCreateColumnsByRowData<UniRefund_TagService_Tags_TagListItemDto>({
+  grantedPolicies: Record<Policy, boolean>,
+) => {
+  const links: Partial<Record<keyof UniRefund_TagService_Tags_TagListItemDto, TanstackTableColumnLink>> = {};
+  if (isActionGranted(["TagService.Tags", "TagService.Tags.Detail", "TagService.Tags.View"], grantedPolicies)) {
+    links.tagNumber = {
+      prefix: `/${localization.lang}/operations/tax-free-tags`,
+      targetAccessorKey: "id",
+    };
+  }
+  return tanstackTableCreateColumnsByRowData<UniRefund_TagService_Tags_TagListItemDto>({
     rows: $UniRefund_TagService_Tags_TagListItemDto.properties,
     custom: {
       tagNumber: {
@@ -33,31 +46,49 @@ const taxFreeTagsColumns = (
       salesAmount: {
         showHeader: true,
         content(row) {
-          return formatCurrency(localization.locale, row.currency || "USD", row.salesAmount || 0);
+          return (
+            <div className="ml-auto">
+              {formatCurrency(localization.locale, row.currency || "USD", row.salesAmount || 0)}
+            </div>
+          );
         },
       },
       vatAmount: {
         showHeader: true,
         content(row) {
-          return formatCurrency(localization.locale, row.currency || "USD", row.vatAmount || 0);
+          return (
+            <div className="ml-auto">
+              {formatCurrency(localization.locale, row.currency || "USD", row.vatAmount || 0)}
+            </div>
+          );
         },
       },
       grossRefund: {
         showHeader: true,
         content(row) {
-          return formatCurrency(localization.locale, row.currency || "USD", row.grossRefund || 0);
+          return (
+            <div className="ml-auto">
+              {formatCurrency(localization.locale, row.currency || "USD", row.grossRefund || 0)}
+            </div>
+          );
         },
       },
       refundFee: {
         showHeader: true,
         content(row) {
-          return formatCurrency(localization.locale, row.currency || "USD", row.refundFee || 0);
+          return (
+            <div className="ml-auto">
+              {formatCurrency(localization.locale, row.currency || "USD", row.refundFee || 0)}
+            </div>
+          );
         },
       },
       refund: {
         showHeader: true,
         content(row) {
-          return formatCurrency(localization.locale, row.currency || "USD", row.refund || 0);
+          return (
+            <div className="ml-auto">{formatCurrency(localization.locale, row.currency || "USD", row.refund || 0)}</div>
+          );
         },
       },
     },
@@ -78,12 +109,7 @@ const taxFreeTagsColumns = (
       invoiceNumber: languageData.InvoiceNumber,
     },
     localization,
-    links: {
-      tagNumber: {
-        prefix: `/${localization.lang}/operations/tax-free-tags`,
-        targetAccessorKey: "id",
-      },
-    },
+    links,
     selectableRows: true,
     onSelectedRowChange: (selectedRows) => {
       setSelectedRows(selectedRows);
@@ -124,6 +150,7 @@ const taxFreeTagsColumns = (
       },
     },
   });
+};
 
 function taxFreeTagsTable(): RefundsTable {
   const table: RefundsTable = {

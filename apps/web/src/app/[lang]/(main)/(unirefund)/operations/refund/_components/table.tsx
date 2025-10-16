@@ -3,6 +3,7 @@
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
 import type {PagedResultDto_TagListItemDto, UniRefund_TagService_Tags_TagListItemDto} from "@repo/saas/TagService";
 import type {Dispatch, SetStateAction} from "react";
+import {useGrantedPolicies} from "@repo/utils/policies";
 import type {Localization} from "@/providers/tenant";
 import type {TagServiceResource} from "src/language-data/unirefund/TagService";
 import {tableData} from "./table-data";
@@ -18,7 +19,8 @@ function RefundTable({
   languageData: TagServiceResource;
   setSelectedRows: Dispatch<SetStateAction<UniRefund_TagService_Tags_TagListItemDto[]>>;
 }) {
-  const columns = tableData.taxFreeTags.columns(localization, languageData, setSelectedRows);
+  const {grantedPolicies} = useGrantedPolicies();
+  const columns = tableData.taxFreeTags.columns(localization, languageData, setSelectedRows, grantedPolicies);
   const table = tableData.taxFreeTags.table();
 
   return <TanstackTable {...table} columns={columns} data={response.items || []} rowCount={response.totalCount} />;

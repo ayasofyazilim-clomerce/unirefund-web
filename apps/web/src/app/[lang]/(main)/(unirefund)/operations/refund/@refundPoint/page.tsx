@@ -26,31 +26,34 @@ async function Page({
     ? session.user.RefundPointId[0]
     : session?.user?.RefundPointId;
 
+  if (!refundPointId) {
+    return <div className="m-4">No accessible refund points. Please contact your administrator.</div>;
+  }
   const travellerResponse = travellerDocumentNumber
     ? await getTravellersApi({
         travellerDocumentNumber,
       }).then((res) => res.data.items?.[0])
     : undefined;
 
-  const paymentTypesResponse = refundPointId ? await getPaymentTypesByRefundPointIdApi(refundPointId) : undefined;
+  const paymentTypesResponse = await getPaymentTypesByRefundPointIdApi(refundPointId);
 
-  const tagResponse =
-    status && refundPointId
-      ? await getRefundableTagsApi({
-          refundPointId,
-          refundType,
-          travellerDocumentNumber,
-          isExportValidated: status !== "need-validation",
-          tagIds: tagIds ? [tagIds] : undefined,
-          maxResultCount: 100,
-        })
-      : undefined;
+  const tagResponse = status
+    ? await getRefundableTagsApi({
+        refundPointId,
+        refundType,
+        travellerDocumentNumber,
+        isExportValidated: status !== "need-validation",
+        tagIds: tagIds ? [tagIds] : undefined,
+        maxResultCount: 100,
+      })
+    : undefined;
 
   return (
     <ClientPage
       accessibleRefundPoints={[]}
       languageData={languageData}
-      paymentTypesResponse={paymentTypesResponse?.type === "success" ? paymentTypesResponse.data : undefined}
+      paymentTypesResponse={paymentTypesResponse.type === "success" ? paymentTypesResponse.data : undefined}
+      refundPointId={refundPointId}
       tagResponse={tagResponse?.type === "success" ? tagResponse.data : undefined}
       travellerResponse={travellerResponse}
     />

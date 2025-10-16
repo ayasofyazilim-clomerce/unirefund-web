@@ -3,6 +3,7 @@ import {getRefundPointsApi} from "@repo/actions/unirefund/CrmService/actions";
 import {getRefundableTagsApi} from "@repo/actions/unirefund/TagService/actions";
 import {getTravellersApi} from "@repo/actions/unirefund/TravellerService/actions";
 import type {UniRefund_ContractService_Enums_RefundMethod} from "@repo/saas/ContractService";
+import {redirect} from "next/navigation";
 import {getResourceData} from "@/language-data/unirefund/TagService";
 import {ClientPage} from "../client-page";
 
@@ -23,6 +24,14 @@ async function Page({
   const {languageData} = await getResourceData(params.lang);
 
   const accessibleRefundPoints = await getRefundPointsApi().then((res) => res.data.items || []);
+
+  if (accessibleRefundPoints.length === 0) {
+    return <div className="m-4">No accessible refund points. Please contact your administrator.</div>;
+  }
+
+  if (refundPointId && !accessibleRefundPoints.find((i) => i.id === refundPointId)) {
+    return redirect(`/${params.lang}/operations/refund`);
+  }
 
   const travellerResponse = travellerDocumentNumber
     ? await getTravellersApi({
@@ -49,6 +58,7 @@ async function Page({
       accessibleRefundPoints={accessibleRefundPoints}
       languageData={languageData}
       paymentTypesResponse={paymentTypesResponse?.type === "success" ? paymentTypesResponse.data : undefined}
+      refundPointId={refundPointId}
       tagResponse={tagResponse?.type === "success" ? tagResponse.data : undefined}
       travellerResponse={travellerResponse}
     />
