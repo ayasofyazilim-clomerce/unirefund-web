@@ -15,76 +15,88 @@ export function createRefundTableFormSchemas({languageData}: {languageData?: Con
     }[],
     ctx: z.RefinementCtx,
   ) => {
-    // Individual row validations
-    details.forEach((detail, index) => {
-      const basePath = ["refundTableDetails", index];
-      if (index === 0 && detail.minValue !== 0) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: languageData
-            ? languageData["RefundTable.Form.refundTableDetails.firstRowMustStartFromZero"]
-            : "First row must start from 0",
-          path: [...basePath, "minValue"],
-        });
-      }
-      const sorted = [...details].sort((a, b) => a.minValue - b.minValue);
-      const currentIndex = sorted.findIndex(
-        (row) => row.minValue === detail.minValue && row.maxValue === detail.maxValue,
-      );
+    // Group details by vatRate
+    const groupedByVatRate = details.reduce<Record<number, typeof details>>((acc, detail) => {
+      acc[detail.vatRate].push(detail);
+      return acc;
+    }, {});
 
-      if (currentIndex > 0) {
-        const previousRow = sorted[currentIndex - 1];
-        if (detail.minValue !== previousRow.maxValue) {
+    // Validate each VAT rate group separately
+    Object.entries(groupedByVatRate).forEach(([, group]) => {
+      // Sort group by minValue
+      const sorted = [...group].sort((a, b) => a.minValue - b.minValue);
+
+      sorted.forEach((detail, groupIndex) => {
+        // Find the original index in the full details array
+        const originalIndex = details.findIndex((d) => d === detail);
+        const basePath = ["refundTableDetails", originalIndex];
+
+        // First row of each VAT rate group must start from 0
+        if (groupIndex === 0 && detail.minValue !== 0) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: replacePlaceholders(
-              languageData
-                ? languageData["RefundTable.Form.refundTableDetails.minValueMustBe{0}toContinueFromPreviousRow"]
-                : "Min value must be {0} to continue from previous row.",
-              [
-                {
-                  holder: "{0}",
-                  replacement: previousRow.maxValue,
-                },
-              ],
-            ).join(""),
+            message: languageData
+              ? languageData["RefundTable.Form.refundTableDetails.firstRowMustStartFromZero"]
+              : "First row must start from 0",
             path: [...basePath, "minValue"],
           });
         }
-      }
 
-      // maxValue must be greater than minValue
-      if (detail.maxValue <= detail.minValue) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: languageData
-            ? languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanMinValue"]
-            : "Max value must be greater than min value",
-          path: [...basePath, "maxValue"],
-        });
-      }
+        // Check continuity within the same VAT rate group
+        if (groupIndex > 0) {
+          const previousRow = sorted[groupIndex - 1];
+          if (detail.minValue !== previousRow.maxValue) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: replacePlaceholders(
+                languageData
+                  ? languageData["RefundTable.Form.refundTableDetails.minValueMustBe{0}toContinueFromPreviousRow"]
+                  : "Min value must be {0} to continue from previous row.",
+                [
+                  {
+                    holder: "{0}",
+                    replacement: previousRow.maxValue,
+                  },
+                ],
+              ).join(""),
+              path: [...basePath, "minValue"],
+            });
+          }
+        }
 
-      // maxValue must be greater than refundAmount
-      if (detail.maxValue <= detail.refundAmount) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: languageData
-            ? languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanRefundAmount"]
-            : "Max value must be greater than refund amount",
-          path: [...basePath, "maxValue"],
-        });
-      }
+        // maxValue must be greater than minValue
+        if (detail.maxValue <= detail.minValue) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: languageData
+              ? languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanMinValue"]
+              : "Max value must be greater than min value",
+            path: [...basePath, "maxValue"],
+          });
+        }
 
-      // refundPercent must be lower than vatRate
-      if (detail.refundPercent >= detail.vatRate) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: languageData
-            ? languageData["RefundTable.Form.refundTableDetails.refundPercentMustBeLowerThanVatRate"]
-            : "Refund percent must be lower than VAT rate",
-          path: [...basePath, "refundPercent"],
-        });
-      }
+        // maxValue must be greater than refundAmount
+        if (detail.maxValue <= detail.refundAmount) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: languageData
+              ? languageData["RefundTable.Form.refundTableDetails.maxValueMustBeGreaterThanRefundAmount"]
+              : "Max value must be greater than refund amount",
+            path: [...basePath, "maxValue"],
+          });
+        }
+
+        // refundPercent must be lower than vatRate
+        if (detail.refundPercent >= detail.vatRate) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: languageData
+              ? languageData["RefundTable.Form.refundTableDetails.refundPercentMustBeLowerThanVatRate"]
+              : "Refund percent must be lower than VAT rate",
+            path: [...basePath, "refundPercent"],
+          });
+        }
+      });
     });
   };
 

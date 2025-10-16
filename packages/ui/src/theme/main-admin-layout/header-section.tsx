@@ -104,20 +104,19 @@ export function HeaderSection({ children }: { children: React.ReactNode }) {
     });
   }, [pathName]);
 
-  return (
-    <div className="flex flex-col gap-2 sm:gap-3 px-2 sm:px-4 md:px-8 lg:px-16">
-      <Navbar
-        navbarItems={navbarItems}
-        navigation={breadcrumbItems}
-        prefix={prefix}
-        lang={lang}
-        tenantData={tenantData}
-        notification={notification}
-        searchFromDB={searchFromDB}
-      >
-        {children}
-      </Navbar>
-      {/* {pathName.split(lang + "/")[1] !== "unauthorized" && (
+  return (<div className="flex flex-col gap-2 sm:gap-3 px-2 sm:px-4 md:px-8 lg:px-16">
+    <Navbar
+      navbarItems={navbarItems}
+      navigation={breadcrumbItems}
+      prefix={prefix}
+      lang={lang}
+      tenantData={tenantData}
+      notification={notification}
+      searchFromDB={searchFromDB}
+    >
+      {children}
+    </Navbar>
+    {/* {pathName.split(lang + "/")[1] !== "unauthorized" && (
         <PageHeader
           title={pageHeaderProps.title}
           description={pageHeaderProps.description}
@@ -125,7 +124,7 @@ export function HeaderSection({ children }: { children: React.ReactNode }) {
           href={pageHeaderProps.href}
         />
       )} */}
-    </div>
+  </div>
   );
 }
 

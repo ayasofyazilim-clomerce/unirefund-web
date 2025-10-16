@@ -1,8 +1,8 @@
 "use client";
 
-import {IdCardIcon} from "@radix-ui/react-icons";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/ayasofyazilim-ui/atoms/tooltip";
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
+import { IdCardIcon } from "@radix-ui/react-icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ayasofyazilim-ui/atoms/tooltip";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
 
 import {
   BookA,
@@ -51,14 +51,15 @@ import {
   User,
   WalletCards,
 } from "lucide-react";
-import {useState} from "react";
-import {NotificationPopover, NotificationProps} from "../../../notification";
+import { useState } from "react";
+import { NotificationPopover, NotificationProps } from "../../../notification";
 import BreadcrumbNavigation from "./breadcrumb";
 import LanguageSelector from "./language-selector";
 import Logo from "./logo";
-import SearchBar, {type SearchFromDB} from "./navbar-searchbar";
+import SearchBar, { type SearchFromDB } from "./navbar-searchbar";
 import ProfileMenu from "./profile-menu";
-import {useTheme} from "../../../providers/theme";
+import { useTheme } from "../../../providers/theme";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
 
 export default function Navbar({
   prefix,
@@ -74,18 +75,18 @@ export default function Navbar({
   lang: string;
   navbarItems: NavbarItemsFromDB[];
   navigation: BreadcrumbItemType[];
-  tenantData?: {tenantId: string; tenantName: string};
+  tenantData?: { tenantId: string; tenantName: string };
   notification?: NotificationProps;
   searchFromDB?: SearchFromDB[];
   children?: React.ReactNode;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const {languagesList} = useTheme();
+  const { languagesList } = useTheme();
   return (
     <div className="sticky left-0 right-0 top-0 z-50">
-      <nav className="bg-white py-2.5">
-        <div className="flex flex-wrap items-center justify-between">
+      <nav className="bg-white py-2.5 border-b">
+        <div className="flex flex-wrap items-center justify-between gap-y-2">
           <div className="flex items-center justify-start">
             <Logo />
             {tenantData && (
@@ -109,21 +110,21 @@ export default function Navbar({
               </>
             )}
           </div>
-          <div className="flex items-center gap-1 md:gap-2 lg:order-2">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-1 md:hidden">
+          <div className="flex justify-end items-center gap-1 md:gap-2 lg:order-2 w-full max-w-full sm:max-w-52 lg:max-w-2xl">
+            <SearchBar navbarItems={navbarItems} prefix={prefix} searchFromDB={searchFromDB || []} />
+            <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-1 md:hidden">
               <Menu size={20} />
-            </button>
+            </Button>
             {children}
-            <LanguageSelector lang={lang} showEarthIcon={true} languagesList={languagesList || []} />
+            <LanguageSelector lang={lang} languagesList={languagesList || []} />
             {notification && <NotificationPopover {...notification} />}
             <ProfileMenu />
           </div>
         </div>
       </nav>
       <div
-        className={`flex flex-col items-start justify-between border-y border-gray-200 bg-white py-1 md:flex-row md:items-center ${isMobileMenuOpen ? "block" : "hidden md:flex"}`}>
+        className={`flex flex-col items-start justify-between border-y border-gray-200 bg-white py-1 md:flex-row md:items-center ${isMobileMenuOpen ? "block border-t-0" : "hidden md:flex"}`}>
         <BreadcrumbNavigation navigation={navigation} navbarItems={navbarItems} />
-        <SearchBar navbarItems={navbarItems} prefix={prefix} searchFromDB={searchFromDB || []} />
       </div>
     </div>
   );

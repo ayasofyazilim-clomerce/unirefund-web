@@ -1,9 +1,9 @@
 "use client";
-import {ChevronDown} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
-import {Fragment} from "react";
-import {Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator} from "@repo/ayasofyazilim-ui/atoms/breadcrumb";
-import {Button} from "@repo/ayasofyazilim-ui/atoms/button";
+import { Fragment } from "react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@repo/ayasofyazilim-ui/atoms/breadcrumb";
+import { Button } from "@repo/ayasofyazilim-ui/atoms/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,15 +15,15 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@repo/ayasofyazilim-ui/atoms/dropdown-menu";
-import {BreadcrumbItemType, NavbarItemsFromDB} from "@repo/ui/theme/types";
-import {icons} from "../navbar";
-import {useRouter} from "next/navigation";
+import { BreadcrumbItemType, NavbarItemsFromDB } from "@repo/ui/theme/types";
+import { icons } from "../navbar";
+import { useRouter } from "next/navigation";
 
-function BreadcrumbIcon({item}: {item: NavbarItemsFromDB}) {
+function BreadcrumbIcon({ item }: { item: NavbarItemsFromDB }) {
   return icons[item.icon as keyof typeof icons] || null;
 }
 
-function RenderDropdownMenu({items, navbarItems}: {items: NavbarItemsFromDB[]; navbarItems: NavbarItemsFromDB[]}) {
+function RenderDropdownMenu({ items, navbarItems }: { items: NavbarItemsFromDB[]; navbarItems: NavbarItemsFromDB[] }) {
   const router = useRouter();
   return items.map((item) => {
     const subItems = navbarItems.filter((i) => i.href && i.parentNavbarItemKey === item.key);
@@ -83,22 +83,22 @@ export function BreadcrumbDropdown({
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className={`cursor-pointer px-2 text-gray-600 outline-none ring-0 focus-visible:ring-0 ${
-            isLastNavbarItem ? "bg-accent" : ""
-          }`}>
+          className={`cursor-pointer px-2 text-gray-600 outline-none ring-0 focus-visible:ring-0 ${isLastNavbarItem ? "bg-accent" : ""
+            }`}>
           <BreadcrumbIcon item={item} />
-          {item.displayName}
+          <span className="hidden sm:block">{item.displayName}</span>
+          <span className="sr-only">{item.displayName}</span>
           <ChevronDown className="ml-1 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" style={{zIndex: 1000}}>
+      <DropdownMenuContent align="start" style={{ zIndex: 1000 }}>
         <RenderDropdownMenu items={item.subNavbarItems || []} navbarItems={navbarItems} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function BreadcrumbSingleItem({item, isActive}: {item: BreadcrumbItemType; isActive: boolean}) {
+function BreadcrumbSingleItem({ item, isActive }: { item: BreadcrumbItemType; isActive: boolean }) {
   return (
     <Button variant="ghost" className={`cursor-pointer px-2 text-gray-600 ${isActive ? "bg-accent" : ""}`} asChild>
       <Link href={"/" + item.href || "#"} className="flex items-center gap-1 px-2 text-gray-600">

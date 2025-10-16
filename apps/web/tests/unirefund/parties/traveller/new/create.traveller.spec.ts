@@ -78,7 +78,7 @@ test("traveller form - stable random", async ({page}) => {
 
   await safeClick(by("root_travellerDocument_identificationType"));
   await safeClick(by("root_travellerDocument_identificationType_IdCard"));
-  await fillStable(page, by("root_travellerDocument_travelDocumentNumber"), randomDocNumber, {});
+  await fillStable(page, by("root_travellerDocument_travellerDocumentNumber"), randomDocNumber, {});
   await fillStable(page, by("root_travellerDocument_firstName"), randomFirstName, {});
   await fillStable(page, by("root_travellerDocument_lastName"), randomLastName, {});
   await fillDateInput(page, "root_travellerDocument_birthDate_calendar_input_1", {
