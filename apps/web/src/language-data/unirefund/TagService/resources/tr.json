@@ -125,5 +125,9 @@
   "SelectARefundPoint": "İade noktası seçin.",
   "NoPaymentMethodExistsForSelectedRefundPoint": "Seçili iade noktasının geçerli bir ödeme metodu yok.",
 
-  "NoTransactionsFromDifferentTravellers": "Tek bir iade işlemi içerisinde birden fazla yolcuya ait işlem seçilemez."
+  "NoTransactionsFromDifferentTravellers": "Tek bir iade işlemi içerisinde birden fazla yolcuya ait işlem seçilemez.",
+
+  "CreditCardNumber": "Kredi Kartı Numarası",
+  "CreditCardHolderName": "Kredi Kartı Sahibinin Adı",
+  "MonthYear": "Ay/Yıl"
 }

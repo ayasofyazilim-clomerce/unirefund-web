@@ -65,13 +65,13 @@ function PaymentForm({
       <div className="mt-4">
         <div className="grid w-full max-w-sm items-center gap-3">
           <Label data-testid="holder-name-label" htmlFor="holder-name">
-            Credit Card Holder Name
+            {languageData.CreditCardHolderName}
           </Label>
           <Input data-testid="holder-name-input" id="holder-name" placeholder="Name" type="text" />
         </div>
 
         <Label className="mb-2 mt-2 block text-sm font-medium" data-testid="card-number-label">
-          Credit Card Number
+          {languageData.CreditCardNumber}
         </Label>
         <InputOTP
           containerClassName="flex-wrap"
@@ -108,7 +108,7 @@ function PaymentForm({
           </div>
         </InputOTP>
         <Label className="mb-2 mt-2 block text-sm font-medium" data-testid="expiry-date-label">
-          Month/Year
+          {languageData.MonthYear}
         </Label>
         <InputOTP containerClassName="flex-wrap" maxLength={4} onChange={handleExpiryDateChange} value={expiryDate}>
           <InputOTPGroup className={`${validationError.expiryDate && "[&>div]:border-red-500"}`}>

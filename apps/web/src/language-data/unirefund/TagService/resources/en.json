@@ -125,5 +125,9 @@
 
   "SelectARefundPoint": "Select a refund point.",
 
-  "NoTransactionsFromDifferentTravellers": "You can not have transactions from different travellers in the same refund."
+  "NoTransactionsFromDifferentTravellers": "You can not have transactions from different travellers in the same refund.",
+
+  "CreditCardNumber": "Credit Card Number",
+  "CreditCardHolderName": "Credit Card Holder Name",
+  "MonthYear": "Month/Year"
 }
