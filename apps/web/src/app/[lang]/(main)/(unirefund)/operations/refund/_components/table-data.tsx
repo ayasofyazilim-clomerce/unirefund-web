@@ -22,8 +22,7 @@ const taxFreeTagsColumns = (
   setSelectedRows: Dispatch<SetStateAction<UniRefund_TagService_Tags_TagListItemDto[]>>,
   grantedPolicies: Record<Policy, boolean>,
 ) => {
-  const links: Partial<Record<keyof UniRefund_TagService_Tags_TagListItemDto, TanstackTableColumnLink>> | undefined =
-    {};
+  const links: Partial<Record<keyof UniRefund_TagService_Tags_TagListItemDto, TanstackTableColumnLink>> = {};
   if (isActionGranted(["TagService.Tags", "TagService.Tags.Detail", "TagService.Tags.View"], grantedPolicies)) {
     links.tagNumber = {
       prefix: `/${localization.lang}/operations/tax-free-tags`,
