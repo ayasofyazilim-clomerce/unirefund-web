@@ -120,6 +120,7 @@ export function PhoneForm({
         EditForm({row, lang, languageData, partyId, partyType, isPending, startTransition})
       }
       fillerColumn="normalizedPhoneNumber"
+      resizeable={false}
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Form.telephones"]}
