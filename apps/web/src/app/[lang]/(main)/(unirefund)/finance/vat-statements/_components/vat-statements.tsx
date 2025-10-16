@@ -137,7 +137,6 @@ function VatStatementDetails({
               <CircleHelp className="w-4 [[data-state=collapsed]_&]:ml-2" />
               <span>{languageData["Finance.statement"]}</span>
             </SidebarMenuButton>
-            {/* <span className="py-2 text-lg font-bold pl-2 md:pl-4">{languageData["Finance.statement"]}</span> */}
             <LabelValuePair
               icon={UserIcon}
               label={languageData["Finance.merchantId"]}
