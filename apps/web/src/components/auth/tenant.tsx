@@ -32,25 +32,44 @@ export function TenantSelection({
   const [tenantDialogOpen, setTenantDialogOpen] = useState(false);
   const [tenantSearchValue, setTenantSearchValue] = useState("");
   const [tenantName, setTenantName] = useState("");
-
+  function handleSaveTenant() {
+    startTransition(() => {
+      if (tenantSearchValue.length === 0) {
+        onTenantChange("");
+        setTenantName("");
+        setTenantDialogOpen(false);
+      } else {
+        void getTenantByNameApi(tenantSearchValue).then((res) => {
+          if (res.data.isActive) {
+            onTenantChange(res.data.tenantId || "");
+            setTenantName(res.data.name || "");
+            setTenantDialogOpen(false);
+          } else {
+            toast.error(languageData["Auth.tenant.error"]);
+          }
+        });
+      }
+    });
+  }
   return (
     <Dialog
       onOpenChange={(open) => {
         if (!isPending) setTenantDialogOpen(open);
       }}
       open={tenantDialogOpen}>
-      <div className="space-y-0.5">
+      <DialogTrigger className="w-full text-left" data-testid="open-tenant-form" disabled={isPending}>
         <span className="text-sm font-medium leading-none">{languageData["Auth.tenant"]}</span>
         <div className="flex h-9 items-center justify-between rounded-md border px-2">
           <span className={cn("max-w-full truncate text-sm", !tenantName && "text-muted-foreground")}>
             {tenantName ? tenantName : languageData["Auth.tenant.placeholder"]}
           </span>
-          <DialogTrigger data-testid="open-tenant-form" disabled={isPending}>
-            <Edit className="w-4 min-w-4" />
-          </DialogTrigger>
+          <Edit className="w-4 min-w-4" />
         </div>
-      </div>
-      <DialogContent>
+      </DialogTrigger>
+      <DialogContent
+        onKeyDown={(e) => {
+          if (e.code === "Enter") handleSaveTenant();
+        }}>
         <DialogHeader>
           <DialogTitle>{languageData["Auth.tenant.switch"]}</DialogTitle>
           <DialogDescription>{languageData["Auth.tenant.placeholder"]}</DialogDescription>
@@ -70,29 +89,7 @@ export function TenantSelection({
           />
         </div>
         <DialogFooter>
-          <Button
-            data-testid="save-tenant"
-            disabled={isPending}
-            onClick={() => {
-              startTransition(() => {
-                if (tenantSearchValue.length === 0) {
-                  onTenantChange("");
-                  setTenantName("");
-                  setTenantDialogOpen(false);
-                } else {
-                  void getTenantByNameApi(tenantSearchValue).then((res) => {
-                    if (res.data.isActive) {
-                      onTenantChange(res.data.tenantId || "");
-                      setTenantName(res.data.name || "");
-                      setTenantDialogOpen(false);
-                    } else {
-                      toast.error(languageData["Auth.tenant.error"]);
-                    }
-                  });
-                }
-              });
-            }}
-            type="button">
+          <Button data-testid="save-tenant" disabled={isPending} onClick={handleSaveTenant} type="button">
             {languageData["Auth.tenant.save"]}
           </Button>
         </DialogFooter>
