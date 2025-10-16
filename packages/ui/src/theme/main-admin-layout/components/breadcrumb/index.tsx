@@ -87,6 +87,7 @@ export function BreadcrumbDropdown({
             }`}>
           <BreadcrumbIcon item={item} />
           <span className="hidden sm:block">{item.displayName}</span>
+          <span className="sr-only">{item.displayName}</span>
           <ChevronDown className="ml-1 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
