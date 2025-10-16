@@ -13,22 +13,22 @@ import {useRouter, useSearchParams} from "next/navigation";
 import type {UniRefund_TravellerService_Travellers_TravellerListDto} from "node_modules/@ayasofyazilim/unirefund-saas-dev/TravellerService/types.gen";
 import {useEffect, useState} from "react";
 import type {TagServiceResource} from "@/language-data/unirefund/TagService";
+import {useRefund} from "../client-page";
+import PaymentForm from "./payment-form";
 
 function RefundFilters({
   travellerResponse,
   paymentTypesResponse,
-  isPending,
-  startTransition,
+
   languageData,
   accessibleRefundPoints,
 }: {
   languageData: TagServiceResource;
   travellerResponse?: UniRefund_TravellerService_Travellers_TravellerListDto;
   paymentTypesResponse?: UniRefund_ContractService_Enums_RefundMethod[];
-  isPending: boolean;
   accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointListResponseDto[];
-  startTransition: (arg0: () => void) => void;
 }) {
+  const {isPending, startTransition} = useRefund();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTravellerDocumentNumberVisible, setSearchTravellerDocumentNumberVisible] =
@@ -42,7 +42,7 @@ function RefundFilters({
   const [travellerDocumentNumber, setTravellerDocumentNumber] = useState<string>(
     searchParams.get("travellerDocumentNumber") || "",
   );
-  const [refundPointId, setRefundPointId] = useState<
+  const [selectedRefundPoint, setSelectedRefundPoint] = useState<
     UniRefund_CRMService_RefundPoints_RefundPointListResponseDto | null | undefined
   >(accessibleRefundPoints.find((i) => i.id === searchParams.get("refundPointId")) || null);
 
@@ -66,8 +66,8 @@ function RefundFilters({
     } else if (status !== searchParams.get("status")) {
       params.set("status", status || "export-validated");
     }
-    if (refundPointId?.id) {
-      params.set("refundPointId", refundPointId.id);
+    if (selectedRefundPoint?.id) {
+      params.set("refundPointId", selectedRefundPoint.id);
     } else {
       params.delete("refundPointId");
     }
@@ -76,7 +76,7 @@ function RefundFilters({
     startTransition(() => {
       router.push(`?${params.toString()}`);
     });
-  }, [selectedRefundMethod, status, searchParams, refundPointId]);
+  }, [selectedRefundMethod, status, searchParams, selectedRefundPoint]);
 
   function handleSearchTraveller() {
     if (!travellerDocumentNumber) return;
@@ -99,15 +99,15 @@ function RefundFilters({
             <Combobox<UniRefund_CRMService_RefundPoints_RefundPointListResponseDto>
               id="refund-point-list"
               list={accessibleRefundPoints}
-              onValueChange={setRefundPointId}
+              onValueChange={setSelectedRefundPoint}
               selectIdentifier="id"
               selectLabel="name"
-              value={refundPointId}
+              value={selectedRefundPoint}
             />
           </div>
         </Card>
       )}
-      <Card className="flex-1 px-6 py-4">
+      <Card className="min-w-60 flex-1 p-4 py-4">
         <div className="mb-4 text-lg font-semibold">{languageData.TravellerDocumentNo}</div>
         <div className="grid grid-cols-1 gap-2">
           {searchTravellerDocumentNumberVisible ? (
@@ -158,10 +158,19 @@ function RefundFilters({
             </div>
           )}
         </div>
+        <div className="mb-2 mt-4 font-semibold">{languageData.Status}</div>
+        <SelectTabs className="flex flex-row flex-wrap" disabled={isPending} onValueChange={setStatus} value={status}>
+          <SelectTabsContent value="export-validated">
+            <p>{languageData.ExportValidated}</p>
+          </SelectTabsContent>
+          <SelectTabsContent value="need-validation">
+            <p>{languageData.NeedValidation}</p>
+          </SelectTabsContent>
+        </SelectTabs>
       </Card>
 
-      <Card className="flex-1 p-6">
-        <div className="mb-4 text-lg font-semibold">{languageData.RefundMethodHelp}</div>
+      <Card className="min-w-60 flex-1 p-4">
+        <div className="mb-2 font-semibold">{languageData.RefundMethodHelp}</div>
         <SelectTabs disabled={isPending} onValueChange={setSelectedRefundMethod} value={selectedRefundMethod}>
           {paymentTypesResponse?.map((type: string) => (
             <SelectTabsContent key={type} value={type}>
@@ -173,17 +182,10 @@ function RefundFilters({
             <p className="text-muted-foreground text-sm">{languageData.NoPaymentMethodExistsForSelectedRefundPoint}</p>
           )}
         </SelectTabs>
-      </Card>
-      <Card className="flex-1 p-6">
-        <div className="mb-4 text-lg font-semibold">{languageData.Status}</div>
-        <SelectTabs className="flex flex-row flex-wrap" disabled={isPending} onValueChange={setStatus} value={status}>
-          <SelectTabsContent value="export-validated">
-            <p>{languageData.ExportValidated}</p>
-          </SelectTabsContent>
-          <SelectTabsContent value="need-validation">
-            <p>{languageData.NeedValidation}</p>
-          </SelectTabsContent>
-        </SelectTabs>
+        <PaymentForm
+          languageData={languageData}
+          refundMethod={selectedRefundMethod as UniRefund_ContractService_Enums_RefundMethod}
+        />
       </Card>
     </div>
   );
