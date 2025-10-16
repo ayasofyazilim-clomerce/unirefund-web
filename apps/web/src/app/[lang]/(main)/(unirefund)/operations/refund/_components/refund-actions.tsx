@@ -8,6 +8,7 @@ import {ChevronRightIcon} from "lucide-react";
 import {useRouter, useSearchParams} from "next/navigation";
 import cardValidator from "card-validator";
 import {handlePostResponse} from "@repo/utils/api";
+import type {UniRefund_RefundService_Refunds_CreateRefundDto} from "@repo/saas/RefundService";
 import type {TagServiceResource} from "@/language-data/unirefund/TagService";
 import {useRefund} from "../client-page";
 
@@ -24,7 +25,7 @@ function RefundActions({
     selectedRows: UniRefund_TagService_Tags_TagListItemDto[],
   ) => string;
   languageData: TagServiceResource;
-  paymentTypesResponse?: UniRefund_ContractService_Enums_RefundMethod[];
+  paymentTypesResponse: UniRefund_ContractService_Enums_RefundMethod[];
   refundPointId?: string;
 }) {
   const router = useRouter();
@@ -47,22 +48,26 @@ function RefundActions({
     return false;
   }
   function handlePostRefund() {
-    const refundTypeEnum = paymentTypesResponse?.find((type) => type === refundMethod);
+    const refundTypeEnum = paymentTypesResponse.find((type) => type === refundMethod);
     if (!refundTypeEnum || !refundPointId) {
       return;
     }
     startTransition(() => {
-      void postRefundApi({
-        ...formData,
+      const form: UniRefund_RefundService_Refunds_CreateRefundDto = {
+        paidDate: formData.paidDate,
         refundPointId,
         tagIds: selectedRows.map((i) => i.id),
         refundTypeEnum,
-        cardInfo: {
+      };
+      if (refundTypeEnum === "CreditCard") {
+        form.cardInfo = {
           cardNumber: formData.cardInfo?.cardNumber || "",
           cardExpiryMonth: Number(formData.cardInfo?.cardExpiryMonth),
           cardExpiryYear: Number(formData.cardInfo?.cardExpiryYear),
-        },
-      }).then((response) => {
+        };
+      }
+
+      void postRefundApi(form).then((response) => {
         handlePostResponse(
           response,
           router,

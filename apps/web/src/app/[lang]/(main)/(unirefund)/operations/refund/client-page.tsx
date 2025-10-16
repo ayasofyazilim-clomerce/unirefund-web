@@ -87,16 +87,6 @@ export function ClientPage({
 
   const [formData, setFormData] = useState<RefundFormData>({
     paidDate: new Date().toISOString(),
-    cardInfo: {
-      cardNumber: "",
-      cardExpiryMonth: "",
-      cardExpiryYear: "",
-    },
-    ibanInfo: {
-      iban: "",
-      bankName: "",
-      bic: "",
-    },
   });
 
   function getTotals(
@@ -157,6 +147,7 @@ export function ClientPage({
             <RefundActions
               getTotals={getTotals}
               languageData={languageData}
+              paymentTypesResponse={paymentTypesResponse || []}
               refundPointId={refundPointId}
               selectedRows={selectedRows}
             />
