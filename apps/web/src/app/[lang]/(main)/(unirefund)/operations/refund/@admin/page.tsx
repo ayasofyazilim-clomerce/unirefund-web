@@ -26,7 +26,7 @@ async function Page({
   const accessibleRefundPoints = await getRefundPointsApi().then((res) => res.data.items || []);
 
   if (accessibleRefundPoints.length === 0) {
-    return <div className="m-4">No accessible refund points. Please contact your administrator.</div>;
+    return <div className="m-4">{languageData.NoAccessibleRefundPoints}</div>;
   }
 
   if (refundPointId && !accessibleRefundPoints.find((i) => i.id === refundPointId)) {
