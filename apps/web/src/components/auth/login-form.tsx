@@ -40,7 +40,8 @@ export function LoginForm({
         ...data,
         redirectTo,
       }).then((response) => {
-        if (response.type !== "success") {
+        //eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- response can be undefined
+        if (response && response.type !== "success") {
           toast.error(response.message);
         }
       });
