@@ -1,6 +1,16 @@
 "use client";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
 import {Badge} from "@/components/ui/badge";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarInset,
+  SidebarMenuButton,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {cn} from "@/lib/utils";
 import DateTooltip from "@repo/ayasofyazilim-ui/molecules/date-tooltip";
 import TanstackTable from "@repo/ayasofyazilim-ui/molecules/tanstack-table";
@@ -18,6 +28,7 @@ import {
   BadgeInfoIcon,
   CalendarDaysIcon,
   CalendarRangeIcon,
+  CircleHelp,
   CirclePlusIcon,
   Clock10Icon,
   FileKeyIcon,
@@ -106,83 +117,99 @@ function VatStatementDetails({
     grantedPolicies,
   );
   return (
-    <div className="flex h-full flex-col md:flex-row [&>div]:size-full">
-      <div className="rounded-md border p-2 md:border-none md:p-0 md:pt-2">
-        <span className="text-lg font-bold">{languageData["Finance.tags"]}</span>
-        <TaxFreeTags languageData={languageData} tags={statement.vatStatementTagDetails || []} />
-      </div>
-      <div className="mt-4 flex flex-col overflow-auto rounded-md border p-2 md:mt-0 md:max-w-xs md:divide-y md:border-y-0 md:border-l md:border-r-0 md:p-0">
-        <span className="py-2 text-lg font-bold md:pl-4">{languageData["Finance.statement"]}</span>
-        <LabelValuePair
-          icon={UserIcon}
-          label={languageData["Finance.merchantId"]}
-          link={merchantLink}
-          value={statement.merchantName}
-        />
-        {hasContractGrant ? (
-          <LabelValuePair
-            icon={FileKeyIcon}
-            label={languageData["Finance.contract"]}
-            link={getBaseLink(
-              `parties/merchants/${statement.merchantId}/contracts/${statement.contractHeaderId}/contract`,
-              lang,
-            )}
-            value={languageData["Finance.contract.open"]}
-          />
-        ) : null}
-        <LabelValuePair
-          icon={BadgeInfoIcon}
-          label={languageData["Finance.status"]}
-          value={languageData[`Finance.status.${statement.status}`]}
-        />
-        <LabelValuePair
-          icon={CalendarRangeIcon}
-          label={languageData["Finance.billingPeriod"]}
-          value={languageData[`Finance.billingPeriod.${statement.billingPeriod}`]}
-        />
-        <LabelValuePair
-          icon={Clock10Icon}
-          label={languageData["Finance.termOfPayment"]}
-          value={statement.termOfPayment}
-        />
-        <LabelValuePair
-          icon={TruckIcon}
-          label={languageData["Finance.deliveryMethod"]}
-          value={languageData[`Finance.deliveryMethod.${statement.deliveryMethod}`]}
-        />
-        <LabelValuePair
-          icon={ArrowDown01Icon}
-          label={languageData["Finance.referenceNumber"]}
-          value={statement.referenceNumber || "-"}
-        />
-        <LabelValuePair
-          icon={ArrowUp10Icon}
-          label={languageData["Finance.yourReference"]}
-          value={statement.yourReference || "-"}
-        />
-        <LabelValuePair
-          icon={CalendarDaysIcon}
-          label={languageData["Finance.referenceDateRange"]}
-          value={
-            <div className="flex flex-col [&_svg]:hidden">
-              <DateTooltip date={statement.referenceDateBegin} localization={localization} />
-              <DateTooltip date={statement.referenceDateEnd} localization={localization} />
-            </div>
-          }
-        />
-        <LabelValuePair
-          classNames={{value: "text-2xl"}}
-          icon={TagsIcon}
-          label={languageData["Finance.tagCount"]}
-          value={statement.tagCount || "-"}
-        />
-        <LabelValuePair
-          classNames={{value: "text-2xl"}}
-          icon={CirclePlusIcon}
-          label={languageData["Finance.totalAmount"]}
-          value={`${statement.totalAmount} ${statement.currency}`}
-        />
-      </div>
+    <div className="flex h-full flex-col gap-2 md:flex-row [&>div]:size-full">
+      <SidebarProvider className="relative min-h-full gap-2 overflow-hidden">
+        <SidebarInset className="w-full overflow-auto">
+          <div className="my-2 flex justify-between text-lg font-bold">
+            {languageData["Finance.tags"]}
+            <Tooltip>
+              <TooltipTrigger>
+                <SidebarTrigger className="bg-muted text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>{languageData["Finance.statement"]}</TooltipContent>
+            </Tooltip>
+          </div>
+          <TaxFreeTags languageData={languageData} tags={statement.vatStatementTagDetails || []} />
+        </SidebarInset>
+        <Sidebar className="absolute h-full" collapsible="icon" side="right">
+          <SidebarContent className="gap-0 divide-y">
+            <SidebarMenuButton className="h-auto min-h-12 w-full min-w-full rounded-none py-2 pl-2 text-lg font-bold">
+              <CircleHelp className="w-4 [[data-state=collapsed]_&]:ml-2" />
+              <span>{languageData["Finance.statement"]}</span>
+            </SidebarMenuButton>
+            <LabelValuePair
+              icon={UserIcon}
+              label={languageData["Finance.merchantId"]}
+              link={merchantLink}
+              value={statement.merchantName}
+            />
+            {hasContractGrant ? (
+              <LabelValuePair
+                icon={FileKeyIcon}
+                label={languageData["Finance.contract"]}
+                link={getBaseLink(
+                  `parties/merchants/${statement.merchantId}/contracts/${statement.contractHeaderId}/contract`,
+                  lang,
+                )}
+                value={languageData["Finance.contract.open"]}
+              />
+            ) : null}
+            <LabelValuePair
+              icon={BadgeInfoIcon}
+              label={languageData["Finance.status"]}
+              value={languageData[`Finance.status.${statement.status}`]}
+            />
+            <LabelValuePair
+              icon={CalendarRangeIcon}
+              label={languageData["Finance.billingPeriod"]}
+              value={languageData[`Finance.billingPeriod.${statement.billingPeriod}`]}
+            />
+            <LabelValuePair
+              icon={Clock10Icon}
+              label={languageData["Finance.termOfPayment"]}
+              value={statement.termOfPayment}
+            />
+            <LabelValuePair
+              icon={TruckIcon}
+              label={languageData["Finance.deliveryMethod"]}
+              value={languageData[`Finance.deliveryMethod.${statement.deliveryMethod}`]}
+            />
+            <LabelValuePair
+              icon={ArrowDown01Icon}
+              label={languageData["Finance.referenceNumber"]}
+              value={statement.referenceNumber || "-"}
+            />
+            <LabelValuePair
+              icon={ArrowUp10Icon}
+              label={languageData["Finance.yourReference"]}
+              value={statement.yourReference || "-"}
+            />
+            <LabelValuePair
+              icon={CalendarDaysIcon}
+              label={languageData["Finance.referenceDateRange"]}
+              value={
+                <div className="flex flex-col [&_svg]:hidden">
+                  <DateTooltip date={statement.referenceDateBegin} localization={localization} />
+                  <DateTooltip date={statement.referenceDateEnd} localization={localization} />
+                </div>
+              }
+            />
+            <LabelValuePair
+              classNames={{value: "text-2xl"}}
+              icon={TagsIcon}
+              label={languageData["Finance.tagCount"]}
+              value={statement.tagCount || "-"}
+            />
+            <LabelValuePair
+              classNames={{value: "text-2xl"}}
+              icon={CirclePlusIcon}
+              label={languageData["Finance.totalAmount"]}
+              value={`${statement.totalAmount} ${statement.currency}`}
+            />
+          </SidebarContent>
+          <SidebarRail />
+        </Sidebar>
+      </SidebarProvider>
     </div>
   );
 }
@@ -204,19 +231,24 @@ function LabelValuePair({
   };
 }) {
   return (
-    <div className={cn("flex flex-col py-2 text-sm md:pl-4", classNames?.container)}>
-      <span className={cn("text-muted-foreground flex items-center gap-1", classNames?.label)}>
-        {Icon ? <Icon className="size-4" /> : null}
-        {label}
-      </span>
-      {link ? (
-        <Link className={cn("font-semibold text-blue-600", classNames?.value)} data-testid={link} href={link}>
-          {value}
-        </Link>
-      ) : (
-        <span className={cn("font-semibold", classNames?.value)}>{value}</span>
+    <SidebarMenuButton
+      className={cn(
+        "text-muted-foreground h-auto min-h-16 w-full min-w-full items-start rounded-none hover:cursor-auto [[data-state=collapsed]_&]:items-center",
+        classNames?.container,
       )}
-    </div>
+      tooltip={label}>
+      {Icon ? <Icon className="mt-1 size-4 [[data-state=collapsed]_&]:ml-2" /> : null}
+      <div className="flex flex-col truncate text-nowrap">
+        {label}
+        {link ? (
+          <Link className={cn("font-semibold text-blue-600", classNames?.value)} data-testid={link} href={link}>
+            {value}
+          </Link>
+        ) : (
+          <span className={cn("font-semibold text-black", classNames?.value)}>{value}</span>
+        )}
+      </div>
+    </SidebarMenuButton>
   );
 }
 
@@ -273,6 +305,7 @@ function TaxFreeTags({
       columns={columns}
       data={tags}
       resizeable={false}
+      showPagination={false}
     />
   );
 }

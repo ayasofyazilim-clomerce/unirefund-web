@@ -123,6 +123,7 @@ export function EmailForm({
         EditForm({row, languageData, isPending, startTransition, partyId, partyType, router})
       }
       fillerColumn="emailAddress"
+      resizeable={false}
       showPagination={false}
       tableActions={tableActions}
       title={languageData["Form.emails"]}
