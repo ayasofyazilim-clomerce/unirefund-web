@@ -116,6 +116,7 @@ export function AddressForm({
         data={addresses}
         expandedRowComponent={(row) => EditForm({row, languageData, partyId, partyType, isPending, startTransition})}
         fillerColumn="addressLine"
+        resizeable={false}
         showPagination={false}
         tableActions={tableActions}
         title={languageData["Form.addresses"]}

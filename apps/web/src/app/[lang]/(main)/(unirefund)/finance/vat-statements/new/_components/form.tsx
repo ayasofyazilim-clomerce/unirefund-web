@@ -98,6 +98,7 @@ export default function VatStatementForm({
     <div className="flex h-full flex-col gap-4 overflow-hidden md:flex-row">
       <div className="flex w-full flex-col rounded-md border p-2 md:max-w-xs md:border-r md:border-none md:p-0 md:pr-4">
         <SchemaForm<VATStatementHeaderCreateDto>
+          defaultSubmitClassName="w-full [&>button]:w-full [&>button]:text-black [&>button]:bg-white [&>button]:border [&>button]:hover:bg-muted"
           disabled={isPending}
           formData={formData}
           key={JSON.stringify(formData)}
@@ -105,9 +106,10 @@ export default function VatStatementForm({
           onChange={({formData: editedFormData}) => {
             setFormData(editedFormData);
           }}
+          onSubmit={handleDraftStatement}
           schema={$UniRefund_FinanceService_VATStatementHeaders_VATStatementHeaderCreateDto}
+          submitText={languageData["Finance.Preview"]}
           uiSchema={uiSchema}
-          useDefaultSubmit={false}
           widgets={{
             Merchant: CustomComboboxWidget<UniRefund_CRMService_Merchants_MerchantDto>({
               languageData,
@@ -118,15 +120,6 @@ export default function VatStatementForm({
           }}
           withScrollArea={false}
         />
-        <Button
-          className="mt-4 w-full"
-          data-testid="draft-button"
-          disabled={isPending}
-          onClick={handleDraftStatement}
-          type="button"
-          variant="outline">
-          {languageData["Finance.Preview"]}
-        </Button>
       </div>
       <VatStatements emptyMessage={emptyMessage} languageData={languageData} statements={draftVATStatements}>
         <div
