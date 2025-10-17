@@ -2,9 +2,10 @@
 
 import sharedConfig from "@repo/tailwind-config";
 import type {Config} from "tailwindcss";
-const svgToDataUri = require("mini-svg-data-uri");
-const {default: flattenColorPalette} = require("tailwindcss/lib/util/flattenColorPalette");
-require("dotenv").config();
+import type {PluginAPI} from "tailwindcss/types/config";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const config: Config = {
   content: [
@@ -13,7 +14,6 @@ const config: Config = {
     "./node_modules/@repo/ayasofyazilim-ui/src/**/*.{ts,tsx}",
     "./node_modules/@repo/ui/src/**/*.{ts,tsx}",
     "./node_modules/@repo/ayasofyazilim-ui/@/**/*.{ts,tsx}",
-    "./node_modules/@repo/ayasofyazilim-ui/tiptap/**/*.{ts,tsx}",
   ],
   presets: [sharedConfig],
   theme: {
@@ -59,6 +59,16 @@ const config: Config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
         },
       },
 
@@ -133,51 +143,17 @@ const config: Config = {
         "700": "700ms",
         "1000": "1000ms",
       },
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
+      },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/typography"),
-    addVariablesForColors,
-    setColorFromEnvironment,
-    function ({matchUtilities, theme}: any) {
-      matchUtilities(
-        {
-          "bg-grid": (value: any) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
-            )}")`,
-          }),
-          "bg-grid-small": (value: any) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
-            )}")`,
-          }),
-          "bg-dot": (value: any) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`,
-            )}")`,
-          }),
-        },
-        {
-          values: flattenColorPalette(theme("backgroundColor")),
-          type: "color",
-        },
-      );
-    },
-  ],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), setColorFromEnvironment],
 };
-function addVariablesForColors({addBase, theme}: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
 
-  addBase({
-    ":root": newVars,
-  });
-}
-
-function setColorFromEnvironment({addBase}: {addBase: Function}) {
-  require("dotenv").config();
+function setColorFromEnvironment({addBase}: PluginAPI) {
+  dotenv.config();
 
   addBase({
     ":root": {
