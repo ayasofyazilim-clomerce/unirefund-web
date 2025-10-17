@@ -107,7 +107,7 @@ export default async function Page({params}: {params: {tagId: string; lang: stri
         ),
       }}>
       <div className="mb-3 h-full grid-cols-4 gap-1 pb-3 md:grid lg:gap-3">
-        <div className="col-span-3 h-full grid-cols-6 gap-1 overflow-hidden md:grid lg:gap-3">
+        <div className="col-span-3 grid-cols-6 gap-1 overflow-hidden md:grid lg:gap-3">
           <TagCardList
             icon={<FileIcon className="size-5" />}
             rows={[
