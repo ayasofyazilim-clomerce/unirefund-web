@@ -6,8 +6,7 @@ import type {
   TanstackTableTableActionsType,
 } from "@repo/ayasofyazilim-ui/molecules/tanstack-table/types";
 import {tanstackTableCreateColumnsByRowData} from "@repo/ayasofyazilim-ui/molecules/tanstack-table/utils";
-import type {Policy} from "@repo/utils/policies";
-// import {isActionGranted} from "@repo/utils/policies";
+import {isActionGranted, type Policy} from "@repo/utils/policies";
 import {PlusCircle} from "lucide-react";
 import type {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
@@ -29,7 +28,7 @@ function individualTableActions(
       actionLocation: "table",
       cta: languageData.New,
       icon: PlusCircle,
-      condition: () => true, // isActionGranted(["CRMService.Individuals.Create"], grantedPolicies),
+      condition: () => isActionGranted(["CRMService.Individuals.Create"], grantedPolicies),
       onClick() {
         router.push(newLink);
       },
@@ -89,7 +88,12 @@ function individualTable(
     fillerColumn: "firstname",
     tableActions: individualTableActions(languageData, router, grantedPolicies, newLink),
     filters: {
-      textFilters: ["firstname", "lastname"],
+      textFilters: ["name", "email", "identificationNumber"],
+      filterTitles: {
+        name: languageData.FullName,
+        email: languageData.Email,
+        identificationNumber: languageData["Form.Individual.identificationNumber"],
+      },
     },
     columnVisibility: {
       type: "hide",
