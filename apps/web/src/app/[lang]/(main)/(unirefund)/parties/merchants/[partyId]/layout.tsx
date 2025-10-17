@@ -1,22 +1,22 @@
 "use server";
 
-import {getMerchantByIdApi} from "@repo/actions/unirefund/CrmService/actions";
-import {TabLayout} from "@repo/ayasofyazilim-ui/templates/tab-layout";
+import { BreadcrumbTitle } from "@/components/sidebar-layout/breadcrumb/title";
+import { getMerchantByIdApi } from "@repo/actions/unirefund/CrmService/actions";
+import { TabLayout } from "@repo/ayasofyazilim-ui/templates/tab-layout";
 import ErrorComponent from "@repo/ui/components/error-component";
-import {getGrantedPoliciesApi, structuredError} from "@repo/utils/api";
-import {auth} from "@repo/utils/auth/next-auth";
-import {isUnauthorized} from "@repo/utils/policies";
-import {isRedirectError} from "next/dist/client/components/redirect";
-import {getResourceData} from "src/language-data/unirefund/CRMService";
-import {getBaseLink} from "src/utils";
-import PartyHeader from "../../_components/party-header";
+import { getGrantedPoliciesApi, structuredError } from "@repo/utils/api";
+import { auth } from "@repo/utils/auth/next-auth";
+import { isUnauthorized } from "@repo/utils/policies";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { getResourceData } from "src/language-data/unirefund/CRMService";
+import { getBaseLink } from "src/utils";
 
-async function getApiRequests({partyId}: {partyId: string}) {
+async function getApiRequests({ partyId }: { partyId: string }) {
   try {
     const session = await auth();
     const requiredRequests = await Promise.all([getMerchantByIdApi(partyId, session), getGrantedPoliciesApi()]);
     const optionalRequests = await Promise.allSettled([]);
-    return {requiredRequests, optionalRequests};
+    return { requiredRequests, optionalRequests };
   } catch (error) {
     if (!isRedirectError(error)) {
       return structuredError(error);
@@ -34,11 +34,11 @@ export default async function Layout({
     lang: string;
   };
 }) {
-  const {partyId, lang} = params;
-  const {languageData} = await getResourceData(lang);
+  const { partyId, lang } = params;
+  const { languageData } = await getResourceData(lang);
 
   const baseLink = getBaseLink(`parties/merchants/${partyId}/`, lang);
-  const apiRequests = await getApiRequests({partyId});
+  const apiRequests = await getApiRequests({ partyId });
 
   if ("message" in apiRequests) {
     return <ErrorComponent languageData={languageData} message={apiRequests.message} />;
@@ -116,13 +116,20 @@ export default async function Layout({
     });
   }
   return (
-    <>
-      <PartyHeader details={merchantDetailResponse.data} partyType="merchants" />
+    <div className="pp-0">
+      <BreadcrumbTitle
+        replacements={{
+          find: partyId,
+          title: merchantDetailResponse.data.name,
+          href: `/${lang}/parties/merchants/${partyId}/details`
+        }}
+      />
       <TabLayout
         classNames={{
           vertical: {
             tabs: "overflow-hidden",
-            tabContent: "overflow-hidden",
+            tabList: "pl-2 pt-2",
+            tabContent: "overflow-hidden pr-2 pt-2",
           },
         }}
         orientation="vertical"
@@ -130,6 +137,6 @@ export default async function Layout({
         variant="simple">
         {children}
       </TabLayout>
-    </>
+    </div>
   );
 }

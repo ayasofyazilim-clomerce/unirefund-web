@@ -2177,6 +2177,7 @@ export type ReportServiceResources = {
   "Permission:Reports": "Reports";
   "Permission:VATStatementHeaderReport": "VAT Statement Header Report";
   "Permission:ReportService": "Report Service";
+  "Permission:VATStatementHeaderReportSynchronously": "VAT Statement Header Report Synchronously";
 };
 export type RefundServiceResources = {
   "UniRefund.RefundService:001001": "Country currency is not set";
@@ -2185,6 +2186,7 @@ export type RefundServiceResources = {
   "UniRefund.RefundService:001004": "Provided refund point does not exist";
   "UniRefund.RefundService:001005": "Payout creation failed";
   "UniRefund.RefundService:001006": "Cancelled tag can not be refunded!";
+  "UniRefund.RefundService:001007": "Transfer amount does not match the refund amount. Expected: {ExpectedAmount}, Provided: {ProvidedAmount}";
 };
 export type RlsConfigResources = {
   SamplePageMessage: "A sample page for the RlsConfig module";
