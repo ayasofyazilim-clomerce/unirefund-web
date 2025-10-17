@@ -27,7 +27,7 @@ async function Page({
     : session?.user?.RefundPointId;
 
   if (!refundPointId) {
-    return <div className="m-4">No accessible refund points. Please contact your administrator.</div>;
+    return <div className="m-4">{languageData.NoAccessibleRefundPoints}</div>;
   }
   const travellerResponse = travellerDocumentNumber
     ? await getTravellersApi({

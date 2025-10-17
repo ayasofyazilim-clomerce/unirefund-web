@@ -94,7 +94,7 @@ function RefundFilters({
     <div className="flex flex-row flex-wrap gap-2">
       {accessibleRefundPoints.length > 0 && (
         <Card className="flex-1 px-6 py-4">
-          <div className="mb-4 text-lg font-semibold">{languageData.RefundPoint}</div>
+          <div className="mb-2 font-semibold">{languageData.RefundPoint}</div>
           <div className="grid grid-cols-1 gap-2">
             <Combobox<UniRefund_CRMService_RefundPoints_RefundPointListResponseDto>
               id="refund-point-list"
@@ -108,7 +108,7 @@ function RefundFilters({
         </Card>
       )}
       <Card className="min-w-60 flex-1 p-4 py-4">
-        <div className="mb-4 text-lg font-semibold">{languageData.TravellerDocumentNo}</div>
+        <div className="mb-2 font-semibold">{languageData.TravellerDocumentNo}</div>
         <div className="grid grid-cols-1 gap-2">
           {searchTravellerDocumentNumberVisible ? (
             <div className="grid w-full items-center gap-2">
@@ -170,7 +170,7 @@ function RefundFilters({
       </Card>
 
       <Card className="min-w-60 flex-1 p-4">
-        <div className="mb-2 font-semibold">{languageData.RefundMethodHelp}</div>
+        <div className="mb-2 font-semibold">{languageData.RefundMethod}</div>
         <SelectTabs disabled={isPending} onValueChange={setSelectedRefundMethod} value={selectedRefundMethod}>
           {paymentTypesResponse?.map((type: string) => (
             <SelectTabsContent key={type} value={type}>

@@ -11,6 +11,7 @@ import {formatCurrency} from "@repo/ui/utils";
 import {Terminal} from "lucide-react";
 import type {UniRefund_TravellerService_Travellers_TravellerListDto} from "@repo/saas/TravellerService";
 import {createContext, useContext, useState, useTransition} from "react";
+import {useSearchParams} from "next/navigation";
 import {useTenant} from "@/providers/tenant";
 import type {TagServiceResource} from "@/language-data/unirefund/TagService";
 import LoadingSpinner from "@/components/loading/loading-spinner";
@@ -79,6 +80,7 @@ export function ClientPage({
   tagResponse?: PagedResultDto_TagListItemDto;
   accessibleRefundPoints: UniRefund_CRMService_RefundPoints_RefundPointListResponseDto[];
 }) {
+  const searchParams = useSearchParams();
   const {localization, currency} = useTenant();
   const [isPending, startTransition] = useTransition();
   const [selectedRows, setSelectedRows] = useState<UniRefund_TagService_Tags_TagListItemDto[]>([]);
@@ -100,6 +102,15 @@ export function ClientPage({
     return formatCurrency(localization.locale, rows[0]?.currency || "USD", total);
   }
 
+  function missingStepErrors() {
+    if (!refundPointId) return languageData.SelectARefundPoint;
+    if (!travellerResponse) return languageData.SearchTravellerToSeeTags;
+    if (!searchParams.get("status")) return languageData.SelectATagStatus;
+    if (paymentTypesResponse?.length === 0) return languageData.NoPaymentMethodExistsForSelectedRefundPoint;
+    return false;
+  }
+  const isMissingStepError = missingStepErrors();
+
   if (isPending) {
     return (
       <div className="flex h-full items-center justify-center md:col-span-6">
@@ -117,6 +128,15 @@ export function ClientPage({
           paymentTypesResponse={paymentTypesResponse}
           travellerResponse={travellerResponse}
         />
+        {isMissingStepError ? (
+          <div className="col-span-6">
+            <Alert variant="default">
+              <Terminal />
+              <AlertTitle>Info</AlertTitle>
+              <AlertDescription>{isMissingStepError}</AlertDescription>
+            </Alert>
+          </div>
+        ) : null}
         {tagResponse ? (
           <div className="flex flex-col overflow-hidden md:col-span-6">
             <div className="mb-2 grid grid-cols-4 items-center rounded-md border py-2 text-center">
@@ -152,15 +172,7 @@ export function ClientPage({
               selectedRows={selectedRows}
             />
           </div>
-        ) : (
-          <div className="col-span-6">
-            <Alert variant="default">
-              <Terminal />
-              <AlertTitle>Info</AlertTitle>
-              <AlertDescription>{languageData.SearchTravellerToSeeTags}</AlertDescription>
-            </Alert>
-          </div>
-        )}
+        ) : null}
       </div>
     </RefundContext.Provider>
   );
