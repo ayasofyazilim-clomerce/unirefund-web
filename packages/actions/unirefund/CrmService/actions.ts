@@ -329,7 +329,7 @@ export async function getTaxOfficeAffiliationsByIdApi(
   }
 }
 /*Individuals */
-export async function getIndividualsByAffilationsApi(
+export async function getIndividualsByAffiliationsApi(
   data: GetApiCrmServiceIndividualsByAffiliationsData = {},
   session?: Session | null,
 ) {

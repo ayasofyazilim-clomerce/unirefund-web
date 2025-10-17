@@ -1,6 +1,6 @@
 "use server";
 
-import {getIndividualsByAffilationsApi} from "@repo/actions/unirefund/CrmService/actions";
+import {getIndividualsByAffiliationsApi} from "@repo/actions/unirefund/CrmService/actions";
 import type {GetApiCrmServiceIndividualsByAffiliationsData} from "@repo/saas/CRMService";
 import ErrorComponent from "@repo/ui/components/error-component";
 import {structuredError} from "@repo/utils/api";
@@ -12,7 +12,7 @@ import IndividualsTable from "./_components/table";
 async function getApiRequests(filters: GetApiCrmServiceIndividualsByAffiliationsData) {
   try {
     const session = await auth();
-    const requiredRequests = await Promise.all([getIndividualsByAffilationsApi(filters, session)]);
+    const requiredRequests = await Promise.all([getIndividualsByAffiliationsApi(filters, session)]);
     const optionalRequests = await Promise.allSettled([]);
     return {requiredRequests, optionalRequests};
   } catch (error) {
