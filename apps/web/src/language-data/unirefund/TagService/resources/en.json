@@ -129,5 +129,8 @@
 
   "CreditCardNumber": "Credit Card Number",
   "CreditCardHolderName": "Credit Card Holder Name",
-  "MonthYear": "Month/Year"
+  "MonthYear": "Month/Year",
+
+  "SelectATagStatus": "Select a tag status.",
+  "NoAccessibleRefundPoints": "No accessible refund points. Please contact your administrator."
 }

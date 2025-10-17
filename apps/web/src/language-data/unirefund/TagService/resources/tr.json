@@ -129,5 +129,8 @@
 
   "CreditCardNumber": "Kredi Kartı Numarası",
   "CreditCardHolderName": "Kredi Kartı Sahibinin Adı",
-  "MonthYear": "Ay/Yıl"
+  "MonthYear": "Ay/Yıl",
+
+  "SelectATagStatus": "Bir etiket durumu seçin.",
+  "NoAccessibleRefundPoints": "Erişilebilir iade noktası yok. Lütfen yöneticinizle iletişime geçin."
 }
