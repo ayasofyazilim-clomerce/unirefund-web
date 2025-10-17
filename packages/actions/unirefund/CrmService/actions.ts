@@ -2,6 +2,7 @@
 import {
   GetApiCrmServiceCustomsByIdAffiliationsData,
   GetApiCrmServiceCustomsData,
+  GetApiCrmServiceIndividualsByAffiliationsData,
   GetApiCrmServiceIndividualsData,
   GetApiCrmServiceMerchantsByIdAffiliationsData,
   GetApiCrmServiceMerchantsData,
@@ -10,11 +11,11 @@ import {
   GetApiCrmServiceTaxFreesByIdAffiliationsData,
   GetApiCrmServiceTaxFreesData,
   GetApiCrmServiceTaxOfficesByIdAffiliationsData,
-  GetApiCrmServiceTaxOfficesData
+  GetApiCrmServiceTaxOfficesData,
 } from "@repo/saas/CRMService";
-import { structuredError, structuredSuccessResponse } from "@repo/utils/api";
-import type { Session } from "@repo/utils/auth";
-import { getCRMServiceClient } from "../lib";
+import {structuredError, structuredSuccessResponse} from "@repo/utils/api";
+import type {Session} from "@repo/utils/auth";
+import {getCRMServiceClient} from "../lib";
 /* Merchant */
 export async function getMerchantsApi(data: GetApiCrmServiceMerchantsData = {}, session?: Session | null) {
   try {
@@ -28,7 +29,7 @@ export async function getMerchantsApi(data: GetApiCrmServiceMerchantsData = {}, 
 export async function getMerchantByIdApi(merchantId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.getApiCrmServiceMerchantsById({ id: merchantId });
+    const response = await crmClient.merchant.getApiCrmServiceMerchantsById({id: merchantId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -37,7 +38,7 @@ export async function getMerchantByIdApi(merchantId: string, session?: Session |
 export async function getMerchantEmailsByIdApi(merchantId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdEmails({ id: merchantId });
+    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdEmails({id: merchantId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -46,7 +47,7 @@ export async function getMerchantEmailsByIdApi(merchantId: string, session?: Ses
 export async function getMerchantTelephonesByIdApi(merchantId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdTelephones({ id: merchantId });
+    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdTelephones({id: merchantId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -55,7 +56,7 @@ export async function getMerchantTelephonesByIdApi(merchantId: string, session?:
 export async function getMerchantAddressesByIdApi(merchantId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdAddresses({ id: merchantId });
+    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdAddresses({id: merchantId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -76,7 +77,7 @@ export async function getMerchantAffiliationsByIdApi(
 export async function getMerchantProductGroupByIdApi(merchantId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdProductGroup({ id: merchantId });
+    const response = await crmClient.merchant.getApiCrmServiceMerchantsByIdProductGroup({id: merchantId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -96,7 +97,7 @@ export async function getRefundPointsApi(data: GetApiCrmServiceRefundPointsData 
 export async function getRefundPointByIdApi(refundPointId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsById({ id: refundPointId });
+    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsById({id: refundPointId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -105,7 +106,7 @@ export async function getRefundPointByIdApi(refundPointId: string, session?: Ses
 export async function getRefundPointEmailsByIdApi(refundPointId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdEmails({ id: refundPointId });
+    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdEmails({id: refundPointId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -114,7 +115,7 @@ export async function getRefundPointEmailsByIdApi(refundPointId: string, session
 export async function getRefundPointTelephonesByIdApi(refundPointId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdTelephones({ id: refundPointId });
+    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdTelephones({id: refundPointId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -123,7 +124,7 @@ export async function getRefundPointTelephonesByIdApi(refundPointId: string, ses
 export async function getRefundPointAddressesByIdApi(refundPointId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAddresses({ id: refundPointId });
+    const response = await crmClient.refundPoint.getApiCrmServiceRefundPointsByIdAddresses({id: refundPointId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -154,7 +155,7 @@ export async function getTaxFreesApi(data: GetApiCrmServiceTaxFreesData = {}, se
 export async function getTaxFreeByIdApi(taxFreeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesById({ id: taxFreeId });
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesById({id: taxFreeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -163,7 +164,7 @@ export async function getTaxFreeByIdApi(taxFreeId: string, session?: Session | n
 export async function getTaxFreeEmailsByIdApi(taxFreeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdEmails({ id: taxFreeId });
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdEmails({id: taxFreeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -184,7 +185,7 @@ export async function getTaxFreeAffiliationsByIdApi(
 export async function getTaxFreeTelephonesByIdApi(taxFreeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdTelephones({ id: taxFreeId });
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdTelephones({id: taxFreeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -193,7 +194,7 @@ export async function getTaxFreeTelephonesByIdApi(taxFreeId: string, session?: S
 export async function getTaxFreeAddressesByIdApi(taxFreeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdAddresses({ id: taxFreeId });
+    const response = await crmClient.taxFree.getApiCrmServiceTaxFreesByIdAddresses({id: taxFreeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -224,7 +225,7 @@ export async function getCustomsApi(data: GetApiCrmServiceCustomsData = {}, sess
 export async function getCustomByIdApi(customId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.custom.getApiCrmServiceCustomsById({ id: customId });
+    const response = await crmClient.custom.getApiCrmServiceCustomsById({id: customId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -233,7 +234,7 @@ export async function getCustomByIdApi(customId: string, session?: Session | nul
 export async function getCustomEmailsByIdApi(customId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.custom.getApiCrmServiceCustomsByIdEmails({ id: customId });
+    const response = await crmClient.custom.getApiCrmServiceCustomsByIdEmails({id: customId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -242,7 +243,7 @@ export async function getCustomEmailsByIdApi(customId: string, session?: Session
 export async function getCustomTelephonesByIdApi(customId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.custom.getApiCrmServiceCustomsByIdTelephones({ id: customId });
+    const response = await crmClient.custom.getApiCrmServiceCustomsByIdTelephones({id: customId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -251,7 +252,7 @@ export async function getCustomTelephonesByIdApi(customId: string, session?: Ses
 export async function getCustomAddressesByIdApi(customId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.custom.getApiCrmServiceCustomsByIdAddresses({ id: customId });
+    const response = await crmClient.custom.getApiCrmServiceCustomsByIdAddresses({id: customId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -282,7 +283,7 @@ export async function getTaxOfficesApi(data: GetApiCrmServiceTaxOfficesData = {}
 export async function getTaxOfficeByIdApi(taxOfficeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesById({ id: taxOfficeId });
+    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesById({id: taxOfficeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -291,7 +292,7 @@ export async function getTaxOfficeByIdApi(taxOfficeId: string, session?: Session
 export async function getTaxOfficeEmailsByIdApi(taxOfficeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdEmails({ id: taxOfficeId });
+    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdEmails({id: taxOfficeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -300,7 +301,7 @@ export async function getTaxOfficeEmailsByIdApi(taxOfficeId: string, session?: S
 export async function getTaxOfficeTelephonesByIdApi(taxOfficeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdTelephones({ id: taxOfficeId });
+    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdTelephones({id: taxOfficeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -309,7 +310,7 @@ export async function getTaxOfficeTelephonesByIdApi(taxOfficeId: string, session
 export async function getTaxOfficeAddressesByIdApi(taxOfficeId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAddresses({ id: taxOfficeId });
+    const response = await crmClient.taxOffice.getApiCrmServiceTaxOfficesByIdAddresses({id: taxOfficeId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -328,10 +329,13 @@ export async function getTaxOfficeAffiliationsByIdApi(
   }
 }
 /*Individuals */
-export async function getIndividualsApi(data: GetApiCrmServiceIndividualsData = {}, session?: Session | null) {
+export async function getIndividualsByAffilationsApi(
+  data: GetApiCrmServiceIndividualsByAffiliationsData = {},
+  session?: Session | null,
+) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.getApiCrmServiceIndividuals(data);
+    const response = await crmClient.individual.getApiCrmServiceIndividualsByAffiliations(data);
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -340,7 +344,7 @@ export async function getIndividualsApi(data: GetApiCrmServiceIndividualsData = 
 export async function getIndividualByIdApi(individualId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.getApiCrmServiceIndividualsById({ id: individualId });
+    const response = await crmClient.individual.getApiCrmServiceIndividualsById({id: individualId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -349,7 +353,7 @@ export async function getIndividualByIdApi(individualId: string, session?: Sessi
 export async function getIndividualByEmailApi(email: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.getApiCrmServiceIndividualsByEmail({ email });
+    const response = await crmClient.individual.getApiCrmServiceIndividualsByEmail({email});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -358,7 +362,7 @@ export async function getIndividualByEmailApi(email: string, session?: Session |
 export async function getIndividualEmailsByIdApi(individualId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.getApiCrmServiceIndividualsByIdEmails({ id: individualId });
+    const response = await crmClient.individual.getApiCrmServiceIndividualsByIdEmails({id: individualId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -367,7 +371,7 @@ export async function getIndividualEmailsByIdApi(individualId: string, session?:
 export async function getIndividualTelephonesByIdApi(individualId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.getApiCrmServiceIndividualsByIdTelephones({ id: individualId });
+    const response = await crmClient.individual.getApiCrmServiceIndividualsByIdTelephones({id: individualId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -376,7 +380,7 @@ export async function getIndividualTelephonesByIdApi(individualId: string, sessi
 export async function getIndividualAddressesByIdApi(individualId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.individual.getApiCrmServiceIndividualsByIdAddresses({ id: individualId });
+    const response = await crmClient.individual.getApiCrmServiceIndividualsByIdAddresses({id: individualId});
     return structuredSuccessResponse(response);
   } catch (error) {
     throw structuredError(error);
@@ -396,7 +400,7 @@ export async function getCountriesApi(session?: Session | null) {
 export async function getAdminAreaLevel1ByCountryIdApi(countryId: string, session?: Session | null) {
   try {
     const crmClient = await getCRMServiceClient(session);
-    const response = await crmClient.adminAreaLevel1.getApiCrmServiceAdminAreaLevel1ByCountryByCountryId({ countryId });
+    const response = await crmClient.adminAreaLevel1.getApiCrmServiceAdminAreaLevel1ByCountryByCountryId({countryId});
     return structuredSuccessResponse(response);
   } catch (error) {
     return structuredError(error);
@@ -425,10 +429,6 @@ export async function getNeighborhoodsByAdminAreaLevel2IdApi(adminAreaLevel2Id: 
     return structuredError(error);
   }
 }
-
-
-
-
 
 export async function getUserAffiliationsApi(session?: Session | null) {
   try {

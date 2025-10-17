@@ -1184,6 +1184,10 @@ export class IndividualService {
     /**
      * **Requires permissions:** CRMService.Individuals, CRMService.Individuals.ViewAffiliated
      * @param data The data for the request.
+     * @param data.name
+     * @param data.email
+     * @param data.telephone
+     * @param data.identificationNumber
      * @param data.sorting
      * @param data.skipCount
      * @param data.maxResultCount
@@ -1195,6 +1199,10 @@ export class IndividualService {
             method: 'GET',
             url: '/api/crm-service/individuals/by-affiliations',
             query: {
+                Name: data.name,
+                Email: data.email,
+                Telephone: data.telephone,
+                IdentificationNumber: data.identificationNumber,
                 Sorting: data.sorting,
                 SkipCount: data.skipCount,
                 MaxResultCount: data.maxResultCount

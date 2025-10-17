@@ -1430,9 +1430,13 @@ export type GetApiCrmServiceIndividualsByEmailData = {
 export type GetApiCrmServiceIndividualsByEmailResponse = (Array<UniRefund_CRMService_Individuals_IndividualWithAbpUserDto>);
 
 export type GetApiCrmServiceIndividualsByAffiliationsData = {
+    email?: string;
+    identificationNumber?: string;
     maxResultCount?: number;
+    name?: string;
     skipCount?: number;
     sorting?: string;
+    telephone?: string;
 };
 
 export type GetApiCrmServiceIndividualsByAffiliationsResponse = (PagedResultDto_IndividualListResponseDto);
